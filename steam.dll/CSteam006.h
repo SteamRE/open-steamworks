@@ -1,0 +1,165 @@
+#ifndef CSTEAM006_H
+#define CSTEAM006_H
+
+#include "Common.h"
+
+typedef std::map<SteamHandle_t, char *> HandleMap;
+typedef std::pair<SteamHandle_t, char *> HandleEntry;
+typedef HandleMap::const_iterator HandleIterator;
+
+class CSteam006 : public ISteam006
+{
+public:
+	CSteam006( ISteam006 *realBase );
+	virtual ~CSteam006() { }
+
+	virtual SteamCallHandle_t ChangePassword(const string_t* cszCurrentPassphrase, const string_t* cszNewPassphrase, TSteamError* pError);
+	virtual int GetCurrentEmailAddress(char* szEmailaddress, unsigned int uBufSize, unsigned int* puEmailaddressChars, TSteamError* pError);
+	virtual SteamCallHandle_t ChangePersonalQA(const string_t* cszCurrentPassphrase, const string_t* cszNewPersonalQuestion, const string_t* cszNewAnswerToQuestion, TSteamError* pError);
+	virtual SteamCallHandle_t ChangeEmailAddress(const string_t* cszNewEmailAddress, TSteamError* pError);
+	virtual SteamCallHandle_t VerifyEmailAddress(const string_t* cszEmailAddress, TSteamError* pError);
+	virtual SteamCallHandle_t RequestEmailAddressVerificationEmail(TSteamError* pError);
+	virtual SteamCallHandle_t ChangeAccountName(const string_t* cszCurrentAccountName, const string_t* cszNewAccountName, TSteamError* pError);
+	virtual int MountAppFilesystem(TSteamError* pError);
+	virtual int UnmountAppFilesystem(TSteamError* pError);
+	virtual SteamHandle_t MountFilesystem(unsigned int uAppId, const string_t* szMountPath, TSteamError* pError);
+	virtual int UnmountFilesystem(SteamHandle_t hFile, TSteamError* pError);
+	virtual int Stat(const string_t* cszName, TSteamElemInfo* pInfo, TSteamError* pError);
+	virtual int SetvBuf(SteamHandle_t hFile, void* pBuf, ESteamBufferMethod eMethod, unsigned int uBytes, TSteamError* pError);
+	virtual int FlushFile(SteamHandle_t hFile, TSteamError* pError);
+	virtual SteamHandle_t OpenFile(const string_t* cszName, const string_t* cszMode, TSteamError* pError);
+	virtual SteamHandle_t OpenFileEx(const string_t* cszFileName, const string_t* cszMode, int iArg3, unsigned int* puSize, int* piArg5, TSteamError *pError);
+	virtual SteamHandle_t OpenTmpFile(TSteamError* pError);
+	virtual void ClearError(TSteamError* pError);
+	virtual int GetVersion(char* szVersion, unsigned int uVersionBufSize);
+	virtual int GetOfflineStatus(TSteamOfflineStatus* pSteamOfflineStatus, TSteamError* pError);
+	virtual int ChangeOfflineStatus(TSteamOfflineStatus* pSteamOfflineStatus, TSteamError* pError);
+	virtual int ProcessCall(SteamCallHandle_t handle, TSteamProgress *pProgress, TSteamError *pError);
+	virtual int AbortCall(SteamCallHandle_t handle, TSteamError *pError);
+	virtual int BlockingCall(SteamCallHandle_t handle, unsigned int uiProcessTickMS, TSteamError *pError);
+	virtual int SetMaxStallCount(unsigned int uNumStalls, TSteamError *pError);
+	virtual int CloseFile(SteamHandle_t hFile, TSteamError* pError);
+	virtual unsigned int ReadFile(void *pBuf, unsigned int uSize, unsigned int uCount, SteamHandle_t hFile, TSteamError *pError);
+	virtual unsigned int WriteFile(const void *pBuf, unsigned int uSize, unsigned int uCount, SteamHandle_t hFile, TSteamError *pError);
+	virtual int Getc(SteamHandle_t hFile, TSteamError* pError);
+	virtual int Putc(int cChar, SteamHandle_t hFile, TSteamError *pError);
+	virtual int SeekFile(SteamHandle_t hFile, long int lOffset, ESteamSeekMethod sm, TSteamError *pError);
+	virtual long int TellFile(SteamHandle_t hFile,TSteamError* pError);
+	virtual long int SizeFile(SteamHandle_t hFile,TSteamError* pError);
+	virtual SteamHandle_t FindFirst(const char *cszPattern, ESteamFindFilter eFilter, TSteamElemInfo *pFindInfo, TSteamError *pError);
+	virtual int FindNext(SteamHandle_t hFind, TSteamElemInfo *pFindInfo, TSteamError *pError);
+	virtual int FindClose(SteamHandle_t hFind, TSteamError* pError);
+	virtual int GetLocalFileCopy(const char *cszName, TSteamError *pError);
+	virtual int IsFileImmediatelyAvailable(const char *cszName, TSteamError *pError);
+	virtual int HintResourceNeed(const char *cszHintList, int bForgetEverything, TSteamError *pError);
+	virtual int ForgetAllHints(TSteamError *pError);
+	virtual int PauseCachePreloading(TSteamError *pError);
+	virtual int ResumeCachePreloading(TSteamError *pError);
+	virtual SteamCallHandle_t WaitForResources(const char *cszMasterList, TSteamError *pError);
+	virtual int StartEngine(TSteamError *pError);
+	virtual int ShutdownEngine(TSteamError* pError);
+	virtual int Startup(unsigned int uUsingMask, TSteamError *pError);
+	virtual int Cleanup(TSteamError* pError);
+	virtual unsigned int NumAppsRunning(TSteamError* pError);
+	virtual SteamCallHandle_t CreateAccount(const char *cszUser, const char *cszPassphrase, const char *cszCreationKey, const char *cszPersonalQuestion, const char *cszAnswerToQuestion, const string_t* cszArg6, int *pbCreated, TSteamError *pError);
+	virtual SteamCallHandle_t GenerateSuggestedAccountNames(const string_t* cszArg1, const string_t* cszArg2, char* szArg3, unsigned int uArg4, unsigned int* puArg5, TSteamError *pError);
+	virtual int IsLoggedIn(int *pbIsLoggedIn, TSteamError *pError);
+	virtual SteamCallHandle_t Logout(TSteamError* pError);
+	virtual int IsSecureComputer(int *pbIsSecure, TSteamError *pError);
+	virtual SteamHandle_t CreateLogContext(const char *cszName);
+	virtual int Log(SteamHandle_t hContext, const char *cszMsg);
+	virtual void LogResourceLoadStarted(const char *cszMsg);
+	virtual void LogResourceLoadFinished(const char *cszMsg);
+	virtual SteamCallHandle_t RefreshLogin(const char *cszPassphrase, int bIsSecureComputer, TSteamError* pError);
+	virtual int VerifyPassword(const string_t* cszArg1, int* piArg2, TSteamError* pError);
+	virtual int GetUserType(unsigned int* puArg1, TSteamError* pError);
+	virtual int GetAppStats(TSteamAppStats *pAppStats, TSteamError *pError);
+	virtual SteamCallHandle_t IsAccountNameInUse(const string_t* cszUser, int* pbInUse, TSteamError *pError);
+	virtual int GetAppIds(unsigned int *puIds, unsigned int uMaxIds, TSteamError *pError);
+	virtual int GetSubscriptionStats(TSteamSubscriptionStats *pSubscriptionStats, TSteamError *pError);
+	virtual SteamCallHandle_t RefreshAccountInfo(int arg1, TSteamError *pError);
+	virtual SteamCallHandle_t Subscribe(unsigned int uSubscriptionId, const TSteamSubscriptionBillingInfo *pSubscriptionBillingInfo, TSteamError *pError);
+	virtual SteamCallHandle_t Unsubscribe(unsigned int uSubscriptionId, TSteamError *pError);
+	virtual int GetSubscriptionReceipt(unsigned int uSubscriptionId , TSteamSubscriptionReceipt* pSteamSubscriptionReceipt, TSteamError *pError);
+	virtual int GetAccountStatus(unsigned int* puArg1, TSteamError *pError);
+	virtual SteamCallHandle_t SetUser(const char *cszUser, int *pbUserSet, TSteamError *pError);
+	virtual int GetUser(char *szUser, unsigned int uBufSize, unsigned int *puUserChars, TSteamGlobalUserID* pSteamGlobalUserID, TSteamError *pError);
+	virtual SteamCallHandle_t Login(const char *cszUser, const char *cszPassphrase, int bIsSecureComputer, TSteamError *pError);
+	virtual SteamCallHandle_t AckSubscriptionReceipt(unsigned int uArg1, TSteamError *pError);
+	virtual int IsAppSubscribed(unsigned int uAppId, int *pbIsAppSubscribed, int *pReserved, TSteamError *pError);
+	virtual int GetSubscriptionIds(unsigned int *puIds, unsigned int uMaxIds, TSteamError *pError);
+	virtual int EnumerateSubscription(unsigned int uSubscriptionId, TSteamSubscription *pSubscription, TSteamError *pError);
+	virtual int EnumerateSubscriptionDiscount(unsigned int uSubscriptionId, unsigned int uDiscountIdx, TSteamSubscriptionDiscount* pSteamSubscriptionDiscount, TSteamError *pError);
+	virtual int EnumerateSubscriptionDiscountQualifier(unsigned int uSubscriptionId, unsigned int uDiscountIdx, unsigned int uQualifierIdx, TSteamDiscountQualifier* pSteamDiscountQualifier, TSteamError *pError);
+	virtual int EnumerateApp(unsigned int uAppId, TSteamApp *pApp, TSteamError *pError);
+	virtual int EnumerateAppLaunchOption(unsigned int uAppId, unsigned int uLaunchOptionIndex, TSteamAppLaunchOption *pLaunchOption, TSteamError *pError);
+	virtual SteamCallHandle_t DeleteAccount(TSteamError* pError);
+	virtual int EnumerateAppIcon(unsigned int uAppId, unsigned int uIconIndex, unsigned char *pIconData, unsigned int uIconDataBufSize,  unsigned int *puSizeOfIconData, TSteamError *pError);
+	virtual SteamCallHandle_t LaunchApp(unsigned int uAppId, unsigned int uLaunchOption, const char *cszArgs, TSteamError *pError);
+	virtual int GetCacheFilePath(unsigned int uAppId,  char* szFilePath, unsigned int uBufferLength, unsigned int* puRecievedLength, TSteamError *pError);
+	virtual int EnumerateAppVersion(unsigned int uAppId, unsigned int uVersionIndex, TSteamAppVersion *pAppVersion, TSteamError *pError);
+	virtual int EnumerateAppDependency(unsigned int uAppId, unsigned int uDependency, TSteamAppDependencyInfo *pDependencyInfo, TSteamError *pError);
+	virtual SteamCallHandle_t StartLoadingCache(unsigned int uAppId, TSteamError *pError);
+	virtual int InsertAppDependency(unsigned int uAppId, unsigned int uFileSystemIndex, TSteamAppDependencyInfo *pDependencyInfo, TSteamError *pError);
+	virtual int RemoveAppDependency(unsigned int uAppId, unsigned int uFileSystemIndex, TSteamError *pError);
+	virtual int FindApp(const string_t* cszArg1, unsigned int* puArg2, TSteamError *pError);
+	virtual int GetAppDependencies(unsigned int uAppId, unsigned int* puDependecies, unsigned int uBufferLength, TSteamError *pError);
+	virtual int IsSubscribed(unsigned int uSubscriptionId, int *pbIsSubscribed, int *pReserved, TSteamError *pError);
+	virtual int GetAppUserDefinedInfo(unsigned int uAppId, const char *cszPropertyName, char *szPropertyValue, unsigned int uBufSize, unsigned int *puPropertyValueLength, TSteamError *pError);
+	virtual SteamCallHandle_t WaitForAppReadyToLaunch(unsigned int uAppId, TSteamError *pError);
+	virtual int IsCacheLoadingEnabled(unsigned int uAppId, int *pbIsLoading, TSteamError *pError);
+	virtual SteamCallHandle_t StopLoadingCache(unsigned int uAppId, TSteamError *pError);
+	virtual ESteamError GetEncryptedUserIDTicket(const void *pEncryptionKeyReceivedFromAppServer, unsigned int uEncryptionKeyLength, void *pOutputBuffer, unsigned int uSizeOfOutputBuffer, unsigned int *pReceiveSizeOfEncryptedTicket, TSteamError *pError);
+	virtual SteamCallHandle_t FlushCache(unsigned int uAppId, TSteamError *pError);
+	virtual SteamCallHandle_t RepairOrDecryptCaches(unsigned int uAppId, int iArg2, TSteamError *pError);
+	virtual SteamCallHandle_t LoadCacheFromDir(unsigned int uAppId, const char *cszPath, TSteamError *pError);
+	virtual int GetCacheDefaultDirectory(char *szPath, TSteamError *pError);
+	virtual int SetCacheDefaultDirectory(const char *cszPath, TSteamError *pError);
+	virtual int GetAppDir(unsigned int uAppId, char* szAppDir, TSteamError *pError);
+	virtual SteamCallHandle_t MoveApp(unsigned int uAppId, const char *szPath, TSteamError *pError);
+	virtual SteamCallHandle_t GetAppCacheSize(unsigned int uAppId, unsigned int *puCacheSizeInMb, TSteamError *pError);
+	virtual SteamCallHandle_t SetAppCacheSize(unsigned int uAppId, unsigned int uCacheSizeInMb, TSteamError *pError);
+	virtual SteamCallHandle_t SetAppVersion(unsigned int uAppId, unsigned int uAppVersionId, TSteamError *pError);
+	virtual SteamCallHandle_t Uninstall(TSteamError* pError);
+	virtual int SetNotificationCallback(SteamNotificationCallback_t pCallbackFunction, TSteamError *pError);
+	virtual SteamCallHandle_t ChangeForgottenPassword(const string_t* cszArg1, const string_t* cszArg2, const string_t* cszArg3, const string_t* cszArg4, int* piArg5, TSteamError *pError);
+	virtual SteamCallHandle_t RequestForgottenPasswordEmail(const string_t* cszArg1, char* szArg2, TSteamError *pError);
+	virtual SteamCallHandle_t RequestAccountsByEmailAddressEmail(const string_t* cszArg1, TSteamError *pError);
+	virtual SteamCallHandle_t RequestAccountsByCdKeyEmail(const string_t* cszArg1, TSteamError *pError);
+	virtual SteamCallHandle_t GetNumAccountsWithEmailAddress(const string_t* cszArg1, unsigned int* puArg2, TSteamError *pError);
+	virtual SteamCallHandle_t UpdateAccountBillingInfo(const TSteamPaymentCardInfo *pPaymentCardInfo, TSteamError *pError);
+	virtual SteamCallHandle_t UpdateSubscriptionBillingInfo(unsigned int uSubscriptionId, const TSteamSubscriptionBillingInfo *pSubscriptionBillingInfo, TSteamError *pError);
+	virtual int GetSponsorUrl(unsigned int uAppId, char *szUrl, unsigned int uBufSize, unsigned int *pUrlChars, TSteamError *pError);
+	virtual int GetContentServerInfo(unsigned int uArg1, unsigned int* puArg2, unsigned int* puArg3, TSteamError *pError);
+	virtual SteamCallHandle_t GetAppUpdateStats(unsigned int uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, TSteamUpdateStats *pUpdateStats, TSteamError *pError);
+	virtual int GetTotalUpdateStats(TSteamUpdateStats*,TSteamError* pError);
+	virtual SteamCallHandle_t CreateCachePreloaders(TSteamError* pError);
+	virtual void Win32SetMiniDumpComment(const string_t* cszComment);
+	virtual void Win32SetMiniDumpSourceControlId(unsigned int uSourceControlId);
+	virtual void Win32SetMiniDumpEnableFullMemory();
+	virtual void Win32WriteMiniDump(const string_t*, const string_t*, const string_t*, const string_t*, unsigned int);
+	virtual int GetCurrentAppId(unsigned int* puAppId, TSteamError *pError);
+	virtual int GetAppPurchaseCountry(unsigned int uAppId, char* szCountryCode, unsigned int uBufferLength, int* puRecievedLength, TSteamError* pError);
+	virtual int GetLocalClientVersion(unsigned int* puArg1, unsigned int* puArg2, TSteamError *pError);
+	virtual int IsFileNeededByCache(unsigned int uAppId, const string_t* cszFileName, unsigned int uArg3, TSteamError* pError);
+	virtual int LoadFileToCache(unsigned int uArg1, const string_t* cszArg2, const void* pcvArg3, unsigned int uArg4, unsigned int uArg5, TSteamError *pError);
+	virtual int GetCacheDecryptionKey(unsigned int uAppId, char* szCacheDecryptionKey, unsigned int uBufferLength, unsigned int* puRecievedLength, TSteamError *pError);
+	virtual int GetSubscriptionExtendedInfo(unsigned int uSubscriptionId, const string_t* cszKeyName, char* szKeyValue, unsigned int uBufferLength, unsigned int* puRecievedLength, TSteamError *pError);
+	virtual int GetSubscriptionPurchaseCountry(unsigned int uSubscriptionId, char* szCountry, unsigned int uBufferLength , int* piRecievedLength, TSteamError *pError);
+	virtual int GetAppUserDefinedRecord(unsigned int uAppId, KeyValueIteratorCallback_t AddEntryToKeyValueFunc, void* pvCKeyValue, TSteamError *pError);
+	virtual int FindServersNumServers(ESteamServerType eSteamServerType);
+	virtual int FindServersIterateServer(ESteamServerType eSteamServerType, unsigned int uIndex, char *szServerAddress, int iServerAddressChars);
+	virtual const string_t* FindServersGetErrorString();
+	virtual int CheckAppOwnership(unsigned int uAppId, int* pbOwned, TSteamGlobalUserID* pSteamGlobalUserID, TSteamError* pError);
+	virtual SteamCallHandle_t GetCachePercentFragmentation(unsigned int uAppId, unsigned int* puPercentFragmented, TSteamError* pError);
+	virtual SteamCallHandle_t DefragCaches(unsigned int uAppId, TSteamError* pError);
+	virtual int IsFileNeededByApp(unsigned int uAppId, const string_t* cszFileName, unsigned int uArg1, unsigned int* puArg2, TSteamError* pError);
+	virtual SteamCallHandle_t WaitForAppResources(unsigned int uAppId, const string_t* cszMasterList, TSteamError* pError);
+	virtual int ForceCellId(unsigned int uCellId, TSteamError* pError);
+
+private:
+	ISteam006 *base;
+	HandleMap handleMap;
+};
+
+#endif // CSTEAM006_H
