@@ -1,5 +1,5 @@
 //==========================  Open Steamworks  ================================
-// 
+//
 // This file is part of the Open Steamworks project. All individuals associated
 // with this project do not claim ownership of the contents
 // 
