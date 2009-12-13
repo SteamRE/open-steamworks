@@ -290,13 +290,13 @@ private:
 #ifdef _WIN32
 		HKEY hRegKey;
 
-		if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, _T("Software\\Valve\\Steam"), 0, KEY_QUERY_VALUE, &hRegKey) == ERROR_SUCCESS)
+		if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "Software\\Valve\\Steam", 0, KEY_QUERY_VALUE, &hRegKey) == ERROR_SUCCESS)
 		{
 			DWORD dwLength = sizeof(m_pchSteamDir);
-			DWORD rc = RegQueryValueEx(hRegKey, _T("InstallPath"), NULL, NULL, (BYTE*)m_pchSteamDir, &dwLength);
+			DWORD rc = RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)m_pchSteamDir, &dwLength);
 			RegCloseKey(hRegKey);
 
-			strncpy(m_pchSteamDirBin, m_pchSteamDir, sizeof(m_pchSteamDir));
+			strncpy(m_pchSteamDirBin, m_pchSteamDir, sizeof(m_pchSteamDir) - 4);
 			strcat(m_pchSteamDirBin, "\\bin");
 
 			SetDllDirectoryA(m_pchSteamDir);

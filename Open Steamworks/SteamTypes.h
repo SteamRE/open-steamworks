@@ -21,7 +21,9 @@
 #endif
 
 #ifdef _WIN32
-	#define WINVER 0x502
+	#ifndef WINVER
+		#define WINVER 0x502
+	#endif
 	#define _CRT_SECURE_NO_WARNINGS // we don't use unsafe functions unsafely!
 	#include <windows.h>
 
