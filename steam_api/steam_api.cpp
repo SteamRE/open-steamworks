@@ -33,9 +33,8 @@ S_API bool STEAM_CALL SteamAPI_InitSafe()
 		return false;
 
 	steamclient = (STEAMCLIENT_ICLASS *)clientFactory(STEAMCLIENT_IFACE, NULL);
-	steamutils = (STEAMUTILS_ICLASS *)clientFactory(STEAMUTILS_IFACE, NULL);
 
-	if(steamclient == NULL || steamutils == NULL)
+	if(steamclient == NULL)
 		return false;
 
 	pipe = steamclient->CreateSteamPipe();
@@ -46,6 +45,11 @@ S_API bool STEAM_CALL SteamAPI_InitSafe()
 	user = steamclient->ConnectToGlobalUser(pipe);
 
 	if(user == NULL)
+		return false;
+
+	steamutils = (STEAMUTILS_ICLASS *)steamclient->GetISteamUtils(pipe, STEAMUTILS_IFACE);
+
+	if(steamutils == NULL)
 		return false;
 
 	return true;
