@@ -3,7 +3,9 @@
 
 CSteamAPILoader *loader = NULL;
 CreateInterfaceFn clientFactory = NULL;
+
 STEAMCLIENT_ICLASS *steamclient = NULL;
+STEAMUTILS_ICLASS *steamutils = NULL;
 
 HSteamPipe pipe = 0;
 HSteamUser user = 0;
@@ -31,8 +33,9 @@ S_API bool STEAM_CALL SteamAPI_InitSafe()
 		return false;
 
 	steamclient = (STEAMCLIENT_ICLASS *)clientFactory(STEAMCLIENT_IFACE, NULL);
+	steamutils = (STEAMUTILS_ICLASS *)clientFactory(STEAMUTILS_IFACE, NULL);
 
-	if(steamclient == NULL)
+	if(steamclient == NULL || steamutils == NULL)
 		return false;
 
 	pipe = steamclient->CreateSteamPipe();

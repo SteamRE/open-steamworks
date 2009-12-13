@@ -18,6 +18,8 @@
 
 bool LoadInterfaces();
 
+S_API ISteamClient* STEAM_CALL SteamClient();
+
 EXPORT_CURRENT_VERSION(ISteamUser,					SteamUser);
 EXPORT_CURRENT_VERSION(ISteamFriends,				SteamFriends);
 EXPORT_CURRENT_VERSION(ISteamUtils,					SteamUtils);

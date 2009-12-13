@@ -26,3 +26,8 @@ bool LoadInterfaces()
 
 	return true;
 }
+
+S_API ISteamClient* STEAM_CALL SteamClient()
+{
+	return (ISteamClient *)steamclient;
+}
