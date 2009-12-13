@@ -283,6 +283,8 @@ public:
 
 		return steamclient.GetFactory(m_pchSteamDir);
 	}
+
+	const char *GetSteamDir() { return m_pchSteamDir; }
 private:
 	void TryGetSteamDir()
 	{

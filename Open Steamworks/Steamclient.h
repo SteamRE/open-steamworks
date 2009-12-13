@@ -168,6 +168,9 @@ S_API void STEAM_CALL Steam_FreeLastCallback( HSteamPipe hSteamPipe );
 S_API int STEAM_CALL Steam_InitiateGameConnection( HSteamUser hUser, HSteamPipe hSteamPipe, void *pBlob, int cbMaxBlob, uint64 steamID, int nGameAppID, uint32 unIPServer, uint16 usPortServer, bool bSecure );
 S_API void STEAM_CALL Steam_TerminateGameConnection( HSteamUser hUser, HSteamPipe hSteamPipe, uint32 unIPServer, uint16 usPortServer );
 
+// Steam APICallResult
+S_API bool STEAM_CALL Steam_GetAPICallResult( HSteamPipe hSteamPipe, SteamAPICall_t hSteamAPICall, void* pCallback, int cubCallback, int iCallbackExpected, bool* pbFailed );
+
 // Steam client
 S_API HSteamPipe STEAM_CALL Steam_CreateSteamPipe();
 S_API bool STEAM_CALL Steam_BReleaseSteamPipe( HSteamPipe );

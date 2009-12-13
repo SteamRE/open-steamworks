@@ -61,7 +61,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="steamclient.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="../"
+				DelayLoadDLLs="steamclient.dll"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -115,6 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="&quot;../Open Steamworks&quot;;../boost_1_40_0"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STEAM_API_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -133,7 +137,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="steamclient.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="../"
+				DelayLoadDLLs="steamclient.dll"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"

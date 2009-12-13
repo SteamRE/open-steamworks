@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "interfaces.h"
 
-CSteamAPILoader *loader = NULL;
+CSteamAPILoader loader;
 CreateInterfaceFn clientFactory = NULL;
 
 STEAMCLIENT_ICLASS *steamclient = NULL;
-STEAMUTILS_ICLASS *steamutils = NULL;
 
 HSteamPipe pipe = 0;
 HSteamUser user = 0;
@@ -23,11 +22,7 @@ S_API bool STEAM_CALL SteamAPI_Init()
 
 S_API bool STEAM_CALL SteamAPI_InitSafe()
 {
-	if(loader != NULL)
-		delete loader;
-
-	loader = new CSteamAPILoader();
-	clientFactory = loader->Load();
+	clientFactory = loader.Load();
 
 	if(clientFactory == NULL)
 		return false;
@@ -47,18 +42,44 @@ S_API bool STEAM_CALL SteamAPI_InitSafe()
 	if(user == NULL)
 		return false;
 
-	steamutils = (STEAMUTILS_ICLASS *)steamclient->GetISteamUtils(pipe, STEAMUTILS_IFACE);
-
-	if(steamutils == NULL)
-		return false;
-
 	return true;
 }
 
 S_API void SteamAPI_Shutdown()
 {
-	if(loader == NULL)
-		return;
+	if(user)
+	{
+		steamclient->ReleaseUser(pipe, user);
+		user = NULL;
+	}
+	if(pipe)
+	{
+		steamclient->ReleaseSteamPipe(pipe);
+		pipe = NULL;
+	}
+}
 
-	delete loader;
+S_API const char* STEAM_CALL SteamAPI_GetSteamInstallPath()
+{
+	return loader.GetSteamDir();
+}
+
+S_API HSteamPipe STEAM_CALL SteamAPI_GetHSteamPipe()
+{
+	return pipe;
+}
+
+S_API HSteamUser STEAM_CALL SteamAPI_GetHSteamUser()
+{
+	return user;
+}
+
+S_API HSteamPipe STEAM_CALL GetHSteamPipe()
+{
+	return SteamAPI_GetHSteamPipe();
+}
+
+S_API HSteamUser STEAM_CALL GetHSteamUser()
+{
+	return SteamAPI_GetHSteamUser();
 }
