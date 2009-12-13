@@ -7,3 +7,4 @@
 #include "steam_api.h"
 
 #include <boost/unordered_map.hpp>
+#include <vector>

@@ -245,6 +245,11 @@ public:
 		return Sys_GetFactory( m_hModule );
 	}
 
+	HMODULE GetModule()
+	{
+		return (HMODULE)m_hModule;
+	}
+
 	void Unload()
 	{
 		if ( m_hModule )
@@ -285,6 +290,7 @@ public:
 	}
 
 	const char *GetSteamDir() { return m_pchSteamDir; }
+	HMODULE GetSteamModule() { return steamclient.GetModule(); }
 private:
 	void TryGetSteamDir()
 	{

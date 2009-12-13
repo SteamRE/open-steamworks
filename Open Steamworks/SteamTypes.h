@@ -184,6 +184,9 @@ typedef void  (*SteamAPIWarningMessageHook_t)(int, const char *);
 typedef void (*SteamNotificationCallback_t)(ESteamNotify eEvent, unsigned int nData);
 typedef void (*KeyValueIteratorCallback_t)(const char*, const char*, void*);
 
+typedef bool (*SteamBGetCallbackFn)( int, void *pCallbackMsg, int32 *phSteamCall );
+typedef void (*SteamFreeLastCallbackFn)( int );
+typedef bool (*SteamGetAPICallResultFn)( int, uint64 hSteamAPICall, void* pCallback, int cubCallback, int iCallbackExpected, bool* pbFailed );
 
 const int k_cubDigestSize = 20;							// CryptoPP::SHA::DIGESTSIZE
 const int k_cubSaltSize   = 8;
