@@ -1,5 +1,16 @@
 #pragma once
 
+// move these to interfaces eventually
+extern ISteamClient *steamClient; // this is exposed
+extern ISteamUser *steamUser;
+extern ISteamUtils *steamUtils; // etc..
+
+// globals so that GetInterfaces and SteamAPI_InitInternal can access them
+// best to have an array of these, but i'm too tried to fully implement something like that
+extern char steamClientVer[ 30 ];
+extern char steamUserVer[ 30 ];
+extern char steamUtilsVer[ 30 ]; // etc..
+
 #define EXPORT_CURRENT_VERSION(ICLASS, EXPORT) \
 	S_API ICLASS * STEAM_CALL EXPORT();
 
