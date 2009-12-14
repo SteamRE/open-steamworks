@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "steam.dll", "steam.dll\stea
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "steamclient.dll", "steamclient.dll\steamclient.dll.vcproj", "{F62CDFEE-5A7E-40C7-9FF4-A00E6EF652D0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "steam_api", "steam_api\steam_api.vcproj", "{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +157,16 @@ Global
 		{F62CDFEE-5A7E-40C7-9FF4-A00E6EF652D0}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{F62CDFEE-5A7E-40C7-9FF4-A00E6EF652D0}.Release|Win32.ActiveCfg = Release|Win32
 		{F62CDFEE-5A7E-40C7-9FF4-A00E6EF652D0}.Release|Win32.Build.0 = Release|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Debug|Win32.Build.0 = Debug|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Release|Any CPU.ActiveCfg = Release|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Release|Win32.ActiveCfg = Release|Win32
+		{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
