@@ -97,8 +97,8 @@ void CallbackManager::RegisterCallback(int iCallback, CCallbackBase *callback)
 
 void CallbackManager::UnRegisterCallback(CCallbackBase *callback)
 {
-	// send help!
 	int iCallback = callback->GetICallback();
+
 	std::pair<CallbacksMap::iterator, CallbacksMap::iterator> range = callbacks.equal_range( iCallback );
 
 	CallbacksMap::const_iterator iter = range.first;
