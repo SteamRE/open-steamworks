@@ -9,6 +9,7 @@ HSteamUser gameserver_user = 0;
 HSteamPipe gameserver_pipe = 0;
 
 STEAMGAMESERVER_ICLASS *gameserver = NULL;
+STEAMMASTERSERVERUPDATER_ICLASS *masterserver = NULL;
 
 bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString )
 {
@@ -25,8 +26,9 @@ bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 
 
 	gameserver_steamutils = (STEAMUTILS_ICLASS *)gameserver_steamclient->GetISteamUtils(gameserver_pipe, STEAMUTILS_IFACE);
 	gameserver = (STEAMGAMESERVER_ICLASS *)gameserver_steamclient->GetISteamGameServer(gameserver_user, gameserver_pipe, STEAMGAMESERVER_IFACE);
+	masterserver = (STEAMMASTERSERVERUPDATER_ICLASS *)gameserver_steamclient->GetISteamMasterServerUpdater(gameserver_user, gameserver_pipe, STEAMMASTERSERVERUPDATER_IFACE);
 
-	if(!gameserver_steamutils || !gameserver)
+	if(!gameserver_steamutils || !gameserver || !masterserver)
 		return false;
 
 	if(!LoadInterfaces_GameServer(safe))
@@ -55,6 +57,7 @@ bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 
 	if(!gameserver->SetServerType( flags, unIP, usGamePort, usSpectatorPort, usQueryPort, pchGameDir, pchVersionString, lan))
 		return false;
 
+	masterserver->SetActive(true);
 	gameserver->LogOn();
 
 	Steam_RegisterInterfaceFuncs(loader.GetSteamModule());
