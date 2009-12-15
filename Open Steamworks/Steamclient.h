@@ -253,6 +253,7 @@ S_API HSteamUser STEAM_CALL GetHSteamUser();
 //S_API HSteamPipe STEAM_CALL SteamAPI_GetHSteamPipe(); // this is only in the l4d steam_api.dll
 //S_API HSteamUser STEAM_CALL SteamAPI_GetHSteamUser(); // l4d
 
+S_API bool STEAM_CALL SteamGameServer_InitSafe( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
 S_API bool STEAM_CALL SteamGameServer_Init( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
 
 S_API void STEAM_CALL SteamGameServer_Shutdown();
@@ -267,5 +268,11 @@ S_API int32 STEAM_CALL SteamGameServer_GetIPCCallCount();
 
 S_API ISteamGameServer* STEAM_CALL SteamGameServer();
 S_API ISteamUtils* STEAM_CALL SteamGameServerUtils();
+
+//content server
+S_API bool STEAM_CALL SteamContentServer_Init(uint32 unIP, uint16 usPort);
+
+S_API void STEAM_CALL SteamContentServer_Shutdown();
+S_API void STEAM_CALL SteamContentServer_RunCallbacks();
 
 #endif // STEAMCLIENT_H

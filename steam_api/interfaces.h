@@ -60,3 +60,9 @@ EXPORT_CURRENT_VERSION(ISteamUtils,					SteamGameServerUtils);
 EXPORT_CURRENT_VERSION(ISteamMasterServerUpdater,	SteamMasterServerUpdater);
 EXPORT_CURRENT_VERSION(ISteamNetworking,			SteamGameServerNetworking);
 EXPORT_CURRENT_VERSION(ISteamGameServerItems,		SteamGameServerItems);
+
+bool LoadInterfaces_ContentServer();
+
+//contentserver exports
+EXPORT_CURRENT_VERSION(ISteamContentServer,			SteamContentServer);
+EXPORT_CURRENT_VERSION(ISteamUtils,					SteamContentServerUtils);

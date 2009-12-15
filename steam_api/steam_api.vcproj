@@ -184,6 +184,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\contentserver.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\dllmain.cpp"
 				>
 				<FileConfiguration
@@ -245,6 +249,10 @@
 			>
 			<File
 				RelativePath=".\callbacks.h"
+				>
+			</File>
+			<File
+				RelativePath=".\contentserver.h"
 				>
 			</File>
 			<File

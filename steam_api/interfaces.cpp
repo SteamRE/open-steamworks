@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "interfaces.h"
 #include "gameserver.h"
+#include "contentserver.h"
 
 OptionDefinition* OptionDefinition::front = NULL;
 
@@ -28,6 +29,10 @@ DEFINE_CURRENT_VERSION( STEAMMASTERSERVERUPDATER,	001, ISteamMasterServerUpdater
 DEFINE_CURRENT_VERSION( STEAMNETWORKING,			002, ISteamNetworking,			SteamGameServerNetworking)
 DEFINE_CURRENT_VERSION( STEAMGAMESERVERITEMS,		003, ISteamGameServerItems,		SteamGameServerItems)
 
+//contentserver interfaces
+DEFINE_CURRENT_VERSION( STEAMCONTENTSERVER,			002, ISteamContentServer,		SteamContentServer )
+DEFINE_CURRENT_VERSION( STEAMUTILS,					004, ISteamUtils,				SteamContentServerUtils )
+
 void LoadConfig()
 {
 	std::ifstream ifcfg("steam_api.cfg");
@@ -50,11 +55,11 @@ bool LoadInterfaces(bool safe)
 		LoadConfig();
 
 	TRYGET_CURRENT_VERSION_FACTORY( STEAMCLIENT,		SteamClient )
+	TRYGET_CURRENT_VERSION_PIPE( STEAMUTILS,			SteamUtils,					GetISteamUtils )
 
 	if(safe)
 		return true;
 
-	TRYGET_CURRENT_VERSION_PIPE( STEAMUTILS,			SteamUtils,					GetISteamUtils )
 	TRYGET_CURRENT_VERSION( STEAMUSER,					SteamUser,					GetISteamUser )
 	TRYGET_CURRENT_VERSION( STEAMFRIENDS,				SteamFriends,				GetISteamFriends )
 	TRYGET_CURRENT_VERSION( STEAMMATCHMAKING,			SteamMatchmaking,			GetISteamMatchmaking )
@@ -77,14 +82,30 @@ bool LoadInterfaces_GameServer(bool safe)
 	HSteamUser user = gameserver_user;
 
 	TRYGET_CURRENT_VERSION( STEAMGAMESERVER,		SteamGameServer,	GetISteamGameServer )
+	TRYGET_CURRENT_VERSION_PIPE( STEAMUTILS,			SteamGameServerUtils,			GetISteamUtils )
 
 	if(safe)
 		return true;
 
-	TRYGET_CURRENT_VERSION_PIPE( STEAMUTILS,			SteamGameServerUtils,			GetISteamUtils )
 	TRYGET_CURRENT_VERSION( STEAMMASTERSERVERUPDATER,	SteamMasterServerUpdater,		GetISteamMasterServerUpdater)
 	TRYGET_CURRENT_VERSION( STEAMNETWORKING,			SteamGameServerNetworking,		GetISteamNetworking)
 	TRYGET_CURRENT_VERSION( STEAMGAMESERVERITEMS,		SteamGameServerItems,			GetISteamGenericInterface)
+
+	return true;
+}
+
+
+bool LoadInterfaces_ContentServer()
+{
+	if(!configLoaded)
+		LoadConfig();
+
+	STEAMCLIENT_ICLASS *steamclient = contentserver_steamclient;
+	HSteamPipe pipe = contentserver_pipe;
+	HSteamUser user = contentserver_user;
+
+	TRYGET_CURRENT_VERSION( STEAMCONTENTSERVER,		SteamContentServer,			GetISteamGenericInterface )
+	TRYGET_CURRENT_VERSION_PIPE( STEAMUTILS,		SteamContentServerUtils,	GetISteamUtils )
 
 	return true;
 }
