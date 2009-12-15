@@ -31,12 +31,14 @@ public:
 
 	HSteamUser currentUser;
 private:
-	bool callbackTryCatch;
+	void RunAPICallbacks(HSteamPipe pipe, SteamAPICallCompleted_t *call);
 	
 	typedef boost::unordered_multimap<int, CCallbackBase *> CallbacksMap;
 	CallbacksMap callbacks;
-	typedef boost::unordered_multimap<SteamAPICall_t, CCallbackBase *> APICallsMap;
+	typedef boost::unordered_map<SteamAPICall_t, CCallbackBase *> APICallsMap;
 	APICallsMap apicalls;
+
+	bool callbackTryCatch;
 
 	CallbackProvider provider;
 };

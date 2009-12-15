@@ -24,12 +24,35 @@ void CallbackManager::SetCallbackProvider(HMODULE module)
 	provider.Set(module);
 }
 
+void CallbackManager::RunAPICallbacks(HSteamPipe pipe, SteamAPICallCompleted_t *call)
+{
+	SteamAPICall_t apicall = call->m_hAsyncCall;
+
+	APICallsMap::const_iterator iter = apicalls.find(apicall);
+
+	if(iter == apicalls.end())
+		return;
+
+	CCallbackBase *callback = iter->second;
+
+	int size = callback->GetCallbackSizeBytes();
+	void *data = malloc(size);
+
+	bool failed = false;
+	bool iok = provider.Steam_GetAPICallResult(pipe, apicall, data, size, callback->GetICallback(), &failed);
+
+	callback->Run(data, (!iok || failed), apicall);
+
+	free(data);
+}
+
 void CallbackManager::RunCallbacks(HSteamPipe pipe, bool bGameServer)
 {
 	CallbackMsg_t callbackMsg;
 	HSteamCall steamCall;
 
 	steamclient->RunFrame();
+	steamutils->RunFrame();
 
 	if( provider.Steam_BGetCallback(pipe, &callbackMsg, &steamCall) )
 	{
@@ -38,6 +61,12 @@ void CallbackManager::RunCallbacks(HSteamPipe pipe, bool bGameServer)
 		int32 callBack = callbackMsg.m_iCallback;
 		ECallbackType type = (ECallbackType)((callBack / 100) * 100);
 		std::cout << "[DEBUG] Callback: " << callBack << ", Type: " << EnumString<ECallbackType>::From(type) << ", Size: " << callbackMsg.m_cubParam << std::endl;
+
+		if(callbackMsg.m_iCallback == SteamAPICallCompleted_t::k_iCallback)
+		{
+			SteamAPICallCompleted_t *call = (SteamAPICallCompleted_t *)callbackMsg.m_pubParam;
+			RunAPICallbacks(pipe, call);
+		}
 
 		std::pair<CallbacksMap::iterator, CallbacksMap::iterator> range = callbacks.equal_range(callbackMsg.m_iCallback);
 		for(CallbacksMap::const_iterator iter = range.first; iter != range.second; ++iter)
@@ -68,7 +97,7 @@ void CallbackManager::RegisterCallback(int iCallback, CCallbackBase *callback)
 
 void CallbackManager::UnRegisterCallback(CCallbackBase *callback)
 {
-	std::pair<CallbacksMap::iterator, CallbacksMap::iterator> range = callbacks.equal_range( callback->m_iCallback );
+	std::pair<CallbacksMap::iterator, CallbacksMap::iterator> range = callbacks.equal_range( callback->GetICallback() );
 
 	CallbacksMap::const_iterator iter = range.first;
 	while(iter != range.second)
