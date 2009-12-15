@@ -3,12 +3,21 @@
 class CLobbyBrowser
 {
 public:
+	CLobbyBrowser() : m_CallbackLobbyMatchList( this, &CLobbyBrowser::OnLobbyMatchListCallback ) {};
+
 	CCallResult<CLobbyBrowser, LobbyMatchList_t> m_SteamCallResultLobbyMatchList;
 	void OnLobbyMatchListCallback( LobbyMatchList_t *pLobbyMatchList, bool bIOFailure )
 	{
-		std::cout << "qq " << pLobbyMatchList->m_nLobbiesMatching << std::endl;
+		std::cout << "qq " << pLobbyMatchList->m_nLobbiesMatching << " " << bIOFailure << std::endl;
 	}
+
+	STEAM_CALLBACK( CLobbyBrowser, OnLobbyMatchListCallback, LobbyMatchList_t, m_CallbackLobbyMatchList );
 } qq;
+
+void CLobbyBrowser::OnLobbyMatchListCallback( LobbyMatchList_t *pLobbyMatchList )
+{
+	std::cout << "qq regular callback " << pLobbyMatchList->m_nLobbiesMatching << std::endl;
+}
 
 int main(int argc, char *argv[])
 {
