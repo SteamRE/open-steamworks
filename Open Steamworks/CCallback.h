@@ -41,6 +41,7 @@ protected:
 	uint8 m_nCallbackFlags;
 	int m_iCallback;
 	friend class CCallbackMgr;
+	friend class CallbackManager;
 };
 
 //-----------------------------------------------------------------------------

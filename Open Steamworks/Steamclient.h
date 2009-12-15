@@ -225,9 +225,12 @@ S_API ISteamMatchmakingServers* STEAM_CALL SteamMatchmakingServers();
 
 S_API void STEAM_CALL SteamAPI_RunCallbacks();
 
+// functions used by the utility CCallback objects to receive callbacks
 S_API void STEAM_CALL SteamAPI_RegisterCallback( class CCallbackBase *pCallback, int iCallback );
 S_API void STEAM_CALL SteamAPI_UnregisterCallback( class CCallbackBase *pCallback );
-
+// functions used by the utility CCallResult objects to receive async call results
+S_API void STEAM_CALL SteamAPI_RegisterCallResult( class CCallbackBase *pCallback, SteamAPICall_t hAPICall );
+S_API void STEAM_CALL SteamAPI_UnregisterCallResult( class CCallbackBase *pCallback, SteamAPICall_t hAPICall );
 //----------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	steamclient.dll private wrapper functions
 //

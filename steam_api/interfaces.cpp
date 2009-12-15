@@ -16,13 +16,12 @@ DEFINE_CURRENT_VERSION( STEAMNETWORKING,			003, ISteamNetworking,			SteamNetwork
 DEFINE_CURRENT_VERSION( STEAMMATCHMAKINGSERVERS,	002, ISteamMatchmakingServers,	SteamMatchmakingServers)
 DEFINE_CURRENT_VERSION( STEAMREMOTESTORAGE,			002, ISteamRemoteStorage,		SteamRemoteStorage)
 
-
-bool LoadInterfaces()
+bool LoadInterfaces(bool safe)
 {
-	std::ifstream ifcfg("steam_api.cfg");
-
 	options_description desc;
 	variables_map vm;
+
+	std::ifstream ifcfg("steam_api.cfg");
 
 	OptionDefinition *opt = OptionDefinition::front;
 	while(opt != NULL)
@@ -36,6 +35,10 @@ bool LoadInterfaces()
 	store(parse_config_file(ifcfg, desc), vm);
 
 	TRYGET_CURRENT_VERSION_FACTORY( STEAMCLIENT,		SteamClient )
+
+	if(safe)
+		return true;
+
 	TRYGET_CURRENT_VERSION_PIPE( STEAMUTILS,			SteamUtils,					GetISteamUtils )
 	TRYGET_CURRENT_VERSION( STEAMUSER,					SteamUser,					GetISteamUser )
 	TRYGET_CURRENT_VERSION( STEAMFRIENDS,				SteamFriends,				GetISteamFriends )

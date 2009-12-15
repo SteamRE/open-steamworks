@@ -37,7 +37,7 @@ public:
 	IFACE##_PTR = (void *)clientFactory(IFACE##_VERSION.c_str(), NULL); \
 	if( IFACE##_PTR == NULL ) return false;
 
-bool LoadInterfaces();
+bool LoadInterfaces(bool safe);
 
 EXPORT_CURRENT_VERSION(ISteamClient,				SteamClient);
 EXPORT_CURRENT_VERSION(ISteamUser,					SteamUser);
