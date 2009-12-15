@@ -103,3 +103,8 @@ S_API uint64 STEAM_CALL SteamGameServer_GetSteamID()
 {
 	return gameserver->GetSteamID().ConvertToUint64();
 }
+
+S_API int32 STEAM_CALL SteamGameServer_GetIPCCallCount()
+{
+	return gameserver_steamclient->GetIPCCallCount();
+}

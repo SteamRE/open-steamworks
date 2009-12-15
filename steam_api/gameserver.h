@@ -18,3 +18,4 @@ S_API void STEAM_CALL SteamGameServer_RunCallbacks();
 
 S_API bool STEAM_CALL SteamGameServer_BSecure();
 S_API uint64 STEAM_CALL SteamGameServer_GetSteamID();
+S_API int32 STEAM_CALL SteamGameServer_GetIPCCallCount();

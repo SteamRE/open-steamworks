@@ -81,7 +81,7 @@ bool LoadInterfaces_GameServer(bool safe)
 	HSteamPipe pipe = gameserver_pipe;
 	HSteamUser user = gameserver_user;
 
-	TRYGET_CURRENT_VERSION( STEAMGAMESERVER,		SteamGameServer,	GetISteamGameServer )
+	TRYGET_CURRENT_VERSION( STEAMGAMESERVER,			SteamGameServer,				GetISteamGameServer )
 	TRYGET_CURRENT_VERSION_PIPE( STEAMUTILS,			SteamGameServerUtils,			GetISteamUtils )
 
 	if(safe)
