@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
 	if(!SteamAPI_Init())
 		return 0;
 
-	SteamAPICall_t hSteamAPICall = ((ISteamMatchmaking007 *)SteamMatchmaking())->RequestLobbyList();
-	qq.m_SteamCallResultLobbyMatchList.Set(hSteamAPICall, &qq, &CLobbyBrowser::OnLobbyMatchListCallback );
+	//SteamAPICall_t hSteamAPICall = ((ISteamMatchmaking001 *)SteamMatchmaking())->RequestLobbyList();
+	//qq.m_SteamCallResultLobbyMatchList.Set(hSteamAPICall, &qq, &CLobbyBrowser::OnLobbyMatchListCallback );
 
 	SteamAPI_SetTryCatchCallbacks(true);
 
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 		Sleep(100);
 	}
 
-	std::cout << "GS ID " << CSteamID(((ISteamGameServer009 *)SteamGameServer())->GetSteamID()) << std::endl;
+	std::cout << "GS ID " << CSteamID(((ISteamGameServer003 *)SteamGameServer())->GetSteamID()) << std::endl;
 
 	std::cin.get();
 
