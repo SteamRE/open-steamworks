@@ -128,3 +128,14 @@ S_API HSteamUser STEAM_CALL GetHSteamUser()
 {
 	return SteamAPI_GetHSteamUser();
 }
+
+
+S_API void STEAM_CALL SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, void* pvExceptionInfo, uint32 uBuildID )
+{
+	std::cerr << "TODO: SteamAPI_WriteMiniDump" << std::endl;
+}
+
+S_API void STEAM_CALL SteamAPI_SetMiniDumpComment( const char *pchMsg )
+{
+	std::cerr << "TODO: SteamAPI_SEtMiniDumpComment" << std::endl;
+}

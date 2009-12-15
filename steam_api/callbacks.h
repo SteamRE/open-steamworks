@@ -33,6 +33,7 @@ public:
 
 	void Cleanup();
 
+	bool callbackTryCatch;
 	HSteamUser currentUser;
 private:
 	void RunAPICallbacks(HSteamPipe pipe, SteamAPICallCompleted_t *call);
@@ -41,8 +42,6 @@ private:
 	CallbacksMap callbacks;
 	typedef boost::unordered_map<SteamAPICall_t, CCallbackBase *> APICallsMap;
 	APICallsMap apicalls;
-
-	bool callbackTryCatch;
 
 	CallbackProvider provider;
 };
@@ -59,3 +58,5 @@ S_API void STEAM_CALL Steam_RunCallbacks( HSteamPipe hSteamPipe, bool bGameServe
 S_API void STEAM_CALL Steam_RegisterInterfaceFuncs(void *hModule);
 
 S_API HSteamUser STEAM_CALL Steam_GetHSteamUserCurrent();
+
+S_API void SteamAPI_SetTryCatchCallbacks( bool bTryCatchCallbacks );

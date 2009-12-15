@@ -223,6 +223,9 @@ S_API ISteamApps* STEAM_CALL SteamApps();
 S_API ISteamMatchmakingServers* STEAM_CALL SteamMatchmakingServers();
 
 
+// sets whether or not Steam_RunCallbacks() should do a try {} catch (...) {} around calls to issuing callbacks
+S_API void SteamAPI_SetTryCatchCallbacks( bool bTryCatchCallbacks );
+
 S_API void STEAM_CALL SteamAPI_RunCallbacks();
 
 // functions used by the utility CCallback objects to receive callbacks

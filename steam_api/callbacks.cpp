@@ -82,7 +82,16 @@ void CallbackManager::RunCallbacks(HSteamPipe pipe, bool bGameServer)
 			if(bGameServer && !(callback->m_nCallbackFlags & CCallbackBase::k_ECallbackFlagsGameServer))
 				continue;
 
-			callback->Run(callbackMsg.m_pubParam);
+			if(callbackTryCatch)
+			{
+
+				try {
+					callback->Run(callbackMsg.m_pubParam);
+				} catch(...) {};
+
+			} else {
+				callback->Run(callbackMsg.m_pubParam);
+			}
 		}
 
 		provider.Steam_FreeLastCallback(pipe);
@@ -181,4 +190,10 @@ S_API void STEAM_CALL Steam_RegisterInterfaceFuncs(void *hModule)
 S_API HSteamUser STEAM_CALL Steam_GetHSteamUserCurrent()
 {
 	return callbackmanager.currentUser;
+}
+
+
+S_API void SteamAPI_SetTryCatchCallbacks( bool bTryCatchCallbacks )
+{
+	callbackmanager.callbackTryCatch = bTryCatchCallbacks;
 }

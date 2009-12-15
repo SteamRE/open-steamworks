@@ -9,6 +9,7 @@ public:
 	void OnLobbyMatchListCallback( LobbyMatchList_t *pLobbyMatchList, bool bIOFailure )
 	{
 		std::cout << "qq " << pLobbyMatchList->m_nLobbiesMatching << " " << bIOFailure << std::endl;
+
 	}
 
 	STEAM_CALLBACK( CLobbyBrowser, OnLobbyMatchListCallback, LobbyMatchList_t, m_CallbackLobbyMatchList );
@@ -17,6 +18,8 @@ public:
 void CLobbyBrowser::OnLobbyMatchListCallback( LobbyMatchList_t *pLobbyMatchList )
 {
 	std::cout << "qq regular callback " << pLobbyMatchList->m_nLobbiesMatching << std::endl;
+
+	throw new std::exception("qq");
 }
 
 int main(int argc, char *argv[])
@@ -29,8 +32,9 @@ int main(int argc, char *argv[])
 	SteamAPICall_t hSteamAPICall = ((ISteamMatchmaking007 *)SteamMatchmaking())->RequestLobbyList();
 	qq.m_SteamCallResultLobbyMatchList.Set(hSteamAPICall, &qq, &CLobbyBrowser::OnLobbyMatchListCallback );
 
+	SteamAPI_SetTryCatchCallbacks(true);
 
-	while(true)
+	for(int i = 0; i < 100; i++)
 	{
 		SteamAPI_RunCallbacks();
 		Sleep(100);

@@ -31,3 +31,6 @@ S_API HSteamUser STEAM_CALL SteamAPI_GetHSteamUser();
 S_API HSteamUser STEAM_CALL GetHSteamUser();
 
 S_API void STEAM_CALL SteamAPI_RunCallbacks();
+
+S_API void STEAM_CALL SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, void* pvExceptionInfo, uint32 uBuildID );
+S_API void STEAM_CALL SteamAPI_SetMiniDumpComment( const char *pchMsg );
