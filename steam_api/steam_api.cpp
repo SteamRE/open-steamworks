@@ -11,26 +11,26 @@ STEAMUTILS_ICLASS *steamutils = NULL;
 HSteamPipe pipe = 0;
 HSteamUser user = 0;
 
-HSteamPipe SteamAPI_InitInternal()
+HSteamPipe SteamAPI_InitInternal(STEAMCLIENT_ICLASS **steamclient, STEAMUTILS_ICLASS **steamutils)
 {
 	clientFactory = loader.Load();
 
 	if(clientFactory == NULL)
 		return 0;
 
-	steamclient = (STEAMCLIENT_ICLASS *)clientFactory(STEAMCLIENT_IFACE, NULL);
+	*steamclient = (STEAMCLIENT_ICLASS *)clientFactory(STEAMCLIENT_IFACE, NULL);
 
-	if(steamclient == NULL)
+	if((*steamclient) == NULL)
 		return 0;
 
-	HSteamPipe ipipe = steamclient->CreateSteamPipe();
+	HSteamPipe ipipe = (*steamclient)->CreateSteamPipe();
 
 	if(ipipe == NULL)
 		return 0;
 
-	steamutils = (STEAMUTILS_ICLASS *)steamclient->GetISteamUtils(ipipe, STEAMUTILS_IFACE);
+	*steamutils = (STEAMUTILS_ICLASS *)(*steamclient)->GetISteamUtils(ipipe, STEAMUTILS_IFACE);
 
-	if(steamutils == NULL)
+	if((*steamutils) == NULL)
 		return 0;
 
 	return ipipe;
@@ -38,7 +38,7 @@ HSteamPipe SteamAPI_InitInternal()
 
 bool SteamAPI_InitInternalUser(bool safe)
 {
-	pipe = SteamAPI_InitInternal();
+	pipe = SteamAPI_InitInternal(&steamclient, &steamutils);
 
 	if(pipe == NULL)
 		return false;
@@ -51,13 +51,13 @@ bool SteamAPI_InitInternalUser(bool safe)
 	if(!LoadInterfaces(safe))
 		return false;
 
-	Steam_RegisterInterfaceFuncs(loader.GetSteamModule());
-
 	if(steamutils->GetAppID() == 0)
 	{
 		std::cerr << "[S_API] Load failure. AppID not set!" << std::endl;
 		return false;
 	}
+
+	Steam_RegisterInterfaceFuncs(loader.GetSteamModule());
 
 	return true;
 }
@@ -88,14 +88,18 @@ S_API void SteamAPI_Shutdown()
 		steamclient->ReleaseSteamPipe(pipe);
 		pipe = NULL;
 	}
-
-	callbackmanager.Cleanup();
 }
 
 
 
 S_API void STEAM_CALL SteamAPI_RunCallbacks()
 {
+	if(steamclient)
+	{
+		steamclient->RunFrame();
+		steamutils->RunFrame();
+	}
+
 	if(pipe)
 		Steam_RunCallbacks(pipe, false);
 }

@@ -206,6 +206,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\gameserver.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\interfaces.cpp"
 				>
 			</File>
@@ -241,6 +245,10 @@
 			>
 			<File
 				RelativePath=".\callbacks.h"
+				>
+			</File>
+			<File
+				RelativePath=".\gameserver.h"
 				>
 			</File>
 			<File
