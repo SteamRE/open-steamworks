@@ -13,7 +13,7 @@ public:
 		getapicallresult = (SteamGetAPICallResultFn)GetProcAddress(module, "Steam_GetAPICallResult");
 	}
 
-	friend bool operator==(const CallbackProvider& x, const CallbackProvider& y);
+	bool operator==( const CallbackProvider& y) { return this->module == y.module; }
 private:
 	HMODULE module;
 	SteamBGetCallbackFn getcallback;
@@ -21,10 +21,7 @@ private:
 	SteamGetAPICallResultFn getapicallresult;
 };
 
-bool operator==(const CallbackProvider& x, const CallbackProvider& y)
-{
-	return x.module == y.module;
-}
+
 
 class CallbackManager
 {

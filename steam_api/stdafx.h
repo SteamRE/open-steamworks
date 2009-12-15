@@ -6,7 +6,8 @@
 #include "steamworks.h"
 #include "steam_api.h"
 
-#include <boost/unordered_map.hpp>
 #include <iostream>
 #include <fstream>
+#include <boost/program_options.hpp>
+#include <boost/unordered_map.hpp>
 #include <vector>

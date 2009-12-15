@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
-			CharacterSet="0"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;../Open Steamworks&quot;;../boost_1_40_0;.."
+				AdditionalIncludeDirectories="&quot;../Open Steamworks&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STEAM_API_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -95,7 +95,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
-			CharacterSet="0"
+			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;../Open Steamworks&quot;;../boost_1_40_0;.."
+				AdditionalIncludeDirectories="&quot;../Open Steamworks&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STEAM_API_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -181,10 +181,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ConfigReader.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\dllmain.cpp"
 				>
 				<FileConfiguration
@@ -242,10 +238,6 @@
 			>
 			<File
 				RelativePath=".\callbacks.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ConfigReader.h"
 				>
 			</File>
 			<File

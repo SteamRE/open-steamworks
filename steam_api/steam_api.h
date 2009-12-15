@@ -6,7 +6,7 @@
 extern CSteamAPILoader loader;
 extern CreateInterfaceFn clientFactory;
 
-extern STEAMCLIENT_ICLASS *internalSteamClient;
+extern STEAMCLIENT_ICLASS *steamclient;
 
 extern HSteamUser user;
 extern HSteamPipe pipe;
