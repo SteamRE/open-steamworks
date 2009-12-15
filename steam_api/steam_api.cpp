@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "interfaces.h"
+#include "callbacks.h"
 
 CSteamAPILoader loader;
 CreateInterfaceFn clientFactory = NULL;
@@ -41,6 +42,8 @@ S_API bool STEAM_CALL SteamAPI_InitSafe()
 
 	if(user == NULL)
 		return false;
+
+	Steam_RegisterInterfaceFuncs(loader.GetSteamModule());
 
 	return true;
 }

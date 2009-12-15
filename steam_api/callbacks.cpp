@@ -1,15 +1,30 @@
 #include "stdafx.h"
 #include "callbacks.h"
 
-void CallbackManager::AddCallbackProvider(HMODULE module)
-{
-	CallbackProvider provider(module);
-	
-    ProviderVector::const_iterator iter = std::find(providers.begin(), providers.end(), provider);
+CallbackManager callbackmanager;
 
-	if(iter != providers.end())
+void CallbackProvider::ResolveExports()
+{
+	getcallback = (SteamBGetCallbackFn)GetProcAddress(module, "Steam_BGetCallback");
+	freelastcallback = (SteamFreeLastCallbackFn)GetProcAddress(module, "Steam_FreeLastCallback");
+	getapicallresult = (SteamGetAPICallResultFn)GetProcAddress(module, "Steam_GetAPICallResult");
+}
+
+void CallbackProvider::Set(HMODULE mod)
+{
+	if(module == mod)
 		return;
 
-	provider.ResolveExports();
-	providers.push_back(provider);
+	module = mod;
+	ResolveExports();
+}
+
+void CallbackManager::SetCallbackProvider(HMODULE module)
+{
+	provider.Set(module);
+}
+
+S_API void STEAM_CALL Steam_RegisterInterfaceFuncs(void *hModule)
+{
+	callbackmanager.SetCallbackProvider((HMODULE)hModule);
 }
