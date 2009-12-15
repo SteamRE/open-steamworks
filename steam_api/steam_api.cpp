@@ -11,7 +11,7 @@ STEAMUTILS_ICLASS *steamutils = NULL;
 HSteamPipe pipe = 0;
 HSteamUser user = 0;
 
-HSteamPipe SteamAPI_InitInternal(STEAMCLIENT_ICLASS **steamclient, STEAMUTILS_ICLASS **steamutils)
+HSteamPipe SteamAPI_InitInternal(STEAMCLIENT_ICLASS **steamclient)
 {
 	clientFactory = loader.Load();
 
@@ -28,17 +28,12 @@ HSteamPipe SteamAPI_InitInternal(STEAMCLIENT_ICLASS **steamclient, STEAMUTILS_IC
 	if(ipipe == NULL)
 		return 0;
 
-	*steamutils = (STEAMUTILS_ICLASS *)(*steamclient)->GetISteamUtils(ipipe, STEAMUTILS_IFACE);
-
-	if((*steamutils) == NULL)
-		return 0;
-
 	return ipipe;
 }
 
 bool SteamAPI_InitInternalUser(bool safe)
 {
-	pipe = SteamAPI_InitInternal(&steamclient, &steamutils);
+	pipe = SteamAPI_InitInternal(&steamclient);
 
 	if(pipe == NULL)
 		return false;
@@ -46,6 +41,11 @@ bool SteamAPI_InitInternalUser(bool safe)
 	user = steamclient->ConnectToGlobalUser(pipe);
 
 	if(user == NULL)
+		return false;
+
+	steamutils = (STEAMUTILS_ICLASS *)steamclient->GetISteamUtils(pipe, STEAMUTILS_IFACE);
+
+	if(!steamutils)
 		return false;
 
 	if(!LoadInterfaces(safe))

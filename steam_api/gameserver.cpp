@@ -12,7 +12,7 @@ STEAMGAMESERVER_ICLASS *gameserver = NULL;
 
 bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString )
 {
-	gameserver_pipe = SteamAPI_InitInternal(&gameserver_steamclient, &gameserver_steamutils);
+	gameserver_pipe = SteamAPI_InitInternal(&gameserver_steamclient);
 
 	if(!gameserver_pipe)
 		return false;
@@ -23,9 +23,10 @@ bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 
 	if(!gameserver_user)
 		return false;
 
+	gameserver_steamutils = (STEAMUTILS_ICLASS *)gameserver_steamclient->GetISteamUtils(gameserver_pipe, STEAMUTILS_IFACE);
 	gameserver = (STEAMGAMESERVER_ICLASS *)gameserver_steamclient->GetISteamGameServer(gameserver_user, gameserver_pipe, STEAMGAMESERVER_IFACE);
 
-	if(!gameserver)
+	if(!gameserver_steamutils || !gameserver)
 		return false;
 
 	if(!LoadInterfaces_GameServer(safe))
@@ -48,6 +49,8 @@ bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 
 		}
 		break;
 	}
+
+	std::cout << "appid " << gameserver_steamutils->GetAppID() << std::endl;
 
 	if(!gameserver->SetServerType( flags, unIP, usGamePort, usSpectatorPort, usQueryPort, pchGameDir, pchVersionString, lan))
 		return false;

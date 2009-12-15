@@ -12,7 +12,7 @@ STEAMCONTENTSERVER_ICLASS *contentserver = NULL;
 
 S_API bool STEAM_CALL SteamContentServer_Init(uint32 unIP, uint16 usPort)
 {
-	contentserver_pipe = SteamAPI_InitInternal(&contentserver_steamclient, &contentserver_steamutils);
+	contentserver_pipe = SteamAPI_InitInternal(&contentserver_steamclient);
 
 	if(!contentserver_pipe)
 		return false;
@@ -23,9 +23,10 @@ S_API bool STEAM_CALL SteamContentServer_Init(uint32 unIP, uint16 usPort)
 	if(!contentserver_user)
 		return false;
 
+	contentserver_steamutils = (STEAMUTILS_ICLASS *)contentserver_steamclient->GetISteamUtils(contentserver_pipe, STEAMUTILS_IFACE);
 	contentserver = (STEAMCONTENTSERVER_ICLASS *)contentserver_steamclient->GetISteamGenericInterface(contentserver_user, contentserver_pipe, STEAMCONTENTSERVER_IFACE);
 
-	if(!contentserver)
+	if(!contentserver_steamutils || !contentserver)
 		return false;
 
 	if(!LoadInterfaces_ContentServer())

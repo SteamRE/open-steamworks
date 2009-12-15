@@ -15,7 +15,7 @@ extern STEAMUTILS_ICLASS *steamutils;
 extern HSteamUser user;
 extern HSteamPipe pipe;
 
-HSteamPipe SteamAPI_InitInternal(STEAMCLIENT_ICLASS **steamclient, STEAMUTILS_ICLASS **steamutils);
+HSteamPipe SteamAPI_InitInternal(STEAMCLIENT_ICLASS **steamclient);
 
 S_API bool STEAM_CALL SteamAPI_Init();
 S_API bool STEAM_CALL SteamAPI_InitSafe();
