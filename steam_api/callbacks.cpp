@@ -19,6 +19,12 @@ void CallbackProvider::Set(HMODULE mod)
 	ResolveExports();
 }
 
+void CallbackManager::Cleanup()
+{
+	callbacks.clear();
+	apicalls.clear();
+}
+
 void CallbackManager::SetCallbackProvider(HMODULE module)
 {
 	provider.Set(module);
@@ -97,9 +103,7 @@ void CallbackManager::RegisterCallback(int iCallback, CCallbackBase *callback)
 
 void CallbackManager::UnRegisterCallback(CCallbackBase *callback)
 {
-	int iCallback = callback->GetICallback();
-
-	std::pair<CallbacksMap::iterator, CallbacksMap::iterator> range = callbacks.equal_range( iCallback );
+	std::pair<CallbacksMap::iterator, CallbacksMap::iterator> range = callbacks.equal_range( callback->GetICallback() );
 
 	CallbacksMap::const_iterator iter = range.first;
 	while(iter != range.second)

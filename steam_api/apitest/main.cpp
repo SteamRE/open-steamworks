@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	qq.m_SteamCallResultLobbyMatchList.Set(hSteamAPICall, &qq, &CLobbyBrowser::OnLobbyMatchListCallback );
 
 
-	for(int i = 0; i < 10; i++)
+	while(true)
 	{
 		SteamAPI_RunCallbacks();
 		Sleep(100);

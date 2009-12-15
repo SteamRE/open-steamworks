@@ -20,6 +20,8 @@ private:
 class CallbackManager
 {
 public:
+	~CallbackManager() { Cleanup(); };
+
 	void SetCallbackProvider(HMODULE module);
 	void RunCallbacks(HSteamPipe pipe, bool bGameServer);
 
@@ -28,6 +30,8 @@ public:
 
 	void RegisterAPICallResult(SteamAPICall_t apiCall, CCallbackBase *callback);
 	void UnRegisterAPICallResult(SteamAPICall_t apiCall, CCallbackBase *callback);
+
+	void Cleanup();
 
 	HSteamUser currentUser;
 private:

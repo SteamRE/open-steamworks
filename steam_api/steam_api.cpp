@@ -88,6 +88,8 @@ S_API void SteamAPI_Shutdown()
 		steamclient->ReleaseSteamPipe(pipe);
 		pipe = NULL;
 	}
+
+	callbackmanager.Cleanup();
 }
 
 
