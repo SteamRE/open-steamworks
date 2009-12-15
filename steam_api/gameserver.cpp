@@ -57,6 +57,8 @@ bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 
 	if(!gameserver->SetServerType( flags, unIP, usGamePort, usSpectatorPort, usQueryPort, pchGameDir, pchVersionString, lan))
 		return false;
 
+	gameserver->UpdateServerStatus(0, 0, 0, pchGameDir, "", "");
+
 	masterserver->SetActive(true);
 	gameserver->LogOn();
 
