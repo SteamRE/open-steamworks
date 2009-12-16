@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
 	if(!SteamGameServer_Init(0, 5000, 5001, 5002, 5003, eServerModeAuthentication, "tf", "1.0.7.1"))
 		return 0;
 	
+	((ISteamMasterServerUpdater001 *)SteamMasterServerUpdater())->SetActive( true );
+
 	if(!SteamAPI_Init())
 		return 0;
 

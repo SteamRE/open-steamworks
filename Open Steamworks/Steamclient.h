@@ -268,8 +268,12 @@ S_API int32 STEAM_CALL SteamGameServer_GetIPCCallCount();
 
 S_API ISteamGameServer* STEAM_CALL SteamGameServer();
 S_API ISteamUtils* STEAM_CALL SteamGameServerUtils();
+S_API ISteamMasterServerUpdater* STEAM_CALL SteamMasterServerUpdater();
+S_API ISteamNetworking* STEAM_CALL SteamGameServerNetworking();
 
 //content server
+S_API ISteamContentServer* STEAM_CALL SteamContentServer();
+S_API ISteamUtils* STEAM_CALL SteamContentServerUtils();
 S_API bool STEAM_CALL SteamContentServer_Init(uint32 unIP, uint16 usPort);
 
 S_API void STEAM_CALL SteamContentServer_Shutdown();
