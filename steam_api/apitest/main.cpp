@@ -42,11 +42,8 @@ int main(int argc, char *argv[])
 	if(!SteamAPI_Init())
 		return 0;
 
-	ISteamUserStats *stats = SteamUserStats();
-	ISteamUserStats004 *stats004 = (ISteamUserStats004 *)stats;
-	std::cout << stats004->RequestCurrentStats() << std::endl;
-	//SteamAPICall_t hSteamAPICall = ((ISteamMatchmaking001 *)SteamMatchmaking())->RequestLobbyList();
-	//qq.m_SteamCallResultLobbyMatchList.Set(hSteamAPICall, &qq, &CLobbyBrowser::OnLobbyMatchListCallback );
+	SteamAPICall_t hSteamAPICall = ((ISteamMatchmaking007 *)SteamMatchmaking())->RequestLobbyList();
+	qq.m_SteamCallResultLobbyMatchList.Set(hSteamAPICall, &qq, &CLobbyBrowser::OnLobbyMatchListCallback );
 
 	SteamAPI_SetTryCatchCallbacks(true);
 
