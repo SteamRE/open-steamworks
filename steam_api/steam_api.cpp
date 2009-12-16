@@ -75,7 +75,6 @@ S_API bool STEAM_CALL SteamAPI_InitSafe()
 }
 
 
-
 S_API void SteamAPI_Shutdown()
 {
 	if(user)
@@ -94,14 +93,14 @@ S_API void SteamAPI_Shutdown()
 
 S_API void STEAM_CALL SteamAPI_RunCallbacks()
 {
-	if(steamclient)
-	{
-		steamclient->RunFrame();
-		steamutils->RunFrame();
-	}
-
 	if(pipe)
 		Steam_RunCallbacks(pipe, false);
+
+	if(steamclient)
+	{
+		//steamclient->RunFrame();
+		//steamutils->RunFrame();
+	}
 }
 
 
