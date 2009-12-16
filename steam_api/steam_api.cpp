@@ -140,5 +140,5 @@ S_API void STEAM_CALL SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, v
 
 S_API void STEAM_CALL SteamAPI_SetMiniDumpComment( const char *pchMsg )
 {
-	std::cerr << "TODO: SteamAPI_SEtMiniDumpComment" << std::endl;
+	std::cerr << "TODO: SteamAPI_SetMiniDumpComment" << std::endl;
 }

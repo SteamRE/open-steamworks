@@ -52,8 +52,6 @@ bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 
 		break;
 	}
 
-	std::cout << "appid " << gameserver_steamutils->GetAppID() << std::endl;
-
 	if(!gameserver->SetServerType( flags, unIP, usGamePort, usSpectatorPort, usQueryPort, pchGameDir, pchVersionString, lan))
 		return false;
 
