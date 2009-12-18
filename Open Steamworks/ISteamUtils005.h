@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMUTILS004_H
-#define ISTEAMUTILS004_H
+#ifndef ISTEAMUTILS005_H
+#define ISTEAMUTILS005_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: interface to user independent utility functions
 //-----------------------------------------------------------------------------
-class ISteamUtils004
+class ISteamUtils005
 {
 public:
 	// return the number of seconds since the user 
@@ -89,6 +89,8 @@ public:
 	// Returns true if the overlay is running & the user can access it. The overlay process could take a few seconds to
 	// start & hook the game process, so this function will initially return false while the overlay is loading.
 	virtual bool IsOverlayEnabled() = 0;
+
+	virtual bool OverlayNeedsPresent() = 0;
 };
 
-#endif // ISTEAMUTILS004_H
+#endif // ISTEAMUTILS005_H

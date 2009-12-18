@@ -371,6 +371,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\IClientGameStats.h"
+					>
+				</File>
+				<File
 					RelativePath=".\IClientMatchmaking.h"
 					>
 				</File>
@@ -706,6 +710,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamUser013.h"
+						>
+					</File>
+					<File
 						RelativePath=".\UserCommon.h"
 						>
 					</File>
@@ -723,6 +731,10 @@
 					</File>
 					<File
 						RelativePath=".\ISteamUserItems003.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamUserItems004.h"
 						>
 					</File>
 					<File
@@ -782,6 +794,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamUtils005.h"
+						>
+					</File>
+					<File
 						RelativePath=".\UtilsCommon.h"
 						>
 					</File>
@@ -795,6 +811,18 @@
 					</File>
 					<File
 						RelativePath=".\ISteamGameCoordinator001.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="ISteamGameStats"
+					>
+					<File
+						RelativePath=".\GameStatsCommon.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamGameStats001.h"
 						>
 					</File>
 				</Filter>

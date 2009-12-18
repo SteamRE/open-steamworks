@@ -57,11 +57,13 @@
 #include "ISteamUser010.h"
 #include "ISteamUser011.h"
 #include "ISteamUser012.h"
+#include "ISteamUser013.h"
 
 // user items
 #include "ISteamUserItems001.h"
 #include "ISteamUserItems002.h"
 #include "ISteamUserItems003.h"
+#include "ISteamUserItems004.h"
 
 // apps
 #include "ISteamApps001.h"
@@ -81,6 +83,7 @@
 #include "ISteamUtils002.h"
 #include "ISteamUtils003.h"
 #include "ISteamUtils004.h"
+#include "ISteamUtils005.h"
 
 // game server
 #include "ISteamGameServer002.h"
@@ -137,6 +140,9 @@
 // game coordinator
 #include "ISteamGameCoordinator001.h"
 
+// game stats
+#include "ISteamGameStats001.h"
+
 // client interfaces
 #include "IClientEngine.h"
 
@@ -148,6 +154,7 @@
 #include "IClientFriends.h"
 #include "IClientGameCoordinator.h"
 #include "IClientGameServer.h"
+#include "IClientGameStats.h"
 #include "IClientMatchmaking.h"
 #include "IClientUser.h"
 #include "IClientUtils.h"

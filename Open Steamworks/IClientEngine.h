@@ -29,6 +29,7 @@ class IClientFriends;
 class IClientGameCoordinator;
 class IClientGameServer;
 class IClientGameServerItems;
+class IClientGameStats;
 class IClientMasterServerUpdater;
 class IClientMatchmaking;
 class IClientMatchmakingServers;
@@ -59,10 +60,13 @@ public:
 	virtual HSteamUser CreateLocalUser( HSteamPipe* phSteamPipe, EAccountType eAccountType ) = 0;
 
 	virtual void ReleaseUser( HSteamPipe hSteamPipe, HSteamUser hUser ) = 0;
-
+/*
 #if defined( _WIN32 ) && defined( STEAM )
 	virtual unknown_ret Unknown( int a, int b ) = 0; // exists in steam's steamclient, but not l4d2's or l4d1's steamclient
-#endif
+#endif*/
+
+	// this seems to be the actual func... unless this is added and the unknown function still exists in steam
+	virtual bool IsValidHSteamUserPipe( HSteamPipe hSteamPipe, HSteamUser hUser ) = 0;
 
 	virtual IClientUser* GetIClientUser( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientGameServer *GetIClientGameServer( HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char *pchVersion ) = 0;
@@ -104,9 +108,11 @@ public:
 
 	virtual IClientAppManager* GetIClientAppManager( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	
-#if defined( _WIN32 ) && defined( STEAM )
-	virtual bool OverlayNeedsPresent() = 0; // only in steam
-#endif
+//#if defined( _WIN32 ) && defined( STEAM )
+	virtual bool OverlayNeedsPresent() = 0; // only in steam, since latest update, it seems this is available in the linux bins too...
+//#endif
+
+	virtual IClientGameStats* GetIClientGameStats( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
 	virtual unknown_ret GetIPCServerMap() = 0;
 
