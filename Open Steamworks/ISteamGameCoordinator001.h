@@ -26,17 +26,7 @@
 class ISteamGameCoordinator001
 {
 public:
-	#ifdef _WIN32
-		#undef SendMessage
-	#endif
 	virtual unknown_ret SendMessage(unsigned int unknown, const void *data, unsigned int cbData) = 0;
-	#ifdef _WIN32
-		#ifdef UNICODE
-			#define SendMessage SendMessageW
-		#else
-			#define SendMessage SendMessageA
-		#endif
-	#endif
 
 	virtual bool IsMessageAvailable(unsigned int *unknown) = 0;
 

@@ -27,6 +27,8 @@
 	#define _CRT_SECURE_NO_WARNINGS // we don't use unsafe functions unsafely!
 	#include <windows.h>
 
+	#undef SendMessage // for ISteamGameCoordinator001 to work right..
+
 	#if defined( STEAM_API_EXPORTS )
 	#define S_API extern "C" __declspec( dllexport ) 
 	#else
