@@ -1,4 +1,4 @@
-#pragma comment(lib, "delayimp") // for delay loading steam_api
+//#pragma comment(lib, "delayimp") // for delay loading steam_api
 #pragma comment(lib, "..\\steamclient")
 #pragma comment(lib, "..\\steam_api")
 
@@ -9,7 +9,14 @@ namespace dotnetworks
 {
 	static Steamworks::Steamworks()
 	{
-		ClientFactory = Sys_GetFactory( "steamclient" );
+		CSteamAPILoader loader;
+
+		ClientFactory = loader.Load();
+		if ( !ClientFactory )
+		{
+			throw gcnew Exception( "Unable to find and load steamclient.dll" );
+		}
+
 	}
 
 	Object^ Steamworks::CreateInterface(String^ name, [Out] int% error)
@@ -34,6 +41,8 @@ namespace dotnetworks
 			returnInterface = gcnew SteamClient008( (ISteamClient008 *)unmgdInterface );
 
 		STR_FREE(str);
+
+		error = returnCode;
 
 		return returnInterface;
 	}

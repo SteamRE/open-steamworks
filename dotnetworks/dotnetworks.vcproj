@@ -40,7 +40,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP8"
+				AdditionalOptions="/platform:x86"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\Open Steamworks\"
 				MinimalRebuild="false"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				DelayLoadDLLs="steam_api.dll"
+				DelayLoadDLLs="steam_api.dll;steamclient.dll"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
@@ -115,7 +115,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP8"
+				AdditionalOptions="/platform:x86"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="..\Open Steamworks\"
@@ -136,7 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				DelayLoadDLLs="steam_api.dll"
+				DelayLoadDLLs="steam_api.dll;steamclient.dll"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
