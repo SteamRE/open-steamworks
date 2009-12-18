@@ -7,16 +7,16 @@
 
 namespace dotnetworks
 {
+	CSteamAPILoader *loader;
 	static Steamworks::Steamworks()
 	{
-		CSteamAPILoader loader;
+		if ( !loader) 
+			loader = new CSteamAPILoader();
 
-		ClientFactory = loader.Load();
-		if ( !ClientFactory )
-		{
+		ClientFactory = loader->Load();
+
+		if ( ClientFactory == NULL )
 			throw gcnew Exception( "Unable to find and load steamclient.dll" );
-		}
-
 	}
 
 	Object^ Steamworks::CreateInterface(String^ name, [Out] int% error)
