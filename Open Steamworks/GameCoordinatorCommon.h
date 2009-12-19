@@ -22,4 +22,92 @@
 
 #define STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 "SteamGameCoordinator001"
 
+//TF2 game coordinator:
+// message index    function
+// 22               item moved
+// 23               item deleted
+// 24               items loaded
+// 25               items unloaded
+
+/*
+22
+
+uint16 id // AA
+char garbage[16] // BB
+CSteamID steamid // CC
+uint32 unknown = 0x01 // DD 
+uint64 itemid // EE
+uint32 flagsa // FF
+uint16 flagsb // GG
+
+24
+
+uint16 id
+char garbage[16]
+CSteamID steamid
+uint32 unknown = 0x10001
+uint16 padding
+uint16 itemcount
+
+[
+	uint64 itemid
+	uint32 accountid
+	uint16 itemdefindex
+	uint32 flagsa
+	uint16 flagsb
+	uint32 paddinga = 0x01
+	uint16 paddingb
+]
+*/
+
+struct GC_ItemMoved
+{
+	enum { k_iMessage = 22 };
+
+	uint16 id; // 0x01
+	char garbage[16]; // FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF
+	CSteamID steamid;
+	uint32 unknown; // 0x01
+	uint64 itemID;
+	uint32 flagsA;
+	uint16 flagsB;
+};
+
+struct GC_ItemDeleted
+{
+	enum { k_iMessage = 23 };
+};
+
+struct GC_ItemsList
+{
+	enum { k_iMessage = 24 };
+
+	uint16 id; // 0x01
+	char garbage[16]; // FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF
+	CSteamID steamid;
+	uint32 unknown; // 0x10001
+	uint16 padding;
+	uint16 itemcount;
+};
+
+struct GC_ItemsList_Item
+{
+	uint64 itemid;
+	uint32 accountid;
+	uint16 itemdefindex;
+	uint32 flagsa;
+	uint16 flagsb;
+	uint32 paddinga; // 0x01
+	uint16 paddingb;
+};
+
+struct GC_ItemsUnloaded
+{
+	enum { k_iMessage = 25 };
+
+	uint16 id; // 0x01
+	char garbage[16]; // FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF
+	CSteamID steamid;
+};
+
 #endif // ISTEAMGAMECOORDINATORCOMMON_H
