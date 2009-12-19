@@ -41,6 +41,7 @@
             this.logFormatBox = new ChatLog.PreviewTextBox();
             this.emoteFormatBox = new ChatLog.PreviewTextBox();
             this.filenameBox = new ChatLog.PreviewTextBox();
+            this.editLinkIdsBox = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
@@ -75,9 +76,9 @@
             // 
             // label1
             // 
-            this.label1.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label1.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point( 3, 0 );
             this.label1.Name = "label1";
@@ -86,13 +87,13 @@
             this.label1.Text = "Log Directory:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip.SetToolTip( this.label1, "The directory that log files will be stored in. You can use several variables des" +
-                    "cribed in the Help & Formatting tab." );
+        "cribed in the Help & Formatting tab." );
             // 
             // label2
             // 
-            this.label2.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label2.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point( 3, 29 );
             this.label2.Name = "label2";
@@ -101,13 +102,13 @@
             this.label2.Text = "Filename:\r\n\r\n";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip.SetToolTip( this.label2, "The filename to store a specific log message in. You can use file variables descr" +
-                    "ibed in Help & Formatting." );
+        "ibed in Help & Formatting." );
             // 
             // label8
             // 
-            this.label8.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label8.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point( 3, 119 );
             this.label8.Name = "label8";
@@ -116,13 +117,13 @@
             this.label8.Text = "Emote Format:\r\n\r\n";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip.SetToolTip( this.label8, "This is the emotion log format. These are messages that are sent with the \"/me\" c" +
-                    "ommand. Variables are described in Help & Formatting." );
+        "ommand. Variables are described in Help & Formatting." );
             // 
             // label5
             // 
-            this.label5.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label5.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point( 3, 73 );
             this.label5.Name = "label5";
@@ -131,7 +132,7 @@
             this.label5.Text = "Message Format:\r\n\r\n";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip.SetToolTip( this.label5, "This is the format to write log messages to. Many variables are described in Help" +
-                    " & Formatting" );
+        " & Formatting" );
             // 
             // tabControl1
             // 
@@ -143,7 +144,7 @@
             this.tabControl1.Location = new System.Drawing.Point( 0, 0 );
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size( 469, 393 );
+            this.tabControl1.Size = new System.Drawing.Size( 469, 410 );
             this.tabControl1.TabIndex = 11;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler( this.tabControl1_Selecting );
             // 
@@ -153,7 +154,7 @@
             this.tabPage1.Location = new System.Drawing.Point( 4, 22 );
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage1.Size = new System.Drawing.Size( 461, 367 );
+            this.tabPage1.Size = new System.Drawing.Size( 461, 384 );
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Logging";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -171,6 +172,7 @@
             this.tableLayoutPanel1.Controls.Add( this.logFormatBox, 1, 2 );
             this.tableLayoutPanel1.Controls.Add( this.emoteFormatBox, 1, 3 );
             this.tableLayoutPanel1.Controls.Add( this.filenameBox, 1, 1 );
+            this.tableLayoutPanel1.Controls.Add( this.editLinkIdsBox, 0, 4 );
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point( 3, 3 );
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -180,7 +182,7 @@
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
-            this.tableLayoutPanel1.Size = new System.Drawing.Size( 455, 361 );
+            this.tableLayoutPanel1.Size = new System.Drawing.Size( 455, 378 );
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // browseBox
@@ -191,46 +193,57 @@
             this.browseBox.Size = new System.Drawing.Size( 361, 29 );
             this.browseBox.TabIndex = 9;
             this.toolTip.SetToolTip( this.browseBox, "The directory that log files will be stored in. You can use several variables des" +
-                    "cribed in the Help & Formatting tab." );
+        "cribed in the Help & Formatting tab." );
             // 
             // logFormatBox
             // 
-            this.logFormatBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.logFormatBox.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.logFormatBox.Location = new System.Drawing.Point( 94, 73 );
             this.logFormatBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.logFormatBox.Name = "logFormatBox";
             this.logFormatBox.Size = new System.Drawing.Size( 361, 46 );
             this.logFormatBox.TabIndex = 10;
             this.toolTip.SetToolTip( this.logFormatBox, "This is the format to write log messages to. Many variables are described in Help" +
-                    " & Formatting" );
+        " & Formatting" );
             // 
             // emoteFormatBox
             // 
-            this.emoteFormatBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.emoteFormatBox.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.emoteFormatBox.Location = new System.Drawing.Point( 94, 119 );
             this.emoteFormatBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.emoteFormatBox.Name = "emoteFormatBox";
             this.emoteFormatBox.Size = new System.Drawing.Size( 361, 46 );
             this.emoteFormatBox.TabIndex = 11;
             this.toolTip.SetToolTip( this.emoteFormatBox, "This is the emotion log format. These are messages that are sent with the \"/me\" c" +
-                    "ommand. Variables are described in Help & Formatting." );
+        "ommand. Variables are described in Help & Formatting." );
             // 
             // filenameBox
             // 
-            this.filenameBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.filenameBox.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.filenameBox.Location = new System.Drawing.Point( 94, 29 );
             this.filenameBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.filenameBox.Name = "filenameBox";
             this.filenameBox.Size = new System.Drawing.Size( 361, 44 );
             this.filenameBox.TabIndex = 12;
             this.toolTip.SetToolTip( this.filenameBox, "The filename to store a specific log message in. You can use file variables descr" +
-                    "ibed in Help & Formatting." );
+        "ibed in Help & Formatting." );
+            // 
+            // editLinkIdsBox
+            // 
+            this.tableLayoutPanel1.SetColumnSpan( this.editLinkIdsBox, 2 );
+            this.editLinkIdsBox.Location = new System.Drawing.Point( 3, 168 );
+            this.editLinkIdsBox.Name = "editLinkIdsBox";
+            this.editLinkIdsBox.Size = new System.Drawing.Size( 173, 23 );
+            this.editLinkIdsBox.TabIndex = 13;
+            this.editLinkIdsBox.Text = "Edit LinkIDs";
+            this.editLinkIdsBox.UseVisualStyleBackColor = true;
+            this.editLinkIdsBox.Click += new System.EventHandler( this.editLinkIdsBox_Click );
             // 
             // tabPage2
             // 
@@ -238,7 +251,7 @@
             this.tabPage2.Location = new System.Drawing.Point( 4, 22 );
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage2.Size = new System.Drawing.Size( 461, 367 );
+            this.tabPage2.Size = new System.Drawing.Size( 461, 384 );
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Miscellaneous";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -264,14 +277,14 @@
             this.tableLayoutPanel2.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel2.RowStyles.Add( new System.Windows.Forms.RowStyle( System.Windows.Forms.SizeType.Absolute, 20F ) );
             this.tableLayoutPanel2.RowStyles.Add( new System.Windows.Forms.RowStyle( System.Windows.Forms.SizeType.Absolute, 20F ) );
-            this.tableLayoutPanel2.Size = new System.Drawing.Size( 455, 361 );
+            this.tableLayoutPanel2.Size = new System.Drawing.Size( 455, 378 );
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label4
             // 
-            this.label4.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label4.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point( 3, 72 );
             this.label4.Name = "label4";
@@ -280,13 +293,13 @@
             this.label4.Text = "Time Format:\r\n\r\n";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip.SetToolTip( this.label4, "This is the time format to use with the {Time} variable. Check the link below for" +
-                    " documentation details." );
+        " documentation details." );
             // 
             // label9
             // 
-            this.label9.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label9.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point( 3, 0 );
             this.label9.Name = "label9";
@@ -298,9 +311,9 @@
             // 
             // invalidCharBox
             // 
-            this.invalidCharBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.invalidCharBox.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.invalidCharBox.Location = new System.Drawing.Point( 141, 3 );
             this.invalidCharBox.Name = "invalidCharBox";
             this.invalidCharBox.Size = new System.Drawing.Size( 311, 20 );
@@ -309,9 +322,9 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label3.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point( 3, 26 );
             this.label3.Name = "label3";
@@ -320,33 +333,33 @@
             this.label3.Text = "Date Format:\r\n\r\n";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip.SetToolTip( this.label3, "This is the date format to use with the {Date} variable. Check the below link for" +
-                    " documentation details." );
+        " documentation details." );
             // 
             // dateFormatBox
             // 
-            this.dateFormatBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.dateFormatBox.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.dateFormatBox.Location = new System.Drawing.Point( 138, 26 );
             this.dateFormatBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.dateFormatBox.Name = "dateFormatBox";
             this.dateFormatBox.Size = new System.Drawing.Size( 317, 46 );
             this.dateFormatBox.TabIndex = 5;
             this.toolTip.SetToolTip( this.dateFormatBox, "This is the date format to use with the {Date} variable. Check the below link for" +
-                    " documentation details." );
+        " documentation details." );
             // 
             // timeFormatBox
             // 
-            this.timeFormatBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.timeFormatBox.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom ) 
+            | System.Windows.Forms.AnchorStyles.Left ) 
+            | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.timeFormatBox.Location = new System.Drawing.Point( 138, 72 );
             this.timeFormatBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.timeFormatBox.Name = "timeFormatBox";
             this.timeFormatBox.Size = new System.Drawing.Size( 317, 46 );
             this.timeFormatBox.TabIndex = 6;
             this.toolTip.SetToolTip( this.timeFormatBox, "This is the time format to use with the {Time} variable. Check the link below for" +
-                    " documentation details." );
+        " documentation details." );
             // 
             // linkLabel4
             // 
@@ -366,7 +379,7 @@
             this.tabPage3.Location = new System.Drawing.Point( 4, 22 );
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage3.Size = new System.Drawing.Size( 461, 367 );
+            this.tabPage3.Size = new System.Drawing.Size( 461, 384 );
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Help & Formatting";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -379,7 +392,7 @@
             this.helpBox.Location = new System.Drawing.Point( 3, 3 );
             this.helpBox.Name = "helpBox";
             this.helpBox.ReadOnly = true;
-            this.helpBox.Size = new System.Drawing.Size( 455, 361 );
+            this.helpBox.Size = new System.Drawing.Size( 455, 378 );
             this.helpBox.TabIndex = 14;
             this.helpBox.Text = resources.GetString( "helpBox.Text" );
             // 
@@ -398,7 +411,7 @@
             this.tabPage4.Location = new System.Drawing.Point( 4, 22 );
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage4.Size = new System.Drawing.Size( 461, 367 );
+            this.tabPage4.Size = new System.Drawing.Size( 461, 384 );
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "About";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -422,7 +435,7 @@
             this.label14.Size = new System.Drawing.Size( 399, 26 );
             this.label14.TabIndex = 8;
             this.label14.Text = "\r\nBe sure to check the official facepunch release thread for updates and more det" +
-                "ails\r\n";
+    "ails\r\n";
             // 
             // linkLabel2
             // 
@@ -458,7 +471,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font( "Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( ( byte )( 0 ) ) );
+            this.label12.Font = new System.Drawing.Font( "Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ) );
             this.label12.Location = new System.Drawing.Point( 8, 160 );
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size( 71, 13 );
@@ -473,12 +486,12 @@
             this.label11.Size = new System.Drawing.Size( 212, 52 );
             this.label11.TabIndex = 3;
             this.label11.Text = "The best way to contact me is through IRC.\r\n\r\nirc: irc.gamesurge.net / #opensteam" +
-                "works\r\nemail: voidedweasel (at) gmail (dot) com";
+    "works\r\nemail: voidedweasel (at) gmail (dot) com";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font( "Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( ( byte )( 0 ) ) );
+            this.label10.Font = new System.Drawing.Font( "Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ) );
             this.label10.Location = new System.Drawing.Point( 8, 73 );
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size( 51, 13 );
@@ -493,25 +506,24 @@
             this.label7.Size = new System.Drawing.Size( 385, 39 );
             this.label7.TabIndex = 1;
             this.label7.Text = "Author: VoiDeD\r\n\r\nThis project is licensed under the MIT License. Check license.t" +
-                "xt for more details";
+    "xt for more details";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font( "Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( ( byte )( 0 ) ) );
+            this.label6.Font = new System.Drawing.Font( "Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 0 ) ) );
             this.label6.Location = new System.Drawing.Point( 8, 3 );
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size( 200, 13 );
             this.label6.TabIndex = 0;
-            this.label6.Text = "About Steam Chat Logger (beta 3)";
+            this.label6.Text = "About Steam Chat Logger (beta 4)";
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size( 469, 393 );
+            this.ClientSize = new System.Drawing.Size( 469, 410 );
             this.Controls.Add( this.tabControl1 );
-            this.Icon = ( ( System.Drawing.Icon )( resources.GetObject( "$this.Icon" ) ) );
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
@@ -567,5 +579,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.LinkLabel linkLabel4;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button editLinkIdsBox;
     }
 }

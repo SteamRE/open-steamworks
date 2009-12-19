@@ -2,6 +2,7 @@
 namespace ChatLog
 {
     using System;
+    using System.Collections.Generic;
 
     public class Settings : Serializable<Settings>
     {
@@ -18,6 +19,9 @@ namespace ChatLog
         public string DateFormat;
         public string TimeFormat;
 
+        public List<LinkEntry> Links;
+
+
         public Settings()
         {
             Filename = "{Name}.txt";
@@ -29,6 +33,18 @@ namespace ChatLog
 
             DateFormat = "d";
             TimeFormat = "t";
+
+            Links = new List<LinkEntry>();
+        }
+
+        public string LookupLinkID( ulong commId )
+        {
+            foreach ( LinkEntry le in Links )
+            {
+                if ( le.SteamID == commId )
+                    return le.Name;
+            }
+            return null;
         }
 
 

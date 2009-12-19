@@ -4,19 +4,29 @@
 #include <string>
 #include <cstdio>
 #include <iostream>
+#include <iomanip>
 
 #include "Steamworks.h"
 
 int main()
 {
-	bool sessionClosed = true;
-	bool fuckedOff = false;
 
-	CSteamID stanId( (uint64)76561197996282699LL );
+	SetEnvironmentVariable( "SteamAppId", "440" );
 
-	ISteamClient007 *steamClient;
-	if ( !Sys_LoadInterface( "steamclient", STEAMCLIENT_INTERFACE_VERSION_007, NULL, (void**)&steamClient ) )
+	CSteamAPILoader loader;
+
+	CreateInterfaceFn factory = loader.Load();
+	if ( !factory )
 	{
+		std::cout << "unable to load steamclient.\n";
+		getchar();
+		return 0;
+	}
+
+	ISteamClient008 *steamClient = (ISteamClient008 *)factory( STEAMCLIENT_INTERFACE_VERSION_008, NULL );
+	if ( !steamClient )
+	{
+		std::cout << "no interface.\n";
 		getchar();
 		return 0;
 	}
@@ -24,57 +34,45 @@ int main()
 	HSteamPipe pipe = steamClient->CreateSteamPipe();
 	HSteamUser user = steamClient->ConnectToGlobalUser( pipe );
 
-	ISteamFriends001 *steamFriends = (ISteamFriends001 *)steamClient->GetISteamFriends( user, pipe, STEAMFRIENDS_INTERFACE_VERSION_001 );
+	ISteamGameCoordinator001 *coord = (ISteamGameCoordinator001 *)steamClient->GetISteamGenericInterface( user, pipe, STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 );
 
-	CallbackMsg_t callBack;
+	CallbackMsg_t callbackMsg;
 	HSteamCall steamCall;
+
+	coord->SendMessage( 1002, "test", 4 );
 
 	while ( true )
 	{
-		if ( Steam_BGetCallback( pipe, &callBack, &steamCall ) )
+		uint32 msg;
+		if ( coord->IsMessageAvailable( &msg ) )
 		{
-			if ( callBack.m_iCallback == FriendEndChatSession_t::k_iCallback )
+			std::cout << "got message: " << msg << "\n";
+		}
+
+
+
+		if ( Steam_BGetCallback( pipe, &callbackMsg, &steamCall ) )
+		{
+
+
+			int32 callBack = callbackMsg.m_iCallback;
+			ECallbackType type = (ECallbackType)((callBack / 100) * 100);
+
+			std::cout << "[SERVER] Unhandled Callback: " << callBack << ", Type: " << EnumString<ECallbackType>::From(type) << ", Size: " << callbackMsg.m_cubParam << std::endl;
+
+			int32 callSize = callbackMsg.m_cubParam;
+			unsigned char *data = callbackMsg.m_pubParam;
+			std::cout << "  ";
+			for (int i = 0; i < callSize; i++)
 			{
-				FriendEndChatSession_t *chatEnd = (FriendEndChatSession_t *)callBack.m_pubParam;
+				unsigned char value = data[i];
 
-				if ( chatEnd->m_SteamID == stanId )
-				{
-					sessionClosed = true;
-					fuckedOff = false;
-				}
+				std::cout << std::hex << std::setw(2) << std::setfill('0') << std::uppercase << (unsigned int)value;
+				std::cout << " ";
+
 			}
-			if ( callBack.m_iCallback == FriendChatMsg_t::k_iCallback )
-			{
-				FriendChatMsg_t *chatMsg = (FriendChatMsg_t *)callBack.m_pubParam;
 
-				if (chatMsg->m_ulSender != stanId.ConvertToUint64())
-				{
-					Steam_FreeLastCallback( pipe );
-
-					continue;
-				}
-
-				EFriendMsgType msgType;
-				steamFriends->GetChatMessage( chatMsg->m_ulSender, chatMsg->m_iChatID, NULL, 0, &msgType );
-
-				if ( msgType == k_EFriendMsgTypeTyping )
-				{
-					if ( sessionClosed )
-					{
-						steamFriends->SendMsgToFriend( stanId, k_EFriendMsgTypeChat, "what teh fuck do you want" );
-						sessionClosed = false;
-					}
-				}
-
-				if ( msgType == k_EFriendMsgTypeChat )
-				{
-					if ( !fuckedOff )
-					{
-						steamFriends->SendMsgToFriend( stanId, k_EFriendMsgTypeChat, "no." );
-						fuckedOff = true;
-					}
-				}
-			}
+			std::cout << std::resetiosflags(std::ios_base::hex | std::ios_base::uppercase) << std::endl;
 
 			Steam_FreeLastCallback( pipe );
 

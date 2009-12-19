@@ -121,6 +121,7 @@ namespace ChatLog
             {
                 Name = "VoiDeD",
                 SteamID = "STEAM_0:0:123456",
+                LinkID = "VoiDeD",
 
                 Message = message,
 
@@ -215,6 +216,13 @@ namespace ChatLog
         {
             Process.Start( "http://msdn.microsoft.com/en-us/library/az4se3k1(lightweight).aspx" );
             Process.Start( "http://msdn.microsoft.com/en-us/library/8kb3ddd4(lightweight).aspx" );
+        }
+
+        private void editLinkIdsBox_Click( object sender, EventArgs e )
+        {
+            LinkIDForm lif = new LinkIDForm( settings );
+
+            lif.ShowDialog( this );
         }
     }
 }

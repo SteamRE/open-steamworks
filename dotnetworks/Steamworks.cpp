@@ -1,4 +1,3 @@
-//#pragma comment(lib, "delayimp") // for delay loading steam_api
 #pragma comment(lib, "..\\steamclient")
 #pragma comment(lib, "..\\steam_api")
 

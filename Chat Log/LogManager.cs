@@ -17,25 +17,13 @@
 
         public event EventHandler<LogFailureEventArgs> LogFailure;
 
-        public bool Initialized { get; set; }
 
         public LogManager( Settings settings )
         {
             sets = settings;
 
-            Initialized = true;
-
-            try
-            {
-                InitSteamworks();
-            }
-            catch ( Exception ex )
-            {
-                Util.ShowFatalError( null, "Unable to initialize steamworks: " + ex.Message + "\n\nPlease ensure that steamclient.dll, vstdlib.dll, and tier0_s.dll are present in the program's directory." );
-                Initialized = false;
-                return;
-            }
         }
+
 
         protected virtual void OnLogFailure( LogFailureEventArgs e )
         {
@@ -43,41 +31,45 @@
                 LogFailure( this, e );
         }
 
-        private void InitSteamworks()
+        public bool GetSteamClient()
         {
             int error;
-            steamClient = ( SteamClient008 )Steamworks.CreateInterface( SteamClient008.InterfaceVersion, out error );
+            steamClient = (SteamClient008)Steamworks.CreateInterface( SteamClient008.InterfaceVersion, out error );
 
             if ( error > 0 || steamClient == null )
-            {
-                Util.ShowFatalError( null, "Unable get SteamClient interface." );
-                Initialized = false;
-                return;
-            }
+                return false;
 
+            return true;
+        }
+
+        public bool GetPipe()
+        {
             pipe = steamClient.CreateSteamPipe();
+
             if ( pipe == SteamPipeHandle.InvalidHandle )
-            {
-                Util.ShowFatalError( null, "Unable to create steam pipe.\n\nPlease ensure steam is running." );
-                Initialized = false;
-                return;
-            }
+                return false;
 
+            return true;
+        }
+
+        public bool GetUser()
+        {
             user = steamClient.ConnectToGlobalUser( pipe );
-            if ( user == new SteamUserHandle( 0 ) )
-            {
-                Util.ShowFatalError( null, "Unable to connect to global user.\n\nPlease ensure you are logged into steam." );
-                Initialized = false;
-                return;
-            }
 
-            steamFriends = ( SteamFriends001 )steamClient.GetISteamFriends( user, pipe, SteamFriends001.InterfaceVersion );
+            if ( user == SteamUserHandle.InvalidHandle )
+                return false;
+
+            return true;
+        }
+
+        public bool GetInterface()
+        {
+            steamFriends = (SteamFriends001)steamClient.GetISteamFriends( user, pipe, SteamFriends001.InterfaceVersion );
+
             if ( steamFriends == null )
-            {
-                Util.ShowFatalError( null, "Unable to get SteamFriends interface." );
-                Initialized = false;
-                return;
-            }
+                return false;
+
+            return true;
         }
 
         private void AddLog( LogMessage log )
@@ -90,11 +82,18 @@
                 return;
             }
 
+            string linkRep = sets.LookupLinkID( log.Sender.ConvertToUint64() );
+
+            if ( linkRep == null )
+                linkRep = log.SenderName;
+
+
             directoryName = directoryName.FormatWith(
                 new
                 {
                     SteamID = log.Reciever.Render().Replace( ":", "_" ),
                     Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
+                    LinkID = linkRep,
                     Date = Util.StripInvalidChars( DateTime.Now.ToString( "d", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
                     Time = Util.StripInvalidChars( DateTime.Now.ToString( "t", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
                 }
@@ -108,7 +107,7 @@
                 }
                 catch
                 {
-                    OnLogFailure( new LogFailureEventArgs( "Log directory not properly configured" ) );
+                    OnLogFailure( new LogFailureEventArgs( "Log directory configured, but the directory could not be created" ) );
                     return;
                 }
             }
@@ -127,6 +126,7 @@
                 {
                     SteamID = log.Reciever.Render().Replace( ":", "_" ),
                     Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
+                    LinkID = linkRep,
                     Date = Util.StripInvalidChars( DateTime.Now.ToString( "d", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
                     Time = Util.StripInvalidChars( DateTime.Now.ToString( "t", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
                 }
@@ -154,10 +154,12 @@
                 timeStr = "Bad Time Format";
             }
 
+
             var ReplaceTable = new
             {
                 Name = log.SenderName,
                 SteamID = log.Sender.Render(),
+                LinkID = linkRep,
 
                 Message = log.Message,
 
@@ -221,7 +223,7 @@
             {
                 File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine );
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
                 OnLogFailure( new LogFailureEventArgs( ex.Message ) );
                 return;
@@ -241,12 +243,12 @@
 
                     try
                     {
-                        chatMsg = ( FriendChatMsg )callback.CallbackObject;
+                        chatMsg = (FriendChatMsg)callback.CallbackObject;
                     }
                     catch
                     {
                         Steamworks.Steam_FreeLastCallback( pipe );
-                        OnLogFailure( new LogFailureEventArgs( "Recieved callback was not in the correct format, call a programmer!" ) );
+                        OnLogFailure( new LogFailureEventArgs( "Recieved callback was not in the correct format.\nThis indicates a major change in the steam client, please contact voidedweasel@gmail.com." ) );
                         return;
                     }
 
@@ -255,7 +257,7 @@
 
                     SteamID reciever = new SteamID( chatMsg.Reciever );
 
-                    steamFriends.GetChatMessage( reciever, ( int )chatMsg.ChatID, out message, 1024 * 4, out type );
+                    steamFriends.GetChatMessage( reciever, (int)chatMsg.ChatID, out message, 1024 * 4, out type );
 
                     LogMessage log = new LogMessage();
 

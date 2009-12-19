@@ -29,6 +29,7 @@ namespace ChatLog
     using System.IO;
     using System.Threading;
     using System.Windows.Forms;
+    using dotnetworks;
 
     static class Program
     {
@@ -92,15 +93,58 @@ namespace ChatLog
             logManager = new LogManager( sets );
             logManager.LogFailure += new EventHandler<LogFailureEventArgs>( logManager_LogFailure );
 
-            if ( !logManager.Initialized )
+
+            // gasp a label.. what could it be for?
+            SteamInit:
+
+            bool waited = false;
+
+            if ( !logManager.GetSteamClient() )
             {
-                notifyIcon.Visible = false;
+                Util.ShowFatalError( null, "Unable get SteamClient interface.\nThis indicates a major change in the steam client, please contact voidedweasel@gmail.com." );
+                return;
+            }
+
+            if ( !logManager.GetPipe() )
+            {
+                notifyIcon.ShowError( "Steam is currently not running.. Waiting for it to startup." );
+                waited = true;
+
+                while ( !logManager.GetPipe() )
+                {
+                    Application.DoEvents();
+
+                    Thread.Sleep( 10 );
+                }
+            }
+
+            while ( !logManager.GetUser() )
+            {
+                Application.DoEvents();
+
+                Thread.Sleep( 10 );
+            }
+
+            if ( !logManager.GetInterface() )
+            {
+                Util.ShowFatalError( null, "Unable to get SteamFriends interface.\nThis indicates a major change in the steam client, please contact voidedweasel@gmail.com." );
                 return;
             }
 
 
+            if ( waited )
+                notifyIcon.ShowError( "Steam is now running, logging enabled." );
+           
+
             while ( running )
             {
+                // CreateSteamPipe causes deadlocks, not using this for now
+                /*if ( !logManager.GetPipe() )
+                {
+                    Util.ShowError( null, "Steam pipe error!\nAttempting to regain pipe..." );
+                    goto SteamInit; // gasp! a goto!?
+                }*/
+
                 Application.DoEvents();
 
                 logManager.Update();

@@ -19,7 +19,9 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: NeutralResourcesLanguageAttribute( "en-US" )]
 
 [assembly: ComVisible( false )]
-[assembly: CLSCompliant( true )]
+
+// steam ids aren't CLS compliant apparently...
+// [assembly: CLSCompliant( true )]
 
 
 
@@ -33,4 +35,4 @@ using System.Diagnostics.CodeAnalysis;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "0.3.*" )]
+[assembly: AssemblyVersion( "0.4.*" )]
