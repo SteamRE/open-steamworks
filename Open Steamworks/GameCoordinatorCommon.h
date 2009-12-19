@@ -104,10 +104,17 @@ struct GC_ItemsList_Item
 	uint64 itemid;
 	uint32 accountid;
 	uint16 itemdefindex;
-	uint32 flagsa;
-	uint16 flagsb;
-	uint32 paddinga; // 0x01
-	uint16 paddingb;
+	uint8 itemlevel;
+	EItemQuality itemquality;
+	uint32 position;
+	uint32 itemcount;
+	uint16 attribcount;
+};
+
+struct GC_ItemsList_Item_Attrib
+{
+	uint16 attribindex;
+	float value;
 };
 
 struct GC_ItemsUnloaded
