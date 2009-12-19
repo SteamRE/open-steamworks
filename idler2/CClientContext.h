@@ -37,6 +37,8 @@ private:
 	ISteamUser012		*steamuser;
 	ISteamFriends005	*steamfriends;
 	ISteamUserItems003	*useritems;
+	ISteamGameCoordinator001 *coordinator;
+
 
 	CFileLogger *fileLogger;
 

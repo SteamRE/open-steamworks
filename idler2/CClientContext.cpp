@@ -50,6 +50,13 @@ bool CClientContext::Begin()
 		return false;
 	}
 
+	coordinator = (ISteamGameCoordinator001 *)client->GetISteamGenericInterface( user, pipe, STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 );
+	if (!coordinator)
+	{
+		std::cerr << "Unable to get " STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 << std::endl;
+		return false;
+	}
+
 	std::cout << "Complete! pipe: " << pipe << " user: " << user << std::endl;
 
 	clientSocket = networking->CreateConnectionSocket(remoteip, remoteport, 20);
@@ -162,6 +169,31 @@ void CClientContext::HandleCallback(const CallbackMsg_t &callback)
 		case SteamAPICallCompleted_t::k_iCallback:
 		case PersonaStateChange_t::k_iCallback:
 			break;
+
+		case GameCoordinatorMessageAvailable_t::k_iCallback:
+			{
+				GameCoordinatorMessageAvailable_t *gcm = (GameCoordinatorMessageAvailable_t *)callback.m_pubParam;
+				uint32 size = 0;
+
+				if(coordinator->IsMessageAvailable(&size))
+				{
+					unsigned int id = 0;
+					unsigned int real = 0;
+					void *buff = malloc(gcm->messageLength);
+					coordinator->RetrieveMessage(&id, buff, gcm->messageLength, &real);
+					std::cout << "Coordinator message available " << gcm->messageLength << " - " << id << std::endl;
+					//PrintData((unsigned char *)buff, real);
+					//std::cout << std::endl;
+
+					if(id == 24)
+					{
+						DumpItems((unsigned char *)buff);
+					}
+				} else {
+					std::cout << "No message" << std::endl;
+				}
+			}
+		break;
 
 		default:
 			DefaultCallback( callback );
