@@ -66,6 +66,9 @@ uint16 itemcount
 ]
 */
 
+
+#pragma pack(push, 1)
+
 struct GC_ItemMoved
 {
 	enum { k_iMessage = 22 };
@@ -115,5 +118,7 @@ struct GC_ItemsUnloaded
 	char garbage[16]; // FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF
 	CSteamID steamid;
 };
+
+#pragma pack(pop)
 
 #endif // ISTEAMGAMECOORDINATORCOMMON_H
