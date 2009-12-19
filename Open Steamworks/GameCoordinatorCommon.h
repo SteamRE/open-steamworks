@@ -25,7 +25,7 @@
 struct GameCoordinatorMessageAvailable_t
 {
 	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 1 };
-	CGameID game;
+	uint32 messageLength;
 };
 
 //TF2 game coordinator:

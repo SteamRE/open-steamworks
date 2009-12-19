@@ -274,11 +274,12 @@ void CServerContext::HandleCallback( const CallbackMsg_t &callback )
 
 		case GameCoordinatorMessageAvailable_t::k_iCallback:
 			{
+				GameCoordinatorMessageAvailable_t *gcm = (GameCoordinatorMessageAvailable_t *)callback.m_pubParam;
 				uint32 size = 0;
 
 				if(coordinator->IsMessageAvailable(&size))
 				{
-					std::cout << "Coordinator message available " << size << std::endl;
+					std::cout << "Coordinator message available " << size  << " - " << gcm->game << std::endl;
 				} else {
 					std::cout << "No message" << std::endl;
 				}
