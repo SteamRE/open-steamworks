@@ -429,6 +429,7 @@ enum ECallbackType
 	k_iSteamUserItemsCallbacks = 1400,
 	k_iSteamGameServerItemsCallbacks = 1500,
 	k_iClientUtilsCallbacks = 1600,
+	k_iSteamGameCoordinatorCallbacks = 1700,
 };
 
 #include "EnumString.h"
@@ -451,6 +452,7 @@ Begin_Enum_String(ECallbackType)
 	Enum_String( k_iSteamUserItemsCallbacks );
 	Enum_String( k_iSteamGameServerItemsCallbacks );
 	Enum_String( k_iClientUtilsCallbacks );
+	Enum_String( k_iSteamGameCoordinatorCallbacks );
 }
 End_Enum_String;
 

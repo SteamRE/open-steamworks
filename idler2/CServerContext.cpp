@@ -46,6 +46,13 @@ bool CServerContext::Begin()
 		return false;
 	}
 
+	coordinator = (ISteamGameCoordinator001 *)client->GetISteamGenericInterface( user, pipe, STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 );
+	if (!coordinator)
+	{
+		std::cerr << "Unable to get " STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 << std::endl;
+		return false;
+	}
+
 	networking = (ISteamNetworking002 *)client->GetISteamNetworking( user, pipe, STEAMNETWORKING_INTERFACE_VERSION_002 );
 	if (!networking)
 	{
@@ -265,6 +272,18 @@ void CServerContext::HandleCallback( const CallbackMsg_t &callback )
 		case SteamAPICallCompleted_t::k_iCallback:
 			break;
 
+		case GameCoordinatorMessageAvailable_t::k_iCallback:
+			{
+				uint32 size = 0;
+
+				if(coordinator->IsMessageAvailable(&size))
+				{
+					std::cout << "Coordinator message available " << size << std::endl;
+				} else {
+					std::cout << "No message" << std::endl;
+				}
+			}
+			break;
 		default:
 			DefaultCallback( callback );
 			break;
@@ -385,6 +404,8 @@ void CServerContext::HandleNetClientInitConnection( SNetSocket_t clientSocket, N
 }
 void CServerContext::HandleNetClientAuth( SNetSocket_t clientSocket, NetClientAuth_t *pClientAuth )
 {
+	std::cout << "[SERVER] Client Connecting" << std::endl;
+
 	if( clientSocketMap.find( clientSocket ) != clientSocketMap.end() )
 	{
 		return;

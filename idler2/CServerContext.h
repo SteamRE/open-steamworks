@@ -63,6 +63,7 @@ private:
 	ISteamMasterServerUpdater001 *masterserver;
 	ISteamNetworking002			 *networking;
 	ISteamGameServerItems004	 *gameserveritems;
+	ISteamGameCoordinator001	 *coordinator;
 
 	CFileLogger *fileLogger;
 

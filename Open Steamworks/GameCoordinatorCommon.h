@@ -22,6 +22,12 @@
 
 #define STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 "SteamGameCoordinator001"
 
+struct GameCoordinatorMessageAvailable_t
+{
+	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 1 };
+	CGameID game;
+};
+
 //TF2 game coordinator:
 // message index    function
 // 22               item moved

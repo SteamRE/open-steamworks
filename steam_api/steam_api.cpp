@@ -99,7 +99,7 @@ S_API void STEAM_CALL SteamAPI_RunCallbacks()
 	if(steamclient)
 	{
 		//steamclient->RunFrame();
-		//steamutils->RunFrame();
+		steamutils->RunFrame();
 	}
 }
 
