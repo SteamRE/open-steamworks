@@ -28,6 +28,15 @@ struct GameCoordinatorMessageAvailable_t
 	uint32 messageLength;
 };
 
+enum SOMsg
+{
+	k_ESOMsg_Create = 21,
+	k_ESOMsg_Update,
+	k_ESOMsg_Destroy,
+	k_ESOMsg_CacheSubscribed,
+	k_ESOMsg_CacheUnsubscribed,
+};
+
 //TF2 game coordinator:
 // message index    function
 // 22               item moved
@@ -37,9 +46,14 @@ struct GameCoordinatorMessageAvailable_t
 
 #pragma pack(push, 1)
 
-struct GC_ItemMoved
+struct SOMsgCreate_t
 {
-	enum { k_iMessage = 22 };
+	enum { k_iMessage = k_ESOMsg_Create };
+};
+
+struct SOMsgUpdate_t
+{
+	enum { k_iMessage = k_ESOMsg_Update };
 
 	uint16 id; // 0x01
 	char garbage[16]; // FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF
@@ -50,14 +64,14 @@ struct GC_ItemMoved
 	uint16 flagsB;
 };
 
-struct GC_ItemDeleted
+struct SOMsgDeleted_t
 {
-	enum { k_iMessage = 23 };
+	enum { k_iMessage = k_ESOMsg_Destroy };
 };
 
-struct GC_ItemsList
+struct SOMsgCacheSubscribed_t
 {
-	enum { k_iMessage = 24 };
+	enum { k_iMessage = k_ESOMsg_CacheSubscribed };
 
 	uint16 id; // 0x01
 	char garbage[16]; // FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF
@@ -67,7 +81,7 @@ struct GC_ItemsList
 	uint16 itemcount;
 };
 
-struct GC_ItemsList_Item
+struct SOMsgCacheSubscribed_Item_t
 {
 	uint64 itemid;
 	uint32 accountid;
@@ -79,15 +93,15 @@ struct GC_ItemsList_Item
 	uint16 attribcount;
 };
 
-struct GC_ItemsList_Item_Attrib
+struct SOMsgCacheSubscribed_Item_Attrib_t
 {
 	uint16 attribindex;
 	float value;
 };
 
-struct GC_ItemsUnloaded
+struct SOMsgCacheUnsubscribed_t
 {
-	enum { k_iMessage = 25 };
+	enum { k_iMessage = k_ESOMsg_CacheUnsubscribed };
 
 	uint16 id; // 0x01
 	char garbage[16]; // FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF

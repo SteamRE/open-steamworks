@@ -62,22 +62,22 @@ void PrintData(unsigned char *data, int len)
 
 void DumpItems(unsigned char *data)
 {
-	GC_ItemsList *ilist = (GC_ItemsList *)data;
+	SOMsgCacheSubscribed_t *ilist = (SOMsgCacheSubscribed_t *)data;
 	std::cout << ilist->id << " " << ilist->steamid << " " << ilist->itemcount << std::endl;
 
-	void *ptr = ((unsigned char *)(ilist) + sizeof(GC_ItemsList));
+	void *ptr = ((unsigned char *)(ilist) + sizeof(SOMsgCacheSubscribed_t));
 	for(int i = 0; i < ilist->itemcount; i++)
 	{
-		GC_ItemsList_Item *item = (GC_ItemsList_Item *)ptr;
+		SOMsgCacheSubscribed_Item_t *item = (SOMsgCacheSubscribed_Item_t *)ptr;
 		std::cout << "Item " << i << " " << item->accountid << " " << item->itemdefindex << " " << item->itemid << std::endl;
 
-		ptr = ((unsigned char *)ptr + sizeof(GC_ItemsList_Item));
+		ptr = ((unsigned char *)ptr + sizeof(SOMsgCacheSubscribed_Item_t));
 
 		for(int x = 0; x < item->attribcount; x++)
 		{
-			GC_ItemsList_Item_Attrib *itattr = (GC_ItemsList_Item_Attrib *)ptr;
+			SOMsgCacheSubscribed_Item_Attrib_t *itattr = (SOMsgCacheSubscribed_Item_Attrib_t *)ptr;
 			std::cout << "Attrib " << x << " " << itattr->attribindex << " = " << itattr->value << std::endl;
-			ptr = ((unsigned char *)ptr + sizeof(GC_ItemsList_Item_Attrib));
+			ptr = ((unsigned char *)ptr + sizeof(SOMsgCacheSubscribed_Item_Attrib_t));
 		}
 		
 	}
