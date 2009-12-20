@@ -15,8 +15,8 @@
 //=============================================================================
 
 
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#ifndef INTERFACEOSW_H
+#define INTERFACEOSW_H
 
 #include <cstdlib>
 #include <iostream>

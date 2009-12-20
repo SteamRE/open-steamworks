@@ -26,7 +26,7 @@
 class ISteamGameCoordinator001
 {
 public:
-	virtual unknown_ret SendMessage(unsigned int messageId, const void *data, unsigned int cbData) = 0;
+	virtual void SendMessage(unsigned int messageId, const void *data, unsigned int cbData) = 0;
 
 	virtual bool IsMessageAvailable(unsigned int *cbData) = 0;
 

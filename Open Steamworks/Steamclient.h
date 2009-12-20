@@ -257,8 +257,8 @@ S_API const char* STEAM_CALL SteamAPI_GetSteamInstallPath();
 S_API HSteamPipe STEAM_CALL GetHSteamPipe();
 S_API HSteamUser STEAM_CALL GetHSteamUser();
 
-//S_API HSteamPipe STEAM_CALL SteamAPI_GetHSteamPipe(); // this is only in the l4d steam_api.dll
-//S_API HSteamUser STEAM_CALL SteamAPI_GetHSteamUser(); // l4d
+S_API HSteamPipe STEAM_CALL SteamAPI_GetHSteamPipe();
+S_API HSteamUser STEAM_CALL SteamAPI_GetHSteamUser();
 
 S_API bool STEAM_CALL SteamGameServer_InitSafe( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
 S_API bool STEAM_CALL SteamGameServer_Init( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );

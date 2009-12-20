@@ -29,7 +29,7 @@
 #include "Steamclient.h"
 
 // inline interface utils
-#include "Interface.h"
+#include "Interface_OSW.h"
 
 
 

@@ -35,38 +35,6 @@ struct GameCoordinatorMessageAvailable_t
 // 24               items loaded
 // 25               items unloaded
 
-/*
-22
-
-uint16 id // AA
-char garbage[16] // BB
-CSteamID steamid // CC
-uint32 unknown = 0x01 // DD 
-uint64 itemid // EE
-uint32 flagsa // FF
-uint16 flagsb // GG
-
-24
-
-uint16 id
-char garbage[16]
-CSteamID steamid
-uint32 unknown = 0x10001
-uint16 padding
-uint16 itemcount
-
-[
-	uint64 itemid
-	uint32 accountid
-	uint16 itemdefindex
-	uint32 flagsa
-	uint16 flagsb
-	uint32 paddinga = 0x01
-	uint16 paddingb
-]
-*/
-
-
 #pragma pack(push, 1)
 
 struct GC_ItemMoved
