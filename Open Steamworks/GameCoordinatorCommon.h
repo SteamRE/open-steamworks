@@ -20,6 +20,8 @@
 #pragma once
 #endif
 
+#include "EnumString.h"
+
 #define STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 "SteamGameCoordinator001"
 
 struct GameCoordinatorMessageAvailable_t
@@ -28,14 +30,50 @@ struct GameCoordinatorMessageAvailable_t
 	uint32 messageLength;
 };
 
-enum SOMsg
+enum EGCMessages
 {
 	k_ESOMsg_Create = 21,
 	k_ESOMsg_Update,
 	k_ESOMsg_Destroy,
 	k_ESOMsg_CacheSubscribed,
 	k_ESOMsg_CacheUnsubscribed,
+
+	k_EGCMsgStartPlaying = 53,
+	k_EGCMsgStopPlaying,
+	k_EGCMsgStartGameserver,
+	k_EGCMsgStopGameserver,
+
+	k_EMsgGCSetItemPosition = 1001,
+	k_EMsgGCCraft,
+	k_EMsgGCCraftResponse,
+	k_EMsgGCDelete,
+
+	k_EMsgGCDev_NewItemRequest = 2001,
+	k_EMsgGCDev_NewItemRequestResponse
 };
+
+Begin_Enum_String(EGCMessages)
+{
+	Enum_String( k_ESOMsg_Create );
+	Enum_String( k_ESOMsg_Update );
+	Enum_String( k_ESOMsg_Destroy );
+	Enum_String( k_ESOMsg_CacheSubscribed );
+	Enum_String( k_ESOMsg_CacheUnsubscribed );
+
+	Enum_String( k_EGCMsgStartPlaying );
+	Enum_String( k_EGCMsgStopPlaying );
+	Enum_String( k_EGCMsgStartGameserver );
+	Enum_String( k_EGCMsgStopGameserver );
+
+	Enum_String( k_EMsgGCSetItemPosition );
+	Enum_String( k_EMsgGCCraft );
+	Enum_String( k_EMsgGCCraftResponse );
+	Enum_String( k_EMsgGCDelete );
+
+	Enum_String( k_EMsgGCDev_NewItemRequest );
+	Enum_String( k_EMsgGCDev_NewItemRequestResponse );
+}
+End_Enum_String;
 
 //TF2 game coordinator:
 // message index    function
