@@ -26,12 +26,11 @@
 class ISteamGameCoordinator001
 {
 public:
-	virtual void SendMessage(unsigned int messageId, const void *data, unsigned int cbData) = 0;
+	virtual EItemRequestResult SendMessage(unsigned int messageId, const void *data, unsigned int cbData) = 0;
 
 	virtual bool IsMessageAvailable(unsigned int *cbData) = 0;
 
-	//RetrieveMessage returns not 0 on error
-	virtual int RetrieveMessage(unsigned int *messageId, void *data, unsigned int cbData, unsigned int *cbDataActual) = 0;
+	virtual EItemRequestResult RetrieveMessage(unsigned int *messageId, void *data, unsigned int cbData, unsigned int *cbDataActual) = 0;
 };
 
 #endif // ISTEAMGAMECOORDINATOR001_H
