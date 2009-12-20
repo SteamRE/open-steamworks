@@ -210,6 +210,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\EGameCoordinatorResult.h"
+						>
+					</File>
+					<File
 						RelativePath=".\EItemCriteriaOperator.h"
 						>
 					</File>

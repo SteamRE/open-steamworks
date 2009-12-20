@@ -14,23 +14,25 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMGAMECOORDINATOR001_H
-#define ISTEAMGAMECOORDINATOR001_H
+#ifndef EGAMECOORDINATORRESULT_H
+#define EGAMECOORDINATORRESULT_H
 #ifdef _WIN32
 #pragma once
 #endif
 
-#include "SteamTypes.h"
-#include "GameCoordinatorCommon.h"
+#include "EnumString.h"
 
-class ISteamGameCoordinator001
+enum EGameCoordinatorResult
 {
-public:
-	virtual EGameCoordinatorResult SendMessage(unsigned int messageId, const void *data, unsigned int cbData) = 0;
-
-	virtual bool IsMessageAvailable(unsigned int *cbData) = 0;
-
-	virtual EGameCoordinatorResult RetrieveMessage(unsigned int *messageId, void *data, unsigned int cbData, unsigned int *cbDataActual) = 0;
+	k_EGameCoordinatorResultOK,
+	k_EGameCoordinatorResultDenied, // probably named this
 };
 
-#endif // ISTEAMGAMECOORDINATOR001_H
+Begin_Enum_String( EGameCoordinatorResult )
+{
+	Enum_String( k_EGameCoordinatorResultOK );
+	Enum_String( k_EGameCoordinatorResultDenied );
+}
+End_Enum_String;
+
+#endif // EGAMECOORDINATORRESULT_H
