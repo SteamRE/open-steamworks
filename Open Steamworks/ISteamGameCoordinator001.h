@@ -30,7 +30,8 @@ public:
 
 	virtual bool IsMessageAvailable(unsigned int *cbData) = 0;
 
-	virtual void RetrieveMessage(unsigned int *messageId, void *data, unsigned int cbData, unsigned int *cbDataActual) = 0;
+	//RetrieveMessage returns not 0 on error
+	virtual int RetrieveMessage(unsigned int *messageId, void *data, unsigned int cbData, unsigned int *cbDataActual) = 0;
 };
 
 #endif // ISTEAMGAMECOORDINATOR001_H
