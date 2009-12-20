@@ -23,10 +23,8 @@
 #include "EnumString.h"
 
 
-enum EItemQuality : int8
+enum EItemQuality WINSIZE(uint8)
 {
-	k_EItemQuality_Invalid = -2,
-	k_EItemQuality_Any,
 	k_EItemQuality_Normal, 
 	k_EItemQuality_Common,
 	k_EItemQuality_Rare,
@@ -36,12 +34,12 @@ enum EItemQuality : int8
 	k_EItemQuality_Unk6,
 	k_EItemQuality_Community,
 	k_EItemQuality_Valve,
+
+	k_EItemQuality_Max = 0xFF,
 };
 
 Begin_Enum_String(EItemQuality)
 {
-	Enum_String( k_EItemQuality_Invalid );
-	Enum_String( k_EItemQuality_Any );
 	Enum_String( k_EItemQuality_Normal ); 
 	Enum_String( k_EItemQuality_Common );
 	Enum_String( k_EItemQuality_Rare );

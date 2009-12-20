@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-m32 -c -Wall -I"../Open Steamworks" -I"../boost_1_40_0" -Wfatal-errors
+CFLAGS=-m32 -c -Wall -I"../Open Steamworks" -I"../boost_1_40_0" -fshort-enums -Wfatal-errors
 LDFLAGS=-m32 -lstdc++ -Wl,-R./ -L./ steamclient_linux.so
 SOURCES=main.cpp util.cpp CItemDB.cpp FileLogger.cpp CUser.cpp CClientContext.cpp CServerContext.cpp
 OBJECTS=$(SOURCES:.cpp=.o)

@@ -313,7 +313,7 @@ public:
 		{
 		case k_EAccountTypeInvalid:
 		case k_EAccountTypeIndividual:
-			sprintf_s(szSteamID, sizeof(szSteamID), "STEAM_0:%u:%lu", (m_steamid.m_comp.m_unAccountID % 2) ? 1 : 0, (int32)m_steamid.m_comp.m_unAccountID/2);
+			sprintf_s(szSteamID, sizeof(szSteamID), "STEAM_0:%u:%u", (m_steamid.m_comp.m_unAccountID % 2) ? 1 : 0, (int32)m_steamid.m_comp.m_unAccountID/2);
 			break;
 		default:
 			sprintf_s(szSteamID, sizeof(szSteamID), "%llu", ConvertToUint64());

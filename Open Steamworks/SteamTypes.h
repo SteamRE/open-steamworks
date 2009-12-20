@@ -35,11 +35,13 @@
 	#define S_API extern "C" __declspec( dllimport ) 
 	#endif // STEAM_API_EXPORTS
 
+	#define WINSIZE(X) : X
 #else
 
 	#include <dlfcn.h> // dlopen,dlclose, et al
 	#include <unistd.h>
 	#include <arpa/inet.h>
+	#include <string.h>
 
 	#define HMODULE void *
 	#define GetProcAddress dlsym
@@ -48,6 +50,8 @@
 	#define __cdecl __attribute__((__cdecl__))
 
 	typedef unsigned char byte;
+
+	#define WINSIZE(X)
 #endif
 
 // this is an MSVC project.. but for the same of supporting other compilers we have to jump through hoops

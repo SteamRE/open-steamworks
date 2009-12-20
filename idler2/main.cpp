@@ -95,20 +95,23 @@ bool StartServer(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
+	assert(sizeof(EItemQuality) <= sizeof(uint8));
+
 #ifdef _MSC_VER
 	SetUnhandledExceptionFilter(mdmpfilter);
 #endif
 
 	using namespace std;
 
+#ifdef _WIN32
 	SetEnvironmentVariable("SteamAppId", "440");
-	/*
+#else
 	ofstream appIdFile;
 	appIdFile.open( "steam_appid.txt" );
 	appIdFile << APPID;
 	appIdFile.flush();
 	appIdFile.close();
-*/
+#endif
 
 	CSteamAPILoader apiloader;
 
