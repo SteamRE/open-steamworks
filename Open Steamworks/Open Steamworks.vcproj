@@ -210,7 +210,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\EGameCoordinatorResult.h"
+						RelativePath=".\EGCMsgResponse.h"
 						>
 					</File>
 					<File

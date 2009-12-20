@@ -26,11 +26,11 @@
 class ISteamGameCoordinator001
 {
 public:
-	virtual EGameCoordinatorResult SendMessage(unsigned int messageId, const void *data, unsigned int cbData) = 0;
+	virtual EGCMsgResponse SendMessage(unsigned int messageId, const void *data, unsigned int cbData) = 0;
 
 	virtual bool IsMessageAvailable(unsigned int *cbData) = 0;
 
-	virtual EGameCoordinatorResult RetrieveMessage(unsigned int *messageId, void *data, unsigned int cbData, unsigned int *cbDataActual) = 0;
+	virtual EGCMsgResponse RetrieveMessage(unsigned int *messageId, void *data, unsigned int cbData, unsigned int *cbDataActual) = 0;
 };
 
 #endif // ISTEAMGAMECOORDINATOR001_H

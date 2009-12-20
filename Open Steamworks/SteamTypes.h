@@ -162,7 +162,7 @@ typedef unsigned int uintp;
 #include "EChatRoomVoiceStatus.h"
 #include "EClanRelationship.h"
 #include "EClanRank.h"
-#include "EGameCoordinatorResult.h"
+#include "EGCMsgResponse.h"
 
 // steam
 #include "EDetailedPlatformErrorType.h"

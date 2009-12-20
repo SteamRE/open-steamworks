@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 
-enum EItemQuality : int8
+enum EItemQuality : uint8
 {
 	k_EItemQuality_Invalid = -2,
 	k_EItemQuality_Any,
