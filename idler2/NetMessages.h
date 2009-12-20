@@ -1,6 +1,8 @@
 #ifndef NETMESSAGES_H
 #define NETMESSAGES_H
 
+#pragma pack(push, 1)
+
 enum ENetworkMessage
 {
 	// server
@@ -23,7 +25,7 @@ enum ENetworkMessage
 
 };
 
-enum EConnectionDenyReason
+enum EConnectionDenyReason WINSIZE(uint8)
 {
 	EDenyServerFull,
 	EDenyAuthFailed,
@@ -34,7 +36,6 @@ enum EConnectionDenyReason
 
 	eBYTE = 0xFF,
 };
-
 
 struct NetMessageBase_t
 {
@@ -51,7 +52,7 @@ struct NetServerConnectionDenied_t : NetMessageBase_t
 	char optionalMessage[ MESSAGE_SIZE ];
 };
 
-#pragma pack(push, 1)
+
 struct NetServerSendInfo_t : NetMessageBase_t
 {
 	NetServerSendInfo_t() : NetMessageBase_t( eServerSendInfo) {}
@@ -59,7 +60,6 @@ struct NetServerSendInfo_t : NetMessageBase_t
 	CSteamID serverSteamID;
 	bool vacSecure;
 };
-#pragma pack(pop)
 
 struct NetServerClientAuthed_t : NetMessageBase_t
 {
@@ -119,5 +119,7 @@ struct NetClientItemGranted_t : NetMessageBase_t
 
 	uint32 itemid;
 };
+
+#pragma pack(pop)
 
 #endif // NETMESSAGES_H

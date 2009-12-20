@@ -325,7 +325,7 @@ void CClientContext::HandleNetConnectionDenied( NetServerConnectionDenied_t *pCo
 		break;
 
 	default:
-		std::cout << "[CLIENT] Connection denied to server, but an invalid reason (" << pConnectionDenied->denyReason << ") was supplied." << std::endl;
+		std::cout << "[CLIENT] Connection denied to server, but an invalid reason (" << (uint8)pConnectionDenied->denyReason << ") was supplied." << std::endl;
 		std::cout << "  Your client is out of date." << std::endl;
 		break;
 

@@ -449,6 +449,7 @@ void CServerContext::HandleNetClientAuth( SNetSocket_t clientSocket, NetClientAu
 	{
 		NetServerConnectionDenied_t denyMsg;
 		denyMsg.denyReason = denyReason;
+		memset(denyMsg.optionalMessage, 0, sizeof(denyMsg.optionalMessage));
 
 		networking->SendDataOnSocket( clientSocket, (void *)&denyMsg, sizeof( denyMsg ), true );
 
