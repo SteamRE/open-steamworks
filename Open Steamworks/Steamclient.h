@@ -143,6 +143,7 @@
 // game stats
 #include "ISteamGameStats001.h"
 
+#ifndef NO_ICLIENT
 // client interfaces
 #include "IClientEngine.h"
 
@@ -159,6 +160,7 @@
 #include "IClientUser.h"
 #include "IClientUtils.h"
 #include "IP2PController.h"
+#endif // NO_ICLIENT
 
 // callback
 #include "CCallback.h"
