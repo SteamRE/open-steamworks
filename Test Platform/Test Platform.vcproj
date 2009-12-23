@@ -59,7 +59,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../steamclient.lib"
+				DelayLoadDLLs="steamclient.dll"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -131,7 +131,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../steamclient.lib"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
