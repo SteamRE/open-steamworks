@@ -168,6 +168,7 @@ typedef unsigned int uintp;
 #include "EClanRank.h"
 #include "EGCMsgResponse.h"
 
+#ifndef NO_STEAM
 // steam
 #include "EDetailedPlatformErrorType.h"
 #include "ESteamError.h"
@@ -181,6 +182,7 @@ typedef unsigned int uintp;
 #include "ESteamAppUpdateStatsQueryType.h"
 #include "ESteamSubscriptionStatus.h"
 #include "ESteamServerType.h"
+#endif // NO_STEAM
 
 
 typedef void* (*CreateInterfaceFn)( const char *pName, int *pReturnCode );
@@ -188,8 +190,11 @@ typedef void* (*FactoryFn)( const char *pName );
 typedef void* (*InstantiateInterfaceFn)();
 
 typedef void  (*SteamAPIWarningMessageHook_t)(int, const char *);
-typedef void (*SteamNotificationCallback_t)(ESteamNotify eEvent, unsigned int nData);
 typedef void (*KeyValueIteratorCallback_t)(const char*, const char*, void*);
+
+#ifndef NO_STEAM
+typedef void (*SteamNotificationCallback_t)(ESteamNotify eEvent, unsigned int nData);
+#endif // NO_STEAM
 
 typedef bool (*SteamBGetCallbackFn)( int, void *pCallbackMsg, int32 *phSteamCall );
 typedef void (*SteamFreeLastCallbackFn)( int );
@@ -461,6 +466,7 @@ Begin_Enum_String(ECallbackType)
 }
 End_Enum_String;
 
+#ifndef NO_STEAM
 // steam structs, etc
 #include "TSteamElemInfo.h"
 #include "TSteamError.h"
@@ -486,6 +492,7 @@ End_Enum_String;
 #include "TSteamSubscriptionDiscount.h"
 #include "TSteamDiscountQualifier.h"
 #include "SteamSalt.h"
+#endif // NO_STEAM
 
 
 // steamclient/api
