@@ -40,7 +40,6 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/platform:x86"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\Open Steamworks\"
 				MinimalRebuild="false"
@@ -115,7 +114,6 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/platform:x86"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="..\Open Steamworks\"
