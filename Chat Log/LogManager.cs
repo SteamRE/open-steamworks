@@ -87,17 +87,30 @@
             if ( linkRep == null )
                 linkRep = log.SenderName;
 
+            string fileLink = sets.LookupLinkID( log.Reciever.ConvertToUint64() );
 
-            directoryName = directoryName.FormatWith(
-                new
-                {
-                    SteamID = log.Reciever.Render().Replace( ":", "_" ),
-                    Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
-                    LinkID = linkRep,
-                    Date = Util.StripInvalidChars( DateTime.Now.ToString( "d", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
-                    Time = Util.StripInvalidChars( DateTime.Now.ToString( "t", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
-                }
-            );
+            if ( fileLink == null )
+                fileLink = log.RecieverName;
+
+
+            try
+            {
+                directoryName = directoryName.FormatWith(
+                    new
+                    {
+                        SteamID = log.Reciever.Render().Replace( ":", "_" ),
+                        Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
+                        LinkID = Util.StripInvalidChars( fileLink, sets.InvalidReplacement ),
+                        Date = Util.StripInvalidChars( DateTime.Now.ToString( "d", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                        Time = Util.StripInvalidChars( DateTime.Now.ToString( "t", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                    }
+                );
+            }
+            catch
+            {
+                OnLogFailure( new LogFailureEventArgs( "Directory name format is invalid" ) );
+                return;
+            }
 
             if ( !Directory.Exists( directoryName ) )
             {
@@ -121,16 +134,24 @@
                 return;
             }
 
-            fileName = fileName.FormatWith(
-                new
-                {
-                    SteamID = log.Reciever.Render().Replace( ":", "_" ),
-                    Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
-                    LinkID = linkRep,
-                    Date = Util.StripInvalidChars( DateTime.Now.ToString( "d", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
-                    Time = Util.StripInvalidChars( DateTime.Now.ToString( "t", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
-                }
-            );
+            try
+            {
+                fileName = fileName.FormatWith(
+                    new
+                    {
+                        SteamID = log.Reciever.Render().Replace( ":", "_" ),
+                        Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
+                        LinkID = Util.StripInvalidChars( fileLink, sets.InvalidReplacement ),
+                        Date = Util.StripInvalidChars( DateTime.Now.ToString( "d", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                        Time = Util.StripInvalidChars( DateTime.Now.ToString( "t", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                    }
+                );
+            }
+            catch
+            {
+                OnLogFailure( new LogFailureEventArgs( "Filename format is invalid" ) );
+                return;
+            }
 
             string logMessage = string.Empty;
 
@@ -141,7 +162,10 @@
             }
             catch
             {
-                dateStr = "Bad Date Format";
+                OnLogFailure( new LogFailureEventArgs( "Bad date format" ) );
+                return;
+
+                //dateStr = "Bad Date Format";
             }
 
             string timeStr = string.Empty;
@@ -151,7 +175,10 @@
             }
             catch
             {
-                timeStr = "Bad Time Format";
+                OnLogFailure( new LogFailureEventArgs( "Bad time format" ) );
+                return;
+
+                //timeStr = "Bad Time Format";
             }
 
 
