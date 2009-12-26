@@ -32,18 +32,7 @@ public:
 	virtual bool SetPassword( const char *szPassword ) = 0;
 	virtual bool SetAccountCreationTime( RTime32 creationTime ) = 0;
 
-	// ugly define hack due to winbase.h renaming this function
-	#ifdef _WIN32
-		#undef CreateProcess
-	#endif
 	virtual unknown_ret CreateProcess( void *lpVACBlob, uint32 cbBlobSize, char const *, char *, uint32 , void *, char *, uint32 ) = 0;
-	#ifdef _WIN32
-		#ifdef UNICODE
-			#define CreateProcess CreateProcessW
-		#else
-			#define CreateProcess CreateProcessA
-		#endif
-	#endif
 
 	virtual EUniverse GetConnectedUniverse() = 0;
 	virtual const char *GetIPCountry() = 0;

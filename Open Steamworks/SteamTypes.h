@@ -28,6 +28,7 @@
 	#include <windows.h>
 
 	#undef SendMessage // for ISteamGameCoordinator001 to work right..
+	#undef CreateProcess // for ISteam2Bridge
 
 	#if defined( STEAM_API_EXPORTS )
 	#define S_API extern "C" __declspec( dllexport ) 
