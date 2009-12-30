@@ -11,29 +11,27 @@ STEAMUTILS_ICLASS *steamutils = NULL;
 HSteamPipe pipe = 0;
 HSteamUser user = 0;
 
-HSteamPipe SteamAPI_InitInternal(STEAMCLIENT_ICLASS **steamclient)
+bool SteamAPI_InitInternal(STEAMCLIENT_ICLASS **steamclient)
 {
 	clientFactory = loader.Load();
 
 	if(clientFactory == NULL)
-		return 0;
+		return false;
 
 	*steamclient = (STEAMCLIENT_ICLASS *)clientFactory(STEAMCLIENT_IFACE, NULL);
 
-	if((*steamclient) == NULL)
-		return 0;
+	if(*steamclient == NULL)
+		return false;
 
-	HSteamPipe ipipe = (*steamclient)->CreateSteamPipe();
-
-	if(ipipe == NULL)
-		return 0;
-
-	return ipipe;
+	return true;
 }
 
 bool SteamAPI_InitInternalUser(bool safe)
 {
-	pipe = SteamAPI_InitInternal(&steamclient);
+	if(!SteamAPI_InitInternal(&steamclient))
+		return false;
+
+	pipe = steamclient->CreateSteamPipe();
 
 	if(pipe == NULL)
 		return false;
@@ -96,11 +94,8 @@ S_API void STEAM_CALL SteamAPI_RunCallbacks()
 	if(pipe)
 		Steam_RunCallbacks(pipe, false);
 
-	if(steamclient)
-	{
-		//steamclient->RunFrame();
+	if(steamutils)
 		steamutils->RunFrame();
-	}
 }
 
 

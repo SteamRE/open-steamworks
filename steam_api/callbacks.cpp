@@ -57,7 +57,7 @@ void CallbackManager::RunCallbacks(HSteamPipe pipe, bool bGameServer)
 	CallbackMsg_t callbackMsg;
 	HSteamCall steamCall;
 
-	if( provider.Steam_BGetCallback(pipe, &callbackMsg, &steamCall) )
+	while( provider.Steam_BGetCallback(pipe, &callbackMsg, &steamCall) )
 	{
 		currentUser = callbackMsg.m_hSteamUser;
 

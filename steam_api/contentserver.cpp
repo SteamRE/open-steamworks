@@ -12,9 +12,7 @@ STEAMCONTENTSERVER_ICLASS *contentserver = NULL;
 
 S_API bool STEAM_CALL SteamContentServer_Init(uint32 unIP, uint16 usPort)
 {
-	contentserver_pipe = SteamAPI_InitInternal(&contentserver_steamclient);
-
-	if(!contentserver_pipe)
+	if(!SteamAPI_InitInternal(&contentserver_steamclient))
 		return false;
 
 	contentserver_steamclient->SetLocalIPBinding(unIP, usPort);

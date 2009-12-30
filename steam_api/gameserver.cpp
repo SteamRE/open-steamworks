@@ -11,12 +11,14 @@ HSteamPipe gameserver_pipe = 0;
 STEAMGAMESERVER_ICLASS *gameserver = NULL;
 STEAMMASTERSERVERUPDATER_ICLASS *masterserver = NULL;
 
+ISteamClient *g_pSteamClientGameServer = NULL;
+
 bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString )
 {
-	gameserver_pipe = SteamAPI_InitInternal(&gameserver_steamclient);
-
-	if(!gameserver_pipe)
+	if(!SteamAPI_InitInternal(&gameserver_steamclient))
 		return false;
+
+	g_pSteamClientGameServer = (ISteamClient *)gameserver_steamclient; // todo: make this "safe"
 
 	gameserver_steamclient->SetLocalIPBinding(unIP, usPort);
 	gameserver_user = gameserver_steamclient->CreateLocalUser(&gameserver_pipe, k_EAccountTypeGameServer);
@@ -34,29 +36,17 @@ bool SteamGameServer_InitInternal(bool safe, uint32 unIP, uint16 usPort, uint16 
 	if(!LoadInterfaces_GameServer(safe))
 		return false;
 
-	int flags = k_unServerFlagDedicated | k_unServerFlagActive;
-	bool lan = false;
-
-	switch(eServerMode)
-	{
-	case eServerModeNoAuthentication:
-		{
-			lan = true;
-			flags = flags | k_unServerFlagPrivate;
-		}
-		break;
-	case eServerModeAuthenticationAndSecure:
-		{
-			flags = flags | k_unServerFlagSecure;
-		}
-		break;
-	}
-
-	if(!gameserver->SetServerType( flags, unIP, usGamePort, usSpectatorPort, usQueryPort, pchGameDir, pchVersionString, lan))
-		return false;
-
-	//gameserver->UpdateServerStatus(0, 0, 0, "SomeMap", "qq", "qq");
 	gameserver->LogOn();
+
+	int flags = 0;
+
+	if(eServerMode == eServerModeAuthenticationAndSecure)
+		flags = k_unServerFlagSecure;
+	else if(eServerMode == eServerModeNoAuthentication)
+		flags = k_unServerFlagPrivate;
+
+	if(!gameserver->SetServerType( flags, unIP, usGamePort, usSpectatorPort, usQueryPort, pchGameDir, pchVersionString, eServerMode == eServerModeNoAuthentication) )
+		return false;
 
 	Steam_RegisterInterfaceFuncs(loader.GetSteamModule());
 
@@ -111,4 +101,14 @@ S_API uint64 STEAM_CALL SteamGameServer_GetSteamID()
 S_API int32 STEAM_CALL SteamGameServer_GetIPCCallCount()
 {
 	return gameserver_steamclient->GetIPCCallCount();
+}
+
+S_API HSteamPipe STEAM_CALL SteamGameServer_GetHSteamPipe()
+{
+	return gameserver_pipe;
+}
+
+S_API HSteamUser STEAM_CALL SteamGameServer_GetHSteamUser()
+{
+	return gameserver_user;
 }
