@@ -301,7 +301,7 @@ private:
 		if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "Software\\Valve\\Steam", 0, KEY_QUERY_VALUE, &hRegKey) == ERROR_SUCCESS)
 		{
 			DWORD dwLength = sizeof(m_pchSteamDir);
-			DWORD rc = RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)m_pchSteamDir, &dwLength);
+			RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)m_pchSteamDir, &dwLength);
 			RegCloseKey(hRegKey);
 
 			strncpy(m_pchSteamDirBin, m_pchSteamDir, sizeof(m_pchSteamDir) - 4);

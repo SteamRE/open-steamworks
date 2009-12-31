@@ -27,7 +27,9 @@
 	#include "SteamAPI.h"
 #endif
 
-// steamclient.dll / steam_api.dll
-#include "SteamclientAPI.h"
+#ifndef NO_STEAMCLIENT
+	// steamclient.dll / steam_api.dll
+	#include "SteamclientAPI.h"
+#endif
 
 #endif // STEAMWORKS_H
