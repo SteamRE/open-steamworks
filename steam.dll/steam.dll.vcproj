@@ -39,14 +39,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP8"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\open steamworks\"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="true"
-				WarningLevel="3"
+				DisableLanguageExtensions="false"
+				WarningLevel="4"
 				DebugInformationFormat="4"
 			/>
 			<Tool

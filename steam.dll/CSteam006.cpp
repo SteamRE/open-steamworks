@@ -289,6 +289,8 @@ unsigned int CSteam006::WriteFile(const void *pBuf, unsigned int uSize, unsigned
 		"\t\tpError = %s\n\n",
 		callerModule.szModule, pBuf, uSize, uCount, hFile, ( iter == fileMap.end() ? "UNKNOWN FILE HANDLE" : iter->second ), returnObj, FormatTSteamError( pError )
 	);
+
+	return returnObj;
 }
 int CSteam006::Getc(SteamHandle_t hFile, TSteamError* pError)
 {
@@ -1122,7 +1124,7 @@ SteamCallHandle_t CSteam006::GetCachePercentFragmentation(unsigned int uAppId, u
 	BOOKKEEP_PROXY();
 	LOG_FN();
 
-	base->GetCachePercentFragmentation( uAppId, puPercentFragmented, pError );
+	return base->GetCachePercentFragmentation( uAppId, puPercentFragmented, pError );
 }
 SteamCallHandle_t CSteam006::DefragCaches(unsigned int uAppId, TSteamError* pError)
 {

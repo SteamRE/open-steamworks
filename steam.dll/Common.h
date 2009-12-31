@@ -9,6 +9,7 @@
 
 #define STEAM_API_EXPORTS
 //#define NO_STRING_T
+#define NO_STEAMCLIENT
 #include "steamworks.h"
 
 #include "detourxs.h"
