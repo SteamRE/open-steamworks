@@ -119,7 +119,7 @@ ADV_PROXY( int, SteamGetAppStats, ( TSteamAppStats *pAppStats, TSteamError *pErr
 	);
 END_PROXY()
 
-ADV_PROXY( int, SteamGetAppUpdateStats, ( unsigned int uAppId, TSteamUpdateStats *pUpdateStats, TSteamError *pError ), ( uAppId, pUpdateStats, pError ) )
+ADV_PROXY( int, SteamGetAppUpdateStats, ( unsigned int uAppId, int b, int c, TSteamError *pError ), ( uAppId, b, c, pError ) )
 	Log(
 		"SteamGetAppUpdateStats( uAppId = %u ) = %d\n",
 		callerModule.szModule, uAppId, returnObj
