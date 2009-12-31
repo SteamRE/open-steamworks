@@ -37,9 +37,10 @@ typedef HandleMap::const_iterator HandleIterator;
 	HandleIterator iter = map.find( handle ); \
 	if ( iter != map.end() ) \
 	{ \
-		free( iter->second ); \
 		map.erase( iter ); \
 	}
+
+//		free( iter->second ); \
 
 
 extern HandleMap logMap; // defined in Logging.cpp

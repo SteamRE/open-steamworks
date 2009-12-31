@@ -119,7 +119,12 @@ ADV_PROXY( int, SteamGetAppStats, ( TSteamAppStats *pAppStats, TSteamError *pErr
 	);
 END_PROXY()
 
-BASIC_PROXY( int, SteamGetAppUpdateStats, ( unsigned int uAppId, TSteamUpdateStats *pUpdateStats, TSteamError *pError ), ( uAppId, pUpdateStats, pError ) );
+ADV_PROXY( int, SteamGetAppUpdateStats, ( unsigned int uAppId, TSteamUpdateStats *pUpdateStats, TSteamError *pError ), ( uAppId, pUpdateStats, pError ) )
+	Log(
+		"SteamGetAppUpdateStats( uAppId = %u ) = %d\n",
+		callerModule.szModule, uAppId, returnObj
+	);
+END_PROXY()
 
 ADV_PROXY( int, SteamGetAppUserDefinedInfo, ( unsigned int uAppId, const char *cszPropertyName, char *szPropertyValue, unsigned int uBufSize, unsigned int *puPropertyValueLength, TSteamError *pError ), ( uAppId, cszPropertyName, szPropertyValue, uBufSize, puPropertyValueLength, pError ) )
 #ifdef LOGGGING_VERBOSE

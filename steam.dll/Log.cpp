@@ -69,8 +69,8 @@ char *FormatTSteamApp( TSteamApp *app )
 {
 	return Formatter<TSteamApp>::From(
 		app,
-		"TSteamApp [ szName = \"%s\", szLatestVer = \"%s\", szCurrentVer = \"%s\", szInstallDir = \"%s\", uId = %u, uNumLaunchOptions = %u, uNumIcons = %u, uNumDependencies = %u, szUnkString = \"%s\" ]",
-		app->szName, app->szLatestVersionLabel, app->szCurrentVersionLabel, app->szInstallDirName, app->uId, app->uNumLaunchOptions, app->uNumIcons, app->uNumDependencies, app->szUnkString
+		"TSteamApp [ szName = \"%s\", szLatestVer = \"%s\", szCurrentVer = \"%s\", szInstallDir = \"%s\", uId = %u, uNumLaunchOptions = %u, uNumIcons = %u, uNumDependencies = %u ]",
+		app->szName, app->szLatestVersionLabel, app->szCurrentVersionLabel, app->szInstallDirName, app->uId, app->uNumLaunchOptions, app->uNumIcons, app->uNumDependencies
 	);
 }
 
