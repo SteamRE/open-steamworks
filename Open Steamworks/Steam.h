@@ -163,7 +163,7 @@ S_API int STEAM_CALL SteamGetAppCacheDir( unsigned int uAppId, char *szPath, TSt
 S_API int STEAM_CALL SteamGetAppIds( unsigned int *puIds, unsigned int uMaxIds, TSteamError *pError );
 S_API int STEAM_CALL SteamGetAppPurchaseCountry( unsigned int uAppID, char* szCountryCode, unsigned int uBufferLength, unsigned int* pPurchaseTime, TSteamError* pError );
 S_API int STEAM_CALL SteamGetAppStats( TSteamAppStats *pAppStats, TSteamError *pError );
-S_API int STEAM_CALL SteamGetAppUpdateStats( unsigned int uAppId, TSteamUpdateStats *pUpdateStats, TSteamError *pError );
+S_API int STEAM_CALL SteamGetAppUpdateStats( unsigned int uAppId, int b, int c, TSteamError *pError );
 S_API int STEAM_CALL SteamGetAppUserDefinedInfo( unsigned int uAppId, const char *cszPropertyName, char *szPropertyValue, unsigned int uBufSize, unsigned int *puPropertyValueLength, TSteamError *pError );
 S_API int STEAM_CALL SteamGetAppUserDefinedRecord(unsigned int uAppId, KeyValueIteratorCallback_t AddEntryToKeyValueFunc, void* pvCKeyValue, TSteamError *pError);
 
