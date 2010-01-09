@@ -22,14 +22,14 @@
 
 #include "EnumString.h"
 
-enum ELobbyComparison
+typedef enum ELobbyComparison
 {
 	k_ELobbyComparisonEqualToOrLessThan = -2,
 	k_ELobbyComparisonLessThan = -1,
 	k_ELobbyComparisonEqual = 0,
 	k_ELobbyComparisonGreaterThan = 1,
 	k_ELobbyComparisonEqualToOrGreaterThan = 2,
-};
+} ELobbyComparison;
 
 Begin_Enum_String(ELobbyComparison)
 {
@@ -39,6 +39,6 @@ Begin_Enum_String(ELobbyComparison)
 	Enum_String(k_ELobbyComparisonGreaterThan);
 	Enum_String(k_ELobbyComparisonEqualToOrGreaterThan);
 }
-End_Enum_String;
+End_Enum_String(ELobbyComparison);
 
 #endif // ELOBBYCOMPARISON_H

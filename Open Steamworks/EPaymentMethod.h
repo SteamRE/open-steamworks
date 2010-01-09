@@ -24,14 +24,14 @@
 
 // Payment methods for purchases - BIT FLAGS so can be used to indicate
 // acceptable payment methods for packages
-enum EPaymentMethod
+typedef enum EPaymentMethod
 {
 	k_EPaymentMethodNone = 0x00,
 	k_EPaymentMethodCDKey = 0x01,		
 	k_EPaymentMethodCreditCard = 0x02,
 	k_EPaymentMethodPayPal = 0x04,		
 	k_EPaymentMethodManual = 0x08,		// Purchase was added by Steam support
-};
+} EPaymentMethod;
 
 Begin_Enum_String(EPaymentMethod)
 {
@@ -41,6 +41,6 @@ Begin_Enum_String(EPaymentMethod)
 	Enum_String( k_EPaymentMethodPayPal );		
 	Enum_String( k_EPaymentMethodManual );		// Purchase was added by Steam support
 }
-End_Enum_String;
+End_Enum_String(EPaymentMethod);
 
 #endif // EPAYMENTMETHOD_H

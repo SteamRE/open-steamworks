@@ -27,7 +27,7 @@
 // types of user game stats fields
 // WARNING: DO NOT RENUMBER EXISTING VALUES - STORED IN DATABASE
 //-----------------------------------------------------------------------------
-enum ESteamUserStatType
+typedef enum ESteamUserStatType
 {
 	k_ESteamUserStatTypeINVALID = 0,
 	k_ESteamUserStatTypeINT = 1,
@@ -36,7 +36,7 @@ enum ESteamUserStatType
 	k_ESteamUserStatTypeAVGRATE = 3,
 	k_ESteamUserStatTypeACHIEVEMENTS = 4,
 	k_ESteamUserStatTypeGROUPACHIEVEMENTS = 5,
-};
+} ESteamUserStatType;
 
 Begin_Enum_String(ESteamUserStatType)
 {
@@ -48,6 +48,6 @@ Begin_Enum_String(ESteamUserStatType)
 	Enum_String( k_ESteamUserStatTypeACHIEVEMENTS );
 	Enum_String( k_ESteamUserStatTypeGROUPACHIEVEMENTS );
 }
-End_Enum_String;
+End_Enum_String(ESteamUserStatType);
 
 #endif // ESTEAMUSERSTATTYPE_H

@@ -22,14 +22,14 @@
 
 #include "EnumString.h"
 
-enum ECallState
+typedef enum ECallState
 {
 	k_ECallStateUnknown = 0,
 	k_ECallStateWaiting = 1,
 	k_ECallStateDialing = 2,
 	k_ECallStateRinging = 3,
 	k_ECallStateInCall = 4,
-};
+} ECallState;
 
 Begin_Enum_String( ECallState )
 {
@@ -39,6 +39,6 @@ Begin_Enum_String( ECallState )
 	Enum_String( k_ECallStateRinging );
 	Enum_String( k_ECallStateInCall );
 }
-End_Enum_String;
+End_Enum_String( ECallState );
 
 #endif // ECALLSTATE_H

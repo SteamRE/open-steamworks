@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 // Callback values for callback ValidateAuthTicketResponse_t which is a response to BeginAuthSession
-typedef enum
+typedef enum EAuthSessionResponse
 {
 	k_EAuthSessionResponseOK = 0,							// Steam has verified the user is online, the ticket is valid and ticket has not been reused.
 	k_EAuthSessionResponseUserNotConnectedToSteam = 1,		// The user in question is not connected to steam
@@ -48,6 +48,6 @@ Begin_Enum_String(EAuthSessionResponse)
 	Enum_String( k_EAuthSessionResponseAuthTicketInvalidAlreadyUsed );	// This ticket has already been used, it is not valid.
 	Enum_String( k_EAuthSessionResponseAuthTicketInvalid );			// This ticket is not from a user instance currently connected to steam.
 }
-End_Enum_String;
+End_Enum_String(EAuthSessionResponse);
 
 #endif // EAUTHSESSIONRESPONSE_H

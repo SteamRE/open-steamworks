@@ -21,7 +21,7 @@
 #endif
 
 
-enum ESteamSubscriptionStatus
+typedef enum ESteamSubscriptionStatus
 {
 	eSteamSubscriptionOK = 0,
 	eSteamSubscriptionPending = 1,
@@ -39,7 +39,7 @@ enum ESteamSubscriptionStatus
 	eSteamSubscriptionPaymentCardAVSFailure = 13,
 	eSteamSubscriptionPaymentCardInsufficientFunds = 14,
 	eSteamSubscriptionRestrictedCountry = 15,
-};
+} ESteamSubscriptionStatus;
 
 
 #endif // ESTEAMSUBSCRIPTIONSTATUS_H

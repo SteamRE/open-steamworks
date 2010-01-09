@@ -23,12 +23,12 @@
 
 #include "EnumString.h"
 
-enum EChatRoomType
+typedef enum EChatRoomType
 {
 	k_EChatRoomTypeFriend = 1,
 	k_EChatRoomTypeMUC = 2,
 	k_EChatRoomTypeLobby = 3,
-};
+} EChatRoomType;
 
 Begin_Enum_String( EChatRoomType )
 {
@@ -36,7 +36,7 @@ Begin_Enum_String( EChatRoomType )
 	Enum_String( k_EChatRoomTypeMUC );
 	Enum_String( k_EChatRoomTypeLobby );
 }
-End_Enum_String;
+End_Enum_String( EChatRoomType );
 
 #endif // ECHATROOMTYPE_H
 

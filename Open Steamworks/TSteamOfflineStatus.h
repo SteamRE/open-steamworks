@@ -21,7 +21,7 @@
 #endif
 
 
-typedef struct
+typedef struct TSteamOfflineStatus
 {
 	int eOfflineNow;
 	int eOfflineNextSession;

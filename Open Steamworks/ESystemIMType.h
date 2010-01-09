@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 // Type of system IM.  The client can use this to do special UI handling in specific circumstances
-enum ESystemIMType
+typedef enum ESystemIMType
 {
 	k_ESystemIMRawText = 0,
 	k_ESystemIMInvalidCard = 1,
@@ -33,7 +33,7 @@ enum ESystemIMType
 
 	//
 	k_ESystemIMTypeMax
-};
+} ESystemIMType;
 
 Begin_Enum_String( ESystemIMType )
 {
@@ -43,6 +43,6 @@ Begin_Enum_String( ESystemIMType )
 	Enum_String( k_ESystemIMCardWillExpire );
 	Enum_String( k_ESystemIMSubscriptionExpired );
 }
-End_Enum_String;
+End_Enum_String( ESystemIMType);
 
 #endif

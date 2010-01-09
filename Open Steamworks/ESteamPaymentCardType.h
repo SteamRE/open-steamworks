@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef enum
+typedef enum ESteamPaymentCardType
 {
 	eVisa				= 1,
 	eMaster				= 2,

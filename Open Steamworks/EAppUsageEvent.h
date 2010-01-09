@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum EAppUsageEvent
+typedef enum EAppUsageEvent
 {
 	k_EAppUsageEventGameLaunch = 1,
 	k_EAppUsageEventGameLaunchTrial = 2,
@@ -32,7 +32,7 @@ enum EAppUsageEvent
 	k_EAppUsageEventMarketingMessageView = 6,	// deprecated, do not use
 	k_EAppUsageEventInGameAdViewed = 7,
 	k_EAppUsageEventGameLaunchFreeWeekend = 8,
-};
+} EAppUsageEvent;
 
 Begin_Enum_String( EAppUsageEvent )
 {
@@ -45,7 +45,7 @@ Begin_Enum_String( EAppUsageEvent )
 	Enum_String( k_EAppUsageEventInGameAdViewed );
 	Enum_String( k_EAppUsageEventGameLaunchFreeWeekend );
 }
-End_Enum_String;
+End_Enum_String( EAppUsageEvent );
 
 
 #endif // EAPPUSAGEEVENT_H

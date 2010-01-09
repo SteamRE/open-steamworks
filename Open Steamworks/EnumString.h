@@ -8,6 +8,13 @@
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+#ifdef STEAM4COM_COMPAT
+	#define ENUMSTRING_HEADER
+	#define Begin_Enum_String(EnumerationName) [hidden] typedef struct ZZ_Lazy_##EnumerationName##_t
+	#define Enum_String(EnumeratorName) char EnumeratorName
+	#define End_Enum_String(EnumeratorName) ZZ_Lazy_##EnumeratorName
+#endif
+
 #ifndef ENUMSTRING_HEADER
 #define ENUMSTRING_HEADER
 
@@ -55,7 +62,7 @@
             RegisterEnumerator( EnumeratorName, #EnumeratorName );
 //      }
 
-#define End_Enum_String                                                         \
+#define End_Enum_String(EnumeratorName)                                         \
     }
 
 // The EnumString base class

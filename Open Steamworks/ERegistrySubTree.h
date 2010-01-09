@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum ERegistrySubTree
+typedef enum ERegistrySubTree
 {
 	k_ERegistrySubTreeNews = 0,
 	k_ERegistrySubTreeApps = 1,
@@ -30,7 +30,7 @@ enum ERegistrySubTree
 	k_ERegistrySubTreeGameServers = 3,
 	k_ERegistrySubTreeFriends = 4,
 	k_ERegistrySubTreeSystem = 5,
-};
+} ERegistrySubTree;
 
 Begin_Enum_String(ERegistrySubTree)
 {
@@ -41,6 +41,6 @@ Begin_Enum_String(ERegistrySubTree)
 	Enum_String( k_ERegistrySubTreeFriends );
 	Enum_String( k_ERegistrySubTreeSystem );
 }
-End_Enum_String;
+End_Enum_String(ERegistrySubTree);
 
 #endif // EREGISTRYSUBTREE_H

@@ -25,13 +25,13 @@
 //-----------------------------------------------------------------------------
 // Purpose: Possible positions to tell the overlay to show notifications in
 //-----------------------------------------------------------------------------
-enum ENotificationPosition
+typedef enum ENotificationPosition
 {
 	k_EPositionTopLeft = 0,
 	k_EPositionTopRight = 1,
 	k_EPositionBottomLeft = 2,
 	k_EPositionBottomRight = 3,
-};
+} ENotificationPosition;
 
 Begin_Enum_String(ENotificationPosition)
 {
@@ -40,6 +40,6 @@ Begin_Enum_String(ENotificationPosition)
 	Enum_String( k_EPositionBottomLeft );
 	Enum_String( k_EPositionBottomRight );
 }
-End_Enum_String;
+End_Enum_String(ENotificationPosition);
 
 #endif // ENOTIFICATIONPOSITION_H

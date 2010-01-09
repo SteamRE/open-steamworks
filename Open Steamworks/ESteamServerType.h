@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum ESteamServerType
+typedef enum ESteamServerType
 {
 	eSteamValveCDKeyValidationServer = 0,
 	eSteamHalfLifeMasterServer = 1,
@@ -31,7 +31,7 @@ enum ESteamServerType
 	eSteamHalfLife2MasterServer = 4,
 	eSteamRDKFMasterServer = 5,
 	eMaxServerTypes = 6,
-};
+} ESteamServerType;
 
 Begin_Enum_String( ESteamServerType )
 {
@@ -43,7 +43,7 @@ Begin_Enum_String( ESteamServerType )
 	Enum_String( eSteamRDKFMasterServer );
 	Enum_String( eMaxServerTypes );
 }
-End_Enum_String;
+End_Enum_String( ESteamServerType );
 
 
 #endif // ESTEAMSERVERTYPE_H

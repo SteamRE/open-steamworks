@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 
-enum EItemQuality WINSIZE(uint8)
+typedef enum EItemQuality WINSIZE(uint8)
 {
 	k_EItemQuality_Normal, 
 	k_EItemQuality_Common,
@@ -36,7 +36,7 @@ enum EItemQuality WINSIZE(uint8)
 	k_EItemQuality_Valve,
 
 	k_EItemQuality_Max = 0xFF,
-};
+} EItemQuality;
 
 Begin_Enum_String(EItemQuality)
 {
@@ -50,7 +50,7 @@ Begin_Enum_String(EItemQuality)
 	Enum_String( k_EItemQuality_Community );
 	Enum_String( k_EItemQuality_Valve );
 }
-End_Enum_String;
+End_Enum_String(EItemQuality);
 
 
 

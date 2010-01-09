@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-typedef enum						/* Filter elements returned by SteamFind{First,Next} */
+typedef enum ESteamFindFilter						/* Filter elements returned by SteamFind{First,Next} */
 {
 	eSteamFindLocalOnly,			/* limit search to local filesystem */
 	eSteamFindRemoteOnly,			/* limit search to remote repository */
@@ -35,6 +35,6 @@ Begin_Enum_String(ESteamFindFilter)
 	Enum_String(eSteamFindRemoteOnly);
 	Enum_String(eSteamFindAll);
 }
-End_Enum_String;
+End_Enum_String( ESteamFindFilter );
 
 #endif // ESTEAMFINDFILTER_H

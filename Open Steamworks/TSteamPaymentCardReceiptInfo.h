@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamPaymentCardReceiptInfo
 {
 	ESteamPaymentCardType eCardType;
 	char szCardLastFourDigits[ STEAM_CARD_LASTFOURDIGITS_SIZE + 1 ];

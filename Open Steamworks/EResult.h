@@ -24,7 +24,7 @@
 #include "EnumString.h"
 
 // General result codes
-enum EResult
+typedef enum EResult
 {
 	k_EResultOK	= 1,							// success
 	k_EResultFail = 2,							// generic failure 
@@ -70,7 +70,7 @@ enum EResult
 	k_EResultNoMatch = 42,						// nothing matching the request found
 	k_EResultAccountDisabled = 43,
 	k_EResultServiceReadOnly = 44,				// this service is not accepting content changes right now
-};
+} EResult;
 
 Begin_Enum_String(EResult)
 {
@@ -119,6 +119,6 @@ Begin_Enum_String(EResult)
 	Enum_String( k_EResultAccountDisabled );
 	Enum_String( k_EResultServiceReadOnly );				// this service is not accepting content changes right now
 }
-End_Enum_String;
+End_Enum_String(EResult);
 
 #endif // ERESULT_H

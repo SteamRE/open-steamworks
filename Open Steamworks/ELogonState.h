@@ -23,13 +23,13 @@
 #include "EnumString.h"
 
 
-enum ELogonState
+typedef enum ELogonState
 {
 	k_ELogonStateNotLoggedOn = 0,
 	k_ELogonStateLoggingOn = 1,
 	k_ELogonStateLoggingOff = 2,
 	k_ELogonStateLoggedOn = 3
-};
+} ELogonState;
 
 Begin_Enum_String(ELogonState)
 {
@@ -38,7 +38,7 @@ Begin_Enum_String(ELogonState)
 	Enum_String( k_ELogonStateLoggingOff );
 	Enum_String( k_ELogonStateLoggedOn );
 }
-End_Enum_String;
+End_Enum_String(ELogonState);
 
 
 #endif // ELOGONSTATE_H

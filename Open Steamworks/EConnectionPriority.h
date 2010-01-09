@@ -22,12 +22,12 @@
 
 #include "EnumString.h"
 
-enum EConnectionPriority
+typedef enum EConnectionPriority
 {
 	k_EConnectionPriorityLow = 0,
 	k_EConnectionPriorityMedium = 1,
 	k_EConnectionPriorityHigh = 2,
-};
+} EConnectionPriority;
 
 Begin_Enum_String( EConnectionPriority )
 {
@@ -35,6 +35,6 @@ Begin_Enum_String( EConnectionPriority )
 	Enum_String( k_EConnectionPriorityMedium );
 	Enum_String( k_EConnectionPriorityHigh );
 }
-End_Enum_String;
+End_Enum_String( EConnectionPriority );
 
 #endif // ECONNECTIONPRIORITY_H

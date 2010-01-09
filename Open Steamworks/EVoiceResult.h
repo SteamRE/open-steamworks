@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 // Error codes for use with the voice functions
-enum EVoiceResult
+typedef enum EVoiceResult
 {
 	k_EVoiceResultOK = 0,
 	k_EVoiceResultNotInitialized = 1,
@@ -31,7 +31,7 @@ enum EVoiceResult
 	k_EVoiceResultNoData = 3,
 	k_EVoiceResultBufferTooSmall = 4,
 	k_EVoiceResultDataCorrupted = 5,
-};
+} EVoiceResult;
 
 Begin_Enum_String(EVoiceResult)
 {
@@ -42,6 +42,6 @@ Begin_Enum_String(EVoiceResult)
 	Enum_String( k_EVoiceResultBufferTooSmall );
 	Enum_String(k_EVoiceResultDataCorrupted );
 }
-End_Enum_String;
+End_Enum_String(EVoiceResult);
 
 #endif // EVOICERESULT_H

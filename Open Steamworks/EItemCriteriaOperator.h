@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum EItemCriteriaOperator
+typedef enum EItemCriteriaOperator
 {
 	k_EOperator_String_EQ,
 	k_EOperator_Not, 
@@ -40,7 +40,7 @@ enum EItemCriteriaOperator
 	k_EOperator_Subkey_Contains, 
 	k_EOperator_Subkey_Not_Contains,
 	k_EItemCriteriaOperator_Count
-};
+} EItemCriteriaOperator;
 
 Begin_Enum_String(EItemCriteriaOperator)
 {
@@ -61,6 +61,6 @@ Begin_Enum_String(EItemCriteriaOperator)
 	Enum_String( k_EOperator_Subkey_Not_Contains );
 	Enum_String( k_EItemCriteriaOperator_Count );
 }
-End_Enum_String;
+End_Enum_String(EItemCriteriaOperator);
 
 #endif // EITEMCRITERIAOPERATOR_H

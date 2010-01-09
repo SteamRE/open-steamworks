@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamPrepurchaseReceiptInfo
 {
 	char szTypeOfProofOfPurchase[ STEAM_TYPE_OF_PROOF_OF_PURCHASE_SIZE + 1];
 } TSteamPrepurchaseReceiptInfo;

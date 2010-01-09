@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamApp
 {
 	char *szName;
 	unsigned int uMaxNameChars;

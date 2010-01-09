@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 // Result codes to GSHandleClientDeny/Kick
-typedef enum
+typedef enum EDenyReason
 {
 	k_EDenyInvalidVersion = 1,
 	k_EDenyGeneric = 2,
@@ -60,7 +60,7 @@ Begin_Enum_String(EDenyReason)
 	Enum_String( k_EDenySteamValidationStalled );
 	Enum_String( k_EDenySteamOwnerLeftGuestUser );
 }
-End_Enum_String;
+End_Enum_String(EDenyReason);
 
 
 #endif // EDENYREASON_H

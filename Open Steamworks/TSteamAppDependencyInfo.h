@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamAppDependencyInfo
 {
     unsigned int AppId;
     unsigned int IsRequired;

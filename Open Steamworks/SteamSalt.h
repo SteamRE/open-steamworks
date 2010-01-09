@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct SteamSalt
 {
 	unsigned char uchSalt[STEAM_SALT_SIZE];
 } SteamSalt_t;

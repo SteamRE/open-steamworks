@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef enum
+typedef enum ESteamSubscriptionBillingInfoType
 {
 	ePaymentCardInfo		= 1,
 	ePrepurchasedInfo		= 2,

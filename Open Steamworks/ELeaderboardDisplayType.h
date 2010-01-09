@@ -23,13 +23,13 @@
 #include "EnumString.h"
 
 // the display type (used by the Steam Community web site) for a leaderboard
-enum ELeaderboardDisplayType
+typedef enum ELeaderboardDisplayType
 {
 	k_ELeaderboardDisplayTypeNone = 0, 
 	k_ELeaderboardDisplayTypeNumeric = 1,			// simple numerical score
 	k_ELeaderboardDisplayTypeTimeSeconds = 2,		// the score represents a time, in seconds
 	k_ELeaderboardDisplayTypeTimeMilliSeconds = 3,	// the score represents a time, in milliseconds
-};
+} ELeaderboardDisplayType;
 
 Begin_Enum_String(ELeaderboardDisplayType)
 {
@@ -39,6 +39,6 @@ Begin_Enum_String(ELeaderboardDisplayType)
 	Enum_String(k_ELeaderboardDisplayTypeTimeMilliSeconds);
 
 }
-End_Enum_String;
+End_Enum_String(ELeaderboardDisplayType);
 
 #endif // ELEADERBOARDDISPLAYTYPE_H

@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamAppStats
 {
 	unsigned int uNumApps;
 	unsigned int uMaxNameChars;

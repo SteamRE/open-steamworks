@@ -20,13 +20,13 @@
 #pragma once
 #endif
 
-enum ESteamAppUpdateStatsQueryType
+typedef enum ESteamAppUpdateStatsQueryType
 {
 	ePhysicalBytesReceivedThisSession = 1,
 	eAppReadyToLaunchStatus = 2,
 	eAppPreloadStatus = 3,
 	eAppEntireDepot = 4,
 	eCacheBytesPresent = 5,
-};
+} ESteamAppUpdateStatsQueryType;
 
 #endif // ESTEAMAPPUPDATESTATSQUERYTYPE_H

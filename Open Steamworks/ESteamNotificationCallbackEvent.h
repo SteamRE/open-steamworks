@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum ESteamNotify
+typedef enum ESteamNotify
 {
 	eSteamNotifyTicketsWillExpire = 0,
 	eSteamNotifyAccountInfoChanged = 1,
@@ -36,7 +36,7 @@ enum ESteamNotify
 	eSteamNotifyCacheNeedsRepair = 9,
 	eSteamNotifyAppDownloading = 10,
 	eSteamNotifyAppDownloadingPaused = 11,
-};
+} ESteamNotify;
 
 
 
@@ -55,7 +55,7 @@ Begin_Enum_String( ESteamNotify )
 	Enum_String( eSteamNotifyAppDownloading );
 	Enum_String( eSteamNotifyAppDownloadingPaused );
 }
-End_Enum_String;
+End_Enum_String( ESteamNotify );
 
 
 

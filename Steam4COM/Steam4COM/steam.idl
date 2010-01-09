@@ -1,0 +1,10 @@
+#define WINSIZE(type)
+#define STEAM4COM_COMPAT
+#define CSTEAMID_H
+#define CGAMEID_H
+#define MATCHMAKINGKEYVALUEPAIR_H
+#define SERVERNETADR_H
+#define GAMESERVERITEM_H
+typedef int CGameID;
+typedef int CSteamID;
+#include "../../Open Steamworks/SteamTypes.h"

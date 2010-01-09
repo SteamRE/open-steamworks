@@ -73,7 +73,7 @@ Begin_Enum_String(EGCMessages)
 	Enum_String( k_EMsgGCDev_NewItemRequest );
 	Enum_String( k_EMsgGCDev_NewItemRequestResponse );
 }
-End_Enum_String;
+End_Enum_String( EGCMessages );
 
 
 #pragma pack(push, 1)

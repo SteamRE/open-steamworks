@@ -20,6 +20,7 @@
 #pragma once
 #endif
 
+#ifndef STEAM4COM_COMPAT
 #ifdef _WIN32
 	#ifndef WINVER
 		#define WINVER 0x502
@@ -54,6 +55,7 @@
 
 	#define WINSIZE(X)
 #endif
+#endif
 
 // this is an MSVC project.. but for the same of supporting other compilers we have to jump through hoops
 #ifndef _MSC_VER
@@ -71,17 +73,21 @@ typedef unsigned char uint8;
 #endif
 
 // is there a better place to put this?
+#ifndef STEAM4COM_COMPAT
 #include "string_t.h"
-
+#endif
 
 #if defined(__x86_64__) || defined(_WIN64)
 #define X64BITS
 #endif
 
-typedef unsigned char uint8;
 typedef signed char int8;
 
-#if defined( _WIN32 )
+#ifdef STEAM4COM_COMPAT
+#define bool int
+#endif
+
+#if defined( _WIN32 ) && !defined( STEAM4COM_COMPAT )
 
 typedef __int16 int16;
 typedef unsigned __int16 uint16;
@@ -188,18 +194,18 @@ typedef unsigned int uintp;
 
 typedef void* (*CreateInterfaceFn)( const char *pName, int *pReturnCode );
 typedef void* (*FactoryFn)( const char *pName );
-typedef void* (*InstantiateInterfaceFn)();
+typedef void* (*InstantiateInterfaceFn)( void );
 
-typedef void  (*SteamAPIWarningMessageHook_t)(int, const char *);
-typedef void (*KeyValueIteratorCallback_t)(const char*, const char*, void*);
+typedef void  (*SteamAPIWarningMessageHook_t)(int hpipe, const char *message);
+typedef void (*KeyValueIteratorCallback_t)(const char* key, const char* value, void* kv);
 
 #ifndef NO_STEAM
 typedef void (*SteamNotificationCallback_t)(ESteamNotify eEvent, unsigned int nData);
 #endif // NO_STEAM
 
-typedef bool (*SteamBGetCallbackFn)( int, void *pCallbackMsg, int32 *phSteamCall );
-typedef void (*SteamFreeLastCallbackFn)( int );
-typedef bool (*SteamGetAPICallResultFn)( int, uint64 hSteamAPICall, void* pCallback, int cubCallback, int iCallbackExpected, bool* pbFailed );
+typedef bool (*SteamBGetCallbackFn)( int hpipe, void *pCallbackMsg, int32 *phSteamCall );
+typedef void (*SteamFreeLastCallbackFn)( int hpipe );
+typedef bool (*SteamGetAPICallResultFn)( int hpipe, uint64 hSteamAPICall, void* pCallback, int cubCallback, int iCallbackExpected, bool* pbFailed );
 
 const int k_cubDigestSize = 20;							// CryptoPP::SHA::DIGESTSIZE
 const int k_cubSaltSize   = 8;
@@ -293,10 +299,10 @@ typedef uint32 SNetSocket_t;
 typedef uint32 SNetListenSocket_t;
 
 // 32KB max size on chat messages
-enum { k_cchFriendChatMsgMax = 32 * 1024 };
+const uint32 k_cchFriendChatMsgMax = 32 * 1024;
 
 // maximum number of characters in a users name
-enum { k_cchPersonaNameMax = 128 };
+const int k_cchPersonaNameMax = 128;
 
 // size limit on chat room or member metadata
 const uint32 k_cubChatMetadataMax = 8192;
@@ -304,13 +310,13 @@ const uint32 k_cubChatMetadataMax = 8192;
 const int k_cchSystemIMTextMax = 4096;	// upper bound of length of system IM text
 
 // size limit on stat or achievement name (UTF-8 encoded)
-enum { k_cchStatNameMax = 128 };
+const int k_cchStatNameMax = 128;
 
 // maximum number of bytes for a leaderboard name (UTF-8 encoded)
-enum { k_cchLeaderboardNameMax = 128 };
+const int k_cchLeaderboardNameMax = 128;
 
 // maximum number of details int32's storable for a single leaderboard entry
-enum { k_cLeaderboardDetailsMax = 64 };
+const int k_cLeaderboardDetailsMax = 64;
 
 // handle to a single leaderboard
 typedef uint64 SteamLeaderboard_t;
@@ -465,7 +471,7 @@ Begin_Enum_String(ECallbackType)
 	Enum_String( k_iClientUtilsCallbacks );
 	Enum_String( k_iSteamGameCoordinatorCallbacks );
 }
-End_Enum_String;
+End_Enum_String( ECallbackType );
 
 #ifndef NO_STEAM
 // steam structs, etc

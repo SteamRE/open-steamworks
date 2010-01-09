@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 // Flags for licenses - BITS
-enum ELicenseFlags
+typedef enum ELicenseFlags
 {
 	k_ELicenseFlagRenew = 0x01,				// Renew this license next period
 	k_ELicenseFlagRenewalFailed = 0x02,		// Auto-renew failed
@@ -31,7 +31,7 @@ enum ELicenseFlags
 	k_ELicenseFlagExpired = 0x08,			// Regular expiration (no renewal attempted)
 	k_ELicenseFlagCancelledByUser = 0x10,	// Cancelled by the user
 	k_ELicenseFlagCancelledByAdmin = 0x20,	// Cancelled by customer support
-};
+} ELicenseFlags;
 
 Begin_Enum_String(ELicenseFlags)
 {
@@ -42,6 +42,6 @@ Begin_Enum_String(ELicenseFlags)
 	Enum_String( k_ELicenseFlagCancelledByUser );	// Cancelled by the user
 	Enum_String( k_ELicenseFlagCancelledByAdmin );	// Cancelled by customer support
 }
-End_Enum_String;
+End_Enum_String(ELicenseFlags);
 
 #endif // ELICENSEFLAGS_H

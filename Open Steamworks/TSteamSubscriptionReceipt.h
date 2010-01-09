@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamSubscriptionReceipt
 {
 	ESteamSubscriptionStatus eStatus;
 	ESteamSubscriptionStatus ePreviousStatus;

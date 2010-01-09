@@ -22,14 +22,13 @@
 
 #include "EnumString.h"
 
-typedef enum
+typedef enum EDetailedPlatformErrorType
 {
 	eNoDetailedErrorAvailable,
 	eStandardCerrno,
 	eWin32LastError,
 	eWinSockLastError,
 	eDetailedPlatformErrorCount
-
 } EDetailedPlatformErrorType;
 
 Begin_Enum_String( EDetailedPlatformErrorType )
@@ -40,7 +39,7 @@ Begin_Enum_String( EDetailedPlatformErrorType )
 	Enum_String( eWinSockLastError );
 	Enum_String( eDetailedPlatformErrorCount );
 }
-End_Enum_String;
+End_Enum_String( EDetailedPlatformErrorType );
 
 #endif // EDETAILEDPLATFORMERRORTYPE_H
 

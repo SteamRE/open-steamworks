@@ -27,7 +27,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Chat Entry Types (previously was only friend-to-friend message types)
 //-----------------------------------------------------------------------------
-enum EChatEntryType
+typedef enum EChatEntryType
 {
 	k_EChatEntryTypeChatMsg = 1,		// Normal text message from another user
 	k_EChatEntryTypeTyping = 2,			// Another user is typing (not used in multi-user chat)
@@ -35,7 +35,7 @@ enum EChatEntryType
 	k_EChatEntryTypeEmote = 4,			// text emote message
 	k_EChatEntryTypeLobbyGameStart = 5,	// lobby game is starting
 	// Above are previous FriendMsgType entries, now merged into more generic chat entry types
-};
+} EChatEntryType;
 
 
 Begin_Enum_String(EChatEntryType)
@@ -47,6 +47,6 @@ Begin_Enum_String(EChatEntryType)
 	Enum_String( k_EChatEntryTypeLobbyGameStart );
 	// Above are previous FriendMsgType entries, now merged into more generic chat entry types
 }
-End_Enum_String;
+End_Enum_String(EChatEntryType);
 
 #endif // ECHATENTRYTYPE_H

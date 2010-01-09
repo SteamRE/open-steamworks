@@ -25,7 +25,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: set of relationships to other users
 //-----------------------------------------------------------------------------
-enum EFriendRelationship
+typedef enum EFriendRelationship
 {
 	k_EFriendRelationshipNone = 0,
 	k_EFriendRelationshipBlocked = 1,
@@ -34,7 +34,7 @@ enum EFriendRelationship
 	k_EFriendRelationshipRequestInitiator = 4,
 	k_EFriendRelationshipIgnored = 5,
 	k_EFriendRelationshipIgnoredFriend = 6,
-};
+} EFriendRelationship;
 
 Begin_Enum_String( EFriendRelationship )
 {
@@ -46,6 +46,6 @@ Begin_Enum_String( EFriendRelationship )
 	Enum_String( k_EFriendRelationshipIgnored );
 	Enum_String( k_EFriendRelationshipIgnoredFriend );
 }
-End_Enum_String;
+End_Enum_String( EFriendRelationship );
 
 #endif // EFRIENDRELATIONSHIP_H

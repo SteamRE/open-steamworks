@@ -23,11 +23,11 @@
 // Applications need to be able to authenticate Steam users from ANY instance.
 // So a SteamIDTicket contains SteamGlobalUserID, which is a unique combination of 
 // instance and user id.
-typedef struct
+typedef struct TSteamGlobalUserID
 {
 	SteamInstanceID_t m_SteamInstanceID;
 
-	union
+	union m_SteamLocalUserID
 	{
 		SteamLocalUserID_t		As64bits;
 		TSteamSplitLocalUserID	Split;

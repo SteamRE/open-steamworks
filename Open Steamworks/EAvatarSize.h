@@ -25,17 +25,17 @@
 //-----------------------------------------------------------------------------
 // Purpose: avatar sizes, used in ISteamFriends::GetFriendAvatar()
 //-----------------------------------------------------------------------------
-enum EAvatarSize
+typedef enum EAvatarSize
 {
 	k_EAvatarSize32x32 = 0,
 	k_EAvatarSize64x64 = 1,
-};
+} EAvatarSize;
 
 Begin_Enum_String(EAvatarSize)
 {
 	Enum_String(k_EAvatarSize32x32);
 	Enum_String(k_EAvatarSize64x64);
 }
-End_Enum_String;
+End_Enum_String(EAvatarSize);
 
 #endif // EAVATARSIZE_H

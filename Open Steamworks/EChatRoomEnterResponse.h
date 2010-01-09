@@ -28,7 +28,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Chat Room Enter Responses
 //-----------------------------------------------------------------------------
-enum EChatRoomEnterResponse
+typedef enum EChatRoomEnterResponse
 {
 	k_EChatRoomEnterResponseSuccess = 1,		// Success
 	k_EChatRoomEnterResponseDoesntExist = 2,	// Chat doesn't exist (probably closed)
@@ -36,7 +36,7 @@ enum EChatRoomEnterResponse
 	k_EChatRoomEnterResponseFull = 4,			// Chat room has reached its maximum size
 	k_EChatRoomEnterResponseError = 5,			// Unexpected Error
 	k_EChatRoomEnterResponseBanned = 6,			// You are banned from this chat room and may not join
-};
+} EChatRoomEnterResponse;
 
 Begin_Enum_String(EChatRoomEnterResponse)
 {
@@ -47,6 +47,6 @@ Begin_Enum_String(EChatRoomEnterResponse)
 	Enum_String( k_EChatRoomEnterResponseError );		// Unexpected Error
 	Enum_String( k_EChatRoomEnterResponseBanned );		// You are banned from this chat room and may not join
 }
-End_Enum_String;
+End_Enum_String(EChatRoomEnterResponse);
 
 #endif // ECHATROOMENTERRESPONSE_H

@@ -22,13 +22,13 @@
 
 #include "EnumString.h"
 
-enum EServerMode
+typedef enum EServerMode
 {
 	eServerModeInvalid = 0, // DO NOT USE		
 	eServerModeNoAuthentication = 1, // Don't authenticate user logins and don't list on the server list
 	eServerModeAuthentication = 2, // Authenticate users, list on the server list, don't run VAC on clients that connect
 	eServerModeAuthenticationAndSecure = 3, // Authenticate users, list on the server list and VAC protect clients
-};													
+} EServerMode;													
 
 Begin_Enum_String( EServerMode )
 {
@@ -37,7 +37,7 @@ Begin_Enum_String( EServerMode )
 	Enum_String( eServerModeAuthentication );
 	Enum_String( eServerModeAuthenticationAndSecure );
 }
-End_Enum_String;
+End_Enum_String( EServerMode );
 
 
 #endif // ESERVERMODE_H

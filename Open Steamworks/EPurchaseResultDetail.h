@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum EPurchaseResultDetail 
+typedef enum EPurchaseResultDetail
 {
 	k_EPurchaseResultNoDetail = 0,
 	k_EPurchaseResultAVSFailure = 1,
@@ -37,7 +37,7 @@ enum EPurchaseResultDetail
 	k_EPurchaseResultOthersInProgress = 8,
 	k_EPurchaseResultAlreadyPurchased = 9,
 	k_EPurchaseResultWrongPrice = 10
-};
+} EPurchaseResultDetail;
 
 Begin_Enum_String( EPurchaseResultDetail )
 {
@@ -55,7 +55,7 @@ Begin_Enum_String( EPurchaseResultDetail )
 	Enum_String( k_EPurchaseResultAlreadyPurchased );
 	Enum_String( k_EPurchaseResultWrongPrice );
 }
-End_Enum_String;
+End_Enum_String( EPurchaseResultDetail );
 
 
 #endif // EPURCHASERESULTDETAIL_H

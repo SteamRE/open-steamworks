@@ -23,12 +23,12 @@
 #include "EnumString.h"
 
 // type of data request, when downloading leaderboard entries
-enum ELeaderboardDataRequest
+typedef enum ELeaderboardDataRequest
 {
 	k_ELeaderboardDataRequestGlobal = 0,
 	k_ELeaderboardDataRequestGlobalAroundUser = 1,
 	k_ELeaderboardDataRequestFriends = 2,
-};
+} ELeaderboardDataRequest;
 
 Begin_Enum_String(ELeaderboardDataRequest)
 {
@@ -36,7 +36,7 @@ Begin_Enum_String(ELeaderboardDataRequest)
 	Enum_String(k_ELeaderboardDataRequestGlobalAroundUser);
 	Enum_String(k_ELeaderboardDataRequestFriends);
 }
-End_Enum_String;
+End_Enum_String(ELeaderboardDataRequest);
 
 
 #endif // ELEADERBOARDDATAREQUEST_H

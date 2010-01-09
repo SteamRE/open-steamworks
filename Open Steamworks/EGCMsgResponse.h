@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum EGCMsgResponse
+typedef enum EGCMsgResponse
 {
 	k_EGCMsgResponseOK,
 	k_EGCMsgResponseDenied,
@@ -32,7 +32,7 @@ enum EGCMsgResponse
 	k_EGCMsgResponseNoMatch,
 	k_EGCMsgResponseUnknownError,
 	k_EGCMsgResponseNotLoggedOn,
-};
+} EGCMsgResponse;
 
 Begin_Enum_String( EGCMsgResponse )
 {
@@ -45,6 +45,6 @@ Begin_Enum_String( EGCMsgResponse )
 	Enum_String( k_EGCMsgResponseUnknownError );
 	Enum_String( k_EGCMsgResponseNotLoggedOn );
 }
-End_Enum_String;
+End_Enum_String( EGCMsgResponse );
 
 #endif // EGAMECOORDINATORRESULT_H

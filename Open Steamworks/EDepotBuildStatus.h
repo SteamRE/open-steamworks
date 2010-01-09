@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 
-enum EDepotBuildStatus
+typedef enum EDepotBuildStatus
 {
 	k_EDepotBuildStatusInvalid = -1,
 	k_EDepotBuildStatusFailed = 0,
@@ -31,7 +31,7 @@ enum EDepotBuildStatus
 	k_EDepotBuildStatusProcessingData = 2,
 	k_EDepotBuildStatusUploadingData = 3,
 	k_EDepotBuildStatusCompleted = 4,
-};
+}  EDepotBuildStatus;
 
 Begin_Enum_String( EDepotBuildStatus )
 {
@@ -42,6 +42,6 @@ Begin_Enum_String( EDepotBuildStatus )
 	Enum_String( k_EDepotBuildStatusUploadingData );
 	Enum_String( k_EDepotBuildStatusCompleted );
 }
-End_Enum_String;
+End_Enum_String( EDepotBuildStatus );
 
 #endif // EDEPOTBUILDSTATUS_H

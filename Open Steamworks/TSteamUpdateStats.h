@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamUpdateStats
 {
 	SteamUnsigned64_t uBytesTotal;
 	SteamUnsigned64_t uBytesPresent;

@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum EItemRequestResult
+typedef enum EItemRequestResult
 {
 	k_EItemRequestResultOK,
 	k_EItemRequestResultDenied,
@@ -32,7 +32,7 @@ enum EItemRequestResult
 	k_EItemRequestResultNoMatch,
 	k_EItemRequestResultUnknownError,
 	k_EItemRequestResultNotLoggedOn
-};
+} EItemRequestResult;
 
 Begin_Enum_String(EItemRequestResult)
 {
@@ -45,7 +45,7 @@ Begin_Enum_String(EItemRequestResult)
 	Enum_String( k_EItemRequestResultUnknownError );
 	Enum_String( k_EItemRequestResultNotLoggedOn );
 }
-End_Enum_String;
+End_Enum_String(EItemRequestResult);
 
 
 

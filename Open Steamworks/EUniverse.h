@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 // Steam universes.  Each universe is a self-contained Steam instance.
-enum EUniverse
+typedef enum EUniverse
 {
 	k_EUniverseInvalid = 0,
 	k_EUniversePublic = 1,
@@ -33,7 +33,7 @@ enum EUniverse
 	k_EUniverseRC = 5,
 
 	k_EUniverseMax
-};
+} EUniverse;
 
 Begin_Enum_String(EUniverse)
 {
@@ -46,6 +46,6 @@ Begin_Enum_String(EUniverse)
 
 	Enum_String( k_EUniverseMax );
 }
-End_Enum_String;
+End_Enum_String(EUniverse);
 
 #endif // EUNIVERSE_H

@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamSubscriptionBillingInfo
 {
 	ESteamSubscriptionBillingInfoType	eBillingInfoType;
 	union

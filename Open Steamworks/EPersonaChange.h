@@ -24,7 +24,7 @@
 
 // used in PersonaStateChange_t::m_nChangeFlags to describe what's changed about a user
 // these flags describe what the client has learned has changed recently, so on startup you'll see a name, avatar & relationship change for every friend
-enum EPersonaChange
+typedef enum EPersonaChange
 {
 	k_EPersonaChangeName		= 0x001,
 	k_EPersonaChangeStatus		= 0x002,
@@ -37,7 +37,7 @@ enum EPersonaChange
 	k_EPersonaChangeLeftSource	= 0x100,
 	k_EPersonaChangeRelationshipChanged = 0x200,
 	k_EPersonaChangeNameFirstSet = 0x400,
-};
+} EPersonaChange;
 
 Begin_Enum_String(EPersonaChange)
 {
@@ -53,6 +53,6 @@ Begin_Enum_String(EPersonaChange)
 	Enum_String( k_EPersonaChangeRelationshipChanged );
 	Enum_String( k_EPersonaChangeNameFirstSet );
 }
-End_Enum_String;
+End_Enum_String(EPersonaChange);
 
 #endif // EPERSONACHANGE_H

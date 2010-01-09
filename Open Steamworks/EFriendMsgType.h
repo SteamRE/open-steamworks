@@ -25,13 +25,13 @@
 //-----------------------------------------------------------------------------
 // Purpose: friend-to-friend message types
 //-----------------------------------------------------------------------------
-enum EFriendMsgType
+typedef enum EFriendMsgType
 {
 	k_EFriendMsgTypeChat = 1,			// chat test message
 	k_EFriendMsgTypeTyping = 2,			// lets the friend know the other user has starting typing a chat message
 	k_EFriendMsgTypeInvite = 3,			// invites the friend into the users current game
 	k_EFriendMsgTypeChatSent = 4,		// chat that the user has sent to a friend
-};
+} EFriendMsgType;
 
 Begin_Enum_String( EFriendMsgType )
 {
@@ -40,6 +40,6 @@ Begin_Enum_String( EFriendMsgType )
 	Enum_String( k_EFriendMsgTypeInvite );
 	Enum_String( k_EFriendMsgTypeChatSent );
 }
-End_Enum_String;
+End_Enum_String( EFriendMsgType );
 
 #endif // EFRIENDMSGTYPE_H

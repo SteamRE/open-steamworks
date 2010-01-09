@@ -23,12 +23,12 @@
 #include "EnumString.h"
 
 // the sort order of a leaderboard
-enum ELeaderboardSortMethod
+typedef enum ELeaderboardSortMethod
 {
 	k_ELeaderboardSortMethodNone = 0,
 	k_ELeaderboardSortMethodAscending = 1,	// top-score is lowest number
 	k_ELeaderboardSortMethodDescending = 2,	// top-score is highest number
-};
+} ELeaderboardSortMethod;
 
 Begin_Enum_String(ELeaderboardSortMethod)
 {
@@ -36,6 +36,6 @@ Begin_Enum_String(ELeaderboardSortMethod)
 	Enum_String(k_ELeaderboardSortMethodAscending);
 	Enum_String(k_ELeaderboardSortMethodDescending);
 }
-End_Enum_String;
+End_Enum_String(ELeaderboardSortMethod);
 
 #endif // ELEADERBOARDSORTMETHOD_H

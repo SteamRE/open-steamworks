@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamSubscriptionDiscount
 {
 	char szName[STEAM_MAX_PATH];
 	unsigned int uDiscountInCents;

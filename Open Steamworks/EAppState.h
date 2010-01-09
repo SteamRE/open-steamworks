@@ -22,12 +22,12 @@
 
 #include "EnumString.h"
 
-enum EAppState
+typedef enum EAppState
 {
 	k_EAppStateDownloading = 0,
 	k_EAppStatePaused = 1,
 	k_EAppStateDownloadComplete = 2,
-};
+} EAppState;
 
 Begin_Enum_String( EAppState )
 {
@@ -35,6 +35,6 @@ Begin_Enum_String( EAppState )
 	Enum_String( k_EAppStatePaused );
 	Enum_String( k_EAppStateDownloadComplete );
 }
-End_Enum_String;
+End_Enum_String( EAppState );
 
 #endif // EAPPSTATE_H

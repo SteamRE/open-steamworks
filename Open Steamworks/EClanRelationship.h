@@ -22,14 +22,14 @@
 
 #include "EnumString.h"
 
-enum EClanRelationship
+typedef enum EClanRelationship
 {
 	eClanRelationshipNone = 0,
 	eClanRelationshipBlocked = 1,
 	eClanRelationshipInvited = 2,
 	eClanRelationshipMember = 3,
 	eClanRelationshipKicked = 4,
-};
+} EClanRelationship;
 
 Begin_Enum_String( EClanRelationship )
 {
@@ -39,6 +39,6 @@ Begin_Enum_String( EClanRelationship )
 	Enum_String( eClanRelationshipMember );
 	Enum_String( eClanRelationshipKicked );
 }
-End_Enum_String;
+End_Enum_String( EClanRelationship );
 
 #endif // ECLANRELATIONSHIP_H

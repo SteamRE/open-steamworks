@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef enum
+typedef enum ESteamBufferMethod
 {
 	eSteamBufferMethodFBF = 0,
 	eSteamBufferMethodNBF = 1

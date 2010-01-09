@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum EChatRoomVoiceStatus
+typedef enum EChatRoomVoiceStatus
 {
 	eChatRoomVoiceStatusBad = 0,
 	eChatRoomVoiceStatusUnknownRoom = 1,
@@ -35,7 +35,7 @@ enum EChatRoomVoiceStatus
 	eChatRoomVoiceStatusUnreachable = 8,
 	eChatRoomVoiceStatusDisconnected = 9,
 	eChatRoomVoiceStatusCount = 10,
-};
+} EChatRoomVoiceStatus;
 
 Begin_Enum_String( EChatRoomVoiceStatus )
 {
@@ -51,6 +51,6 @@ Begin_Enum_String( EChatRoomVoiceStatus )
 	Enum_String( eChatRoomVoiceStatusDisconnected );
 	Enum_String( eChatRoomVoiceStatusCount );
 }
-End_Enum_String;
+End_Enum_String( EChatRoomVoiceStatus );
 
 #endif // ECHATROOMVOICESTATUS_H

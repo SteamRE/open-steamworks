@@ -24,12 +24,12 @@
 
 
 // describes how the socket is currently connected
-enum ESNetSocketConnectionType
+typedef enum ESNetSocketConnectionType
 {
 	k_ESNetSocketConnectionTypeNotConnected = 0,
 	k_ESNetSocketConnectionTypeUDP = 1,
 	k_ESNetSocketConnectionTypeUDPRelay = 2,
-};
+} ESNetSocketConnectionType;
 
 Begin_Enum_String(ESNetSocketConnectionType)
 {
@@ -37,7 +37,7 @@ Begin_Enum_String(ESNetSocketConnectionType)
 	Enum_String( k_ESNetSocketConnectionTypeUDP );
 	Enum_String( k_ESNetSocketConnectionTypeUDPRelay );
 }
-End_Enum_String;
+End_Enum_String(ESNetSocketConnectionType);
 
 
 #endif // ESNETSOCKETCONNECTIONTYPE_H

@@ -24,7 +24,7 @@
 
 
 // connection progress indicators
-enum ESNetSocketState
+typedef enum ESNetSocketState
 {
 	k_ESNetSocketStateInvalid = 0,						
 
@@ -48,7 +48,7 @@ enum ESNetSocketState
 	k_ESNetSocketStateRemoteEndDisconnected = 24,	// the remote end has disconnected from us
 	k_ESNetSocketStateConnectionBroken = 25,		// connection has been broken; either the other end has disappeared or our local network connection has broke
 
-};
+} ESNetSocketState;
 
 Begin_Enum_String(ESNetSocketState)
 {
@@ -74,6 +74,6 @@ Begin_Enum_String(ESNetSocketState)
 	Enum_String( k_ESNetSocketStateRemoteEndDisconnected );	// the remote end has disconnected from us
 	Enum_String( k_ESNetSocketStateConnectionBroken );		// connection has been broken; either the other end has disappeared or our local network connection has broke
 }
-End_Enum_String;
+End_Enum_String(ESNetSocketState);
 
 #endif // ESNETSOCKETSTATE_H

@@ -26,12 +26,12 @@
 //-----------------------------------------------------------------------------
 // Purpose: types of VAC bans
 //-----------------------------------------------------------------------------
-enum EVACBan
+typedef enum EVACBan
 {
 	k_EVACBanGoldsrc,
 	k_EVACBanSource,
 	k_EVACBanDayOfDefeatSource,
-};
+} EVACBan;
 
 Begin_Enum_String(EVACBan)
 {
@@ -39,6 +39,6 @@ Begin_Enum_String(EVACBan)
 	Enum_String( k_EVACBanSource );
 	Enum_String( k_EVACBanDayOfDefeatSource );
 }
-End_Enum_String;
+End_Enum_String(EVACBan);
 
 #endif // EVACBAN_H

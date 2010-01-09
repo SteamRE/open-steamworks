@@ -27,18 +27,18 @@
 //-----------------------------------------------------------------------------
 // Purpose: Functions for match making services for clients to get to favorites
 //-----------------------------------------------------------------------------
-enum ELobbyType
+typedef enum ELobbyType
 {
 	k_ELobbyTypeFriendsOnly = 1,	// shows for friends or invitees, but not in lobby list
 	k_ELobbyTypePublic = 2,			// visible for friends and in lobby list
-};
+} ELobbyType;
 
 Begin_Enum_String(ELobbyType)
 {
 	Enum_String(k_ELobbyTypeFriendsOnly);
 	Enum_String(k_ELobbyTypePublic);
 }
-End_Enum_String;
+End_Enum_String(ELobbyType);
 
 
 #endif // ELOBBYTYPE_H

@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum EMatchMakingType
+typedef enum EMatchMakingType
 {
 	eInternetServer = 0,
 	eLANServer,
@@ -31,7 +31,7 @@ enum EMatchMakingType
 	eHistoryServer,
 	eSpectatorServer,
 	eInvalidServer 
-};
+} EMatchMakingType;
 
 Begin_Enum_String( EMatchMakingType )
 {
@@ -43,6 +43,6 @@ Begin_Enum_String( EMatchMakingType )
 	Enum_String( eSpectatorServer );
 	Enum_String( eInvalidServer );
 }
-End_Enum_String;
+End_Enum_String( EMatchMakingType );
 
 #endif // EMATCHMAKINGTYPE_H

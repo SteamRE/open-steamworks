@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-typedef enum
+typedef enum ESteamError
 {
 	eSteamErrorNone													= 0,
 	eSteamErrorUnknown												= 1,
@@ -90,8 +90,6 @@ typedef enum
 	eSteamErrorNetwork												= 200,
 
 	eSteamErrorOffline												= 201,
-
-
 } ESteamError;
 
 Begin_Enum_String( ESteamError )
@@ -163,6 +161,6 @@ Begin_Enum_String( ESteamError )
 
 	Enum_String( eSteamErrorOffline );
 }
-End_Enum_String;
+End_Enum_String( ESteamError );
 
 #endif // ESTEAMERROR_H

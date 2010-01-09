@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 // results from BeginAuthSession
-typedef enum
+typedef enum EBeginAuthSessionResult
 {
 	k_EBeginAuthSessionResultOK = 0,						// Ticket is valid for this game and this steamID.
 	k_EBeginAuthSessionResultInvalidTicket = 1,				// Ticket is not valid.
@@ -42,6 +42,6 @@ Begin_Enum_String(EBeginAuthSessionResult)
 	Enum_String( k_EBeginAuthSessionResultGameMismatch );				// Ticket is not for this game
 	Enum_String( k_EBeginAuthSessionResultExpiredTicket );				// Ticket has expired
 }
-End_Enum_String;
+End_Enum_String(EBeginAuthSessionResult);
 
 #endif // EBEGINAUTHSESSIONRESULT_H

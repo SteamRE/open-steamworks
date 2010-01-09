@@ -22,7 +22,7 @@
 
 #include "EnumString.h"
 
-enum EBillingType
+typedef enum EBillingType
 {
 	eNoCost = 0,
 	eBillOnceOnly = 1,
@@ -33,7 +33,7 @@ enum EBillingType
 	eGift = 6,
 	eAutoGrant = 7,
 	eNumBillingTypes = 8,
-};
+} EBillingType;
 
 Begin_Enum_String( EBillingType )
 {
@@ -47,7 +47,7 @@ Begin_Enum_String( EBillingType )
 	Enum_String( eAutoGrant );
 	Enum_String( eNumBillingTypes );
 }
-End_Enum_String;
+End_Enum_String( EBillingType );
 
 
 

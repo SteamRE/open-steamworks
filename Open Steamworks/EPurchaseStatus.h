@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 
-enum EPurchaseStatus
+typedef enum EPurchaseStatus
 {
 	k_EPurchasePending = 0,
 	k_EPurchaseSucceeded = 1,
@@ -32,7 +32,7 @@ enum EPurchaseStatus
 	k_EPurchaseInit = 4,
 	k_EPurchaseChargedback = 5,
 	k_EPurchaseRevoked = 6,
-};
+} EPurchaseStatus;
 
 Begin_Enum_String( EPurchaseStatus )
 {
@@ -44,6 +44,6 @@ Begin_Enum_String( EPurchaseStatus )
 	Enum_String( k_EPurchaseChargedback );
 	Enum_String( k_EPurchaseRevoked );
 }
-End_Enum_String;
+End_Enum_String( EPurchaseStatus );
 
 #endif // EPURCHASESTATUS_H

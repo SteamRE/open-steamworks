@@ -22,13 +22,13 @@
 
 #include "EnumString.h"
 
-enum EClanRank
+typedef enum EClanRank
 {
 	k_EClanRankNone = 0,
 	k_EClanRankOwner = 1,
 	k_EClanRankOfficer = 2,
 	k_EClanRankMember = 3,
-};
+} EClanRank;
 
 Begin_Enum_String( EClanRank )
 {
@@ -37,6 +37,6 @@ Begin_Enum_String( EClanRank )
 	Enum_String( k_EClanRankOfficer );
 	Enum_String( k_EClanRankMember );
 }
-End_Enum_String;
+End_Enum_String( EClanRank );
 
 #endif // ECLANRANK_H

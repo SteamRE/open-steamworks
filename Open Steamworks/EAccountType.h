@@ -24,7 +24,7 @@
 #include "EnumString.h"
 
 // Steam account types
-enum EAccountType
+typedef enum EAccountType
 {
 	k_EAccountTypeInvalid = 0,			
 	k_EAccountTypeIndividual = 1,		// single user account
@@ -40,7 +40,7 @@ enum EAccountType
 
 	// Max of 16 items in this field
 	k_EAccountTypeMax
-};
+} EAccountType;
 
 Begin_Enum_String(EAccountType)
 {
@@ -59,7 +59,7 @@ Begin_Enum_String(EAccountType)
 	// Max of 16 items in this field
 	Enum_String( k_EAccountTypeMax );
 }
-End_Enum_String;
+End_Enum_String(EAccountType);
 
 
 #endif // EACCOUNTTYPE_H

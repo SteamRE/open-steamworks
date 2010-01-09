@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamExternalBillingInfo
 {
 	char szAccountName[ STEAM_EXTERNAL_ACCOUNTNAME_SIZE + 1 ];
 	char szPassword[ STEAM_EXTERNAL_ACCOUNTPASSWORD_SIZE + 1 ];

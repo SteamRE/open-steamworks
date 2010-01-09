@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamPaymentCardInfo
 {
 	ESteamPaymentCardType eCardType;
 	char szCardNumber[ STEAM_CARD_NUMBER_SIZE +1 ];

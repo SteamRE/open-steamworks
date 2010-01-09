@@ -23,14 +23,14 @@
 #include "EnumString.h"
 
 // Enum for the types of news push items you can get
-enum ENewsUpdateType
+typedef enum ENewsUpdateType
 {
 	k_EAppNews = 0,	 // news about a particular app
 	k_ESteamAds = 1, // Marketing messages
 	k_ESteamNews = 2, // EJ's corner and the like
 	k_ECDDBUpdate = 3, // backend has a new CDDB for you to load
 	k_EClientUpdate = 4,	// new version of the steam client is available
-};
+} ENewsUpdateType;
 
 Begin_Enum_String(ENewsUpdateType)
 {
@@ -40,6 +40,6 @@ Begin_Enum_String(ENewsUpdateType)
 	Enum_String( k_ECDDBUpdate );
 	Enum_String( k_EClientUpdate );
 }
-End_Enum_String;
+End_Enum_String(ENewsUpdateType);
 
 #endif

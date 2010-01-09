@@ -1,0 +1,26 @@
+HKCR
+{
+	Steam4COM.SteamID.1 = s 'SteamID Class'
+	{
+		CLSID = s '{2AAAFDB7-75D6-4DE0-BF08-7EFFEC988A0E}'
+	}
+	Steam4COM.SteamID = s 'SteamID Class'
+	{
+		CLSID = s '{2AAAFDB7-75D6-4DE0-BF08-7EFFEC988A0E}'
+		CurVer = s 'Steam4COM.SteamID.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {2AAAFDB7-75D6-4DE0-BF08-7EFFEC988A0E} = s 'SteamID Class'
+		{
+			ProgID = s 'Steam4COM.SteamID.1'
+			VersionIndependentProgID = s 'Steam4COM.SteamID'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{3019F688-8724-45B8-835B-6D1AC7DBDCAD}'
+		}
+	}
+}

@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-typedef struct
+typedef struct TSteamElemInfo
 {
 	int bIsDir;						/* If non-zero, element is a directory; if zero, element is a file */
 	unsigned int uSizeOrCount;		/* If element is a file, this contains size of file in bytes */

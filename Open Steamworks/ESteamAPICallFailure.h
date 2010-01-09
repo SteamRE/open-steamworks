@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 // Steam API call failure results
-enum ESteamAPICallFailure
+typedef enum ESteamAPICallFailure
 {
 	k_ESteamAPICallFailureNone = -1,			// no failure
 	k_ESteamAPICallFailureSteamGone = 0,		// the local Steam process has gone away
@@ -32,7 +32,7 @@ enum ESteamAPICallFailure
 	// SteamServersConnected_t will be sent when the client is able to talk to the Steam servers again
 	k_ESteamAPICallFailureInvalidHandle = 2,	// the SteamAPICall_t handle passed in no longer exists
 	k_ESteamAPICallFailureMismatchedCallback = 3,// GetAPICallResult() was called with the wrong callback type for this API call
-};
+} ESteamAPICallFailure;
 
 Begin_Enum_String( ESteamAPICallFailure )
 {
@@ -44,7 +44,7 @@ Begin_Enum_String( ESteamAPICallFailure )
 	Enum_String( k_ESteamAPICallFailureInvalidHandle );	// the SteamAPICall_t handle passed in no longer exists
 	Enum_String( k_ESteamAPICallFailureMismatchedCallback );// GetAPICallResult() was called with the wrong callback type for this API call
 }
-End_Enum_String;
+End_Enum_String( ESteamAPICallFailure );
 
 
 #endif // ESTEAMAPICALLFAILURE_H

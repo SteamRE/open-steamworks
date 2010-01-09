@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 // for enumerating friends list
-enum k_EFriendFlags
+typedef enum k_EFriendFlags
 {
 	k_EFriendFlagNone			= 0x00,
 	k_EFriendFlagBlocked		= 0x01,
@@ -38,7 +38,7 @@ enum k_EFriendFlags
 	k_EFriendFlagIgnored		= 0x200,
 	k_EFriendFlagIgnoredFriend	= 0x400,
 	k_EFriendFlagAll			= 0xFFFF,
-};
+} k_EFriendFlags;
 
 Begin_Enum_String( k_EFriendFlags )
 {
@@ -56,6 +56,6 @@ Begin_Enum_String( k_EFriendFlags )
 	Enum_String( k_EFriendFlagIgnoredFriend	);
 	Enum_String( k_EFriendFlagAll );
 }
-End_Enum_String;
+End_Enum_String( k_EFriendFlags );
 
 #endif // EFRIENDFLAGS_H

@@ -23,14 +23,14 @@
 #include "EnumString.h"
 
 
-enum ECurrencyCode
+typedef enum ECurrencyCode
 {
 	k_ECurrencyCodeInvalid = 0,
 	k_ECurrencyCodeUSD = 1,
 	k_ECurrencyCodeGBP = 2,
 	k_ECurrencyCodeEUR = 3,
 	k_ECurrencyCodeMax = 4,
-};
+} ECurrencyCode;
 
 Begin_Enum_String( ECurrencyCode )
 {
@@ -40,6 +40,6 @@ Begin_Enum_String( ECurrencyCode )
 	Enum_String( k_ECurrencyCodeEUR );
 	Enum_String( k_ECurrencyCodeMax );
 }
-End_Enum_String;
+End_Enum_String( ECurrencyCode );
 
 #endif // ECURRENCYCODE_H

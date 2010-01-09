@@ -25,7 +25,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: list of states a friend can be in
 //-----------------------------------------------------------------------------
-enum EPersonaState
+typedef enum EPersonaState
 {
 	k_EPersonaStateOffline = 0,			// friend is not currently logged on
 	k_EPersonaStateOnline = 1,			// friend is logged on
@@ -33,7 +33,7 @@ enum EPersonaState
 	k_EPersonaStateAway = 3,			// auto-away feature
 	k_EPersonaStateSnooze = 4,			// auto-away for a long time
 	k_EPersonaStateMax,
-};
+} EPersonaState;
 
 Begin_Enum_String( EPersonaState )
 {
@@ -44,7 +44,7 @@ Begin_Enum_String( EPersonaState )
 	Enum_String( k_EPersonaStateSnooze );	// auto-away for a long time
 	Enum_String( k_EPersonaStateMax );
 }
-End_Enum_String;
+End_Enum_String( EPersonaState );
 
 
 #endif // EPERSONASTATE_H

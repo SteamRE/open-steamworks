@@ -21,7 +21,7 @@
 #endif
 
 
-typedef enum
+typedef enum ESteamSeekMethod
 {
 	eSteamSeekMethodSet = 0,
 	eSteamSeekMethodCur = 1,

@@ -22,12 +22,12 @@
 
 #include "EnumString.h"
 
-enum EMatchMakingServerResponse
+typedef enum EMatchMakingServerResponse
 {
 	eServerResponded = 0,
 	eServerFailedToRespond,
 	eNoServersListedOnMasterServer // for the Internet query type, returned in response callback if no servers of this type match
-};
+} EMatchMakingServerResponse;
 
 Begin_Enum_String(EMatchMakingServerResponse)
 {
@@ -35,6 +35,6 @@ Begin_Enum_String(EMatchMakingServerResponse)
 	Enum_String( eServerFailedToRespond );
 	Enum_String( eNoServersListedOnMasterServer );
 }
-End_Enum_String;
+End_Enum_String(EMatchMakingServerResponse);
 
 #endif // EMATCHMAKINGSERVERRESPONSE_H
