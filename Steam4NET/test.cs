@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using Steam4NET;
 
@@ -804,1106 +804,1881 @@ namespace Steam4NET
 		k_EChatRoomEnterResponseBanned = 6,
 	}
 	
-	public unsafe struct GCSetItemPosition_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GCSetItemPosition_t
 	{
-		UInt16 id;
-		fixed SByte garbage[128];
-		UInt64 itemID;
-		UInt32 position;
-		UInt32 unk1;
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public UInt64 itemID;
+		public UInt32 position;
+		public UInt32 unk1;
 		const int k_iMessage = 1001;
 	}
 	
-	public unsafe struct ClientAppNewsItemUpdate_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ClientAppNewsItemUpdate_t
 	{
-		Byte m_eNewsUpdateType;
-		UInt32 m_uNewsID;
-		UInt32 m_uAppID;
+		public Byte m_eNewsUpdateType;
+		public UInt32 m_uNewsID;
+		public UInt32 m_uAppID;
 		const int k_iCallback = 110;
 	}
 	
-	public unsafe struct SocketStatusCallback_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class CSteamID
 	{
-		UInt32 m_hSocket;
-		UInt32 m_hListenSocket;
-		CSteamID m_steamIDRemote;
-		Int32 m_eSNetSocketState;
+
+		[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1)]
+		struct SteamID_t
+		{
+			[FieldOffset(0)]
+			public UInt64 m_unAll64Bits;
+		}
+		
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SocketStatusCallback_t
+	{
+		public UInt32 m_hSocket;
+		public UInt32 m_hListenSocket;
+		public CSteamID m_steamIDRemote;
+		public Int32 m_eSNetSocketState;
 		const int k_iCallback = 1201;
 	}
 	
-	public unsafe struct GSItemGranted_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSItemGranted_t
 	{
-		CSteamID m_steamID;
-		UInt64 m_itemID;
+		public CSteamID m_steamID;
+		public UInt64 m_itemID;
 		const int k_iCallback = 1507;
 	}
 	
-	public unsafe struct SOMsgCacheUnsubscribed_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SOMsgCacheUnsubscribed_t
 	{
-		UInt16 id;
-		fixed SByte garbage[128];
-		CSteamID steamid;
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public CSteamID steamid;
 		const int k_iMessage = 25;
 	}
 	
-	public unsafe struct GSPolicyResponse_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSPolicyResponse_t
 	{
-		Byte m_bSecure;
+		public Byte m_bSecure;
 		const int k_iCallback = 115;
 	}
 	
-	public unsafe struct PurchaseMsg_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct PurchaseMsg_t
 	{
-		UInt32 m_bSuccess;
-		EPurchaseResultDetail m_EPurchaseResultDetail;
+		public UInt32 m_bSuccess;
+		public EPurchaseResultDetail m_EPurchaseResultDetail;
 		const int k_iCallback = 402;
 	}
 	
-	public unsafe struct SOMsgCreate_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SOMsgCreate_t
 	{
-		UInt16 id;
-		fixed SByte garbage[128];
-		CSteamID steamid;
-		UInt32 unknown;
-		UInt64 itemid;
-		UInt32 accountid;
-		UInt16 itemtype;
-		Byte itemlevel;
-		Byte itemquality;
-		UInt32 position;
-		UInt32 itemcount;
-		UInt16 attribcount;
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public CSteamID steamid;
+		public UInt32 unknown;
+		public UInt64 itemid;
+		public UInt32 accountid;
+		public UInt16 itemtype;
+		public Byte itemlevel;
+		public Byte itemquality;
+		public UInt32 position;
+		public UInt32 itemcount;
+		public UInt16 attribcount;
 		const int k_iMessage = 21;
 	}
 	
-	public unsafe struct GSClientKick_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSClientKick_t
 	{
-		CSteamID m_SteamID;
-		EDenyReason m_eDenyReason;
+		public CSteamID m_SteamID;
+		public EDenyReason m_eDenyReason;
 		const int k_iCallback = 203;
 	}
 	
-	public unsafe struct UserItemDeleted_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserItemDeleted_t
 	{
-		UInt64 m_itemID;
-		UInt32 Unk0;
-		UInt32 Unk1;
+		public UInt64 m_itemID;
+		public UInt32 Unk0;
+		public UInt32 Unk1;
 		const int k_iCallback = 1402;
 	}
 	
-	public unsafe struct PersonaStateChangeOld_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct PersonaStateChangeOld_t
 	{
-		UInt64 m_ulSteamID;
-		Int32 m_ePersonaStatePrevious;
-		Int32 m_nGameIDPrevious;
-		UInt32 m_unGameServerIPPrevious;
-		UInt16 m_usGameServerPortPrevious;
+		public UInt64 m_ulSteamID;
+		public Int32 m_ePersonaStatePrevious;
+		public Int32 m_nGameIDPrevious;
+		public UInt32 m_unGameServerIPPrevious;
+		public UInt16 m_usGameServerPortPrevious;
 		const int k_iCallback = 303;
 	}
 	
-	public unsafe struct GSClientDeny_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSClientDeny_t
 	{
-		CSteamID m_SteamID;
-		EDenyReason m_eDenyReason;
-		fixed SByte m_pchOptionalText[1024];
+		public CSteamID m_SteamID;
+		public EDenyReason m_eDenyReason;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
+		public SByte[] m_pchOptionalText;
 		const int k_iCallback = 202;
 	}
 	
-	public unsafe struct GCCraftResponse_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GCCraftResponse_t
 	{
-		UInt16 id;
-		fixed SByte garbage[128];
-		UInt16 blueprint;
-		UInt64 unk1;
-		UInt64 itemid;
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public UInt16 blueprint;
+		public UInt64 unk1;
+		public UInt64 itemid;
 		const int k_iMessage = 1003;
 	}
 	
-	public unsafe struct AppDataChanged_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct AppDataChanged_t
 	{
-		UInt32 m_Sequence;
-		UInt32 m_Unknown;
+		public UInt32 m_Sequence;
+		public UInt32 m_Unknown;
 		const int k_iCallback = 1001;
 	}
 	
-	public unsafe struct LobbyDataUpdate_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyDataUpdate_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDMember;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDMember;
 		const int k_iCallback = 505;
 	}
 	
-	public unsafe struct GameServerChangeRequested_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GameServerChangeRequested_t
 	{
-		fixed SByte m_rgchServer[512];
-		fixed SByte m_rgchPassword[512];
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+		public SByte[] m_rgchServer;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+		public SByte[] m_rgchPassword;
 		const int k_iCallback = 332;
 	}
 	
-	public unsafe struct FinalPriceMsg_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct FinalPriceMsg_t
 	{
-		UInt32 m_bSuccess;
-		UInt32 m_nBaseCost;
-		UInt32 m_nTotalDiscount;
-		UInt32 m_nTax;
-		UInt32 m_nShippingCost;
+		public UInt32 m_bSuccess;
+		public UInt32 m_nBaseCost;
+		public UInt32 m_nTotalDiscount;
+		public UInt32 m_nTax;
+		public UInt32 m_nShippingCost;
 		const int k_iCallback = 401;
 	}
 	
-	public unsafe struct LobbyGameCreated_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyGameCreated_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDGameServer;
-		UInt32 m_unIP;
-		UInt16 m_usPort;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDGameServer;
+		public UInt32 m_unIP;
+		public UInt16 m_usPort;
 		const int k_iCallback = 509;
 	}
 	
-	public unsafe struct SteamShutdown_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class CGameID
+	{
+		[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+		public struct GameID_t
+		{
+			public UInt32 m_nAppID;
+			public UInt32 m_nType;
+			public UInt32 m_nModID;
+		}
+		
+
+		[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1)]
+		struct Union
+		{
+			[FieldOffset(0)]
+			public UInt64 m_ulGameID;
+			[FieldOffset(0)]
+			public GameID_t m_gameID;
+		}
+		
+		const int k_EGameIDTypeApp = 0;
+		const int k_EGameIDTypeGameMod = 1;
+		const int k_EGameIDTypeShortcut = 2;
+		const int k_EGameIDTypeP2P = 3;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SteamShutdown_t
 	{
 		const int k_iCallback = 704;
 	}
 	
-	public unsafe struct SOMsgCacheSubscribed_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SOMsgCacheSubscribed_t
 	{
-		UInt16 id;
-		fixed SByte garbage[128];
-		CSteamID steamid;
-		UInt32 unknown;
-		UInt16 padding;
-		UInt16 itemcount;
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public CSteamID steamid;
+		public UInt32 unknown;
+		public UInt16 padding;
+		public UInt16 itemcount;
 		const int k_iMessage = 24;
 	}
 	
-	public unsafe struct ClientSteamNewsClientUpdate_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ClientSteamNewsClientUpdate_t
 	{
-		Byte m_eNewsUpdateType;
-		Byte m_bReloadCDDB;
-		UInt32 m_unCurrentBootstrapperVersion;
-		UInt32 m_unCurrentClientVersion;
+		public Byte m_eNewsUpdateType;
+		public Byte m_bReloadCDDB;
+		public UInt32 m_unCurrentBootstrapperVersion;
+		public UInt32 m_unCurrentClientVersion;
 		const int k_iCallback = 116;
 	}
 	
-	public unsafe struct GSClientApprove_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSClientApprove_t
 	{
-		CSteamID m_SteamID;
+		public CSteamID m_SteamID;
 		const int k_iCallback = 201;
 	}
 	
-	public unsafe struct GSGameplayStats_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSGameplayStats_t
 	{
-		EResult m_eResult;
-		Int32 m_nRank;
-		UInt32 m_unTotalConnects;
-		UInt32 m_unTotalMinutesPlayed;
+		public EResult m_eResult;
+		public Int32 m_nRank;
+		public UInt32 m_unTotalConnects;
+		public UInt32 m_unTotalMinutesPlayed;
 		const int k_iCallback = 207;
 	}
 	
-	public unsafe struct LobbyChatUpdate_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyChatUpdate_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDUserChanged;
-		UInt64 m_ulSteamIDMakingChange;
-		UInt32 m_rgfChatMemberStateChange;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDUserChanged;
+		public UInt64 m_ulSteamIDMakingChange;
+		public UInt32 m_rgfChatMemberStateChange;
 		const int k_iCallback = 506;
 	}
 	
-	public unsafe struct PrimaryChatDestinationSet_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct PrimaryChatDestinationSet_t
 	{
-		Byte m_bIsPrimary;
+		public Byte m_bIsPrimary;
 		const int k_iCallback = 114;
 	}
 	
-	public unsafe struct UserAchievementStored_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserAchievementStored_t
 	{
-		UInt64 m_nGameID;
-		bool m_bGroupAchievement;
-		fixed SByte m_rgchAchievementName[1024];
-		UInt32 m_nCurProgress;
-		UInt32 m_nMaxProgress;
+		public UInt64 m_nGameID;
+		public bool m_bGroupAchievement;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
+		public SByte[] m_rgchAchievementName;
+		public UInt32 m_nCurProgress;
+		public UInt32 m_nMaxProgress;
 		const int k_iCallback = 1103;
 	}
 	
-	public unsafe struct GSClientAchievementStatus_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSClientAchievementStatus_t
 	{
-		UInt64 m_SteamID;
-		fixed SByte m_pchAchievement[1024];
-		bool m_bUnlocked;
+		public UInt64 m_SteamID;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
+		public SByte[] m_pchAchievement;
+		public bool m_bUnlocked;
 		const int k_iCallback = 206;
 	}
 	
-	public unsafe struct SOMsgDeleted_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SOMsgDeleted_t
 	{
-		UInt16 id;
-		fixed SByte garbage[128];
-		CSteamID steamid;
-		UInt32 unk1;
-		UInt64 itemid;
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public CSteamID steamid;
+		public UInt32 unk1;
+		public UInt64 itemid;
 		const int k_iMessage = 23;
 	}
 	
-	public unsafe struct ValidateAuthTicketResponse_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ValidateAuthTicketResponse_t
 	{
-		CSteamID m_SteamID;
-		EAuthSessionResponse m_eAuthSessionResponse;
+		public CSteamID m_SteamID;
+		public EAuthSessionResponse m_eAuthSessionResponse;
 		const int k_iCallback = 143;
 	}
 	
-	public unsafe struct BeginLogonRetry_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct BeginLogonRetry_t
 	{
 		const int k_iCallback = 104;
 	}
 	
-	public unsafe struct GSClientSteam2Accept_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSClientSteam2Accept_t
 	{
-		UInt32 m_UserID;
-		UInt64 m_SteamID;
+		public UInt32 m_UserID;
+		public UInt64 m_SteamID;
 		const int k_iCallback = 205;
 	}
 	
-	public unsafe struct LobbyInvite_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class CCallbackBase
 	{
-		UInt64 m_ulSteamIDUser;
-		UInt64 m_ulSteamIDLobby;
+		public Byte m_nCallbackFlags;
+		public Int32 m_iCallback;
+		const int k_ECallbackFlagsRegistered = 1;
+		const int k_ECallbackFlagsGameServer = 2;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyInvite_t
+	{
+		public UInt64 m_ulSteamIDUser;
+		public UInt64 m_ulSteamIDLobby;
 		const int k_iCallback = 503;
 	}
 	
-	public unsafe struct GSItemRequest_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSItemRequest_t
 	{
-		CSteamID m_steamID;
-		EItemRequestResult m_eResult;
-		UInt64 m_itemID;
+		public CSteamID m_steamID;
+		public EItemRequestResult m_eResult;
+		public UInt64 m_itemID;
 		const int k_iCallback = 1501;
 	}
 	
-	public unsafe struct LobbyClosing_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyClosing_t
 	{
-		UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDLobby;
 		const int k_iCallback = 511;
 	}
 	
-	public unsafe struct GCCraft_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GCCraft_t
 	{
-		UInt16 id;
-		fixed SByte garbage[128];
-		UInt16 blueprint;
-		UInt16 itemcount;
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public UInt16 blueprint;
+		public UInt16 itemcount;
 		const int k_iMessage = 1002;
 	}
 	
-	public unsafe struct SteamServerConnectFailure_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SteamServerConnectFailure_t
 	{
-		EResult m_eResult;
+		public EResult m_eResult;
 		const int k_iCallback = 102;
 	}
 	
-	public unsafe struct FriendEndChatSession_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct FriendEndChatSession_t
 	{
-		CSteamID m_SteamID;
+		public CSteamID m_SteamID;
 		const int k_iCallback = 312;
 	}
 	
-	public unsafe struct LogonFailure_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LogonFailure_t
 	{
-		EResult m_eResult;
+		public EResult m_eResult;
 		const int k_iCallback = 102;
 	}
 	
-	public unsafe struct LowBatteryPower_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LowBatteryPower_t
 	{
-		Byte m_nMinutesBatteryLeft;
+		public Byte m_nMinutesBatteryLeft;
 		const int k_iCallback = 702;
 	}
 	
-	public unsafe struct LobbyEnter_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyEnter_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt32 m_rgfChatPermissions;
-		bool m_bLocked;
-		EChatRoomEnterResponse m_EChatRoomEnterResponse;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt32 m_rgfChatPermissions;
+		public bool m_bLocked;
+		public EChatRoomEnterResponse m_EChatRoomEnterResponse;
 		const int k_iCallback = 504;
 	}
 	
-	public unsafe struct GameLobbyJoinRequested_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GameLobbyJoinRequested_t
 	{
-		CSteamID m_steamIDLobby;
-		CSteamID m_steamIDFriend;
+		public CSteamID m_steamIDLobby;
+		public CSteamID m_steamIDFriend;
 		const int k_iCallback = 333;
 	}
 	
-	public unsafe struct SteamServersDisconnected_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SteamServersDisconnected_t
 	{
-		EResult m_eResult;
+		public EResult m_eResult;
 		const int k_iCallback = 103;
 	}
 	
-	public unsafe struct GSClientSteam2Deny_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSClientSteam2Deny_t
 	{
-		UInt32 m_UserID;
-		UInt32 m_eSteamError;
+		public UInt32 m_UserID;
+		public UInt32 m_eSteamError;
 		const int k_iCallback = 204;
 	}
 	
-	public unsafe struct ClientSteamNewsItemUpdate_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ClientSteamNewsItemUpdate_t
 	{
-		Byte m_eNewsUpdateType;
-		UInt32 m_uNewsID;
-		UInt32 m_uHaveSubID;
-		UInt32 m_uNotHaveSubID;
-		UInt32 m_uHaveAppID;
-		UInt32 m_uNotHaveAppID;
-		UInt32 m_uHaveAppIDInstalled;
-		UInt32 m_uHavePlayedAppID;
+		public Byte m_eNewsUpdateType;
+		public UInt32 m_uNewsID;
+		public UInt32 m_uHaveSubID;
+		public UInt32 m_uNotHaveSubID;
+		public UInt32 m_uHaveAppID;
+		public UInt32 m_uNotHaveAppID;
+		public UInt32 m_uHaveAppIDInstalled;
+		public UInt32 m_uHavePlayedAppID;
 		const int k_iCallback = 112;
 	}
 	
-	public unsafe struct SteamAPICallCompleted_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SteamAPICallCompleted_t
 	{
-		UInt64 m_hAsyncCall;
+		public UInt64 m_hAsyncCall;
 		const int k_iCallback = 703;
 	}
 	
-	public unsafe struct CallbackPipeFailure_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct CallbackPipeFailure_t
 	{
 		const int k_iCallback = 117;
 	}
 	
-	public unsafe struct LeaderboardScoresDownloaded_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LeaderboardScoresDownloaded_t
 	{
-		UInt64 m_hSteamLeaderboard;
-		UInt64 m_hSteamLeaderboardEntries;
-		Int32 m_cEntryCount;
+		public UInt64 m_hSteamLeaderboard;
+		public UInt64 m_hSteamLeaderboardEntries;
+		public Int32 m_cEntryCount;
 		const int k_iCallback = 1105;
 	}
 	
-	public unsafe struct UserRequestingFriendship_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserRequestingFriendship_t
 	{
-		UInt64 m_ulSteamID;
+		public UInt64 m_ulSteamID;
 		const int k_iCallback = 302;
 	}
 	
-	public unsafe struct FavoritesListChanged_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct FavoritesListChanged_t
 	{
-		UInt32 m_nIP;
-		UInt32 m_nQueryPort;
-		UInt32 m_nConnPort;
-		UInt32 m_nAppID;
-		UInt32 m_nFlags;
-		bool m_bAdd;
+		public UInt32 m_nIP;
+		public UInt32 m_nQueryPort;
+		public UInt32 m_nConnPort;
+		public UInt32 m_nAppID;
+		public UInt32 m_nFlags;
+		public bool m_bAdd;
 		const int k_iCallback = 502;
 	}
 	
-	public unsafe struct GSItemGetBlob_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSItemGetBlob_t
 	{
-		UInt64 m_itemID;
-		EItemRequestResult m_eResult;
-		fixed Byte m_itemBlob[8192];
+		public UInt64 m_itemID;
+		public EItemRequestResult m_eResult;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 1024)]
+		public Byte[] m_itemBlob;
 		const int k_iCallback = 1508;
 	}
 	
-	public unsafe struct GSItemCount_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSItemCount_t
 	{
-		CSteamID m_steamID;
-		EItemRequestResult m_eResult;
-		UInt32 m_unCount;
+		public CSteamID m_steamID;
+		public EItemRequestResult m_eResult;
+		public UInt32 m_unCount;
 		const int k_iCallback = 1500;
 	}
 	
-	public unsafe struct GCDelete_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GCDelete_t
 	{
-		UInt16 id;
-		fixed SByte garbage[128];
-		UInt64 itemID;
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public UInt64 itemID;
 		const int k_iMessage = 1004;
 	}
 	
-	public unsafe struct GSClientGroupStatus_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSClientGroupStatus_t
 	{
-		CSteamID m_SteamIDUser;
-		CSteamID m_SteamIDGroup;
-		bool m_bMember;
-		bool m_bOfficer;
+		public CSteamID m_SteamIDUser;
+		public CSteamID m_SteamIDGroup;
+		public bool m_bMember;
+		public bool m_bOfficer;
 		const int k_iCallback = 208;
 	}
 	
-	public unsafe struct IPCFailure_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IPCFailure_t
 	{
-		Byte m_eFailureType;
+		public Byte m_eFailureType;
 		const int k_iCallback = 117;
 		const int k_EFailureFlushedCallbackQueue = 0;
 		const int k_EFailurePipeFail = 1;
 	}
 	
-	public unsafe struct LobbyKicked_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyKicked_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDAdmin;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDAdmin;
 		const int k_iCallback = 512;
 	}
 	
-	public unsafe struct SystemIM_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SystemIM_t
 	{
-		UInt32 m_ESystemIMType;
-		fixed SByte m_rgchMsgBody[32768];
+		public UInt32 m_ESystemIMType;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 4096)]
+		public SByte[] m_rgchMsgBody;
 		const int k_iCallback = 305;
 	}
 	
-	public unsafe struct LobbyChatMsg_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyChatMsg_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDUser;
-		EChatEntryType m_eChatEntryType;
-		UInt32 m_iChatID;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDUser;
+		public EChatEntryType m_eChatEntryType;
+		public UInt32 m_iChatID;
 		const int k_iCallback = 507;
 	}
 	
-	public unsafe struct UserItemGranted_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserItemGranted_t
 	{
-		UInt64 m_itemID;
-		CGameID m_gameID;
+		public UInt64 m_itemID;
+		public CGameID m_gameID;
 		const int k_iCallback = 1403;
 	}
 	
-	public unsafe struct UserItemSetBlob_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserItemSetBlob_t
 	{
-		UInt64 m_itemID;
-		EItemRequestResult m_eResult;
-		UInt32 Unk;
+		public UInt64 m_itemID;
+		public EItemRequestResult m_eResult;
+		public UInt32 Unk;
 		const int k_iCallback = 1405;
 	}
 	
-	public unsafe struct LeaderboardFindResult_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LeaderboardFindResult_t
 	{
-		UInt64 m_hSteamLeaderboard;
-		Byte m_bLeaderboardFound;
+		public UInt64 m_hSteamLeaderboard;
+		public Byte m_bLeaderboardFound;
 		const int k_iCallback = 1104;
 	}
 	
-	public unsafe struct UserStatsStored_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserStatsStored_t
 	{
-		UInt64 m_nGameID;
-		EResult m_eResult;
+		public UInt64 m_nGameID;
+		public EResult m_eResult;
 		const int k_iCallback = 1102;
 	}
 	
-	public unsafe struct ClientGameServerDeny_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ClientGameServerDeny_t
 	{
-		UInt32 m_uAppID;
-		UInt32 m_unGameServerIP;
-		UInt16 m_usGameServerPort;
-		UInt16 m_bSecure;
-		UInt32 m_uReason;
+		public UInt32 m_uAppID;
+		public UInt32 m_unGameServerIP;
+		public UInt16 m_usGameServerPort;
+		public UInt16 m_bSecure;
+		public UInt32 m_uReason;
 		const int k_iCallback = 113;
 	}
 	
-	public unsafe struct IPCountry_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IPCountry_t
 	{
 		const int k_iCallback = 701;
 	}
 	
-	public unsafe struct FriendChatMsg_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct FriendChatMsg_t
 	{
-		UInt64 m_ulReceiver;
-		UInt64 m_ulSender;
-		UInt32 m_iUnknown1;
-		UInt32 m_iChatID;
+		public UInt64 m_ulReceiver;
+		public UInt64 m_ulSender;
+		public UInt32 m_iUnknown1;
+		public UInt32 m_iChatID;
 		const int k_iCallback = 306;
 	}
 	
-	public unsafe struct LeaderboardScoreUploaded_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LeaderboardScoreUploaded_t
 	{
-		Byte m_bSuccess;
-		UInt64 m_hSteamLeaderboard;
-		Int32 m_nScore;
-		Byte m_bScoreChanged;
-		Int32 m_nGlobalRankNew;
-		Int32 m_nGlobalRankPrevious;
+		public Byte m_bSuccess;
+		public UInt64 m_hSteamLeaderboard;
+		public Int32 m_nScore;
+		public Byte m_bScoreChanged;
+		public Int32 m_nGlobalRankNew;
+		public Int32 m_nGlobalRankPrevious;
 		const int k_iCallback = 1106;
 	}
 	
-	public unsafe struct LobbyCreated_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyCreated_t
 	{
-		EResult m_eResult;
-		UInt64 m_ulSteamIDLobby;
+		public EResult m_eResult;
+		public UInt64 m_ulSteamIDLobby;
 		const int k_iCallback = 513;
 	}
 	
-	public unsafe struct LoggedOff_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LoggedOff_t
 	{
-		EResult m_eResult;
+		public EResult m_eResult;
 		const int k_iCallback = 103;
 	}
 	
-	public unsafe struct SteamServersConnected_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SteamServersConnected_t
 	{
 		const int k_iCallback = 101;
 	}
 	
-	public unsafe struct LobbyAdminChange_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyAdminChange_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDNewAdmin;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDNewAdmin;
 		const int k_iCallback = 508;
 	}
 	
-	public unsafe struct Steam2TicketChanged_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct Steam2TicketChanged_t
 	{
 		const int k_iCallback = 106;
 	}
 	
-	public unsafe struct LobbyMatchList_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LobbyMatchList_t
 	{
-		UInt32 m_nLobbiesMatching;
+		public UInt32 m_nLobbiesMatching;
 		const int k_iCallback = 510;
 	}
 	
-	public unsafe struct UserItemGetBlob_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserItemGetBlob_t
 	{
-		UInt64 m_itemID;
-		EItemRequestResult m_eResult;
-		fixed Byte itemBlob[8192];
+		public UInt64 m_itemID;
+		public EItemRequestResult m_eResult;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 1024)]
+		public Byte[] itemBlob;
 		const int k_iCallback = 1404;
 	}
 	
-	public unsafe struct GameOverlayActivated_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GameOverlayActivated_t
 	{
-		Byte m_bActive;
+		public Byte m_bActive;
 		const int k_iCallback = 331;
 	}
 	
-	public unsafe struct GameCoordinatorMessageAvailable_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GameCoordinatorMessageAvailable_t
 	{
-		UInt32 messageLength;
+		public UInt32 messageLength;
 		const int k_iCallback = 1701;
 	}
 	
-	public unsafe struct UserItemMoved_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserItemMoved_t
 	{
-		UInt64 m_itemID;
-		UInt32 Unk0;
-		UInt32 Unk1;
+		public UInt64 m_itemID;
+		public UInt32 Unk0;
+		public UInt32 Unk1;
 		const int k_iCallback = 1401;
 	}
 	
-	public unsafe struct PersonaStateChange_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct PersonaStateChange_t
 	{
-		UInt64 m_ulSteamID;
-		Int32 m_nChangeFlags;
+		public UInt64 m_ulSteamID;
+		public Int32 m_nChangeFlags;
 		const int k_iCallback = 304;
 	}
 	
-	public unsafe struct UserItemCount_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserItemCount_t
 	{
-		CGameID m_gameID;
-		EItemRequestResult m_eResult;
-		UInt32 m_unCount;
+		public CGameID m_gameID;
+		public EItemRequestResult m_eResult;
+		public UInt32 m_unCount;
 		const int k_iCallback = 1400;
 	}
 	
-	public unsafe struct SOMsgUpdate_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SOMsgUpdate_t
 	{
-		UInt16 id;
-		fixed SByte garbage[128];
-		CSteamID steamid;
-		UInt32 unk1;
-		UInt64 itemID;
-		UInt16 unk2;
-		UInt32 position;
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public CSteamID steamid;
+		public UInt32 unk1;
+		public UInt64 itemID;
+		public UInt16 unk2;
+		public UInt32 position;
 		const int k_iMessage = 22;
 	}
 	
-	public unsafe struct LogonSuccess_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LogonSuccess_t
 	{
 		const int k_iCallback = 101;
 	}
 	
-	public unsafe struct UserStatsReceived_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserStatsReceived_t
 	{
-		UInt64 m_nGameID;
-		EResult m_eResult;
-		CSteamID m_steamIDUser;
+		public UInt64 m_nGameID;
+		public EResult m_eResult;
+		public CSteamID m_steamIDUser;
 		const int k_iCallback = 1101;
 	}
 	
-	public unsafe struct UserPolicyResponse_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct UserPolicyResponse_t
 	{
-		Byte m_bSecure;
+		public Byte m_bSecure;
 		const int k_iCallback = 115;
 	}
 	
-	public unsafe struct DlcInstalled_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct DlcInstalled_t
 	{
-		UInt32 m_nAppID;
+		public UInt32 m_nAppID;
 		const int k_iCallback = 1005;
 	}
 	
-	public unsafe struct GSItemSetBlob_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct GSItemSetBlob_t
 	{
-		UInt64 m_itemID;
-		EItemRequestResult m_eResult;
-		UInt32 Unk;
+		public UInt64 m_itemID;
+		public EItemRequestResult m_eResult;
+		public UInt32 Unk;
 		const int k_iCallback = 1509;
 	}
 	
-	public unsafe struct FriendAdded_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct FriendAdded_t
 	{
-		Byte m_bSuccess;
-		UInt64 m_ulSteamID;
+		public Byte m_bSuccess;
+		public UInt64 m_ulSteamID;
 		const int k_iCallback = 301;
 	}
 	
-	public unsafe struct IClientRemoteStorage
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IClientRemoteStorage
 	{
 	}
 	
-	public unsafe struct TSteamAppStats
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamAppStats
 	{
-		UInt32 uNumApps;
-		UInt32 uMaxNameChars;
-		UInt32 uMaxInstallDirNameChars;
-		UInt32 uMaxVersionLabelChars;
-		UInt32 uMaxLaunchOptions;
-		UInt32 uMaxLaunchOptionDescChars;
-		UInt32 uMaxLaunchOptionCmdLineChars;
-		UInt32 uMaxNumIcons;
-		UInt32 uMaxIconSize;
-		UInt32 uMaxDependencies;
+		public UInt32 uNumApps;
+		public UInt32 uMaxNameChars;
+		public UInt32 uMaxInstallDirNameChars;
+		public UInt32 uMaxVersionLabelChars;
+		public UInt32 uMaxLaunchOptions;
+		public UInt32 uMaxLaunchOptionDescChars;
+		public UInt32 uMaxLaunchOptionCmdLineChars;
+		public UInt32 uMaxNumIcons;
+		public UInt32 uMaxIconSize;
+		public UInt32 uMaxDependencies;
 	}
 	
-	public unsafe struct TSteamProgress
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamProgress
 	{
-		Int32 bValid;
-		UInt32 uPercentDone;
-		fixed SByte szProgress[2040];
+		public Int32 bValid;
+		public UInt32 uPercentDone;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
+		public SByte[] szProgress;
 	}
 	
-	public unsafe struct TSteamPaymentCardInfo
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamPaymentCardInfo
 	{
-		ESteamPaymentCardType eCardType;
-		fixed SByte szCardNumber[144];
-		fixed SByte szCardHolderName[808];
-		fixed SByte szCardExpYear[40];
-		fixed SByte szCardExpMonth[24];
-		fixed SByte szCardCVV2[48];
-		fixed SByte szBillingAddress1[1032];
-		fixed SByte szBillingAddress2[1032];
-		fixed SByte szBillingCity[408];
-		fixed SByte szBillingZip[136];
-		fixed SByte szBillingState[264];
-		fixed SByte szBillingCountry[264];
-		fixed SByte szBillingPhone[168];
-		fixed SByte szBillingEmailAddress[808];
-		UInt32 uExpectedCostInCents;
-		UInt32 uExpectedTaxInCents;
-		fixed SByte szShippingName[808];
-		fixed SByte szShippingAddress1[1032];
-		fixed SByte szShippingAddress2[1032];
-		fixed SByte szShippingCity[408];
-		fixed SByte szShippingZip[136];
-		fixed SByte szShippingState[264];
-		fixed SByte szShippingCountry[264];
-		fixed SByte szShippingPhone[168];
-		UInt32 uExpectedShippingCostInCents;
+		public ESteamPaymentCardType eCardType;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 18)]
+		public SByte[] szCardNumber;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 101)]
+		public SByte[] szCardHolderName;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
+		public SByte[] szCardExpYear;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+		public SByte[] szCardExpMonth;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)]
+		public SByte[] szCardCVV2;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 129)]
+		public SByte[] szBillingAddress1;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 129)]
+		public SByte[] szBillingAddress2;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 51)]
+		public SByte[] szBillingCity;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 17)]
+		public SByte[] szBillingZip;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 33)]
+		public SByte[] szBillingState;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 33)]
+		public SByte[] szBillingCountry;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 21)]
+		public SByte[] szBillingPhone;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 101)]
+		public SByte[] szBillingEmailAddress;
+		public UInt32 uExpectedCostInCents;
+		public UInt32 uExpectedTaxInCents;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 101)]
+		public SByte[] szShippingName;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 129)]
+		public SByte[] szShippingAddress1;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 129)]
+		public SByte[] szShippingAddress2;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 51)]
+		public SByte[] szShippingCity;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 17)]
+		public SByte[] szShippingZip;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 33)]
+		public SByte[] szShippingState;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 33)]
+		public SByte[] szShippingCountry;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 21)]
+		public SByte[] szShippingPhone;
+		public UInt32 uExpectedShippingCostInCents;
 	}
 	
-	public unsafe struct ISteamUser
-	{
-	}
-	
-	public unsafe struct ISteamMatchmakingServers
-	{
-	}
-	
-	public unsafe struct FriendGameInfo_t
-	{
-		CGameID m_gameID;
-		UInt32 m_unGameIP;
-		UInt16 m_usGamePort;
-		UInt16 m_usQueryPort;
-		CSteamID m_steamIDLobby;
-	}
-	
-	public unsafe struct TSteamAppDependencyInfo
-	{
-		UInt32 AppId;
-		UInt32 IsRequired;
-		fixed SByte szMountName[2040];
-	}
-	
-	public unsafe struct TSteamElemInfo
-	{
-		Int32 bIsDir;
-		UInt32 uSizeOrCount;
-		Int32 bIsLocal;
-		fixed SByte cszName[2040];
-		Int32 lLastAccessTime;
-		Int32 lLastModificationTime;
-		Int32 lCreationTime;
-	}
-	
-	public unsafe struct IClientNetworking
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamUser
 	{
 	}
 	
-	public unsafe struct TSteamExternalBillingInfo
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamMatchmakingServers
 	{
-		fixed SByte szAccountName[808];
-		fixed SByte szPassword[648];
 	}
 	
-	public unsafe struct TSteamPrepurchaseInfo
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct FriendGameInfo_t
 	{
-		fixed SByte szTypeOfProofOfPurchase[168];
-		UInt32 uLengthOfBinaryProofOfPurchaseToken;
-		fixed SByte cBinaryProofOfPurchaseToken[1608];
+		public CGameID m_gameID;
+		public UInt32 m_unGameIP;
+		public UInt16 m_usGamePort;
+		public UInt16 m_usQueryPort;
+		public CSteamID m_steamIDLobby;
 	}
 	
-	public unsafe struct TSteamSubscriptionBillingInfo
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamAppDependencyInfo
 	{
-		ESteamSubscriptionBillingInfoType eBillingInfoType;
+		public UInt32 AppId;
+		public UInt32 IsRequired;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
+		public SByte[] szMountName;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamElemInfo
+	{
+		public Int32 bIsDir;
+		public UInt32 uSizeOrCount;
+		public Int32 bIsLocal;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
+		public SByte[] cszName;
+		public Int32 lLastAccessTime;
+		public Int32 lLastModificationTime;
+		public Int32 lCreationTime;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IClientNetworking
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamExternalBillingInfo
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 101)]
+		public SByte[] szAccountName;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 81)]
+		public SByte[] szPassword;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamPrepurchaseInfo
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 21)]
+		public SByte[] szTypeOfProofOfPurchase;
+		public UInt32 uLengthOfBinaryProofOfPurchaseToken;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 201)]
+		public SByte[] cBinaryProofOfPurchaseToken;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamSubscriptionBillingInfo
+	{
+		public ESteamSubscriptionBillingInfoType eBillingInfoType;
 
-		[System.Runtime.InteropServices.StructLayout(LayoutKind.Explicit)]
+		[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1)]
 		struct Union
 		{
-			[System.Runtime.InteropServices.FieldOffset(0)]
-			TSteamPaymentCardInfo PaymentCardInfo;
-			[System.Runtime.InteropServices.FieldOffset(0)]
-			TSteamPrepurchaseInfo PrepurchaseInfo;
-			[System.Runtime.InteropServices.FieldOffset(0)]
-			TSteamExternalBillingInfo ExternalBillingInfo;
-			[System.Runtime.InteropServices.FieldOffset(0)]
-			SByte bUseAccountBillingInfo;
+			[FieldOffset(0)]
+			public TSteamPaymentCardInfo PaymentCardInfo;
+			[FieldOffset(0)]
+			public TSteamPrepurchaseInfo PrepurchaseInfo;
+			[FieldOffset(0)]
+			public TSteamExternalBillingInfo ExternalBillingInfo;
+			[FieldOffset(0)]
+			public SByte bUseAccountBillingInfo;
 		}
 		
 	}
 	
-	public unsafe struct TSTeamError
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSTeamError
 	{
-		ESteamError eSteamError;
-		EDetailedPlatformErrorType eDetailedErrorType;
-		Int32 nDetailedErrorCode;
-		fixed SByte szDesc[2040];
+		public ESteamError eSteamError;
+		public EDetailedPlatformErrorType eDetailedErrorType;
+		public Int32 nDetailedErrorCode;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
+		public SByte[] szDesc;
 	}
 	
-	public unsafe struct CCallbackMgr
-	{
-	}
-	
-	public unsafe struct CallbackMsg_t
-	{
-		Int32 m_hSteamUser;
-		Int32 m_iCallback;
-		IntPtr m_pubParam;
-		Int32 m_cubParam;
-	}
-	
-	public unsafe struct TSteamApp
-	{
-		IntPtr szName;
-		UInt32 uMaxNameChars;
-		IntPtr szLatestVersionLabel;
-		UInt32 uMaxLatestVersionLabelChars;
-		IntPtr szCurrentVersionLabel;
-		UInt32 uMaxCurrentVersionLabelChars;
-		IntPtr szInstallDirName;
-		UInt32 uMaxInstallDirNameChars;
-		UInt32 uId;
-		UInt32 uLatestVersionId;
-		UInt32 uCurrentVersionId;
-		UInt32 uMinCacheFileSizeMB;
-		UInt32 uMaxCacheFileSizeMB;
-		UInt32 uNumLaunchOptions;
-		UInt32 uNumIcons;
-		UInt32 uNumVersions;
-		UInt32 uNumDependencies;
-		IntPtr szUnkString;
-	}
-	
-	public unsafe struct ConnectedUserInfo_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct CCallbackMgr
 	{
 	}
 	
-	public unsafe struct ISteamApps
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct CallbackMsg_t
+	{
+		public Int32 m_hSteamUser;
+		public Int32 m_iCallback;
+		public IntPtr m_pubParam;
+		public Int32 m_cubParam;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamApp
+	{
+		public IntPtr szName;
+		public UInt32 uMaxNameChars;
+		public IntPtr szLatestVersionLabel;
+		public UInt32 uMaxLatestVersionLabelChars;
+		public IntPtr szCurrentVersionLabel;
+		public UInt32 uMaxCurrentVersionLabelChars;
+		public IntPtr szInstallDirName;
+		public UInt32 uMaxInstallDirNameChars;
+		public UInt32 uId;
+		public UInt32 uLatestVersionId;
+		public UInt32 uCurrentVersionId;
+		public UInt32 uMinCacheFileSizeMB;
+		public UInt32 uMaxCacheFileSizeMB;
+		public UInt32 uNumLaunchOptions;
+		public UInt32 uNumIcons;
+		public UInt32 uNumVersions;
+		public UInt32 uNumDependencies;
+		public IntPtr szUnkString;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ConnectedUserInfo_t
 	{
 	}
 	
-	public unsafe struct TSteamSubscriptionStats
-	{
-		UInt32 uNumSubscriptions;
-		UInt32 uMaxNameChars;
-		UInt32 uMaxApps;
-	}
-	
-	public unsafe struct ISteamFriends
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamApps
 	{
 	}
 	
-	public unsafe struct TSteamDiscountQualifier
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamSubscriptionStats
 	{
-		fixed SByte szName[2040];
-		UInt32 uRequiredSubscription;
-		Int32 bIsDisqualifier;
+		public UInt32 uNumSubscriptions;
+		public UInt32 uMaxNameChars;
+		public UInt32 uMaxApps;
 	}
 	
-	public unsafe struct TSteamUpdateStats
-	{
-		UInt64 uBytesTotal;
-		UInt64 uBytesPresent;
-	}
-	
-	public unsafe struct TSteamPrepurchaseReceiptInfo
-	{
-		fixed SByte szTypeOfProofOfPurchase[168];
-	}
-	
-	public unsafe struct ISteamContentServer
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamFriends
 	{
 	}
 	
-	public unsafe struct castable_string_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamDiscountQualifier
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
+		public SByte[] szName;
+		public UInt32 uRequiredSubscription;
+		public Int32 bIsDisqualifier;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamUpdateStats
+	{
+		public UInt64 uBytesTotal;
+		public UInt64 uBytesPresent;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamPrepurchaseReceiptInfo
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 21)]
+		public SByte[] szTypeOfProofOfPurchase;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamContentServer
 	{
 	}
 	
-	public unsafe struct TSteamPaymentCardReceiptInfo
-	{
-		ESteamPaymentCardType eCardType;
-		fixed SByte szCardLastFourDigits[40];
-		fixed SByte szCardHolderName[808];
-		fixed SByte szBillingAddress1[1032];
-		fixed SByte szBillingAddress2[1032];
-		fixed SByte szBillingCity[408];
-		fixed SByte szBillingZip[136];
-		fixed SByte szBillingState[264];
-		fixed SByte szBillingCountry[264];
-		fixed SByte szCardApprovalCode[808];
-		fixed SByte szTransDate[80];
-		fixed SByte szTransTime[80];
-		UInt32 uPriceWithoutTax;
-		UInt32 uTaxAmount;
-		UInt32 uShippingCost;
-	}
-	
-	public unsafe struct IClientUserStats
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct castable_string_t
 	{
 	}
 	
-	public unsafe struct ISteamGameServer
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamPaymentCardReceiptInfo
+	{
+		public ESteamPaymentCardType eCardType;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
+		public SByte[] szCardLastFourDigits;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 101)]
+		public SByte[] szCardHolderName;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 129)]
+		public SByte[] szBillingAddress1;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 129)]
+		public SByte[] szBillingAddress2;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 51)]
+		public SByte[] szBillingCity;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 17)]
+		public SByte[] szBillingZip;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 33)]
+		public SByte[] szBillingState;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 33)]
+		public SByte[] szBillingCountry;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 101)]
+		public SByte[] szCardApprovalCode;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+		public SByte[] szTransDate;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+		public SByte[] szTransTime;
+		public UInt32 uPriceWithoutTax;
+		public UInt32 uTaxAmount;
+		public UInt32 uShippingCost;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IClientUserStats
 	{
 	}
 	
-	public unsafe struct ISteamUserStats
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamGameServer
 	{
 	}
 	
-	public unsafe struct ISteamMatchmaking
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamUserStats
 	{
 	}
 	
-	public unsafe struct IClientGameServerItems
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamMatchmaking
 	{
 	}
 	
-	public unsafe struct string_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IClientGameServerItems
 	{
-		IntPtr pszValue;
 	}
 	
-	public unsafe struct TSteamAppVersion
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct string_t
 	{
-		IntPtr szLabel;
-		UInt32 uMaxLabelChars;
-		UInt32 uVersionId;
-		Int32 bIsNotAvailable;
+		public IntPtr pszValue;
 	}
 	
-	public unsafe struct MatchMakingKeyValuePair_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamAppVersion
 	{
-		fixed SByte m_szKey[2048];
-		fixed SByte m_szValue[2048];
+		public IntPtr szLabel;
+		public UInt32 uMaxLabelChars;
+		public UInt32 uVersionId;
+		public Int32 bIsNotAvailable;
 	}
 	
-	public unsafe struct TSteamSplitLocalUserID
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct MatchMakingKeyValuePair_t
 	{
-		UInt32 Low32bits;
-		UInt32 High32bits;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
+		public SByte[] m_szKey;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
+		public SByte[] m_szValue;
 	}
 	
-	public unsafe struct TSteamGlobalUserID
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamSplitLocalUserID
 	{
-		UInt16 m_SteamInstanceID;
+		public UInt32 Low32bits;
+		public UInt32 High32bits;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamGlobalUserID
+	{
+		public UInt16 m_SteamInstanceID;
 
-		[System.Runtime.InteropServices.StructLayout(LayoutKind.Explicit)]
+		[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1)]
 		struct m_SteamLocalUserID
 		{
-			[System.Runtime.InteropServices.FieldOffset(0)]
-			UInt64 As64bits;
-			[System.Runtime.InteropServices.FieldOffset(0)]
-			TSteamSplitLocalUserID Split;
+			[FieldOffset(0)]
+			public UInt64 As64bits;
+			[FieldOffset(0)]
+			public TSteamSplitLocalUserID Split;
 		}
 		
 	}
 	
-	public unsafe struct SOMsgCacheSubscribed_Item_Attrib_t
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SOMsgCacheSubscribed_Item_Attrib_t
 	{
-		UInt16 attribindex;
-		float value;
+		public UInt16 attribindex;
+		public float value;
 	}
 	
-	public unsafe struct CSysModule
-	{
-	}
-	
-	public unsafe struct CallbackManager
-	{
-	}
-	
-	public unsafe struct ISteamGameServerItems
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct CSysModule
 	{
 	}
 	
-	public unsafe struct IConCommandBaseAccessor
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct CallbackManager
 	{
 	}
 	
-	public unsafe struct ISteamRemoteStorage
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamGameServerItems
 	{
 	}
 	
-	public unsafe struct ISteamUtils
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IConCommandBaseAccessor
 	{
 	}
 	
-	public unsafe struct ISteamClient
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamRemoteStorage
 	{
 	}
 	
-	public unsafe struct SOMsgCacheSubscribed_Item_t
-	{
-		UInt64 itemid;
-		UInt32 accountid;
-		UInt16 itemdefindex;
-		Byte itemlevel;
-		Byte itemquality;
-		UInt32 position;
-		UInt32 itemcount;
-		UInt16 attribcount;
-	}
-	
-	public unsafe struct IVAC
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamUtils
 	{
 	}
 	
-	public unsafe struct SteamSalt
-	{
-		fixed Byte uchSalt[64];
-	}
-	
-	public unsafe struct ISteam2Bridge
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamClient
 	{
 	}
 	
-	public unsafe struct IClientUserItems
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SOMsgCacheSubscribed_Item_t
+	{
+		public UInt64 itemid;
+		public UInt32 accountid;
+		public UInt16 itemdefindex;
+		public Byte itemlevel;
+		public Byte itemquality;
+		public UInt32 position;
+		public UInt32 itemcount;
+		public UInt16 attribcount;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IVAC
 	{
 	}
 	
-	public unsafe struct TSteamAppLaunchOption
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct SteamSalt
 	{
-		IntPtr szDesc;
-		UInt32 uMaxDescChars;
-		IntPtr szCmdLine;
-		UInt32 uMaxCmdLineChars;
-		UInt32 uIndex;
-		UInt32 uIconIndex;
-		Int32 bNoDesktopShortcut;
-		Int32 bNoStartMenuShortcut;
-		Int32 bIsLongRunningUnattended;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public Byte[] uchSalt;
 	}
 	
-	public unsafe struct LeaderboardEntry_t
-	{
-		CSteamID m_steamIDUser;
-		Int32 m_nGlobalRank;
-		Int32 m_nScore;
-		Int32 m_cDetails;
-	}
-	
-	public unsafe struct TSteamSubscription
-	{
-		IntPtr szName;
-		UInt32 uMaxNameChars;
-		IntPtr puAppIds;
-		UInt32 uMaxAppIds;
-		UInt32 uId;
-		UInt32 uNumApps;
-		EBillingType eBillingType;
-		UInt32 uCostInCents;
-		UInt32 uNumDiscounts;
-		Int32 bIsPreorder;
-		Int32 bRequiresShippingAddress;
-		UInt32 uDomesticShippingCostInCents;
-		UInt32 uInternationalShippingCostInCents;
-		bool bIsCyberCafeSubscription;
-		UInt32 uGameCode;
-		fixed SByte szGameCodeDesc[2040];
-		bool bIsDisabled;
-		bool bRequiresCD;
-		UInt32 uTerritoryCode;
-		bool bIsSteam3Subscription;
-	}
-	
-	public unsafe struct ISteamMasterServerUpdater
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteam2Bridge
 	{
 	}
 	
-	public unsafe struct ISteamBilling
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IClientUserItems
 	{
 	}
 	
-	public unsafe struct TSteamSubscriptionReceipt
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamAppLaunchOption
 	{
-		ESteamSubscriptionStatus eStatus;
-		ESteamSubscriptionStatus ePreviousStatus;
-		ESteamSubscriptionBillingInfoType eReceiptInfoType;
-		fixed SByte szConfirmationCode[136];
+		public IntPtr szDesc;
+		public UInt32 uMaxDescChars;
+		public IntPtr szCmdLine;
+		public UInt32 uMaxCmdLineChars;
+		public UInt32 uIndex;
+		public UInt32 uIconIndex;
+		public Int32 bNoDesktopShortcut;
+		public Int32 bNoStartMenuShortcut;
+		public Int32 bIsLongRunningUnattended;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct LeaderboardEntry_t
+	{
+		public CSteamID m_steamIDUser;
+		public Int32 m_nGlobalRank;
+		public Int32 m_nScore;
+		public Int32 m_cDetails;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamSubscription
+	{
+		public IntPtr szName;
+		public UInt32 uMaxNameChars;
+		public IntPtr puAppIds;
+		public UInt32 uMaxAppIds;
+		public UInt32 uId;
+		public UInt32 uNumApps;
+		public EBillingType eBillingType;
+		public UInt32 uCostInCents;
+		public UInt32 uNumDiscounts;
+		public Int32 bIsPreorder;
+		public Int32 bRequiresShippingAddress;
+		public UInt32 uDomesticShippingCostInCents;
+		public UInt32 uInternationalShippingCostInCents;
+		public bool bIsCyberCafeSubscription;
+		public UInt32 uGameCode;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
+		public SByte[] szGameCodeDesc;
+		public bool bIsDisabled;
+		public bool bRequiresCD;
+		public UInt32 uTerritoryCode;
+		public bool bIsSteam3Subscription;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamMasterServerUpdater
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamBilling
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamSubscriptionReceipt
+	{
+		public ESteamSubscriptionStatus eStatus;
+		public ESteamSubscriptionStatus ePreviousStatus;
+		public ESteamSubscriptionBillingInfoType eReceiptInfoType;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 17)]
+		public SByte[] szConfirmationCode;
 
-		[System.Runtime.InteropServices.StructLayout(LayoutKind.Explicit)]
+		[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1)]
 		struct Union
 		{
-			[System.Runtime.InteropServices.FieldOffset(0)]
-			TSteamPaymentCardReceiptInfo PaymentCardReceiptInfo;
-			[System.Runtime.InteropServices.FieldOffset(0)]
-			TSteamPrepurchaseReceiptInfo PrepurchaseReceiptInfo;
+			[FieldOffset(0)]
+			public TSteamPaymentCardReceiptInfo PaymentCardReceiptInfo;
+			[FieldOffset(0)]
+			public TSteamPrepurchaseReceiptInfo PrepurchaseReceiptInfo;
 		}
 		
 	}
 	
-	public unsafe struct IClientMasterServerUpdater
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IClientMasterServerUpdater
 	{
 	}
 	
-	public unsafe struct IClientMatchmakingServers
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct IClientMatchmakingServers
 	{
 	}
 	
-	public unsafe struct TSteamSubscriptionDiscount
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamSubscriptionDiscount
 	{
-		fixed SByte szName[2040];
-		UInt32 uDiscountInCents;
-		UInt32 uNumQualifiers;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
+		public SByte[] szName;
+		public UInt32 uDiscountInCents;
+		public UInt32 uNumQualifiers;
 	}
 	
-	public unsafe struct CNatTraversalStat
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct CNatTraversalStat
 	{
 	}
 	
-	public unsafe struct ISteamNetworking
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct ISteamNetworking
 	{
 	}
 	
-	public unsafe struct TSteamOfflineStatus
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public struct TSteamOfflineStatus
 	{
-		Int32 eOfflineNow;
-		Int32 eOfflineNextSession;
+		public Int32 eOfflineNow;
+		public Int32 eOfflineNextSession;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientAppManager
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamApps002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMasterServerUpdater001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUtils001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUtils003
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamNetworking001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteam003
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteam005
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteam2Bridge002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServer003
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServer004
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServer009
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUtils004
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserStats002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserStats003
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserItems001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserItems003
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUtils005
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamClient006
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamBilling001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamClient007
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamClient008
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserStats006
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class servernetadr_t
+	{
+		public UInt16 m_usConnectionPort;
+		public UInt16 m_usQueryPort;
+		public UInt32 m_unIP;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmaking001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmaking002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmaking004
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmaking005
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmaking007
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamApps001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServer002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmaking006
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamNetworking002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientUtils
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientDepotBuilder
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamFriends002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamFriends003
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamFriends004
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamFriends005
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientFriends
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmakingPlayersResponse
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientContentServer
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientUser
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientGameCoordinator
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class gameserveritem_t
+	{
+		public servernetadr_t m_NetAdr;
+		public Int32 m_nPing;
+		public bool m_bHadSuccessfulResponse;
+		public bool m_bDoNotRefresh;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+		public SByte[] m_szGameDir;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+		public SByte[] m_szMap;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+		public SByte[] m_szGameDescription;
+		public Int32 m_nAppID;
+		public Int32 m_nPlayers;
+		public Int32 m_nMaxPlayers;
+		public Int32 m_nBotPlayers;
+		public bool m_bPassword;
+		public bool m_bSecure;
+		public UInt32 m_ulTimeLastPlayed;
+		public Int32 m_nServerVersion;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)]
+		public SByte[] m_szServerName;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
+		public SByte[] m_szGameTags;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteam004
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteam006
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserStats001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserStats004
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserStats005
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmakingPingResponse
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmaking003
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServerItems004
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientGameServer
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameStats001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamFriends001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser012
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmakingServers002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientApps
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamContentServer001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamContentServer002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteam2Bridge001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientMatchmaking
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamApps003
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientGameStats
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamBilling002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserItems002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUserItems004
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmakingServerListResponse
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmakingRulesResponse
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientEngine
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameCoordinator001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser005
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServerItems002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServerItems003
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class CDllDemandLoader
+	{
+		public IntPtr m_pchModuleName;
+		public IntPtr m_hModule;
+		public bool m_bLoadAttempted;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class CSteamAPILoader
+	{
+		public CDllDemandLoader steamservice;
+		public CDllDemandLoader steamclient;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 260)]
+		public SByte[] m_pchSteamDir;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 260)]
+		public SByte[] m_pchSteamDirBin;
+		public bool m_bFullyInitialized;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUtils002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientBilling
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IP2PController
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser004
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser006
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser007
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser008
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser009
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser010
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser011
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamUser013
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamRemoteStorage001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamRemoteStorage002
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmakingServers001
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServer005
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServer006
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServer007
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamGameServer008
+	{
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamNetworking003
+	{
 	}
 	
 }

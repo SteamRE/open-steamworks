@@ -537,6 +537,7 @@ namespace Steam4Intermediate
 
         private int level;
         private StringBuilder sb;
+        private string prefix = null;
 
         public void WriteToFile(BaseNode root)
         {
@@ -562,7 +563,7 @@ namespace Steam4Intermediate
 
                     if(files[enode.file].StartsWith(@"E:\opensteamworks"))
                     {
-                        if (root.Type() == typeof(StructNode))
+                        if (root.Type() == typeof(StructNode) || root.Type() == typeof(ClassNode))
                         {
                             foreach (EnumNode.EnumValue value in enode.values)
                             {
@@ -594,12 +595,22 @@ namespace Steam4Intermediate
                     if (files[snode.file].StartsWith(@"E:\opensteamworks") && !snode.name.StartsWith("EnumString"))
                     {
                         Console.WriteLine("Struct: " + snode.name);
-                        sb.AppendLine(new String('\t', level) + "public unsafe struct " + snode.name);
+
+                        if (prefix != null)
+                            sb.AppendLine(new String('\t', level) + prefix);
+
+                        sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]");
+                        sb.AppendLine(new String('\t', level) + "public struct " + snode.name);
                         sb.AppendLine(new String('\t', level) + "{");
+
+                        string oldprefix = prefix;
+                        prefix = null;
 
                         level++;
                         WriteToFile(snode);
                         level--;
+
+                        prefix = oldprefix;
 
                         sb.AppendLine(new String('\t', level) + "}");
                         sb.AppendLine(new String('\t', level) + "");
@@ -613,6 +624,34 @@ namespace Steam4Intermediate
 
                     ProcessType(fnode, fnode.type);
                 }
+                else if(node.Type() == typeof(ClassNode))
+                {
+                    ClassNode cnode = node as ClassNode;
+
+                    if (files[cnode.file].StartsWith(@"E:\opensteamworks") && !cnode.name.StartsWith("EnumString"))
+                    {
+                        Console.WriteLine("Class: " + cnode.name);
+
+                        if (prefix != null)
+                            sb.AppendLine(new String('\t', level) + prefix);
+
+                        sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]");
+                        sb.AppendLine(new String('\t', level) + "public class " + cnode.name);
+                        sb.AppendLine(new String('\t', level) + "{");
+
+                        string oldprefix = prefix;
+                        prefix = null;
+
+                        level++;
+                        WriteToFile(cnode);
+                        level--;
+
+                        prefix = oldprefix;
+
+                        sb.AppendLine(new String('\t', level) + "}");
+                        sb.AppendLine(new String('\t', level) + "");
+                    }
+                }
             }
 
             if (level == 1)
@@ -621,8 +660,6 @@ namespace Steam4Intermediate
                 File.WriteAllText(@"E:\opensteamworks\Steam4NET\test.cs", sb.ToString());
             }
         }
-
-        string prefix = null;
 
         public void ProcessType(FieldNode fieldbase, string ntype)
         {
@@ -652,11 +689,11 @@ namespace Steam4Intermediate
                     Console.WriteLine("Union");
 
                     sb.AppendLine();
-                    sb.AppendLine(new String('\t', level) + "[System.Runtime.InteropServices.StructLayout(LayoutKind.Explicit)]");
+                    sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1)]");
                     sb.AppendLine(new String('\t', level) + "struct " + name);
                     sb.AppendLine(new String('\t', level) + "{");
 
-                    prefix = "[System.Runtime.InteropServices.FieldOffset(0)]";
+                    prefix = "[FieldOffset(0)]";
 
                     level++;
                     WriteToFile(unode);
@@ -671,13 +708,14 @@ namespace Steam4Intermediate
             }
             else if (n.Type() == typeof(ArrayTypeNode))
             {
-                //sb.AppendLine("[System.Runtime.InteropServices.FieldOffset(" + fieldbase.offset + ")]");
-                sb.AppendLine(new String('\t', level) + "fixed " + type + " " + fieldbase.name + "[" + (n as ArrayTypeNode).size + "];");
+                ArrayTypeNode an = n as ArrayTypeNode;
+
+                sb.AppendLine(new String('\t', level) + "[MarshalAs(UnmanagedType.ByValArray, SizeConst = " + (an.size / an.align) + ")]");
+                sb.AppendLine(new String('\t', level) + "public " + type + "[] " + fieldbase.name + ";");
             }
             else
             {
-                //sb.AppendLine("[System.Runtime.InteropServices.FieldOffset(" + fieldbase.offset + ")]");
-                sb.AppendLine(new String('\t', level) + type + " " + fieldbase.name + ";");
+                sb.AppendLine(new String('\t', level) + "public " + type + " " + fieldbase.name + ";");
             }
         }
     }
