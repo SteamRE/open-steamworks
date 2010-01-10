@@ -160,7 +160,7 @@ struct SOMsgCacheSubscribed_Item_t
 	uint32 accountid;
 	uint16 itemdefindex;
 	uint8 itemlevel;
-	EItemQuality itemquality;
+	uint8 itemquality;
 	uint32 position;
 	uint32 itemcount;
 	uint16 attribcount;

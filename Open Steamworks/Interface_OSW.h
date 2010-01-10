@@ -27,11 +27,11 @@
 #pragma once
 #endif
 
-enum
+enum EIFaceResult
 {
 	IFACE_OK = 0,
 	IFACE_FAILED
-};
+} EIFaceResult;
 
 // load/unload components
 class CSysModule;
