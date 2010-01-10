@@ -66,20 +66,22 @@ namespace Steam4Intermediate
 
         public class StructNode : BaseNode
         {
-            public StructNode(string id, string nname, string nfile) : base(id) { name = nname; file = nfile; }
+            public StructNode(string id, string nname, string nfile, string sz) : base(id) { name = nname; file = nfile; size = Int32.Parse(sz); }
             public override Type Type() { return typeof(StructNode); }
 
             public string name;
+            public int size;
 
             public string file;
         }
 
         public class UnionNode : BaseNode
         {
-            public UnionNode(string id, string nname, string nfile) : base(id) { name = nname; file = nfile; }
+            public UnionNode(string id, string nname, string nfile, string sz) : base(id) { name = nname; file = nfile; size = Int32.Parse(sz); }
             public override Type Type() { return typeof(UnionNode); }
 
             public string name;
+            public int size;
 
             public string file;
         }
@@ -96,10 +98,11 @@ namespace Steam4Intermediate
 
         public class ClassNode : BaseNode
         {
-            public ClassNode(string id, string nname, string nfile) : base(id) { name = nname; file = nfile; }
+            public ClassNode(string id, string nname, string nfile, string sz) : base(id) { name = nname; file = nfile; size = Int32.Parse(sz); }
             public override Type Type() { return typeof(ClassNode); }
 
             public string name;
+            public int size;
 
             public string file;
         }
@@ -183,17 +186,17 @@ namespace Steam4Intermediate
             enumn.values.Add(new EnumNode.EnumValue(name, value));
         }
 
-        public BaseNode AddStruct(string id, string name, string file)
+        public BaseNode AddStruct(string id, string name, string file, string sz)
         {
-            StructNode structn = new StructNode(id, name, file);
+            StructNode structn = new StructNode(id, name, file, sz);
 
             nodemap.Add(id, structn);
             return structn;
         }
 
-        public BaseNode AddUnion(string id, string name, string file)
+        public BaseNode AddUnion(string id, string name, string file, string sz)
         {
-            UnionNode unionn = new UnionNode(id, name, file);
+            UnionNode unionn = new UnionNode(id, name, file, sz);
 
             nodemap.Add(id, unionn);
             return unionn;
@@ -207,9 +210,9 @@ namespace Steam4Intermediate
             return fieldn;
         }
 
-        public BaseNode AddClass(string id, string name, string file)
+        public BaseNode AddClass(string id, string name, string file, string sz)
         {
-            ClassNode classn = new ClassNode(id, name, file);
+            ClassNode classn = new ClassNode(id, name, file, sz);
 
             nodemap.Add(id, classn);
             return classn;
@@ -336,19 +339,39 @@ namespace Steam4Intermediate
             }
             else if(node.Name == "Struct")
             {
-                created = AddStruct(nodeid, name, node.Attributes.GetNamedItem("file").Value);
+                parent = rootNode;
+
+                XmlNode sizenode = node.Attributes.GetNamedItem("size");
+                string size;
+
+                if (sizenode != null)
+                    size = sizenode.Value;
+                else
+                    size = "0";
+
+                created = AddStruct(nodeid, name, node.Attributes.GetNamedItem("file").Value, size);
 
                 InsertMemberNodes(xmldoc, node, created);
             } 
             else if(node.Name == "Class")
             {
-                created = AddClass(nodeid, name, node.Attributes.GetNamedItem("file").Value);
+                parent = rootNode;
+
+                XmlNode sizenode = node.Attributes.GetNamedItem("size");
+                string size;
+
+                if(sizenode != null)
+                    size = sizenode.Value;
+                else
+                    size = "0";
+
+                created = AddClass(nodeid, name, node.Attributes.GetNamedItem("file").Value, size);
 
                 InsertMemberNodes(xmldoc, node, created);
             } 
             else if(node.Name == "Union")
             {
-                created = AddUnion(nodeid, name, node.Attributes.GetNamedItem("file").Value);
+                created = AddUnion(nodeid, name, node.Attributes.GetNamedItem("file").Value, node.Attributes.GetNamedItem("size").Value);
 
                 InsertMemberNodes(xmldoc, node, created);
             } 
@@ -599,7 +622,7 @@ namespace Steam4Intermediate
                         if (prefix != null)
                             sb.AppendLine(new String('\t', level) + prefix);
 
-                        sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]");
+                        sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=" + snode.size + ")]");
                         sb.AppendLine(new String('\t', level) + "public struct " + snode.name);
                         sb.AppendLine(new String('\t', level) + "{");
 
@@ -635,7 +658,7 @@ namespace Steam4Intermediate
                         if (prefix != null)
                             sb.AppendLine(new String('\t', level) + prefix);
 
-                        sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]");
+                        sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=" + cnode.size + ")]");
                         sb.AppendLine(new String('\t', level) + "public class " + cnode.name);
                         sb.AppendLine(new String('\t', level) + "{");
 
@@ -689,7 +712,7 @@ namespace Steam4Intermediate
                     Console.WriteLine("Union");
 
                     sb.AppendLine();
-                    sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1)]");
+                    sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1,Size=" + unode.size + ")]");
                     sb.AppendLine(new String('\t', level) + "struct " + name);
                     sb.AppendLine(new String('\t', level) + "{");
 
