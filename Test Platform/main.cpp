@@ -1,137 +1,111 @@
 #include "Steamworks.h"
 
-#pragma comment(lib, "../steam")
+#include <iostream>
+#include <iomanip>
+
+#include "../fmod/fmod.hpp"
+#include "../fmod/fmod_errors.h"
+#pragma comment(lib, "../fmodex_vc")
+
 #pragma comment(lib, "../steamclient")
 
-using std::string;
-using std::cout;
-using std::cin;
+#define ERRCHECK( result ) \
+	if ( result != FMOD_OK ) \
+	{ \
+		printf("FMOD error! (%d): %s", result, FMOD_ErrorString( result ) ); \
+		getchar(); \
+		exit( EXIT_FAILURE ); \
+	}
 
-#define STEAM_ERROR(err) ( err.eSteamError != eSteamErrorNone )
 
 int main()
 {
-	// load steamclient
-	CreateInterfaceFn interfaceFn = Sys_GetFactory( "steamclient.dll" );
-
-	IClientEngine *clientEngine = (IClientEngine *)interfaceFn( CLIENTENGINE_INTERFACE_VERSION, NULL );
-	if ( !clientEngine )
-	{
-		cout << "Unable to get IClientEngine.\n";
-		return 1;
-	}
-
-	HSteamPipe hPipe;
-	HSteamUser hUser = clientEngine->CreateGlobalUser( &hPipe );
-
-	if ( !hUser || !hPipe )
-	{
-		cout << "Unable to create global user.\n";
-		return 1;
-	}
-
-	TSteamError error;
+	FMOD::System *system;
+	FMOD_RESULT result;
 	
-	SteamClearError( &error );
-	if ( !SteamStartEngine( &error ) )
+	result = FMOD::System_Create( &system );
+	ERRCHECK( result );
+
+	result = system->init( 100, FMOD_INIT_NORMAL, NULL);
+	ERRCHECK( result );
+
+
+	CSteamAPILoader loader;
+
+	CreateInterfaceFn factory = loader.Load();
+
+	ISteamClient008 *steamClient = (ISteamClient008 *)factory( STEAMCLIENT_INTERFACE_VERSION_008, NULL );
+
+	HSteamPipe pipe = steamClient->CreateSteamPipe();
+	HSteamUser user = steamClient->ConnectToGlobalUser( pipe );
+
+	ISteamUser012 *steamUser = (ISteamUser012 *)steamClient->GetISteamUser( user, pipe, STEAMUSER_INTERFACE_VERSION_012 );
+
+	getchar();
+
+	printf( "RECORDING\n" );
+	steamUser->StartVoiceRecording();
+
+	steamUser->StopVoiceRecording();
+	printf( "DONE!\n" );
+
+	void *pVoiceData = malloc( 10000 );
+	uint32 actualSize;
+
+	void *pUncompressed = malloc( 50000 );
+	uint32 realSize;
+
+	while ( steamUser->GetCompressedVoice( pVoiceData, 10000, &actualSize ) != k_EVoiceResultOK ) ;
+
+	EVoiceResult res = steamUser->DecompressVoice( pVoiceData, actualSize, pUncompressed, 50000, &realSize );
+
+	FMOD_CREATESOUNDEXINFO exInfo;
+	memset( (void*)&exInfo, 0, sizeof( FMOD_CREATESOUNDEXINFO ) );
+	exInfo.cbsize = sizeof( FMOD_CREATESOUNDEXINFO );
+	exInfo.length = realSize;
+	exInfo.defaultfrequency = 11025;
+	exInfo.numchannels = 1;
+	exInfo.format = FMOD_SOUND_FORMAT_PCM16;
+
+	FMOD::Sound *snd;
+
+	result = system->createSound( (char *)pUncompressed, FMOD_HARDWARE | FMOD_OPENMEMORY | FMOD_OPENRAW, &exInfo, &snd );
+	ERRCHECK( result );
+
+	FMOD::Channel *chan;
+	result = system->playSound( FMOD_CHANNEL_FREE, snd, false, &chan );
+	ERRCHECK( result );
+
+	CallbackMsg_t callbackMsg;
+	HSteamCall call;
+	while ( true )
 	{
-		cout << "Unable to start steam engine: " << error.szDesc << "\n";
-		return 1;
+		if ( Steam_BGetCallback( pipe, &callbackMsg, &call ) )
+		{
+			int32 callBack = callbackMsg.m_iCallback;
+			ECallbackType type = (ECallbackType)((callBack / 100) * 100);
+
+			std::cout << "[SERVER] Unhandled Callback: " << callBack << ", Type: " << EnumString<ECallbackType>::From(type) << ", Size: " << callbackMsg.m_cubParam << std::endl;
+
+			int32 callSize = callbackMsg.m_cubParam;
+			unsigned char *data = callbackMsg.m_pubParam;
+			std::cout << "  ";
+			for (int i = 0; i < callSize; i++)
+			{
+				unsigned char value = data[i];
+
+				std::cout << std::hex << std::setw(2) << std::setfill('0') << std::uppercase << (unsigned int)value;
+				std::cout << " ";
+			}
+
+			std::cout << std::resetiosflags(std::ios_base::hex | std::ios_base::uppercase) << std::endl;
+
+			Steam_FreeLastCallback( pipe );
+		}
+
+		system->update();
+
+		Sleep(1);
 	}
-
-	SteamClearError( &error );
-	if ( !SteamStartup( STEAM_USING_ALL, &error ) )
-	{
-		cout << "Unable to startup steam: " << error.szDesc << "\n";
-		return 1;
-	}
-
-	FactoryFn _f = Sys_GetFactoryOld( "Steam.dll" );
-	if ( !_f )
-	{
-		cout << "Unable to get steam factory.\n";
-		return 1;
-	}
-
-	ISteam006 *steam = (ISteam006 *)_f( STEAM_INTERFACE_VERSION_006 );
-	if ( !steam )
-	{
-		cout << "Unable to get Steam interface.\n";
-		return 1;
-	}
-
-	string strUser;
-	string strPass;
-
-	cout << "Username: ";
-	cin >> strUser;
-
-	cout << "Password: ";
-	cin >> strPass;
-
-	SteamCallHandle_t loginHandle = steam->Login( strUser.c_str(), strPass.c_str(), true, &error );
-	if ( loginHandle == STEAM_INVALID_CALL_HANDLE )
-	{
-		cout << "Invalid login handle.\n";
-		return 1;
-	}
-
-	steam->BlockingCall( loginHandle, 100, &error );
-	if ( STEAM_ERROR( error ) )
-	{
-		cout << "Unable to login: " << error.szDesc << "\n";
-		return 1;
-	}
-
-	char szUser[ MAX_PATH ];
-	uint32 nameLen;
-	size_t len = strUser.copy( szUser, MAX_PATH );
-	szUser[ len ] = 0;
-
-	_strlwr( (char*)&szUser );
-
-	SetEnvironmentVariable( "SteamUser", szUser );
-	SetEnvironmentVariable( "SteamAppUser", szUser );
-
-	TSteamGlobalUserID userId;
-
-	IClientUtils *utils = clientEngine->GetIClientUtils( hPipe, CLIENTUTILS_INTERFACE_VERSION );
-	IClientUser *user = clientEngine->GetIClientUser( hUser, hPipe, CLIENTUSER_INTERFACE_VERSION );
-	if ( !utils || !user )
-	{
-		cout << "Unable to get IClientUtils or IClientUser.\n";
-		return 1;
-	}
-
-	steam->GetUser( szUser, MAX_PATH, &nameLen, &userId, &error );
-	if ( STEAM_ERROR( error ) )
-	{
-		cout << "Unable to GetUser: " << error.szDesc << "\n";
-		return 1;
-	}
-
-	EUniverse universe = utils->GetConnectedUniverse();
-	CSteamID steamId;
-
-	steamId.SetFromSteam2( &userId, universe );
-
-	
-
-	user->LogOn( steamId );
-	ELogonState state = user->GetLogonState();
-	while ( state == k_ELogonStateLoggingOn )
-	{
-		Sleep( 10 );
-		state = user->GetLogonState();
-	}
-
-	if ( state != k_ELogonStateLoggedOn )
-	{
-		cout << "Logon failed.";
-		return 1;
-	}
-
-
-	return 0;
 
 }
