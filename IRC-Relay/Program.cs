@@ -29,7 +29,7 @@ namespace IRC_Relay
     {
         // config stuff
         public static string RelayNetwork = "Gigenet.IL.US.GameSurge.net";
-        public static string RelayChannel = "#opensteamworks";
+        public static string RelayChannel = "#irc-relay";
 
         public static string RelayNick = "irc-relay";
 
