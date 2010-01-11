@@ -7,6 +7,7 @@
 namespace dotnetworks
 {
 	CSteamAPILoader *loader;
+
 	static Steamworks::Steamworks()
 	{
 		if ( !loader) 
@@ -18,67 +19,67 @@ namespace dotnetworks
 			throw gcnew Exception( "Unable to find and load steamclient.dll" );
 	}
 
-	Object^ Steamworks::CreateInterface(String^ name, [Out] int% error)
+	Object^ Steamworks::CreateInterface( String^ name, [Out] int% error )
 	{
-		STR_FROM_MANAGED(name, str);
+		STR_FROM_MANAGED( name, str );
 
 		int returnCode;
 		void *unmgdInterface;
 
 		Object^ returnInterface = nullptr;
 
-		unmgdInterface = ClientFactory(str, &returnCode);
-		if (!unmgdInterface)
+		unmgdInterface = ClientFactory( str, &returnCode );
+		if ( !unmgdInterface )
 		{
-			Marshal::FreeHGlobal(strPtr);
+			STR_FREE( str );
+			error = returnCode;
+
 			return nullptr;
 		}
 		
-		if (name == CLIENTENGINE_INTERFACE_VERSION)
-			returnInterface = gcnew ClientEngine( (IClientEngine *)unmgdInterface );
-		if (name == STEAMCLIENT_INTERFACE_VERSION_008)
+		if ( name == STEAMCLIENT_INTERFACE_VERSION_008 )
 			returnInterface = gcnew SteamClient008( (ISteamClient008 *)unmgdInterface );
 
-		STR_FREE(str);
+		STR_FREE( str );
 
 		error = returnCode;
 
 		return returnInterface;
 	}
 
-	void Steamworks::Steam_LogOn(SteamUserHandle^ hUser, SteamPipeHandle^ hSteamPipe, uint64 ulSteamID)
+	void Steamworks::Steam_LogOn( SteamUserHandle^ hUser, SteamPipeHandle^ hSteamPipe, uint64 ulSteamID )
 	{
-		::Steam_LogOn(hUser->base, hSteamPipe->base, ulSteamID);
+		::Steam_LogOn( hUser->base, hSteamPipe->base, ulSteamID );
 	}
-	void Steamworks::Steam_LogOff(SteamUserHandle^ hUser, SteamPipeHandle^ hSteamPipe)
+	void Steamworks::Steam_LogOff( SteamUserHandle^ hUser, SteamPipeHandle^ hSteamPipe )
 	{
-		::Steam_LogOff(hUser->base, hSteamPipe->base);
-	}
-
-	bool Steamworks::Steam_BLoggedOn(SteamUserHandle^ hUser, SteamPipeHandle^ hSteamPipe)
-	{
-		return ::Steam_BLoggedOn(hUser->base, hSteamPipe->base);
-	}
-	bool Steamworks::Steam_BConnected(SteamUserHandle^ hUser, SteamPipeHandle^ hSteamPipe)
-	{
-		return ::Steam_BConnected(hUser->base, hSteamPipe->base);
+		::Steam_LogOff( hUser->base, hSteamPipe->base );
 	}
 
-	bool Steamworks::Steam_BGetCallback(SteamPipeHandle^ pipe, [Out] Callback^% callback, [Out] SteamCallHandle^% steamCall )
+	bool Steamworks::Steam_BLoggedOn( SteamUserHandle^ hUser, SteamPipeHandle^ hSteamPipe )
+	{
+		return ::Steam_BLoggedOn( hUser->base, hSteamPipe->base );
+	}
+	bool Steamworks::Steam_BConnected( SteamUserHandle^ hUser, SteamPipeHandle^ hSteamPipe )
+	{
+		return ::Steam_BConnected( hUser->base, hSteamPipe->base );
+	}
+
+	bool Steamworks::Steam_BGetCallback( SteamPipeHandle^ pipe, [Out] Callback^% callback, [Out] SteamCallHandle^% steamCall )
 	{
 		CallbackMsg_t callbackMsg;
 		HSteamCall hSteamCall;
 
-		bool ret = ::Steam_BGetCallback(pipe->base, &callbackMsg, &hSteamCall);
+		bool ret = ::Steam_BGetCallback( pipe->base, &callbackMsg, &hSteamCall );
 
 		callback = gcnew Callback( callbackMsg );
 		steamCall = gcnew SteamCallHandle( hSteamCall );
 
 		return ret;
 	}
-	void Steamworks::Steam_FreeLastCallback(SteamPipeHandle^ pipe)
+	void Steamworks::Steam_FreeLastCallback( SteamPipeHandle^ pipe )
 	{
-		::Steam_FreeLastCallback(pipe->base);
+		::Steam_FreeLastCallback( pipe->base );
 	}
 
 	bool Steamworks::SteamAPI_Init()

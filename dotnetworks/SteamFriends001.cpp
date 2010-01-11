@@ -1,210 +1,237 @@
+#pragma once
 
-#include "SteamFriends001.h"
+#include "Macros.h"
+
+#include "SteamclientAPI.h"
+
+#include "FriendRelationship.h"
+#include "PersonaState.h"
+#include "FriendMsgType.h"
+
+#include "SteamID.cpp"
+#include "SteamCallHandle.cpp"
+
+using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
+using namespace System::Diagnostics;
+using namespace System::Runtime::InteropServices;
+
 
 namespace dotnetworks
 {
-
-	SteamFriends001::SteamFriends001( void *steamFriends )
+	public ref class SteamFriends001
 	{
-		base = (ISteamFriends001 *)steamFriends;
-	}
+	internal:
+		SteamFriends001( void *steamFriends )
+		{
+			base = (ISteamFriends001 *)steamFriends;
+		}
 
-	// returns the local players name - guaranteed to not be NULL.
-	String^ SteamFriends001::GetPersonaName()
-	{
-		return gcnew String(base->GetPersonaName());
-	}
-	// sets the player name, stores it on the server and publishes the changes to all friends who are online
-	void SteamFriends001::SetPersonaName(String^ name)
-	{
-		STR_FROM_MANAGED(name, str);
+	public:
 
-		base->SetPersonaName(str);
+		// returns the local players name - guaranteed to not be NULL.
+		String^ GetPersonaName()
+		{
+			return gcnew String( base->GetPersonaName() );
+		}
+		// sets the player name, stores it on the server and publishes the changes to all friends who are online
+		void SetPersonaName( String^ name )
+		{
+			STR_FROM_MANAGED( name, str );
 
-		STR_FREE(str);
-	}
-	// gets the friend status of the current user
-	PersonaState SteamFriends001::GetPersonaState()
-	{
-		return (PersonaState)base->GetPersonaState();
-	}
-	// sets the status, communicates to server, tells all friends
-	void SteamFriends001::SetPersonaState( PersonaState ePersonaState )
-	{
-		base->SetPersonaState( (EPersonaState)ePersonaState );
-	}
+			base->SetPersonaName( str );
 
-	// adds a friend to the users list.  Friend will be notified that they have been added, and have the option of accept/decline
-	bool SteamFriends001::AddFriend( SteamID^ steamIDFriend )
-	{
-		return base->AddFriend( *(steamIDFriend->base) );
-	}
-	// removes the friend from the list, and blocks them from contacting the user again
-	bool SteamFriends001::RemoveFriend( SteamID^ steamIDFriend )
-	{
-		return base->RemoveFriend( *(steamIDFriend->base) );
-	}
-	// returns true if the specified user is considered a friend (can see our online status)
-	bool SteamFriends001::HasFriend( SteamID^ steamIDFriend )
-	{
-		return base->HasFriend( *(steamIDFriend->base) );
-	}
+			STR_FREE( str );
+		}
+		// gets the friend status of the current user
+		PersonaState GetPersonaState()
+		{
+			return ( PersonaState )base->GetPersonaState();
+		}
+		// sets the status, communicates to server, tells all friends
+		void SetPersonaState( PersonaState ePersonaState )
+		{
+			base->SetPersonaState( (EPersonaState)ePersonaState );
+		}
 
-	// gets the relationship to a user
-	FriendRelationship SteamFriends001::GetFriendRelationship( SteamID^ steamIDFriend )
-	{
-		return (FriendRelationship)base->GetFriendRelationship( *(steamIDFriend->base) );
-	}
-	// returns true if the specified user is considered a friend (can see our online status)
-	PersonaState SteamFriends001::GetFriendPersonaState( SteamID^ steamIDFriend )
-	{
-		return (PersonaState)base->GetFriendPersonaState( *(steamIDFriend->base) );
-	}
-	// retrieves details about the game the friend is currently playing - returns false if the friend is not playing any games
-	bool SteamFriends001::GetFriendGamePlayed( SteamID^ steamIDFriend, [Out] uint64% pnGameID, [Out] uint32% punGameIP, [Out] uint16% pusGamePort )
-	{
-		uint64 tempGameID;
-		uint32 tempIP;
-		uint16 tempPort;
+		// adds a friend to the users list.  Friend will be notified that they have been added, and have the option of accept/decline
+		bool AddFriend( SteamID^ steamIDFriend )
+		{
+			return base->AddFriend( *(steamIDFriend->base) );
+		}
+		// removes the friend from the list, and blocks them from contacting the user again
+		bool RemoveFriend( SteamID^ steamIDFriend )
+		{
+			return base->RemoveFriend( *(steamIDFriend->base) );
+		}
+		// returns true if the specified user is considered a friend (can see our online status)
+		bool HasFriend( SteamID^ steamIDFriend )
+		{
+			return base->HasFriend( *(steamIDFriend->base) );
+		}
 
-		bool ret = base->GetFriendGamePlayed( *(steamIDFriend->base), &tempGameID, &tempIP, &tempPort );
+		// gets the relationship to a user
+		FriendRelationship GetFriendRelationship( SteamID^ steamIDFriend )
+		{
+			return (FriendRelationship)base->GetFriendRelationship( *(steamIDFriend->base) );
+		}
+		// returns true if the specified user is considered a friend (can see our online status)
+		PersonaState GetFriendPersonaState( SteamID^ steamIDFriend )
+		{
+			return (PersonaState)base->GetFriendPersonaState( *(steamIDFriend->base) );
+		}
+		// retrieves details about the game the friend is currently playing - returns false if the friend is not playing any games
+		bool GetFriendGamePlayed( SteamID^ steamIDFriend, [Out] uint64% pnGameID, [Out] uint32% punGameIP, [Out] uint16% pusGamePort )
+		{
+			uint64 tempGameID;
+			uint32 tempIP;
+			uint16 tempPort;
 
-		pnGameID = tempGameID;
-		punGameIP = tempIP;
-		pusGamePort = tempPort;
+			bool ret = base->GetFriendGamePlayed( *(steamIDFriend->base), &tempGameID, &tempIP, &tempPort );
 
-		return ret;
-	}
-	// returns the name of a friend - guaranteed to not be NULL.
-	String^ SteamFriends001::GetFriendPersonaName(SteamID^ steamId)
-	{
-		const char *pchName = base->GetFriendPersonaName( *( steamId->base ) );
+			pnGameID = tempGameID;
+			punGameIP = tempIP;
+			pusGamePort = tempPort;
 
-		int wideLen = MultiByteToWideChar( CP_UTF8, 0, pchName, -1, NULL, 0 );
-		wchar_t *wideName = new wchar_t[ wideLen ];
+			return ret;
+		}
+		// returns the name of a friend - guaranteed to not be NULL.
+		String^ GetFriendPersonaName( SteamID^ steamId )
+		{
+			const char *pchName = base->GetFriendPersonaName( *( steamId->base ) );
 
-		MultiByteToWideChar( CP_UTF8, 0, pchName, -1, wideName, wideLen );
+			int wideLen = MultiByteToWideChar( CP_UTF8, 0, pchName, -1, NULL, 0 );
+			wchar_t *wideName = new wchar_t[ wideLen ];
 
-		String^ ret = gcnew String( wideName );
+			MultiByteToWideChar( CP_UTF8, 0, pchName, -1, wideName, wideLen );
 
-		delete [] wideName;
+			String^ ret = gcnew String( wideName );
 
-		return ret;
-	}
+			delete [] wideName;
 
-	// adds a friend by email address or account name - value returned in callback
-	SteamCallHandle^ SteamFriends001::AddFriendByName( String^ pchEmailOrAccountName )
-	{
-		STR_FROM_MANAGED(pchEmailOrAccountName, str);
+			return ret;
+		}
 
-		HSteamCall ret = base->AddFriendByName(str);
+		// adds a friend by email address or account name - value returned in callback
+		SteamCallHandle^ AddFriendByName( String^ pchEmailOrAccountName )
+		{
+			STR_FROM_MANAGED(pchEmailOrAccountName, str);
 
-		STR_FREE(str);
+			HSteamCall ret = base->AddFriendByName(str);
 
-		return gcnew SteamCallHandle( ret );
-	}
+			STR_FREE(str);
 
-	// friend iteration
-	int SteamFriends001::GetFriendCount()
-	{
-		return base->GetFriendCount();
-	}
-	SteamID^ SteamFriends001::GetFriendByIndex( int iFriend )
-	{
-		return gcnew SteamID( base->GetFriendByIndex( iFriend ) );
-	}
+			return gcnew SteamCallHandle( ret );
+		}
 
-	// generic friend->friend message sending
-	// DEPRECATED, use the sized-buffer version instead (has much higher max buffer size)
-	void SteamFriends001::SendMsgToFriend( SteamID^ steamId, FriendMsgType msgType, String^ msg )
-	{
-		STR_FROM_MANAGED(msg, str);
+		// friend iteration
+		int GetFriendCount()
+		{
+			return base->GetFriendCount();
+		}
+		SteamID^ GetFriendByIndex( int iFriend )
+		{
+			return gcnew SteamID( base->GetFriendByIndex( iFriend ) );
+		}
 
-		base->SendMsgToFriend( *(steamId->base), (EFriendMsgType)msgType, str);
+		// generic friend->friend message sending
+		// DEPRECATED, use the sized-buffer version instead (has much higher max buffer size)
+		void SendMsgToFriend( SteamID^ steamId, FriendMsgType msgType, String^ msg )
+		{
+			STR_FROM_MANAGED(msg, str);
 
-		STR_FREE(str);
-	}
+			base->SendMsgToFriend( *(steamId->base), (EFriendMsgType)msgType, str);
 
-	// steam registry, accessed by friend
-	void SteamFriends001::SetFriendRegValue( SteamID^ steamIDFriend, String^ pchKey, String^ pchValue )
-	{
-		STR_FROM_MANAGED(pchKey, key);
-		STR_FROM_MANAGED(pchValue, value);
+			STR_FREE(str);
+		}
 
-		base->SetFriendRegValue( *(steamIDFriend->base), key, value );
+		// steam registry, accessed by friend
+		void SetFriendRegValue( SteamID^ steamIDFriend, String^ pchKey, String^ pchValue )
+		{
+			STR_FROM_MANAGED(pchKey, key);
+			STR_FROM_MANAGED(pchValue, value);
 
-		STR_FREE(key);
-		STR_FREE(value);
-	}
-	String^ SteamFriends001::GetFriendRegValue( SteamID^ steamIDFriend, String^ pchKey )
-	{
-		STR_FROM_MANAGED(pchKey, key);
+			base->SetFriendRegValue( *(steamIDFriend->base), key, value );
 
-		String^ ret = gcnew String( base->GetFriendRegValue( *(steamIDFriend->base), key ) );
+			STR_FREE(key);
+			STR_FREE(value);
+		}
+		String^ GetFriendRegValue( SteamID^ steamIDFriend, String^ pchKey )
+		{
+			STR_FROM_MANAGED(pchKey, key);
 
-		STR_FREE(key);
+			String^ ret = gcnew String( base->GetFriendRegValue( *(steamIDFriend->base), key ) );
 
-		return ret;
-	}
+			STR_FREE(key);
 
-	// accesses old friends names - returns an empty string when their are no more items in the history
-	String^ SteamFriends001::GetFriendPersonaNameHistory( SteamID^ steamIDFriend, int iPersonaName )
-	{
-		return gcnew String( base->GetFriendPersonaNameHistory( *(steamIDFriend->base), iPersonaName ) );
-	}
+			return ret;
+		}
 
-	// chat message iteration
-	// returns the number of bytes in the message, filling pvData with as many of those bytes as possible
-	// returns 0 if the steamID or iChatID are invalid
-	int SteamFriends001::GetChatMessage( SteamID^ steamId, int chatId, [Out] String^% msg, int msgSize, [Out] FriendMsgType% msgTypeOut )
-	{
-		EFriendMsgType msgType;  
-        char *pvData = new char[msgSize];
+		// accesses old friends names - returns an empty string when their are no more items in the history
+		String^ GetFriendPersonaNameHistory( SteamID^ steamIDFriend, int iPersonaName )
+		{
+			return gcnew String( base->GetFriendPersonaNameHistory( *(steamIDFriend->base), iPersonaName ) );
+		}
 
-		int ret = base->GetChatMessage( *(steamId->base), chatId, pvData, msgSize, &msgType);  
+		// chat message iteration
+		// returns the number of bytes in the message, filling pvData with as many of those bytes as possible
+		// returns 0 if the steamID or iChatID are invalid
+		int GetChatMessage( SteamID^ steamId, int chatId, [Out] String^% msg, int msgSize, [Out] FriendMsgType% msgTypeOut )
+		{
+			EFriendMsgType msgType;  
+			char *pvData = new char[msgSize];
 
-		int reqSize = MultiByteToWideChar( CP_UTF8, 0, pvData, -1, NULL, 0 );
-		wchar_t *wideData = new wchar_t[ reqSize ];
+			int ret = base->GetChatMessage( *(steamId->base), chatId, pvData, msgSize, &msgType);  
 
-		MultiByteToWideChar( CP_UTF8, 0, pvData, -1, wideData, reqSize );
+			int reqSize = MultiByteToWideChar( CP_UTF8, 0, pvData, -1, NULL, 0 );
+			wchar_t *wideData = new wchar_t[ reqSize ];
 
-		msg = gcnew String( wideData );
-		msgTypeOut = (FriendMsgType)msgType;
+			MultiByteToWideChar( CP_UTF8, 0, pvData, -1, wideData, reqSize );
 
-		delete [] wideData;
-		delete [] pvData;
+			msg = gcnew String( wideData );
+			msgTypeOut = (FriendMsgType)msgType;
 
-		return ret;
-	}
+			delete [] wideData;
+			delete [] pvData;
 
-	// generic friend->friend message sending, takes a sized buffer
-	bool SteamFriends001::SendMsgToFriend( SteamID^ steamIDFriend, EFriendMsgType eFriendMsgType, array<byte>^ pvMsgBody, int cubMsgBody )
-	{
-		//IntPtr memPtr = Marshal::AllocHGlobal(cubMsgBody);
-		//Marshal::Copy(pvMsgBody, 0, memPtr, cubData);
-		ARRAY_TO_PTR(pvMsgBody, mem, cubMsgBody);
+			return ret;
+		}
 
-		bool ret = base->SendMsgToFriend( *(steamIDFriend->base), (EFriendMsgType)eFriendMsgType, mem, cubMsgBody );
+		// generic friend->friend message sending, takes a sized buffer
+		bool SendMsgToFriend( SteamID^ steamIDFriend, EFriendMsgType eFriendMsgType, array<byte>^ pvMsgBody, int cubMsgBody )
+		{
+			//IntPtr memPtr = Marshal::AllocHGlobal(cubMsgBody);
+			//Marshal::Copy(pvMsgBody, 0, memPtr, cubData);
+			ARRAY_TO_PTR(pvMsgBody, mem, cubMsgBody);
 
-		ARRAY_FREE(mem);
+			bool ret = base->SendMsgToFriend( *(steamIDFriend->base), (EFriendMsgType)eFriendMsgType, mem, cubMsgBody );
 
-		return ret;
-	}
+			ARRAY_FREE(mem);
 
-	// returns the chatID that a chat should be resumed from when switching chat contexts
-	int SteamFriends001::GetChatIDOfChatHistoryStart( SteamID^ steamIDFriend )
-	{
-		return base->GetChatIDOfChatHistoryStart( *(steamIDFriend->base) );
-	}
-	// sets where a chat with a user should resume
-	void SteamFriends001::SetChatHistoryStart( SteamID^ steamIDFriend, int iChatID )
-	{
-		base->SetChatHistoryStart( *(steamIDFriend->base), iChatID );
-	}
-	// clears the chat history - should be called when a chat dialog closes
-	// the chat history can still be recovered by another context using SetChatHistoryStart() to reset the ChatIDOfChatHistoryStart
-	void SteamFriends001::ClearChatHistory( SteamID^ steamIDFriend )
-	{
-		base->ClearChatHistory( *(steamIDFriend->base) );
-	}
+			return ret;
+		}
+
+		// returns the chatID that a chat should be resumed from when switching chat contexts
+		int GetChatIDOfChatHistoryStart( SteamID^ steamIDFriend )
+		{
+			return base->GetChatIDOfChatHistoryStart( *(steamIDFriend->base) );
+		}
+		// sets where a chat with a user should resume
+		void SetChatHistoryStart( SteamID^ steamIDFriend, int iChatID )
+		{
+			base->SetChatHistoryStart( *(steamIDFriend->base), iChatID );
+		}
+		// clears the chat history - should be called when a chat dialog closes
+		// the chat history can still be recovered by another context using SetChatHistoryStart() to reset the ChatIDOfChatHistoryStart
+		void ClearChatHistory( SteamID^ steamIDFriend )
+		{
+			base->ClearChatHistory( *(steamIDFriend->base) );
+		}
+
+		literal String^ InterfaceVersion = STEAMFRIENDS_INTERFACE_VERSION_001;
+
+	private:
+		ISteamFriends001 *base;
+	};
 }

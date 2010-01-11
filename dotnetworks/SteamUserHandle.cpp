@@ -1,15 +1,25 @@
-#include "SteamUserHandle.h"
+#pragma once
+
+#include "SteamclientAPI.h"
 
 namespace dotnetworks
 {
-	SteamUserHandle::SteamUserHandle( HSteamUser steamUser)
+	public ref class SteamUserHandle
 	{
-		base = steamUser;
-	}
+	public:
+		SteamUserHandle( HSteamUser steamUser)
+		{
+			base = steamUser;
+		}
 
-	bool SteamUserHandle::operator == (SteamUserHandle^ left, SteamUserHandle^ right)
-	{
-		return left->base == right->base;
-	}
+		static bool operator == (SteamUserHandle^ left, SteamUserHandle^ right)
+		{
+			return left->base == right->base;
+		}
 
+		static const SteamUserHandle^ InvalidHandle = gcnew SteamUserHandle( 0 );
+
+	internal:
+		HSteamUser base;
+	};
 }

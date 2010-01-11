@@ -1,10 +1,18 @@
+#pragma once
 
-#include "AppID.h"
+#include "SteamclientAPI.h"
 
 namespace dotnetworks
 {
-	AppID::AppID(AppId_t appId)
-	{
-		base = appId;
-	}
+	public ref class AppID
+	{ 
+	public:
+		AppID(AppId_t appId)
+		{
+			base = appId;
+		}
+
+	internal:
+		AppId_t base;
+	};
 }

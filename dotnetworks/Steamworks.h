@@ -3,8 +3,7 @@
 #define STEAMWORKS_CLIENT_INTERFACES
 #include "SteamclientAPI.h"
 
-#include "ClientEngine.h"
-#include "SteamClient008.h"
+#include "SteamClient008.cpp"
 
 #include "Callback.h"
 

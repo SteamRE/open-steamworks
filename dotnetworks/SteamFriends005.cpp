@@ -1,152 +1,175 @@
+#pragma once
 
-#include "SteamFriends005.h"
+#include "SteamclientAPI.h"
+
+#include "PersonaState.h"
+#include "FriendRelationship.h"
+
+#include "FriendGameInfo.cpp"
+#include "SteamID.cpp"
+#include "AppID.cpp"
 
 #include "Macros.h"
+
+using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
+using namespace System::Diagnostics;
+using namespace System::Runtime::InteropServices;
 
 
 namespace dotnetworks
 {
-	SteamFriends005::SteamFriends005( void *steamFriends )
+	public ref class SteamFriends005
 	{
-		base = (ISteamFriends005 *)steamFriends;
-	}
-	
-	String^ SteamFriends005::GetPersonaName()
-	{
-		return gcnew String( base->GetPersonaName() );
-	}
+	internal:
+		SteamFriends005( void *steamFriends )
+		{
+			base = (ISteamFriends005 *)steamFriends;
+		}
+		
+	public:
+		String^ GetPersonaName()
+		{
+			return gcnew String( base->GetPersonaName() );
+		}
 
-	void SteamFriends005::SetPersonaName( String^ pchPersonaName )
-	{
-		IntPtr strPtr = Marshal::StringToHGlobalAnsi(pchPersonaName);
-		char *str = (char *)strPtr.ToPointer();
+		void SetPersonaName( String^ pchPersonaName )
+		{
+			IntPtr strPtr = Marshal::StringToHGlobalAnsi(pchPersonaName);
+			char *str = (char *)strPtr.ToPointer();
 
-		base->SetPersonaName( str );
+			base->SetPersonaName( str );
 
-		Marshal::FreeHGlobal(strPtr);
-		return;
-	}
-	
-	PersonaState SteamFriends005::GetPersonaState()
-	{
-		return (PersonaState)base->GetPersonaState( );
-	}
+			Marshal::FreeHGlobal(strPtr);
+			return;
+		}
 
-	int SteamFriends005::GetFriendCount( int iFriendFlags )
-	{
-		return base->GetFriendCount( iFriendFlags );
-	}
-	
-	SteamID^ SteamFriends005::GetFriendByIndex( int iFriend, int iFriendFlags )
-	{
-		return gcnew SteamID( base->GetFriendByIndex( iFriend, iFriendFlags ) );
-	}
+		PersonaState GetPersonaState()
+		{
+			return (PersonaState)base->GetPersonaState( );
+		}
 
-	FriendRelationship SteamFriends005::GetFriendRelationship( SteamID^ steamIDFriend )
-	{
-		return (FriendRelationship) base->GetFriendRelationship( *(steamIDFriend->base) );
-	}
+		int GetFriendCount( int iFriendFlags )
+		{
+			return base->GetFriendCount( iFriendFlags );
+		}
 
-	PersonaState SteamFriends005::GetFriendPersonaState( SteamID^ steamIDFriend )
-	{
-		return (PersonaState) base->GetFriendPersonaState( *(steamIDFriend->base) );
-	}
+		SteamID^ GetFriendByIndex( int iFriend, int iFriendFlags )
+		{
+			return gcnew SteamID( base->GetFriendByIndex( iFriend, iFriendFlags ) );
+		}
 
-	String^ SteamFriends005::GetFriendPersonaName( SteamID^ steamIDFriend )
-	{
-		return gcnew String( base->GetFriendPersonaName( *(steamIDFriend->base) ) );
-	}
+		FriendRelationship GetFriendRelationship( SteamID^ steamIDFriend )
+		{
+			return (FriendRelationship) base->GetFriendRelationship( *(steamIDFriend->base) );
+		}
 
-	int SteamFriends005::GetFriendAvatar( SteamID^ steamIDFriend, int eAvatarSize )
-	{
-		return base->GetFriendAvatar( *(steamIDFriend->base), eAvatarSize );
-	}
+		PersonaState GetFriendPersonaState( SteamID^ steamIDFriend )
+		{
+			return (PersonaState) base->GetFriendPersonaState( *(steamIDFriend->base) );
+		}
 
-	bool SteamFriends005::GetFriendGamePlayed( SteamID^ steamIDFriend, [Out] FriendGameInfo^% pFriendGameInfo )
-	{
-		FriendGameInfo_t gameInfo;
-		bool ret = base->GetFriendGamePlayed( *(steamIDFriend->base), &gameInfo );
+		String^ GetFriendPersonaName( SteamID^ steamIDFriend )
+		{
+			return gcnew String( base->GetFriendPersonaName( *(steamIDFriend->base) ) );
+		}
 
-		pFriendGameInfo = gcnew FriendGameInfo( &gameInfo );
-		return ret;
-	}
+		int GetFriendAvatar( SteamID^ steamIDFriend, int eAvatarSize )
+		{
+			return base->GetFriendAvatar( *(steamIDFriend->base), eAvatarSize );
+		}
 
-	String^ SteamFriends005::GetFriendPersonaNameHistory( SteamID^ steamIDFriend, int iPersonaName )
-	{
-		return gcnew String( base->GetFriendPersonaNameHistory( *(steamIDFriend->base), iPersonaName ) );
-	}
+		bool GetFriendGamePlayed( SteamID^ steamIDFriend, [Out] FriendGameInfo^% pFriendGameInfo )
+		{
+			FriendGameInfo_t gameInfo;
+			bool ret = base->GetFriendGamePlayed( *(steamIDFriend->base), &gameInfo );
 
-	bool SteamFriends005::HasFriend( SteamID^ steamIDFriend, int iFriendFlags )
-	{
-		return base->HasFriend( *(steamIDFriend->base), iFriendFlags );
-	}
+			pFriendGameInfo = gcnew FriendGameInfo( &gameInfo );
+			return ret;
+		}
 
-	int SteamFriends005::GetClanCount( )
-	{
-		return base->GetClanCount( );
-	}
+		String^ GetFriendPersonaNameHistory( SteamID^ steamIDFriend, int iPersonaName )
+		{
+			return gcnew String( base->GetFriendPersonaNameHistory( *(steamIDFriend->base), iPersonaName ) );
+		}
 
-	SteamID^ SteamFriends005::GetClanByIndex( int iClan )
-	{
-		return gcnew SteamID( base->GetClanByIndex( iClan ) );
-	}
+		bool HasFriend( SteamID^ steamIDFriend, int iFriendFlags )
+		{
+			return base->HasFriend( *(steamIDFriend->base), iFriendFlags );
+		}
 
-	String^ SteamFriends005::GetClanName( SteamID^ steamIDClan )
-	{
-		return gcnew String( base->GetClanName( *(steamIDClan->base) ) );
-	}
+		int GetClanCount( )
+		{
+			return base->GetClanCount( );
+		}
 
-	int SteamFriends005::GetFriendCountFromSource( SteamID^ steamIDSource )
-	{
-		return base->GetFriendCountFromSource( *(steamIDSource->base) );
-	}
+		SteamID^ GetClanByIndex( int iClan )
+		{
+			return gcnew SteamID( base->GetClanByIndex( iClan ) );
+		}
 
-	CSteamID SteamFriends005::GetFriendFromSourceByIndex( SteamID^ steamIDSource, int iFriend )
-	{
-		return base->GetFriendFromSourceByIndex( *(steamIDSource->base), iFriend );
-	}
+		String^ GetClanName( SteamID^ steamIDClan )
+		{
+			return gcnew String( base->GetClanName( *(steamIDClan->base) ) );
+		}
 
-	bool SteamFriends005::IsUserInSource( SteamID^ steamIDUser, SteamID^ steamIDSource )
-	{
-		return base->IsUserInSource( *(steamIDUser->base), *(steamIDSource->base) );
-	}
+		int GetFriendCountFromSource( SteamID^ steamIDSource )
+		{
+			return base->GetFriendCountFromSource( *(steamIDSource->base) );
+		}
 
-	void SteamFriends005::SetInGameVoiceSpeaking( SteamID^ steamIDUser, bool bSpeaking )
-	{
-		base->SetInGameVoiceSpeaking( *(steamIDUser->base), bSpeaking );
-	}
+		CSteamID GetFriendFromSourceByIndex( SteamID^ steamIDSource, int iFriend )
+		{
+			return base->GetFriendFromSourceByIndex( *(steamIDSource->base), iFriend );
+		}
 
-	void SteamFriends005::ActivateGameOverlay( String^ pchDialog )
-	{
-		STR_FROM_MANAGED(pchDialog, str);
+		bool IsUserInSource( SteamID^ steamIDUser, SteamID^ steamIDSource )
+		{
+			return base->IsUserInSource( *(steamIDUser->base), *(steamIDSource->base) );
+		}
 
-		base->ActivateGameOverlay( str );
+		void SetInGameVoiceSpeaking( SteamID^ steamIDUser, bool bSpeaking )
+		{
+			base->SetInGameVoiceSpeaking( *(steamIDUser->base), bSpeaking );
+		}
 
-		STR_FREE(str);
-	}
+		void ActivateGameOverlay( String^ pchDialog )
+		{
+			STR_FROM_MANAGED(pchDialog, str);
 
-	void SteamFriends005::ActivateGameOverlayToUser( String^ pchDialog, SteamID^ steamIDUser )
-	{
-		STR_FROM_MANAGED(pchDialog, str);
+			base->ActivateGameOverlay( str );
 
-		base->ActivateGameOverlayToUser( str, *(steamIDUser->base) );
+			STR_FREE(str);
+		}
 
-		STR_FREE(str);
-	}
+		void ActivateGameOverlayToUser( String^ pchDialog, SteamID^ steamIDUser )
+		{
+			STR_FROM_MANAGED(pchDialog, str);
 
-	void SteamFriends005::ActivateGameOverlayToWebPage( String^ pchURL )
-	{
-		STR_FROM_MANAGED(pchURL, str);
+			base->ActivateGameOverlayToUser( str, *(steamIDUser->base) );
 
-		base->ActivateGameOverlayToWebPage( str );
+			STR_FREE(str);
+		}
 
-		STR_FREE(str);
-	}
+		void ActivateGameOverlayToWebPage( String^ pchURL )
+		{
+			STR_FROM_MANAGED(pchURL, str);
 
-	void SteamFriends005::ActivateGameOverlayToStore( AppID^ nAppID )
-	{
-		base->ActivateGameOverlayToStore( nAppID->base );
-	}
+			base->ActivateGameOverlayToWebPage( str );
 
+			STR_FREE(str);
+		}
+
+		void ActivateGameOverlayToStore( AppID^ nAppID )
+		{
+			base->ActivateGameOverlayToStore( nAppID->base );
+		}
+
+		literal String^ InterfaceVersion = STEAMFRIENDS_INTERFACE_VERSION_005;
+
+	private:
+		ISteamFriends005 *base;
+	};
 }
 

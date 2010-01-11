@@ -1,10 +1,18 @@
+#pragma once
 
-#include "SteamCallHandle.h"
+#include "SteamclientAPI.h"
 
 namespace dotnetworks
 {
-	SteamCallHandle::SteamCallHandle(HSteamCall steamCall)
+	public ref class SteamCallHandle
 	{
-		base = steamCall;
-	}
+	public:
+		SteamCallHandle( HSteamCall steamCall )
+		{
+			base = steamCall;
+		}
+
+	internal:
+		HSteamCall base;
+	};
 }

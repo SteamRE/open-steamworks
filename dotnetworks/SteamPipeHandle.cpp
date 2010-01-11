@@ -1,15 +1,26 @@
+#pragma once
 
-#include "SteamPipeHandle.h"
+#include "SteamclientAPI.h"
+
 
 namespace dotnetworks
 {
-	SteamPipeHandle::SteamPipeHandle( HSteamPipe steamPipe )
+	public ref class SteamPipeHandle
 	{
-		base = steamPipe;
-	}
+	public:
+		SteamPipeHandle( HSteamPipe steamPipe )
+		{
+			base = steamPipe;
+		}
 
-	bool SteamPipeHandle::operator == (SteamPipeHandle^ left, SteamPipeHandle^ right)
-	{
-		return left->base == right->base;
-	}
+		static bool operator ==( SteamPipeHandle^ left, SteamPipeHandle^ right )
+		{
+			return left->base == right->base;
+		}
+
+		static const SteamPipeHandle^ InvalidHandle = gcnew SteamPipeHandle( 0 );
+
+	internal:
+		HSteamPipe base;
+	};
 }

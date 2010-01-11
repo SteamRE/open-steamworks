@@ -1,43 +1,78 @@
+#pragma once
 
-#include "GameID.h"
+#include "SteamclientAPI.h"
+
+using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
+using namespace System::Diagnostics;
+
 
 namespace dotnetworks
 {
-	GameID::GameID( CGameID gameId ) : base ( new CGameID(gameId.ToUint64()) )
+	public ref class GameID
 	{
-	}
+	internal:
+		GameID( CGameID gameId ) : base( new CGameID( gameId.ToUint64() ) )
+		{
+		}
 
-	GameID::GameID() : base( new CGameID() ) {}
-	GameID::GameID(uint64 gameId) : base( new CGameID(gameId) ) {}
-	GameID::GameID(int32 appId) : base( new CGameID(appId) ) {}
-	GameID::GameID(uint32 appId) : base( new CGameID(appId) ) {}
-	GameID::GameID(uint32 appId, uint32 modId) : base( new CGameID(appId, modId) ) {}
+	public:
+		GameID() : base( new CGameID() )
+		{
+		}
+		GameID( uint64 gameId ) : base( new CGameID( gameId ) )
+		{
+		}
+		GameID( int32 appId ) : base( new CGameID( appId ) )
+		{
+		}
 
-	GameID::~GameID() { this->!GameID(); }
-	GameID::!GameID()
-	{
-		if (base)
-			delete base;
-	}
+		GameID( uint32 appId ) : base( new CGameID( appId ) )
+		{
+		}
+		GameID( uint32 appId, uint32 modId ) : base( new CGameID( appId, modId ) )
+		{
+		}
 
-	UInt64 GameID::ToUint64() { return base->ToUint64(); }
-	IntPtr^ GameID::GetUint64Ptr() { return gcnew IntPtr( base->GetUint64Ptr() ); }
+		~GameID()
+		{
+			this->!GameID();
+		}
+		!GameID()
+		{
+			if ( base )
+				delete base;
+		}
 
-	bool GameID::IsMod() { return base->IsMod(); }
-	bool GameID::IsShortcut() { return base->IsShortcut(); }
-	bool GameID::IsP2PFile() { return base->IsP2PFile(); }
-	bool GameID::IsSteamApp() { return base->IsSteamApp(); }
+		UInt64 ToUint64()
+		{
+			return base->ToUint64();
+		}
+		IntPtr^ GetUint64Ptr()
+		{
+			return gcnew IntPtr( base->GetUint64Ptr() );
+		}
 
-	UInt32 GameID::ModID() { return base->ModID(); }
-	UInt32 GameID::AppID() { return base->AppID(); }
+		bool IsMod() { return base->IsMod(); }
+		bool IsShortcut() { return base->IsShortcut(); }
+		bool IsP2PFile() { return base->IsP2PFile(); }
+		bool IsSteamApp() { return base->IsSteamApp(); }
 
-    bool GameID::operator == (GameID^ lhs, GameID^ rhs) { return *(lhs->base) == *(rhs->base); }
-	bool GameID::operator != (GameID^ lhs, GameID^ rhs) { return *(lhs->base) != *(rhs->base); }
-	bool GameID::operator < (GameID^ lhs, GameID^ rhs) { return *(lhs->base) < *(rhs->base); }
-	bool GameID::operator > (GameID^ lhs, GameID^ rhs) { return *(lhs->base) < *(rhs->base); }
+		UInt32 ModID() { return base->ModID(); }
+		UInt32 AppID() { return base->AppID(); }
 
-	bool GameID::IsValid() { return base->IsValid(); }
+	    static bool operator == (GameID^ lhs, GameID^ rhs) { return *(lhs->base) == *(rhs->base); }
+		static bool operator != (GameID^ lhs, GameID^ rhs) { return *(lhs->base) != *(rhs->base); }
 
-	void GameID::Reset() { base->Reset(); }
+		static bool operator < (GameID^ lhs, GameID^ rhs) { return *(lhs->base) < *(rhs->base); }
+		static bool operator > (GameID^ lhs, GameID^ rhs) { return !(*(lhs->base) < *(rhs->base)); }
 
+		bool IsValid() { return base->IsValid(); }
+
+		void Reset() { return base->Reset(); }
+
+	internal:
+		CGameID *base;
+	};
 }

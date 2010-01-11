@@ -177,26 +177,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<Filter
-				Name="Client Interfaces"
-				>
-				<File
-					RelativePath=".\ClientEngine.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\ClientEngine.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ClientUtils.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\ClientUtils.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Steam Interfaces"
 				>
 				<Filter
@@ -207,15 +187,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\SteamFriends001.h"
-						>
-					</File>
-					<File
 						RelativePath=".\SteamFriends005.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\SteamFriends005.h"
 						>
 					</File>
 				</Filter>
@@ -227,15 +199,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\SteamUserStats002.h"
-						>
-					</File>
-					<File
 						RelativePath=".\SteamUserStats004.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\SteamUserStats004.h"
 						>
 					</File>
 				</Filter>
@@ -246,20 +210,12 @@
 						RelativePath=".\SteamRemoteStorage001.cpp"
 						>
 					</File>
-					<File
-						RelativePath=".\SteamRemoteStorage001.h"
-						>
-					</File>
 				</Filter>
 				<Filter
 					Name="ISteamUser"
 					>
 					<File
 						RelativePath=".\SteamUser012.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\SteamUser012.h"
 						>
 					</File>
 				</Filter>
@@ -270,10 +226,6 @@
 						RelativePath=".\SteamClient008.cpp"
 						>
 					</File>
-					<File
-						RelativePath=".\SteamClient008.h"
-						>
-					</File>
 				</Filter>
 				<Filter
 					Name="ISteamUtils"
@@ -282,8 +234,12 @@
 						RelativePath=".\SteamUtils004.cpp"
 						>
 					</File>
+				</Filter>
+				<Filter
+					Name="ISteamNetworking"
+					>
 					<File
-						RelativePath=".\SteamUtils004.h"
+						RelativePath=".\SteamNetworking002.cpp"
 						>
 					</File>
 				</Filter>
@@ -297,15 +253,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\AppID.h"
-				>
-			</File>
-			<File
 				RelativePath=".\AuthTicketHandle.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\AuthTicketHandle.h"
 				>
 			</File>
 			<File
@@ -313,15 +261,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\FriendGameInfo.h"
-				>
-			</File>
-			<File
 				RelativePath=".\GameID.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\GameID.h"
+				RelativePath=".\SNetSocket.cpp"
 				>
 			</File>
 			<File
@@ -329,15 +273,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SteamAPICall.h"
-				>
-			</File>
-			<File
 				RelativePath=".\SteamCallHandle.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SteamCallHandle.h"
 				>
 			</File>
 			<File
@@ -345,23 +281,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SteamID.h"
-				>
-			</File>
-			<File
 				RelativePath=".\SteamPipeHandle.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SteamPipeHandle.h"
-				>
-			</File>
-			<File
 				RelativePath=".\SteamUserHandle.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SteamUserHandle.h"
 				>
 			</File>
 			<Filter
@@ -385,6 +309,14 @@
 				</File>
 				<File
 					RelativePath=".\PersonaState.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SNetSocketConnectionType.h"
+					>
+				</File>
+				<File
+					RelativePath=".\SteamAPICallFailure.h"
 					>
 				</File>
 				<File

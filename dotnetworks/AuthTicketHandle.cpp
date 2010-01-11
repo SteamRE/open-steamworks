@@ -1,9 +1,18 @@
-#include "AuthTicketHandle.h"
+#pragma once
+
+#include "SteamclientAPI.h"
 
 namespace dotnetworks
 {
-	AuthTicketHandle::AuthTicketHandle(HAuthTicket authTicket)
+	public ref class AuthTicketHandle
 	{
-		base = authTicket;
-	}
+	public:
+		AuthTicketHandle( HAuthTicket authTicket )
+		{
+			base = authTicket;
+		}
+
+	internal:
+		HAuthTicket base;
+	};
 }

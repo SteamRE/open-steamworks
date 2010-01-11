@@ -23,79 +23,38 @@
 #define STR_FREE(name) \
 	Marshal::FreeHGlobal(name##Ptr)
 
-#define DECLARE_GET_INTERFACE() \
-	Object^ InternalGetInterface( void* unmgdInterface, String^ version );
+#define GET_INTERFACE_FUNC( interface ) \
+	Object^ Get##interface( SteamUserHandle^ hSteamUser, SteamPipeHandle^ hSteamPipe, String^ pchVersion ) \
+	{ \
+		STR_FROM_MANAGED( pchVersion, version ); \
+		void *unmgdInterface = (void *)base->GetI##interface( hSteamUser->base, hSteamPipe->base, version ); \
+		STR_FREE( version );\
+		if ( !unmgdInterface ) \
+			return nullptr; \
+		return InternalGetInterface( unmgdInterface, pchVersion ); \
+	}
 
-#define BEGIN_GET_INTERFACE(baseClass) \
-	Object^ baseClass::InternalGetInterface( void* unmgdInterface, String^ version ) \
+#define GET_UTIL_FUNC( interface ) \
+	Object^ Get##interface( SteamPipeHandle^ hSteamPipe, String^ pchVersion ) \
+	{ \
+		STR_FROM_MANAGED( pchVersion, version ); \
+		I##interface *unmgdInterface = base->GetI##interface( hSteamPipe->base, version ); \
+		STR_FREE( version );\
+		if ( !unmgdInterface ) \
+			return nullptr; \
+		return InternalGetInterface( unmgdInterface, pchVersion ); \
+	}
+
+
+#define BEGIN_GET_INTERFACE() \
+	Object^ InternalGetInterface( void* unmgdInterface, String^ version ) \
 	{ \
 		Object^ returnInterface;
 
-#define RETURN_INTERFACE(inter, actual) \
-	if (version == actual) \
-		returnInterface = gcnew inter##( unmgdInterface )
+#define RETURN_INTERFACE( interface, ver ) \
+	if ( version == ver ) \
+		returnInterface = gcnew interface( unmgdInterface );
 
 #define END_GET_INTERFACE() \
-		return returnInterface; \
-	}
-
-#define DECLARE_GET_INTERFACE_FUNC(interface) \
-	Object^ GetI##interface##(SteamUserHandle^ hSteamUser, SteamPipeHandle^ hSteamPipe, String^ pchVersion )
-
-#define DEFINE_GET_INTERFACE_FUNC(baseClass, interface) \
-	Object^ baseClass::GetI##interface##(SteamUserHandle^ hSteamUser, SteamPipeHandle^ hSteamPipe, String^ pchVersion ) \
-	{ \
-		IntPtr strPtr = Marshal::StringToHGlobalAnsi(pchVersion); \
-		char *str = (char *)strPtr.ToPointer(); \
-		Object^ returnInterface; \
-		I##interface## *unmgdInterface = base->GetI##interface##(hSteamUser->base, hSteamPipe->base, str); \
-		if (!unmgdInterface) \
-		{ \
-			Marshal::FreeHGlobal(strPtr); \
-			return nullptr; \
-		} \
-		returnInterface = InternalGetInterface(unmgdInterface, pchVersion); \
-		Marshal::FreeHGlobal(strPtr); \
-		return returnInterface; \
-	}
-
-
-#define DECLARE_GET_UTIL_FUNC(interface) \
-	Object^ GetI##interface##(SteamPipeHandle^ hSteamPipe, String^ pchVersion )
-
-#define DEFINE_GET_UTIL_FUNC(baseClass, interface) \
-	Object^ baseClass::GetI##interface##(SteamPipeHandle^ hSteamPipe, String^ pchVersion ) \
-	{ \
-		IntPtr strPtr = Marshal::StringToHGlobalAnsi(pchVersion); \
-		char *str = (char *)strPtr.ToPointer(); \
-		Object^ returnInterface; \
-		I##interface## *unmgdInterface = base->GetI##interface##(hSteamPipe->base, str); \
-		if (!unmgdInterface) \
-		{ \
-			Marshal::FreeHGlobal(strPtr); \
-			return nullptr; \
-		} \
-		returnInterface = InternalGetInterface(unmgdInterface, pchVersion); \
-		Marshal::FreeHGlobal(strPtr); \
-		return returnInterface; \
-	}
-
-#define DECLARE_GET_GENERIC_FUNC(interface) \
-	Object^ GetI##interface##(SteamUserHandle^ hSteamUser, SteamPipeHandle^ hSteamPipe, String^ pchVersion )
-
-#define DEFINE_GET_GENERIC_FUNC(baseClass, interface) \
-	Object^ baseClass::GetI##interface##(SteamUserHandle^ hSteamUser, SteamPipeHandle^ hSteamPipe, String^ pchVersion ) \
-	{ \
-		IntPtr strPtr = Marshal::StringToHGlobalAnsi(pchVersion); \
-		char *str = (char *)strPtr.ToPointer(); \
-		Object^ returnInterface; \
-		void *unmgdInterface = base->GetI##interface##(hSteamUser->base, hSteamPipe->base, str); \
-		if (!unmgdInterface) \
-		{ \
-			Marshal::FreeHGlobal(strPtr); \
-			return nullptr; \
-		} \
-		returnInterface = InternalGetInterface(unmgdInterface, pchVersion); \
-		Marshal::FreeHGlobal(strPtr); \
 		return returnInterface; \
 	}

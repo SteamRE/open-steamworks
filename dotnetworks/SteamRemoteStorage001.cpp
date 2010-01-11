@@ -1,91 +1,108 @@
+#pragma once
 
-#include "SteamRemoteStorage001.h"
+#include "SteamclientAPI.h"
 
 #include "Macros.h"
+
+
+using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
+using namespace System::Diagnostics;
+using namespace System::Runtime::InteropServices;
+
 
 namespace dotnetworks
 {
 
-	SteamRemoteStorage001::SteamRemoteStorage001( void *steamRemoteStorage )
+	public ref class SteamRemoteStorage001
 	{
-		base = (ISteamRemoteStorage001 *)steamRemoteStorage;
-	}
+	internal:
+		SteamRemoteStorage001( void *steamRemoteStorage )
+		{
+			base = (ISteamRemoteStorage001 *)steamRemoteStorage;
+		}
 
-	bool SteamRemoteStorage001::FileWrite( String ^psFile, array<Byte>^ pvData, int32 cubData )
-	{
-		STR_FROM_MANAGED(psFile, str);
-		ARRAY_TO_PTR(pvData, mem, cubData );
+	public:
+		bool FileWrite( String ^psFile, array<Byte>^ pvData, int32 cubData )
+		{
+			STR_FROM_MANAGED(psFile, str);
+			ARRAY_TO_PTR(pvData, mem, cubData );
 
-		bool ret = base->FileWrite( str, mem, cubData );
+			bool ret = base->FileWrite( str, mem, cubData );
 
-		STR_FREE(str);
-		ARRAY_FREE(mem);
+			STR_FREE(str);
+			ARRAY_FREE(mem);
 
-		return ret;
-	}
+			return ret;
+		}
 
-	bool SteamRemoteStorage001::FileRead( String^ filename, array<Byte>^ buffer, int size )
-	{
-		STR_FROM_MANAGED(filename, str);
+		bool FileRead( String^ filename, array<Byte>^ buffer, int size )
+		{
+			STR_FROM_MANAGED(filename, str);
 
-		IntPtr memPtr = Marshal::AllocHGlobal(size);
-		void *mem = (void *)memPtr.ToPointer();
-		bool ret = base->FileRead( str, mem, size );
+			IntPtr memPtr = Marshal::AllocHGlobal(size);
+			void *mem = (void *)memPtr.ToPointer();
+			bool ret = base->FileRead( str, mem, size );
 
-		Marshal::Copy(memPtr, buffer, 0, size);
-		
-		Marshal::FreeHGlobal(memPtr);
-		STR_FREE(str);
+			Marshal::Copy(memPtr, buffer, 0, size);
 
-		return ret;
-	}
+			Marshal::FreeHGlobal(memPtr);
+			STR_FREE(str);
 
-	bool SteamRemoteStorage001::FileExists( String^ psFile )
-	{
-		STR_FROM_MANAGED(psFile, str);
+			return ret;
+		}
 
-		bool ret = base->FileExists( str );
+		bool FileExists( String^ psFile )
+		{
+			STR_FROM_MANAGED(psFile, str);
 
-		STR_FREE(str);
-		return ret;
-	}
+			bool ret = base->FileExists( str );
 
-	bool SteamRemoteStorage001::FileDelete( String^ psFile )
-	{
-		STR_FROM_MANAGED(psFile, str);
+			STR_FREE(str);
+			return ret;
+		}
 
-		bool ret = base->FileDelete( str );
+		bool FileDelete( String^ psFile )
+		{
+			STR_FROM_MANAGED(psFile, str);
 
-		STR_FREE(str);
-		return ret;
-	}
+			bool ret = base->FileDelete( str );
 
-	uint32 SteamRemoteStorage001::GetFileCount()
-	{
-		return base->GetFileCount();
-	}
+			STR_FREE(str);
+			return ret;
+		}
 
-	String^ SteamRemoteStorage001::GetFileNameAndSize(int index, int% size)
-	{
-		int tempSize;
+		uint32 GetFileCount()
+		{
+			return base->GetFileCount();
+		}
 
-		String^ ret = gcnew String( base->GetFileNameAndSize(index, &tempSize) );
+		String^ GetFileNameAndSize(int index, [Out] int% size)
+		{
+			int tempSize;
 
-		size = tempSize;
-		return ret;
-	}
+			String^ ret = gcnew String( base->GetFileNameAndSize(index, &tempSize) );
 
-	bool SteamRemoteStorage001::GetQuota(int% current, int% maximum)
-	{
-		int tempCurr, tempMax;
+			size = tempSize;
+			return ret;
+		}
 
-		bool ret = base->GetQuota(&tempCurr, &tempMax);
+		bool GetQuota([Out] int% current, [Out] int% maximum)
+		{
+			int tempCurr, tempMax;
 
-		current = tempCurr;
-		maximum = tempMax;
+			bool ret = base->GetQuota(&tempCurr, &tempMax);
 
-		return ret;
-	}
+			current = tempCurr;
+			maximum = tempMax;
 
-	
+			return ret;
+		}
+
+		literal String^ InterfaceVersion = STEAMREMOTESTORAGE_INTERFACE_VERSION_001;
+
+	private:
+		ISteamRemoteStorage001 *base;
+	};
 }
