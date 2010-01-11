@@ -30,6 +30,8 @@
 #include <iomanip>
 #include <time.h>
 
+#define NO_STEAM
+#define NO_ICLIENT
 #include "Steamworks.h"
 #include "Common.h"
 #include "NetMessages.h"
