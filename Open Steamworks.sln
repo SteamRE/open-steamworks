@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Open Steamworks", "Open Steamworks\Open Steamworks.vcproj", "{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bporgnlands", "bporgnlands\bporgnlands.vcproj", "{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dotnetworks", "dotnetworks\dotnetworks.vcproj", "{2B6BB86F-539E-4A08-A760-4328D3F76F64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRC Relay", "IRC-Relay\IRC Relay.csproj", "{D68AC9D5-4CDF-412B-8F1F-9A2FBFB87BC7}"
@@ -49,16 +47,6 @@ Global
 		{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}.Release|Win32.ActiveCfg = Release|Win32
 		{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}.Release|Win32.Build.0 = Release|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Debug|Win32.Build.0 = Debug|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Release|Any CPU.ActiveCfg = Release|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Release|Win32.ActiveCfg = Release|Win32
-		{7D22403E-BCE0-4DEC-968E-B2DAEB78A33D}.Release|Win32.Build.0 = Release|Win32
 		{2B6BB86F-539E-4A08-A760-4328D3F76F64}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{2B6BB86F-539E-4A08-A760-4328D3F76F64}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{2B6BB86F-539E-4A08-A760-4328D3F76F64}.Debug|Mixed Platforms.Build.0 = Debug|Win32

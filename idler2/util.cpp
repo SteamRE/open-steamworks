@@ -69,7 +69,7 @@ void DumpItems(unsigned char *data)
 	for(int i = 0; i < ilist->itemcount; i++)
 	{
 		SOMsgCacheSubscribed_Item_t *item = (SOMsgCacheSubscribed_Item_t *)ptr;
-		std::cout << "Item " << i << " " << item->accountid << " " << item->itemdefindex << " " << EnumString<EItemQuality>::From(item->itemquality) << " " << item->itemid << std::endl;
+		std::cout << "Item " << i << " " << item->accountid << " " << item->itemdefindex << " " << EnumString<EItemQuality>::From((EItemQuality)item->itemquality) << " " << item->itemid << std::endl;
 
 		ptr = ((unsigned char *)ptr + sizeof(SOMsgCacheSubscribed_Item_t));
 
