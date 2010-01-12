@@ -24,7 +24,7 @@
 	Marshal::FreeHGlobal(name##Ptr)
 
 #define GET_INTERFACE_FUNC( interface ) \
-	Object^ Get##interface( SteamUserHandle^ hSteamUser, SteamPipeHandle^ hSteamPipe, String^ pchVersion ) \
+	Object^ GetI##interface( SteamUserHandle^ hSteamUser, SteamPipeHandle^ hSteamPipe, String^ pchVersion ) \
 	{ \
 		STR_FROM_MANAGED( pchVersion, version ); \
 		void *unmgdInterface = (void *)base->GetI##interface( hSteamUser->base, hSteamPipe->base, version ); \
@@ -35,7 +35,7 @@
 	}
 
 #define GET_UTIL_FUNC( interface ) \
-	Object^ Get##interface( SteamPipeHandle^ hSteamPipe, String^ pchVersion ) \
+	Object^ GetI##interface( SteamPipeHandle^ hSteamPipe, String^ pchVersion ) \
 	{ \
 		STR_FROM_MANAGED( pchVersion, version ); \
 		I##interface *unmgdInterface = base->GetI##interface( hSteamPipe->base, version ); \
