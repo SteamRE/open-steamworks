@@ -5,6 +5,7 @@
 #include "SteamclientAPI.h"
 
 #include "SNetSocketConnectionType.h"
+#include "SNetSocketState.h"
 
 #include "SteamID.cpp"
 #include "SNetSocket.cpp"
@@ -157,9 +158,9 @@ namespace dotnetworks
 		}
 
 		// returns information about the specified socket, filling out the contents of the pointers
-		bool GetSocketInfo( SNetSocket^ hSocket, [Out] SteamID^% pSteamIDRemote, [Out] int% peSocketStatus, [Out] uint32% punIPRemote, [Out] uint16% punPortRemote )
+		bool GetSocketInfo( SNetSocket^ hSocket, [Out] SteamID^% pSteamIDRemote, [Out] SNetSocketState% peSocketStatus, [Out] uint32% punIPRemote, [Out] uint16% punPortRemote )
 		{
-			int status;
+			ESNetSocketState status;
 			uint32 ip;
 			uint16 port;
 			CSteamID steamId;
@@ -167,7 +168,7 @@ namespace dotnetworks
 			bool ret = base->GetSocketInfo( hSocket->base, &steamId, &status, &ip, &port );
 
 			pSteamIDRemote = gcnew SteamID( steamId.ConvertToUint64() );
-			peSocketStatus = status;
+			peSocketStatus = (SNetSocketState)status;
 			punIPRemote = ip;
 			punPortRemote = port;
 

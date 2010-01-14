@@ -88,7 +88,7 @@ public:
 	virtual bool RetrieveData( SNetListenSocket_t hListenSocket, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, SNetSocket_t *phSocket ) = 0;
 
 	// returns information about the specified socket, filling out the contents of the pointers
-	virtual bool GetSocketInfo( SNetSocket_t hSocket, CSteamID *pSteamIDRemote, int *peSocketStatus, uint32 *punIPRemote, uint16 *punPortRemote ) = 0;
+	virtual bool GetSocketInfo( SNetSocket_t hSocket, CSteamID *pSteamIDRemote, ESNetSocketState *peSocketStatus, uint32 *punIPRemote, uint16 *punPortRemote ) = 0;
 
 	// returns which local port the listen socket is bound to
 	// *pnIP and *pnPort will be 0 if the socket is set to listen for P2P connections only
