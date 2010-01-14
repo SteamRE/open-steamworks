@@ -13,7 +13,7 @@ namespace dotnetworks
 		};
 
 	public:
-		literal int Callback = 331;
+		literal int Callback = GameOverlayActivated_t::k_iCallback;
 
 		bool Active;
 	};

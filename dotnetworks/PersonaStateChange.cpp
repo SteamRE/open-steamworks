@@ -2,6 +2,10 @@
 
 #include "SteamclientAPI.h"
 
+#include "SteamID.cpp"
+
+#include "PersonaState.h"
+
 
 namespace dotnetworks
 {
@@ -10,14 +14,14 @@ namespace dotnetworks
 	internal:
 		PersonaStateChange( PersonaStateChange_t *personaState )
 		{
-			SteamID = personaState->m_ulSteamID;
-			ChangeFlags = personaState->m_nChangeFlags;
+			SteamId = gcnew SteamID( personaState->m_ulSteamID );
+			ChangeFlags = (PersonaState)personaState->m_nChangeFlags;
 		};
 
 	public:
-		literal int Callback = 304;
+		literal int Callback = PersonaStateChange_t::k_iCallback;
 
-		uint64 SteamID;
-		int ChangeFlags;
+		SteamID^ SteamId;
+		PersonaState ChangeFlags;
 	};
 }

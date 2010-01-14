@@ -340,10 +340,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Callback.h"
-					>
-				</File>
-				<File
 					RelativePath=".\FriendAdded.cpp"
 					>
 				</File>

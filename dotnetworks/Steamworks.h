@@ -5,7 +5,7 @@
 
 #include "SteamClient008.cpp"
 
-#include "Callback.h"
+#include "Callback.cpp"
 
 using namespace System;
 using namespace System::ComponentModel;

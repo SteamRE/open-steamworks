@@ -2,6 +2,8 @@
 
 #include "SteamclientAPI.h"
 
+#include "SteamID.cpp"
+
 namespace dotnetworks
 {
 	public ref class SteamWindowClosed
@@ -9,12 +11,12 @@ namespace dotnetworks
 	internal:
 		SteamWindowClosed( FriendEndChatSession_t *windowClosed )
 		{
-			SteamID = windowClosed->m_SteamID.ConvertToUint64();
+			SteamId = gcnew SteamID( windowClosed->m_SteamID );
 		};
 
 	public:
-		literal int Callback = 312;
+		literal int Callback = FriendEndChatSession_t::k_iCallback;
 
-		uint64 SteamID;
+		SteamID^ SteamId;
 	};
 }

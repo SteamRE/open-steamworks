@@ -1,39 +1,62 @@
+#pragma once
 
-#include "Callback.h"
+#include "SteamclientAPI.h"
+
+#include "SteamUserHandle.cpp"
+
+#include "PersonaStateChange.cpp"
+#include "FriendChatMsg.cpp"
+#include "UserRequestingFriendship.cpp"
+#include "FriendAdded.cpp"
+#include "SteamWindowClosed.cpp"
+#include "GameOverlayActivated.cpp"
 
 namespace dotnetworks
 {
-	Callback::Callback( CallbackMsg_t callbackMsg )
+	public ref class Callback
 	{
-		SteamUser = callbackMsg.m_hSteamUser;
-		CallbackNum = callbackMsg.m_iCallback;
-		CallbackSize = callbackMsg.m_cubParam;
-
-		switch (CallbackNum)
+	internal:
+		Callback( CallbackMsg_t callbackMsg )
 		{
-		case PersonaStateChange_t::k_iCallback:
-			CallbackObject = gcnew PersonaStateChange( (PersonaStateChange_t *)callbackMsg.m_pubParam );
-			break;
+			SteamUser = gcnew SteamUserHandle( callbackMsg.m_hSteamUser );
 
-		case FriendChatMsg_t::k_iCallback:
-			CallbackObject = gcnew FriendChatMsg( (FriendChatMsg_t *)callbackMsg.m_pubParam );
-			break;
+			CallbackNum = callbackMsg.m_iCallback;
+			CallbackSize = callbackMsg.m_cubParam;
 
-		case UserRequestingFriendship_t::k_iCallback:
-			CallbackObject = gcnew UserRequestingFriendship( (UserRequestingFriendship_t *)callbackMsg.m_pubParam );
-			break;
+			switch (CallbackNum)
+			{
 
-		case FriendAdded_t::k_iCallback:
-			CallbackObject = gcnew FriendAdded( (FriendAdded_t *)callbackMsg.m_pubParam );
-			break;
+			case PersonaStateChange_t::k_iCallback:
+				CallbackObject = gcnew PersonaStateChange( (PersonaStateChange_t *)callbackMsg.m_pubParam );
+				break;
 
-		case FriendEndChatSession_t::k_iCallback:
-			CallbackObject = gcnew SteamWindowClosed( (FriendEndChatSession_t *)callbackMsg.m_pubParam );
-			break;
+			case FriendChatMsg_t::k_iCallback:
+				CallbackObject = gcnew FriendChatMsg( (FriendChatMsg_t *)callbackMsg.m_pubParam );
+				break;
 
-		case GameOverlayActivated_t::k_iCallback:
-			CallbackObject = gcnew GameOverlayActivated( (GameOverlayActivated_t *)callbackMsg.m_pubParam );
-			break;
+			case UserRequestingFriendship_t::k_iCallback:
+				CallbackObject = gcnew UserRequestingFriendship( (UserRequestingFriendship_t *)callbackMsg.m_pubParam );
+				break;
+
+			case FriendAdded_t::k_iCallback:
+				CallbackObject = gcnew FriendAdded( (FriendAdded_t *)callbackMsg.m_pubParam );
+				break;
+
+			case FriendEndChatSession_t::k_iCallback:
+				CallbackObject = gcnew SteamWindowClosed( (FriendEndChatSession_t *)callbackMsg.m_pubParam );
+				break;
+
+			case GameOverlayActivated_t::k_iCallback:
+				CallbackObject = gcnew GameOverlayActivated( (GameOverlayActivated_t *)callbackMsg.m_pubParam );
+				break;
+
+			}
 		}
-	}
+
+	public:
+		SteamUserHandle^ SteamUser;
+		int CallbackNum;
+		Object^ CallbackObject;
+		int CallbackSize;
+	};
 }

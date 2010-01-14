@@ -2,6 +2,8 @@
 
 #include "SteamclientAPI.h"
 
+#include "SteamID.cpp"
+
 namespace dotnetworks
 {
 	public ref class FriendAdded
@@ -9,14 +11,14 @@ namespace dotnetworks
 	internal:
 		FriendAdded( FriendAdded_t *friendAdded )
 		{
-			SteamID = friendAdded->m_ulSteamID;
+			SteamId = gcnew SteamID( friendAdded->m_ulSteamID );
 			Success = friendAdded->m_bSuccess != 0;
 		};
 
 	public:
-		literal int Callback = 301;
+		literal int Callback = FriendAdded_t::k_iCallback;
 
-		uint64 SteamID;
+		SteamID^ SteamId;
 		bool Success;
 	};
 }
