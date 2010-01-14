@@ -201,6 +201,8 @@ namespace dotnetworks
 			return base->GetMaxPacketSize( hSocket->base );
 		}
 
+		literal String^ InterfaceVersion = STEAMNETWORKING_INTERFACE_VERSION_002;
+
 	private:
 		ISteamNetworking002 *base;
 	};
