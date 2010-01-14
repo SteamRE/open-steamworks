@@ -316,6 +316,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\SNetSocketState.h"
+					>
+				</File>
+				<File
 					RelativePath=".\SteamAPICallFailure.h"
 					>
 				</File>
@@ -353,6 +357,10 @@
 				</File>
 				<File
 					RelativePath=".\PersonaStateChange.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SocketStatusCallback.cpp"
 					>
 				</File>
 				<File

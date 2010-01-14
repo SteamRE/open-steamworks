@@ -10,6 +10,7 @@
 #include "FriendAdded.cpp"
 #include "SteamWindowClosed.cpp"
 #include "GameOverlayActivated.cpp"
+#include "SocketStatusCallback.cpp"
 
 namespace dotnetworks
 {
@@ -23,7 +24,7 @@ namespace dotnetworks
 			CallbackNum = callbackMsg.m_iCallback;
 			CallbackSize = callbackMsg.m_cubParam;
 
-			switch (CallbackNum)
+			switch ( CallbackNum )
 			{
 
 			case PersonaStateChange_t::k_iCallback:
@@ -50,10 +51,15 @@ namespace dotnetworks
 				CallbackObject = gcnew GameOverlayActivated( (GameOverlayActivated_t *)callbackMsg.m_pubParam );
 				break;
 
+			case SocketStatusCallback_t::k_iCallback:
+				CallbackObject = gcnew SocketStatusCallback( (SocketStatusCallback_t *)callbackMsg.m_pubParam );
+				break;
+
 			}
 		}
 
 	public:
+
 		SteamUserHandle^ SteamUser;
 		int CallbackNum;
 		Object^ CallbackObject;
