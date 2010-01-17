@@ -244,6 +244,18 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Client Interfaces"
+				>
+				<File
+					RelativePath=".\ClientEngine.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ClientFriends.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Core"
@@ -300,6 +312,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\ChatEntryType.h"
+					>
+				</File>
+				<File
 					RelativePath=".\FriendMsgType.h"
 					>
 				</File>
@@ -353,6 +369,10 @@
 				</File>
 				<File
 					RelativePath=".\GameOverlayActivated.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\GroupChatMsg.cpp"
 					>
 				</File>
 				<File

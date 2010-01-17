@@ -39,6 +39,8 @@ namespace dotnetworks
 		
 		if ( name == STEAMCLIENT_INTERFACE_VERSION_008 )
 			returnInterface = gcnew SteamClient008( (ISteamClient008 *)unmgdInterface );
+		else if (name == CLIENTENGINE_INTERFACE_VERSION )
+			returnInterface = gcnew ClientEngine( (IClientEngine *)unmgdInterface );
 
 		STR_FREE( str );
 

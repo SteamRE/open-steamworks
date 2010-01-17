@@ -11,6 +11,7 @@
 #include "SteamWindowClosed.cpp"
 #include "GameOverlayActivated.cpp"
 #include "SocketStatusCallback.cpp"
+#include "GroupChatMsg.cpp"
 
 namespace dotnetworks
 {
@@ -53,6 +54,10 @@ namespace dotnetworks
 
 			case SocketStatusCallback_t::k_iCallback:
 				CallbackObject = gcnew SocketStatusCallback( (SocketStatusCallback_t *)callbackMsg.m_pubParam );
+				break;
+
+			case GroupChatMsg_t::k_iCallback:
+				CallbackObject = gcnew GroupChatMsg( (GroupChatMsg_t *)callbackMsg.m_pubParam );
 				break;
 
 			}

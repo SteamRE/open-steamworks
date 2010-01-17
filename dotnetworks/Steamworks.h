@@ -4,6 +4,7 @@
 #include "SteamclientAPI.h"
 
 #include "SteamClient008.cpp"
+#include "ClientEngine.cpp"
 
 #include "Callback.cpp"
 
