@@ -55,7 +55,7 @@ public:
 	virtual void SetFriendAlias( CSteamID steamIDFriend, const char *pchAlias ) = 0;
 
 	// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
-	virtual int GetFriendAvatar( CSteamID steamIDFriend ) = 0;
+	virtual int GetFriendAvatar( CSteamID steamIDFriend, int a ) = 0;
 
 	// steam registry, accessed by friend
 	virtual void SetFriendRegValue( CSteamID steamIDFriend, const char *pchKey, const char *pchValue ) = 0;
@@ -155,6 +155,9 @@ public:
 	virtual bool GetChatRoomLockState( CSteamID steamIDchat, bool *pbLocked ) = 0;
 	virtual bool GetChatRoomPermissions( CSteamID steamIDchat, uint32 * ) = 0;
 
+	virtual unknown_ret SetChatRoomModerated( CSteamID steamIDchat, bool bModerated ) = 0;
+	virtual bool ChatRoomModerated( CSteamID steamIDChat ) = 0;
+
 	virtual bool NotifyChatRoomDlgsOfUIChange( CSteamID steamIDchat, bool, bool, bool, bool ) = 0;
 
 	virtual bool TerminateChatRoom( CSteamID steamIDchat ) = 0;
@@ -164,7 +167,7 @@ public:
 
 	virtual const char *GetChatRoomName( CSteamID steamIDchat ) = 0;
 
-	virtual bool BGetChatRoomMemberDetails( CSteamID steamIDchat, CSteamID steamIDuser, uint32* pChatMemberDetails, uint32* pChatMemberDetailsLocal ) = 0;
+	virtual bool GetChatRoomMemberDetails( CSteamID steamIDchat, CSteamID steamIDuser, uint32* pChatMemberDetails, uint32* pChatMemberDetailsLocal ) = 0;
 
 	virtual void CreateChatRoom( EChatRoomType eType, uint64 ulGameID, const char *pchName, ELobbyType eLobbyType, CSteamID steamIDClan, CSteamID steamIDFriendChat, CSteamID steamIDInvited, uint32 chatPermissionOfficer, uint32 chatPermissionMember, uint32 chatPermissionAll ) = 0;
 
@@ -270,7 +273,6 @@ public:
 
 	virtual void NotifyGameOverlayStateChanged( bool bActive ) = 0;
 	virtual void NotifyGameServerChangeRequested( const char *pchServerAddress, const char *pchPassword ) = 0;
-
 	virtual bool NotifyLobbyJoinRequested( AppId_t nAppId, CSteamID steamIDlobby, CSteamID steamIDfriend ) = 0;
 
 	virtual EClanRelationship GetClanRelationship( CSteamID steamIDclan ) = 0;

@@ -98,6 +98,22 @@ struct FriendChatMsg_t
 };
 #pragma pack(pop)
 
+// 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 04 00 00 00
+// 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 20 00 00 00
+// 05 F4 25 33 EA 03 80 01 | 4F 70 A4 01 01 00 10 01 | 01 00 00 00 | 21 00 00 00
+
+#pragma pack(push, 1)
+struct GroupChatMsg_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 11 };
+
+	CSteamID m_GroupID;
+	CSteamID m_SenderID;
+	uint32 m_iUnknown;
+	uint32 m_iChatID;
+};
+#pragma pack(pop)
+
 struct FriendEndChatSession_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 12 };
@@ -144,6 +160,7 @@ struct GameLobbyJoinRequested_t
 	CSteamID m_steamIDLobby;
 	CSteamID m_steamIDFriend;		// the friend they did the join via (will be invalid if not directly via a friend)
 };
+
 
 
 #endif // FRIENDSCOMMON_H
