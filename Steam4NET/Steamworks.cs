@@ -4,6 +4,10 @@ using Microsoft.Win32;
 using System.Text;
 using System.Runtime.InteropServices;
 
+/*
+ Steamworks and NativeWrapper classes provided by Rick - http://gib.me/
+*/
+
 namespace Steam4NET
 {
     public class Steamworks

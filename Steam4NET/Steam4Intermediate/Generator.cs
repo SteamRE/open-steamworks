@@ -700,7 +700,7 @@ namespace Steam4Intermediate
                                 sb.AppendLine(new String('\t', level) + prefix);
 
                             sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=" + cnode.size + ")]");
-                            sb.AppendLine(new String('\t', level) + "public class " + cnode.name);
+                            sb.AppendLine(new String('\t', level) + "public struct " + cnode.name);
                             sb.AppendLine(new String('\t', level) + "{");
 
                             string oldprefix = prefix;

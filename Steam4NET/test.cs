@@ -859,7 +859,7 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=64)]
-	public class CSteamID
+	public struct CSteamID
 	{
 
 		[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1,Size=64)]
@@ -1042,7 +1042,7 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=64)]
-	public class CGameID
+	public struct CGameID
 	{
 
 		[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1,Size=64)]
@@ -1183,7 +1183,7 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=96)]
-	public class CCallbackBase
+	public struct CCallbackBase
 	{
 		public Byte m_nCallbackFlags;
 		public Int32 m_iCallback;
@@ -4738,7 +4738,7 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=64)]
-	public class servernetadr_t
+	public struct servernetadr_t
 	{
 		public UInt16 m_usConnectionPort;
 		public UInt16 m_usQueryPort;
@@ -7098,7 +7098,7 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=2912)]
-	public class gameserveritem_t
+	public struct gameserveritem_t
 	{
 		public servernetadr_t m_NetAdr;
 		public Int32 m_nPing;
@@ -10925,7 +10925,7 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=128)]
-	public class CDllDemandLoader
+	public struct CDllDemandLoader
 	{
 		public IntPtr m_pchModuleName;
 		public IntPtr m_hModule;
@@ -10934,7 +10934,7 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=4448)]
-	public class CSteamAPILoader
+	public struct CSteamAPILoader
 	{
 		public CDllDemandLoader steamservice;
 		public CDllDemandLoader steamclient;
