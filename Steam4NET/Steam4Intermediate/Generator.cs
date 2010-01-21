@@ -910,6 +910,7 @@ namespace Steam4Intermediate
                 sb.Remove(sb.Length - 2, 2);
 
                 sb.AppendLine("); }");
+                sb.AppendLine();
             }
         }
 
