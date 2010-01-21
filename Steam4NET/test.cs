@@ -857,7 +857,7 @@ namespace Steam4NET
 		public Unionm_SteamLocalUserID m_SteamLocalUserID;
 
 	}
-	
+
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=160)]
 	public struct SocketStatusCallback_t
 	{
@@ -6078,8 +6078,7 @@ namespace Steam4NET
 		public Int32 GetFriendCount(Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendCount>(this.Functions.GetFriendCount); return call(this.ObjectAddress, iFriendFlags); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
-        [return: MarshalAs(UnmanagedType.U8)]
-        public UInt64 GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
+		public UInt64 GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, UInt64 steamIDFriend);
 		public EFriendRelationship GetFriendRelationship(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
@@ -9036,8 +9035,10 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCount(IntPtr thisobj);
 		public Int32 GetFriendCount() { var call = this.GetFunction<NativeGetFriendCount>(this.Functions.GetFriendCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend);
-		public UInt64 GetFriendByIndex(Int32 iFriend) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend); }
+         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
+        private delegate UInt64 NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend);
+        
+        public UInt64 GetFriendByIndex(Int32 iFriend) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendMsgToFriend(IntPtr thisobj, UInt64 steamIDFriend, EFriendMsgType eFriendMsgType, string pchMsgBody);
 		public void SendMsgToFriend(UInt64 steamIDFriend, EFriendMsgType eFriendMsgType, string pchMsgBody) { var call = this.GetFunction<NativeSendMsgToFriend>(this.Functions.SendMsgToFriend); call(this.ObjectAddress, steamIDFriend, eFriendMsgType, pchMsgBody); }
