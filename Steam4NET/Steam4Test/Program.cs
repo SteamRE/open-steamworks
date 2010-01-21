@@ -19,6 +19,7 @@ namespace Steam4Test
 
             ISteamUtils004 utils = Steamworks.CastInterface<ISteamUtils004>(steamclient.GetISteamUtils(pipe, "SteamUtils004"));
             ISteamFriends001 friends = Steamworks.CastInterface<ISteamFriends001>(steamclient.GetISteamFriends(user, pipe, "SteamFriends001"));
+            ISteamUser008 steamuser = Steamworks.CastInterface<ISteamUser008>(steamclient.GetISteamUser(user, pipe, "SteamUser008"));
 
             Console.WriteLine(utils.GetAppID());
             Console.WriteLine(utils.GetConnectedUniverse());
@@ -30,10 +31,11 @@ namespace Steam4Test
             Console.WriteLine("Friend count: " + count);
 
 
-           CSteamID steamid = 76561197969379337; 
+            CSteamID steamid = 76561197983869206; 
 
            Console.WriteLine((string)steamid);
-           Console.WriteLine(friends.GetFriendPersonaName(steamid));
+
+           Console.WriteLine(steamuser.GetSteamID());
 
             Console.ReadKey();
 
