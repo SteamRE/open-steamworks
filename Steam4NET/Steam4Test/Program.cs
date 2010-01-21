@@ -35,7 +35,7 @@ namespace Steam4Test
 
            Console.WriteLine((string)steamid);
 
-           Console.WriteLine(steamuser.GetSteamID());
+            CSteamID myid = steamuser.GetSteamID();
 
             Console.ReadKey();
 

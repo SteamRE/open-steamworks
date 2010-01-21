@@ -857,8 +857,15 @@ namespace Steam4Intermediate
             if (mnode.virt == 1)
             {
                 BaseNode n;
+                bool passtypeasparam = false;
+
                 string type = ResolveType(mnode.ret, out n, true);
                 string dtype;
+
+                if (type == "CSteamID")
+                {
+                    passtypeasparam = true;
+                }
 
                 if (typeDict.TryGetValue(type, out dtype))
                 {
@@ -880,7 +887,23 @@ namespace Steam4Intermediate
                     classmethods[mname] = 1;
                 }
 
-                sb.Append(new String('\t', level) + "[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate " + type + " Native" + delname + "(IntPtr thisobj, ");
+                sb.Append(new String('\t', level) + "[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ");
+
+                if (passtypeasparam)
+                {
+                    sb.Append("void");
+                }
+                else
+                {
+                    sb.Append(type);
+                }
+
+                sb.Append(" Native" + delname + "(IntPtr thisobj, ");
+
+                if (passtypeasparam)
+                {
+                    sb.Append("ref " + type + " ret, ");
+                }
 
                 ProcessMethodArgs(mnode, false);
 
@@ -900,17 +923,36 @@ namespace Steam4Intermediate
                 if (mnode.arguments.Count > 0)
                     sb.Remove(sb.Length - 2, 2);
 
-                sb.Append(") { var call = this.GetFunction<Native" + delname + ">(this.Functions." + delname + "); ");
+                sb.Append(") { ");
 
-                if (type != "void")
+                if (passtypeasparam)
+                {
+                    sb.Append(type + " ret = 0; ");
+                }
+                
+                sb.Append("var call = this.GetFunction<Native" + delname + ">(this.Functions." + delname + "); ");
+
+                if (type != "void" && !passtypeasparam)
                     sb.Append("return ");
 
                 sb.Append("call(this.ObjectAddress, ");
 
+                if (passtypeasparam)
+                {
+                    sb.Append("ref ret, ");
+                }
+
                 ProcessMethodArgs(mnode, true);
                 sb.Remove(sb.Length - 2, 2);
 
-                sb.AppendLine("); }");
+                sb.Append("); ");
+
+                if (passtypeasparam)
+                {
+                    sb.Append("return ret; ");
+                }
+
+                sb.AppendLine("}");
                 sb.AppendLine();
             }
         }
