@@ -26,11 +26,10 @@ namespace Steam4Test
 
             Console.WriteLine(friends.GetPersonaName());
 
-            CSteamID steamid = new CSteamID();// friends.GetFriendByIndex(0, 0);
-            
-            steamid.SteamID_t.m_unAll64Bits = 76561197983869206;
+            CSteamID steamid = 76561197969379337; // friends.GetFriendByIndex(0,0); something is hugged with this function
 
-            Console.WriteLine(friends.GetFriendPersonaName( steamid ));
+            Console.WriteLine((string)steamid);
+            Console.WriteLine(friends.GetFriendPersonaName(steamid));
 
             Console.ReadKey();
 

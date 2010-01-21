@@ -23,6 +23,7 @@ namespace Steam4Intermediate
             {"long unsigned int", "UInt32"},
             {"long long int", "Int64"},
             {"long long unsigned int", "UInt64"},
+            {"CSteamID", "UInt64"},
         };
 
         public abstract class BaseNode
@@ -939,7 +940,7 @@ namespace Steam4Intermediate
 
                 string argname = argnames[paramnum].Trim();
 
-                if (argname.Length == 0 || argname.EndsWith("*") || argname == "bool" || argname == "float" || argname == type || argname == "int" || argname == "short" || argname == "uint32" || argname == "\"\"")
+                if (argname.Length == 0 || argname.EndsWith("*") || argname == "bool" || argname == "float" || argname == type || argname == "CSteamID" || argname == "int" || argname == "short" || argname == "uint32" || argname == "\"\"")
                     argname = "arg" + (paramnum + 1);
 
                 if (argname.StartsWith("*") || argname.StartsWith("&"))

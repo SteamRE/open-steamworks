@@ -858,28 +858,12 @@ namespace Steam4NET
 
 	}
 	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=64)]
-	public struct CSteamID
-	{
-
-		[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1,Size=64)]
-		public struct UnionSteamID_t
-		{
-			[FieldOffset(0)]
-			public SteamIDComponent_t m_comp;
-			[FieldOffset(0)]
-			public UInt64 m_unAll64Bits;
-		}
-		public UnionSteamID_t SteamID_t;
-
-	}
-	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=160)]
 	public struct SocketStatusCallback_t
 	{
 		public UInt32 m_hSocket;
 		public UInt32 m_hListenSocket;
-		public CSteamID m_steamIDRemote;
+		public UInt64 m_steamIDRemote;
 		public Int32 m_eSNetSocketState;
 		public const int k_iCallback = 1201;
 	}
@@ -887,7 +871,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=128)]
 	public struct GSItemGranted_t
 	{
-		public CSteamID m_steamID;
+		public UInt64 m_steamID;
 		public UInt64 m_itemID;
 		public const int k_iCallback = 1507;
 	}
@@ -898,7 +882,7 @@ namespace Steam4NET
 		public UInt16 id;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
 		public SByte[] garbage;
-		public CSteamID steamid;
+		public UInt64 steamid;
 		public const int k_iMessage = 25;
 	}
 	
@@ -923,7 +907,7 @@ namespace Steam4NET
 		public UInt16 id;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
 		public SByte[] garbage;
-		public CSteamID steamid;
+		public UInt64 steamid;
 		public UInt32 unknown;
 		public UInt64 itemid;
 		public UInt32 accountid;
@@ -939,7 +923,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=72)]
 	public struct GSClientKick_t
 	{
-		public CSteamID m_SteamID;
+		public UInt64 m_SteamID;
 		public EDenyReason m_eDenyReason;
 		public const int k_iCallback = 203;
 	}
@@ -967,7 +951,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=1096)]
 	public struct GSClientDeny_t
 	{
-		public CSteamID m_SteamID;
+		public UInt64 m_SteamID;
 		public EDenyReason m_eDenyReason;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
 		public SByte[] m_pchOptionalText;
@@ -1073,7 +1057,7 @@ namespace Steam4NET
 		public UInt16 id;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
 		public SByte[] garbage;
-		public CSteamID steamid;
+		public UInt64 steamid;
 		public UInt32 unknown;
 		public UInt16 padding;
 		public UInt16 itemcount;
@@ -1093,7 +1077,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=64)]
 	public struct GSClientApprove_t
 	{
-		public CSteamID m_SteamID;
+		public UInt64 m_SteamID;
 		public const int k_iCallback = 201;
 	}
 	
@@ -1154,7 +1138,7 @@ namespace Steam4NET
 		public UInt16 id;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
 		public SByte[] garbage;
-		public CSteamID steamid;
+		public UInt64 steamid;
 		public UInt32 unk1;
 		public UInt64 itemid;
 		public const int k_iMessage = 23;
@@ -1163,7 +1147,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=72)]
 	public struct ValidateAuthTicketResponse_t
 	{
-		public CSteamID m_SteamID;
+		public UInt64 m_SteamID;
 		public EAuthSessionResponse m_eAuthSessionResponse;
 		public const int k_iCallback = 143;
 	}
@@ -1202,7 +1186,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=192)]
 	public struct GSItemRequest_t
 	{
-		public CSteamID m_steamID;
+		public UInt64 m_steamID;
 		public EItemRequestResult m_eResult;
 		public UInt64 m_itemID;
 		public const int k_iCallback = 1501;
@@ -1236,7 +1220,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=64)]
 	public struct FriendEndChatSession_t
 	{
-		public CSteamID m_SteamID;
+		public UInt64 m_SteamID;
 		public const int k_iCallback = 312;
 	}
 	
@@ -1268,8 +1252,8 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=128)]
 	public struct GameLobbyJoinRequested_t
 	{
-		public CSteamID m_steamIDLobby;
-		public CSteamID m_steamIDFriend;
+		public UInt64 m_steamIDLobby;
+		public UInt64 m_steamIDFriend;
 		public const int k_iCallback = 333;
 	}
 	
@@ -1357,7 +1341,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=128)]
 	public struct GSItemCount_t
 	{
-		public CSteamID m_steamID;
+		public UInt64 m_steamID;
 		public EItemRequestResult m_eResult;
 		public UInt32 m_unCount;
 		public const int k_iCallback = 1500;
@@ -1376,8 +1360,8 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=144)]
 	public struct GSClientGroupStatus_t
 	{
-		public CSteamID m_SteamIDUser;
-		public CSteamID m_SteamIDGroup;
+		public UInt64 m_SteamIDUser;
+		public UInt64 m_SteamIDGroup;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bMember;
 		[MarshalAs(UnmanagedType.I1)]
@@ -1591,7 +1575,7 @@ namespace Steam4NET
 		public UInt16 id;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
 		public SByte[] garbage;
-		public CSteamID steamid;
+		public UInt64 steamid;
 		public UInt32 unk1;
 		public UInt64 itemID;
 		public UInt16 unk2;
@@ -1610,7 +1594,7 @@ namespace Steam4NET
 	{
 		public UInt64 m_nGameID;
 		public EResult m_eResult;
-		public CSteamID m_steamIDUser;
+		public UInt64 m_steamIDUser;
 		public const int k_iCallback = 1101;
 	}
 	
@@ -1631,8 +1615,8 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=192)]
 	public struct GroupChatMsg_t
 	{
-		public CSteamID m_GroupID;
-		public CSteamID m_SenderID;
+		public UInt64 m_GroupID;
+		public UInt64 m_SenderID;
 		public UInt32 m_iUnknown;
 		public UInt32 m_iChatID;
 		public const int k_iCallback = 311;
@@ -1752,7 +1736,7 @@ namespace Steam4NET
 		public UInt32 m_unGameIP;
 		public UInt16 m_usGamePort;
 		public UInt16 m_usQueryPort;
-		public CSteamID m_steamIDLobby;
+		public UInt64 m_steamIDLobby;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=2112)]
@@ -2099,7 +2083,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=160)]
 	public struct LeaderboardEntry_t
 	{
-		public CSteamID m_steamIDUser;
+		public UInt64 m_steamIDUser;
 		public Int32 m_nGlobalRank;
 		public Int32 m_nScore;
 		public Int32 m_cDetails;
@@ -2497,8 +2481,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateListenSocket(IntPtr thisobj, Int32 nVirtualP2PPort, UInt32 nIP, UInt16 nPort);
 		public UInt32 CreateListenSocket(Int32 nVirtualP2PPort, UInt32 nIP, UInt16 nPort) { var call = this.GetFunction<NativeCreateListenSocket>(this.Functions.CreateListenSocket); return call(this.ObjectAddress, nVirtualP2PPort, nIP, nPort); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateP2PConnectionSocket(IntPtr thisobj, CSteamID steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec);
-		public UInt32 CreateP2PConnectionSocket(CSteamID steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec) { var call = this.GetFunction<NativeCreateP2PConnectionSocket>(this.Functions.CreateP2PConnectionSocket); return call(this.ObjectAddress, steamIDTarget, nVirtualPort, nTimeoutSec); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateP2PConnectionSocket(IntPtr thisobj, UInt64 steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec);
+		public UInt32 CreateP2PConnectionSocket(UInt64 steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec) { var call = this.GetFunction<NativeCreateP2PConnectionSocket>(this.Functions.CreateP2PConnectionSocket); return call(this.ObjectAddress, steamIDTarget, nVirtualPort, nTimeoutSec); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateConnectionSocket(IntPtr thisobj, UInt32 nIP, UInt16 nPort, Int32 nTimeoutSec);
 		public UInt32 CreateConnectionSocket(UInt32 nIP, UInt16 nPort, Int32 nTimeoutSec) { var call = this.GetFunction<NativeCreateConnectionSocket>(this.Functions.CreateConnectionSocket); return call(this.ObjectAddress, nIP, nPort, nTimeoutSec); }
@@ -2524,8 +2508,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRetrieveData(IntPtr thisobj, UInt32 hListenSocket, IntPtr pubDest, UInt32 cubDest, ref UInt32 pcubMsgSize);
 		[return: MarshalAs(UnmanagedType.I1)] public bool RetrieveData(UInt32 hListenSocket, IntPtr pubDest, UInt32 cubDest, ref UInt32 pcubMsgSize) { var call = this.GetFunction<NativeRetrieveData>(this.Functions.RetrieveData); return call(this.ObjectAddress, hListenSocket, pubDest, cubDest, ref pcubMsgSize); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetSocketInfo(IntPtr thisobj, UInt32 hSocket, ref CSteamID pSteamIDRemote, ref Int32 peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetSocketInfo(UInt32 hSocket, ref CSteamID pSteamIDRemote, ref Int32 peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote) { var call = this.GetFunction<NativeGetSocketInfo>(this.Functions.GetSocketInfo); return call(this.ObjectAddress, hSocket, ref pSteamIDRemote, ref peSocketStatus, ref punIPRemote, ref punPortRemote); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetSocketInfo(IntPtr thisobj, UInt32 hSocket, ref UInt64 pSteamIDRemote, ref Int32 peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetSocketInfo(UInt32 hSocket, ref UInt64 pSteamIDRemote, ref Int32 peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote) { var call = this.GetFunction<NativeGetSocketInfo>(this.Functions.GetSocketInfo); return call(this.ObjectAddress, hSocket, ref pSteamIDRemote, ref peSocketStatus, ref punIPRemote, ref punPortRemote); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetListenSocketInfo(IntPtr thisobj, UInt32 hListenSocket, ref UInt32 pnIP, ref UInt16 pnPort);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetListenSocketInfo(UInt32 hListenSocket, ref UInt32 pnIP, ref UInt16 pnPort) { var call = this.GetFunction<NativeGetListenSocketInfo>(this.Functions.GetListenSocketInfo); return call(this.ObjectAddress, hListenSocket, ref pnIP, ref pnPort); }
@@ -3711,8 +3695,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Secure() { var call = this.GetFunction<NativeSecure>(this.Functions.Secure); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetSteam2GetEncryptionKeyToSendToNewClient(IntPtr thisobj, IntPtr pvEncryptionKey, ref UInt32 pcbEncryptionKey, UInt32 cbMaxEncryptionKey);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetSteam2GetEncryptionKeyToSendToNewClient(IntPtr pvEncryptionKey, ref UInt32 pcbEncryptionKey, UInt32 cbMaxEncryptionKey) { var call = this.GetFunction<NativeGetSteam2GetEncryptionKeyToSendToNewClient>(this.Functions.GetSteam2GetEncryptionKeyToSendToNewClient); return call(this.ObjectAddress, pvEncryptionKey, ref pcbEncryptionKey, cbMaxEncryptionKey); }
@@ -3723,8 +3707,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveUserConnect(IntPtr thisobj, UInt32 unUserID);
 		[return: MarshalAs(UnmanagedType.I1)] public bool RemoveUserConnect(UInt32 unUserID) { var call = this.GetFunction<NativeRemoveUserConnect>(this.Functions.RemoveUserConnect); return call(this.ObjectAddress, unUserID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserDisconnect(IntPtr thisobj, CSteamID steamID, UInt32 unUserID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserDisconnect(CSteamID steamID, UInt32 unUserID) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); return call(this.ObjectAddress, steamID, unUserID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserDisconnect(IntPtr thisobj, UInt64 steamID, UInt32 unUserID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserDisconnect(UInt64 steamID, UInt32 unUserID) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); return call(this.ObjectAddress, steamID, unUserID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetSpawnCount(IntPtr thisobj, UInt32 ucSpawn);
 		public void SetSpawnCount(UInt32 ucSpawn) { var call = this.GetFunction<NativeSetSpawnCount>(this.Functions.SetSpawnCount); call(this.ObjectAddress, ucSpawn); }
@@ -3735,11 +3719,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateStatus(IntPtr thisobj, Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, string pchServerName, string pSpectatorServerName, string pchMapName);
 		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateStatus(Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, string pchServerName, string pSpectatorServerName, string pchMapName) { var call = this.GetFunction<NativeUpdateStatus>(this.Functions.UpdateStatus); return call(this.ObjectAddress, cPlayers, cPlayersMax, cBotPlayers, pchServerName, pSpectatorServerName, pchMapName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateUnauthenticatedUser(IntPtr thisobj, ref CSteamID pSteamID);
-		public Int32 CreateUnauthenticatedUser(ref CSteamID pSteamID) { var call = this.GetFunction<NativeCreateUnauthenticatedUser>(this.Functions.CreateUnauthenticatedUser); return call(this.ObjectAddress, ref pSteamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateUnauthenticatedUser(IntPtr thisobj, ref UInt64 pSteamID);
+		public Int32 CreateUnauthenticatedUser(ref UInt64 pSteamID) { var call = this.GetFunction<NativeCreateUnauthenticatedUser>(this.Functions.CreateUnauthenticatedUser); return call(this.ObjectAddress, ref pSteamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserData(IntPtr thisobj, CSteamID steamIDUser, string pchPlayerName, UInt32 uScore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetUserData(CSteamID steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeSetUserData>(this.Functions.SetUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserData(IntPtr thisobj, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetUserData(UInt64 steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeSetUserData>(this.Functions.SetUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeUpdateSpectatorPort(IntPtr thisobj, UInt16 unSpectatorPort);
 		public void UpdateSpectatorPort(UInt16 unSpectatorPort) { var call = this.GetFunction<NativeUpdateSpectatorPort>(this.Functions.UpdateSpectatorPort); call(this.ObjectAddress, unSpectatorPort); }
@@ -3747,8 +3731,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetGameType(IntPtr thisobj, string pchGameType);
 		public void SetGameType(string pchGameType) { var call = this.GetFunction<NativeSetGameType>(this.Functions.SetGameType); call(this.ObjectAddress, pchGameType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, CSteamID steamID, string pchAchievementName);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(CSteamID steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, UInt64 steamID, string pchAchievementName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(UInt64 steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
 
 	}
 	
@@ -3785,20 +3769,20 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Secure() { var call = this.GetFunction<NativeSecure>(this.Functions.Secure); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, CSteamID steamIDUser, UInt32 arg2, IntPtr arg3, UInt32 arg4);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(CSteamID steamIDUser, UInt32 arg2, IntPtr arg3, UInt32 arg4) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, steamIDUser, arg2, arg3, arg4); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt64 steamIDUser, UInt32 arg2, IntPtr arg3, UInt32 arg4);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt64 steamIDUser, UInt32 arg2, IntPtr arg3, UInt32 arg4) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, steamIDUser, arg2, arg3, arg4); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
-		public CSteamID CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
+		public UInt64 CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, CSteamID steamIDUser);
-		public void SendUserDisconnect(CSteamID steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, UInt64 steamIDUser);
+		public void SendUserDisconnect(UInt64 steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, CSteamID steamIDUser, string pchPlayerName, UInt32 uScore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(CSteamID steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(UInt64 steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetServerType(IntPtr thisobj, Int32 nGameAppId, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 usSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetServerType(Int32 nGameAppId, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 usSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode) { var call = this.GetFunction<NativeSetServerType>(this.Functions.SetServerType); return call(this.ObjectAddress, nGameAppId, unServerFlags, unGameIP, unGamePort, usSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode); }
@@ -3812,8 +3796,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetGameType(IntPtr thisobj, string pchGameType);
 		public void SetGameType(string pchGameType) { var call = this.GetFunction<NativeSetGameType>(this.Functions.SetGameType); call(this.ObjectAddress, pchGameType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, CSteamID steamID, string pchAchievementName);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(CSteamID steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, UInt64 steamID, string pchAchievementName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(UInt64 steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
 
 	}
 	
@@ -3855,20 +3839,20 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Secure() { var call = this.GetFunction<NativeSecure>(this.Functions.Secure); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
-		public CSteamID CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
+		public UInt64 CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, CSteamID steamIDUser);
-		public void SendUserDisconnect(CSteamID steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, UInt64 steamIDUser);
+		public void SendUserDisconnect(UInt64 steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, CSteamID steamIDUser, string pchPlayerName, UInt32 uScore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(CSteamID steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(UInt64 steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetServerType(IntPtr thisobj, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetServerType(UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode) { var call = this.GetFunction<NativeSetServerType>(this.Functions.SetServerType); return call(this.ObjectAddress, unServerFlags, unGameIP, unGamePort, unSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode); }
@@ -3882,14 +3866,14 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetGameType(IntPtr thisobj, string pchGameType);
 		public void SetGameType(string pchGameType) { var call = this.GetFunction<NativeSetGameType>(this.Functions.SetGameType); call(this.ObjectAddress, pchGameType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, CSteamID steamID, string pchAchievementName);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(CSteamID steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, UInt64 steamID, string pchAchievementName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(UInt64 steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetGameplayStats(IntPtr thisobj);
 		public void GetGameplayStats() { var call = this.GetFunction<NativeGetGameplayStats>(this.Functions.GetGameplayStats); call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatus(IntPtr thisobj, CSteamID steamIDUser, CSteamID steamIDGroup);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserGroupStatus(CSteamID steamIDUser, CSteamID steamIDGroup) { var call = this.GetFunction<NativeRequestUserGroupStatus>(this.Functions.RequestUserGroupStatus); return call(this.ObjectAddress, steamIDUser, steamIDGroup); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatus(IntPtr thisobj, UInt64 steamIDUser, UInt64 steamIDGroup);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserGroupStatus(UInt64 steamIDUser, UInt64 steamIDGroup) { var call = this.GetFunction<NativeRequestUserGroupStatus>(this.Functions.RequestUserGroupStatus); return call(this.ObjectAddress, steamIDUser, steamIDGroup); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetPublicIP(IntPtr thisobj);
 		public UInt32 GetPublicIP() { var call = this.GetFunction<NativeGetPublicIP>(this.Functions.GetPublicIP); return call(this.ObjectAddress); }
@@ -3897,8 +3881,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetGameData(IntPtr thisobj, string pchGameData);
 		public void SetGameData(string pchGameData) { var call = this.GetFunction<NativeSetGameData>(this.Functions.SetGameData); call(this.ObjectAddress, pchGameData); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUserHasLicenseForApp(IntPtr thisobj, CSteamID steamID, UInt32 appID);
-		public UInt32 UserHasLicenseForApp(CSteamID steamID, UInt32 appID) { var call = this.GetFunction<NativeUserHasLicenseForApp>(this.Functions.UserHasLicenseForApp); return call(this.ObjectAddress, steamID, appID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUserHasLicenseForApp(IntPtr thisobj, UInt64 steamID, UInt32 appID);
+		public UInt32 UserHasLicenseForApp(UInt64 steamID, UInt32 appID) { var call = this.GetFunction<NativeUserHasLicenseForApp>(this.Functions.UserHasLicenseForApp); return call(this.ObjectAddress, steamID, appID); }
 
 	}
 	
@@ -4690,17 +4674,17 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIndicateAchievementProgress(IntPtr thisobj, string pchName, UInt32 nCurProgress, UInt32 nMaxProgress);
 		[return: MarshalAs(UnmanagedType.I1)] public bool IndicateAchievementProgress(string pchName, UInt32 nCurProgress, UInt32 nMaxProgress) { var call = this.GetFunction<NativeIndicateAchievementProgress>(this.Functions.IndicateAchievementProgress); return call(this.ObjectAddress, pchName, nCurProgress, nMaxProgress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStats(IntPtr thisobj, CSteamID steamIDUser);
-		public UInt64 RequestUserStats(CSteamID steamIDUser) { var call = this.GetFunction<NativeRequestUserStats>(this.Functions.RequestUserStats); return call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStats(IntPtr thisobj, UInt64 steamIDUser);
+		public UInt64 RequestUserStats(UInt64 steamIDUser) { var call = this.GetFunction<NativeRequestUserStats>(this.Functions.RequestUserStats); return call(this.ObjectAddress, steamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat(IntPtr thisobj, CSteamID steamIDUser, string pchName, ref Int32 pData);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(CSteamID steamIDUser, string pchName, ref Int32 pData) { var call = this.GetFunction<NativeGetUserStat>(this.Functions.GetUserStat); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat(IntPtr thisobj, UInt64 steamIDUser, string pchName, ref Int32 pData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(UInt64 steamIDUser, string pchName, ref Int32 pData) { var call = this.GetFunction<NativeGetUserStat>(this.Functions.GetUserStat); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat1(IntPtr thisobj, CSteamID steamIDUser, string pchName, ref float pData);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(CSteamID steamIDUser, string pchName, ref float pData) { var call = this.GetFunction<NativeGetUserStat1>(this.Functions.GetUserStat1); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat1(IntPtr thisobj, UInt64 steamIDUser, string pchName, ref float pData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(UInt64 steamIDUser, string pchName, ref float pData) { var call = this.GetFunction<NativeGetUserStat1>(this.Functions.GetUserStat1); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievement(IntPtr thisobj, CSteamID steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievement(CSteamID steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved) { var call = this.GetFunction<NativeGetUserAchievement>(this.Functions.GetUserAchievement); return call(this.ObjectAddress, steamIDUser, pchName, ref pbAchieved); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievement(IntPtr thisobj, UInt64 steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievement(UInt64 steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved) { var call = this.GetFunction<NativeGetUserAchievement>(this.Functions.GetUserAchievement); return call(this.ObjectAddress, steamIDUser, pchName, ref pbAchieved); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeResetAllStats(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool bAchievementsToo);
 		[return: MarshalAs(UnmanagedType.I1)] public bool ResetAllStats([MarshalAs(UnmanagedType.I1)] bool bAchievementsToo) { var call = this.GetFunction<NativeResetAllStats>(this.Functions.ResetAllStats); return call(this.ObjectAddress, bAchievementsToo); }
@@ -4799,50 +4783,50 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestLobbyList(IntPtr thisobj, UInt64 ulGameID, ref MatchMakingKeyValuePair_t pFilters, UInt32 nFilters);
 		public void RequestLobbyList(UInt64 ulGameID, ref MatchMakingKeyValuePair_t pFilters, UInt32 nFilters) { var call = this.GetFunction<NativeRequestLobbyList>(this.Functions.RequestLobbyList); call(this.ObjectAddress, ulGameID, ref pFilters, nFilters); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
-		public CSteamID GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
+		public UInt64 GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCreateLobby(IntPtr thisobj, UInt64 ulGameID, [MarshalAs(UnmanagedType.I1)] bool bPrivate);
 		public void CreateLobby(UInt64 ulGameID, [MarshalAs(UnmanagedType.I1)] bool bPrivate) { var call = this.GetFunction<NativeCreateLobby>(this.Functions.CreateLobby); call(this.ObjectAddress, ulGameID, bPrivate); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeJoinLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void JoinLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeJoinLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void JoinLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void LeaveLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void LeaveLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDInvitee);
-		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDInvitee);
+		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(UInt64 steamIDLobby, UInt64 steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetNumLobbyMembers(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetNumLobbyMembers(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyMemberByIndex(IntPtr thisobj, CSteamID steamIDLobby, Int32 iMember);
-		public CSteamID GetLobbyMemberByIndex(CSteamID steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyMemberByIndex(IntPtr thisobj, UInt64 steamIDLobby, Int32 iMember);
+		public UInt64 GetLobbyMemberByIndex(UInt64 steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, CSteamID SteamIDLobby, string pchKey);
-		public string GetLobbyData(CSteamID SteamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, SteamIDLobby, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, UInt64 SteamIDLobby, string pchKey);
+		public string GetLobbyData(UInt64 SteamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, SteamIDLobby, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		public void SetLobbyData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		public void SetLobbyData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey);
-		public string GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey);
+		public string GetLobbyMemberData(UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		public void SetLobbyMemberData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		public void SetLobbyMemberData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChangeLobbyAdmin(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDNewAdmin);
-		public void ChangeLobbyAdmin(CSteamID steamIDLobby, CSteamID steamIDNewAdmin) { var call = this.GetFunction<NativeChangeLobbyAdmin>(this.Functions.ChangeLobbyAdmin); call(this.ObjectAddress, steamIDLobby, steamIDNewAdmin); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChangeLobbyAdmin(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDNewAdmin);
+		public void ChangeLobbyAdmin(UInt64 steamIDLobby, UInt64 steamIDNewAdmin) { var call = this.GetFunction<NativeChangeLobbyAdmin>(this.Functions.ChangeLobbyAdmin); call(this.ObjectAddress, steamIDLobby, steamIDNewAdmin); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
-		public Int32 GetLobbyChatEntry(CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
+		public Int32 GetLobbyChatEntry(UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, CSteamID steamIDLobby);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(CSteamID steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, UInt64 steamIDLobby);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(UInt64 steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
 
 	}
 	
@@ -4888,50 +4872,50 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestLobbyList(IntPtr thisobj);
 		public void RequestLobbyList() { var call = this.GetFunction<NativeRequestLobbyList>(this.Functions.RequestLobbyList); call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
-		public CSteamID GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
+		public UInt64 GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCreateLobby(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool bPrivate);
 		public void CreateLobby([MarshalAs(UnmanagedType.I1)] bool bPrivate) { var call = this.GetFunction<NativeCreateLobby>(this.Functions.CreateLobby); call(this.ObjectAddress, bPrivate); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeJoinLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void JoinLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeJoinLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void JoinLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void LeaveLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void LeaveLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDInvitee);
-		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDInvitee);
+		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(UInt64 steamIDLobby, UInt64 steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetNumLobbyMembers(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetNumLobbyMembers(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyMemberByIndex(IntPtr thisobj, CSteamID steamIDLobby, Int32 iMember);
-		public CSteamID GetLobbyMemberByIndex(CSteamID steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyMemberByIndex(IntPtr thisobj, UInt64 steamIDLobby, Int32 iMember);
+		public UInt64 GetLobbyMemberByIndex(UInt64 steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, CSteamID SteamIDLobby, string pchKey);
-		public string GetLobbyData(CSteamID SteamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, SteamIDLobby, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, UInt64 SteamIDLobby, string pchKey);
+		public string GetLobbyData(UInt64 SteamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, SteamIDLobby, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		public void SetLobbyData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		public void SetLobbyData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey);
-		public string GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey);
+		public string GetLobbyMemberData(UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		public void SetLobbyMemberData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		public void SetLobbyMemberData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
-		public Int32 GetLobbyChatEntry(CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
+		public Int32 GetLobbyChatEntry(UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, CSteamID steamIDLobby);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(CSteamID steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, UInt64 steamIDLobby);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(UInt64 steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer);
-		public void SetLobbyGameServer(CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer);
+		public void SetLobbyGameServer(UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
 
 	}
 	
@@ -4993,59 +4977,59 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeAddRequestLobbyListSlotsAvailableFilter(IntPtr thisobj);
 		public void AddRequestLobbyListSlotsAvailableFilter() { var call = this.GetFunction<NativeAddRequestLobbyListSlotsAvailableFilter>(this.Functions.AddRequestLobbyListSlotsAvailableFilter); call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
-		public CSteamID GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
+		public UInt64 GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCreateLobby(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool bPrivate);
 		public void CreateLobby([MarshalAs(UnmanagedType.I1)] bool bPrivate) { var call = this.GetFunction<NativeCreateLobby>(this.Functions.CreateLobby); call(this.ObjectAddress, bPrivate); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeJoinLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void JoinLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeJoinLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void JoinLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void LeaveLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void LeaveLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDInvitee);
-		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDInvitee);
+		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(UInt64 steamIDLobby, UInt64 steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetNumLobbyMembers(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetNumLobbyMembers(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyMemberByIndex(IntPtr thisobj, CSteamID steamIDLobby, Int32 iMember);
-		public CSteamID GetLobbyMemberByIndex(CSteamID steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyMemberByIndex(IntPtr thisobj, UInt64 steamIDLobby, Int32 iMember);
+		public UInt64 GetLobbyMemberByIndex(UInt64 steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey);
-		public string GetLobbyData(CSteamID steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey);
+		public string GetLobbyData(UInt64 steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey);
-		public string GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey);
+		public string GetLobbyMemberData(UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		public void SetLobbyMemberData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		public void SetLobbyMemberData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
-		public Int32 GetLobbyChatEntry(CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
+		public Int32 GetLobbyChatEntry(UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, CSteamID steamIDLobby);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(CSteamID steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, UInt64 steamIDLobby);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(UInt64 steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer);
-		public void SetLobbyGameServer(CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer);
+		public void SetLobbyGameServer(UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby, Int32 cMaxMembers);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(CSteamID steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby, Int32 cMaxMembers);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(UInt64 steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetLobbyMemberLimit(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetLobbyMemberLimit(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestFriendsLobbies(IntPtr thisobj);
 		public Int32 RequestFriendsLobbies() { var call = this.GetFunction<NativeRequestFriendsLobbies>(this.Functions.RequestFriendsLobbies); return call(this.ObjectAddress); }
@@ -5117,71 +5101,71 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeAddRequestLobbyListNearValueFilter(IntPtr thisobj, string pchKeyToMatch, Int32 nValueToBeCloseTo);
 		public void AddRequestLobbyListNearValueFilter(string pchKeyToMatch, Int32 nValueToBeCloseTo) { var call = this.GetFunction<NativeAddRequestLobbyListNearValueFilter>(this.Functions.AddRequestLobbyListNearValueFilter); call(this.ObjectAddress, pchKeyToMatch, nValueToBeCloseTo); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
-		public CSteamID GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
+		public UInt64 GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateLobby(IntPtr thisobj, ELobbyType eLobbyType);
 		public UInt64 CreateLobby(ELobbyType eLobbyType) { var call = this.GetFunction<NativeCreateLobby>(this.Functions.CreateLobby); return call(this.ObjectAddress, eLobbyType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeJoinLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public UInt64 JoinLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeJoinLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public UInt64 JoinLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void LeaveLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void LeaveLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDInvitee);
-		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDInvitee);
+		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(UInt64 steamIDLobby, UInt64 steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetNumLobbyMembers(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetNumLobbyMembers(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyMemberByIndex(IntPtr thisobj, CSteamID steamIDLobby, Int32 iMember);
-		public CSteamID GetLobbyMemberByIndex(CSteamID steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyMemberByIndex(IntPtr thisobj, UInt64 steamIDLobby, Int32 iMember);
+		public UInt64 GetLobbyMemberByIndex(UInt64 steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey);
-		public string GetLobbyData(CSteamID steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey);
+		public string GetLobbyData(UInt64 steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey);
-		public string GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey);
+		public string GetLobbyMemberData(UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		public void SetLobbyMemberData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		public void SetLobbyMemberData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
-		public Int32 GetLobbyChatEntry(CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
+		public Int32 GetLobbyChatEntry(UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, CSteamID steamIDLobby);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(CSteamID steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, UInt64 steamIDLobby);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(UInt64 steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer);
-		public void SetLobbyGameServer(CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer);
+		public void SetLobbyGameServer(UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby, Int32 cMaxMembers);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(CSteamID steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby, Int32 cMaxMembers);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(UInt64 steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetLobbyMemberLimit(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetLobbyMemberLimit(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestFriendsLobbies(IntPtr thisobj);
 		public Int32 RequestFriendsLobbies() { var call = this.GetFunction<NativeRequestFriendsLobbies>(this.Functions.RequestFriendsLobbies); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyType(IntPtr thisobj, CSteamID steamIDLobby, ELobbyType eLobbyType);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyType(CSteamID steamIDLobby, ELobbyType eLobbyType) { var call = this.GetFunction<NativeSetLobbyType>(this.Functions.SetLobbyType); return call(this.ObjectAddress, steamIDLobby, eLobbyType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyType(IntPtr thisobj, UInt64 steamIDLobby, ELobbyType eLobbyType);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyType(UInt64 steamIDLobby, ELobbyType eLobbyType) { var call = this.GetFunction<NativeSetLobbyType>(this.Functions.SetLobbyType); return call(this.ObjectAddress, steamIDLobby, eLobbyType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyOwner(IntPtr thisobj, CSteamID steamIDLobby);
-		public CSteamID GetLobbyOwner(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyOwner>(this.Functions.GetLobbyOwner); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyOwner(IntPtr thisobj, UInt64 steamIDLobby);
+		public UInt64 GetLobbyOwner(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyOwner>(this.Functions.GetLobbyOwner); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyDistance(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetLobbyDistance(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyDistance>(this.Functions.GetLobbyDistance); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyDistance(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetLobbyDistance(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyDistance>(this.Functions.GetLobbyDistance); return call(this.ObjectAddress, steamIDLobby); }
 
 	}
 	
@@ -5253,80 +5237,80 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeAddRequestLobbyListSlotsAvailableFilter(IntPtr thisobj, Int32 arg1);
 		public void AddRequestLobbyListSlotsAvailableFilter(Int32 arg1) { var call = this.GetFunction<NativeAddRequestLobbyListSlotsAvailableFilter>(this.Functions.AddRequestLobbyListSlotsAvailableFilter); call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
-		public CSteamID GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
+		public UInt64 GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateLobby(IntPtr thisobj, ELobbyType eLobbyType, Int32 arg2);
 		public UInt64 CreateLobby(ELobbyType eLobbyType, Int32 arg2) { var call = this.GetFunction<NativeCreateLobby>(this.Functions.CreateLobby); return call(this.ObjectAddress, eLobbyType, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeJoinLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public UInt64 JoinLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeJoinLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public UInt64 JoinLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void LeaveLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void LeaveLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDInvitee);
-		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDInvitee);
+		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(UInt64 steamIDLobby, UInt64 steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetNumLobbyMembers(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetNumLobbyMembers(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyMemberByIndex(IntPtr thisobj, CSteamID steamIDLobby, Int32 iMember);
-		public CSteamID GetLobbyMemberByIndex(CSteamID steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyMemberByIndex(IntPtr thisobj, UInt64 steamIDLobby, Int32 iMember);
+		public UInt64 GetLobbyMemberByIndex(UInt64 steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey);
-		public string GetLobbyData(CSteamID steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey);
+		public string GetLobbyData(UInt64 steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyDataCount(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetLobbyDataCount(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyDataCount>(this.Functions.GetLobbyDataCount); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyDataCount(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetLobbyDataCount(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyDataCount>(this.Functions.GetLobbyDataCount); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyDataByIndex(IntPtr thisobj, CSteamID steamIDLobby, Int32 iData, string pchKey, Int32 cubKey, string pchValue, Int32 cubValue);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyDataByIndex(CSteamID steamIDLobby, Int32 iData, string pchKey, Int32 cubKey, string pchValue, Int32 cubValue) { var call = this.GetFunction<NativeGetLobbyDataByIndex>(this.Functions.GetLobbyDataByIndex); return call(this.ObjectAddress, steamIDLobby, iData, pchKey, cubKey, pchValue, cubValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyDataByIndex(IntPtr thisobj, UInt64 steamIDLobby, Int32 iData, string pchKey, Int32 cubKey, string pchValue, Int32 cubValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyDataByIndex(UInt64 steamIDLobby, Int32 iData, string pchKey, Int32 cubKey, string pchValue, Int32 cubValue) { var call = this.GetFunction<NativeGetLobbyDataByIndex>(this.Functions.GetLobbyDataByIndex); return call(this.ObjectAddress, steamIDLobby, iData, pchKey, cubKey, pchValue, cubValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeDeleteLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey);
-		public Int32 DeleteLobbyData(CSteamID steamIDLobby, string pchKey) { var call = this.GetFunction<NativeDeleteLobbyData>(this.Functions.DeleteLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeDeleteLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey);
+		public Int32 DeleteLobbyData(UInt64 steamIDLobby, string pchKey) { var call = this.GetFunction<NativeDeleteLobbyData>(this.Functions.DeleteLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey);
-		public string GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey);
+		public string GetLobbyMemberData(UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		public void SetLobbyMemberData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		public void SetLobbyMemberData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
-		public Int32 GetLobbyChatEntry(CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
+		public Int32 GetLobbyChatEntry(UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, CSteamID steamIDLobby);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(CSteamID steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, UInt64 steamIDLobby);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(UInt64 steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer);
-		public void SetLobbyGameServer(CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer);
+		public void SetLobbyGameServer(UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby, Int32 cMaxMembers);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(CSteamID steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby, Int32 cMaxMembers);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(UInt64 steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetLobbyMemberLimit(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetLobbyMemberLimit(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyType(IntPtr thisobj, CSteamID steamIDLobby, ELobbyType eLobbyType);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyType(CSteamID steamIDLobby, ELobbyType eLobbyType) { var call = this.GetFunction<NativeSetLobbyType>(this.Functions.SetLobbyType); return call(this.ObjectAddress, steamIDLobby, eLobbyType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyType(IntPtr thisobj, UInt64 steamIDLobby, ELobbyType eLobbyType);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyType(UInt64 steamIDLobby, ELobbyType eLobbyType) { var call = this.GetFunction<NativeSetLobbyType>(this.Functions.SetLobbyType); return call(this.ObjectAddress, steamIDLobby, eLobbyType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyJoinable(IntPtr thisobj, CSteamID steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bJoinable);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyJoinable(CSteamID steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bJoinable) { var call = this.GetFunction<NativeSetLobbyJoinable>(this.Functions.SetLobbyJoinable); return call(this.ObjectAddress, steamIDLobby, bJoinable); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyJoinable(IntPtr thisobj, UInt64 steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bJoinable);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyJoinable(UInt64 steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bJoinable) { var call = this.GetFunction<NativeSetLobbyJoinable>(this.Functions.SetLobbyJoinable); return call(this.ObjectAddress, steamIDLobby, bJoinable); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyOwner(IntPtr thisobj, CSteamID steamIDLobby);
-		public CSteamID GetLobbyOwner(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyOwner>(this.Functions.GetLobbyOwner); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyOwner(IntPtr thisobj, UInt64 steamIDLobby);
+		public UInt64 GetLobbyOwner(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyOwner>(this.Functions.GetLobbyOwner); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyOwner(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDOwner);
-		public Int32 SetLobbyOwner(CSteamID steamIDLobby, CSteamID steamIDOwner) { var call = this.GetFunction<NativeSetLobbyOwner>(this.Functions.SetLobbyOwner); return call(this.ObjectAddress, steamIDLobby, steamIDOwner); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyOwner(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDOwner);
+		public Int32 SetLobbyOwner(UInt64 steamIDLobby, UInt64 steamIDOwner) { var call = this.GetFunction<NativeSetLobbyOwner>(this.Functions.SetLobbyOwner); return call(this.ObjectAddress, steamIDLobby, steamIDOwner); }
 
 	}
 	
@@ -5389,17 +5373,17 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendSteam2UserConnect(IntPtr thisobj, UInt32 unUserID, IntPtr pvRawKey, UInt32 unKeyLen, UInt32 unIPPublic, UInt16 usPort, IntPtr pvCookie, UInt32 cubCookie);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SendSteam2UserConnect(UInt32 unUserID, IntPtr pvRawKey, UInt32 unKeyLen, UInt32 unIPPublic, UInt16 usPort, IntPtr pvCookie, UInt32 cubCookie) { var call = this.GetFunction<NativeSendSteam2UserConnect>(this.Functions.SendSteam2UserConnect); return call(this.ObjectAddress, unUserID, pvRawKey, unKeyLen, unIPPublic, usPort, pvCookie, cubCookie); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendSteam3UserConnect(IntPtr thisobj, CSteamID steamID, UInt32 unIPPublic, IntPtr pvCookie, UInt32 cubCookie);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendSteam3UserConnect(CSteamID steamID, UInt32 unIPPublic, IntPtr pvCookie, UInt32 cubCookie) { var call = this.GetFunction<NativeSendSteam3UserConnect>(this.Functions.SendSteam3UserConnect); return call(this.ObjectAddress, steamID, unIPPublic, pvCookie, cubCookie); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendSteam3UserConnect(IntPtr thisobj, UInt64 steamID, UInt32 unIPPublic, IntPtr pvCookie, UInt32 cubCookie);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendSteam3UserConnect(UInt64 steamID, UInt32 unIPPublic, IntPtr pvCookie, UInt32 cubCookie) { var call = this.GetFunction<NativeSendSteam3UserConnect>(this.Functions.SendSteam3UserConnect); return call(this.ObjectAddress, steamID, unIPPublic, pvCookie, cubCookie); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveUserConnect(IntPtr thisobj, UInt32 unUserID);
 		[return: MarshalAs(UnmanagedType.I1)] public bool RemoveUserConnect(UInt32 unUserID) { var call = this.GetFunction<NativeRemoveUserConnect>(this.Functions.RemoveUserConnect); return call(this.ObjectAddress, unUserID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserDisconnect(IntPtr thisobj, CSteamID steamID, UInt32 unUserID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserDisconnect(CSteamID steamID, UInt32 unUserID) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); return call(this.ObjectAddress, steamID, unUserID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserDisconnect(IntPtr thisobj, UInt64 steamID, UInt32 unUserID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserDisconnect(UInt64 steamID, UInt32 unUserID) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); return call(this.ObjectAddress, steamID, unUserID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserStatusResponse(IntPtr thisobj, CSteamID steamID, Int32 nSecondsConnected, Int32 nSecondsSinceLast);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserStatusResponse(CSteamID steamID, Int32 nSecondsConnected, Int32 nSecondsSinceLast) { var call = this.GetFunction<NativeSendUserStatusResponse>(this.Functions.SendUserStatusResponse); return call(this.ObjectAddress, steamID, nSecondsConnected, nSecondsSinceLast); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserStatusResponse(IntPtr thisobj, UInt64 steamID, Int32 nSecondsConnected, Int32 nSecondsSinceLast);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserStatusResponse(UInt64 steamID, Int32 nSecondsConnected, Int32 nSecondsSinceLast) { var call = this.GetFunction<NativeSendUserStatusResponse>(this.Functions.SendUserStatusResponse); return call(this.ObjectAddress, steamID, nSecondsConnected, nSecondsSinceLast); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeObsolete_GSSetStatus(IntPtr thisobj, Int32 nAppIdServed, UInt32 unServerFlags, Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, Int32 unGamePort, string pchServerName, string pchGameDir, string pchMapName, string pchVersion);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Obsolete_GSSetStatus(Int32 nAppIdServed, UInt32 unServerFlags, Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, Int32 unGamePort, string pchServerName, string pchGameDir, string pchMapName, string pchVersion) { var call = this.GetFunction<NativeObsolete_GSSetStatus>(this.Functions.Obsolete_GSSetStatus); return call(this.ObjectAddress, nAppIdServed, unServerFlags, cPlayers, cPlayersMax, cBotPlayers, unGamePort, pchServerName, pchGameDir, pchMapName, pchVersion); }
@@ -5410,8 +5394,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Secure() { var call = this.GetFunction<NativeSecure>(this.Functions.Secure); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetServerType(IntPtr thisobj, Int32 nGameAppId, UInt32 unServerFlags, UInt32 unGameIP, UInt32 unGamePort, string pchGameDir, string pchVersion);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetServerType(Int32 nGameAppId, UInt32 unServerFlags, UInt32 unGameIP, UInt32 unGamePort, string pchGameDir, string pchVersion) { var call = this.GetFunction<NativeSetServerType>(this.Functions.SetServerType); return call(this.ObjectAddress, nGameAppId, unServerFlags, unGameIP, unGamePort, pchGameDir, pchVersion); }
@@ -5422,11 +5406,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateStatus2(IntPtr thisobj, Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, string pchServerName, string pSpectatorServerName, string pchMapName);
 		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateStatus2(Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, string pchServerName, string pSpectatorServerName, string pchMapName) { var call = this.GetFunction<NativeUpdateStatus2>(this.Functions.UpdateStatus2); return call(this.ObjectAddress, cPlayers, cPlayersMax, cBotPlayers, pchServerName, pSpectatorServerName, pchMapName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateUnauthenticatedUser(IntPtr thisobj, ref CSteamID pSteamID);
-		public Int32 CreateUnauthenticatedUser(ref CSteamID pSteamID) { var call = this.GetFunction<NativeCreateUnauthenticatedUser>(this.Functions.CreateUnauthenticatedUser); return call(this.ObjectAddress, ref pSteamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateUnauthenticatedUser(IntPtr thisobj, ref UInt64 pSteamID);
+		public Int32 CreateUnauthenticatedUser(ref UInt64 pSteamID) { var call = this.GetFunction<NativeCreateUnauthenticatedUser>(this.Functions.CreateUnauthenticatedUser); return call(this.ObjectAddress, ref pSteamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserData(IntPtr thisobj, CSteamID steamIDUser, string pchPlayerName, UInt32 uScore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetUserData(CSteamID steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeSetUserData>(this.Functions.SetUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserData(IntPtr thisobj, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetUserData(UInt64 steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeSetUserData>(this.Functions.SetUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeUpdateSpectatorPort(IntPtr thisobj, UInt16 unSpectatorPort);
 		public void UpdateSpectatorPort(UInt16 unSpectatorPort) { var call = this.GetFunction<NativeUpdateSpectatorPort>(this.Functions.UpdateSpectatorPort); call(this.ObjectAddress, unSpectatorPort); }
@@ -5495,65 +5479,65 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeAddRequestLobbyListNearValueFilter(IntPtr thisobj, string pchKeyToMatch, Int32 nValueToBeCloseTo);
 		public void AddRequestLobbyListNearValueFilter(string pchKeyToMatch, Int32 nValueToBeCloseTo) { var call = this.GetFunction<NativeAddRequestLobbyListNearValueFilter>(this.Functions.AddRequestLobbyListNearValueFilter); call(this.ObjectAddress, pchKeyToMatch, nValueToBeCloseTo); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
-		public CSteamID GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
+		public UInt64 GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateLobby(IntPtr thisobj, ELobbyType eLobbyType);
 		public UInt64 CreateLobby(ELobbyType eLobbyType) { var call = this.GetFunction<NativeCreateLobby>(this.Functions.CreateLobby); return call(this.ObjectAddress, eLobbyType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeJoinLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public UInt64 JoinLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeJoinLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public UInt64 JoinLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void LeaveLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void LeaveLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDInvitee);
-		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDInvitee);
+		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(UInt64 steamIDLobby, UInt64 steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetNumLobbyMembers(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetNumLobbyMembers(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyMemberByIndex(IntPtr thisobj, CSteamID steamIDLobby, Int32 iMember);
-		public CSteamID GetLobbyMemberByIndex(CSteamID steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyMemberByIndex(IntPtr thisobj, UInt64 steamIDLobby, Int32 iMember);
+		public UInt64 GetLobbyMemberByIndex(UInt64 steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey);
-		public string GetLobbyData(CSteamID steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey);
+		public string GetLobbyData(UInt64 steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey);
-		public string GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey);
+		public string GetLobbyMemberData(UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		public void SetLobbyMemberData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		public void SetLobbyMemberData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
-		public Int32 GetLobbyChatEntry(CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
+		public Int32 GetLobbyChatEntry(UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, CSteamID steamIDLobby);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(CSteamID steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, UInt64 steamIDLobby);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(UInt64 steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer);
-		public void SetLobbyGameServer(CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer);
+		public void SetLobbyGameServer(UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby, Int32 cMaxMembers);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(CSteamID steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby, Int32 cMaxMembers);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(UInt64 steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetLobbyMemberLimit(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetLobbyMemberLimit(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyType(IntPtr thisobj, CSteamID steamIDLobby, ELobbyType eLobbyType);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyType(CSteamID steamIDLobby, ELobbyType eLobbyType) { var call = this.GetFunction<NativeSetLobbyType>(this.Functions.SetLobbyType); return call(this.ObjectAddress, steamIDLobby, eLobbyType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyType(IntPtr thisobj, UInt64 steamIDLobby, ELobbyType eLobbyType);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyType(UInt64 steamIDLobby, ELobbyType eLobbyType) { var call = this.GetFunction<NativeSetLobbyType>(this.Functions.SetLobbyType); return call(this.ObjectAddress, steamIDLobby, eLobbyType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyOwner(IntPtr thisobj, CSteamID steamIDLobby);
-		public CSteamID GetLobbyOwner(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyOwner>(this.Functions.GetLobbyOwner); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyOwner(IntPtr thisobj, UInt64 steamIDLobby);
+		public UInt64 GetLobbyOwner(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyOwner>(this.Functions.GetLobbyOwner); return call(this.ObjectAddress, steamIDLobby); }
 
 	}
 	
@@ -5581,8 +5565,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateListenSocket(IntPtr thisobj, Int32 nVirtualP2PPort, UInt32 nIP, UInt16 nPort, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay);
 		public UInt32 CreateListenSocket(Int32 nVirtualP2PPort, UInt32 nIP, UInt16 nPort, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay) { var call = this.GetFunction<NativeCreateListenSocket>(this.Functions.CreateListenSocket); return call(this.ObjectAddress, nVirtualP2PPort, nIP, nPort, bAllowUseOfPacketRelay); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateP2PConnectionSocket(IntPtr thisobj, CSteamID steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay);
-		public UInt32 CreateP2PConnectionSocket(CSteamID steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay) { var call = this.GetFunction<NativeCreateP2PConnectionSocket>(this.Functions.CreateP2PConnectionSocket); return call(this.ObjectAddress, steamIDTarget, nVirtualPort, nTimeoutSec, bAllowUseOfPacketRelay); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateP2PConnectionSocket(IntPtr thisobj, UInt64 steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay);
+		public UInt32 CreateP2PConnectionSocket(UInt64 steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay) { var call = this.GetFunction<NativeCreateP2PConnectionSocket>(this.Functions.CreateP2PConnectionSocket); return call(this.ObjectAddress, steamIDTarget, nVirtualPort, nTimeoutSec, bAllowUseOfPacketRelay); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateConnectionSocket(IntPtr thisobj, UInt32 nIP, UInt16 nPort, Int32 nTimeoutSec);
 		public UInt32 CreateConnectionSocket(UInt32 nIP, UInt16 nPort, Int32 nTimeoutSec) { var call = this.GetFunction<NativeCreateConnectionSocket>(this.Functions.CreateConnectionSocket); return call(this.ObjectAddress, nIP, nPort, nTimeoutSec); }
@@ -5608,8 +5592,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRetrieveData(IntPtr thisobj, UInt32 hListenSocket, IntPtr pubDest, UInt32 cubDest, ref UInt32 pcubMsgSize, ref UInt32 phSocket);
 		[return: MarshalAs(UnmanagedType.I1)] public bool RetrieveData(UInt32 hListenSocket, IntPtr pubDest, UInt32 cubDest, ref UInt32 pcubMsgSize, ref UInt32 phSocket) { var call = this.GetFunction<NativeRetrieveData>(this.Functions.RetrieveData); return call(this.ObjectAddress, hListenSocket, pubDest, cubDest, ref pcubMsgSize, ref phSocket); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetSocketInfo(IntPtr thisobj, UInt32 hSocket, ref CSteamID pSteamIDRemote, ref ESNetSocketState peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetSocketInfo(UInt32 hSocket, ref CSteamID pSteamIDRemote, ref ESNetSocketState peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote) { var call = this.GetFunction<NativeGetSocketInfo>(this.Functions.GetSocketInfo); return call(this.ObjectAddress, hSocket, ref pSteamIDRemote, ref peSocketStatus, ref punIPRemote, ref punPortRemote); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetSocketInfo(IntPtr thisobj, UInt32 hSocket, ref UInt64 pSteamIDRemote, ref ESNetSocketState peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetSocketInfo(UInt32 hSocket, ref UInt64 pSteamIDRemote, ref ESNetSocketState peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote) { var call = this.GetFunction<NativeGetSocketInfo>(this.Functions.GetSocketInfo); return call(this.ObjectAddress, hSocket, ref pSteamIDRemote, ref peSocketStatus, ref punIPRemote, ref punPortRemote); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetListenSocketInfo(IntPtr thisobj, UInt32 hListenSocket, ref UInt32 pnIP, ref UInt16 pnPort);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetListenSocketInfo(UInt32 hListenSocket, ref UInt32 pnIP, ref UInt16 pnPort) { var call = this.GetFunction<NativeGetListenSocketInfo>(this.Functions.GetListenSocketInfo); return call(this.ObjectAddress, hListenSocket, ref pnIP, ref pnPort); }
@@ -5796,38 +5780,38 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCount(IntPtr thisobj, Int32 iFriendFlags);
 		public Int32 GetFriendCount(Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendCount>(this.Functions.GetFriendCount); return call(this.ObjectAddress, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
-		public CSteamID GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
+		public UInt64 GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, CSteamID steamIDFriend);
-		public EFriendRelationship GetFriendRelationship(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, UInt64 steamIDFriend);
+		public EFriendRelationship GetFriendRelationship(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, CSteamID steamIDFriend);
-		public EPersonaState GetFriendPersonaState(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, UInt64 steamIDFriend);
+		public EPersonaState GetFriendPersonaState(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, CSteamID steamIDFriend);
-		public string GetFriendPersonaName(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, UInt64 steamIDFriend);
+		public string GetFriendPersonaName(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetFriendRegValue(IntPtr thisobj, CSteamID steamIDFriend, string pchKey, string pchValue);
-		public void SetFriendRegValue(CSteamID steamIDFriend, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetFriendRegValue>(this.Functions.SetFriendRegValue); call(this.ObjectAddress, steamIDFriend, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetFriendRegValue(IntPtr thisobj, UInt64 steamIDFriend, string pchKey, string pchValue);
+		public void SetFriendRegValue(UInt64 steamIDFriend, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetFriendRegValue>(this.Functions.SetFriendRegValue); call(this.ObjectAddress, steamIDFriend, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendRegValue(IntPtr thisobj, CSteamID steamIDFriend, string pchKey);
-		public string GetFriendRegValue(CSteamID steamIDFriend, string pchKey) { var call = this.GetFunction<NativeGetFriendRegValue>(this.Functions.GetFriendRegValue); return call(this.ObjectAddress, steamIDFriend, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendRegValue(IntPtr thisobj, UInt64 steamIDFriend, string pchKey);
+		public string GetFriendRegValue(UInt64 steamIDFriend, string pchKey) { var call = this.GetFunction<NativeGetFriendRegValue>(this.Functions.GetFriendRegValue); return call(this.ObjectAddress, steamIDFriend, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, CSteamID steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(CSteamID steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pulGameID, ref punGameIP, ref pusGamePort, ref pusQueryPort); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, UInt64 steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(UInt64 steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pulGameID, ref punGameIP, ref pusGamePort, ref pusQueryPort); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, CSteamID steamIDFriend, Int32 iPersonaName);
-		public string GetFriendPersonaNameHistory(CSteamID steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, UInt64 steamIDFriend, Int32 iPersonaName);
+		public string GetFriendPersonaNameHistory(UInt64 steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddFriend(IntPtr thisobj, CSteamID steamIDFriend);
-		[return: MarshalAs(UnmanagedType.I1)] public bool AddFriend(CSteamID steamIDFriend) { var call = this.GetFunction<NativeAddFriend>(this.Functions.AddFriend); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddFriend(IntPtr thisobj, UInt64 steamIDFriend);
+		[return: MarshalAs(UnmanagedType.I1)] public bool AddFriend(UInt64 steamIDFriend) { var call = this.GetFunction<NativeAddFriend>(this.Functions.AddFriend); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFriend(IntPtr thisobj, CSteamID steamIDFriend);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RemoveFriend(CSteamID steamIDFriend) { var call = this.GetFunction<NativeRemoveFriend>(this.Functions.RemoveFriend); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFriend(IntPtr thisobj, UInt64 steamIDFriend);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RemoveFriend(UInt64 steamIDFriend) { var call = this.GetFunction<NativeRemoveFriend>(this.Functions.RemoveFriend); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, CSteamID steamIDFriend, Int32 iFriendFlags);
-		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(CSteamID steamIDFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, UInt64 steamIDFriend, Int32 iFriendFlags);
+		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(UInt64 steamIDFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend, iFriendFlags); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAddFriendByName(IntPtr thisobj, string pchEmailOrAccountName);
 		public Int32 AddFriendByName(string pchEmailOrAccountName) { var call = this.GetFunction<NativeAddFriendByName>(this.Functions.AddFriendByName); return call(this.ObjectAddress, pchEmailOrAccountName); }
@@ -5835,41 +5819,41 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInviteFriendByEmail(IntPtr thisobj, string emailAddr);
 		public Int32 InviteFriendByEmail(string emailAddr) { var call = this.GetFunction<NativeInviteFriendByEmail>(this.Functions.InviteFriendByEmail); return call(this.ObjectAddress, emailAddr); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatMessage(IntPtr thisobj, CSteamID steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EChatEntryType peFriendMsgType);
-		public Int32 GetChatMessage(CSteamID steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EChatEntryType peFriendMsgType) { var call = this.GetFunction<NativeGetChatMessage>(this.Functions.GetChatMessage); return call(this.ObjectAddress, steamIDFriend, iChatID, pvData, cubData, ref peFriendMsgType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatMessage(IntPtr thisobj, UInt64 steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EChatEntryType peFriendMsgType);
+		public Int32 GetChatMessage(UInt64 steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EChatEntryType peFriendMsgType) { var call = this.GetFunction<NativeGetChatMessage>(this.Functions.GetChatMessage); return call(this.ObjectAddress, steamIDFriend, iChatID, pvData, cubData, ref peFriendMsgType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendMsgToFriend(IntPtr thisobj, CSteamID steamIDFriend, EChatEntryType eFriendMsgType, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eFriendMsgType, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendMsgToFriend>(this.Functions.SendMsgToFriend); return call(this.ObjectAddress, steamIDFriend, eFriendMsgType, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendMsgToFriend(IntPtr thisobj, UInt64 steamIDFriend, EChatEntryType eFriendMsgType, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendMsgToFriend(UInt64 steamIDFriend, EChatEntryType eFriendMsgType, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendMsgToFriend>(this.Functions.SendMsgToFriend); return call(this.ObjectAddress, steamIDFriend, eFriendMsgType, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatIDOfChatHistoryStart(IntPtr thisobj, CSteamID steamIDFriend);
-		public Int32 GetChatIDOfChatHistoryStart(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetChatIDOfChatHistoryStart>(this.Functions.GetChatIDOfChatHistoryStart); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatIDOfChatHistoryStart(IntPtr thisobj, UInt64 steamIDFriend);
+		public Int32 GetChatIDOfChatHistoryStart(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetChatIDOfChatHistoryStart>(this.Functions.GetChatIDOfChatHistoryStart); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetChatHistoryStart(IntPtr thisobj, CSteamID steamIDFriend, Int32 iChatID);
-		public void SetChatHistoryStart(CSteamID steamIDFriend, Int32 iChatID) { var call = this.GetFunction<NativeSetChatHistoryStart>(this.Functions.SetChatHistoryStart); call(this.ObjectAddress, steamIDFriend, iChatID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetChatHistoryStart(IntPtr thisobj, UInt64 steamIDFriend, Int32 iChatID);
+		public void SetChatHistoryStart(UInt64 steamIDFriend, Int32 iChatID) { var call = this.GetFunction<NativeSetChatHistoryStart>(this.Functions.SetChatHistoryStart); call(this.ObjectAddress, steamIDFriend, iChatID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearChatHistory(IntPtr thisobj, CSteamID steamIDFriend);
-		public void ClearChatHistory(CSteamID steamIDFriend) { var call = this.GetFunction<NativeClearChatHistory>(this.Functions.ClearChatHistory); call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearChatHistory(IntPtr thisobj, UInt64 steamIDFriend);
+		public void ClearChatHistory(UInt64 steamIDFriend) { var call = this.GetFunction<NativeClearChatHistory>(this.Functions.ClearChatHistory); call(this.ObjectAddress, steamIDFriend); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetClanCount(IntPtr thisobj);
 		public Int32 GetClanCount() { var call = this.GetFunction<NativeGetClanCount>(this.Functions.GetClanCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
-		public CSteamID GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
+		public UInt64 GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, CSteamID steamIDClan);
-		public string GetClanName(CSteamID steamIDClan) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamIDClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, UInt64 steamIDClan);
+		public string GetClanName(UInt64 steamIDClan) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamIDClan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInviteFriendToClan(IntPtr thisobj, CSteamID steamIDfriend, CSteamID steamIDclan);
-		public Int32 InviteFriendToClan(CSteamID steamIDfriend, CSteamID steamIDclan) { var call = this.GetFunction<NativeInviteFriendToClan>(this.Functions.InviteFriendToClan); return call(this.ObjectAddress, steamIDfriend, steamIDclan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInviteFriendToClan(IntPtr thisobj, UInt64 steamIDfriend, UInt64 steamIDclan);
+		public Int32 InviteFriendToClan(UInt64 steamIDfriend, UInt64 steamIDclan) { var call = this.GetFunction<NativeInviteFriendToClan>(this.Functions.InviteFriendToClan); return call(this.ObjectAddress, steamIDfriend, steamIDclan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAcknowledgeInviteToClan(IntPtr thisobj, CSteamID steamID, [MarshalAs(UnmanagedType.I1)] bool arg2);
-		public Int32 AcknowledgeInviteToClan(CSteamID steamID, [MarshalAs(UnmanagedType.I1)] bool arg2) { var call = this.GetFunction<NativeAcknowledgeInviteToClan>(this.Functions.AcknowledgeInviteToClan); return call(this.ObjectAddress, steamID, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAcknowledgeInviteToClan(IntPtr thisobj, UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool arg2);
+		public Int32 AcknowledgeInviteToClan(UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool arg2) { var call = this.GetFunction<NativeAcknowledgeInviteToClan>(this.Functions.AcknowledgeInviteToClan); return call(this.ObjectAddress, steamID, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, CSteamID steamIDSource);
-		public Int32 GetFriendCountFromSource(CSteamID steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, UInt64 steamIDSource);
+		public Int32 GetFriendCountFromSource(UInt64 steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendFromSourceByIndex(IntPtr thisobj, CSteamID steamIDSource, Int32 iFriend);
-		public CSteamID GetFriendFromSourceByIndex(CSteamID steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendFromSourceByIndex(IntPtr thisobj, UInt64 steamIDSource, Int32 iFriend);
+		public UInt64 GetFriendFromSourceByIndex(UInt64 steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
 
 	}
 	
@@ -5912,50 +5896,50 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCount(IntPtr thisobj, Int32 iFriendFlags);
 		public Int32 GetFriendCount(Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendCount>(this.Functions.GetFriendCount); return call(this.ObjectAddress, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
-		public CSteamID GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
+		public UInt64 GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, CSteamID steamIDFriend);
-		public EFriendRelationship GetFriendRelationship(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, UInt64 steamIDFriend);
+		public EFriendRelationship GetFriendRelationship(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, CSteamID steamIDFriend);
-		public EPersonaState GetFriendPersonaState(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, UInt64 steamIDFriend);
+		public EPersonaState GetFriendPersonaState(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, CSteamID steamIDFriend);
-		public string GetFriendPersonaName(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, UInt64 steamIDFriend);
+		public string GetFriendPersonaName(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendAvatar(IntPtr thisobj, CSteamID steamIDFriend);
-		public Int32 GetFriendAvatar(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendAvatar>(this.Functions.GetFriendAvatar); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendAvatar(IntPtr thisobj, UInt64 steamIDFriend);
+		public Int32 GetFriendAvatar(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendAvatar>(this.Functions.GetFriendAvatar); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, CSteamID steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(CSteamID steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pulGameID, ref punGameIP, ref pusGamePort, ref pusQueryPort); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, UInt64 steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(UInt64 steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pulGameID, ref punGameIP, ref pusGamePort, ref pusQueryPort); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, CSteamID steamIDFriend, Int32 iPersonaName);
-		public string GetFriendPersonaNameHistory(CSteamID steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, UInt64 steamIDFriend, Int32 iPersonaName);
+		public string GetFriendPersonaNameHistory(UInt64 steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, CSteamID steamIDFriend, Int32 iFriendFlags);
-		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(CSteamID steamIDFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, UInt64 steamIDFriend, Int32 iFriendFlags);
+		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(UInt64 steamIDFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend, iFriendFlags); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetClanCount(IntPtr thisobj);
 		public Int32 GetClanCount() { var call = this.GetFunction<NativeGetClanCount>(this.Functions.GetClanCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
-		public CSteamID GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
+		public UInt64 GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, CSteamID steamIDClan);
-		public string GetClanName(CSteamID steamIDClan) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamIDClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, UInt64 steamIDClan);
+		public string GetClanName(UInt64 steamIDClan) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamIDClan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, CSteamID steamIDSource);
-		public Int32 GetFriendCountFromSource(CSteamID steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, UInt64 steamIDSource);
+		public Int32 GetFriendCountFromSource(UInt64 steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendFromSourceByIndex(IntPtr thisobj, CSteamID steamIDSource, Int32 iFriend);
-		public CSteamID GetFriendFromSourceByIndex(CSteamID steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendFromSourceByIndex(IntPtr thisobj, UInt64 steamIDSource, Int32 iFriend);
+		public UInt64 GetFriendFromSourceByIndex(UInt64 steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsUserInSource(IntPtr thisobj, CSteamID steamIDUser, CSteamID steamIDSource);
-		[return: MarshalAs(UnmanagedType.I1)] public bool IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) { var call = this.GetFunction<NativeIsUserInSource>(this.Functions.IsUserInSource); return call(this.ObjectAddress, steamIDUser, steamIDSource); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsUserInSource(IntPtr thisobj, UInt64 steamIDUser, UInt64 steamIDSource);
+		[return: MarshalAs(UnmanagedType.I1)] public bool IsUserInSource(UInt64 steamIDUser, UInt64 steamIDSource) { var call = this.GetFunction<NativeIsUserInSource>(this.Functions.IsUserInSource); return call(this.ObjectAddress, steamIDUser, steamIDSource); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetInGameVoiceSpeaking(IntPtr thisobj, CSteamID steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking);
-		public void SetInGameVoiceSpeaking(CSteamID steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking) { var call = this.GetFunction<NativeSetInGameVoiceSpeaking>(this.Functions.SetInGameVoiceSpeaking); call(this.ObjectAddress, steamIDUser, bSpeaking); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetInGameVoiceSpeaking(IntPtr thisobj, UInt64 steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking);
+		public void SetInGameVoiceSpeaking(UInt64 steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking) { var call = this.GetFunction<NativeSetInGameVoiceSpeaking>(this.Functions.SetInGameVoiceSpeaking); call(this.ObjectAddress, steamIDUser, bSpeaking); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlay(IntPtr thisobj, string pchDialog);
 		public void ActivateGameOverlay(string pchDialog) { var call = this.GetFunction<NativeActivateGameOverlay>(this.Functions.ActivateGameOverlay); call(this.ObjectAddress, pchDialog); }
@@ -6001,50 +5985,50 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCount(IntPtr thisobj, Int32 iFriendFlags);
 		public Int32 GetFriendCount(Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendCount>(this.Functions.GetFriendCount); return call(this.ObjectAddress, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
-		public CSteamID GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
+		public UInt64 GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, CSteamID steamIDFriend);
-		public EFriendRelationship GetFriendRelationship(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, UInt64 steamIDFriend);
+		public EFriendRelationship GetFriendRelationship(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, CSteamID steamIDFriend);
-		public EPersonaState GetFriendPersonaState(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, UInt64 steamIDFriend);
+		public EPersonaState GetFriendPersonaState(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, CSteamID steamIDFriend);
-		public string GetFriendPersonaName(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, UInt64 steamIDFriend);
+		public string GetFriendPersonaName(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendAvatar(IntPtr thisobj, CSteamID steamIDFriend, Int32 eAvatarSize);
-		public Int32 GetFriendAvatar(CSteamID steamIDFriend, Int32 eAvatarSize) { var call = this.GetFunction<NativeGetFriendAvatar>(this.Functions.GetFriendAvatar); return call(this.ObjectAddress, steamIDFriend, eAvatarSize); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendAvatar(IntPtr thisobj, UInt64 steamIDFriend, Int32 eAvatarSize);
+		public Int32 GetFriendAvatar(UInt64 steamIDFriend, Int32 eAvatarSize) { var call = this.GetFunction<NativeGetFriendAvatar>(this.Functions.GetFriendAvatar); return call(this.ObjectAddress, steamIDFriend, eAvatarSize); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, CSteamID steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(CSteamID steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pulGameID, ref punGameIP, ref pusGamePort, ref pusQueryPort); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, UInt64 steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(UInt64 steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pulGameID, ref punGameIP, ref pusGamePort, ref pusQueryPort); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, CSteamID steamIDFriend, Int32 iPersonaName);
-		public string GetFriendPersonaNameHistory(CSteamID steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, UInt64 steamIDFriend, Int32 iPersonaName);
+		public string GetFriendPersonaNameHistory(UInt64 steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, CSteamID steamIDFriend, Int32 iFriendFlags);
-		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(CSteamID steamIDFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, UInt64 steamIDFriend, Int32 iFriendFlags);
+		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(UInt64 steamIDFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend, iFriendFlags); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetClanCount(IntPtr thisobj);
 		public Int32 GetClanCount() { var call = this.GetFunction<NativeGetClanCount>(this.Functions.GetClanCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
-		public CSteamID GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
+		public UInt64 GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, CSteamID steamIDClan);
-		public string GetClanName(CSteamID steamIDClan) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamIDClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, UInt64 steamIDClan);
+		public string GetClanName(UInt64 steamIDClan) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamIDClan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, CSteamID steamIDSource);
-		public Int32 GetFriendCountFromSource(CSteamID steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, UInt64 steamIDSource);
+		public Int32 GetFriendCountFromSource(UInt64 steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendFromSourceByIndex(IntPtr thisobj, CSteamID steamIDSource, Int32 iFriend);
-		public CSteamID GetFriendFromSourceByIndex(CSteamID steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendFromSourceByIndex(IntPtr thisobj, UInt64 steamIDSource, Int32 iFriend);
+		public UInt64 GetFriendFromSourceByIndex(UInt64 steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsUserInSource(IntPtr thisobj, CSteamID steamIDUser, CSteamID steamIDSource);
-		[return: MarshalAs(UnmanagedType.I1)] public bool IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) { var call = this.GetFunction<NativeIsUserInSource>(this.Functions.IsUserInSource); return call(this.ObjectAddress, steamIDUser, steamIDSource); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsUserInSource(IntPtr thisobj, UInt64 steamIDUser, UInt64 steamIDSource);
+		[return: MarshalAs(UnmanagedType.I1)] public bool IsUserInSource(UInt64 steamIDUser, UInt64 steamIDSource) { var call = this.GetFunction<NativeIsUserInSource>(this.Functions.IsUserInSource); return call(this.ObjectAddress, steamIDUser, steamIDSource); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetInGameVoiceSpeaking(IntPtr thisobj, CSteamID steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking);
-		public void SetInGameVoiceSpeaking(CSteamID steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking) { var call = this.GetFunction<NativeSetInGameVoiceSpeaking>(this.Functions.SetInGameVoiceSpeaking); call(this.ObjectAddress, steamIDUser, bSpeaking); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetInGameVoiceSpeaking(IntPtr thisobj, UInt64 steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking);
+		public void SetInGameVoiceSpeaking(UInt64 steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking) { var call = this.GetFunction<NativeSetInGameVoiceSpeaking>(this.Functions.SetInGameVoiceSpeaking); call(this.ObjectAddress, steamIDUser, bSpeaking); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlay(IntPtr thisobj, string pchDialog);
 		public void ActivateGameOverlay(string pchDialog) { var call = this.GetFunction<NativeActivateGameOverlay>(this.Functions.ActivateGameOverlay); call(this.ObjectAddress, pchDialog); }
@@ -6093,56 +6077,57 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCount(IntPtr thisobj, Int32 iFriendFlags);
 		public Int32 GetFriendCount(Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendCount>(this.Functions.GetFriendCount); return call(this.ObjectAddress, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
-		public CSteamID GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
+        [return: MarshalAs(UnmanagedType.U8)]
+        public UInt64 GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, CSteamID steamIDFriend);
-		public EFriendRelationship GetFriendRelationship(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, UInt64 steamIDFriend);
+		public EFriendRelationship GetFriendRelationship(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, CSteamID steamIDFriend);
-		public EPersonaState GetFriendPersonaState(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, UInt64 steamIDFriend);
+		public EPersonaState GetFriendPersonaState(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, CSteamID steamIDFriend);
-		public string GetFriendPersonaName(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, UInt64 steamIDFriend);
+		public string GetFriendPersonaName(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendAvatar(IntPtr thisobj, CSteamID steamIDFriend, Int32 eAvatarSize);
-		public Int32 GetFriendAvatar(CSteamID steamIDFriend, Int32 eAvatarSize) { var call = this.GetFunction<NativeGetFriendAvatar>(this.Functions.GetFriendAvatar); return call(this.ObjectAddress, steamIDFriend, eAvatarSize); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendAvatar(IntPtr thisobj, UInt64 steamIDFriend, Int32 eAvatarSize);
+		public Int32 GetFriendAvatar(UInt64 steamIDFriend, Int32 eAvatarSize) { var call = this.GetFunction<NativeGetFriendAvatar>(this.Functions.GetFriendAvatar); return call(this.ObjectAddress, steamIDFriend, eAvatarSize); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, CSteamID steamIDFriend, ref FriendGameInfo_t pFriendGameInfo);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(CSteamID steamIDFriend, ref FriendGameInfo_t pFriendGameInfo) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pFriendGameInfo); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, UInt64 steamIDFriend, ref FriendGameInfo_t pFriendGameInfo);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(UInt64 steamIDFriend, ref FriendGameInfo_t pFriendGameInfo) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pFriendGameInfo); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, CSteamID steamIDFriend, Int32 iPersonaName);
-		public string GetFriendPersonaNameHistory(CSteamID steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, UInt64 steamIDFriend, Int32 iPersonaName);
+		public string GetFriendPersonaNameHistory(UInt64 steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, CSteamID steamIDFriend, Int32 iFriendFlags);
-		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(CSteamID steamIDFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, UInt64 steamIDFriend, Int32 iFriendFlags);
+		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(UInt64 steamIDFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend, iFriendFlags); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetClanCount(IntPtr thisobj);
 		public Int32 GetClanCount() { var call = this.GetFunction<NativeGetClanCount>(this.Functions.GetClanCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
-		public CSteamID GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
+		public UInt64 GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, CSteamID steamIDClan);
-		public string GetClanName(CSteamID steamIDClan) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamIDClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, UInt64 steamIDClan);
+		public string GetClanName(UInt64 steamIDClan) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamIDClan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, CSteamID steamIDSource);
-		public Int32 GetFriendCountFromSource(CSteamID steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, UInt64 steamIDSource);
+		public Int32 GetFriendCountFromSource(UInt64 steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendFromSourceByIndex(IntPtr thisobj, CSteamID steamIDSource, Int32 iFriend);
-		public CSteamID GetFriendFromSourceByIndex(CSteamID steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendFromSourceByIndex(IntPtr thisobj, UInt64 steamIDSource, Int32 iFriend);
+		public UInt64 GetFriendFromSourceByIndex(UInt64 steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsUserInSource(IntPtr thisobj, CSteamID steamIDUser, CSteamID steamIDSource);
-		[return: MarshalAs(UnmanagedType.I1)] public bool IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) { var call = this.GetFunction<NativeIsUserInSource>(this.Functions.IsUserInSource); return call(this.ObjectAddress, steamIDUser, steamIDSource); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsUserInSource(IntPtr thisobj, UInt64 steamIDUser, UInt64 steamIDSource);
+		[return: MarshalAs(UnmanagedType.I1)] public bool IsUserInSource(UInt64 steamIDUser, UInt64 steamIDSource) { var call = this.GetFunction<NativeIsUserInSource>(this.Functions.IsUserInSource); return call(this.ObjectAddress, steamIDUser, steamIDSource); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetInGameVoiceSpeaking(IntPtr thisobj, CSteamID steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking);
-		public void SetInGameVoiceSpeaking(CSteamID steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking) { var call = this.GetFunction<NativeSetInGameVoiceSpeaking>(this.Functions.SetInGameVoiceSpeaking); call(this.ObjectAddress, steamIDUser, bSpeaking); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetInGameVoiceSpeaking(IntPtr thisobj, UInt64 steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking);
+		public void SetInGameVoiceSpeaking(UInt64 steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bSpeaking) { var call = this.GetFunction<NativeSetInGameVoiceSpeaking>(this.Functions.SetInGameVoiceSpeaking); call(this.ObjectAddress, steamIDUser, bSpeaking); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlay(IntPtr thisobj, string pchDialog);
 		public void ActivateGameOverlay(string pchDialog) { var call = this.GetFunction<NativeActivateGameOverlay>(this.Functions.ActivateGameOverlay); call(this.ObjectAddress, pchDialog); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToUser(IntPtr thisobj, string pchDialog, CSteamID steamID);
-		public void ActivateGameOverlayToUser(string pchDialog, CSteamID steamID) { var call = this.GetFunction<NativeActivateGameOverlayToUser>(this.Functions.ActivateGameOverlayToUser); call(this.ObjectAddress, pchDialog, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToUser(IntPtr thisobj, string pchDialog, UInt64 steamID);
+		public void ActivateGameOverlayToUser(string pchDialog, UInt64 steamID) { var call = this.GetFunction<NativeActivateGameOverlayToUser>(this.Functions.ActivateGameOverlayToUser); call(this.ObjectAddress, pchDialog, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToWebPage(IntPtr thisobj, string pchURL);
 		public void ActivateGameOverlayToWebPage(string pchURL) { var call = this.GetFunction<NativeActivateGameOverlayToWebPage>(this.Functions.ActivateGameOverlayToWebPage); call(this.ObjectAddress, pchURL); }
@@ -6325,53 +6310,53 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCount(IntPtr thisobj, Int32 iFriendFlags);
 		public Int32 GetFriendCount(Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendCount>(this.Functions.GetFriendCount); return call(this.ObjectAddress, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
-		public CSteamID GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend, Int32 iFriendFlags);
+		public UInt64 GetFriendByIndex(Int32 iFriend, Int32 iFriendFlags) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend, iFriendFlags); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, CSteamID steamIDFriend);
-		public EFriendRelationship GetFriendRelationship(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, UInt64 steamIDFriend);
+		public EFriendRelationship GetFriendRelationship(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, CSteamID steamIDFriend);
-		public EPersonaState GetFriendPersonaState(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, UInt64 steamIDFriend);
+		public EPersonaState GetFriendPersonaState(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, CSteamID steamIDFriend);
-		public string GetFriendPersonaName(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, UInt64 steamIDFriend);
+		public string GetFriendPersonaName(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetFriendAlias(IntPtr thisobj, CSteamID steamIDFriend, string pchAlias);
-		public void SetFriendAlias(CSteamID steamIDFriend, string pchAlias) { var call = this.GetFunction<NativeSetFriendAlias>(this.Functions.SetFriendAlias); call(this.ObjectAddress, steamIDFriend, pchAlias); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetFriendAlias(IntPtr thisobj, UInt64 steamIDFriend, string pchAlias);
+		public void SetFriendAlias(UInt64 steamIDFriend, string pchAlias) { var call = this.GetFunction<NativeSetFriendAlias>(this.Functions.SetFriendAlias); call(this.ObjectAddress, steamIDFriend, pchAlias); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendAvatar(IntPtr thisobj, CSteamID steamIDFriend, Int32 a);
-		public Int32 GetFriendAvatar(CSteamID steamIDFriend, Int32 a) { var call = this.GetFunction<NativeGetFriendAvatar>(this.Functions.GetFriendAvatar); return call(this.ObjectAddress, steamIDFriend, a); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendAvatar(IntPtr thisobj, UInt64 steamIDFriend, Int32 a);
+		public Int32 GetFriendAvatar(UInt64 steamIDFriend, Int32 a) { var call = this.GetFunction<NativeGetFriendAvatar>(this.Functions.GetFriendAvatar); return call(this.ObjectAddress, steamIDFriend, a); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetFriendRegValue(IntPtr thisobj, CSteamID steamIDFriend, string pchKey, string pchValue);
-		public void SetFriendRegValue(CSteamID steamIDFriend, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetFriendRegValue>(this.Functions.SetFriendRegValue); call(this.ObjectAddress, steamIDFriend, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetFriendRegValue(IntPtr thisobj, UInt64 steamIDFriend, string pchKey, string pchValue);
+		public void SetFriendRegValue(UInt64 steamIDFriend, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetFriendRegValue>(this.Functions.SetFriendRegValue); call(this.ObjectAddress, steamIDFriend, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendRegValue(IntPtr thisobj, CSteamID steamIDFriend, string pchKey);
-		public string GetFriendRegValue(CSteamID steamIDFriend, string pchKey) { var call = this.GetFunction<NativeGetFriendRegValue>(this.Functions.GetFriendRegValue); return call(this.ObjectAddress, steamIDFriend, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendRegValue(IntPtr thisobj, UInt64 steamIDFriend, string pchKey);
+		public string GetFriendRegValue(UInt64 steamIDFriend, string pchKey) { var call = this.GetFunction<NativeGetFriendRegValue>(this.Functions.GetFriendRegValue); return call(this.ObjectAddress, steamIDFriend, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeDeleteFriendRegValue(IntPtr thisobj, CSteamID steamID, string pchKey);
-		[return: MarshalAs(UnmanagedType.I1)] public bool DeleteFriendRegValue(CSteamID steamID, string pchKey) { var call = this.GetFunction<NativeDeleteFriendRegValue>(this.Functions.DeleteFriendRegValue); return call(this.ObjectAddress, steamID, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeDeleteFriendRegValue(IntPtr thisobj, UInt64 steamID, string pchKey);
+		[return: MarshalAs(UnmanagedType.I1)] public bool DeleteFriendRegValue(UInt64 steamID, string pchKey) { var call = this.GetFunction<NativeDeleteFriendRegValue>(this.Functions.DeleteFriendRegValue); return call(this.ObjectAddress, steamID, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, CSteamID steamID, ref FriendGameInfo_t arg2);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(CSteamID steamID, ref FriendGameInfo_t arg2) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamID, ref arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, UInt64 steamID, ref FriendGameInfo_t arg2);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(UInt64 steamID, ref FriendGameInfo_t arg2) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamID, ref arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendGamePlayedExtraInfo(IntPtr thisobj, CSteamID steamID);
-		public string GetFriendGamePlayedExtraInfo(CSteamID steamID) { var call = this.GetFunction<NativeGetFriendGamePlayedExtraInfo>(this.Functions.GetFriendGamePlayedExtraInfo); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendGamePlayedExtraInfo(IntPtr thisobj, UInt64 steamID);
+		public string GetFriendGamePlayedExtraInfo(UInt64 steamID) { var call = this.GetFunction<NativeGetFriendGamePlayedExtraInfo>(this.Functions.GetFriendGamePlayedExtraInfo); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendGameServer(IntPtr thisobj, CSteamID steamID);
-		public CSteamID GetFriendGameServer(CSteamID steamID) { var call = this.GetFunction<NativeGetFriendGameServer>(this.Functions.GetFriendGameServer); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendGameServer(IntPtr thisobj, UInt64 steamID);
+		public UInt64 GetFriendGameServer(UInt64 steamID) { var call = this.GetFunction<NativeGetFriendGameServer>(this.Functions.GetFriendGameServer); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, CSteamID steamIDFriend, Int32 iPersonaName);
-		public string GetFriendPersonaNameHistory(CSteamID steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, UInt64 steamIDFriend, Int32 iPersonaName);
+		public string GetFriendPersonaNameHistory(UInt64 steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddFriend(IntPtr thisobj, CSteamID steamID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool AddFriend(CSteamID steamID) { var call = this.GetFunction<NativeAddFriend>(this.Functions.AddFriend); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddFriend(IntPtr thisobj, UInt64 steamID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool AddFriend(UInt64 steamID) { var call = this.GetFunction<NativeAddFriend>(this.Functions.AddFriend); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFriend(IntPtr thisobj, CSteamID steamID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RemoveFriend(CSteamID steamID) { var call = this.GetFunction<NativeRemoveFriend>(this.Functions.RemoveFriend); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFriend(IntPtr thisobj, UInt64 steamID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RemoveFriend(UInt64 steamID) { var call = this.GetFunction<NativeRemoveFriend>(this.Functions.RemoveFriend); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, CSteamID steamID, Int32 iFriendFlags);
-		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(CSteamID steamID, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamID, iFriendFlags); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, UInt64 steamID, Int32 iFriendFlags);
+		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(UInt64 steamID, Int32 iFriendFlags) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamID, iFriendFlags); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAddFriendByName(IntPtr thisobj, string pchEmailOrAccountName);
 		public Int32 AddFriendByName(string pchEmailOrAccountName) { var call = this.GetFunction<NativeAddFriendByName>(this.Functions.AddFriendByName); return call(this.ObjectAddress, pchEmailOrAccountName); }
@@ -6379,173 +6364,173 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteFriendByEmail(IntPtr thisobj, string pchEmailAddress);
 		[return: MarshalAs(UnmanagedType.I1)] public bool InviteFriendByEmail(string pchEmailAddress) { var call = this.GetFunction<NativeInviteFriendByEmail>(this.Functions.InviteFriendByEmail); return call(this.ObjectAddress, pchEmailAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserInformation(IntPtr thisobj, CSteamID steamID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserInformation(CSteamID steamID) { var call = this.GetFunction<NativeRequestUserInformation>(this.Functions.RequestUserInformation); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserInformation(IntPtr thisobj, UInt64 steamID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserInformation(UInt64 steamID) { var call = this.GetFunction<NativeRequestUserInformation>(this.Functions.RequestUserInformation); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetIgnoreFriend(IntPtr thisobj, CSteamID steamID, [MarshalAs(UnmanagedType.I1)] bool bIgnore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetIgnoreFriend(CSteamID steamID, [MarshalAs(UnmanagedType.I1)] bool bIgnore) { var call = this.GetFunction<NativeSetIgnoreFriend>(this.Functions.SetIgnoreFriend); return call(this.ObjectAddress, steamID, bIgnore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetIgnoreFriend(IntPtr thisobj, UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool bIgnore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetIgnoreFriend(UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool bIgnore) { var call = this.GetFunction<NativeSetIgnoreFriend>(this.Functions.SetIgnoreFriend); return call(this.ObjectAddress, steamID, bIgnore); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeReportChatDeclined(IntPtr thisobj, CSteamID steamID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool ReportChatDeclined(CSteamID steamID) { var call = this.GetFunction<NativeReportChatDeclined>(this.Functions.ReportChatDeclined); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeReportChatDeclined(IntPtr thisobj, UInt64 steamID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool ReportChatDeclined(UInt64 steamID) { var call = this.GetFunction<NativeReportChatDeclined>(this.Functions.ReportChatDeclined); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatMessage(IntPtr thisobj, CSteamID steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType, ref CSteamID pSteamIDChatter);
-		public Int32 GetChatMessage(CSteamID steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType, ref CSteamID pSteamIDChatter) { var call = this.GetFunction<NativeGetChatMessage>(this.Functions.GetChatMessage); return call(this.ObjectAddress, steamIDFriend, iChatID, pvData, cubData, ref peChatEntryType, ref pSteamIDChatter); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatMessage(IntPtr thisobj, UInt64 steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType, ref UInt64 pSteamIDChatter);
+		public Int32 GetChatMessage(UInt64 steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType, ref UInt64 pSteamIDChatter) { var call = this.GetFunction<NativeGetChatMessage>(this.Functions.GetChatMessage); return call(this.ObjectAddress, steamIDFriend, iChatID, pvData, cubData, ref peChatEntryType, ref pSteamIDChatter); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendMsgToFriend(IntPtr thisobj, CSteamID steamIDFriend, EChatEntryType eChatEntryType, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendMsgToFriend(CSteamID steamIDFriend, EChatEntryType eChatEntryType, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendMsgToFriend>(this.Functions.SendMsgToFriend); return call(this.ObjectAddress, steamIDFriend, eChatEntryType, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendMsgToFriend(IntPtr thisobj, UInt64 steamIDFriend, EChatEntryType eChatEntryType, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendMsgToFriend(UInt64 steamIDFriend, EChatEntryType eChatEntryType, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendMsgToFriend>(this.Functions.SendMsgToFriend); return call(this.ObjectAddress, steamIDFriend, eChatEntryType, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatIDOfChatHistoryStart(IntPtr thisobj, CSteamID steamIDFriend);
-		public Int32 GetChatIDOfChatHistoryStart(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetChatIDOfChatHistoryStart>(this.Functions.GetChatIDOfChatHistoryStart); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatIDOfChatHistoryStart(IntPtr thisobj, UInt64 steamIDFriend);
+		public Int32 GetChatIDOfChatHistoryStart(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetChatIDOfChatHistoryStart>(this.Functions.GetChatIDOfChatHistoryStart); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetChatHistoryStart(IntPtr thisobj, CSteamID steamIDFriend, Int32 iChatID);
-		public void SetChatHistoryStart(CSteamID steamIDFriend, Int32 iChatID) { var call = this.GetFunction<NativeSetChatHistoryStart>(this.Functions.SetChatHistoryStart); call(this.ObjectAddress, steamIDFriend, iChatID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetChatHistoryStart(IntPtr thisobj, UInt64 steamIDFriend, Int32 iChatID);
+		public void SetChatHistoryStart(UInt64 steamIDFriend, Int32 iChatID) { var call = this.GetFunction<NativeSetChatHistoryStart>(this.Functions.SetChatHistoryStart); call(this.ObjectAddress, steamIDFriend, iChatID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearChatHistory(IntPtr thisobj, CSteamID steamIDFriend);
-		public void ClearChatHistory(CSteamID steamIDFriend) { var call = this.GetFunction<NativeClearChatHistory>(this.Functions.ClearChatHistory); call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearChatHistory(IntPtr thisobj, UInt64 steamIDFriend);
+		public void ClearChatHistory(UInt64 steamIDFriend) { var call = this.GetFunction<NativeClearChatHistory>(this.Functions.ClearChatHistory); call(this.ObjectAddress, steamIDFriend); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetKnownClanCount(IntPtr thisobj);
 		public Int32 GetKnownClanCount() { var call = this.GetFunction<NativeGetKnownClanCount>(this.Functions.GetKnownClanCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetKnownClanByIndex(IntPtr thisobj, Int32 iClan);
-		public CSteamID GetKnownClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetKnownClanByIndex>(this.Functions.GetKnownClanByIndex); return call(this.ObjectAddress, iClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetKnownClanByIndex(IntPtr thisobj, Int32 iClan);
+		public UInt64 GetKnownClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetKnownClanByIndex>(this.Functions.GetKnownClanByIndex); return call(this.ObjectAddress, iClan); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetClanCount(IntPtr thisobj);
 		public Int32 GetClanCount() { var call = this.GetFunction<NativeGetClanCount>(this.Functions.GetClanCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
-		public CSteamID GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetClanByIndex(IntPtr thisobj, Int32 iClan);
+		public UInt64 GetClanByIndex(Int32 iClan) { var call = this.GetFunction<NativeGetClanByIndex>(this.Functions.GetClanByIndex); return call(this.ObjectAddress, iClan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, CSteamID steamID);
-		public string GetClanName(CSteamID steamID) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetClanName(IntPtr thisobj, UInt64 steamID);
+		public string GetClanName(UInt64 steamID) { var call = this.GetFunction<NativeGetClanName>(this.Functions.GetClanName); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetClanActivityCounts(IntPtr thisobj, CSteamID steamID, ref Int32 pnOnline, ref Int32 pnInGame, ref Int32 pnChatting);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetClanActivityCounts(CSteamID steamID, ref Int32 pnOnline, ref Int32 pnInGame, ref Int32 pnChatting) { var call = this.GetFunction<NativeGetClanActivityCounts>(this.Functions.GetClanActivityCounts); return call(this.ObjectAddress, steamID, ref pnOnline, ref pnInGame, ref pnChatting); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetClanActivityCounts(IntPtr thisobj, UInt64 steamID, ref Int32 pnOnline, ref Int32 pnInGame, ref Int32 pnChatting);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetClanActivityCounts(UInt64 steamID, ref Int32 pnOnline, ref Int32 pnInGame, ref Int32 pnChatting) { var call = this.GetFunction<NativeGetClanActivityCounts>(this.Functions.GetClanActivityCounts); return call(this.ObjectAddress, steamID, ref pnOnline, ref pnInGame, ref pnChatting); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsClanPublic(IntPtr thisobj, CSteamID steamID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool IsClanPublic(CSteamID steamID) { var call = this.GetFunction<NativeIsClanPublic>(this.Functions.IsClanPublic); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsClanPublic(IntPtr thisobj, UInt64 steamID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool IsClanPublic(UInt64 steamID) { var call = this.GetFunction<NativeIsClanPublic>(this.Functions.IsClanPublic); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsClanLarge(IntPtr thisobj, CSteamID steamID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool IsClanLarge(CSteamID steamID) { var call = this.GetFunction<NativeIsClanLarge>(this.Functions.IsClanLarge); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsClanLarge(IntPtr thisobj, UInt64 steamID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool IsClanLarge(UInt64 steamID) { var call = this.GetFunction<NativeIsClanLarge>(this.Functions.IsClanLarge); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteFriendToClan(IntPtr thisobj, CSteamID steamIDfriend, CSteamID steamIDclan);
-		[return: MarshalAs(UnmanagedType.I1)] public bool InviteFriendToClan(CSteamID steamIDfriend, CSteamID steamIDclan) { var call = this.GetFunction<NativeInviteFriendToClan>(this.Functions.InviteFriendToClan); return call(this.ObjectAddress, steamIDfriend, steamIDclan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteFriendToClan(IntPtr thisobj, UInt64 steamIDfriend, UInt64 steamIDclan);
+		[return: MarshalAs(UnmanagedType.I1)] public bool InviteFriendToClan(UInt64 steamIDfriend, UInt64 steamIDclan) { var call = this.GetFunction<NativeInviteFriendToClan>(this.Functions.InviteFriendToClan); return call(this.ObjectAddress, steamIDfriend, steamIDclan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAcknowledgeInviteToClan(IntPtr thisobj, CSteamID steamID, [MarshalAs(UnmanagedType.I1)] bool bAcceptOrDenyClanInvite);
-		[return: MarshalAs(UnmanagedType.I1)] public bool AcknowledgeInviteToClan(CSteamID steamID, [MarshalAs(UnmanagedType.I1)] bool bAcceptOrDenyClanInvite) { var call = this.GetFunction<NativeAcknowledgeInviteToClan>(this.Functions.AcknowledgeInviteToClan); return call(this.ObjectAddress, steamID, bAcceptOrDenyClanInvite); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAcknowledgeInviteToClan(IntPtr thisobj, UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool bAcceptOrDenyClanInvite);
+		[return: MarshalAs(UnmanagedType.I1)] public bool AcknowledgeInviteToClan(UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool bAcceptOrDenyClanInvite) { var call = this.GetFunction<NativeAcknowledgeInviteToClan>(this.Functions.AcknowledgeInviteToClan); return call(this.ObjectAddress, steamID, bAcceptOrDenyClanInvite); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, CSteamID steamIDSource);
-		public Int32 GetFriendCountFromSource(CSteamID steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountFromSource(IntPtr thisobj, UInt64 steamIDSource);
+		public Int32 GetFriendCountFromSource(UInt64 steamIDSource) { var call = this.GetFunction<NativeGetFriendCountFromSource>(this.Functions.GetFriendCountFromSource); return call(this.ObjectAddress, steamIDSource); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendFromSourceByIndex(IntPtr thisobj, CSteamID steamIDSource, Int32 iFriend);
-		public CSteamID GetFriendFromSourceByIndex(CSteamID steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendFromSourceByIndex(IntPtr thisobj, UInt64 steamIDSource, Int32 iFriend);
+		public UInt64 GetFriendFromSourceByIndex(UInt64 steamIDSource, Int32 iFriend) { var call = this.GetFunction<NativeGetFriendFromSourceByIndex>(this.Functions.GetFriendFromSourceByIndex); return call(this.ObjectAddress, steamIDSource, iFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsUserInSource(IntPtr thisobj, CSteamID steamIDUser, CSteamID steamIDSource);
-		[return: MarshalAs(UnmanagedType.I1)] public bool IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource) { var call = this.GetFunction<NativeIsUserInSource>(this.Functions.IsUserInSource); return call(this.ObjectAddress, steamIDUser, steamIDSource); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsUserInSource(IntPtr thisobj, UInt64 steamIDUser, UInt64 steamIDSource);
+		[return: MarshalAs(UnmanagedType.I1)] public bool IsUserInSource(UInt64 steamIDUser, UInt64 steamIDSource) { var call = this.GetFunction<NativeIsUserInSource>(this.Functions.IsUserInSource); return call(this.ObjectAddress, steamIDUser, steamIDSource); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCoplayFriendCount(IntPtr thisobj);
 		public Int32 GetCoplayFriendCount() { var call = this.GetFunction<NativeGetCoplayFriendCount>(this.Functions.GetCoplayFriendCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetCoplayFriend(IntPtr thisobj, Int32 iCoplayEvent);
-		public CSteamID GetCoplayFriend(Int32 iCoplayEvent) { var call = this.GetFunction<NativeGetCoplayFriend>(this.Functions.GetCoplayFriend); return call(this.ObjectAddress, iCoplayEvent); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetCoplayFriend(IntPtr thisobj, Int32 iCoplayEvent);
+		public UInt64 GetCoplayFriend(Int32 iCoplayEvent) { var call = this.GetFunction<NativeGetCoplayFriend>(this.Functions.GetCoplayFriend); return call(this.ObjectAddress, iCoplayEvent); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetFriendCoplayTime(IntPtr thisobj, CSteamID steamID);
-		public UInt32 GetFriendCoplayTime(CSteamID steamID) { var call = this.GetFunction<NativeGetFriendCoplayTime>(this.Functions.GetFriendCoplayTime); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetFriendCoplayTime(IntPtr thisobj, UInt64 steamID);
+		public UInt32 GetFriendCoplayTime(UInt64 steamID) { var call = this.GetFunction<NativeGetFriendCoplayTime>(this.Functions.GetFriendCoplayTime); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CGameID NativeGetFriendCoplayGame(IntPtr thisobj, CSteamID steamID);
-		public CGameID GetFriendCoplayGame(CSteamID steamID) { var call = this.GetFunction<NativeGetFriendCoplayGame>(this.Functions.GetFriendCoplayGame); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CGameID NativeGetFriendCoplayGame(IntPtr thisobj, UInt64 steamID);
+		public CGameID GetFriendCoplayGame(UInt64 steamID) { var call = this.GetFunction<NativeGetFriendCoplayGame>(this.Functions.GetFriendCoplayGame); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeJoinChatRoom(IntPtr thisobj, CSteamID steamID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool JoinChatRoom(CSteamID steamID) { var call = this.GetFunction<NativeJoinChatRoom>(this.Functions.JoinChatRoom); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeJoinChatRoom(IntPtr thisobj, UInt64 steamID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool JoinChatRoom(UInt64 steamID) { var call = this.GetFunction<NativeJoinChatRoom>(this.Functions.JoinChatRoom); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveChatRoom(IntPtr thisobj, CSteamID steamID);
-		public void LeaveChatRoom(CSteamID steamID) { var call = this.GetFunction<NativeLeaveChatRoom>(this.Functions.LeaveChatRoom); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveChatRoom(IntPtr thisobj, UInt64 steamID);
+		public void LeaveChatRoom(UInt64 steamID) { var call = this.GetFunction<NativeLeaveChatRoom>(this.Functions.LeaveChatRoom); call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToChatRoom(IntPtr thisobj, CSteamID steamIDfriend, CSteamID steamIDchat);
-		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToChatRoom(CSteamID steamIDfriend, CSteamID steamIDchat) { var call = this.GetFunction<NativeInviteUserToChatRoom>(this.Functions.InviteUserToChatRoom); return call(this.ObjectAddress, steamIDfriend, steamIDchat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToChatRoom(IntPtr thisobj, UInt64 steamIDfriend, UInt64 steamIDchat);
+		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToChatRoom(UInt64 steamIDfriend, UInt64 steamIDchat) { var call = this.GetFunction<NativeInviteUserToChatRoom>(this.Functions.InviteUserToChatRoom); return call(this.ObjectAddress, steamIDfriend, steamIDchat); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendChatMsg(IntPtr thisobj, CSteamID steamIDchat, EChatEntryType eChatEntryType, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendChatMsg(CSteamID steamIDchat, EChatEntryType eChatEntryType, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendChatMsg>(this.Functions.SendChatMsg); return call(this.ObjectAddress, steamIDchat, eChatEntryType, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendChatMsg(IntPtr thisobj, UInt64 steamIDchat, EChatEntryType eChatEntryType, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendChatMsg(UInt64 steamIDchat, EChatEntryType eChatEntryType, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendChatMsg>(this.Functions.SendChatMsg); return call(this.ObjectAddress, steamIDchat, eChatEntryType, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatRoomEntry(IntPtr thisobj, CSteamID steamIDchat, Int32 iChatID, ref CSteamID steamIDuser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
-		public Int32 GetChatRoomEntry(CSteamID steamIDchat, Int32 iChatID, ref CSteamID steamIDuser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetChatRoomEntry>(this.Functions.GetChatRoomEntry); return call(this.ObjectAddress, steamIDchat, iChatID, ref steamIDuser, pvData, cubData, ref peChatEntryType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatRoomEntry(IntPtr thisobj, UInt64 steamIDchat, Int32 iChatID, ref UInt64 steamIDuser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
+		public Int32 GetChatRoomEntry(UInt64 steamIDchat, Int32 iChatID, ref UInt64 steamIDuser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetChatRoomEntry>(this.Functions.GetChatRoomEntry); return call(this.ObjectAddress, steamIDchat, iChatID, ref steamIDuser, pvData, cubData, ref peChatEntryType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatIDOfChatRoomHistoryStart(IntPtr thisobj, CSteamID steamIDchat);
-		public Int32 GetChatIDOfChatRoomHistoryStart(CSteamID steamIDchat) { var call = this.GetFunction<NativeGetChatIDOfChatRoomHistoryStart>(this.Functions.GetChatIDOfChatRoomHistoryStart); return call(this.ObjectAddress, steamIDchat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatIDOfChatRoomHistoryStart(IntPtr thisobj, UInt64 steamIDchat);
+		public Int32 GetChatIDOfChatRoomHistoryStart(UInt64 steamIDchat) { var call = this.GetFunction<NativeGetChatIDOfChatRoomHistoryStart>(this.Functions.GetChatIDOfChatRoomHistoryStart); return call(this.ObjectAddress, steamIDchat); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetChatRoomHistoryStart(IntPtr thisobj, CSteamID steamIDchat, Int32 iChatID);
-		public void SetChatRoomHistoryStart(CSteamID steamIDchat, Int32 iChatID) { var call = this.GetFunction<NativeSetChatRoomHistoryStart>(this.Functions.SetChatRoomHistoryStart); call(this.ObjectAddress, steamIDchat, iChatID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetChatRoomHistoryStart(IntPtr thisobj, UInt64 steamIDchat, Int32 iChatID);
+		public void SetChatRoomHistoryStart(UInt64 steamIDchat, Int32 iChatID) { var call = this.GetFunction<NativeSetChatRoomHistoryStart>(this.Functions.SetChatRoomHistoryStart); call(this.ObjectAddress, steamIDchat, iChatID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearChatRoomHistory(IntPtr thisobj, CSteamID steamID);
-		public void ClearChatRoomHistory(CSteamID steamID) { var call = this.GetFunction<NativeClearChatRoomHistory>(this.Functions.ClearChatRoomHistory); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearChatRoomHistory(IntPtr thisobj, UInt64 steamID);
+		public void ClearChatRoomHistory(UInt64 steamID) { var call = this.GetFunction<NativeClearChatRoomHistory>(this.Functions.ClearChatRoomHistory); call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSerializeChatRoomDlg(IntPtr thisobj, CSteamID steamIDchat, IntPtr pvHistory, Int32 cubHistory);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SerializeChatRoomDlg(CSteamID steamIDchat, IntPtr pvHistory, Int32 cubHistory) { var call = this.GetFunction<NativeSerializeChatRoomDlg>(this.Functions.SerializeChatRoomDlg); return call(this.ObjectAddress, steamIDchat, pvHistory, cubHistory); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSerializeChatRoomDlg(IntPtr thisobj, UInt64 steamIDchat, IntPtr pvHistory, Int32 cubHistory);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SerializeChatRoomDlg(UInt64 steamIDchat, IntPtr pvHistory, Int32 cubHistory) { var call = this.GetFunction<NativeSerializeChatRoomDlg>(this.Functions.SerializeChatRoomDlg); return call(this.ObjectAddress, steamIDchat, pvHistory, cubHistory); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSizeOfSerializedChatRoomDlg(IntPtr thisobj, CSteamID steamIDchat);
-		public Int32 GetSizeOfSerializedChatRoomDlg(CSteamID steamIDchat) { var call = this.GetFunction<NativeGetSizeOfSerializedChatRoomDlg>(this.Functions.GetSizeOfSerializedChatRoomDlg); return call(this.ObjectAddress, steamIDchat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSizeOfSerializedChatRoomDlg(IntPtr thisobj, UInt64 steamIDchat);
+		public Int32 GetSizeOfSerializedChatRoomDlg(UInt64 steamIDchat) { var call = this.GetFunction<NativeGetSizeOfSerializedChatRoomDlg>(this.Functions.GetSizeOfSerializedChatRoomDlg); return call(this.ObjectAddress, steamIDchat); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetSerializedChatRoomDlg(IntPtr thisobj, CSteamID steamIDchat, IntPtr pvHistory, Int32 cubBuffer, ref Int32 pcubData);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetSerializedChatRoomDlg(CSteamID steamIDchat, IntPtr pvHistory, Int32 cubBuffer, ref Int32 pcubData) { var call = this.GetFunction<NativeGetSerializedChatRoomDlg>(this.Functions.GetSerializedChatRoomDlg); return call(this.ObjectAddress, steamIDchat, pvHistory, cubBuffer, ref pcubData); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetSerializedChatRoomDlg(IntPtr thisobj, UInt64 steamIDchat, IntPtr pvHistory, Int32 cubBuffer, ref Int32 pcubData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetSerializedChatRoomDlg(UInt64 steamIDchat, IntPtr pvHistory, Int32 cubBuffer, ref Int32 pcubData) { var call = this.GetFunction<NativeGetSerializedChatRoomDlg>(this.Functions.GetSerializedChatRoomDlg); return call(this.ObjectAddress, steamIDchat, pvHistory, cubBuffer, ref pcubData); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeClearSerializedChatRoomDlg(IntPtr thisobj, CSteamID steamIDchat);
-		[return: MarshalAs(UnmanagedType.I1)] public bool ClearSerializedChatRoomDlg(CSteamID steamIDchat) { var call = this.GetFunction<NativeClearSerializedChatRoomDlg>(this.Functions.ClearSerializedChatRoomDlg); return call(this.ObjectAddress, steamIDchat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeClearSerializedChatRoomDlg(IntPtr thisobj, UInt64 steamIDchat);
+		[return: MarshalAs(UnmanagedType.I1)] public bool ClearSerializedChatRoomDlg(UInt64 steamIDchat) { var call = this.GetFunction<NativeClearSerializedChatRoomDlg>(this.Functions.ClearSerializedChatRoomDlg); return call(this.ObjectAddress, steamIDchat); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeKickChatMember(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool KickChatMember(CSteamID steamIDchat, CSteamID steamIDuser) { var call = this.GetFunction<NativeKickChatMember>(this.Functions.KickChatMember); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeKickChatMember(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool KickChatMember(UInt64 steamIDchat, UInt64 steamIDuser) { var call = this.GetFunction<NativeKickChatMember>(this.Functions.KickChatMember); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBanChatMember(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool BanChatMember(CSteamID steamIDchat, CSteamID steamIDuser) { var call = this.GetFunction<NativeBanChatMember>(this.Functions.BanChatMember); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBanChatMember(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool BanChatMember(UInt64 steamIDchat, UInt64 steamIDuser) { var call = this.GetFunction<NativeBanChatMember>(this.Functions.BanChatMember); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUnBanChatMember(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool UnBanChatMember(CSteamID steamIDchat, CSteamID steamIDuser) { var call = this.GetFunction<NativeUnBanChatMember>(this.Functions.UnBanChatMember); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUnBanChatMember(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool UnBanChatMember(UInt64 steamIDchat, UInt64 steamIDuser) { var call = this.GetFunction<NativeUnBanChatMember>(this.Functions.UnBanChatMember); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetChatRoomType(IntPtr thisobj, CSteamID steamIDchat, ELobbyType arg2);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetChatRoomType(CSteamID steamIDchat, ELobbyType arg2) { var call = this.GetFunction<NativeSetChatRoomType>(this.Functions.SetChatRoomType); return call(this.ObjectAddress, steamIDchat, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetChatRoomType(IntPtr thisobj, UInt64 steamIDchat, ELobbyType arg2);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetChatRoomType(UInt64 steamIDchat, ELobbyType arg2) { var call = this.GetFunction<NativeSetChatRoomType>(this.Functions.SetChatRoomType); return call(this.ObjectAddress, steamIDchat, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetChatRoomLockState(IntPtr thisobj, CSteamID steamIDchat, [MarshalAs(UnmanagedType.I1)] ref bool pbLocked);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetChatRoomLockState(CSteamID steamIDchat, [MarshalAs(UnmanagedType.I1)] ref bool pbLocked) { var call = this.GetFunction<NativeGetChatRoomLockState>(this.Functions.GetChatRoomLockState); return call(this.ObjectAddress, steamIDchat, ref pbLocked); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetChatRoomLockState(IntPtr thisobj, UInt64 steamIDchat, [MarshalAs(UnmanagedType.I1)] ref bool pbLocked);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetChatRoomLockState(UInt64 steamIDchat, [MarshalAs(UnmanagedType.I1)] ref bool pbLocked) { var call = this.GetFunction<NativeGetChatRoomLockState>(this.Functions.GetChatRoomLockState); return call(this.ObjectAddress, steamIDchat, ref pbLocked); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetChatRoomPermissions(IntPtr thisobj, CSteamID steamIDchat, ref UInt32 arg2);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetChatRoomPermissions(CSteamID steamIDchat, ref UInt32 arg2) { var call = this.GetFunction<NativeGetChatRoomPermissions>(this.Functions.GetChatRoomPermissions); return call(this.ObjectAddress, steamIDchat, ref arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetChatRoomPermissions(IntPtr thisobj, UInt64 steamIDchat, ref UInt32 arg2);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetChatRoomPermissions(UInt64 steamIDchat, ref UInt32 arg2) { var call = this.GetFunction<NativeGetChatRoomPermissions>(this.Functions.GetChatRoomPermissions); return call(this.ObjectAddress, steamIDchat, ref arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetChatRoomModerated(IntPtr thisobj, CSteamID steamIDchat, [MarshalAs(UnmanagedType.I1)] bool bModerated);
-		public Int32 SetChatRoomModerated(CSteamID steamIDchat, [MarshalAs(UnmanagedType.I1)] bool bModerated) { var call = this.GetFunction<NativeSetChatRoomModerated>(this.Functions.SetChatRoomModerated); return call(this.ObjectAddress, steamIDchat, bModerated); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetChatRoomModerated(IntPtr thisobj, UInt64 steamIDchat, [MarshalAs(UnmanagedType.I1)] bool bModerated);
+		public Int32 SetChatRoomModerated(UInt64 steamIDchat, [MarshalAs(UnmanagedType.I1)] bool bModerated) { var call = this.GetFunction<NativeSetChatRoomModerated>(this.Functions.SetChatRoomModerated); return call(this.ObjectAddress, steamIDchat, bModerated); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeChatRoomModerated(IntPtr thisobj, CSteamID steamIDChat);
-		[return: MarshalAs(UnmanagedType.I1)] public bool ChatRoomModerated(CSteamID steamIDChat) { var call = this.GetFunction<NativeChatRoomModerated>(this.Functions.ChatRoomModerated); return call(this.ObjectAddress, steamIDChat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeChatRoomModerated(IntPtr thisobj, UInt64 steamIDChat);
+		[return: MarshalAs(UnmanagedType.I1)] public bool ChatRoomModerated(UInt64 steamIDChat) { var call = this.GetFunction<NativeChatRoomModerated>(this.Functions.ChatRoomModerated); return call(this.ObjectAddress, steamIDChat); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeNotifyChatRoomDlgsOfUIChange(IntPtr thisobj, CSteamID steamIDchat, [MarshalAs(UnmanagedType.I1)] bool arg2, [MarshalAs(UnmanagedType.I1)] bool arg3, [MarshalAs(UnmanagedType.I1)] bool arg4, [MarshalAs(UnmanagedType.I1)] bool arg5);
-		[return: MarshalAs(UnmanagedType.I1)] public bool NotifyChatRoomDlgsOfUIChange(CSteamID steamIDchat, [MarshalAs(UnmanagedType.I1)] bool arg2, [MarshalAs(UnmanagedType.I1)] bool arg3, [MarshalAs(UnmanagedType.I1)] bool arg4, [MarshalAs(UnmanagedType.I1)] bool arg5) { var call = this.GetFunction<NativeNotifyChatRoomDlgsOfUIChange>(this.Functions.NotifyChatRoomDlgsOfUIChange); return call(this.ObjectAddress, steamIDchat, arg2, arg3, arg4, arg5); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeNotifyChatRoomDlgsOfUIChange(IntPtr thisobj, UInt64 steamIDchat, [MarshalAs(UnmanagedType.I1)] bool arg2, [MarshalAs(UnmanagedType.I1)] bool arg3, [MarshalAs(UnmanagedType.I1)] bool arg4, [MarshalAs(UnmanagedType.I1)] bool arg5);
+		[return: MarshalAs(UnmanagedType.I1)] public bool NotifyChatRoomDlgsOfUIChange(UInt64 steamIDchat, [MarshalAs(UnmanagedType.I1)] bool arg2, [MarshalAs(UnmanagedType.I1)] bool arg3, [MarshalAs(UnmanagedType.I1)] bool arg4, [MarshalAs(UnmanagedType.I1)] bool arg5) { var call = this.GetFunction<NativeNotifyChatRoomDlgsOfUIChange>(this.Functions.NotifyChatRoomDlgsOfUIChange); return call(this.ObjectAddress, steamIDchat, arg2, arg3, arg4, arg5); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeTerminateChatRoom(IntPtr thisobj, CSteamID steamIDchat);
-		[return: MarshalAs(UnmanagedType.I1)] public bool TerminateChatRoom(CSteamID steamIDchat) { var call = this.GetFunction<NativeTerminateChatRoom>(this.Functions.TerminateChatRoom); return call(this.ObjectAddress, steamIDchat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeTerminateChatRoom(IntPtr thisobj, UInt64 steamIDchat);
+		[return: MarshalAs(UnmanagedType.I1)] public bool TerminateChatRoom(UInt64 steamIDchat) { var call = this.GetFunction<NativeTerminateChatRoom>(this.Functions.TerminateChatRoom); return call(this.ObjectAddress, steamIDchat); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatRoomCount(IntPtr thisobj);
 		public Int32 GetChatRoomCount() { var call = this.GetFunction<NativeGetChatRoomCount>(this.Functions.GetChatRoomCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetChatRoomByIndex(IntPtr thisobj, Int32 iChatRoom);
-		public CSteamID GetChatRoomByIndex(Int32 iChatRoom) { var call = this.GetFunction<NativeGetChatRoomByIndex>(this.Functions.GetChatRoomByIndex); return call(this.ObjectAddress, iChatRoom); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetChatRoomByIndex(IntPtr thisobj, Int32 iChatRoom);
+		public UInt64 GetChatRoomByIndex(Int32 iChatRoom) { var call = this.GetFunction<NativeGetChatRoomByIndex>(this.Functions.GetChatRoomByIndex); return call(this.ObjectAddress, iChatRoom); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetChatRoomName(IntPtr thisobj, CSteamID steamIDchat);
-		public string GetChatRoomName(CSteamID steamIDchat) { var call = this.GetFunction<NativeGetChatRoomName>(this.Functions.GetChatRoomName); return call(this.ObjectAddress, steamIDchat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetChatRoomName(IntPtr thisobj, UInt64 steamIDchat);
+		public string GetChatRoomName(UInt64 steamIDchat) { var call = this.GetFunction<NativeGetChatRoomName>(this.Functions.GetChatRoomName); return call(this.ObjectAddress, steamIDchat); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetChatRoomMemberDetails(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser, ref UInt32 pChatMemberDetails, ref UInt32 pChatMemberDetailsLocal);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetChatRoomMemberDetails(CSteamID steamIDchat, CSteamID steamIDuser, ref UInt32 pChatMemberDetails, ref UInt32 pChatMemberDetailsLocal) { var call = this.GetFunction<NativeGetChatRoomMemberDetails>(this.Functions.GetChatRoomMemberDetails); return call(this.ObjectAddress, steamIDchat, steamIDuser, ref pChatMemberDetails, ref pChatMemberDetailsLocal); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetChatRoomMemberDetails(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser, ref UInt32 pChatMemberDetails, ref UInt32 pChatMemberDetailsLocal);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetChatRoomMemberDetails(UInt64 steamIDchat, UInt64 steamIDuser, ref UInt32 pChatMemberDetails, ref UInt32 pChatMemberDetailsLocal) { var call = this.GetFunction<NativeGetChatRoomMemberDetails>(this.Functions.GetChatRoomMemberDetails); return call(this.ObjectAddress, steamIDchat, steamIDuser, ref pChatMemberDetails, ref pChatMemberDetailsLocal); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCreateChatRoom(IntPtr thisobj, EChatRoomType eType, UInt64 ulGameID, string pchName, ELobbyType eLobbyType, CSteamID steamIDClan, CSteamID steamIDFriendChat, CSteamID steamIDInvited, UInt32 chatPermissionOfficer, UInt32 chatPermissionMember, UInt32 chatPermissionAll);
-		public void CreateChatRoom(EChatRoomType eType, UInt64 ulGameID, string pchName, ELobbyType eLobbyType, CSteamID steamIDClan, CSteamID steamIDFriendChat, CSteamID steamIDInvited, UInt32 chatPermissionOfficer, UInt32 chatPermissionMember, UInt32 chatPermissionAll) { var call = this.GetFunction<NativeCreateChatRoom>(this.Functions.CreateChatRoom); call(this.ObjectAddress, eType, ulGameID, pchName, eLobbyType, steamIDClan, steamIDFriendChat, steamIDInvited, chatPermissionOfficer, chatPermissionMember, chatPermissionAll); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCreateChatRoom(IntPtr thisobj, EChatRoomType eType, UInt64 ulGameID, string pchName, ELobbyType eLobbyType, UInt64 steamIDClan, UInt64 steamIDFriendChat, UInt64 steamIDInvited, UInt32 chatPermissionOfficer, UInt32 chatPermissionMember, UInt32 chatPermissionAll);
+		public void CreateChatRoom(EChatRoomType eType, UInt64 ulGameID, string pchName, ELobbyType eLobbyType, UInt64 steamIDClan, UInt64 steamIDFriendChat, UInt64 steamIDInvited, UInt32 chatPermissionOfficer, UInt32 chatPermissionMember, UInt32 chatPermissionAll) { var call = this.GetFunction<NativeCreateChatRoom>(this.Functions.CreateChatRoom); call(this.ObjectAddress, eType, ulGameID, pchName, eLobbyType, steamIDClan, steamIDFriendChat, steamIDInvited, chatPermissionOfficer, chatPermissionMember, chatPermissionAll); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetChatRoomMetadata(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser, string pchKey);
-		public string GetChatRoomMetadata(CSteamID steamIDchat, CSteamID steamIDuser, string pchKey) { var call = this.GetFunction<NativeGetChatRoomMetadata>(this.Functions.GetChatRoomMetadata); return call(this.ObjectAddress, steamIDchat, steamIDuser, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetChatRoomMetadata(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser, string pchKey);
+		public string GetChatRoomMetadata(UInt64 steamIDchat, UInt64 steamIDuser, string pchKey) { var call = this.GetFunction<NativeGetChatRoomMetadata>(this.Functions.GetChatRoomMetadata); return call(this.ObjectAddress, steamIDchat, steamIDuser, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetChatRoomMetadata(IntPtr thisobj, CSteamID steamIDChat, CSteamID steamIDMember, string pchKey, string pchValue);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetChatRoomMetadata(CSteamID steamIDChat, CSteamID steamIDMember, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetChatRoomMetadata>(this.Functions.SetChatRoomMetadata); return call(this.ObjectAddress, steamIDChat, steamIDMember, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetChatRoomMetadata(IntPtr thisobj, UInt64 steamIDChat, UInt64 steamIDMember, string pchKey, string pchValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetChatRoomMetadata(UInt64 steamIDChat, UInt64 steamIDMember, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetChatRoomMetadata>(this.Functions.SetChatRoomMetadata); return call(this.ObjectAddress, steamIDChat, steamIDMember, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetChatRoomPermissions(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDmemeber, UInt32 permissions, [MarshalAs(UnmanagedType.I1)] bool bMakeOwner);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetChatRoomPermissions(CSteamID steamIDchat, CSteamID steamIDmemeber, UInt32 permissions, [MarshalAs(UnmanagedType.I1)] bool bMakeOwner) { var call = this.GetFunction<NativeSetChatRoomPermissions>(this.Functions.SetChatRoomPermissions); return call(this.ObjectAddress, steamIDchat, steamIDmemeber, permissions, bMakeOwner); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetChatRoomPermissions(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDmemeber, UInt32 permissions, [MarshalAs(UnmanagedType.I1)] bool bMakeOwner);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetChatRoomPermissions(UInt64 steamIDchat, UInt64 steamIDmemeber, UInt32 permissions, [MarshalAs(UnmanagedType.I1)] bool bMakeOwner) { var call = this.GetFunction<NativeSetChatRoomPermissions>(this.Functions.SetChatRoomPermissions); return call(this.ObjectAddress, steamIDchat, steamIDmemeber, permissions, bMakeOwner); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeVoiceCall(IntPtr thisobj, CSteamID steamIDlocal, CSteamID steamIDremote);
-		public void VoiceCall(CSteamID steamIDlocal, CSteamID steamIDremote) { var call = this.GetFunction<NativeVoiceCall>(this.Functions.VoiceCall); call(this.ObjectAddress, steamIDlocal, steamIDremote); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeVoiceCall(IntPtr thisobj, UInt64 steamIDlocal, UInt64 steamIDremote);
+		public void VoiceCall(UInt64 steamIDlocal, UInt64 steamIDremote) { var call = this.GetFunction<NativeVoiceCall>(this.Functions.VoiceCall); call(this.ObjectAddress, steamIDlocal, steamIDremote); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeVoiceHangUp(IntPtr thisobj, Int32 hVoiceCall);
 		public void VoiceHangUp(Int32 hVoiceCall) { var call = this.GetFunction<NativeVoiceHangUp>(this.Functions.VoiceHangUp); call(this.ObjectAddress, hVoiceCall); }
@@ -6661,44 +6646,44 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendResumeRequest(IntPtr thisobj, Int32 hVoiceCall);
 		public void SendResumeRequest(Int32 hVoiceCall) { var call = this.GetFunction<NativeSendResumeRequest>(this.Functions.SendResumeRequest); call(this.ObjectAddress, hVoiceCall); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeOpenChatDialog(IntPtr thisobj, CSteamID steamID);
-		public void OpenChatDialog(CSteamID steamID) { var call = this.GetFunction<NativeOpenChatDialog>(this.Functions.OpenChatDialog); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeOpenChatDialog(IntPtr thisobj, UInt64 steamID);
+		public void OpenChatDialog(UInt64 steamID) { var call = this.GetFunction<NativeOpenChatDialog>(this.Functions.OpenChatDialog); call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeStartChatRoomVoiceSpeaking(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser);
-		public void StartChatRoomVoiceSpeaking(CSteamID steamIDchat, CSteamID steamIDuser) { var call = this.GetFunction<NativeStartChatRoomVoiceSpeaking>(this.Functions.StartChatRoomVoiceSpeaking); call(this.ObjectAddress, steamIDchat, steamIDuser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeStartChatRoomVoiceSpeaking(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser);
+		public void StartChatRoomVoiceSpeaking(UInt64 steamIDchat, UInt64 steamIDuser) { var call = this.GetFunction<NativeStartChatRoomVoiceSpeaking>(this.Functions.StartChatRoomVoiceSpeaking); call(this.ObjectAddress, steamIDchat, steamIDuser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEndChatRoomVoiceSpeaking(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser);
-		public void EndChatRoomVoiceSpeaking(CSteamID steamIDchat, CSteamID steamIDuser) { var call = this.GetFunction<NativeEndChatRoomVoiceSpeaking>(this.Functions.EndChatRoomVoiceSpeaking); call(this.ObjectAddress, steamIDchat, steamIDuser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEndChatRoomVoiceSpeaking(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser);
+		public void EndChatRoomVoiceSpeaking(UInt64 steamIDchat, UInt64 steamIDuser) { var call = this.GetFunction<NativeEndChatRoomVoiceSpeaking>(this.Functions.EndChatRoomVoiceSpeaking); call(this.ObjectAddress, steamIDchat, steamIDuser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetFriendLastLogonTime(IntPtr thisobj, CSteamID steamID);
-		public UInt32 GetFriendLastLogonTime(CSteamID steamID) { var call = this.GetFunction<NativeGetFriendLastLogonTime>(this.Functions.GetFriendLastLogonTime); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetFriendLastLogonTime(IntPtr thisobj, UInt64 steamID);
+		public UInt32 GetFriendLastLogonTime(UInt64 steamID) { var call = this.GetFunction<NativeGetFriendLastLogonTime>(this.Functions.GetFriendLastLogonTime); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetFriendLastLogoffTime(IntPtr thisobj, CSteamID steamID);
-		public UInt32 GetFriendLastLogoffTime(CSteamID steamID) { var call = this.GetFunction<NativeGetFriendLastLogoffTime>(this.Functions.GetFriendLastLogoffTime); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetFriendLastLogoffTime(IntPtr thisobj, UInt64 steamID);
+		public UInt32 GetFriendLastLogoffTime(UInt64 steamID) { var call = this.GetFunction<NativeGetFriendLastLogoffTime>(this.Functions.GetFriendLastLogoffTime); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatRoomVoiceTotalSlotCount(IntPtr thisobj, CSteamID steamIDchat);
-		public Int32 GetChatRoomVoiceTotalSlotCount(CSteamID steamIDchat) { var call = this.GetFunction<NativeGetChatRoomVoiceTotalSlotCount>(this.Functions.GetChatRoomVoiceTotalSlotCount); return call(this.ObjectAddress, steamIDchat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatRoomVoiceTotalSlotCount(IntPtr thisobj, UInt64 steamIDchat);
+		public Int32 GetChatRoomVoiceTotalSlotCount(UInt64 steamIDchat) { var call = this.GetFunction<NativeGetChatRoomVoiceTotalSlotCount>(this.Functions.GetChatRoomVoiceTotalSlotCount); return call(this.ObjectAddress, steamIDchat); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatRoomVoiceUsedSlotCount(IntPtr thisobj, CSteamID steamIDchat);
-		public Int32 GetChatRoomVoiceUsedSlotCount(CSteamID steamIDchat) { var call = this.GetFunction<NativeGetChatRoomVoiceUsedSlotCount>(this.Functions.GetChatRoomVoiceUsedSlotCount); return call(this.ObjectAddress, steamIDchat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatRoomVoiceUsedSlotCount(IntPtr thisobj, UInt64 steamIDchat);
+		public Int32 GetChatRoomVoiceUsedSlotCount(UInt64 steamIDchat) { var call = this.GetFunction<NativeGetChatRoomVoiceUsedSlotCount>(this.Functions.GetChatRoomVoiceUsedSlotCount); return call(this.ObjectAddress, steamIDchat); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetChatRoomVoiceUsedSlot(IntPtr thisobj, CSteamID steamID, Int32 iSlot);
-		public CSteamID GetChatRoomVoiceUsedSlot(CSteamID steamID, Int32 iSlot) { var call = this.GetFunction<NativeGetChatRoomVoiceUsedSlot>(this.Functions.GetChatRoomVoiceUsedSlot); return call(this.ObjectAddress, steamID, iSlot); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetChatRoomVoiceUsedSlot(IntPtr thisobj, UInt64 steamID, Int32 iSlot);
+		public UInt64 GetChatRoomVoiceUsedSlot(UInt64 steamID, Int32 iSlot) { var call = this.GetFunction<NativeGetChatRoomVoiceUsedSlot>(this.Functions.GetChatRoomVoiceUsedSlot); return call(this.ObjectAddress, steamID, iSlot); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EChatRoomVoiceStatus NativeGetChatRoomVoiceStatus(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser);
-		public EChatRoomVoiceStatus GetChatRoomVoiceStatus(CSteamID steamIDchat, CSteamID steamIDuser) { var call = this.GetFunction<NativeGetChatRoomVoiceStatus>(this.Functions.GetChatRoomVoiceStatus); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EChatRoomVoiceStatus NativeGetChatRoomVoiceStatus(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser);
+		public EChatRoomVoiceStatus GetChatRoomVoiceStatus(UInt64 steamIDchat, UInt64 steamIDuser) { var call = this.GetFunction<NativeGetChatRoomVoiceStatus>(this.Functions.GetChatRoomVoiceStatus); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeChatRoomHasAvailableVoiceSlots(IntPtr thisobj, CSteamID steamID);
-		[return: MarshalAs(UnmanagedType.I1)] public bool ChatRoomHasAvailableVoiceSlots(CSteamID steamID) { var call = this.GetFunction<NativeChatRoomHasAvailableVoiceSlots>(this.Functions.ChatRoomHasAvailableVoiceSlots); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeChatRoomHasAvailableVoiceSlots(IntPtr thisobj, UInt64 steamID);
+		[return: MarshalAs(UnmanagedType.I1)] public bool ChatRoomHasAvailableVoiceSlots(UInt64 steamID) { var call = this.GetFunction<NativeChatRoomHasAvailableVoiceSlots>(this.Functions.ChatRoomHasAvailableVoiceSlots); return call(this.ObjectAddress, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsChatRoomVoiceSpeaking(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool IsChatRoomVoiceSpeaking(CSteamID steamIDchat, CSteamID steamIDuser) { var call = this.GetFunction<NativeIsChatRoomVoiceSpeaking>(this.Functions.IsChatRoomVoiceSpeaking); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsChatRoomVoiceSpeaking(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool IsChatRoomVoiceSpeaking(UInt64 steamIDchat, UInt64 steamIDuser) { var call = this.GetFunction<NativeIsChatRoomVoiceSpeaking>(this.Functions.IsChatRoomVoiceSpeaking); return call(this.ObjectAddress, steamIDchat, steamIDuser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate float NativeGetChatRoomPeakSample(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser, [MarshalAs(UnmanagedType.I1)] bool bIncoming);
-		public float GetChatRoomPeakSample(CSteamID steamIDchat, CSteamID steamIDuser, [MarshalAs(UnmanagedType.I1)] bool bIncoming) { var call = this.GetFunction<NativeGetChatRoomPeakSample>(this.Functions.GetChatRoomPeakSample); return call(this.ObjectAddress, steamIDchat, steamIDuser, bIncoming); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate float NativeGetChatRoomPeakSample(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser, [MarshalAs(UnmanagedType.I1)] bool bIncoming);
+		public float GetChatRoomPeakSample(UInt64 steamIDchat, UInt64 steamIDuser, [MarshalAs(UnmanagedType.I1)] bool bIncoming) { var call = this.GetFunction<NativeGetChatRoomPeakSample>(this.Functions.GetChatRoomPeakSample); return call(this.ObjectAddress, steamIDchat, steamIDuser, bIncoming); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChatRoomVoiceRetryConnections(IntPtr thisobj, CSteamID steamIDchat);
-		public void ChatRoomVoiceRetryConnections(CSteamID steamIDchat) { var call = this.GetFunction<NativeChatRoomVoiceRetryConnections>(this.Functions.ChatRoomVoiceRetryConnections); call(this.ObjectAddress, steamIDchat); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChatRoomVoiceRetryConnections(IntPtr thisobj, UInt64 steamIDchat);
+		public void ChatRoomVoiceRetryConnections(UInt64 steamIDchat) { var call = this.GetFunction<NativeChatRoomVoiceRetryConnections>(this.Functions.ChatRoomVoiceRetryConnections); call(this.ObjectAddress, steamIDchat); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetPortTypes(IntPtr thisobj, UInt32 unFlags);
 		public void SetPortTypes(UInt32 unFlags) { var call = this.GetFunction<NativeSetPortTypes>(this.Functions.SetPortTypes); call(this.ObjectAddress, unFlags); }
@@ -6706,14 +6691,14 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeReinitAudio(IntPtr thisobj);
 		public void ReinitAudio() { var call = this.GetFunction<NativeReinitAudio>(this.Functions.ReinitAudio); call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetInGameVoiceSpeaking(IntPtr thisobj, CSteamID steamIDuser, [MarshalAs(UnmanagedType.I1)] bool bIsSpeaking);
-		public void SetInGameVoiceSpeaking(CSteamID steamIDuser, [MarshalAs(UnmanagedType.I1)] bool bIsSpeaking) { var call = this.GetFunction<NativeSetInGameVoiceSpeaking>(this.Functions.SetInGameVoiceSpeaking); call(this.ObjectAddress, steamIDuser, bIsSpeaking); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetInGameVoiceSpeaking(IntPtr thisobj, UInt64 steamIDuser, [MarshalAs(UnmanagedType.I1)] bool bIsSpeaking);
+		public void SetInGameVoiceSpeaking(UInt64 steamIDuser, [MarshalAs(UnmanagedType.I1)] bool bIsSpeaking) { var call = this.GetFunction<NativeSetInGameVoiceSpeaking>(this.Functions.SetInGameVoiceSpeaking); call(this.ObjectAddress, steamIDuser, bIsSpeaking); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlay(IntPtr thisobj, string pchDialog);
 		public void ActivateGameOverlay(string pchDialog) { var call = this.GetFunction<NativeActivateGameOverlay>(this.Functions.ActivateGameOverlay); call(this.ObjectAddress, pchDialog); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToUser(IntPtr thisobj, string pchDialog, CSteamID steamID);
-		public void ActivateGameOverlayToUser(string pchDialog, CSteamID steamID) { var call = this.GetFunction<NativeActivateGameOverlayToUser>(this.Functions.ActivateGameOverlayToUser); call(this.ObjectAddress, pchDialog, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToUser(IntPtr thisobj, string pchDialog, UInt64 steamID);
+		public void ActivateGameOverlayToUser(string pchDialog, UInt64 steamID) { var call = this.GetFunction<NativeActivateGameOverlayToUser>(this.Functions.ActivateGameOverlayToUser); call(this.ObjectAddress, pchDialog, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToWebPage(IntPtr thisobj, string pchUrl);
 		public void ActivateGameOverlayToWebPage(string pchUrl) { var call = this.GetFunction<NativeActivateGameOverlayToWebPage>(this.Functions.ActivateGameOverlayToWebPage); call(this.ObjectAddress, pchUrl); }
@@ -6727,14 +6712,14 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyGameServerChangeRequested(IntPtr thisobj, string pchServerAddress, string pchPassword);
 		public void NotifyGameServerChangeRequested(string pchServerAddress, string pchPassword) { var call = this.GetFunction<NativeNotifyGameServerChangeRequested>(this.Functions.NotifyGameServerChangeRequested); call(this.ObjectAddress, pchServerAddress, pchPassword); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeNotifyLobbyJoinRequested(IntPtr thisobj, UInt32 nAppId, CSteamID steamIDlobby, CSteamID steamIDfriend);
-		[return: MarshalAs(UnmanagedType.I1)] public bool NotifyLobbyJoinRequested(UInt32 nAppId, CSteamID steamIDlobby, CSteamID steamIDfriend) { var call = this.GetFunction<NativeNotifyLobbyJoinRequested>(this.Functions.NotifyLobbyJoinRequested); return call(this.ObjectAddress, nAppId, steamIDlobby, steamIDfriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeNotifyLobbyJoinRequested(IntPtr thisobj, UInt32 nAppId, UInt64 steamIDlobby, UInt64 steamIDfriend);
+		[return: MarshalAs(UnmanagedType.I1)] public bool NotifyLobbyJoinRequested(UInt32 nAppId, UInt64 steamIDlobby, UInt64 steamIDfriend) { var call = this.GetFunction<NativeNotifyLobbyJoinRequested>(this.Functions.NotifyLobbyJoinRequested); return call(this.ObjectAddress, nAppId, steamIDlobby, steamIDfriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EClanRelationship NativeGetClanRelationship(IntPtr thisobj, CSteamID steamIDclan);
-		public EClanRelationship GetClanRelationship(CSteamID steamIDclan) { var call = this.GetFunction<NativeGetClanRelationship>(this.Functions.GetClanRelationship); return call(this.ObjectAddress, steamIDclan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EClanRelationship NativeGetClanRelationship(IntPtr thisobj, UInt64 steamIDclan);
+		public EClanRelationship GetClanRelationship(UInt64 steamIDclan) { var call = this.GetFunction<NativeGetClanRelationship>(this.Functions.GetClanRelationship); return call(this.ObjectAddress, steamIDclan); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EClanRank NativeGetFriendClanRank(IntPtr thisobj, CSteamID steamIDuser, CSteamID steamIDclan);
-		public EClanRank GetFriendClanRank(CSteamID steamIDuser, CSteamID steamIDclan) { var call = this.GetFunction<NativeGetFriendClanRank>(this.Functions.GetFriendClanRank); return call(this.ObjectAddress, steamIDuser, steamIDclan); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EClanRank NativeGetFriendClanRank(IntPtr thisobj, UInt64 steamIDuser, UInt64 steamIDclan);
+		public EClanRank GetFriendClanRank(UInt64 steamIDuser, UInt64 steamIDclan) { var call = this.GetFunction<NativeGetFriendClanRank>(this.Functions.GetFriendClanRank); return call(this.ObjectAddress, steamIDuser, steamIDclan); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeVoiceIsAvailable(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool VoiceIsAvailable() { var call = this.GetFunction<NativeVoiceIsAvailable>(this.Functions.VoiceIsAvailable); return call(this.ObjectAddress); }
@@ -6742,14 +6727,14 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTestVoiceDisconnect(IntPtr thisobj, Int32 hVoiceCall);
 		public void TestVoiceDisconnect(Int32 hVoiceCall) { var call = this.GetFunction<NativeTestVoiceDisconnect>(this.Functions.TestVoiceDisconnect); call(this.ObjectAddress, hVoiceCall); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTestChatRoomPeerDisconnect(IntPtr thisobj, CSteamID steamIDchat, CSteamID steamIDuser);
-		public void TestChatRoomPeerDisconnect(CSteamID steamIDchat, CSteamID steamIDuser) { var call = this.GetFunction<NativeTestChatRoomPeerDisconnect>(this.Functions.TestChatRoomPeerDisconnect); call(this.ObjectAddress, steamIDchat, steamIDuser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTestChatRoomPeerDisconnect(IntPtr thisobj, UInt64 steamIDchat, UInt64 steamIDuser);
+		public void TestChatRoomPeerDisconnect(UInt64 steamIDchat, UInt64 steamIDuser) { var call = this.GetFunction<NativeTestChatRoomPeerDisconnect>(this.Functions.TestChatRoomPeerDisconnect); call(this.ObjectAddress, steamIDchat, steamIDuser); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTestVoicePacketLoss(IntPtr thisobj, float flPacketDropFraction);
 		public void TestVoicePacketLoss(float flPacketDropFraction) { var call = this.GetFunction<NativeTestVoicePacketLoss>(this.Functions.TestVoicePacketLoss); call(this.ObjectAddress, flPacketDropFraction); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindFriendVoiceChatHandle(IntPtr thisobj, CSteamID steamID);
-		public Int32 FindFriendVoiceChatHandle(CSteamID steamID) { var call = this.GetFunction<NativeFindFriendVoiceChatHandle>(this.Functions.FindFriendVoiceChatHandle); return call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindFriendVoiceChatHandle(IntPtr thisobj, UInt64 steamID);
+		public Int32 FindFriendVoiceChatHandle(UInt64 steamID) { var call = this.GetFunction<NativeFindFriendVoiceChatHandle>(this.Functions.FindFriendVoiceChatHandle); return call(this.ObjectAddress, steamID); }
 
 	}
 	
@@ -6796,8 +6781,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser(IntPtr thisobj);
 		public Int32 GetHSteamUser() { var call = this.GetFunction<NativeGetHSteamUser>(this.Functions.GetHSteamUser); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, UInt32 uContentServerID);
 		public void LogOn(UInt32 uContentServerID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, uContentServerID); }
@@ -6823,11 +6808,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetCellID(IntPtr thisobj, UInt32 cellID);
 		public void SetCellID(UInt32 cellID) { var call = this.GetFunction<NativeSetCellID>(this.Functions.SetCellID); call(this.ObjectAddress, cellID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendClientContentAuthRequest(IntPtr thisobj, CSteamID steamID, UInt32 unContentID, [MarshalAs(UnmanagedType.I1)] bool bUseToken, UInt64 ulSessionToken, [MarshalAs(UnmanagedType.I1)] bool bTokenPresent);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendClientContentAuthRequest(CSteamID steamID, UInt32 unContentID, [MarshalAs(UnmanagedType.I1)] bool bUseToken, UInt64 ulSessionToken, [MarshalAs(UnmanagedType.I1)] bool bTokenPresent) { var call = this.GetFunction<NativeSendClientContentAuthRequest>(this.Functions.SendClientContentAuthRequest); return call(this.ObjectAddress, steamID, unContentID, bUseToken, ulSessionToken, bTokenPresent); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendClientContentAuthRequest(IntPtr thisobj, UInt64 steamID, UInt32 unContentID, [MarshalAs(UnmanagedType.I1)] bool bUseToken, UInt64 ulSessionToken, [MarshalAs(UnmanagedType.I1)] bool bTokenPresent);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendClientContentAuthRequest(UInt64 steamID, UInt32 unContentID, [MarshalAs(UnmanagedType.I1)] bool bUseToken, UInt64 ulSessionToken, [MarshalAs(UnmanagedType.I1)] bool bTokenPresent) { var call = this.GetFunction<NativeSendClientContentAuthRequest>(this.Functions.SendClientContentAuthRequest); return call(this.ObjectAddress, steamID, unContentID, bUseToken, ulSessionToken, bTokenPresent); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCheckTicket(IntPtr thisobj, CSteamID steamID, UInt32 uContentID, IntPtr pvTicketData, UInt32 cubTicketLength);
-		[return: MarshalAs(UnmanagedType.I1)] public bool CheckTicket(CSteamID steamID, UInt32 uContentID, IntPtr pvTicketData, UInt32 cubTicketLength) { var call = this.GetFunction<NativeCheckTicket>(this.Functions.CheckTicket); return call(this.ObjectAddress, steamID, uContentID, pvTicketData, cubTicketLength); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCheckTicket(IntPtr thisobj, UInt64 steamID, UInt32 uContentID, IntPtr pvTicketData, UInt32 cubTicketLength);
+		[return: MarshalAs(UnmanagedType.I1)] public bool CheckTicket(UInt64 steamID, UInt32 uContentID, IntPtr pvTicketData, UInt32 cubTicketLength) { var call = this.GetFunction<NativeCheckTicket>(this.Functions.CheckTicket); return call(this.ObjectAddress, steamID, uContentID, pvTicketData, cubTicketLength); }
 
 	}
 	
@@ -6900,8 +6885,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser(IntPtr thisobj);
 		public Int32 GetHSteamUser() { var call = this.GetFunction<NativeGetHSteamUser>(this.Functions.GetHSteamUser); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, CSteamID steamID);
-		public void LogOn(CSteamID steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, UInt64 steamID);
+		public void LogOn(UInt64 steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOff(IntPtr thisobj);
 		public void LogOff() { var call = this.GetFunction<NativeLogOff>(this.Functions.LogOff); call(this.ObjectAddress); }
@@ -6915,8 +6900,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeConnected(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Connected() { var call = this.GetFunction<NativeConnected>(this.Functions.Connected); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsVACBanned(IntPtr thisobj, Int32 nGameID);
 		[return: MarshalAs(UnmanagedType.I1)] public bool IsVACBanned(Int32 nGameID) { var call = this.GetFunction<NativeIsVACBanned>(this.Functions.IsVACBanned); return call(this.ObjectAddress, nGameID); }
@@ -6948,8 +6933,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetRegistryInt(IntPtr thisobj, ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 pValue);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetRegistryInt(ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 pValue) { var call = this.GetFunction<NativeGetRegistryInt>(this.Functions.GetRegistryInt); return call(this.ObjectAddress, eRegistrySubTree, pchKey, ref pValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pOutputBlob, Int32 cbBlobMax, CSteamID steamIDGS, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey);
-		public Int32 InitiateGameConnection(IntPtr pOutputBlob, Int32 cbBlobMax, CSteamID steamIDGS, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pOutputBlob, cbBlobMax, steamIDGS, gameID, unIPServer, usPortServer, bSecure, pvSteam2GetEncryptionKey, cbSteam2GetEncryptionKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pOutputBlob, Int32 cbBlobMax, UInt64 steamIDGS, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey);
+		public Int32 InitiateGameConnection(IntPtr pOutputBlob, Int32 cbBlobMax, UInt64 steamIDGS, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pOutputBlob, cbBlobMax, steamIDGS, gameID, unIPServer, usPortServer, bSecure, pvSteam2GetEncryptionKey, cbSteam2GetEncryptionKey); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -8387,17 +8372,17 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIndicateAchievementProgress(IntPtr thisobj, string pchName, UInt32 nCurProgress, UInt32 nMaxProgress);
 		[return: MarshalAs(UnmanagedType.I1)] public bool IndicateAchievementProgress(string pchName, UInt32 nCurProgress, UInt32 nMaxProgress) { var call = this.GetFunction<NativeIndicateAchievementProgress>(this.Functions.IndicateAchievementProgress); return call(this.ObjectAddress, pchName, nCurProgress, nMaxProgress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStats(IntPtr thisobj, CSteamID steamIDUser);
-		public UInt64 RequestUserStats(CSteamID steamIDUser) { var call = this.GetFunction<NativeRequestUserStats>(this.Functions.RequestUserStats); return call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStats(IntPtr thisobj, UInt64 steamIDUser);
+		public UInt64 RequestUserStats(UInt64 steamIDUser) { var call = this.GetFunction<NativeRequestUserStats>(this.Functions.RequestUserStats); return call(this.ObjectAddress, steamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat(IntPtr thisobj, CSteamID steamIDUser, string pchName, ref Int32 pData);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(CSteamID steamIDUser, string pchName, ref Int32 pData) { var call = this.GetFunction<NativeGetUserStat>(this.Functions.GetUserStat); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat(IntPtr thisobj, UInt64 steamIDUser, string pchName, ref Int32 pData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(UInt64 steamIDUser, string pchName, ref Int32 pData) { var call = this.GetFunction<NativeGetUserStat>(this.Functions.GetUserStat); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat1(IntPtr thisobj, CSteamID steamIDUser, string pchName, ref float pData);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(CSteamID steamIDUser, string pchName, ref float pData) { var call = this.GetFunction<NativeGetUserStat1>(this.Functions.GetUserStat1); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat1(IntPtr thisobj, UInt64 steamIDUser, string pchName, ref float pData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(UInt64 steamIDUser, string pchName, ref float pData) { var call = this.GetFunction<NativeGetUserStat1>(this.Functions.GetUserStat1); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievement(IntPtr thisobj, CSteamID steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievement(CSteamID steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved) { var call = this.GetFunction<NativeGetUserAchievement>(this.Functions.GetUserAchievement); return call(this.ObjectAddress, steamIDUser, pchName, ref pbAchieved); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievement(IntPtr thisobj, UInt64 steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievement(UInt64 steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved) { var call = this.GetFunction<NativeGetUserAchievement>(this.Functions.GetUserAchievement); return call(this.ObjectAddress, steamIDUser, pchName, ref pbAchieved); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeResetAllStats(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool bAchievementsToo);
 		[return: MarshalAs(UnmanagedType.I1)] public bool ResetAllStats([MarshalAs(UnmanagedType.I1)] bool bAchievementsToo) { var call = this.GetFunction<NativeResetAllStats>(this.Functions.ResetAllStats); return call(this.ObjectAddress, bAchievementsToo); }
@@ -8477,17 +8462,17 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIndicateAchievementProgress(IntPtr thisobj, string pchName, UInt32 nCurProgress, UInt32 nMaxProgress);
 		[return: MarshalAs(UnmanagedType.I1)] public bool IndicateAchievementProgress(string pchName, UInt32 nCurProgress, UInt32 nMaxProgress) { var call = this.GetFunction<NativeIndicateAchievementProgress>(this.Functions.IndicateAchievementProgress); return call(this.ObjectAddress, pchName, nCurProgress, nMaxProgress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStats(IntPtr thisobj, CSteamID steamIDUser);
-		public UInt64 RequestUserStats(CSteamID steamIDUser) { var call = this.GetFunction<NativeRequestUserStats>(this.Functions.RequestUserStats); return call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStats(IntPtr thisobj, UInt64 steamIDUser);
+		public UInt64 RequestUserStats(UInt64 steamIDUser) { var call = this.GetFunction<NativeRequestUserStats>(this.Functions.RequestUserStats); return call(this.ObjectAddress, steamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat(IntPtr thisobj, CSteamID steamIDUser, string pchName, ref Int32 pData);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(CSteamID steamIDUser, string pchName, ref Int32 pData) { var call = this.GetFunction<NativeGetUserStat>(this.Functions.GetUserStat); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat(IntPtr thisobj, UInt64 steamIDUser, string pchName, ref Int32 pData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(UInt64 steamIDUser, string pchName, ref Int32 pData) { var call = this.GetFunction<NativeGetUserStat>(this.Functions.GetUserStat); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat1(IntPtr thisobj, CSteamID steamIDUser, string pchName, ref float pData);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(CSteamID steamIDUser, string pchName, ref float pData) { var call = this.GetFunction<NativeGetUserStat1>(this.Functions.GetUserStat1); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat1(IntPtr thisobj, UInt64 steamIDUser, string pchName, ref float pData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(UInt64 steamIDUser, string pchName, ref float pData) { var call = this.GetFunction<NativeGetUserStat1>(this.Functions.GetUserStat1); return call(this.ObjectAddress, steamIDUser, pchName, ref pData); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievement(IntPtr thisobj, CSteamID steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievement(CSteamID steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved) { var call = this.GetFunction<NativeGetUserAchievement>(this.Functions.GetUserAchievement); return call(this.ObjectAddress, steamIDUser, pchName, ref pbAchieved); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievement(IntPtr thisobj, UInt64 steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievement(UInt64 steamIDUser, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved) { var call = this.GetFunction<NativeGetUserAchievement>(this.Functions.GetUserAchievement); return call(this.ObjectAddress, steamIDUser, pchName, ref pbAchieved); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeResetAllStats(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool bAchievementsToo);
 		[return: MarshalAs(UnmanagedType.I1)] public bool ResetAllStats([MarshalAs(UnmanagedType.I1)] bool bAchievementsToo) { var call = this.GetFunction<NativeResetAllStats>(this.Functions.ResetAllStats); return call(this.ObjectAddress, bAchievementsToo); }
@@ -8597,62 +8582,62 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeAddRequestLobbyListSlotsAvailableFilter(IntPtr thisobj);
 		public void AddRequestLobbyListSlotsAvailableFilter() { var call = this.GetFunction<NativeAddRequestLobbyListSlotsAvailableFilter>(this.Functions.AddRequestLobbyListSlotsAvailableFilter); call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
-		public CSteamID GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyByIndex(IntPtr thisobj, Int32 iLobby);
+		public UInt64 GetLobbyByIndex(Int32 iLobby) { var call = this.GetFunction<NativeGetLobbyByIndex>(this.Functions.GetLobbyByIndex); return call(this.ObjectAddress, iLobby); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCreateLobby(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool bPrivate);
 		public void CreateLobby([MarshalAs(UnmanagedType.I1)] bool bPrivate) { var call = this.GetFunction<NativeCreateLobby>(this.Functions.CreateLobby); call(this.ObjectAddress, bPrivate); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeJoinLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void JoinLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeJoinLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void JoinLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, CSteamID steamIDLobby);
-		public void LeaveLobby(CSteamID steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobby(IntPtr thisobj, UInt64 steamIDLobby);
+		public void LeaveLobby(UInt64 steamIDLobby) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDInvitee);
-		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobby(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDInvitee);
+		[return: MarshalAs(UnmanagedType.I1)] public bool InviteUserToLobby(UInt64 steamIDLobby, UInt64 steamIDInvitee) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, steamIDLobby, steamIDInvitee); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetNumLobbyMembers(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetNumLobbyMembers(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetLobbyMemberByIndex(IntPtr thisobj, CSteamID steamIDLobby, Int32 iMember);
-		public CSteamID GetLobbyMemberByIndex(CSteamID steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetLobbyMemberByIndex(IntPtr thisobj, UInt64 steamIDLobby, Int32 iMember);
+		public UInt64 GetLobbyMemberByIndex(UInt64 steamIDLobby, Int32 iMember) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, steamIDLobby, iMember); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey);
-		public string GetLobbyData(CSteamID steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey);
+		public string GetLobbyData(UInt64 steamIDLobby, string pchKey) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey);
-		public string GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey);
+		public string GetLobbyMemberData(UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, steamIDLobby, steamIDUser, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, CSteamID steamIDLobby, string pchKey, string pchValue);
-		public void SetLobbyMemberData(CSteamID steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberData(IntPtr thisobj, UInt64 steamIDLobby, string pchKey, string pchValue);
+		public void SetLobbyMemberData(UInt64 steamIDLobby, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); call(this.ObjectAddress, steamIDLobby, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(CSteamID steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsg(IntPtr thisobj, UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendLobbyChatMsg(UInt64 steamIDLobby, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, steamIDLobby, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
-		public Int32 GetLobbyChatEntry(CSteamID steamIDLobby, Int32 iChatID, ref CSteamID pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType);
+		public Int32 GetLobbyChatEntry(UInt64 steamIDLobby, Int32 iChatID, ref UInt64 pSteamIDUser, IntPtr pvData, Int32 cubData, ref EChatEntryType peChatEntryType) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, steamIDLobby, iChatID, ref pSteamIDUser, pvData, cubData, ref peChatEntryType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, CSteamID steamIDLobby);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(CSteamID steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyData(IntPtr thisobj, UInt64 steamIDLobby);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestLobbyData(UInt64 steamIDLobby) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer);
-		public void SetLobbyGameServer(CSteamID steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, CSteamID steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer);
+		public void SetLobbyGameServer(UInt64 steamIDLobby, UInt32 unGameServerIP, UInt16 unGameServerPort, UInt64 steamIDGameServer) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); call(this.ObjectAddress, steamIDLobby, unGameServerIP, unGameServerPort, steamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServer(IntPtr thisobj, UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetLobbyGameServer(UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, steamIDLobby, ref punGameServerIP, ref punGameServerPort, ref psteamIDGameServer); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby, Int32 cMaxMembers);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(CSteamID steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby, Int32 cMaxMembers);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetLobbyMemberLimit(UInt64 steamIDLobby, Int32 cMaxMembers) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby, cMaxMembers); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, CSteamID steamIDLobby);
-		public Int32 GetLobbyMemberLimit(CSteamID steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, UInt64 steamIDLobby);
+		public Int32 GetLobbyMemberLimit(UInt64 steamIDLobby) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, steamIDLobby); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyVoiceEnabled(IntPtr thisobj, CSteamID steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bEnabled);
-		public Int32 SetLobbyVoiceEnabled(CSteamID steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bEnabled) { var call = this.GetFunction<NativeSetLobbyVoiceEnabled>(this.Functions.SetLobbyVoiceEnabled); return call(this.ObjectAddress, steamIDLobby, bEnabled); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyVoiceEnabled(IntPtr thisobj, UInt64 steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bEnabled);
+		public Int32 SetLobbyVoiceEnabled(UInt64 steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bEnabled) { var call = this.GetFunction<NativeSetLobbyVoiceEnabled>(this.Functions.SetLobbyVoiceEnabled); return call(this.ObjectAddress, steamIDLobby, bEnabled); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestFriendsLobbies(IntPtr thisobj);
 		public Int32 RequestFriendsLobbies() { var call = this.GetFunction<NativeRequestFriendsLobbies>(this.Functions.RequestFriendsLobbies); return call(this.ObjectAddress); }
@@ -8685,23 +8670,23 @@ namespace Steam4NET
 	
 	public class ISteamGameServerItems004 : NativeWrapper<ISteamGameServerItems004VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeLoadItems(IntPtr thisobj, CSteamID steamid);
-		public UInt64 LoadItems(CSteamID steamid) { var call = this.GetFunction<NativeLoadItems>(this.Functions.LoadItems); return call(this.ObjectAddress, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeLoadItems(IntPtr thisobj, UInt64 steamid);
+		public UInt64 LoadItems(UInt64 steamid) { var call = this.GetFunction<NativeLoadItems>(this.Functions.LoadItems); return call(this.ObjectAddress, steamid); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetItemCount(IntPtr thisobj, CSteamID steamid);
-		public UInt64 GetItemCount(CSteamID steamid) { var call = this.GetFunction<NativeGetItemCount>(this.Functions.GetItemCount); return call(this.ObjectAddress, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetItemCount(IntPtr thisobj, UInt64 steamid);
+		public UInt64 GetItemCount(UInt64 steamid) { var call = this.GetFunction<NativeGetItemCount>(this.Functions.GetItemCount); return call(this.ObjectAddress, steamid); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemIterative(IntPtr thisobj, CSteamID steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemIterative(CSteamID steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute) { var call = this.GetFunction<NativeGetItemIterative>(this.Functions.GetItemIterative); return call(this.ObjectAddress, steamid, i, ref UniqueID, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity, ref NbOfAttribute); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemIterative(IntPtr thisobj, UInt64 steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemIterative(UInt64 steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute) { var call = this.GetFunction<NativeGetItemIterative>(this.Functions.GetItemIterative); return call(this.ObjectAddress, steamid, i, ref UniqueID, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity, ref NbOfAttribute); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemByID(IntPtr thisobj, UInt64 itemid, ref CSteamID steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemByID(UInt64 itemid, ref CSteamID steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute) { var call = this.GetFunction<NativeGetItemByID>(this.Functions.GetItemByID); return call(this.ObjectAddress, itemid, ref steamid, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity, ref NbOfAttribute); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemByID(IntPtr thisobj, UInt64 itemid, ref UInt64 steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemByID(UInt64 itemid, ref UInt64 steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute) { var call = this.GetFunction<NativeGetItemByID>(this.Functions.GetItemByID); return call(this.ObjectAddress, itemid, ref steamid, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity, ref NbOfAttribute); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemAttribute(IntPtr thisobj, UInt64 itemid, UInt32 i, ref UInt32 attribIndex, ref float attribValue);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemAttribute(UInt64 itemid, UInt32 i, ref UInt32 attribIndex, ref float attribValue) { var call = this.GetFunction<NativeGetItemAttribute>(this.Functions.GetItemAttribute); return call(this.ObjectAddress, itemid, i, ref attribIndex, ref attribValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateNewItemRequest(IntPtr thisobj, CSteamID steamid);
-		public Int32 CreateNewItemRequest(CSteamID steamid) { var call = this.GetFunction<NativeCreateNewItemRequest>(this.Functions.CreateNewItemRequest); return call(this.ObjectAddress, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateNewItemRequest(IntPtr thisobj, UInt64 steamid);
+		public Int32 CreateNewItemRequest(UInt64 steamid) { var call = this.GetFunction<NativeCreateNewItemRequest>(this.Functions.CreateNewItemRequest); return call(this.ObjectAddress, steamid); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddNewItemLevel(IntPtr thisobj, Int32 ireq, UInt32 level);
 		[return: MarshalAs(UnmanagedType.I1)] public bool AddNewItemLevel(Int32 ireq, UInt32 level) { var call = this.GetFunction<NativeAddNewItemLevel>(this.Functions.AddNewItemLevel); return call(this.ObjectAddress, ireq, level); }
@@ -8724,8 +8709,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSendNewItemRequest(IntPtr thisobj, Int32 ireq);
 		public UInt64 SendNewItemRequest(Int32 ireq) { var call = this.GetFunction<NativeSendNewItemRequest>(this.Functions.SendNewItemRequest); return call(this.ObjectAddress, ireq); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGrantItemToUser(IntPtr thisobj, UInt64 item, CSteamID steamid);
-		public UInt64 GrantItemToUser(UInt64 item, CSteamID steamid) { var call = this.GetFunction<NativeGrantItemToUser>(this.Functions.GrantItemToUser); return call(this.ObjectAddress, item, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGrantItemToUser(IntPtr thisobj, UInt64 item, UInt64 steamid);
+		public UInt64 GrantItemToUser(UInt64 item, UInt64 steamid) { var call = this.GetFunction<NativeGrantItemToUser>(this.Functions.GrantItemToUser); return call(this.ObjectAddress, item, steamid); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeleteTemporaryItem(IntPtr thisobj, UInt64 item);
 		public UInt64 DeleteTemporaryItem(UInt64 item) { var call = this.GetFunction<NativeDeleteTemporaryItem>(this.Functions.DeleteTemporaryItem); return call(this.ObjectAddress, item); }
@@ -8795,11 +8780,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser(IntPtr thisobj);
 		public Int32 GetHSteamUser() { var call = this.GetFunction<NativeGetHSteamUser>(this.Functions.GetHSteamUser); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, CSteamID steamID);
-		public void LogOn(CSteamID steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, UInt64 steamID);
+		public void LogOn(UInt64 steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOff(IntPtr thisobj);
 		public void LogOff() { var call = this.GetFunction<NativeLogOff>(this.Functions.LogOff); call(this.ObjectAddress); }
@@ -8828,23 +8813,23 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTrackSteamUsageEvent(IntPtr thisobj, UInt32 arg1, byte[] arg2, UInt32 arg3);
 		public Int32 TrackSteamUsageEvent(UInt32 arg1, byte[] arg2, UInt32 arg3) { var call = this.GetFunction<NativeTrackSteamUsageEvent>(this.Functions.TrackSteamUsageEvent); return call(this.ObjectAddress, arg1, arg2, arg3); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
-		public CSteamID CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
+		public UInt64 CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, CSteamID steamIDUser);
-		public void SendUserDisconnect(CSteamID steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, UInt64 steamIDUser);
+		public void SendUserDisconnect(UInt64 steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetServerType(IntPtr thisobj, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetServerType(UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode) { var call = this.GetFunction<NativeSetServerType>(this.Functions.SetServerType); return call(this.ObjectAddress, unServerFlags, unGameIP, unGamePort, unSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, CSteamID steamID, string pchAchievementName);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(CSteamID steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, UInt64 steamID, string pchAchievementName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(UInt64 steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, CSteamID steamIDUser, string pchPlayerName, UInt32 uScore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(CSteamID steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(UInt64 steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeUpdateStatus(IntPtr thisobj, Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, string pchServerName, string pSpectatorServerName, string pchMapName);
 		public void UpdateStatus(Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, string pchServerName, string pSpectatorServerName, string pchMapName) { var call = this.GetFunction<NativeUpdateStatus>(this.Functions.UpdateStatus); call(this.ObjectAddress, cPlayers, cPlayersMax, cBotPlayers, pchServerName, pSpectatorServerName, pchMapName); }
@@ -8867,8 +8852,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetGameplayStats(IntPtr thisobj);
 		public void GetGameplayStats() { var call = this.GetFunction<NativeGetGameplayStats>(this.Functions.GetGameplayStats); call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatus(IntPtr thisobj, CSteamID steamIDUser, CSteamID steamIDGroup);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserGroupStatus(CSteamID steamIDUser, CSteamID steamIDGroup) { var call = this.GetFunction<NativeRequestUserGroupStatus>(this.Functions.RequestUserGroupStatus); return call(this.ObjectAddress, steamIDUser, steamIDGroup); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatus(IntPtr thisobj, UInt64 steamIDUser, UInt64 steamIDGroup);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserGroupStatus(UInt64 steamIDUser, UInt64 steamIDGroup) { var call = this.GetFunction<NativeRequestUserGroupStatus>(this.Functions.RequestUserGroupStatus); return call(this.ObjectAddress, steamIDUser, steamIDGroup); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetPublicIP(IntPtr thisobj);
 		public UInt32 GetPublicIP() { var call = this.GetFunction<NativeGetPublicIP>(this.Functions.GetPublicIP); return call(this.ObjectAddress); }
@@ -8876,17 +8861,17 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAuthSessionTicket(IntPtr thisobj, IntPtr pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket);
 		public UInt32 GetAuthSessionTicket(IntPtr pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket) { var call = this.GetFunction<NativeGetAuthSessionTicket>(this.Functions.GetAuthSessionTicket); return call(this.ObjectAddress, pTicket, cbMaxTicket, ref pcbTicket); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBeginAuthSession(IntPtr thisobj, IntPtr pAuthTicket, Int32 cbAuthTicket, CSteamID steamID);
-		public Int32 BeginAuthSession(IntPtr pAuthTicket, Int32 cbAuthTicket, CSteamID steamID) { var call = this.GetFunction<NativeBeginAuthSession>(this.Functions.BeginAuthSession); return call(this.ObjectAddress, pAuthTicket, cbAuthTicket, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBeginAuthSession(IntPtr thisobj, IntPtr pAuthTicket, Int32 cbAuthTicket, UInt64 steamID);
+		public Int32 BeginAuthSession(IntPtr pAuthTicket, Int32 cbAuthTicket, UInt64 steamID) { var call = this.GetFunction<NativeBeginAuthSession>(this.Functions.BeginAuthSession); return call(this.ObjectAddress, pAuthTicket, cbAuthTicket, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEndAuthSession(IntPtr thisobj, CSteamID steamID);
-		public void EndAuthSession(CSteamID steamID) { var call = this.GetFunction<NativeEndAuthSession>(this.Functions.EndAuthSession); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEndAuthSession(IntPtr thisobj, UInt64 steamID);
+		public void EndAuthSession(UInt64 steamID) { var call = this.GetFunction<NativeEndAuthSession>(this.Functions.EndAuthSession); call(this.ObjectAddress, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCancelAuthTicket(IntPtr thisobj, UInt32 hAuthTicket);
 		public void CancelAuthTicket(UInt32 hAuthTicket) { var call = this.GetFunction<NativeCancelAuthTicket>(this.Functions.CancelAuthTicket); call(this.ObjectAddress, hAuthTicket); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsUserSubscribedAppInTicket(IntPtr thisobj, CSteamID steamID, UInt32 appID);
-		public Int32 IsUserSubscribedAppInTicket(CSteamID steamID, UInt32 appID) { var call = this.GetFunction<NativeIsUserSubscribedAppInTicket>(this.Functions.IsUserSubscribedAppInTicket); return call(this.ObjectAddress, steamID, appID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsUserSubscribedAppInTicket(IntPtr thisobj, UInt64 steamID, UInt32 appID);
+		public Int32 IsUserSubscribedAppInTicket(UInt64 steamID, UInt32 appID) { var call = this.GetFunction<NativeIsUserSubscribedAppInTicket>(this.Functions.IsUserSubscribedAppInTicket); return call(this.ObjectAddress, steamID, appID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void Native_GSSetSpawnCount(IntPtr thisobj, UInt32 ucSpawn);
 		public void _GSSetSpawnCount(UInt32 ucSpawn) { var call = this.GetFunction<Native_GSSetSpawnCount>(this.Functions._GSSetSpawnCount); call(this.ObjectAddress, ucSpawn); }
@@ -8897,8 +8882,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GSSendSteam2UserConnect(IntPtr thisobj, UInt32 arg1, IntPtr arg2, UInt32 arg3, UInt32 arg4, UInt16 arg5, IntPtr arg6, UInt32 arg7);
 		public Int32 _GSSendSteam2UserConnect(UInt32 arg1, IntPtr arg2, UInt32 arg3, UInt32 arg4, UInt16 arg5, IntPtr arg6, UInt32 arg7) { var call = this.GetFunction<Native_GSSendSteam2UserConnect>(this.Functions._GSSendSteam2UserConnect); return call(this.ObjectAddress, arg1, arg2, arg3, arg4, arg5, arg6, arg7); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GSSendSteam3UserConnect(IntPtr thisobj, CSteamID arg1, UInt32 arg2, IntPtr arg3, UInt32 arg4);
-		public Int32 _GSSendSteam3UserConnect(CSteamID arg1, UInt32 arg2, IntPtr arg3, UInt32 arg4) { var call = this.GetFunction<Native_GSSendSteam3UserConnect>(this.Functions._GSSendSteam3UserConnect); return call(this.ObjectAddress, arg1, arg2, arg3, arg4); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GSSendSteam3UserConnect(IntPtr thisobj, UInt64 arg1, UInt32 arg2, IntPtr arg3, UInt32 arg4);
+		public Int32 _GSSendSteam3UserConnect(UInt64 arg1, UInt32 arg2, IntPtr arg3, UInt32 arg4) { var call = this.GetFunction<Native_GSSendSteam3UserConnect>(this.Functions._GSSendSteam3UserConnect); return call(this.ObjectAddress, arg1, arg2, arg3, arg4); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GSSendUserConnect(IntPtr thisobj, UInt32 arg1, UInt32 arg2, UInt16 arg3, IntPtr arg4, UInt32 arg5);
 		public Int32 _GSSendUserConnect(UInt32 arg1, UInt32 arg2, UInt16 arg3, IntPtr arg4, UInt32 arg5) { var call = this.GetFunction<Native_GSSendUserConnect>(this.Functions._GSSendUserConnect); return call(this.ObjectAddress, arg1, arg2, arg3, arg4, arg5); }
@@ -8906,14 +8891,14 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GSRemoveUserConnect(IntPtr thisobj, UInt32 arg1);
 		public Int32 _GSRemoveUserConnect(UInt32 arg1) { var call = this.GetFunction<Native_GSRemoveUserConnect>(this.Functions._GSRemoveUserConnect); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GSSendUserDisconnect(IntPtr thisobj, CSteamID arg1, UInt32 arg2);
-		public Int32 _GSSendUserDisconnect(CSteamID arg1, UInt32 arg2) { var call = this.GetFunction<Native_GSSendUserDisconnect>(this.Functions._GSSendUserDisconnect); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GSSendUserDisconnect(IntPtr thisobj, UInt64 arg1, UInt32 arg2);
+		public Int32 _GSSendUserDisconnect(UInt64 arg1, UInt32 arg2) { var call = this.GetFunction<Native_GSSendUserDisconnect>(this.Functions._GSSendUserDisconnect); return call(this.ObjectAddress, arg1, arg2); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void Native_GSUpdateStatus(IntPtr thisobj, Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, string pchServerName, string pSpectatorServerName, string pchMapName);
 		public void _GSUpdateStatus(Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, string pchServerName, string pSpectatorServerName, string pchMapName) { var call = this.GetFunction<Native_GSUpdateStatus>(this.Functions._GSUpdateStatus); call(this.ObjectAddress, cPlayers, cPlayersMax, cBotPlayers, pchServerName, pSpectatorServerName, pchMapName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GSCreateUnauthenticatedUser(IntPtr thisobj, ref CSteamID arg1);
-		public Int32 _GSCreateUnauthenticatedUser(ref CSteamID arg1) { var call = this.GetFunction<Native_GSCreateUnauthenticatedUser>(this.Functions._GSCreateUnauthenticatedUser); return call(this.ObjectAddress, ref arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GSCreateUnauthenticatedUser(IntPtr thisobj, ref UInt64 arg1);
+		public Int32 _GSCreateUnauthenticatedUser(ref UInt64 arg1) { var call = this.GetFunction<Native_GSCreateUnauthenticatedUser>(this.Functions._GSCreateUnauthenticatedUser); return call(this.ObjectAddress, ref arg1); }
 
 	}
 	
@@ -9024,26 +9009,26 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetPersonaState(IntPtr thisobj, EPersonaState ePersonaState);
 		public void SetPersonaState(EPersonaState ePersonaState) { var call = this.GetFunction<NativeSetPersonaState>(this.Functions.SetPersonaState); call(this.ObjectAddress, ePersonaState); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddFriend(IntPtr thisobj, CSteamID steamIDFriend);
-		[return: MarshalAs(UnmanagedType.I1)] public bool AddFriend(CSteamID steamIDFriend) { var call = this.GetFunction<NativeAddFriend>(this.Functions.AddFriend); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddFriend(IntPtr thisobj, UInt64 steamIDFriend);
+		[return: MarshalAs(UnmanagedType.I1)] public bool AddFriend(UInt64 steamIDFriend) { var call = this.GetFunction<NativeAddFriend>(this.Functions.AddFriend); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFriend(IntPtr thisobj, CSteamID steamIDFriend);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RemoveFriend(CSteamID steamIDFriend) { var call = this.GetFunction<NativeRemoveFriend>(this.Functions.RemoveFriend); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFriend(IntPtr thisobj, UInt64 steamIDFriend);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RemoveFriend(UInt64 steamIDFriend) { var call = this.GetFunction<NativeRemoveFriend>(this.Functions.RemoveFriend); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, CSteamID steamIDFriend);
-		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(CSteamID steamIDFriend) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriend(IntPtr thisobj, UInt64 steamIDFriend);
+		[return: MarshalAs(UnmanagedType.I1)] public bool HasFriend(UInt64 steamIDFriend) { var call = this.GetFunction<NativeHasFriend>(this.Functions.HasFriend); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, CSteamID steamIDFriend);
-		public EFriendRelationship GetFriendRelationship(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationship(IntPtr thisobj, UInt64 steamIDFriend);
+		public EFriendRelationship GetFriendRelationship(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendRelationship>(this.Functions.GetFriendRelationship); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, CSteamID steamIDFriend);
-		public EPersonaState GetFriendPersonaState(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPersonaState NativeGetFriendPersonaState(IntPtr thisobj, UInt64 steamIDFriend);
+		public EPersonaState GetFriendPersonaState(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaState>(this.Functions.GetFriendPersonaState); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeDeprecated_GetFriendGamePlayed(IntPtr thisobj, CSteamID steamIDFriend, ref Int32 pnGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort);
-		[return: MarshalAs(UnmanagedType.I1)] public bool Deprecated_GetFriendGamePlayed(CSteamID steamIDFriend, ref Int32 pnGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort) { var call = this.GetFunction<NativeDeprecated_GetFriendGamePlayed>(this.Functions.Deprecated_GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pnGameID, ref punGameIP, ref pusGamePort); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeDeprecated_GetFriendGamePlayed(IntPtr thisobj, UInt64 steamIDFriend, ref Int32 pnGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort);
+		[return: MarshalAs(UnmanagedType.I1)] public bool Deprecated_GetFriendGamePlayed(UInt64 steamIDFriend, ref Int32 pnGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort) { var call = this.GetFunction<NativeDeprecated_GetFriendGamePlayed>(this.Functions.Deprecated_GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pnGameID, ref punGameIP, ref pusGamePort); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, CSteamID steamIDFriend);
-		public string GetFriendPersonaName(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaName(IntPtr thisobj, UInt64 steamIDFriend);
+		public string GetFriendPersonaName(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetFriendPersonaName>(this.Functions.GetFriendPersonaName); return call(this.ObjectAddress, steamIDFriend); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAddFriendByName(IntPtr thisobj, string pchEmailOrAccountName);
 		public Int32 AddFriendByName(string pchEmailOrAccountName) { var call = this.GetFunction<NativeAddFriendByName>(this.Functions.AddFriendByName); return call(this.ObjectAddress, pchEmailOrAccountName); }
@@ -9051,35 +9036,35 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCount(IntPtr thisobj);
 		public Int32 GetFriendCount() { var call = this.GetFunction<NativeGetFriendCount>(this.Functions.GetFriendCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend);
-		public CSteamID GetFriendByIndex(Int32 iFriend) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetFriendByIndex(IntPtr thisobj, Int32 iFriend);
+		public UInt64 GetFriendByIndex(Int32 iFriend) { var call = this.GetFunction<NativeGetFriendByIndex>(this.Functions.GetFriendByIndex); return call(this.ObjectAddress, iFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendMsgToFriend(IntPtr thisobj, CSteamID steamIDFriend, EFriendMsgType eFriendMsgType, string pchMsgBody);
-		public void SendMsgToFriend(CSteamID steamIDFriend, EFriendMsgType eFriendMsgType, string pchMsgBody) { var call = this.GetFunction<NativeSendMsgToFriend>(this.Functions.SendMsgToFriend); call(this.ObjectAddress, steamIDFriend, eFriendMsgType, pchMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendMsgToFriend(IntPtr thisobj, UInt64 steamIDFriend, EFriendMsgType eFriendMsgType, string pchMsgBody);
+		public void SendMsgToFriend(UInt64 steamIDFriend, EFriendMsgType eFriendMsgType, string pchMsgBody) { var call = this.GetFunction<NativeSendMsgToFriend>(this.Functions.SendMsgToFriend); call(this.ObjectAddress, steamIDFriend, eFriendMsgType, pchMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetFriendRegValue(IntPtr thisobj, CSteamID steamIDFriend, string pchKey, string pchValue);
-		public void SetFriendRegValue(CSteamID steamIDFriend, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetFriendRegValue>(this.Functions.SetFriendRegValue); call(this.ObjectAddress, steamIDFriend, pchKey, pchValue); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetFriendRegValue(IntPtr thisobj, UInt64 steamIDFriend, string pchKey, string pchValue);
+		public void SetFriendRegValue(UInt64 steamIDFriend, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetFriendRegValue>(this.Functions.SetFriendRegValue); call(this.ObjectAddress, steamIDFriend, pchKey, pchValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendRegValue(IntPtr thisobj, CSteamID steamIDFriend, string pchKey);
-		public string GetFriendRegValue(CSteamID steamIDFriend, string pchKey) { var call = this.GetFunction<NativeGetFriendRegValue>(this.Functions.GetFriendRegValue); return call(this.ObjectAddress, steamIDFriend, pchKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendRegValue(IntPtr thisobj, UInt64 steamIDFriend, string pchKey);
+		public string GetFriendRegValue(UInt64 steamIDFriend, string pchKey) { var call = this.GetFunction<NativeGetFriendRegValue>(this.Functions.GetFriendRegValue); return call(this.ObjectAddress, steamIDFriend, pchKey); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, CSteamID steamIDFriend, Int32 iPersonaName);
-		public string GetFriendPersonaNameHistory(CSteamID steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistory(IntPtr thisobj, UInt64 steamIDFriend, Int32 iPersonaName);
+		public string GetFriendPersonaNameHistory(UInt64 steamIDFriend, Int32 iPersonaName) { var call = this.GetFunction<NativeGetFriendPersonaNameHistory>(this.Functions.GetFriendPersonaNameHistory); return call(this.ObjectAddress, steamIDFriend, iPersonaName); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatMessage(IntPtr thisobj, CSteamID steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EFriendMsgType peFriendMsgType);
-		public Int32 GetChatMessage(CSteamID steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EFriendMsgType peFriendMsgType) { var call = this.GetFunction<NativeGetChatMessage>(this.Functions.GetChatMessage); return call(this.ObjectAddress, steamIDFriend, iChatID, pvData, cubData, ref peFriendMsgType); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatMessage(IntPtr thisobj, UInt64 steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EFriendMsgType peFriendMsgType);
+		public Int32 GetChatMessage(UInt64 steamIDFriend, Int32 iChatID, IntPtr pvData, Int32 cubData, ref EFriendMsgType peFriendMsgType) { var call = this.GetFunction<NativeGetChatMessage>(this.Functions.GetChatMessage); return call(this.ObjectAddress, steamIDFriend, iChatID, pvData, cubData, ref peFriendMsgType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendMsgToFriend1(IntPtr thisobj, CSteamID steamIDFriend, EFriendMsgType eFriendMsgType, IntPtr pvMsgBody, Int32 cubMsgBody);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendMsgToFriend(CSteamID steamIDFriend, EFriendMsgType eFriendMsgType, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendMsgToFriend1>(this.Functions.SendMsgToFriend1); return call(this.ObjectAddress, steamIDFriend, eFriendMsgType, pvMsgBody, cubMsgBody); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendMsgToFriend1(IntPtr thisobj, UInt64 steamIDFriend, EFriendMsgType eFriendMsgType, IntPtr pvMsgBody, Int32 cubMsgBody);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendMsgToFriend(UInt64 steamIDFriend, EFriendMsgType eFriendMsgType, IntPtr pvMsgBody, Int32 cubMsgBody) { var call = this.GetFunction<NativeSendMsgToFriend1>(this.Functions.SendMsgToFriend1); return call(this.ObjectAddress, steamIDFriend, eFriendMsgType, pvMsgBody, cubMsgBody); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatIDOfChatHistoryStart(IntPtr thisobj, CSteamID steamIDFriend);
-		public Int32 GetChatIDOfChatHistoryStart(CSteamID steamIDFriend) { var call = this.GetFunction<NativeGetChatIDOfChatHistoryStart>(this.Functions.GetChatIDOfChatHistoryStart); return call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatIDOfChatHistoryStart(IntPtr thisobj, UInt64 steamIDFriend);
+		public Int32 GetChatIDOfChatHistoryStart(UInt64 steamIDFriend) { var call = this.GetFunction<NativeGetChatIDOfChatHistoryStart>(this.Functions.GetChatIDOfChatHistoryStart); return call(this.ObjectAddress, steamIDFriend); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetChatHistoryStart(IntPtr thisobj, CSteamID steamIDFriend, Int32 iChatID);
-		public void SetChatHistoryStart(CSteamID steamIDFriend, Int32 iChatID) { var call = this.GetFunction<NativeSetChatHistoryStart>(this.Functions.SetChatHistoryStart); call(this.ObjectAddress, steamIDFriend, iChatID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetChatHistoryStart(IntPtr thisobj, UInt64 steamIDFriend, Int32 iChatID);
+		public void SetChatHistoryStart(UInt64 steamIDFriend, Int32 iChatID) { var call = this.GetFunction<NativeSetChatHistoryStart>(this.Functions.SetChatHistoryStart); call(this.ObjectAddress, steamIDFriend, iChatID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearChatHistory(IntPtr thisobj, CSteamID steamIDFriend);
-		public void ClearChatHistory(CSteamID steamIDFriend) { var call = this.GetFunction<NativeClearChatHistory>(this.Functions.ClearChatHistory); call(this.ObjectAddress, steamIDFriend); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearChatHistory(IntPtr thisobj, UInt64 steamIDFriend);
+		public void ClearChatHistory(UInt64 steamIDFriend) { var call = this.GetFunction<NativeClearChatHistory>(this.Functions.ClearChatHistory); call(this.ObjectAddress, steamIDFriend); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInviteFriendByEmail(IntPtr thisobj, string pchEmailOrAccountName);
 		public Int32 InviteFriendByEmail(string pchEmailOrAccountName) { var call = this.GetFunction<NativeInviteFriendByEmail>(this.Functions.InviteFriendByEmail); return call(this.ObjectAddress, pchEmailOrAccountName); }
@@ -9087,11 +9072,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetBlockedFriendCount(IntPtr thisobj);
 		public UInt32 GetBlockedFriendCount() { var call = this.GetFunction<NativeGetBlockedFriendCount>(this.Functions.GetBlockedFriendCount); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, CSteamID steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(CSteamID steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pulGameID, ref punGameIP, ref pusGamePort); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed(IntPtr thisobj, UInt64 steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed(UInt64 steamIDFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort) { var call = this.GetFunction<NativeGetFriendGamePlayed>(this.Functions.GetFriendGamePlayed); return call(this.ObjectAddress, steamIDFriend, ref pulGameID, ref punGameIP, ref pusGamePort); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed2(IntPtr thisobj, CSteamID steamDIFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed2(CSteamID steamDIFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort) { var call = this.GetFunction<NativeGetFriendGamePlayed2>(this.Functions.GetFriendGamePlayed2); return call(this.ObjectAddress, steamDIFriend, ref pulGameID, ref punGameIP, ref pusGamePort, ref pusQueryPort); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFriendGamePlayed2(IntPtr thisobj, UInt64 steamDIFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetFriendGamePlayed2(UInt64 steamDIFriend, ref UInt64 pulGameID, ref UInt32 punGameIP, ref UInt16 pusGamePort, ref UInt16 pusQueryPort) { var call = this.GetFunction<NativeGetFriendGamePlayed2>(this.Functions.GetFriendGamePlayed2); return call(this.ObjectAddress, steamDIFriend, ref pulGameID, ref punGameIP, ref pusGamePort, ref pusQueryPort); }
 
 	}
 	
@@ -9124,11 +9109,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pAuthBlob, Int32 cbMaxAuthBlob, CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
-		public Int32 InitiateGameConnection(IntPtr pAuthBlob, Int32 cbMaxAuthBlob, CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pAuthBlob, cbMaxAuthBlob, steamIDGameServer, unIPServer, usPortServer, bSecure); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pAuthBlob, Int32 cbMaxAuthBlob, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
+		public Int32 InitiateGameConnection(IntPtr pAuthBlob, Int32 cbMaxAuthBlob, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pAuthBlob, cbMaxAuthBlob, steamIDGameServer, unIPServer, usPortServer, bSecure); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -9154,17 +9139,17 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAuthSessionTicket(IntPtr thisobj, IntPtr pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket);
 		public UInt32 GetAuthSessionTicket(IntPtr pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket) { var call = this.GetFunction<NativeGetAuthSessionTicket>(this.Functions.GetAuthSessionTicket); return call(this.ObjectAddress, pTicket, cbMaxTicket, ref pcbTicket); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EBeginAuthSessionResult NativeBeginAuthSession(IntPtr thisobj, IntPtr pAuthTicket, Int32 cbAuthTicket, CSteamID steamID);
-		public EBeginAuthSessionResult BeginAuthSession(IntPtr pAuthTicket, Int32 cbAuthTicket, CSteamID steamID) { var call = this.GetFunction<NativeBeginAuthSession>(this.Functions.BeginAuthSession); return call(this.ObjectAddress, pAuthTicket, cbAuthTicket, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EBeginAuthSessionResult NativeBeginAuthSession(IntPtr thisobj, IntPtr pAuthTicket, Int32 cbAuthTicket, UInt64 steamID);
+		public EBeginAuthSessionResult BeginAuthSession(IntPtr pAuthTicket, Int32 cbAuthTicket, UInt64 steamID) { var call = this.GetFunction<NativeBeginAuthSession>(this.Functions.BeginAuthSession); return call(this.ObjectAddress, pAuthTicket, cbAuthTicket, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEndAuthSession(IntPtr thisobj, CSteamID steamID);
-		public void EndAuthSession(CSteamID steamID) { var call = this.GetFunction<NativeEndAuthSession>(this.Functions.EndAuthSession); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEndAuthSession(IntPtr thisobj, UInt64 steamID);
+		public void EndAuthSession(UInt64 steamID) { var call = this.GetFunction<NativeEndAuthSession>(this.Functions.EndAuthSession); call(this.ObjectAddress, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCancelAuthTicket(IntPtr thisobj, UInt32 hAuthTicket);
 		public void CancelAuthTicket(UInt32 hAuthTicket) { var call = this.GetFunction<NativeCancelAuthTicket>(this.Functions.CancelAuthTicket); call(this.ObjectAddress, hAuthTicket); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUserHasLicenseForApp(IntPtr thisobj, CSteamID steamID, UInt32 appID);
-		public UInt32 UserHasLicenseForApp(CSteamID steamID, UInt32 appID) { var call = this.GetFunction<NativeUserHasLicenseForApp>(this.Functions.UserHasLicenseForApp); return call(this.ObjectAddress, steamID, appID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUserHasLicenseForApp(IntPtr thisobj, UInt64 steamID, UInt32 appID);
+		public UInt32 UserHasLicenseForApp(UInt64 steamID, UInt32 appID) { var call = this.GetFunction<NativeUserHasLicenseForApp>(this.Functions.UserHasLicenseForApp); return call(this.ObjectAddress, steamID, appID); }
 
 	}
 	
@@ -9348,8 +9333,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequest(IntPtr thisobj, CSteamID steamId, UInt32 a);
-		public void SendClientContentAuthRequest(CSteamID steamId, UInt32 a) { var call = this.GetFunction<NativeSendClientContentAuthRequest>(this.Functions.SendClientContentAuthRequest); call(this.ObjectAddress, steamId, a); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequest(IntPtr thisobj, UInt64 steamId, UInt32 a);
+		public void SendClientContentAuthRequest(UInt64 steamId, UInt32 a) { var call = this.GetFunction<NativeSendClientContentAuthRequest>(this.Functions.SendClientContentAuthRequest); call(this.ObjectAddress, steamId, a); }
 
 	}
 	
@@ -9374,11 +9359,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequest(IntPtr thisobj, CSteamID steamId, UInt32 a, UInt64 b, [MarshalAs(UnmanagedType.I1)] bool c);
-		public void SendClientContentAuthRequest(CSteamID steamId, UInt32 a, UInt64 b, [MarshalAs(UnmanagedType.I1)] bool c) { var call = this.GetFunction<NativeSendClientContentAuthRequest>(this.Functions.SendClientContentAuthRequest); call(this.ObjectAddress, steamId, a, b, c); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequest(IntPtr thisobj, UInt64 steamId, UInt32 a, UInt64 b, [MarshalAs(UnmanagedType.I1)] bool c);
+		public void SendClientContentAuthRequest(UInt64 steamId, UInt32 a, UInt64 b, [MarshalAs(UnmanagedType.I1)] bool c) { var call = this.GetFunction<NativeSendClientContentAuthRequest>(this.Functions.SendClientContentAuthRequest); call(this.ObjectAddress, steamId, a, b, c); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCheckTicket(IntPtr thisobj, CSteamID steamId, UInt32 a, IntPtr b, UInt32 c);
-		[return: MarshalAs(UnmanagedType.I1)] public bool CheckTicket(CSteamID steamId, UInt32 a, IntPtr b, UInt32 c) { var call = this.GetFunction<NativeCheckTicket>(this.Functions.CheckTicket); return call(this.ObjectAddress, steamId, a, b, c); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCheckTicket(IntPtr thisobj, UInt64 steamId, UInt32 a, IntPtr b, UInt32 c);
+		[return: MarshalAs(UnmanagedType.I1)] public bool CheckTicket(UInt64 steamId, UInt32 a, IntPtr b, UInt32 c) { var call = this.GetFunction<NativeCheckTicket>(this.Functions.CheckTicket); return call(this.ObjectAddress, steamId, a, b, c); }
 
 	}
 	
@@ -9535,80 +9520,80 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateLobby(IntPtr thisobj, ELobbyType arg1, Int32 arg2);
 		public Int32 CreateLobby(ELobbyType arg1, Int32 arg2) { var call = this.GetFunction<NativeCreateLobby>(this.Functions.CreateLobby); return call(this.ObjectAddress, arg1, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeJoinLobby(IntPtr thisobj, CSteamID arg1);
-		public Int32 JoinLobby(CSteamID arg1) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); return call(this.ObjectAddress, arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeJoinLobby(IntPtr thisobj, UInt64 arg1);
+		public Int32 JoinLobby(UInt64 arg1) { var call = this.GetFunction<NativeJoinLobby>(this.Functions.JoinLobby); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLeaveLobby(IntPtr thisobj, CSteamID arg1);
-		public Int32 LeaveLobby(CSteamID arg1) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); return call(this.ObjectAddress, arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLeaveLobby(IntPtr thisobj, UInt64 arg1);
+		public Int32 LeaveLobby(UInt64 arg1) { var call = this.GetFunction<NativeLeaveLobby>(this.Functions.LeaveLobby); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInviteUserToLobby(IntPtr thisobj, CSteamID arg1, CSteamID arg2);
-		public Int32 InviteUserToLobby(CSteamID arg1, CSteamID arg2) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInviteUserToLobby(IntPtr thisobj, UInt64 arg1, UInt64 arg2);
+		public Int32 InviteUserToLobby(UInt64 arg1, UInt64 arg2) { var call = this.GetFunction<NativeInviteUserToLobby>(this.Functions.InviteUserToLobby); return call(this.ObjectAddress, arg1, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, CSteamID arg1);
-		public Int32 GetNumLobbyMembers(CSteamID arg1) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumLobbyMembers(IntPtr thisobj, UInt64 arg1);
+		public Int32 GetNumLobbyMembers(UInt64 arg1) { var call = this.GetFunction<NativeGetNumLobbyMembers>(this.Functions.GetNumLobbyMembers); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberByIndex(IntPtr thisobj, CSteamID arg1, Int32 arg2);
-		public Int32 GetLobbyMemberByIndex(CSteamID arg1, Int32 arg2) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberByIndex(IntPtr thisobj, UInt64 arg1, Int32 arg2);
+		public Int32 GetLobbyMemberByIndex(UInt64 arg1, Int32 arg2) { var call = this.GetFunction<NativeGetLobbyMemberByIndex>(this.Functions.GetLobbyMemberByIndex); return call(this.ObjectAddress, arg1, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyData(IntPtr thisobj, CSteamID arg1, string arg2);
-		public Int32 GetLobbyData(CSteamID arg1, string arg2) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyData(IntPtr thisobj, UInt64 arg1, string arg2);
+		public Int32 GetLobbyData(UInt64 arg1, string arg2) { var call = this.GetFunction<NativeGetLobbyData>(this.Functions.GetLobbyData); return call(this.ObjectAddress, arg1, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyData(IntPtr thisobj, CSteamID arg1, string arg2, string arg3);
-		public Int32 SetLobbyData(CSteamID arg1, string arg2, string arg3) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, arg1, arg2, arg3); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyData(IntPtr thisobj, UInt64 arg1, string arg2, string arg3);
+		public Int32 SetLobbyData(UInt64 arg1, string arg2, string arg3) { var call = this.GetFunction<NativeSetLobbyData>(this.Functions.SetLobbyData); return call(this.ObjectAddress, arg1, arg2, arg3); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyDataCount(IntPtr thisobj, CSteamID arg1);
-		public Int32 GetLobbyDataCount(CSteamID arg1) { var call = this.GetFunction<NativeGetLobbyDataCount>(this.Functions.GetLobbyDataCount); return call(this.ObjectAddress, arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyDataCount(IntPtr thisobj, UInt64 arg1);
+		public Int32 GetLobbyDataCount(UInt64 arg1) { var call = this.GetFunction<NativeGetLobbyDataCount>(this.Functions.GetLobbyDataCount); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyDataByIndex(IntPtr thisobj, CSteamID arg1, Int32 arg2, string arg3, Int32 arg4, string arg5, Int32 arg6);
-		public Int32 GetLobbyDataByIndex(CSteamID arg1, Int32 arg2, string arg3, Int32 arg4, string arg5, Int32 arg6) { var call = this.GetFunction<NativeGetLobbyDataByIndex>(this.Functions.GetLobbyDataByIndex); return call(this.ObjectAddress, arg1, arg2, arg3, arg4, arg5, arg6); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyDataByIndex(IntPtr thisobj, UInt64 arg1, Int32 arg2, string arg3, Int32 arg4, string arg5, Int32 arg6);
+		public Int32 GetLobbyDataByIndex(UInt64 arg1, Int32 arg2, string arg3, Int32 arg4, string arg5, Int32 arg6) { var call = this.GetFunction<NativeGetLobbyDataByIndex>(this.Functions.GetLobbyDataByIndex); return call(this.ObjectAddress, arg1, arg2, arg3, arg4, arg5, arg6); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeDeleteLobbyData(IntPtr thisobj, CSteamID arg1, string arg2);
-		public Int32 DeleteLobbyData(CSteamID arg1, string arg2) { var call = this.GetFunction<NativeDeleteLobbyData>(this.Functions.DeleteLobbyData); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeDeleteLobbyData(IntPtr thisobj, UInt64 arg1, string arg2);
+		public Int32 DeleteLobbyData(UInt64 arg1, string arg2) { var call = this.GetFunction<NativeDeleteLobbyData>(this.Functions.DeleteLobbyData); return call(this.ObjectAddress, arg1, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberData(IntPtr thisobj, CSteamID arg1, CSteamID arg2, string arg3);
-		public Int32 GetLobbyMemberData(CSteamID arg1, CSteamID arg2, string arg3) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, arg1, arg2, arg3); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberData(IntPtr thisobj, UInt64 arg1, UInt64 arg2, string arg3);
+		public Int32 GetLobbyMemberData(UInt64 arg1, UInt64 arg2, string arg3) { var call = this.GetFunction<NativeGetLobbyMemberData>(this.Functions.GetLobbyMemberData); return call(this.ObjectAddress, arg1, arg2, arg3); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyMemberData(IntPtr thisobj, CSteamID arg1, string arg2, string arg3);
-		public Int32 SetLobbyMemberData(CSteamID arg1, string arg2, string arg3) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); return call(this.ObjectAddress, arg1, arg2, arg3); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyMemberData(IntPtr thisobj, UInt64 arg1, string arg2, string arg3);
+		public Int32 SetLobbyMemberData(UInt64 arg1, string arg2, string arg3) { var call = this.GetFunction<NativeSetLobbyMemberData>(this.Functions.SetLobbyMemberData); return call(this.ObjectAddress, arg1, arg2, arg3); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSendLobbyChatMsg(IntPtr thisobj, CSteamID arg1, IntPtr arg2, Int32 arg3);
-		public Int32 SendLobbyChatMsg(CSteamID arg1, IntPtr arg2, Int32 arg3) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, arg1, arg2, arg3); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSendLobbyChatMsg(IntPtr thisobj, UInt64 arg1, IntPtr arg2, Int32 arg3);
+		public Int32 SendLobbyChatMsg(UInt64 arg1, IntPtr arg2, Int32 arg3) { var call = this.GetFunction<NativeSendLobbyChatMsg>(this.Functions.SendLobbyChatMsg); return call(this.ObjectAddress, arg1, arg2, arg3); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, CSteamID arg1, Int32 arg2, ref CSteamID arg3, IntPtr arg4, Int32 arg5, ref EChatEntryType arg6);
-		public Int32 GetLobbyChatEntry(CSteamID arg1, Int32 arg2, ref CSteamID arg3, IntPtr arg4, Int32 arg5, ref EChatEntryType arg6) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, arg1, arg2, ref arg3, arg4, arg5, ref arg6); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyChatEntry(IntPtr thisobj, UInt64 arg1, Int32 arg2, ref UInt64 arg3, IntPtr arg4, Int32 arg5, ref EChatEntryType arg6);
+		public Int32 GetLobbyChatEntry(UInt64 arg1, Int32 arg2, ref UInt64 arg3, IntPtr arg4, Int32 arg5, ref EChatEntryType arg6) { var call = this.GetFunction<NativeGetLobbyChatEntry>(this.Functions.GetLobbyChatEntry); return call(this.ObjectAddress, arg1, arg2, ref arg3, arg4, arg5, ref arg6); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestLobbyData(IntPtr thisobj, CSteamID arg1);
-		public Int32 RequestLobbyData(CSteamID arg1) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestLobbyData(IntPtr thisobj, UInt64 arg1);
+		public Int32 RequestLobbyData(UInt64 arg1) { var call = this.GetFunction<NativeRequestLobbyData>(this.Functions.RequestLobbyData); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyGameServer(IntPtr thisobj, CSteamID arg1, UInt32 arg2, UInt16 arg3, CSteamID arg4);
-		public Int32 SetLobbyGameServer(CSteamID arg1, UInt32 arg2, UInt16 arg3, CSteamID arg4) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); return call(this.ObjectAddress, arg1, arg2, arg3, arg4); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyGameServer(IntPtr thisobj, UInt64 arg1, UInt32 arg2, UInt16 arg3, UInt64 arg4);
+		public Int32 SetLobbyGameServer(UInt64 arg1, UInt32 arg2, UInt16 arg3, UInt64 arg4) { var call = this.GetFunction<NativeSetLobbyGameServer>(this.Functions.SetLobbyGameServer); return call(this.ObjectAddress, arg1, arg2, arg3, arg4); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyGameServer(IntPtr thisobj, CSteamID arg1, ref UInt32 arg2, ref UInt16 arg3, ref CSteamID arg4);
-		public Int32 GetLobbyGameServer(CSteamID arg1, ref UInt32 arg2, ref UInt16 arg3, ref CSteamID arg4) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, arg1, ref arg2, ref arg3, ref arg4); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyGameServer(IntPtr thisobj, UInt64 arg1, ref UInt32 arg2, ref UInt16 arg3, ref UInt64 arg4);
+		public Int32 GetLobbyGameServer(UInt64 arg1, ref UInt32 arg2, ref UInt16 arg3, ref UInt64 arg4) { var call = this.GetFunction<NativeGetLobbyGameServer>(this.Functions.GetLobbyGameServer); return call(this.ObjectAddress, arg1, ref arg2, ref arg3, ref arg4); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyMemberLimit(IntPtr thisobj, CSteamID arg1, Int32 arg2);
-		public Int32 SetLobbyMemberLimit(CSteamID arg1, Int32 arg2) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyMemberLimit(IntPtr thisobj, UInt64 arg1, Int32 arg2);
+		public Int32 SetLobbyMemberLimit(UInt64 arg1, Int32 arg2) { var call = this.GetFunction<NativeSetLobbyMemberLimit>(this.Functions.SetLobbyMemberLimit); return call(this.ObjectAddress, arg1, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, CSteamID arg1);
-		public Int32 GetLobbyMemberLimit(CSteamID arg1) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyMemberLimit(IntPtr thisobj, UInt64 arg1);
+		public Int32 GetLobbyMemberLimit(UInt64 arg1) { var call = this.GetFunction<NativeGetLobbyMemberLimit>(this.Functions.GetLobbyMemberLimit); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyVoiceEnabled(IntPtr thisobj, CSteamID arg1, [MarshalAs(UnmanagedType.I1)] bool arg2);
-		public Int32 SetLobbyVoiceEnabled(CSteamID arg1, [MarshalAs(UnmanagedType.I1)] bool arg2) { var call = this.GetFunction<NativeSetLobbyVoiceEnabled>(this.Functions.SetLobbyVoiceEnabled); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyVoiceEnabled(IntPtr thisobj, UInt64 arg1, [MarshalAs(UnmanagedType.I1)] bool arg2);
+		public Int32 SetLobbyVoiceEnabled(UInt64 arg1, [MarshalAs(UnmanagedType.I1)] bool arg2) { var call = this.GetFunction<NativeSetLobbyVoiceEnabled>(this.Functions.SetLobbyVoiceEnabled); return call(this.ObjectAddress, arg1, arg2); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestFriendsLobbies(IntPtr thisobj);
 		public Int32 RequestFriendsLobbies() { var call = this.GetFunction<NativeRequestFriendsLobbies>(this.Functions.RequestFriendsLobbies); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyType(IntPtr thisobj, CSteamID arg1, ELobbyType arg2);
-		public Int32 SetLobbyType(CSteamID arg1, ELobbyType arg2) { var call = this.GetFunction<NativeSetLobbyType>(this.Functions.SetLobbyType); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyType(IntPtr thisobj, UInt64 arg1, ELobbyType arg2);
+		public Int32 SetLobbyType(UInt64 arg1, ELobbyType arg2) { var call = this.GetFunction<NativeSetLobbyType>(this.Functions.SetLobbyType); return call(this.ObjectAddress, arg1, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyJoinable(IntPtr thisobj, CSteamID arg1, [MarshalAs(UnmanagedType.I1)] bool arg2);
-		public Int32 SetLobbyJoinable(CSteamID arg1, [MarshalAs(UnmanagedType.I1)] bool arg2) { var call = this.GetFunction<NativeSetLobbyJoinable>(this.Functions.SetLobbyJoinable); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyJoinable(IntPtr thisobj, UInt64 arg1, [MarshalAs(UnmanagedType.I1)] bool arg2);
+		public Int32 SetLobbyJoinable(UInt64 arg1, [MarshalAs(UnmanagedType.I1)] bool arg2) { var call = this.GetFunction<NativeSetLobbyJoinable>(this.Functions.SetLobbyJoinable); return call(this.ObjectAddress, arg1, arg2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyOwner(IntPtr thisobj, CSteamID arg1);
-		public Int32 GetLobbyOwner(CSteamID arg1) { var call = this.GetFunction<NativeGetLobbyOwner>(this.Functions.GetLobbyOwner); return call(this.ObjectAddress, arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyOwner(IntPtr thisobj, UInt64 arg1);
+		public Int32 GetLobbyOwner(UInt64 arg1) { var call = this.GetFunction<NativeGetLobbyOwner>(this.Functions.GetLobbyOwner); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyOwner(IntPtr thisobj, CSteamID arg1, CSteamID arg2);
-		public Int32 SetLobbyOwner(CSteamID arg1, CSteamID arg2) { var call = this.GetFunction<NativeSetLobbyOwner>(this.Functions.SetLobbyOwner); return call(this.ObjectAddress, arg1, arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyOwner(IntPtr thisobj, UInt64 arg1, UInt64 arg2);
+		public Int32 SetLobbyOwner(UInt64 arg1, UInt64 arg2) { var call = this.GetFunction<NativeSetLobbyOwner>(this.Functions.SetLobbyOwner); return call(this.ObjectAddress, arg1, arg2); }
 
 	}
 	
@@ -10122,8 +10107,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetCardInfo(IntPtr thisobj, UInt32 nCardIndex, ref Int32 peCreditCardType, string pchCardNumber, string pchCardHolderFirstName, string pchCardHolderLastName, string pchCardExpYear, string pchCardExpMonth, string pchCardCVV2);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetCardInfo(UInt32 nCardIndex, ref Int32 peCreditCardType, string pchCardNumber, string pchCardHolderFirstName, string pchCardHolderLastName, string pchCardExpYear, string pchCardExpMonth, string pchCardCVV2) { var call = this.GetFunction<NativeGetCardInfo>(this.Functions.GetCardInfo); return call(this.ObjectAddress, nCardIndex, ref peCreditCardType, pchCardNumber, pchCardHolderFirstName, pchCardHolderLastName, pchCardExpYear, pchCardExpMonth, pchCardCVV2); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetGiftInfo(IntPtr thisobj, string pchEmailGiftee, CSteamID steamIDGiftee, string pchGifteeName, string pchGiftMessage, string pchSentiment, string pchGiverSignature);
-		public UInt32 SetGiftInfo(string pchEmailGiftee, CSteamID steamIDGiftee, string pchGifteeName, string pchGiftMessage, string pchSentiment, string pchGiverSignature) { var call = this.GetFunction<NativeSetGiftInfo>(this.Functions.SetGiftInfo); return call(this.ObjectAddress, pchEmailGiftee, steamIDGiftee, pchGifteeName, pchGiftMessage, pchSentiment, pchGiverSignature); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetGiftInfo(IntPtr thisobj, string pchEmailGiftee, UInt64 steamIDGiftee, string pchGifteeName, string pchGiftMessage, string pchSentiment, string pchGiverSignature);
+		public UInt32 SetGiftInfo(string pchEmailGiftee, UInt64 steamIDGiftee, string pchGifteeName, string pchGiftMessage, string pchSentiment, string pchGiverSignature) { var call = this.GetFunction<NativeSetGiftInfo>(this.Functions.SetGiftInfo); return call(this.ObjectAddress, pchEmailGiftee, steamIDGiftee, pchGifteeName, pchGiftMessage, pchSentiment, pchGiverSignature); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicensePackageID(IntPtr thisobj, UInt32 nLicenseIndex);
 		public UInt32 GetLicensePackageID(UInt32 nLicenseIndex) { var call = this.GetFunction<NativeGetLicensePackageID>(this.Functions.GetLicensePackageID); return call(this.ObjectAddress, nLicenseIndex); }
@@ -10290,8 +10275,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetAutoGeneratePerTorrentSteamIDs(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool arg1);
 		public Int32 SetAutoGeneratePerTorrentSteamIDs([MarshalAs(UnmanagedType.I1)] bool arg1) { var call = this.GetFunction<NativeSetAutoGeneratePerTorrentSteamIDs>(this.Functions.SetAutoGeneratePerTorrentSteamIDs); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLoadVST(IntPtr thisobj, ref CSteamID arg1, string arg2, ref UInt32 arg3);
-		public Int32 LoadVST(ref CSteamID arg1, string arg2, ref UInt32 arg3) { var call = this.GetFunction<NativeLoadVST>(this.Functions.LoadVST); return call(this.ObjectAddress, ref arg1, arg2, ref arg3); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLoadVST(IntPtr thisobj, ref UInt64 arg1, string arg2, ref UInt32 arg3);
+		public Int32 LoadVST(ref UInt64 arg1, string arg2, ref UInt32 arg3) { var call = this.GetFunction<NativeLoadVST>(this.Functions.LoadVST); return call(this.ObjectAddress, ref arg1, arg2, ref arg3); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetActiveHandleCount(IntPtr thisobj);
 		public Int32 GetActiveHandleCount() { var call = this.GetFunction<NativeGetActiveHandleCount>(this.Functions.GetActiveHandleCount); return call(this.ObjectAddress); }
@@ -10666,8 +10651,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser(IntPtr thisobj);
 		public Int32 GetHSteamUser() { var call = this.GetFunction<NativeGetHSteamUser>(this.Functions.GetHSteamUser); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, CSteamID steamID);
-		public void LogOn(CSteamID steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, UInt64 steamID);
+		public void LogOn(UInt64 steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOff(IntPtr thisobj);
 		public void LogOff() { var call = this.GetFunction<NativeLogOff>(this.Functions.LogOff); call(this.ObjectAddress); }
@@ -10681,8 +10666,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeConnected(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Connected() { var call = this.GetFunction<NativeConnected>(this.Functions.Connected); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsVACBanned(IntPtr thisobj, EVACBan eVACBan);
 		[return: MarshalAs(UnmanagedType.I1)] public bool IsVACBanned(EVACBan eVACBan) { var call = this.GetFunction<NativeIsVACBanned>(this.Functions.IsVACBanned); return call(this.ObjectAddress, eVACBan); }
@@ -10714,8 +10699,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetRegistryInt(IntPtr thisobj, ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetRegistryInt(ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue) { var call = this.GetFunction<NativeGetRegistryInt>(this.Functions.GetRegistryInt); return call(this.ObjectAddress, eRegistrySubTree, pchKey, ref piValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
-		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, nGameAppID, unIPServer, usPortServer, bSecure); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
+		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, nGameAppID, unIPServer, usPortServer, bSecure); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -10801,23 +10786,23 @@ namespace Steam4NET
 	
 	public class ISteamGameServerItems002 : NativeWrapper<ISteamGameServerItems002VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeLoadItems(IntPtr thisobj, CSteamID steamid);
-		public UInt64 LoadItems(CSteamID steamid) { var call = this.GetFunction<NativeLoadItems>(this.Functions.LoadItems); return call(this.ObjectAddress, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeLoadItems(IntPtr thisobj, UInt64 steamid);
+		public UInt64 LoadItems(UInt64 steamid) { var call = this.GetFunction<NativeLoadItems>(this.Functions.LoadItems); return call(this.ObjectAddress, steamid); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetItemCount(IntPtr thisobj, CSteamID steamid);
-		public UInt64 GetItemCount(CSteamID steamid) { var call = this.GetFunction<NativeGetItemCount>(this.Functions.GetItemCount); return call(this.ObjectAddress, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetItemCount(IntPtr thisobj, UInt64 steamid);
+		public UInt64 GetItemCount(UInt64 steamid) { var call = this.GetFunction<NativeGetItemCount>(this.Functions.GetItemCount); return call(this.ObjectAddress, steamid); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemIterative(IntPtr thisobj, CSteamID steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemIterative(CSteamID steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity) { var call = this.GetFunction<NativeGetItemIterative>(this.Functions.GetItemIterative); return call(this.ObjectAddress, steamid, i, ref UniqueID, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemIterative(IntPtr thisobj, UInt64 steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemIterative(UInt64 steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity) { var call = this.GetFunction<NativeGetItemIterative>(this.Functions.GetItemIterative); return call(this.ObjectAddress, steamid, i, ref UniqueID, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemByID(IntPtr thisobj, UInt64 itemid, ref CSteamID steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemByID(UInt64 itemid, ref CSteamID steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity) { var call = this.GetFunction<NativeGetItemByID>(this.Functions.GetItemByID); return call(this.ObjectAddress, itemid, ref steamid, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemByID(IntPtr thisobj, UInt64 itemid, ref UInt64 steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemByID(UInt64 itemid, ref UInt64 steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity) { var call = this.GetFunction<NativeGetItemByID>(this.Functions.GetItemByID); return call(this.ObjectAddress, itemid, ref steamid, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemAttribute(IntPtr thisobj, UInt64 itemid, UInt32 arg2, ref UInt32 arg3, ref float arg4);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemAttribute(UInt64 itemid, UInt32 arg2, ref UInt32 arg3, ref float arg4) { var call = this.GetFunction<NativeGetItemAttribute>(this.Functions.GetItemAttribute); return call(this.ObjectAddress, itemid, arg2, ref arg3, ref arg4); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateNewItemRequest(IntPtr thisobj, CSteamID steamid, UInt32 arg2, EItemQuality quality);
-		public Int32 CreateNewItemRequest(CSteamID steamid, UInt32 arg2, EItemQuality quality) { var call = this.GetFunction<NativeCreateNewItemRequest>(this.Functions.CreateNewItemRequest); return call(this.ObjectAddress, steamid, arg2, quality); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateNewItemRequest(IntPtr thisobj, UInt64 steamid, UInt32 arg2, EItemQuality quality);
+		public Int32 CreateNewItemRequest(UInt64 steamid, UInt32 arg2, EItemQuality quality) { var call = this.GetFunction<NativeCreateNewItemRequest>(this.Functions.CreateNewItemRequest); return call(this.ObjectAddress, steamid, arg2, quality); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddNewItemCriteria(IntPtr thisobj, Int32 ireq, string arg2, EItemCriteriaOperator arg3, string arg4, [MarshalAs(UnmanagedType.I1)] bool arg5);
 		[return: MarshalAs(UnmanagedType.I1)] public bool AddNewItemCriteria(Int32 ireq, string arg2, EItemCriteriaOperator arg3, string arg4, [MarshalAs(UnmanagedType.I1)] bool arg5) { var call = this.GetFunction<NativeAddNewItemCriteria>(this.Functions.AddNewItemCriteria); return call(this.ObjectAddress, ireq, arg2, arg3, arg4, arg5); }
@@ -10828,8 +10813,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSendNewItemRequest(IntPtr thisobj, Int32 ireq);
 		public UInt64 SendNewItemRequest(Int32 ireq) { var call = this.GetFunction<NativeSendNewItemRequest>(this.Functions.SendNewItemRequest); return call(this.ObjectAddress, ireq); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGrantItemToUser(IntPtr thisobj, UInt64 item, CSteamID steamid);
-		public UInt64 GrantItemToUser(UInt64 item, CSteamID steamid) { var call = this.GetFunction<NativeGrantItemToUser>(this.Functions.GrantItemToUser); return call(this.ObjectAddress, item, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGrantItemToUser(IntPtr thisobj, UInt64 item, UInt64 steamid);
+		public UInt64 GrantItemToUser(UInt64 item, UInt64 steamid) { var call = this.GetFunction<NativeGrantItemToUser>(this.Functions.GrantItemToUser); return call(this.ObjectAddress, item, steamid); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeleteTemporaryItem(IntPtr thisobj, UInt64 item);
 		public UInt64 DeleteTemporaryItem(UInt64 item) { var call = this.GetFunction<NativeDeleteTemporaryItem>(this.Functions.DeleteTemporaryItem); return call(this.ObjectAddress, item); }
@@ -10865,23 +10850,23 @@ namespace Steam4NET
 	
 	public class ISteamGameServerItems003 : NativeWrapper<ISteamGameServerItems003VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeLoadItems(IntPtr thisobj, CSteamID steamid);
-		public UInt64 LoadItems(CSteamID steamid) { var call = this.GetFunction<NativeLoadItems>(this.Functions.LoadItems); return call(this.ObjectAddress, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeLoadItems(IntPtr thisobj, UInt64 steamid);
+		public UInt64 LoadItems(UInt64 steamid) { var call = this.GetFunction<NativeLoadItems>(this.Functions.LoadItems); return call(this.ObjectAddress, steamid); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetItemCount(IntPtr thisobj, CSteamID steamid);
-		public UInt64 GetItemCount(CSteamID steamid) { var call = this.GetFunction<NativeGetItemCount>(this.Functions.GetItemCount); return call(this.ObjectAddress, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetItemCount(IntPtr thisobj, UInt64 steamid);
+		public UInt64 GetItemCount(UInt64 steamid) { var call = this.GetFunction<NativeGetItemCount>(this.Functions.GetItemCount); return call(this.ObjectAddress, steamid); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemIterative(IntPtr thisobj, CSteamID steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemIterative(CSteamID steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute) { var call = this.GetFunction<NativeGetItemIterative>(this.Functions.GetItemIterative); return call(this.ObjectAddress, steamid, i, ref UniqueID, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity, ref NbOfAttribute); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemIterative(IntPtr thisobj, UInt64 steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemIterative(UInt64 steamid, UInt32 i, ref UInt64 UniqueID, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute) { var call = this.GetFunction<NativeGetItemIterative>(this.Functions.GetItemIterative); return call(this.ObjectAddress, steamid, i, ref UniqueID, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity, ref NbOfAttribute); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemByID(IntPtr thisobj, UInt64 itemid, ref CSteamID steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemByID(UInt64 itemid, ref CSteamID steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute) { var call = this.GetFunction<NativeGetItemByID>(this.Functions.GetItemByID); return call(this.ObjectAddress, itemid, ref steamid, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity, ref NbOfAttribute); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemByID(IntPtr thisobj, UInt64 itemid, ref UInt64 steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemByID(UInt64 itemid, ref UInt64 steamid, ref UInt32 ItemType, ref UInt32 ItemLevel, ref EItemQuality Quality, ref UInt32 Flags, ref UInt32 Quantity, ref UInt32 NbOfAttribute) { var call = this.GetFunction<NativeGetItemByID>(this.Functions.GetItemByID); return call(this.ObjectAddress, itemid, ref steamid, ref ItemType, ref ItemLevel, ref Quality, ref Flags, ref Quantity, ref NbOfAttribute); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetItemAttribute(IntPtr thisobj, UInt64 itemid, UInt32 arg2, ref UInt32 arg3, ref float arg4);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetItemAttribute(UInt64 itemid, UInt32 arg2, ref UInt32 arg3, ref float arg4) { var call = this.GetFunction<NativeGetItemAttribute>(this.Functions.GetItemAttribute); return call(this.ObjectAddress, itemid, arg2, ref arg3, ref arg4); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateNewItemRequest(IntPtr thisobj, CSteamID steamid);
-		public Int32 CreateNewItemRequest(CSteamID steamid) { var call = this.GetFunction<NativeCreateNewItemRequest>(this.Functions.CreateNewItemRequest); return call(this.ObjectAddress, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateNewItemRequest(IntPtr thisobj, UInt64 steamid);
+		public Int32 CreateNewItemRequest(UInt64 steamid) { var call = this.GetFunction<NativeCreateNewItemRequest>(this.Functions.CreateNewItemRequest); return call(this.ObjectAddress, steamid); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddNewItemLevel(IntPtr thisobj, Int32 ireq, UInt32 level);
 		[return: MarshalAs(UnmanagedType.I1)] public bool AddNewItemLevel(Int32 ireq, UInt32 level) { var call = this.GetFunction<NativeAddNewItemLevel>(this.Functions.AddNewItemLevel); return call(this.ObjectAddress, ireq, level); }
@@ -10904,8 +10889,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSendNewItemRequest(IntPtr thisobj, Int32 ireq);
 		public UInt64 SendNewItemRequest(Int32 ireq) { var call = this.GetFunction<NativeSendNewItemRequest>(this.Functions.SendNewItemRequest); return call(this.ObjectAddress, ireq); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGrantItemToUser(IntPtr thisobj, UInt64 item, CSteamID steamid);
-		public UInt64 GrantItemToUser(UInt64 item, CSteamID steamid) { var call = this.GetFunction<NativeGrantItemToUser>(this.Functions.GrantItemToUser); return call(this.ObjectAddress, item, steamid); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGrantItemToUser(IntPtr thisobj, UInt64 item, UInt64 steamid);
+		public UInt64 GrantItemToUser(UInt64 item, UInt64 steamid) { var call = this.GetFunction<NativeGrantItemToUser>(this.Functions.GrantItemToUser); return call(this.ObjectAddress, item, steamid); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeleteTemporaryItem(IntPtr thisobj, UInt64 item);
 		public UInt64 DeleteTemporaryItem(UInt64 item) { var call = this.GetFunction<NativeDeleteTemporaryItem>(this.Functions.DeleteTemporaryItem); return call(this.ObjectAddress, item); }
@@ -11027,8 +11012,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser(IntPtr thisobj);
 		public Int32 GetHSteamUser() { var call = this.GetFunction<NativeGetHSteamUser>(this.Functions.GetHSteamUser); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, CSteamID steamID);
-		public void LogOn(CSteamID steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, UInt64 steamID);
+		public void LogOn(UInt64 steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOff(IntPtr thisobj);
 		public void LogOff() { var call = this.GetFunction<NativeLogOff>(this.Functions.LogOff); call(this.ObjectAddress); }
@@ -11042,8 +11027,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeConnected(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Connected() { var call = this.GetFunction<NativeConnected>(this.Functions.Connected); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsVACBanned(IntPtr thisobj, EVACBan eVACBan);
 		[return: MarshalAs(UnmanagedType.I1)] public bool IsVACBanned(EVACBan eVACBan) { var call = this.GetFunction<NativeIsVACBanned>(this.Functions.IsVACBanned); return call(this.ObjectAddress, eVACBan); }
@@ -11087,8 +11072,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetRegistryInt(IntPtr thisobj, ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetRegistryInt(ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue) { var call = this.GetFunction<NativeGetRegistryInt>(this.Functions.GetRegistryInt); return call(this.ObjectAddress, eRegistrySubTree, pchKey, ref piValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, Int32 nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
-		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, Int32 nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, nGameAppID, unIPServer, usPortServer, bSecure); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, Int32 nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
+		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, Int32 nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, nGameAppID, unIPServer, usPortServer, bSecure); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -11126,8 +11111,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser(IntPtr thisobj);
 		public Int32 GetHSteamUser() { var call = this.GetFunction<NativeGetHSteamUser>(this.Functions.GetHSteamUser); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, CSteamID steamID);
-		public void LogOn(CSteamID steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, UInt64 steamID);
+		public void LogOn(UInt64 steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOff(IntPtr thisobj);
 		public void LogOff() { var call = this.GetFunction<NativeLogOff>(this.Functions.LogOff); call(this.ObjectAddress); }
@@ -11135,8 +11120,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetRegistryString(IntPtr thisobj, ERegistrySubTree eRegistrySubTree, string pchKey, string pchValue);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetRegistryString(ERegistrySubTree eRegistrySubTree, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetRegistryString>(this.Functions.SetRegistryString); return call(this.ObjectAddress, eRegistrySubTree, pchKey, pchValue); }
@@ -11150,8 +11135,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetRegistryInt(IntPtr thisobj, ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetRegistryInt(ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue) { var call = this.GetFunction<NativeGetRegistryInt>(this.Functions.GetRegistryInt); return call(this.ObjectAddress, eRegistrySubTree, pchKey, ref piValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
-		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, nGameAppID, unIPServer, usPortServer, bSecure); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
+		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, nGameAppID, unIPServer, usPortServer, bSecure); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -11184,8 +11169,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser(IntPtr thisobj);
 		public Int32 GetHSteamUser() { var call = this.GetFunction<NativeGetHSteamUser>(this.Functions.GetHSteamUser); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, CSteamID steamID);
-		public void LogOn(CSteamID steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn(IntPtr thisobj, UInt64 steamID);
+		public void LogOn(UInt64 steamID) { var call = this.GetFunction<NativeLogOn>(this.Functions.LogOn); call(this.ObjectAddress, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOff(IntPtr thisobj);
 		public void LogOff() { var call = this.GetFunction<NativeLogOff>(this.Functions.LogOff); call(this.ObjectAddress); }
@@ -11193,8 +11178,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetRegistryString(IntPtr thisobj, ERegistrySubTree eRegistrySubTree, string pchKey, string pchValue);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetRegistryString(ERegistrySubTree eRegistrySubTree, string pchKey, string pchValue) { var call = this.GetFunction<NativeSetRegistryString>(this.Functions.SetRegistryString); return call(this.ObjectAddress, eRegistrySubTree, pchKey, pchValue); }
@@ -11208,8 +11193,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetRegistryInt(IntPtr thisobj, ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetRegistryInt(ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue) { var call = this.GetFunction<NativeGetRegistryInt>(this.Functions.GetRegistryInt); return call(this.ObjectAddress, eRegistrySubTree, pchKey, ref piValue); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey);
-		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, nGameAppID, unIPServer, usPortServer, bSecure, pvSteam2GetEncryptionKey, cbSteam2GetEncryptionKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey);
+		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID nGameAppID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, nGameAppID, unIPServer, usPortServer, bSecure, pvSteam2GetEncryptionKey, cbSteam2GetEncryptionKey); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -11242,11 +11227,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey);
-		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, gameID, unIPServer, usPortServer, bSecure, pvSteam2GetEncryptionKey, cbSteam2GetEncryptionKey); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey);
+		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure, IntPtr pvSteam2GetEncryptionKey, Int32 cbSteam2GetEncryptionKey) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, gameID, unIPServer, usPortServer, bSecure, pvSteam2GetEncryptionKey, cbSteam2GetEncryptionKey); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -11279,11 +11264,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
-		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, gameID, unIPServer, usPortServer, bSecure); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
+		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, CGameID gameID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, gameID, unIPServer, usPortServer, bSecure); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -11315,11 +11300,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
-		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, CSteamID steamID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, unIPServer, usPortServer, bSecure); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
+		public Int32 InitiateGameConnection(IntPtr pBlob, Int32 cbMaxBlob, UInt64 steamID, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pBlob, cbMaxBlob, steamID, unIPServer, usPortServer, bSecure); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -11353,11 +11338,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pAuthBlob, Int32 cbMaxAuthBlob, CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
-		public Int32 InitiateGameConnection(IntPtr pAuthBlob, Int32 cbMaxAuthBlob, CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pAuthBlob, cbMaxAuthBlob, steamIDGameServer, unIPServer, usPortServer, bSecure); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pAuthBlob, Int32 cbMaxAuthBlob, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
+		public Int32 InitiateGameConnection(IntPtr pAuthBlob, Int32 cbMaxAuthBlob, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pAuthBlob, cbMaxAuthBlob, steamIDGameServer, unIPServer, usPortServer, bSecure); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -11412,11 +11397,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool LoggedOn() { var call = this.GetFunction<NativeLoggedOn>(this.Functions.LoggedOn); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pAuthBlob, Int32 cbMaxAuthBlob, CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
-		public Int32 InitiateGameConnection(IntPtr pAuthBlob, Int32 cbMaxAuthBlob, CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pAuthBlob, cbMaxAuthBlob, steamIDGameServer, unIPServer, usPortServer, bSecure); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitiateGameConnection(IntPtr thisobj, IntPtr pAuthBlob, Int32 cbMaxAuthBlob, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure);
+		public Int32 InitiateGameConnection(IntPtr pAuthBlob, Int32 cbMaxAuthBlob, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer, [MarshalAs(UnmanagedType.I1)] bool bSecure) { var call = this.GetFunction<NativeInitiateGameConnection>(this.Functions.InitiateGameConnection); return call(this.ObjectAddress, pAuthBlob, cbMaxAuthBlob, steamIDGameServer, unIPServer, usPortServer, bSecure); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTerminateGameConnection(IntPtr thisobj, UInt32 unIPServer, UInt16 usPortServer);
 		public void TerminateGameConnection(UInt32 unIPServer, UInt16 usPortServer) { var call = this.GetFunction<NativeTerminateGameConnection>(this.Functions.TerminateGameConnection); call(this.ObjectAddress, unIPServer, usPortServer); }
@@ -11445,17 +11430,17 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAuthSessionTicket(IntPtr thisobj, IntPtr pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket);
 		public UInt32 GetAuthSessionTicket(IntPtr pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket) { var call = this.GetFunction<NativeGetAuthSessionTicket>(this.Functions.GetAuthSessionTicket); return call(this.ObjectAddress, pTicket, cbMaxTicket, ref pcbTicket); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EBeginAuthSessionResult NativeBeginAuthSession(IntPtr thisobj, IntPtr pAuthTicket, Int32 cbAuthTicket, CSteamID steamID);
-		public EBeginAuthSessionResult BeginAuthSession(IntPtr pAuthTicket, Int32 cbAuthTicket, CSteamID steamID) { var call = this.GetFunction<NativeBeginAuthSession>(this.Functions.BeginAuthSession); return call(this.ObjectAddress, pAuthTicket, cbAuthTicket, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EBeginAuthSessionResult NativeBeginAuthSession(IntPtr thisobj, IntPtr pAuthTicket, Int32 cbAuthTicket, UInt64 steamID);
+		public EBeginAuthSessionResult BeginAuthSession(IntPtr pAuthTicket, Int32 cbAuthTicket, UInt64 steamID) { var call = this.GetFunction<NativeBeginAuthSession>(this.Functions.BeginAuthSession); return call(this.ObjectAddress, pAuthTicket, cbAuthTicket, steamID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEndAuthSession(IntPtr thisobj, CSteamID steamID);
-		public void EndAuthSession(CSteamID steamID) { var call = this.GetFunction<NativeEndAuthSession>(this.Functions.EndAuthSession); call(this.ObjectAddress, steamID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEndAuthSession(IntPtr thisobj, UInt64 steamID);
+		public void EndAuthSession(UInt64 steamID) { var call = this.GetFunction<NativeEndAuthSession>(this.Functions.EndAuthSession); call(this.ObjectAddress, steamID); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCancelAuthTicket(IntPtr thisobj, UInt32 hAuthTicket);
 		public void CancelAuthTicket(UInt32 hAuthTicket) { var call = this.GetFunction<NativeCancelAuthTicket>(this.Functions.CancelAuthTicket); call(this.ObjectAddress, hAuthTicket); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUserHasLicenseForApp(IntPtr thisobj, CSteamID steamID, UInt32 appID);
-		public UInt32 UserHasLicenseForApp(CSteamID steamID, UInt32 appID) { var call = this.GetFunction<NativeUserHasLicenseForApp>(this.Functions.UserHasLicenseForApp); return call(this.ObjectAddress, steamID, appID); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUserHasLicenseForApp(IntPtr thisobj, UInt64 steamID, UInt32 appID);
+		public UInt32 UserHasLicenseForApp(UInt64 steamID, UInt32 appID) { var call = this.GetFunction<NativeUserHasLicenseForApp>(this.Functions.UserHasLicenseForApp); return call(this.ObjectAddress, steamID, appID); }
 
 	}
 	
@@ -11644,20 +11629,20 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Secure() { var call = this.GetFunction<NativeSecure>(this.Functions.Secure); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
-		public CSteamID CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
+		public UInt64 CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, CSteamID steamIDUser);
-		public void SendUserDisconnect(CSteamID steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, UInt64 steamIDUser);
+		public void SendUserDisconnect(UInt64 steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, CSteamID steamIDUser, string pchPlayerName, UInt32 uScore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(CSteamID steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(UInt64 steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetServerType(IntPtr thisobj, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetServerType(UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode) { var call = this.GetFunction<NativeSetServerType>(this.Functions.SetServerType); return call(this.ObjectAddress, unServerFlags, unGameIP, unGamePort, unSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode); }
@@ -11671,8 +11656,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetGameType(IntPtr thisobj, string pchGameType);
 		public void SetGameType(string pchGameType) { var call = this.GetFunction<NativeSetGameType>(this.Functions.SetGameType); call(this.ObjectAddress, pchGameType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, CSteamID steamID, string pchAchievementName);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(CSteamID steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, UInt64 steamID, string pchAchievementName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(UInt64 steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetGameplayStats(IntPtr thisobj);
 		public void GetGameplayStats() { var call = this.GetFunction<NativeGetGameplayStats>(this.Functions.GetGameplayStats); call(this.ObjectAddress); }
@@ -11713,20 +11698,20 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Secure() { var call = this.GetFunction<NativeSecure>(this.Functions.Secure); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
-		public CSteamID CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
+		public UInt64 CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, CSteamID steamIDUser);
-		public void SendUserDisconnect(CSteamID steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, UInt64 steamIDUser);
+		public void SendUserDisconnect(UInt64 steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, CSteamID steamIDUser, string pchPlayerName, UInt32 uScore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(CSteamID steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(UInt64 steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetServerType(IntPtr thisobj, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetServerType(UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode) { var call = this.GetFunction<NativeSetServerType>(this.Functions.SetServerType); return call(this.ObjectAddress, unServerFlags, unGameIP, unGamePort, unSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode); }
@@ -11740,8 +11725,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetGameType(IntPtr thisobj, string pchGameType);
 		public void SetGameType(string pchGameType) { var call = this.GetFunction<NativeSetGameType>(this.Functions.SetGameType); call(this.ObjectAddress, pchGameType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, CSteamID steamID, string pchAchievementName);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(CSteamID steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, UInt64 steamID, string pchAchievementName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(UInt64 steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetGameplayStats(IntPtr thisobj);
 		public void GetGameplayStats() { var call = this.GetFunction<NativeGetGameplayStats>(this.Functions.GetGameplayStats); call(this.ObjectAddress); }
@@ -11783,20 +11768,20 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Secure() { var call = this.GetFunction<NativeSecure>(this.Functions.Secure); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
-		public CSteamID CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
+		public UInt64 CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, CSteamID steamIDUser);
-		public void SendUserDisconnect(CSteamID steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, UInt64 steamIDUser);
+		public void SendUserDisconnect(UInt64 steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, CSteamID steamIDUser, string pchPlayerName, UInt32 uScore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(CSteamID steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(UInt64 steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetServerType(IntPtr thisobj, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetServerType(UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode) { var call = this.GetFunction<NativeSetServerType>(this.Functions.SetServerType); return call(this.ObjectAddress, unServerFlags, unGameIP, unGamePort, unSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode); }
@@ -11810,14 +11795,14 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetGameType(IntPtr thisobj, string pchGameType);
 		public void SetGameType(string pchGameType) { var call = this.GetFunction<NativeSetGameType>(this.Functions.SetGameType); call(this.ObjectAddress, pchGameType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, CSteamID steamID, string pchAchievementName);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(CSteamID steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, UInt64 steamID, string pchAchievementName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(UInt64 steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetGameplayStats(IntPtr thisobj);
 		public void GetGameplayStats() { var call = this.GetFunction<NativeGetGameplayStats>(this.Functions.GetGameplayStats); call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatus(IntPtr thisobj, CSteamID steamIDUser, CSteamID steamIDGroup);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserGroupStatus(CSteamID steamIDUser, CSteamID steamIDGroup) { var call = this.GetFunction<NativeRequestUserGroupStatus>(this.Functions.RequestUserGroupStatus); return call(this.ObjectAddress, steamIDUser, steamIDGroup); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatus(IntPtr thisobj, UInt64 steamIDUser, UInt64 steamIDGroup);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserGroupStatus(UInt64 steamIDUser, UInt64 steamIDGroup) { var call = this.GetFunction<NativeRequestUserGroupStatus>(this.Functions.RequestUserGroupStatus); return call(this.ObjectAddress, steamIDUser, steamIDGroup); }
 
 	}
 	
@@ -11857,20 +11842,20 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure(IntPtr thisobj);
 		[return: MarshalAs(UnmanagedType.I1)] public bool Secure() { var call = this.GetFunction<NativeSecure>(this.Functions.Secure); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeGetSteamID(IntPtr thisobj);
-		public CSteamID GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetSteamID(IntPtr thisobj);
+		public UInt64 GetSteamID() { var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser);
-		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref CSteamID pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, IntPtr pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate CSteamID NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
-		public CSteamID CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateUnauthenticatedUserConnection(IntPtr thisobj);
+		public UInt64 CreateUnauthenticatedUserConnection() { var call = this.GetFunction<NativeCreateUnauthenticatedUserConnection>(this.Functions.CreateUnauthenticatedUserConnection); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, CSteamID steamIDUser);
-		public void SendUserDisconnect(CSteamID steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserDisconnect(IntPtr thisobj, UInt64 steamIDUser);
+		public void SendUserDisconnect(UInt64 steamIDUser) { var call = this.GetFunction<NativeSendUserDisconnect>(this.Functions.SendUserDisconnect); call(this.ObjectAddress, steamIDUser); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, CSteamID steamIDUser, string pchPlayerName, UInt32 uScore);
-		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(CSteamID steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserData(IntPtr thisobj, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore);
+		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserData(UInt64 steamIDUser, string pchPlayerName, UInt32 uScore) { var call = this.GetFunction<NativeUpdateUserData>(this.Functions.UpdateUserData); return call(this.ObjectAddress, steamIDUser, pchPlayerName, uScore); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetServerType(IntPtr thisobj, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetServerType(UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode) { var call = this.GetFunction<NativeSetServerType>(this.Functions.SetServerType); return call(this.ObjectAddress, unServerFlags, unGameIP, unGamePort, unSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode); }
@@ -11884,14 +11869,14 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetGameType(IntPtr thisobj, string pchGameType);
 		public void SetGameType(string pchGameType) { var call = this.GetFunction<NativeSetGameType>(this.Functions.SetGameType); call(this.ObjectAddress, pchGameType); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, CSteamID steamID, string pchAchievementName);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(CSteamID steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatus(IntPtr thisobj, UInt64 steamID, string pchAchievementName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievementStatus(UInt64 steamID, string pchAchievementName) { var call = this.GetFunction<NativeGetUserAchievementStatus>(this.Functions.GetUserAchievementStatus); return call(this.ObjectAddress, steamID, pchAchievementName); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetGameplayStats(IntPtr thisobj);
 		public void GetGameplayStats() { var call = this.GetFunction<NativeGetGameplayStats>(this.Functions.GetGameplayStats); call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatus(IntPtr thisobj, CSteamID steamIDUser, CSteamID steamIDGroup);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserGroupStatus(CSteamID steamIDUser, CSteamID steamIDGroup) { var call = this.GetFunction<NativeRequestUserGroupStatus>(this.Functions.RequestUserGroupStatus); return call(this.ObjectAddress, steamIDUser, steamIDGroup); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatus(IntPtr thisobj, UInt64 steamIDUser, UInt64 steamIDGroup);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestUserGroupStatus(UInt64 steamIDUser, UInt64 steamIDGroup) { var call = this.GetFunction<NativeRequestUserGroupStatus>(this.Functions.RequestUserGroupStatus); return call(this.ObjectAddress, steamIDUser, steamIDGroup); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetPublicIP(IntPtr thisobj);
 		public UInt32 GetPublicIP() { var call = this.GetFunction<NativeGetPublicIP>(this.Functions.GetPublicIP); return call(this.ObjectAddress); }
@@ -11925,29 +11910,29 @@ namespace Steam4NET
 	
 	public class ISteamNetworking003 : NativeWrapper<ISteamNetworking003VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSendP2PPacket(IntPtr thisobj, CSteamID arg1, IntPtr arg2, UInt32 arg3, UInt32 arg4);
-		public Int32 SendP2PPacket(CSteamID arg1, IntPtr arg2, UInt32 arg3, UInt32 arg4) { var call = this.GetFunction<NativeSendP2PPacket>(this.Functions.SendP2PPacket); return call(this.ObjectAddress, arg1, arg2, arg3, arg4); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSendP2PPacket(IntPtr thisobj, UInt64 arg1, IntPtr arg2, UInt32 arg3, UInt32 arg4);
+		public Int32 SendP2PPacket(UInt64 arg1, IntPtr arg2, UInt32 arg3, UInt32 arg4) { var call = this.GetFunction<NativeSendP2PPacket>(this.Functions.SendP2PPacket); return call(this.ObjectAddress, arg1, arg2, arg3, arg4); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsP2PPacketAvailable(IntPtr thisobj, ref UInt32 arg1);
 		public Int32 IsP2PPacketAvailable(ref UInt32 arg1) { var call = this.GetFunction<NativeIsP2PPacketAvailable>(this.Functions.IsP2PPacketAvailable); return call(this.ObjectAddress, ref arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeReadP2PPacket(IntPtr thisobj, IntPtr arg1, UInt32 arg2, ref UInt32 arg3, ref CSteamID arg4);
-		public Int32 ReadP2PPacket(IntPtr arg1, UInt32 arg2, ref UInt32 arg3, ref CSteamID arg4) { var call = this.GetFunction<NativeReadP2PPacket>(this.Functions.ReadP2PPacket); return call(this.ObjectAddress, arg1, arg2, ref arg3, ref arg4); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeReadP2PPacket(IntPtr thisobj, IntPtr arg1, UInt32 arg2, ref UInt32 arg3, ref UInt64 arg4);
+		public Int32 ReadP2PPacket(IntPtr arg1, UInt32 arg2, ref UInt32 arg3, ref UInt64 arg4) { var call = this.GetFunction<NativeReadP2PPacket>(this.Functions.ReadP2PPacket); return call(this.ObjectAddress, arg1, arg2, ref arg3, ref arg4); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAcceptP2PSessionWithUser(IntPtr thisobj, CSteamID arg1);
-		public Int32 AcceptP2PSessionWithUser(CSteamID arg1) { var call = this.GetFunction<NativeAcceptP2PSessionWithUser>(this.Functions.AcceptP2PSessionWithUser); return call(this.ObjectAddress, arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAcceptP2PSessionWithUser(IntPtr thisobj, UInt64 arg1);
+		public Int32 AcceptP2PSessionWithUser(UInt64 arg1) { var call = this.GetFunction<NativeAcceptP2PSessionWithUser>(this.Functions.AcceptP2PSessionWithUser); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseP2PSessionWithUser(IntPtr thisobj, CSteamID arg1);
-		public Int32 CloseP2PSessionWithUser(CSteamID arg1) { var call = this.GetFunction<NativeCloseP2PSessionWithUser>(this.Functions.CloseP2PSessionWithUser); return call(this.ObjectAddress, arg1); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseP2PSessionWithUser(IntPtr thisobj, UInt64 arg1);
+		public Int32 CloseP2PSessionWithUser(UInt64 arg1) { var call = this.GetFunction<NativeCloseP2PSessionWithUser>(this.Functions.CloseP2PSessionWithUser); return call(this.ObjectAddress, arg1); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetP2PSessionState(IntPtr thisobj, CSteamID arg1, ref UInt32 arg2);
-		public Int32 GetP2PSessionState(CSteamID arg1, ref UInt32 arg2) { var call = this.GetFunction<NativeGetP2PSessionState>(this.Functions.GetP2PSessionState); return call(this.ObjectAddress, arg1, ref arg2); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetP2PSessionState(IntPtr thisobj, UInt64 arg1, ref UInt32 arg2);
+		public Int32 GetP2PSessionState(UInt64 arg1, ref UInt32 arg2) { var call = this.GetFunction<NativeGetP2PSessionState>(this.Functions.GetP2PSessionState); return call(this.ObjectAddress, arg1, ref arg2); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateListenSocket(IntPtr thisobj, Int32 nVirtualP2PPort, UInt32 nIP, UInt16 nPort, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay);
 		public UInt32 CreateListenSocket(Int32 nVirtualP2PPort, UInt32 nIP, UInt16 nPort, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay) { var call = this.GetFunction<NativeCreateListenSocket>(this.Functions.CreateListenSocket); return call(this.ObjectAddress, nVirtualP2PPort, nIP, nPort, bAllowUseOfPacketRelay); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateP2PConnectionSocket(IntPtr thisobj, CSteamID steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay);
-		public UInt32 CreateP2PConnectionSocket(CSteamID steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay) { var call = this.GetFunction<NativeCreateP2PConnectionSocket>(this.Functions.CreateP2PConnectionSocket); return call(this.ObjectAddress, steamIDTarget, nVirtualPort, nTimeoutSec, bAllowUseOfPacketRelay); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateP2PConnectionSocket(IntPtr thisobj, UInt64 steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay);
+		public UInt32 CreateP2PConnectionSocket(UInt64 steamIDTarget, Int32 nVirtualPort, Int32 nTimeoutSec, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay) { var call = this.GetFunction<NativeCreateP2PConnectionSocket>(this.Functions.CreateP2PConnectionSocket); return call(this.ObjectAddress, steamIDTarget, nVirtualPort, nTimeoutSec, bAllowUseOfPacketRelay); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateConnectionSocket(IntPtr thisobj, UInt32 nIP, UInt16 nPort, Int32 nTimeoutSec);
 		public UInt32 CreateConnectionSocket(UInt32 nIP, UInt16 nPort, Int32 nTimeoutSec) { var call = this.GetFunction<NativeCreateConnectionSocket>(this.Functions.CreateConnectionSocket); return call(this.ObjectAddress, nIP, nPort, nTimeoutSec); }
@@ -11973,8 +11958,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRetrieveData(IntPtr thisobj, UInt32 hListenSocket, IntPtr pubDest, UInt32 cubDest, ref UInt32 pcubMsgSize, ref UInt32 phSocket);
 		[return: MarshalAs(UnmanagedType.I1)] public bool RetrieveData(UInt32 hListenSocket, IntPtr pubDest, UInt32 cubDest, ref UInt32 pcubMsgSize, ref UInt32 phSocket) { var call = this.GetFunction<NativeRetrieveData>(this.Functions.RetrieveData); return call(this.ObjectAddress, hListenSocket, pubDest, cubDest, ref pcubMsgSize, ref phSocket); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetSocketInfo(IntPtr thisobj, UInt32 hSocket, ref CSteamID pSteamIDRemote, ref Int32 peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetSocketInfo(UInt32 hSocket, ref CSteamID pSteamIDRemote, ref Int32 peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote) { var call = this.GetFunction<NativeGetSocketInfo>(this.Functions.GetSocketInfo); return call(this.ObjectAddress, hSocket, ref pSteamIDRemote, ref peSocketStatus, ref punIPRemote, ref punPortRemote); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetSocketInfo(IntPtr thisobj, UInt32 hSocket, ref UInt64 pSteamIDRemote, ref Int32 peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetSocketInfo(UInt32 hSocket, ref UInt64 pSteamIDRemote, ref Int32 peSocketStatus, ref UInt32 punIPRemote, ref UInt16 punPortRemote) { var call = this.GetFunction<NativeGetSocketInfo>(this.Functions.GetSocketInfo); return call(this.ObjectAddress, hSocket, ref pSteamIDRemote, ref peSocketStatus, ref punIPRemote, ref punPortRemote); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetListenSocketInfo(IntPtr thisobj, UInt32 hListenSocket, ref UInt32 pnIP, ref UInt16 pnPort);
 		[return: MarshalAs(UnmanagedType.I1)] public bool GetListenSocketInfo(UInt32 hListenSocket, ref UInt32 pnIP, ref UInt16 pnPort) { var call = this.GetFunction<NativeGetListenSocketInfo>(this.Functions.GetListenSocketInfo); return call(this.ObjectAddress, hListenSocket, ref pnIP, ref pnPort); }

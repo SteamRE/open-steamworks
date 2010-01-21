@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSteamID.cs" />
     <Compile Include="NativeWrapper.cs" />
     <Compile Include="Steamworks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
