@@ -68,6 +68,19 @@ namespace Steam4NET
             return rez;
         }
 
+        public static TClass CastInterface<TClass>(IntPtr address)
+            where TClass : INativeWrapper, new()
+        {
+            if(address == IntPtr.Zero)
+            {
+                return default(TClass);
+            }
+
+            var rez = new TClass();
+            rez.SetupFunctions(address);
+            return rez;
+        }
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         private delegate bool NativeSteamBGetCallback(int pipe, ref CallbackMsg_t message, ref int call);

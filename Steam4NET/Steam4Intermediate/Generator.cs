@@ -840,7 +840,7 @@ namespace Steam4Intermediate
             {
                 if (n.Type() == typeof(MethodNode))
                 {
-                    ProcessVirtualMethod(n as MethodNode);
+                    ProcessVirtualMethod(n as MethodNode, cnode);
                 }
             }
 
@@ -851,7 +851,7 @@ namespace Steam4Intermediate
             sb.AppendLine(new String('\t', level) + "");
         }
 
-        public void ProcessVirtualMethod(MethodNode mnode)
+        public void ProcessVirtualMethod(MethodNode mnode, ClassNode cnode)
         {
             if (mnode.virt == 1)
             {
@@ -863,6 +863,9 @@ namespace Steam4Intermediate
                 {
                     type = dtype;
                 }
+
+                if (type.StartsWith("I", StringComparison.InvariantCulture) && mnode.name.StartsWith("Get", StringComparison.InvariantCulture) && cnode.name.StartsWith("ISteamClient"))
+                    type = "IntPtr";
 
                 string mname = mnode.name;
                 string delname = mname;
