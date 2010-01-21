@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Threading;
+
 using Steam4NET;
 
 namespace Steam4Test
 {
     class Program
     {
+        static void ChatEnd(FriendEndChatSession_t chatend)
+        {
+            Console.WriteLine("Chat end with " + (CSteamID)chatend.m_SteamID);
+        }
+
         static void Main(string[] args)
         {
             if (!Steamworks.Load())
@@ -30,6 +37,11 @@ namespace Steam4Test
             int count = friends.GetFriendCount();
             Console.WriteLine("Friend count: " + count);
 
+            for(int i = 0; i < count; i++)
+            {
+                CSteamID friendid = friends.GetFriendByIndex(i);
+                Console.WriteLine((string)friendid);
+            }
 
             CSteamID steamid = 76561197983869206; 
 
@@ -37,7 +49,13 @@ namespace Steam4Test
 
             CSteamID myid = steamuser.GetSteamID();
 
-            Console.ReadKey();
+            Callback<FriendEndChatSession_t> chatend = new Callback<FriendEndChatSession_t>(ChatEnd, FriendEndChatSession_t.k_iCallback);
+
+            while(true)
+            {
+                CallbackDispatcher.RunCallbacks(pipe);
+                Thread.Sleep(500);
+            }
 
             steamclient.ReleaseUser(pipe, user);
 
