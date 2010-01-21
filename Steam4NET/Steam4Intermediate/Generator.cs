@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Steam4Intermediate
 {
@@ -12,6 +13,7 @@ namespace Steam4Intermediate
         Dictionary<string, string> typeDict = new Dictionary<string, string>
         {
             {"char", "SByte"},
+            {"signed char", "SByte"},
             {"unsigned char", "Byte"},
             {"short int", "Int16"},
             {"short unsigned int", "UInt16"},
@@ -138,18 +140,23 @@ namespace Steam4Intermediate
 
         public class PointerTypeNode : BaseNode
         {
-            public PointerTypeNode(string id) : base(id) {}
+            public PointerTypeNode(string id, string ntype) : base(id) { type = ntype;  }
             public override Type Type() { return typeof(PointerTypeNode);  }
+
+            public string type;
         }
 
         public class MethodNode : BaseNode
         {
-            public MethodNode(string id, string nname, string nreturn, string nvirtual) : base(id) { name = nname; ret = nreturn; virt = Int32.Parse(nvirtual); arguments = new List<string>(); }
+            public MethodNode(string id, string nname, string nreturn, string nvirtual, string nfile, string nline) : base(id) { name = nname; ret = nreturn; virt = Int32.Parse(nvirtual); arguments = new List<string>(); file = nfile; line = nline; }
             public override Type Type() { return typeof(MethodNode); }
 
             public string name;
             public string ret;
             public int virt;
+
+            public string file;
+            public string line;
 
             public List<string> arguments;
         }
@@ -242,17 +249,17 @@ namespace Steam4Intermediate
             return arrn;
         }
 
-        public BaseNode AddPointerType(string id)
+        public BaseNode AddPointerType(string id, string type)
         {
-            PointerTypeNode pointn = new PointerTypeNode(id);
+            PointerTypeNode pointn = new PointerTypeNode(id, type);
 
             nodemap.Add(id, pointn);
             return pointn;
         }
 
-        public BaseNode AddMethod(string id, string name, string ret, string virt)
+        public BaseNode AddMethod(string id, string name, string ret, string virt, string file, string line)
         {
-            MethodNode methodn = new MethodNode(id, name, ret, virt);
+            MethodNode methodn = new MethodNode(id, name, ret, virt, file, line);
 
             nodemap.Add(id, methodn);
             return methodn;
@@ -328,11 +335,13 @@ namespace Steam4Intermediate
             {
                 string ret = node.Attributes.GetNamedItem("returns").Value;
 
-                created = AddMethod(nodeid, name, ret, node.Attributes.GetNamedItem("virtual").Value);
+                created = AddMethod(nodeid, name, ret, node.Attributes.GetNamedItem("virtual").Value, node.Attributes.GetNamedItem("file").Value, node.Attributes.GetNamedItem("line").Value);
 
                 foreach (XmlNode valuenode in node.ChildNodes)
                 {
-                    AddMethodArgument(nodeid, valuenode.Attributes.GetNamedItem("type").Value);
+                    string argtype = valuenode.Attributes.GetNamedItem("type").Value;
+                    AddMethodArgument(nodeid, argtype);
+                    InsertNode(xmldoc, xmldoc.GetElementById(argtype), rootNode);
                 }
 
                 InsertNode(xmldoc, xmldoc.GetElementById(ret), rootNode);
@@ -413,17 +422,24 @@ namespace Steam4Intermediate
                     size = "0";
 
                 created = AddArrayType(nodeid, type, size, node.Attributes.GetNamedItem("align").Value);
-            } 
-            else if(node.Name == "Typedef") 
+            }
+            else if (node.Name == "Typedef" || node.Name == "CvQualifiedType") 
             {
                 string type = node.Attributes.GetNamedItem("type").Value;
                 created = AddTypedef(nodeid, name, type);
 
                 InsertNode(xmldoc, xmldoc.GetElementById(type), rootNode);
             } 
-            else if(node.Name == "PointerType")
+            else if(node.Name == "PointerType" || node.Name == "ReferenceType")
             {
-                created = AddPointerType(nodeid);
+                string type = node.Attributes.GetNamedItem("type").Value;
+                created = AddPointerType(nodeid, type);
+
+                InsertNode(xmldoc, xmldoc.GetElementById(type), rootNode);
+            }
+            else if(node.Name == "FunctionType")
+            {
+                created = AddFundamental(nodeid, "IntPtr", "0", "0");
             }
             else if(node.Name == "File")
             {
@@ -448,7 +464,7 @@ namespace Steam4Intermediate
 
 
 
-        public string ResolveType(string id, out BaseNode on)
+        public string ResolveType(string id, out BaseNode on, bool attemptPtrs)
         {
             BaseNode node;
             BaseNode temp;
@@ -476,11 +492,11 @@ namespace Steam4Intermediate
                 }
                 else if(node.Type() == typeof(TypedefNode))
                 {
-                    return ResolveType((node as TypedefNode).type, out on);
+                    return ResolveType((node as TypedefNode).type, out on, attemptPtrs);
                 }
                 else if(node.Type() == typeof(UnionNode))
                 {
-                    return ResolveType(node.childnodes[0].id, out temp);
+                    return ResolveType(node.childnodes[0].id, out temp, attemptPtrs);
                 }
                 else if(node.Type() == typeof(ArrayTypeNode))
                 {
@@ -491,13 +507,31 @@ namespace Steam4Intermediate
                     if (n.type.Length == 0)
                         type = "(implied) char";
                     else
-                        type = ResolveType(n.type, out temp);
+                        type = ResolveType(n.type, out temp, attemptPtrs);
 
                     return type;
                 }
                 else if(node.Type() == typeof(PointerTypeNode))
                 {
-                    return "IntPtr";
+                    if (attemptPtrs)
+                    {
+                        BaseNode o = on;
+                        string t = ResolveType((node as PointerTypeNode).type, out temp, attemptPtrs);
+
+                        on = temp;
+
+                        if (t == "void")
+                            return "IntPtr";
+                        else if (t == "char")
+                            return "string";
+                        else if (t == "unsigned char")
+                            return "byte[]";
+
+                        on = o;
+                        return t;
+                    }
+                    else
+                        return "IntPtr";
                 }
                 else
                 {
@@ -505,7 +539,7 @@ namespace Steam4Intermediate
                 }
             } else {
                 on = null;
-                return "(UNKNOWN)";
+                return "(UNKNOWN) " + node.id + " " + node;
             }
         }
 
@@ -542,13 +576,13 @@ namespace Steam4Intermediate
                 {
                     FieldNode fnode = node as FieldNode;
                     BaseNode n;
-                    Console.WriteLine("Field: " + fnode.name + " type: " + ResolveType(fnode.type, out n) + " (" + fnode.type + ")");
+                    Console.WriteLine("Field: " + fnode.name + " type: " + ResolveType(fnode.type, out n, false) + " (" + fnode.type + ")");
                 }
                 else if(node.Type() == typeof(MethodNode))
                 {
                     MethodNode mnode = node as MethodNode;
                     BaseNode n;
-                    Console.WriteLine("Method: " + mnode.name + " virtual: " + mnode.virt + " returns: " + ResolveType(mnode.ret, out n) + " (" + mnode.ret + ")");
+                    Console.WriteLine("Method: " + mnode.name + " virtual: " + mnode.virt + " returns: " + ResolveType(mnode.ret, out n, true) + " (" + mnode.ret + ")");
                 }
 
                 Dump(node);
@@ -561,6 +595,7 @@ namespace Steam4Intermediate
         private int level;
         private StringBuilder sb;
         private string prefix = null;
+        private Dictionary<string, int> classmethods;
 
         public void WriteToFile(BaseNode root)
         {
@@ -584,13 +619,13 @@ namespace Steam4Intermediate
                 {
                     EnumNode enode = node as EnumNode;
 
-                    if(files[enode.file].StartsWith(@"E:\opensteamworks"))
+                    if(files[enode.file].StartsWith(@"E:\opensteamworks\Open Steamworks"))
                     {
                         if (root.Type() == typeof(StructNode) || root.Type() == typeof(ClassNode))
                         {
                             foreach (EnumNode.EnumValue value in enode.values)
                             {
-                                sb.AppendLine(new String('\t', level) + "const int " + value.name + " = " + value.value + ";");
+                                sb.AppendLine(new String('\t', level) + "public const int " + value.name + " = " + value.value + ";");
                             }
                         }
                         else
@@ -615,7 +650,7 @@ namespace Steam4Intermediate
                 {
                     StructNode snode = node as StructNode;
 
-                    if (files[snode.file].StartsWith(@"E:\opensteamworks") && !snode.name.StartsWith("EnumString"))
+                    if (files[snode.file].StartsWith(@"E:\opensteamworks\Open Steamworks") && !snode.name.StartsWith("EnumString"))
                     {
                         Console.WriteLine("Struct: " + snode.name);
 
@@ -651,29 +686,40 @@ namespace Steam4Intermediate
                 {
                     ClassNode cnode = node as ClassNode;
 
-                    if (files[cnode.file].StartsWith(@"E:\opensteamworks") && !cnode.name.StartsWith("EnumString"))
+                    if (files[cnode.file].StartsWith(@"E:\opensteamworks\Open Steamworks") && !cnode.name.StartsWith("EnumString"))
                     {
                         Console.WriteLine("Class: " + cnode.name);
 
-                        if (prefix != null)
-                            sb.AppendLine(new String('\t', level) + prefix);
+                        if (cnode.name.StartsWith("I"))
+                        {
+                            GenerateInterfaceWrapper(cnode);
+                        }
+                        else
+                        {
+                            if (prefix != null)
+                                sb.AppendLine(new String('\t', level) + prefix);
 
-                        sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=" + cnode.size + ")]");
-                        sb.AppendLine(new String('\t', level) + "public class " + cnode.name);
-                        sb.AppendLine(new String('\t', level) + "{");
+                            sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=" + cnode.size + ")]");
+                            sb.AppendLine(new String('\t', level) + "public class " + cnode.name);
+                            sb.AppendLine(new String('\t', level) + "{");
 
-                        string oldprefix = prefix;
-                        prefix = null;
+                            string oldprefix = prefix;
+                            prefix = null;
 
-                        level++;
-                        WriteToFile(cnode);
-                        level--;
+                            level++;
+                            WriteToFile(cnode);
+                            level--;
 
-                        prefix = oldprefix;
+                            prefix = oldprefix;
 
-                        sb.AppendLine(new String('\t', level) + "}");
-                        sb.AppendLine(new String('\t', level) + "");
+                            sb.AppendLine(new String('\t', level) + "}");
+                            sb.AppendLine(new String('\t', level) + "");
+                        }
                     }
+                }
+                else if(node.Type() == typeof(MethodNode))
+                {
+ 
                 }
             }
 
@@ -687,7 +733,7 @@ namespace Steam4Intermediate
         public void ProcessType(FieldNode fieldbase, string ntype)
         {
             BaseNode n;
-            string type = ResolveType(ntype, out n);
+            string type = ResolveType(ntype, out n, false);
             string dtype;
 
             if (typeDict.TryGetValue(type, out dtype))
@@ -702,18 +748,21 @@ namespace Steam4Intermediate
             {
                 UnionNode unode = n as UnionNode;
 
-                if (files[unode.file].StartsWith(@"E:\opensteamworks"))
+                if (files[unode.file].StartsWith(@"E:\opensteamworks\Open Steamworks"))
                 {
                     string name = unode.name;
 
-                    if(name.Contains("$"))
-                        name = fieldbase.name + "Union";
+                    if (name.Contains("$"))
+                        name = fieldbase.name;
+
+                    if (name.Length == 0)
+                        name = "value";
 
                     Console.WriteLine("Union");
 
                     sb.AppendLine();
                     sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1,Size=" + unode.size + ")]");
-                    sb.AppendLine(new String('\t', level) + "struct " + name);
+                    sb.AppendLine(new String('\t', level) + "public struct Union" + name);
                     sb.AppendLine(new String('\t', level) + "{");
 
                     prefix = "[FieldOffset(0)]";
@@ -725,7 +774,8 @@ namespace Steam4Intermediate
                     prefix = null;
 
                     sb.AppendLine(new String('\t', level) + "}");
-                    sb.AppendLine(new String('\t', level) + "");
+                    sb.AppendLine(new String('\t', level) + "public Union" + name + " " + name + ";");
+                    sb.AppendLine();
                 }
               
             }
@@ -738,8 +788,207 @@ namespace Steam4Intermediate
             }
             else
             {
+                if (type == "bool")
+                    sb.AppendLine(new String('\t', level) + "[MarshalAs(UnmanagedType.I1)]");
+
                 sb.AppendLine(new String('\t', level) + "public " + type + " " + fieldbase.name + ";");
             }
+        }
+
+        public void GenerateInterfaceWrapper(ClassNode cnode)
+        {
+            sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]");
+            sb.AppendLine(new String('\t', level) + "public class " + cnode.name + "VTable");
+            sb.AppendLine(new String('\t', level) + "{");
+
+            level++;
+            Dictionary<string, int> names = new Dictionary<string, int>();
+
+            foreach(BaseNode n in cnode.childnodes)
+            {
+                if (n.Type() == typeof(MethodNode))
+                {
+                    MethodNode mnode = n as MethodNode;
+                    int mc;
+                    string ptrname = mnode.name;
+
+                    if (names.TryGetValue(ptrname, out mc))
+                    {
+                        names[ptrname] = mc + 1;
+                        ptrname = ptrname + mc.ToString();
+                    }
+                    else
+                    {
+                        names[ptrname] = 1;
+                    }
+
+                    sb.AppendLine(new String('\t', level) + "public IntPtr " + ptrname + ";");
+                }
+            }
+            level--;
+
+            sb.AppendLine(new String('\t', level) + "}");
+            sb.AppendLine(new String('\t', level) + "");
+
+            sb.AppendLine(new String('\t', level) + "public class " + cnode.name + " : NativeWrapper<" + cnode.name + "VTable>");
+            sb.AppendLine(new String('\t', level) + "{");
+
+            level++;
+            classmethods = new Dictionary<string, int>();
+
+            foreach (BaseNode n in cnode.childnodes)
+            {
+                if (n.Type() == typeof(MethodNode))
+                {
+                    ProcessVirtualMethod(n as MethodNode);
+                }
+            }
+
+            classmethods = null;
+            level--;
+
+            sb.AppendLine(new String('\t', level) + "}");
+            sb.AppendLine(new String('\t', level) + "");
+        }
+
+        public void ProcessVirtualMethod(MethodNode mnode)
+        {
+            if (mnode.virt == 1)
+            {
+                BaseNode n;
+                string type = ResolveType(mnode.ret, out n, true);
+                string dtype;
+
+                if (typeDict.TryGetValue(type, out dtype))
+                {
+                    type = dtype;
+                }
+
+                string mname = mnode.name;
+                string delname = mname;
+                int mc;
+
+                if (classmethods.TryGetValue(mname, out mc))
+                {
+                    classmethods[mname] = mc + 1;
+                    delname = delname + mc.ToString();
+                } else {
+                    classmethods[mname] = 1;
+                }
+
+                sb.Append(new String('\t', level) + "[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate " + type + " Native" + delname + "(IntPtr thisobj, ");
+
+                ProcessMethodArgs(mnode, false);
+
+                sb.Remove(sb.Length - 2, 2);
+
+                sb.AppendLine(");");
+
+                sb.Append(new String('\t', level));
+
+                if (type == "bool")
+                    sb.Append("[return: MarshalAs(UnmanagedType.I1)] ");
+
+                sb.Append("public " + type + " " + mname + "(");
+
+                ProcessMethodArgs(mnode, false);
+
+                if (mnode.arguments.Count > 0)
+                    sb.Remove(sb.Length - 2, 2);
+
+                sb.Append(") { var call = this.GetFunction<Native" + delname + ">(this.Functions." + delname + "); ");
+
+                if (type != "void")
+                    sb.Append("return ");
+
+                sb.Append("call(this.ObjectAddress, ");
+
+                ProcessMethodArgs(mnode, true);
+                sb.Remove(sb.Length - 2, 2);
+
+                sb.AppendLine("); }");
+            }
+        }
+
+        public void ProcessMethodArgs(MethodNode mnode, bool nameonly)
+        {
+            BaseNode n;
+            int paramnum = 0;
+
+            List<string> argnames = ScrapeArgNames(mnode.file, mnode.line);
+
+            foreach (string arg in mnode.arguments)
+            {
+                string type = ResolveType(arg, out n, true);
+                string dtype;
+
+                if (typeDict.TryGetValue(type, out dtype))
+                {
+                    type = dtype;
+                }
+
+                if (!nameonly && type == "bool")
+                    sb.Append("[MarshalAs(UnmanagedType.I1)] ");
+
+                if (n.Type() == typeof(PointerTypeNode))
+                    sb.Append("ref ");
+
+                string argname = argnames[paramnum].Trim();
+
+                if (argname.Length == 0 || argname.EndsWith("*") || argname == "bool" || argname == "float" || argname == type || argname == "int" || argname == "short" || argname == "uint32" || argname == "\"\"")
+                    argname = "arg" + (paramnum + 1);
+
+                if (argname.StartsWith("*") || argname.StartsWith("&"))
+                    argname = argname.Substring(1);
+
+                if (argname.StartsWith("*"))
+                    argname = argname.Substring(1);
+
+                if(nameonly)
+                    sb.Append(argname + ", ");
+                else
+                    sb.Append(type + " " + argname + ", ");
+
+                paramnum++;
+            }
+        }
+
+        public List<string> ScrapeArgNames(string file, string line)
+        {
+            string[] lines = File.ReadAllLines(files[file]);
+
+            string func = lines[Int32.Parse(line)-1];
+
+            Console.WriteLine(func);
+
+            List<string> arglist = new List<string>();
+
+            int firstparen = func.IndexOf('(');
+            int commapos = func.IndexOf(',');
+            while (commapos != -1)
+            {
+                int space = Math.Max(func.LastIndexOf(' ', commapos, commapos), firstparen);
+                string name = func.Substring(space+1, commapos-space - 1);
+
+                arglist.Add(name);
+
+                commapos = func.IndexOf(',', commapos+1);
+            }
+
+            int lastarg = func.IndexOf(")");
+            if (lastarg != -1)
+            {
+                int lastspace = func.LastIndexOf(' ', lastarg, lastarg);
+                if(lastarg - lastspace <= 1)
+                    lastspace = func.LastIndexOf(' ', lastspace - 1, lastspace - 1) - 1;
+
+                if (lastspace != -1)
+                {
+                    arglist.Add(func.Substring(lastspace + 1, lastarg - lastspace - 1));
+                }
+            }
+
+            return arglist;
         }
     }
 }

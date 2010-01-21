@@ -108,7 +108,7 @@ public:
     // returns true if the current caller is the one that should open new chat dialogs
 	virtual bool IsPrimaryChatDestination() = 0;
 
-	virtual unknown_ret RequestLegacyCDKey(uint32) = 0;
+	virtual unknown_ret RequestLegacyCDKey(uint32 i) = 0;
 };
 
 

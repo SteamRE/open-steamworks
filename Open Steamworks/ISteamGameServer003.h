@@ -69,9 +69,7 @@ public:
 	// and stop calling it in SteamGameServer_Init()?
 	virtual bool SetServerType( int32 nGameAppId, uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 usSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 
-	virtual bool UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, 
-									 const char *pchServerName, const char *pSpectatorServerName, 
-									 const char *pchMapName ) = 0;
+	virtual bool UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
 	// Creates a fake user (ie, a bot) which will be listed as playing on the server, but skips validation.  
 	// 

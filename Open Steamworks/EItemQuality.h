@@ -23,7 +23,7 @@
 #include "EnumString.h"
 
 
-typedef enum EItemQuality WINSIZE(uint8)
+typedef enum EItemQuality
 {
 	k_EItemQuality_Normal, 
 	k_EItemQuality_Common,

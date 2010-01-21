@@ -55,65 +55,20 @@ public:
 	virtual unknown_ret AcknowledgePurchaseReceipt( uint32 ) = 0;
 
 	// Sets the billing address in the ISteamBilling object for use by other ISteamBilling functions (not stored on server)
-	virtual bool SetBillingAddress( uint32,
-									const char *pchName, 
-									const char *pchAddress1,
-									const char *pchAddress2,
-									const char *pchCity,
-									const char *pchPostcode,
-									const char *pchState,
-									const char *pchCountry,
-									const char *pchPhone) = 0;
+	virtual bool SetBillingAddress( uint32, const char *pchName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone) = 0;
 
 	// Gets any previous set billing address in the ISteamBilling object (not stored on server)
-	virtual bool GetBillingAddress( uint32,
-									char *pchName, 
-									char *pchAddress1,
-									char *pchAddress2,
-									char *pchCity,
-									char *pchPostcode,
-									char *pchState,
-									char *pchCountry,
-									char *pchPhone) = 0;
+	virtual bool GetBillingAddress( uint32, char *pchName, char *pchAddress1, char *pchAddress2, char *pchCity, char *pchPostcode, char *pchState, char *pchCountry, char *pchPhone) = 0;
 
 	// Sets the billing address in the ISteamBilling object for use by other ISteamBilling functions (not stored on server)
-	virtual bool SetShippingAddress( const char *pchName, 
-									 const char *pchAddress1,
-									 const char *pchAddress2,
-									 const char *pchCity,
-									 const char *pchPostcode,
-									 const char *pchState,
-									 const char *pchCountry,
-									 const char *pchPhone,
-									 const char *) = 0;
+	virtual bool SetShippingAddress( const char *pchName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone, const char *) = 0;
 	// Gets any previous set billing address in the ISteamBilling object (not stored on server)
-	virtual bool GetShippingAddress( char *pchName, 
-									 char *pchAddress1,
-									 char *pchAddress2,
-									 char *pchCity,
-									 char *pchPostcode,
-									 char *pchState,
-									 char *pchCountry,
-									 char *pchPhone) = 0;
+	virtual bool GetShippingAddress( char *pchName, char *pchAddress1, char *pchAddress2, char *pchCity, char *pchPostcode, char *pchState, char *pchCountry, char *pchPhone) = 0;
 
 	// Sets the credit card info in the ISteamBilling object for use by other ISteamBilling functions  (may eventually also be stored on server)
-	virtual bool SetCardInfo( uint32,
-							  int32 eCreditCardType,
-							  const char *pchCardNumber,
-							  const char *pchCardHolderName,
-							  const char *pchCardExpYear,
-							  const char *pchCardExpMonth,
-							  const char *pchCardCVV2,
-							  const char *) = 0;
+	virtual bool SetCardInfo( uint32, int32 eCreditCardType, const char *pchCardNumber, const char *pchCardHolderName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2, const char *) = 0;
 	// Gets any credit card info in the ISteamBilling object (not stored on server)
-	virtual bool GetCardInfo( uint32,
-							  int32 *eCreditCardType,
-							  char *pchCardNumber,
-							  char *pchCardHolderName,
-							  char *pchCardExpYear,
-							  char *pchCardExpMonth,
-							  char *pchCardCVV2,
-							  char *) = 0;
+	virtual bool GetCardInfo( uint32, int32 *eCreditCardType, char *pchCardNumber, char *pchCardHolderName, char *pchCardExpYear, char *pchCardExpMonth, char *pchCardCVV2, char *) = 0;
 
 	virtual uint32 GetLicensePackageID( uint32 licenseId ) = 0;
 	virtual RTime32 GetLicenseTimeCreated( uint32 licenseId ) = 0;

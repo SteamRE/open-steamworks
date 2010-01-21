@@ -68,14 +68,7 @@ public:
 	// Functions to set various fields that are used to respond to queries.
 	
 	// Call this to set basic data that is passed to the server browser.
-	virtual void SetBasicServerData(
-		unsigned short nProtocolVersion,
-		bool bDedicatedServer,
-		const char *pRegionName,
-		const char *pProductName,
-		unsigned short nMaxReportedClients,
-		bool bPasswordProtected,
-		const char *pGameDescription ) = 0;
+	virtual void SetBasicServerData(unsigned short nProtocolVersion, bool bDedicatedServer,	const char *pRegionName, const char *pProductName, unsigned short nMaxReportedClients, bool bPasswordProtected,	const char *pGameDescription ) = 0;
 
 	// Call this to clear the whole list of key/values that are sent in rules queries.
 	virtual void ClearAllKeyValues() = 0;

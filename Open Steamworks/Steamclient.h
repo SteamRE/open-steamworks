@@ -24,13 +24,13 @@
 #include "SteamTypes.h"
 
 #ifndef STEAMWORKS_CLIENT_INTERFACES
-#ifdef _MSC_VER
-#define UNSAFE_INTERFACE __declspec(deprecated("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to supress this warning."))
-#elif __GNUC__
-#define UNSAFE_INTERFACE __attribute__((__deprecated__))
-#endif
+	#ifdef MSC_VER
+		#define UNSAFE_INTERFACE __declspec(deprecated("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to supress this warning."))
+	#else
+		#define UNSAFE_INTERFACE
+	#endif
 #else
-#define UNSAFE_INTERFACE
+		#define UNSAFE_INTERFACE
 #endif
 
 #include "SteamTypes.h"

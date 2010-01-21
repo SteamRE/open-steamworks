@@ -82,13 +82,10 @@ public:
 	//			
 	// bugbug jmccaskey - figure out how to remove this from the API and only expose via SteamGameServer_Init... or make this actually used,
 	// and stop calling it in SteamGameServer_Init()?
-	virtual bool SetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, 
-								uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
+	virtual bool SetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
-	virtual void UpdateServerStatus( int cPlayers, int cPlayersMax, int cBotPlayers, 
-									 const char *pchServerName, const char *pSpectatorServerName, 
-									 const char *pchMapName ) = 0;
+	virtual void UpdateServerStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
 	// This can be called if spectator goes away or comes back (passing 0 means there is no spectator server now).
 	virtual void UpdateSpectatorPort( uint16 unSpectatorPort ) = 0;

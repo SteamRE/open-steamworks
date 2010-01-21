@@ -36,8 +36,6 @@
 	#else
 	#define S_API extern "C" __declspec( dllimport ) 
 	#endif // STEAM_API_EXPORTS
-
-	#define WINSIZE(X) : X
 #else
 
 	#include <dlfcn.h> // dlopen,dlclose, et al

@@ -75,9 +75,7 @@ public:
 	// and stop calling it in SteamGameServer_Init()?
 	virtual bool SetServerType( int32 nGameAppId, uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 usSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 
-	virtual bool UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, 
-									 const char *pchServerName, const char *pSpectatorServerName, 
-									 const char *pchMapName ) = 0;
+	virtual bool UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
 	// This can be called if spectator goes away or comes back (passing 0 means there is no spectator server now).
 	virtual void UpdateSpectatorPort( uint16 unSpectatorPort ) = 0;

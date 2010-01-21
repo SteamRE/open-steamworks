@@ -103,9 +103,7 @@ public:
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
 
-	virtual bool UpdateStatus2( int cPlayers, int cPlayersMax, int cBotPlayers, 
-									 const char *pchServerName, const char *pSpectatorServerName, 
-									 const char *pchMapName ) = 0;
+	virtual bool UpdateStatus2( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
 	// Creates a fake user (ie, a bot) which will be listed as playing on the server, but skips validation.  
 	// 

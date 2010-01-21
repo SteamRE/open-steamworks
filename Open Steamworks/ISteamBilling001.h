@@ -30,64 +30,25 @@ class ISteamBilling001
 {
 public:
 	// Sets the billing address in the ISteamBilling object for use by other ISteamBilling functions (not stored on server)
-	virtual bool SetBillingAddress( const char *pchName, 
-									const char *pchAddress1,
-									const char *pchAddress2,
-									const char *pchCity,
-									const char *pchPostcode,
-									const char *pchState,
-									const char *pchCountry,
-									const char *pchPhone ) = 0;
+	virtual bool SetBillingAddress( const char *pchName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone ) = 0;
 	// Gets any previous set billing address in the ISteamBilling object (not stored on server)
-	virtual bool GetBillingAddress( char *pchName, 
-									char *pchAddress1,
-									char *pchAddress2,
-									char *pchCity,
-									char *pchPostcode,
-									char *pchState,
-									char *pchCountry,
-									char *pchPhone ) = 0;
+	virtual bool GetBillingAddress( char *pchName, char *pchAddress1, char *pchAddress2, char *pchCity, char *pchPostcode, char *pchState, char *pchCountry, char *pchPhone ) = 0;
 	// Sets the billing address in the ISteamBilling object for use by other ISteamBilling functions (not stored on server)
-	virtual bool SetShippingAddress( const char *pchName, 
-									const char *pchAddress1,
-									const char *pchAddress2,
-									const char *pchCity,
-									const char *pchPostcode,
-									const char *pchState,
-									const char *pchCountry,
-									const char *pchPhone ) = 0;
+	virtual bool SetShippingAddress( const char *pchName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone ) = 0;
 	// Gets any previous set billing address in the ISteamBilling object (not stored on server)
-	virtual bool GetShippingAddress( char *pchName, 
-									char *pchAddress1,
-									char *pchAddress2,
-									char *pchCity,
-									char *pchPostcode,
-									char *pchState,
-									char *pchCountry,
-									char *pchPhone ) = 0;
+	virtual bool GetShippingAddress( char *pchName, char *pchAddress1, char *pchAddress2, char *pchCity, char *pchPostcode, char *pchState, char *pchCountry, char *pchPhone ) = 0;
 	// Ask the server for the final price of package: requires that ISteamBilling billing & shipping address are set (can be same)
 	virtual bool GetFinalPrice( int32 nPackageID ) = 0;
 
 	// Sets the credit card info in the ISteamBilling object for use by other ISteamBilling functions  (may eventually also be stored on server)
-	virtual bool SetCardInfo( int32 eCreditCardType,
-							  const char *pchCardNumber,
-							  const char *pchCardHolderName,
-							  const char *pchCardExpYear,
-							  const char *pchCardExpMonth,
-							  const char *pchCardCVV2 ) = 0;
+	virtual bool SetCardInfo( int32 eCreditCardType, const char *pchCardNumber, const char *pchCardHolderName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2 ) = 0;
 	// Gets any credit card info in the ISteamBilling object (not stored on server)
-	virtual bool GetCardInfo( int32 *eCreditCardType,
-							  char *pchCardNumber,
-							  char *pchCardHolderName,
-							  char *pchCardExpYear,
-							  char *pchCardExpMonth,
-							  char *pchCardCVV2 ) = 0;
+	virtual bool GetCardInfo( int32 *eCreditCardType, char *pchCardNumber, char *pchCardHolderName, char *pchCardExpYear, char *pchCardExpMonth, char *pchCardCVV2 ) = 0;
 
 	// Ask the server to purchase a package: requires that ISteamBilling cardinfo, billing & shipping address are set
-	virtual bool Purchase( int32 nPackageID,
-						   int32 nExpectedCostCents,
-		                   uint64 gidCardID, // if non-NIL, use a server stored card
-						   bool bStoreCardInfo ) = 0;  // Should this cardinfo also be stored on the server
+	// gidCardID - if non-NIL, use a server stored card
+	// bStoreCardInfo - Should this cardinfo also be stored on the server
+	virtual bool Purchase( int32 nPackageID, int32 nExpectedCostCents, uint64 gidCardID, bool bStoreCardInfo ) = 0;
 };
 
 

@@ -91,8 +91,7 @@ public:
 	//			
 	// bugbug jmccaskey - figure out how to remove this from the API and only expose via SteamGameServer_Init... or make this actually used,
 	// and stop calling it in SteamGameServer_Init()?
-	virtual bool SetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, 
-								 uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
+	virtual bool SetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 
 
 	// Ask if a user has a specific achievement for this game, will get a callback on reply
@@ -107,9 +106,7 @@ public:
 	virtual bool UpdateUserData( CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore ) = 0;
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
-	virtual void UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, 
-									 const char *pchServerName, const char *pSpectatorServerName, 
-									 const char *pchMapName ) = 0;
+	virtual void UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
 	// This can be called if spectator goes away or comes back (passing 0 means there is no spectator server now).
 	virtual void UpdateSpectatorPort( uint16 unSpectatorPort ) = 0;
@@ -170,9 +167,7 @@ public:
 	virtual unknown_ret _GSSendUserDisconnect( CSteamID, uint32 ) = 0;
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
-	virtual void _GSUpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, 
-									 const char *pchServerName, const char *pSpectatorServerName, 
-									 const char *pchMapName ) = 0;
+	virtual void _GSUpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
 	virtual unknown_ret _GSCreateUnauthenticatedUser( CSteamID * ) = 0;
 };
