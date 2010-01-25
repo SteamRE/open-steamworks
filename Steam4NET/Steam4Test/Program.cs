@@ -7,9 +7,14 @@ namespace Steam4Test
 {
     class Program
     {
-        static void ChatEnd(FriendEndChatSession_t chatend)
+        private static ISteamGameServer009 gameserver;
+
+        static void ServerSignOn(LogonSuccess_t logon)
         {
-            Console.WriteLine("Chat end with " + (CSteamID)chatend.m_SteamID);
+            gameserver.SetGameData("a");
+            Console.WriteLine("Server signed on. ");
+            ulong gssteam = gameserver.GetSteamID();
+            Console.WriteLine("game server id: " + gssteam);
         }
 
         static void Main(string[] args)
@@ -18,48 +23,29 @@ namespace Steam4Test
                 return;
 
             ISteamClient008 steamclient = Steamworks.CreateInterface<ISteamClient008>("SteamClient008");
+            Console.WriteLine("client: " + steamclient);
+
             int pipe = steamclient.CreateSteamPipe();
-            int user = steamclient.ConnectToGlobalUser(pipe);
+            int user = steamclient.CreateLocalUser(ref pipe, EAccountType.k_EAccountTypeGameServer);
 
             Console.WriteLine(user);
             Console.WriteLine(pipe);
 
             ISteamUtils004 utils = Steamworks.CastInterface<ISteamUtils004>(steamclient.GetISteamUtils(pipe, "SteamUtils004"));
-            ISteamFriends001 friends = Steamworks.CastInterface<ISteamFriends001>(steamclient.GetISteamFriends(user, pipe, "SteamFriends001"));
-            ISteamUser008 steamuser = Steamworks.CastInterface<ISteamUser008>(steamclient.GetISteamUser(user, pipe, "SteamUser008"));
+            ISteamFriends005 friends = Steamworks.CastInterface<ISteamFriends005>(steamclient.GetISteamFriends(user, pipe, "SteamFriends005"));
+            gameserver = Steamworks.CastInterface<ISteamGameServer009>(steamclient.GetISteamGameServer(user, pipe, "SteamGameServer009"));
 
-            Console.WriteLine(utils.GetAppID());
-            Console.WriteLine(utils.GetConnectedUniverse());
-            Console.WriteLine(utils.GetIPCountry());
+            gameserver.LogOn();
 
-            Console.WriteLine(friends.GetPersonaName());
+            Callback<LogonSuccess_t> logon = new Callback<LogonSuccess_t>(LogonSuccess_t.k_iCallback);
+            logon.OnRun += ServerSignOn;
 
-            int count = friends.GetFriendCount();
-            Console.WriteLine("Friend count: " + count);
-
-            for(int i = 0; i < count; i++)
-            {
-                CSteamID friendid = friends.GetFriendByIndex(i);
-                Console.WriteLine((string)friendid);
-            }
-
-            CSteamID steamid = 76561197983869206; 
-
-           Console.WriteLine((string)steamid);
-
-            CSteamID myid = steamuser.GetSteamID();
-
-            Callback<FriendEndChatSession_t> chatend = new Callback<FriendEndChatSession_t>(ChatEnd, FriendEndChatSession_t.k_iCallback);
-
-            while(true)
-            {
-                CallbackDispatcher.RunCallbacks(pipe);
-                Thread.Sleep(500);
-            }
+            CallbackDispatcher.SpawnDispatchThread(pipe);
+            Thread.Sleep(5000);
+            CallbackDispatcher.StopDispatchThread(pipe);
 
             steamclient.ReleaseUser(pipe, user);
-
-            Console.WriteLine(steamclient.ReleaseSteamPipe(pipe));
+            steamclient.ReleaseSteamPipe(pipe);
         }
     }
 }

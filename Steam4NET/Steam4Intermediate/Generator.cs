@@ -872,7 +872,7 @@ namespace Steam4Intermediate
                     type = dtype;
                 }
 
-                if (type.StartsWith("I", StringComparison.InvariantCulture) && mnode.name.StartsWith("Get", StringComparison.InvariantCulture) && cnode.name.StartsWith("ISteamClient"))
+                if (type.StartsWith("I", StringComparison.InvariantCulture) && mnode.name.StartsWith("Get", StringComparison.InvariantCulture) && (cnode.name.StartsWith("ISteamClient") || cnode.name.StartsWith("IClientEngine")))
                     type = "IntPtr";
 
                 string mname = mnode.name;
@@ -990,6 +990,11 @@ namespace Steam4Intermediate
 
                 if (argname.StartsWith("*"))
                     argname = argname.Substring(1);
+
+                if (type == "IntPtr" && !(argname.StartsWith("pCallback") || argname.StartsWith("pFunction")) )
+                {
+                    type = "byte[]";
+                }
 
                 if(nameonly)
                     sb.Append(argname + ", ");

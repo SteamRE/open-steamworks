@@ -5,13 +5,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1A204257-FE82-4BBE-9ED4-40694821C31F}</ProjectGuid>
+    <ProjectGuid>{CB08C75E-4E43-448F-82CA-6ED967A89132}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Steam4NET</RootNamespace>
     <AssemblyName>Steam4NET</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,8 +45,8 @@
     <Compile Include="CallbackDispatcher.cs" />
     <Compile Include="CSteamID.cs" />
     <Compile Include="NativeWrapper.cs" />
-    <Compile Include="Steamworks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SteamworksMono.cs" />
     <Compile Include="test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

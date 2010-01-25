@@ -5,34 +5,105 @@ using System.Threading;
 
 namespace Steam4NET
 {
-    public class Callback<CallbackType>
+    public interface ICallback
+    {
+        void Run(IntPtr param);
+    }
+
+    public interface IAPICallback : ICallback
+    {
+        int GetCallback();
+    }
+
+    public class Callback<CallbackType> : ICallback
     {
         public delegate void DispatchDelegate(CallbackType param);
-        private DispatchDelegate myCallback;
+        public event DispatchDelegate OnRun;
 
-        public Callback(DispatchDelegate callback, int iCallback)
+        protected Callback()
         {
-            myCallback = callback;
-            CallbackDispatcher.RegisterCallback(Run, iCallback);
         }
 
-        private void Run(IntPtr pubParam)
+        public Callback(int iCallback)
         {
-            CallbackType param = (CallbackType)Marshal.PtrToStructure(pubParam, typeof(CallbackType));
-            myCallback(param);
+            CallbackDispatcher.RegisterCallback(this, iCallback);
+        }
+
+        public Callback(DispatchDelegate myFunc, int iCallback) : this(iCallback)
+        {
+            this.OnRun += myFunc;
+        }
+
+        public void Run(IntPtr pubParam)
+        {
+            this.OnRun((CallbackType)Marshal.PtrToStructure(pubParam, typeof(CallbackType)));
+        }
+    }
+
+    public class APICallCallback<CallbackType> : Callback<CallbackType>, IAPICallback
+    {
+        private int callback;
+        private UInt64 callhandle = 0;
+
+        public APICallCallback(int iCallback)
+        {
+            callback = iCallback;
+        }
+
+        public APICallCallback(DispatchDelegate myFunc, int iCallback) : this(iCallback)
+        {
+            this.OnRun += myFunc;
+        }
+
+        public APICallCallback(DispatchDelegate myFunc, int iCallback, UInt64 apicallhandle) : this(myFunc, iCallback)
+        {
+            callhandle = apicallhandle;
+            CallbackDispatcher.RegisterAPICallCallback(this, callhandle);
+        }
+
+        public void SetAPICallHandle(UInt64 newcallhandle)
+        {
+            if (callhandle != 0)
+                CallbackDispatcher.ClearAPICallCallback(this, callhandle);
+
+            CallbackDispatcher.RegisterAPICallCallback(this, newcallhandle);
+        }
+
+        public int GetCallback()
+        {
+            return callback;
         }
     }
 
     public class CallbackDispatcher
     {
-        public delegate void RunCallback(IntPtr callbackParam);
-        private static Dictionary<int, RunCallback> registeredCallbacks = new Dictionary<int, RunCallback>();
+        private static Dictionary<int, ICallback> registeredCallbacks = new Dictionary<int, ICallback>();
+        private static Dictionary<UInt64, IAPICallback> regiseredAPICallbacks = new Dictionary<UInt64, IAPICallback>();
 
         private static Dictionary<int, Thread> managedThreads = new Dictionary<int, Thread>();
 
-        public static void RegisterCallback(RunCallback del, int iCallback)
+        public static void RegisterCallback(ICallback callback, int iCallback)
         {
-            registeredCallbacks[iCallback] = del;
+            registeredCallbacks.Add(iCallback, callback);
+        }
+
+        public static void RegisterAPICallCallback(IAPICallback callback, UInt64 callhandle)
+        {
+            regiseredAPICallbacks.Add(callhandle, callback);
+        }
+
+        public static void ClearAPICallCallback(IAPICallback callback, UInt64 callhandle)
+        {
+            regiseredAPICallbacks.Remove(callhandle);
+        }
+
+        private static void RunAPICallbacks(SteamAPICallCompleted_t apicall)
+        {
+            IAPICallback apicallback;
+            if(regiseredAPICallbacks.TryGetValue(apicall.m_hAsyncCall, out apicallback))
+            {
+                // qq
+            }
         }
 
         public static void RunCallbacks(int pipe)
@@ -40,14 +111,19 @@ namespace Steam4NET
             CallbackMsg_t callbackmsg = new CallbackMsg_t();
             int steamcall = 0;
 
-            while(Steamworks.GetCallback(pipe, ref callbackmsg, ref steamcall))
+            if(Steamworks.GetCallback(pipe, ref callbackmsg, ref steamcall))
             {
                 Console.WriteLine("Callback: " + callbackmsg.m_iCallback);
 
-                RunCallback callbackdelegate;
-                if(registeredCallbacks.TryGetValue(callbackmsg.m_iCallback, out callbackdelegate))
+                if(callbackmsg.m_iCallback == SteamAPICallCompleted_t.k_iCallback)
                 {
-                    callbackdelegate(callbackmsg.m_pubParam);
+                    RunAPICallbacks((SteamAPICallCompleted_t)Marshal.PtrToStructure(callbackmsg.m_pubParam, typeof(SteamAPICallCompleted_t)));
+                }
+
+                ICallback callback;
+                if(registeredCallbacks.TryGetValue(callbackmsg.m_iCallback, out callback))
+                {
+                    callback.Run(callbackmsg.m_pubParam);
                 }
 
                 Steamworks.FreeLastCallback(pipe);

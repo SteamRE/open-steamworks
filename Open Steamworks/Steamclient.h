@@ -160,6 +160,7 @@
 #include "IClientUser.h"
 #include "IClientUtils.h"
 #include "IP2PController.h"
+#include "IClientHTTP.h"
 #endif // NO_ICLIENT
 
 // callback

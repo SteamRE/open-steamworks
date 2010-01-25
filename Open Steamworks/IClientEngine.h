@@ -44,6 +44,7 @@ class IClientAppManager;
 class IClientDepotBuilder;
 class IConCommandBaseAccessor;
 class IClientGameCoordinator;
+class IClientHTTP;
 
 #define CLIENTENGINE_INTERFACE_VERSION "CLIENTENGINE_INTERFACE_VERSION001"
 
@@ -120,7 +121,7 @@ public:
 	virtual unknown_ret OnDebugTextArrived( const char *text ) = 0; // linux only
 #endif
 
-	virtual unknown_ret CreateLocalUserInternal( int a, EAccountType eAccountType, bool c ) = 0;
+	virtual IClientHTTP* GetIClientHTTP(HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion) = 0;
 };
 
 #endif // ICLIENTENGINE_H

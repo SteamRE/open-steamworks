@@ -14,22 +14,34 @@
 //
 //=============================================================================
 
-#ifndef STEAMWORKS_H
-#define STEAMWORKS_H
+#ifndef ICLIENTHTTP_H
+#define ICLIENTHTTP_H
 #ifdef _WIN32
 #pragma once
 #endif
 
 #include "SteamTypes.h"
 
-#ifndef NO_STEAM
-	// steam.dll
-	#include "SteamAPI.h"
-#endif
+#define CLIENTHTTP_INTERFACE_VERSION "CLIENTHTTP_INTERFACE_VERSION001"
 
-#ifndef NO_STEAMCLIENT
-	// steamclient.dll / steam_api.dll
-	#include "SteamclientAPI.h"
-#endif
+class UNSAFE_INTERFACE IClientUtils
+{
+public:
+	/*
+	CreateHTTPRequest
+	SetHTTPRequestContextValue
+	SetHTTPRequestNetworkActivityTimeout
+	SetHTTPRequestHeaderValue
+	SetHTTPRequestGetOrPostParameter
+	SendHTTPRequest
+	DeferHTTPRequest
+	PrioritizeHTTPRequest
+	GetHTTPResponseHeaderSize
+	GetHTTPResponseHeaderValue
+	GetHTTPResponseBodySize
+	GetHTTPResponseBodyData
+	ReleaseHTTPRequest
+	*/
+}
 
-#endif // STEAMWORKS_H
+#endif // ICLIENTHTTP_H
