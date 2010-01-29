@@ -47,6 +47,7 @@ enum EGCMessages
 	k_EMsgGCCraft,
 	k_EMsgGCCraftResponse,
 	k_EMsgGCDelete,
+	k_EMsgGCVerifyCacheSubscription,
 
 	k_EMsgGCDev_NewItemRequest = 2001,
 	k_EMsgGCDev_NewItemRequestResponse
