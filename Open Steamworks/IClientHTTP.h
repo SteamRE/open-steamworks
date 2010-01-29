@@ -27,21 +27,23 @@
 class UNSAFE_INTERFACE IClientUtils
 {
 public:
-	/*
-	CreateHTTPRequest
-	SetHTTPRequestContextValue
-	SetHTTPRequestNetworkActivityTimeout
-	SetHTTPRequestHeaderValue
-	SetHTTPRequestGetOrPostParameter
-	SendHTTPRequest
-	DeferHTTPRequest
-	PrioritizeHTTPRequest
-	GetHTTPResponseHeaderSize
-	GetHTTPResponseHeaderValue
-	GetHTTPResponseBodySize
-	GetHTTPResponseBodyData
-	ReleaseHTTPRequest
-	*/
+	virtual HTTPRequestHandle CreateHTTPRequest( EHTTPMethod eHTTPRequestMethod, char *pchAbsoluteURL ) = 0;
+	
+	virtual bool SetHTTPRequestContextValue( HTTPRequestHandle hRequest, UINT64 ulContextValue ) = 0;
+	virtual bool SetHTTPRequestNetworkActivityTimeout( HTTPRequestHandle hRequest, uint32 unTimeoutSeconds ) = 0;
+	virtual bool SetHTTPRequestHeaderValue( HTTPRequestHandle hRequest, char *pchHeaderName, char *pchHeaderValue ) = 0;
+	virtual bool SetHTTPRequestGetOrPostParameter( HTTPRequestHandle hRequest, char *pchParamName, char *pchParamValue ) = 0;
+	
+	virtual bool SendHTTPRequest( HTTPRequestHandle hRequest, SteamAPICall_t *pCallHandle ) = 0;
+	virtual bool DeferHTTPRequest( HTTPRequestHandle hRequest ) = 0;
+	virtual bool PrioritizeHTTPRequest( HTTPRequestHandle hRequest ) = 0;
+	
+	virtual bool GetHTTPResponseHeaderSize( HTTPRequestHandle hRequest, char *pchHeaderName, uint32 *unResponseHeaderSize ) = 0;
+	virtual bool GetHTTPResponseHeaderValue( HTTPRequestHandle hRequest, char *pchHeaderName, uint8 *pHeaderValueBuffer, uint32 uBufferSize ) = 0;
+	virtual bool GetHTTPResponseBodySize( HTTPRequestHandle hRequest, uint32 *unBodySize ) = 0;
+	virtual bool GetHTTPResponseBodyData( HTTPRequestHandle hRequest, uint8 *pBodyDataBuffer, uint32 unBufferSize ) = 0;
+	
+	virtual bool ReleaseHTTPRequest( HTTPRequestHandle hRequest ) = 0;
 }
 
 #endif // ICLIENTHTTP_H

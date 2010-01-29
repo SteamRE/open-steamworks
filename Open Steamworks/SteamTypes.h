@@ -20,7 +20,6 @@
 #pragma once
 #endif
 
-#ifndef STEAM4COM_COMPAT
 #ifdef _WIN32
 	#ifndef WINVER
 		#define WINVER 0x502
@@ -53,7 +52,6 @@
 
 	#define WINSIZE(X)
 #endif
-#endif
 
 // this is an MSVC project.. but for the same of supporting other compilers we have to jump through hoops
 #ifndef _MSC_VER
@@ -71,9 +69,7 @@ typedef unsigned char uint8;
 #endif
 
 // is there a better place to put this?
-#ifndef STEAM4COM_COMPAT
 #include "string_t.h"
-#endif
 
 #if defined(__x86_64__) || defined(_WIN64)
 #define X64BITS
@@ -81,11 +77,7 @@ typedef unsigned char uint8;
 
 typedef signed char int8;
 
-#ifdef STEAM4COM_COMPAT
-#define bool int
-#endif
-
-#if defined( _WIN32 ) && !defined( STEAM4COM_COMPAT )
+#if defined( _WIN32 )
 
 typedef __int16 int16;
 typedef unsigned __int16 uint16;
@@ -172,6 +164,7 @@ typedef unsigned int uintp;
 #include "EClanRelationship.h"
 #include "EClanRank.h"
 #include "EGCMsgResponse.h"
+#include "EHTTPMethod.h"
 
 #ifndef NO_STEAM
 // steam
@@ -278,6 +271,8 @@ const HAuthTicket k_HAuthTicketInvalid = 0;
 
 typedef int HNewItemRequest;
 typedef uint64 ItemID;
+
+typedef uint32 HTTPRequestHandle;
 
 typedef int unknown_ret; // unknown return value
 
