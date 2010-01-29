@@ -241,6 +241,18 @@ struct GCDelete_t
 	uint64 itemID;
 };
 
+/*
+0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001
+*/
+struct GCVerifyCacheSubscription_t
+{
+	enum { k_iMessage = k_EMsgGCVerifyCacheSubscription };
+
+	uint16 id;
+	char garbage[16];
+	CSteamID steamid;
+};
+
 #pragma pack(pop)
 
 #endif // ISTEAMGAMECOORDINATORCOMMON_H
