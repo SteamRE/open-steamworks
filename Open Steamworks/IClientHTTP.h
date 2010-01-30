@@ -24,7 +24,7 @@
 
 #define CLIENTHTTP_INTERFACE_VERSION "CLIENTHTTP_INTERFACE_VERSION001"
 
-class UNSAFE_INTERFACE IClientUtils
+class UNSAFE_INTERFACE IClientHTTP
 {
 public:
 	virtual HTTPRequestHandle CreateHTTPRequest( EHTTPMethod eHTTPRequestMethod, char *pchAbsoluteURL ) = 0;
@@ -44,6 +44,6 @@ public:
 	virtual bool GetHTTPResponseBodyData( HTTPRequestHandle hRequest, uint8 *pBodyDataBuffer, uint32 unBufferSize ) = 0;
 	
 	virtual bool ReleaseHTTPRequest( HTTPRequestHandle hRequest ) = 0;
-}
+};
 
 #endif // ICLIENTHTTP_H
