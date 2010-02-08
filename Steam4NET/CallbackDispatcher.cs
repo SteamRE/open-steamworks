@@ -36,7 +36,8 @@ namespace Steam4NET
 
         public void Run(IntPtr pubParam)
         {
-            this.OnRun((CallbackType)Marshal.PtrToStructure(pubParam, typeof(CallbackType)));
+            if(this.OnRun != null)
+                this.OnRun((CallbackType)Marshal.PtrToStructure(pubParam, typeof(CallbackType)));
         }
     }
 
@@ -57,8 +58,7 @@ namespace Steam4NET
 
         public APICallCallback(DispatchDelegate myFunc, int iCallback, UInt64 apicallhandle) : this(myFunc, iCallback)
         {
-            callhandle = apicallhandle;
-            CallbackDispatcher.RegisterAPICallCallback(this, callhandle);
+            SetAPICallHandle(apicallhandle);
         }
 
         public void SetAPICallHandle(UInt64 newcallhandle)
@@ -113,8 +113,6 @@ namespace Steam4NET
 
             if(Steamworks.GetCallback(pipe, ref callbackmsg, ref steamcall))
             {
-                Console.WriteLine("Callback: " + callbackmsg.m_iCallback);
-
                 if(callbackmsg.m_iCallback == SteamAPICallCompleted_t.k_iCallback)
                 {
                     RunAPICallbacks((SteamAPICallCompleted_t)Marshal.PtrToStructure(callbackmsg.m_pubParam, typeof(SteamAPICallCompleted_t)));

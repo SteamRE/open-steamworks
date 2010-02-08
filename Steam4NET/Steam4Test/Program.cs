@@ -14,11 +14,16 @@ namespace Steam4Test
             gameserver.SetGameData("a");
             Console.WriteLine("Server signed on. ");
             ulong gssteam = gameserver.GetSteamID();
+            CSteamID x = gssteam;
+
             Console.WriteLine("game server id: " + gssteam);
         }
 
         static void Main(string[] args)
         {
+            CSteamID qq = 133724098;
+
+
             if (!Steamworks.Load())
                 return;
 
