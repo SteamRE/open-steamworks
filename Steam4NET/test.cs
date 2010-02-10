@@ -58,6 +58,14 @@ namespace Steam4NET
 		eSteamBufferMethodNBF = 1,
 	}
 	
+	public enum EHTTPMethod
+	{
+		k_EHTTPMethodInvalid = 0,
+		k_EHTTPMethodGET = 1,
+		k_EHTTPMethodHEAD = 2,
+		k_EHTTPMethodPOST = 3,
+	}
+	
 	public enum EPurchaseResultDetail
 	{
 		k_EPurchaseResultNoDetail = 0,
@@ -556,6 +564,7 @@ namespace Steam4NET
 		k_EMsgGCCraft = 1002,
 		k_EMsgGCCraftResponse = 1003,
 		k_EMsgGCDelete = 1004,
+		k_EMsgGCVerifyCacheSubscription = 1005,
 		k_EMsgGCDev_NewItemRequest = 2001,
 		k_EMsgGCDev_NewItemRequestResponse = 2002,
 	}
@@ -1475,6 +1484,16 @@ namespace Steam4NET
 		public Int32 m_nGlobalRankNew;
 		public Int32 m_nGlobalRankPrevious;
 		public const int k_iCallback = 1106;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=208)]
+	public struct GCVerifyCacheSubscription_t
+	{
+		public UInt16 id;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public SByte[] garbage;
+		public UInt64 steamid;
+		public const int k_iMessage = 1005;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=128)]
@@ -3840,7 +3859,7 @@ namespace Steam4NET
 		[return: MarshalAs(UnmanagedType.I1)] public bool Secure() { var call = this.GetFunction<NativeSecure>(this.Functions.Secure); return call(this.ObjectAddress); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetSteamID(IntPtr thisobj, ref UInt64 ret);
-        public UInt64 GetSteamID() { UInt64 ret = 0; var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); call(this.ObjectAddress, ref ret); return ret; }
+		public UInt64 GetSteamID() { UInt64 ret = 0; var call = this.GetFunction<NativeGetSteamID>(this.Functions.GetSteamID); call(this.ObjectAddress, ref ret); return ret; }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticate(IntPtr thisobj, UInt32 unIPClient, byte[] pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SendUserConnectAndAuthenticate(UInt32 unIPClient, byte[] pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser) { var call = this.GetFunction<NativeSendUserConnectAndAuthenticate>(this.Functions.SendUserConnectAndAuthenticate); return call(this.ObjectAddress, unIPClient, pvAuthBlob, cubAuthBlobSize, ref pSteamIDUser); }
@@ -9699,6 +9718,67 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientHTTPVTable
+	{
+		public IntPtr CreateHTTPRequest;
+		public IntPtr SetHTTPRequestContextValue;
+		public IntPtr SetHTTPRequestNetworkActivityTimeout;
+		public IntPtr SetHTTPRequestHeaderValue;
+		public IntPtr SetHTTPRequestGetOrPostParameter;
+		public IntPtr SendHTTPRequest;
+		public IntPtr DeferHTTPRequest;
+		public IntPtr PrioritizeHTTPRequest;
+		public IntPtr GetHTTPResponseHeaderSize;
+		public IntPtr GetHTTPResponseHeaderValue;
+		public IntPtr GetHTTPResponseBodySize;
+		public IntPtr GetHTTPResponseBodyData;
+		public IntPtr ReleaseHTTPRequest;
+	}
+	
+	public class IClientHTTP : NativeWrapper<IClientHTTPVTable>
+	{
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateHTTPRequest(IntPtr thisobj, EHTTPMethod eHTTPRequestMethod, string pchAbsoluteURL);
+		public UInt32 CreateHTTPRequest(EHTTPMethod eHTTPRequestMethod, string pchAbsoluteURL) { var call = this.GetFunction<NativeCreateHTTPRequest>(this.Functions.CreateHTTPRequest); return call(this.ObjectAddress, eHTTPRequestMethod, pchAbsoluteURL); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetHTTPRequestContextValue(IntPtr thisobj, UInt32 hRequest, UInt64 ulContextValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetHTTPRequestContextValue(UInt32 hRequest, UInt64 ulContextValue) { var call = this.GetFunction<NativeSetHTTPRequestContextValue>(this.Functions.SetHTTPRequestContextValue); return call(this.ObjectAddress, hRequest, ulContextValue); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetHTTPRequestNetworkActivityTimeout(IntPtr thisobj, UInt32 hRequest, UInt32 unTimeoutSeconds);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetHTTPRequestNetworkActivityTimeout(UInt32 hRequest, UInt32 unTimeoutSeconds) { var call = this.GetFunction<NativeSetHTTPRequestNetworkActivityTimeout>(this.Functions.SetHTTPRequestNetworkActivityTimeout); return call(this.ObjectAddress, hRequest, unTimeoutSeconds); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetHTTPRequestHeaderValue(IntPtr thisobj, UInt32 hRequest, string pchHeaderName, string pchHeaderValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetHTTPRequestHeaderValue(UInt32 hRequest, string pchHeaderName, string pchHeaderValue) { var call = this.GetFunction<NativeSetHTTPRequestHeaderValue>(this.Functions.SetHTTPRequestHeaderValue); return call(this.ObjectAddress, hRequest, pchHeaderName, pchHeaderValue); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetHTTPRequestGetOrPostParameter(IntPtr thisobj, UInt32 hRequest, string pchParamName, string pchParamValue);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetHTTPRequestGetOrPostParameter(UInt32 hRequest, string pchParamName, string pchParamValue) { var call = this.GetFunction<NativeSetHTTPRequestGetOrPostParameter>(this.Functions.SetHTTPRequestGetOrPostParameter); return call(this.ObjectAddress, hRequest, pchParamName, pchParamValue); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendHTTPRequest(IntPtr thisobj, UInt32 hRequest, ref UInt64 pCallHandle);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SendHTTPRequest(UInt32 hRequest, ref UInt64 pCallHandle) { var call = this.GetFunction<NativeSendHTTPRequest>(this.Functions.SendHTTPRequest); return call(this.ObjectAddress, hRequest, ref pCallHandle); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeDeferHTTPRequest(IntPtr thisobj, UInt32 hRequest);
+		[return: MarshalAs(UnmanagedType.I1)] public bool DeferHTTPRequest(UInt32 hRequest) { var call = this.GetFunction<NativeDeferHTTPRequest>(this.Functions.DeferHTTPRequest); return call(this.ObjectAddress, hRequest); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePrioritizeHTTPRequest(IntPtr thisobj, UInt32 hRequest);
+		[return: MarshalAs(UnmanagedType.I1)] public bool PrioritizeHTTPRequest(UInt32 hRequest) { var call = this.GetFunction<NativePrioritizeHTTPRequest>(this.Functions.PrioritizeHTTPRequest); return call(this.ObjectAddress, hRequest); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPResponseHeaderSize(IntPtr thisobj, UInt32 hRequest, string pchHeaderName, ref UInt32 unResponseHeaderSize);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetHTTPResponseHeaderSize(UInt32 hRequest, string pchHeaderName, ref UInt32 unResponseHeaderSize) { var call = this.GetFunction<NativeGetHTTPResponseHeaderSize>(this.Functions.GetHTTPResponseHeaderSize); return call(this.ObjectAddress, hRequest, pchHeaderName, ref unResponseHeaderSize); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPResponseHeaderValue(IntPtr thisobj, UInt32 hRequest, string pchHeaderName, byte[] pHeaderValueBuffer, UInt32 uBufferSize);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetHTTPResponseHeaderValue(UInt32 hRequest, string pchHeaderName, byte[] pHeaderValueBuffer, UInt32 uBufferSize) { var call = this.GetFunction<NativeGetHTTPResponseHeaderValue>(this.Functions.GetHTTPResponseHeaderValue); return call(this.ObjectAddress, hRequest, pchHeaderName, pHeaderValueBuffer, uBufferSize); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPResponseBodySize(IntPtr thisobj, UInt32 hRequest, ref UInt32 unBodySize);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetHTTPResponseBodySize(UInt32 hRequest, ref UInt32 unBodySize) { var call = this.GetFunction<NativeGetHTTPResponseBodySize>(this.Functions.GetHTTPResponseBodySize); return call(this.ObjectAddress, hRequest, ref unBodySize); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPResponseBodyData(IntPtr thisobj, UInt32 hRequest, byte[] pBodyDataBuffer, UInt32 unBufferSize);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetHTTPResponseBodyData(UInt32 hRequest, byte[] pBodyDataBuffer, UInt32 unBufferSize) { var call = this.GetFunction<NativeGetHTTPResponseBodyData>(this.Functions.GetHTTPResponseBodyData); return call(this.ObjectAddress, hRequest, pBodyDataBuffer, unBufferSize); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeReleaseHTTPRequest(IntPtr thisobj, UInt32 hRequest);
+		[return: MarshalAs(UnmanagedType.I1)] public bool ReleaseHTTPRequest(UInt32 hRequest) { var call = this.GetFunction<NativeReleaseHTTPRequest>(this.Functions.ReleaseHTTPRequest); return call(this.ObjectAddress, hRequest); }
+
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
 	public class ISteamBilling002VTable
 	{
 		public IntPtr InitCreditCardPurchase;
@@ -10453,7 +10533,7 @@ namespace Steam4NET
 		public IntPtr GetIClientGameStats;
 		public IntPtr GetIPCServerMap;
 		public IntPtr OnDebugTextArrived;
-		public IntPtr CreateLocalUserInternal;
+		public IntPtr GetIClientHTTP;
 	}
 	
 	public class IClientEngine : NativeWrapper<IClientEngineVTable>
@@ -10575,8 +10655,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeOnDebugTextArrived(IntPtr thisobj, string text);
 		public Int32 OnDebugTextArrived(string text) { var call = this.GetFunction<NativeOnDebugTextArrived>(this.Functions.OnDebugTextArrived); return call(this.ObjectAddress, text); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateLocalUserInternal(IntPtr thisobj, Int32 a, EAccountType eAccountType, [MarshalAs(UnmanagedType.I1)] bool c);
-		public Int32 CreateLocalUserInternal(Int32 a, EAccountType eAccountType, [MarshalAs(UnmanagedType.I1)] bool c) { var call = this.GetFunction<NativeCreateLocalUserInternal>(this.Functions.CreateLocalUserInternal); return call(this.ObjectAddress, a, eAccountType, c); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientHTTP(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetIClientHTTP(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetIClientHTTP>(this.Functions.GetIClientHTTP); return call(this.ObjectAddress, hSteamUser, hSteamPipe, pchVersion); }
 
 	}
 	

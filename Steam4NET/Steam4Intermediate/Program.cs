@@ -8,7 +8,7 @@ namespace Steam4Intermediate
     {
         static void Main(string[] args)
         {
-            if(!File.Exists("../../osw.xml"))
+            if (!File.Exists(@"E:\opensteamworks\Steam4NET\Steam4Intermediate\osw.xml"))
             {
                 Console.WriteLine("Generate osw.xml!");
                 Console.WriteLine("gccxml.exe \"E:\\opensteamworks\\Open Steamworks\\steamworks.h\" -fxml=\"E:\\opensteamworks\\Steam4NET\\Steam4Intermediate\\osw.xml\"");
@@ -18,7 +18,7 @@ namespace Steam4Intermediate
 
             settings.ProhibitDtd = false;
 
-            using (XmlReader reader = XmlReader.Create("../../osw.xml", settings))
+            using (XmlReader reader = XmlReader.Create(@"E:\opensteamworks\Steam4NET\Steam4Intermediate\osw.xml", settings))
             {
                 XmlDocument xmldoc = new XmlDocument();
                 xmldoc.Load(reader);
