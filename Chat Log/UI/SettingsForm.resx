@@ -124,6 +124,7 @@
     <value>Log Message Variables:
 {Name} - Sender's friend's name.
 {SteamID} - Sender's SteamID.
+{CommunityID} - Sender's Steam Community ID.
 {LinkID} - Sender's LinkID, if it exists, otherwise their name.
 
 {Message} - The actual chat message.

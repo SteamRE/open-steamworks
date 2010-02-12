@@ -87,6 +87,8 @@ namespace ChatLog
             var replaceTable = new
             {
                 SteamID = "STEAM_0:0:123456".Replace( ":", Util.StripInvalidChars( invalidCharBox.Text, "" ) ),
+                LinkID = "Some Linked ID",
+                CommunityID = "7656119796123456",
                 Name = Util.StripInvalidChars( "VoiDeD", Util.StripInvalidChars( invalidCharBox.Text, "" ) ),
                 Date = Util.StripInvalidChars( dateStr, Util.StripInvalidChars( invalidCharBox.Text, "" ) ),
                 Time = Util.StripInvalidChars( timeStr, Util.StripInvalidChars( invalidCharBox.Text, "" ) ),
@@ -122,6 +124,7 @@ namespace ChatLog
                 Name = "VoiDeD",
                 SteamID = "STEAM_0:0:123456",
                 LinkID = "VoiDeD",
+                CommunityID = "7656119796123456",
 
                 Message = message,
 
