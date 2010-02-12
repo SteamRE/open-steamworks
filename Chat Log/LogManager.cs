@@ -98,11 +98,12 @@
                 directoryName = directoryName.FormatWith(
                     new
                     {
-                        SteamID = log.Reciever.Render().Replace( ":", "_" ),
+                        CommunityID = log.Reciever.ConvertToUint64(),
+                        SteamID = log.Reciever.Render().Replace( ":", sets.InvalidReplacement ),
                         Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
                         LinkID = Util.StripInvalidChars( fileLink, sets.InvalidReplacement ),
-                        Date = Util.StripInvalidChars( DateTime.Now.ToString( "d", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
-                        Time = Util.StripInvalidChars( DateTime.Now.ToString( "t", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                        Date = Util.StripInvalidChars( DateTime.Now.ToString( sets.DateFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                        Time = Util.StripInvalidChars( DateTime.Now.ToString( sets.TimeFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
                     }
                 );
             }
@@ -139,11 +140,12 @@
                 fileName = fileName.FormatWith(
                     new
                     {
-                        SteamID = log.Reciever.Render().Replace( ":", "_" ),
+                        CommunityID = log.Reciever.ConvertToUint64(),
+                        SteamID = log.Reciever.Render().Replace( ":", sets.InvalidReplacement ),
                         Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
                         LinkID = Util.StripInvalidChars( fileLink, sets.InvalidReplacement ),
-                        Date = Util.StripInvalidChars( DateTime.Now.ToString( "d", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
-                        Time = Util.StripInvalidChars( DateTime.Now.ToString( "t", CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                        Date = Util.StripInvalidChars( DateTime.Now.ToString( sets.DateFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                        Time = Util.StripInvalidChars( DateTime.Now.ToString( sets.TimeFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
                     }
                 );
             }
@@ -186,6 +188,7 @@
             {
                 Name = log.SenderName,
                 SteamID = log.Sender.Render(),
+                CommunityID = log.Sender.ConvertToUint64(),
                 LinkID = linkRep,
 
                 Message = log.Message,
@@ -282,13 +285,13 @@
                     string message = string.Empty;
                     FriendMsgType type;
 
-                    SteamID reciever = new SteamID( chatMsg.Reciever );
+                    SteamID reciever = chatMsg.Reciever;
 
                     steamFriends.GetChatMessage( reciever, (int)chatMsg.ChatID, out message, 1024 * 4, out type );
 
                     LogMessage log = new LogMessage();
 
-                    log.Sender = new SteamID( chatMsg.Sender );
+                    log.Sender = chatMsg.Sender;
                     log.SenderName = steamFriends.GetFriendPersonaName( log.Sender );
 
                     log.Reciever = reciever;
