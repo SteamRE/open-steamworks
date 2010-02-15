@@ -197,6 +197,8 @@ namespace ChatLog
                 Util.ShowError( this, "Session minutes is in incorrect format." );
 
                 e.Cancel = true;
+
+                return;
             }
 
             try
