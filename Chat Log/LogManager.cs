@@ -260,7 +260,7 @@ namespace ChatLog
             {
                 DateTime lastMsg = sessionInfo[ senderId ];
 
-                if ( ( DateTime.Now - lastMsg ) > TimeSpan.FromSeconds( 5 ) )
+                if ( ( DateTime.Now - lastMsg ) > TimeSpan.FromHours( 1 ) )
                 {
                     File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine );
                     sessionInfo[ senderId ] = DateTime.Now;
