@@ -1,4 +1,5 @@
-﻿namespace ChatLog
+﻿using System.Collections.Generic;
+namespace ChatLog
 {
     using System;
     using System.Globalization;
@@ -15,12 +16,16 @@
         SteamPipeHandle pipe;
         SteamUserHandle user;
 
+        Dictionary<ulong, DateTime> sessionInfo;
+
         public event EventHandler<LogFailureEventArgs> LogFailure;
 
 
         public LogManager( Settings settings )
         {
             sets = settings;
+
+            sessionInfo = new Dictionary<ulong, DateTime>();
 
         }
 
@@ -248,6 +253,25 @@
 
             if ( string.IsNullOrEmpty( logMessage ) )
                 return;
+
+            ulong senderId = log.Sender.ConvertToUint64();
+
+            if ( sessionInfo.ContainsKey( senderId ) )
+            {
+                DateTime lastMsg = sessionInfo[ senderId ];
+
+                if ( ( DateTime.Now - lastMsg ) > TimeSpan.FromSeconds( 5 ) )
+                {
+                    File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine+ "New session started on " + dateStr + " " + timeStr + Environment.NewLine );
+                    sessionInfo[ senderId ] = DateTime.Now;
+                }
+            }
+            else
+            {
+                File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " " + timeStr + Environment.NewLine );
+
+                sessionInfo.Add( senderId, DateTime.Now );
+            }
 
             try
             {
