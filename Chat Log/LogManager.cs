@@ -256,21 +256,24 @@ namespace ChatLog
 
             ulong senderId = log.Sender.ConvertToUint64();
 
-            if ( sessionInfo.ContainsKey( senderId ) )
+            if ( sets.TrackSessions )
             {
-                DateTime lastMsg = sessionInfo[ senderId ];
+                if ( sessionInfo.ContainsKey( senderId ) )
+                {
+                    DateTime lastMsg = sessionInfo[ senderId ];
 
-                if ( ( DateTime.Now - lastMsg ) > TimeSpan.FromHours( 1 ) )
+                    if ( ( DateTime.Now - lastMsg ) > TimeSpan.FromMinutes( sets.MinsBetweenSessions ) )
+                    {
+                        File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine );
+                        sessionInfo[ senderId ] = DateTime.Now;
+                    }
+                }
+                else
                 {
                     File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine );
-                    sessionInfo[ senderId ] = DateTime.Now;
-                }
-            }
-            else
-            {
-                File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine );
 
-                sessionInfo.Add( senderId, DateTime.Now );
+                    sessionInfo.Add( senderId, DateTime.Now );
+                }
             }
 
             try

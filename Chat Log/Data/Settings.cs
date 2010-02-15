@@ -19,6 +19,9 @@ namespace ChatLog
         public string DateFormat;
         public string TimeFormat;
 
+        public bool TrackSessions;
+        public int MinsBetweenSessions;
+
         public List<LinkEntry> Links;
 
 
@@ -33,6 +36,9 @@ namespace ChatLog
 
             DateFormat = "d";
             TimeFormat = "t";
+
+            TrackSessions = true;
+            MinsBetweenSessions = 60;
 
             Links = new List<LinkEntry>();
         }

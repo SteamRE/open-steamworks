@@ -59,6 +59,10 @@ namespace ChatLog
                 return DateTime.Now.ToString( dateFormatBox.Text, CultureInfo.CurrentCulture );
             };
 
+            trackSessions.Checked = sets.TrackSessions;
+
+            sessionMinutes.Text = sets.MinsBetweenSessions.ToString();
+
             UpdateHelp();
         }
 
@@ -180,6 +184,20 @@ namespace ChatLog
 
             settings.DateFormat = dateFormatBox.Text;
             settings.TimeFormat = timeFormatBox.Text;
+
+
+            settings.TrackSessions = trackSessions.Checked;
+
+            try
+            {
+                settings.MinsBetweenSessions = int.Parse( sessionMinutes.Text );
+            }
+            catch
+            {
+                Util.ShowError( this, "Session minutes is in incorrect format." );
+
+                e.Cancel = true;
+            }
 
             try
             {

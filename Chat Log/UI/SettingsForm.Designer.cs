@@ -65,6 +65,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip( this.components );
+            this.trackSessions = new System.Windows.Forms.CheckBox();
+            this.sessionMinutes = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -82,7 +84,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point( 3, 0 );
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size( 88, 29 );
+            this.label1.Size = new System.Drawing.Size( 99, 29 );
             this.label1.TabIndex = 0;
             this.label1.Text = "Log Directory:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -97,7 +99,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point( 3, 29 );
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size( 88, 44 );
+            this.label2.Size = new System.Drawing.Size( 99, 44 );
             this.label2.TabIndex = 3;
             this.label2.Text = "Filename:\r\n\r\n";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -112,7 +114,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point( 3, 119 );
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size( 88, 46 );
+            this.label8.Size = new System.Drawing.Size( 99, 46 );
             this.label8.TabIndex = 7;
             this.label8.Text = "Emote Format:\r\n\r\n";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -127,7 +129,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point( 3, 73 );
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size( 88, 46 );
+            this.label5.Size = new System.Drawing.Size( 99, 46 );
             this.label5.TabIndex = 5;
             this.label5.Text = "Message Format:\r\n\r\n";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -154,7 +156,7 @@
             this.tabPage1.Location = new System.Drawing.Point( 4, 22 );
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage1.Size = new System.Drawing.Size( 461, 408 );
+            this.tabPage1.Size = new System.Drawing.Size( 461, 401 );
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Logging";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -173,24 +175,28 @@
             this.tableLayoutPanel1.Controls.Add( this.emoteFormatBox, 1, 3 );
             this.tableLayoutPanel1.Controls.Add( this.filenameBox, 1, 1 );
             this.tableLayoutPanel1.Controls.Add( this.editLinkIdsBox, 0, 4 );
+            this.tableLayoutPanel1.Controls.Add( this.trackSessions, 0, 5 );
+            this.tableLayoutPanel1.Controls.Add( this.sessionMinutes, 1, 5 );
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point( 3, 3 );
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
-            this.tableLayoutPanel1.Size = new System.Drawing.Size( 455, 402 );
+            this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
+            this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
+            this.tableLayoutPanel1.Size = new System.Drawing.Size( 455, 395 );
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // browseBox
             // 
-            this.browseBox.Location = new System.Drawing.Point( 94, 0 );
+            this.browseBox.Location = new System.Drawing.Point( 105, 0 );
             this.browseBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.browseBox.Name = "browseBox";
-            this.browseBox.Size = new System.Drawing.Size( 361, 29 );
+            this.browseBox.Size = new System.Drawing.Size( 350, 29 );
             this.browseBox.TabIndex = 9;
             this.toolTip.SetToolTip( this.browseBox, "The directory that log files will be stored in. You can use several variables des" +
                     "cribed in the Help & Formatting tab." );
@@ -200,10 +206,10 @@
             this.logFormatBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
                         | System.Windows.Forms.AnchorStyles.Left )
                         | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.logFormatBox.Location = new System.Drawing.Point( 94, 73 );
+            this.logFormatBox.Location = new System.Drawing.Point( 105, 73 );
             this.logFormatBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.logFormatBox.Name = "logFormatBox";
-            this.logFormatBox.Size = new System.Drawing.Size( 361, 46 );
+            this.logFormatBox.Size = new System.Drawing.Size( 350, 46 );
             this.logFormatBox.TabIndex = 10;
             this.toolTip.SetToolTip( this.logFormatBox, "This is the format to write log messages to. Many variables are described in Help" +
                     " & Formatting" );
@@ -213,10 +219,10 @@
             this.emoteFormatBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
                         | System.Windows.Forms.AnchorStyles.Left )
                         | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.emoteFormatBox.Location = new System.Drawing.Point( 94, 119 );
+            this.emoteFormatBox.Location = new System.Drawing.Point( 105, 119 );
             this.emoteFormatBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.emoteFormatBox.Name = "emoteFormatBox";
-            this.emoteFormatBox.Size = new System.Drawing.Size( 361, 46 );
+            this.emoteFormatBox.Size = new System.Drawing.Size( 350, 46 );
             this.emoteFormatBox.TabIndex = 11;
             this.toolTip.SetToolTip( this.emoteFormatBox, "This is the emotion log format. These are messages that are sent with the \"/me\" c" +
                     "ommand. Variables are described in Help & Formatting." );
@@ -226,10 +232,10 @@
             this.filenameBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
                         | System.Windows.Forms.AnchorStyles.Left )
                         | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.filenameBox.Location = new System.Drawing.Point( 94, 29 );
+            this.filenameBox.Location = new System.Drawing.Point( 105, 29 );
             this.filenameBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.filenameBox.Name = "filenameBox";
-            this.filenameBox.Size = new System.Drawing.Size( 361, 44 );
+            this.filenameBox.Size = new System.Drawing.Size( 350, 44 );
             this.filenameBox.TabIndex = 12;
             this.toolTip.SetToolTip( this.filenameBox, "The filename to store a specific log message in. You can use file variables descr" +
                     "ibed in Help & Formatting." );
@@ -251,7 +257,7 @@
             this.tabPage2.Location = new System.Drawing.Point( 4, 22 );
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage2.Size = new System.Drawing.Size( 461, 384 );
+            this.tabPage2.Size = new System.Drawing.Size( 461, 401 );
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Miscellaneous";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -277,7 +283,7 @@
             this.tableLayoutPanel2.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel2.RowStyles.Add( new System.Windows.Forms.RowStyle( System.Windows.Forms.SizeType.Absolute, 20F ) );
             this.tableLayoutPanel2.RowStyles.Add( new System.Windows.Forms.RowStyle( System.Windows.Forms.SizeType.Absolute, 20F ) );
-            this.tableLayoutPanel2.Size = new System.Drawing.Size( 455, 378 );
+            this.tableLayoutPanel2.Size = new System.Drawing.Size( 455, 395 );
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label4
@@ -411,7 +417,7 @@
             this.tabPage4.Location = new System.Drawing.Point( 4, 22 );
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage4.Size = new System.Drawing.Size( 461, 384 );
+            this.tabPage4.Size = new System.Drawing.Size( 461, 401 );
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "About";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -518,6 +524,27 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "About Steam Chat Logger (beta 4)";
             // 
+            // trackSessions
+            // 
+            this.trackSessions.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
+                        | System.Windows.Forms.AnchorStyles.Left )
+                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.trackSessions.AutoSize = true;
+            this.trackSessions.Location = new System.Drawing.Point( 3, 197 );
+            this.trackSessions.Name = "trackSessions";
+            this.trackSessions.Size = new System.Drawing.Size( 99, 20 );
+            this.trackSessions.TabIndex = 14;
+            this.trackSessions.Text = "Track Sessions";
+            this.trackSessions.UseVisualStyleBackColor = true;
+            // 
+            // sessionMinutes
+            // 
+            this.sessionMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sessionMinutes.Location = new System.Drawing.Point( 108, 197 );
+            this.sessionMinutes.Name = "sessionMinutes";
+            this.sessionMinutes.Size = new System.Drawing.Size( 344, 20 );
+            this.sessionMinutes.TabIndex = 15;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
@@ -580,5 +607,7 @@
         private System.Windows.Forms.LinkLabel linkLabel4;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button editLinkIdsBox;
+        private System.Windows.Forms.CheckBox trackSessions;
+        private System.Windows.Forms.TextBox sessionMinutes;
     }
 }
