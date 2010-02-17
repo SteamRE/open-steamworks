@@ -165,6 +165,10 @@ typedef unsigned int uintp;
 #include "EClanRank.h"
 #include "EGCMsgResponse.h"
 #include "EHTTPMethod.h"
+#include "EUserHasLicenseForAppResult.h"
+#include "EStatusDepotVersion.h"
+#include "EP2PSessionError.h"
+#include "EP2PSend.h"
 
 #ifndef NO_STEAM
 // steam
@@ -243,7 +247,12 @@ const AppId_t k_uAppIdInvalid = 0x0;
 
 typedef uint32 ShareType_t;
 
-typedef uint32 HDepotBuild;
+// this is baked into client messages and interfaces as an int, 
+// make sure we never break this.  AppIds and DepotIDs also presently
+// share the same namespace, but since we'd like to change that in the future
+// I've defined it seperately here.
+typedef uint32 DepotId_t;
+const DepotId_t k_uDepotIdInvalid = 0x0;
 
 typedef int HVoiceCall;
 
@@ -503,7 +512,6 @@ End_Enum_String( ECallbackType );
 #include "servernetadr.h"
 #include "gameserveritem.h"
 #include "FriendGameInfo.h"
-#include "LeaderboardEntry.h"
 
 // structure that contains client callback data
 struct CallbackMsg_t

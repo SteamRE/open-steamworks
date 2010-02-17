@@ -42,6 +42,7 @@ class ISteamGameServerItems;
 #define STEAMCLIENT_INTERFACE_VERSION_006		"SteamClient006"
 #define STEAMCLIENT_INTERFACE_VERSION_007		"SteamClient007"
 #define STEAMCLIENT_INTERFACE_VERSION_008		"SteamClient008"
+#define STEAMCLIENT_INTERFACE_VERSION_009		"SteamClient009"
 
 
 #endif

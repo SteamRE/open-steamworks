@@ -31,19 +31,53 @@
 class ISteamNetworking003
 {
 public:
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// Session-less connection functions
+	//    automatically establishes NAT-traversing or Relay server connections
 
-	//virtual unknown_ret SendP2PPacket( CSteamID, void  const*, uint32, EP2PSend ) = 0;
-	virtual unknown_ret SendP2PPacket( CSteamID, void  const*, uint32, uint32 ) = 0;
+	// Sends a P2P packet to the specified user
+	// UDP-like, unreliable and a max packet size of 1200 bytes
+	// the first packet send may be delayed as the NAT-traversal code runs
+	// if we can't get through to the user, an error will be posted via the callback P2PSessionConnectFail_t
+	// see EP2PSend enum above for the descriptions of the different ways of sending packets
+	virtual bool SendP2PPacket( CSteamID steamIDRemote, const void *pubData, uint32 cubData, EP2PSend eP2PSendType ) = 0;
 
-	virtual unknown_ret IsP2PPacketAvailable( uint32 * ) = 0;
+	// returns true if any data is available for read, and the amount of data that will need to be read
+	virtual bool IsP2PPacketAvailable( uint32 *pcubMsgSize ) = 0;
 
-	virtual unknown_ret ReadP2PPacket( void *, uint32, uint32 *, CSteamID * ) = 0;
+	// reads in a packet that has been sent from another user via SendP2PPacket()
+	// returns the size of the message and the steamID of the user who sent it in the last two parameters
+	// if the buffer passed in is too small, the message will be truncated
+	// this call is not blocking, and will return false if no data is available
+	virtual bool ReadP2PPacket( void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, CSteamID *psteamIDRemote ) = 0;
 
-	virtual unknown_ret AcceptP2PSessionWithUser( CSteamID ) = 0;
-	virtual unknown_ret CloseP2PSessionWithUser( CSteamID ) = 0;
+	// AcceptP2PSessionWithUser() should only be called in response to a P2PSessionRequest_t callback
+	// P2PSessionRequest_t will be posted if another user tries to send you a packet that you haven't talked to yet
+	// if you don't want to talk to the user, just ignore the request
+	// if the user continues to send you packets, another P2PSessionRequest_t will be posted periodically
+	// this may be called multiple times for a single user
+	// (if you've called SendP2PPacket() on the other user, this implicitly accepts the session request)
+	virtual bool AcceptP2PSessionWithUser( CSteamID steamIDRemote ) = 0;
 
-	//virtual unknown_ret GetP2PSessionState( CSteamID, P2PSessionState_t * ) = 0;
-	virtual unknown_ret GetP2PSessionState( CSteamID, uint32 * ) = 0;
+	// call CloseP2PSessionWithUser() when you're done talking to a user, will free up resources under-the-hood
+	// if the remote user tries to send data to you again, another P2PSessionRequest_t callback will be posted
+	virtual bool CloseP2PSessionWithUser( CSteamID steamIDRemote ) = 0;
+
+	// fills out P2PSessionState_t structure with details about the underlying connection to the user
+	// should only needed for debugging purposes
+	// returns false if no connection exists to the specified user
+	virtual bool GetP2PSessionState( CSteamID steamIDRemote, P2PSessionState_t *pConnectionState ) = 0;
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// LISTEN / CONNECT style interface functions
+	//
+	// This is an older set of functions designed around the Berkeley TCP sockets model
+	// it's preferential that you use the above P2P functions, they're more robust
+	// and these older functions will be removed eventually
+	//
+	////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	// creates a socket and listens others to connect
 	// will trigger a SocketStatusCallback_t callback on another client connecting
@@ -103,7 +137,6 @@ public:
 
 	// returns information about the specified socket, filling out the contents of the pointers
 	virtual bool GetSocketInfo( SNetSocket_t hSocket, CSteamID *pSteamIDRemote, int *peSocketStatus, uint32 *punIPRemote, uint16 *punPortRemote ) = 0;
-
 
 	// returns which local port the listen socket is bound to
 	// *pnIP and *pnPort will be 0 if the socket is set to listen for P2P connections only

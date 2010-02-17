@@ -31,12 +31,16 @@ typedef enum ELobbyType
 {
 	k_ELobbyTypeFriendsOnly = 1,	// shows for friends or invitees, but not in lobby list
 	k_ELobbyTypePublic = 2,			// visible for friends and in lobby list
+	k_ELobbyTypeInvisible = 3,		// returned by search, but not visible to other friends 
+	//    useful if you want a user in two lobbies, for example matching groups together
+	//	  a user can be in only one regular lobby, and up to two invisible lobbies
 } ELobbyType;
 
 Begin_Enum_String(ELobbyType)
 {
 	Enum_String(k_ELobbyTypeFriendsOnly);
 	Enum_String(k_ELobbyTypePublic);
+	Enum_String(k_ELobbyTypeInvisible);
 }
 End_Enum_String(ELobbyType);
 

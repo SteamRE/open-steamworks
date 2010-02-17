@@ -29,23 +29,27 @@
 //-----------------------------------------------------------------------------
 typedef enum EChatEntryType
 {
+	k_EChatEntryTypeInvalid = 0, 
 	k_EChatEntryTypeChatMsg = 1,		// Normal text message from another user
 	k_EChatEntryTypeTyping = 2,			// Another user is typing (not used in multi-user chat)
 	k_EChatEntryTypeInviteGame = 3,		// Invite from other user into that users current game
 	k_EChatEntryTypeEmote = 4,			// text emote message
 	k_EChatEntryTypeLobbyGameStart = 5,	// lobby game is starting
+	k_EChatEntryTypeLeftConversation = 6, // user has left the conversation ( closed chat window )
 	// Above are previous FriendMsgType entries, now merged into more generic chat entry types
 } EChatEntryType;
 
 
 Begin_Enum_String(EChatEntryType)
 {
+	Enum_String( k_EChatEntryTypeInvalid ); 
 	Enum_String( k_EChatEntryTypeChatMsg );		// Normal text message from another user
-	Enum_String( k_EChatEntryTypeTyping );		// Another user is typing (not used in multi-user chat)
-	Enum_String( k_EChatEntryTypeInviteGame );	// DEPRECATED Invite from other user into that users current game
-	Enum_String( k_EChatEntryTypeEmote );		// text emote message
-	Enum_String( k_EChatEntryTypeLobbyGameStart );
-	// Above are previous FriendMsgType entries, now merged into more generic chat entry types
+	Enum_String( k_EChatEntryTypeTyping );			// Another user is typing (not used in multi-user chat)
+	Enum_String( k_EChatEntryTypeInviteGame );		// Invite from other user into that users current game
+	Enum_String( k_EChatEntryTypeEmote );			// text emote message
+	Enum_String( k_EChatEntryTypeLobbyGameStart );	// lobby game is starting
+	Enum_String( k_EChatEntryTypeLeftConversation ); // user has left the conversation ( closed chat window )
+		// Above are previous FriendMsgType entries, now merged into more generic chat entry types
 }
 End_Enum_String(EChatEntryType);
 

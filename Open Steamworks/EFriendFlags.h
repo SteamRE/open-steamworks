@@ -31,8 +31,8 @@ typedef enum k_EFriendFlags
 	k_EFriendFlagImmediate		= 0x04,			// "regular" friend
 	k_EFriendFlagClanMember		= 0x08,
 	k_EFriendFlagOnGameServer	= 0x10,	
-	//	k_EFriendFlagHasPlayedWith	= 0x20,
-	//	k_EFriendFlagFriendOfFriend	= 0x40,
+	//	k_EFriendFlagHasPlayedWith	= 0x20,	// not currently used
+	//	k_EFriendFlagFriendOfFriend	= 0x40,	// not currently used
 	k_EFriendFlagRequestingFriendship = 0x80,
 	k_EFriendFlagRequestingInfo = 0x100,
 	k_EFriendFlagIgnored		= 0x200,

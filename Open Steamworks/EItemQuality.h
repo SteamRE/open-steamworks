@@ -34,6 +34,7 @@ typedef enum EItemQuality
 	k_EItemQuality_Unk6,
 	k_EItemQuality_Community,
 	k_EItemQuality_Valve,
+	k_EItemQuality_SelfMade,
 
 	k_EItemQuality_Max = 0xFF,
 } EItemQuality;
@@ -49,6 +50,7 @@ Begin_Enum_String(EItemQuality)
 	Enum_String( k_EItemQuality_Unk6 );
 	Enum_String( k_EItemQuality_Community );
 	Enum_String( k_EItemQuality_Valve );
+	Enum_String( k_EItemQuality_SelfMade );
 }
 End_Enum_String(EItemQuality);
 

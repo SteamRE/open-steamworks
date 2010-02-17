@@ -111,10 +111,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\LeaderboardEntry.h"
-					>
-				</File>
-				<File
 					RelativePath=".\MatchMakingKeyValuePair.h"
 					>
 				</File>
@@ -270,6 +266,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\EP2PSend.h"
+						>
+					</File>
+					<File
+						RelativePath=".\EP2PSessionError.h"
+						>
+					</File>
+					<File
 						RelativePath=".\EPaymentMethod.h"
 						>
 					</File>
@@ -310,6 +314,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\EStatusDepotVersion.h"
+						>
+					</File>
+					<File
 						RelativePath=".\ESteamAPICallFailure.h"
 						>
 					</File>
@@ -323,6 +331,10 @@
 					</File>
 					<File
 						RelativePath=".\EUniverse.h"
+						>
+					</File>
+					<File
+						RelativePath=".\EUserHasLicenseForAppResult.h"
 						>
 					</File>
 					<File
@@ -467,6 +479,10 @@
 					</File>
 					<File
 						RelativePath=".\ISteamClient008.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamClient009.h"
 						>
 					</File>
 				</Filter>

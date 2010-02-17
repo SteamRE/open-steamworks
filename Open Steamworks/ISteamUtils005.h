@@ -37,7 +37,7 @@ public:
 	virtual EUniverse GetConnectedUniverse() = 0;
 
 	// Steam server time - in PST, number of seconds since January 1, 1970 (i.e unix time)
-	virtual RTime32 GetServerRealTime() = 0;
+	virtual uint32 GetServerRealTime() = 0;
 
 	// returns the 2 digit ISO 3166-1-alpha-2 format country code this client is running in (as looked up via an IP-to-location database)
 	// e.g "US" or "UK".
@@ -90,7 +90,16 @@ public:
 	// start & hook the game process, so this function will initially return false while the overlay is loading.
 	virtual bool IsOverlayEnabled() = 0;
 
-	virtual bool OverlayNeedsPresent() = 0;
+	// Normally this call is unneeded if your game has a constantly running frame loop that calls the 
+	// D3D Present API, or OGL SwapBuffers API every frame.
+	//
+	// However, if you have a game that only refreshes the screen on an event driven basis then that can break 
+	// the overlay, as it uses your Present/SwapBuffers calls to drive it's internal frame loop and it may also
+	// need to Present() to the screen any time an even needing a notification happens or when the overlay is
+	// brought up over the game by a user.  You can use this API to ask the overlay if it currently need a present
+	// in that case, and then you can check for this periodically (roughly 33hz is desirable) and make sure you
+	// refresh the screen with Present or SwapBuffers to allow the overlay to do it's work.
+	virtual bool BOverlayNeedsPresent() = 0;
 };
 
 #endif // ISTEAMUTILS005_H

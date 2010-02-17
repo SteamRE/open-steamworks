@@ -20,6 +20,15 @@
 #pragma once
 #endif
 
+// a single entry in a leaderboard, as returned by GetDownloadedLeaderboardEntry()
+struct LeaderboardEntry_t
+{
+	CSteamID m_steamIDUser; // user with the entry - use SteamFriends()->GetFriendPersonaName() & SteamFriends()->GetFriendAvatar() to get more info
+	int32 m_nGlobalRank;	// [1..N], where N is the number of users with an entry in the leaderboard
+	int32 m_nScore;			// score as set in the leaderboard
+	int32 m_cDetails;		// number of int32 details available for this entry
+};
+
 
 
 #define STEAMUSERSTATS_INTERFACE_VERSION_001 "STEAMUSERSTATS_INTERFACE_VERSION001"
@@ -111,6 +120,14 @@ struct LeaderboardScoreUploaded_t
 	int m_nGlobalRankNew;		// the new global rank of the user in this leaderboard
 	int m_nGlobalRankPrevious;	// the previous global rank of the user in this leaderboard; 0 if the user had no existing entry in the leaderboard
 };
+
+struct NumberOfCurrentPlayers_t
+{
+	enum { k_iCallback = k_iSteamUserStatsCallbacks + 7 };
+	uint8 m_bSuccess;			// 1 if the call was successful
+	int32 m_cPlayers;			// Number of players currently playing
+};
+
 
 
 

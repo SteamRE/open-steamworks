@@ -14,21 +14,34 @@
 //
 //=============================================================================
 
-#ifndef LEADERBOARDENTRY_H
-#define LEADERBOARDENTRY_H
+#ifndef ESTATUSDEPOTVERSION_H
+#define ESTATUSDEPOTVERSION_H
 #ifdef _WIN32
 #pragma once
 #endif
 
 
-// a single entry in a leaderboard, as returned by GetDownloadedLeaderboardEntry()
-struct LeaderboardEntry_t
+#include "EnumString.h"
+
+
+//-----------------------------------------------------------------------------
+// Purpose: Status of a given depot version, these are stored in the DB, don't renumber
+//-----------------------------------------------------------------------------
+typedef enum EStatusDepotVersion
 {
-	CSteamID m_steamIDUser; // user with the entry - use SteamFriends()->GetFriendPersonaName() & SteamFriends()->GetFriendAvatar() to get more info
-	int32 m_nGlobalRank;	// [1..N], where N is the number of users with an entry in the leaderboard
-	int32 m_nScore;			// score as set in the leaderboard
-	int32 m_cDetails;		// number of int32 details available for this entry
-};
+	k_EStatusDepotVersionInvalid = 0,
+	k_EStatusDepotVersionCompleteDisabled = 1,
+	k_EStatusDepotVersionCompleteEnabledBeta = 2,
+	k_EStatusDepotVersionCompleteEnabledPublic = 3,
+} EStatusDepotVersion;
 
+Begin_Enum_String( EStatusDepotVersion )
+{
+	Enum_String( k_EStatusDepotVersionInvalid );
+	Enum_String( k_EStatusDepotVersionCompleteDisabled );
+	Enum_String( k_EStatusDepotVersionCompleteEnabledBeta );
+	Enum_String( k_EStatusDepotVersionCompleteEnabledPublic );
+}
+End_Enum_String(EChatRoomEnterResponse);
 
-#endif // LEADERBOARDENTRY_H
+#endif // ESTATUSDEPOTVERSION_H

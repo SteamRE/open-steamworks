@@ -70,6 +70,13 @@ typedef enum EResult
 	k_EResultNoMatch = 42,						// nothing matching the request found
 	k_EResultAccountDisabled = 43,
 	k_EResultServiceReadOnly = 44,				// this service is not accepting content changes right now
+	k_EResultAccountNotFeatured = 45,			// account doesn't have value, so this feature isn't available
+	k_EResultAdministratorOK = 46,				// allowed to take this action, but only because requester is admin
+	k_EResultContentVersion = 47,				// A Version mismatch in content transmitted within the Steam protocol.
+	k_EResultTryAnotherCM = 48,					// The current CM can't service the user making a request, user should try another.
+	k_EResultPasswordRequiredToKickSession = 49,		// You are already logged in elsewhere, this cached credential login has failed.
+	k_EResultAlreadyLoggedInElsewhere = 50		// You are already logged in elsewhere, you must wait
+
 } EResult;
 
 Begin_Enum_String(EResult)
@@ -118,6 +125,12 @@ Begin_Enum_String(EResult)
 	Enum_String( k_EResultNoMatch );						// nothing matching the request found
 	Enum_String( k_EResultAccountDisabled );
 	Enum_String( k_EResultServiceReadOnly );				// this service is not accepting content changes right now
+	Enum_String( k_EResultAccountNotFeatured );			// account doesn't have value, so this feature isn't available
+	Enum_String( k_EResultAdministratorOK );			// allowed to take this action, but only because requester is admin
+	Enum_String( k_EResultContentVersion );			// A Version mismatch in content transmitted within the Steam protocol.
+	Enum_String( k_EResultTryAnotherCM );					// The current CM can't service the user making a request, user should try another.
+	Enum_String( k_EResultPasswordRequiredToKickSession );		// You are already logged in elsewhere, this cached credential login has failed.
+	Enum_String( k_EResultAlreadyLoggedInElsewhere );		// You are already logged in elsewhere, you must wait
 }
 End_Enum_String(EResult);
 

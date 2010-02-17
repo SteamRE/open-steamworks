@@ -14,26 +14,27 @@
 //
 //=============================================================================
 
-#ifndef ICLIENTDEPOTBUILDER_H
-#define ICLIENTDEPOTBUILDER_H
+#ifndef EUSERHASLICENSEFORAPPRESULT_H
+#define EUSERHASLICENSEFORAPPRESULT_H
 #ifdef _WIN32
 #pragma once
 #endif
 
-#include "SteamTypes.h"
+#include "EnumString.h"
 
-#define CLIENTDEPOTBUILDER_INTERFACE_VERSION "CLIENTDEPOTBUILDER_INTERFACE_VERSION001"
-
-class IClientDepotBuilder
+typedef enum
 {
-public:
-	virtual DepotId_t InitializeDepotBuildForConfigFile( const char *pchConfigFile ) = 0;
+	k_EUserHasLicenseResultHasLicense = 0,					// User has a license for specified app
+	k_EUserHasLicenseResultDoesNotHaveLicense = 1,			// User does not have a license for the specified app
+	k_EUserHasLicenseResultNoAuth = 2,						// User has not been authenticated
+} EUserHasLicenseForAppResult;
 
-	virtual bool GetDepotBuildStatus( DepotId_t hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
+Begin_Enum_String( EUserHasLicenseForAppResult )
+{
+	Enum_String( k_EUserHasLicenseResultHasLicense );
+	Enum_String( k_EUserHasLicenseResultDoesNotHaveLicense );
+	Enum_String( k_EUserHasLicenseResultNoAuth );
+}
+End_Enum_String( EUserHasLicenseForAppResult );
 
-	virtual bool CloseDepotBuildHandle( DepotId_t hDepotBuild ) = 0;
-
-	virtual int ReconstructDepotFromManifestAndChunks( const char *a, const char *b, const char *c ) = 0;
-};
-
-#endif // ICLIENTDEPOTBUILDER_H
+#endif // EUSERHASLICENSEFORAPPRESULT_H

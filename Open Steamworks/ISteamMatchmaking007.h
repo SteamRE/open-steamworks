@@ -197,7 +197,10 @@ public:
 	// it is possible (bur rare) to join a lobby just as the owner is leaving, thus entering a lobby with self as the owner
 	virtual CSteamID GetLobbyOwner( CSteamID steamIDLobby ) = 0;
 
-	virtual unknown_ret SetLobbyOwner( CSteamID steamIDLobby, CSteamID steamIDOwner ) = 0;
+	// changes who the lobby owner is
+	// you must be the lobby owner for this to succeed, and steamIDNewOwner must be in the lobby
+	// after completion, the local user will no longer be the owner
+	virtual bool SetLobbyOwner( CSteamID steamIDLobby, CSteamID steamIDNewOwner ) = 0;
 };
 
 #endif // ISTEAMMATCHMAKING007_H

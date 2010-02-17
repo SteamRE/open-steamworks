@@ -29,6 +29,7 @@ typedef enum ELobbyComparison
 	k_ELobbyComparisonEqual = 0,
 	k_ELobbyComparisonGreaterThan = 1,
 	k_ELobbyComparisonEqualToOrGreaterThan = 2,
+	k_ELobbyComparisonNotEqual = 3,
 } ELobbyComparison;
 
 Begin_Enum_String(ELobbyComparison)
@@ -38,6 +39,7 @@ Begin_Enum_String(ELobbyComparison)
 	Enum_String(k_ELobbyComparisonEqual);
 	Enum_String(k_ELobbyComparisonGreaterThan);
 	Enum_String(k_ELobbyComparisonEqualToOrGreaterThan);
+	Enum_String( k_ELobbyComparisonNotEqual );
 }
 End_Enum_String(ELobbyComparison);
 
