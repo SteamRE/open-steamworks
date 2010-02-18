@@ -24,6 +24,7 @@ namespace Steam4Intermediate
             {"long long int", "Int64"},
             {"long long unsigned int", "UInt64"},
             {"CSteamID", "UInt64"},
+            {"CGameID", "UInt64"},
         };
 
         public abstract class BaseNode

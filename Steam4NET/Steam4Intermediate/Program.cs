@@ -11,7 +11,7 @@ namespace Steam4Intermediate
             if (!File.Exists(@"E:\opensteamworks\Steam4NET\Steam4Intermediate\osw.xml"))
             {
                 Console.WriteLine("Generate osw.xml!");
-                Console.WriteLine("gccxml.exe \"E:\\opensteamworks\\Open Steamworks\\steamworks.h\" -fxml=\"E:\\opensteamworks\\Steam4NET\\Steam4Intermediate\\osw.xml\"");
+                Console.WriteLine("gccxml.exe \"E:\\opensteamworks\\Open Steamworks\\steamworks.h\" -fxml=\"E:\\opensteamworks\\Steam4NET\\Steam4Intermediate\\osw.xml\" -fshort-enums");
             }
 
             XmlReaderSettings settings = new XmlReaderSettings();
