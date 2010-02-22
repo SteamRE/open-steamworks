@@ -38,6 +38,7 @@ class IVAC;
 class ISteamNetworking;
 class ISteamRemoteStorage;
 class ISteamGameServerItems;
+class ISteamGameServerStats;
 
 #define STEAMCLIENT_INTERFACE_VERSION_006		"SteamClient006"
 #define STEAMCLIENT_INTERFACE_VERSION_007		"SteamClient007"
