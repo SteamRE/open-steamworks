@@ -28,6 +28,7 @@
 #define STEAMGAMESERVER_INTERFACE_VERSION_007 "SteamGameServer007"
 #define STEAMGAMESERVER_INTERFACE_VERSION_008 "SteamGameServer008"
 #define STEAMGAMESERVER_INTERFACE_VERSION_009 "SteamGameServer009"
+#define STEAMGAMESERVER_INTERFACE_VERSION_010 "SteamGameServer010"
 
 
 // client has been approved to connect to this game server
