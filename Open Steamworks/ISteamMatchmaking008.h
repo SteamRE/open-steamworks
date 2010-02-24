@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMMATCHMAKING007_H
-#define ISTEAMMATCHMAKING007_H
+#ifndef ISTEAMMATCHMAKING008_H
+#define ISTEAMMATCHMAKING008_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -27,7 +27,7 @@
 // Purpose: Functions for match making services for clients to get to favorites
 //			and to operate on game lobbies.
 //-----------------------------------------------------------------------------
-class ISteamMatchmaking007
+class ISteamMatchmaking008
 {
 public:
 	// game server favorites storage
@@ -77,6 +77,8 @@ public:
 	*/
 	// 
 	virtual SteamAPICall_t RequestLobbyList() = 0;
+
+
 	// filters for lobbies
 	// this needs to be called before RequestLobbyList() to take effect
 	// these are cleared on each call to RequestLobbyList()
@@ -87,6 +89,11 @@ public:
 	virtual void AddRequestLobbyListNearValueFilter( const char *pchKeyToMatch, int nValueToBeCloseTo ) = 0;
 	// returns only lobbies with the specified number of slots available
 	virtual void AddRequestLobbyListFilterSlotsAvailable( int nSlotsAvailable ) = 0;
+
+	//virtual void AddRequestLobbyListDistanceFilter( ELobbyDistanceFilter filter ) = 0;
+	virtual void AddRequestLobbyListDistanceFilter( int filter ) = 0;
+
+	virtual void AddRequestLobbyListResultCountFilter( int a ) = 0;
 
 	// returns the CSteamID of a lobby, as retrieved by a RequestLobbyList call
 	// should only be called after a LobbyMatchList_t callback is received
@@ -127,6 +134,8 @@ public:
 	
 	// returns the number of users in the specified lobby
 	virtual int GetNumLobbyMembers( CSteamID steamIDLobby ) = 0;
+
+
 	// returns the CSteamID of a user in the lobby
 	// iMember is of range [0,GetNumLobbyMembers())
 	virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;
@@ -209,4 +218,4 @@ public:
 	virtual bool SetLobbyOwner( CSteamID steamIDLobby, CSteamID steamIDNewOwner ) = 0;
 };
 
-#endif // ISTEAMMATCHMAKING007_H
+#endif // ISTEAMMATCHMAKING008_H

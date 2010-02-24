@@ -638,6 +638,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamMatchmaking008.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MatchmakingCommon.h"
 						>
 					</File>

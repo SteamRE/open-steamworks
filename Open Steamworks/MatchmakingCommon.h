@@ -27,6 +27,8 @@
 #define STEAMMATCHMAKING_INTERFACE_VERSION_005 "SteamMatchMaking005"
 #define STEAMMATCHMAKING_INTERFACE_VERSION_006 "SteamMatchMaking006"
 #define STEAMMATCHMAKING_INTERFACE_VERSION_007 "SteamMatchMaking007"
+#define STEAMMATCHMAKING_INTERFACE_VERSION_008 "SteamMatchMaking008"
+
 
 
 //-----------------------------------------------------------------------------
