@@ -569,6 +569,10 @@
 						RelativePath=".\ISteamGameServer009.h"
 						>
 					</File>
+					<File
+						RelativePath=".\ISteamGameServer010.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="ISteamGameServerItems"
