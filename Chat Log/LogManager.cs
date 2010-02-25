@@ -49,6 +49,11 @@ namespace ChatLog
 
         public bool GetPipe()
         {
+            if ( pipe != null && pipe != SteamPipeHandle.InvalidHandle )
+            {
+                steamClient.ReleaseSteamPipe( pipe );
+            }
+
             pipe = steamClient.CreateSteamPipe();
 
             if ( pipe == SteamPipeHandle.InvalidHandle )
@@ -59,6 +64,11 @@ namespace ChatLog
 
         public bool GetUser()
         {
+            if ( user != null && user != SteamUserHandle.InvalidHandle )
+            {
+                steamClient.ReleaseUser( pipe, user );
+            }
+
             user = steamClient.ConnectToGlobalUser( pipe );
 
             if ( user == SteamUserHandle.InvalidHandle )

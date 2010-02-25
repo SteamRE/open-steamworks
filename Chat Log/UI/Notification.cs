@@ -37,7 +37,14 @@ namespace ChatLog
 
         public void ShowError( string message )
         {
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Error;
             notifyIcon1.ShowBalloonTip( 10 * 1000, "Error", message, ToolTipIcon.Error );
+        }
+
+        public void ShowInfo( string message )
+        {
+            notifyIcon1.BalloonTipIcon = ToolTipIcon.Info;
+            notifyIcon1.ShowBalloonTip( 10 * 1000, "Info", message, ToolTipIcon.Error );
         }
 
         void exitItem_Click( object sender, EventArgs e )
@@ -63,7 +70,6 @@ namespace ChatLog
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( Notification ) );
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.showSettingsItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -99,8 +105,8 @@ namespace ChatLog
             // 
             // notifyIcon1
             // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon1.Icon = ( ( System.Drawing.Icon )( resources.GetObject( "notifyIcon1.Icon" ) ) );
             this.notifyIcon1.Text = "Steam Chat Logger";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.BalloonTipClicked += new System.EventHandler( this.notifyIcon1_BalloonTipClicked );

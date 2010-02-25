@@ -95,7 +95,7 @@ namespace ChatLog
 
 
             // gasp a label.. what could it be for?
-            SteamInit:
+        SteamInit:
 
             bool waited = false;
 
@@ -114,7 +114,14 @@ namespace ChatLog
                 {
                     Application.DoEvents();
 
-                    Thread.Sleep( 10 );
+                    Thread.Sleep( 2000 );
+                }
+
+                // get the pipe again just in case
+                if ( !logManager.GetPipe() )
+                {
+                    Util.ShowFatalError( null, "Error getting steam pipe after steam startup!" );
+                    return;
                 }
             }
 
@@ -122,8 +129,20 @@ namespace ChatLog
             {
                 Application.DoEvents();
 
-                Thread.Sleep( 10 );
+                Thread.Sleep( 2000 );
             }
+
+            // wait for steam to full start itself
+            if ( waited )
+                Thread.Sleep( 10000 );
+
+            // get the user again
+            if ( !logManager.GetUser() )
+            {
+                Util.ShowFatalError( null, "Error getting steam user after steam startup!" );
+                return;
+            }
+
 
             if ( !logManager.GetInterface() )
             {
@@ -133,7 +152,7 @@ namespace ChatLog
 
 
             if ( waited )
-                notifyIcon.ShowError( "Steam is now running, logging enabled." );
+                notifyIcon.ShowInfo( "Steam is now running, logging enabled." );
            
 
             while ( running )
@@ -151,6 +170,8 @@ namespace ChatLog
 
                 Thread.Sleep( 10 );
             }
+
+            GC.KeepAlive( singleMutex );
         }
 
         static void logManager_LogFailure( object sender, LogFailureEventArgs e )
