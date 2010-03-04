@@ -42,6 +42,8 @@
             this.emoteFormatBox = new ChatLog.PreviewTextBox();
             this.filenameBox = new ChatLog.PreviewTextBox();
             this.editLinkIdsBox = new System.Windows.Forms.Button();
+            this.trackSessions = new System.Windows.Forms.CheckBox();
+            this.sessionMinutes = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
@@ -65,8 +67,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip( this.components );
-            this.trackSessions = new System.Windows.Forms.CheckBox();
-            this.sessionMinutes = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -163,9 +164,10 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add( new System.Windows.Forms.ColumnStyle() );
-            this.tableLayoutPanel1.ColumnStyles.Add( new System.Windows.Forms.ColumnStyle( System.Windows.Forms.SizeType.Percent, 100F ) );
+            this.tableLayoutPanel1.ColumnStyles.Add( new System.Windows.Forms.ColumnStyle( System.Windows.Forms.SizeType.Percent, 66.66666F ) );
+            this.tableLayoutPanel1.ColumnStyles.Add( new System.Windows.Forms.ColumnStyle( System.Windows.Forms.SizeType.Percent, 33.33333F ) );
             this.tableLayoutPanel1.Controls.Add( this.label1, 0, 0 );
             this.tableLayoutPanel1.Controls.Add( this.label8, 0, 3 );
             this.tableLayoutPanel1.Controls.Add( this.label2, 0, 1 );
@@ -177,6 +179,7 @@
             this.tableLayoutPanel1.Controls.Add( this.editLinkIdsBox, 0, 4 );
             this.tableLayoutPanel1.Controls.Add( this.trackSessions, 0, 5 );
             this.tableLayoutPanel1.Controls.Add( this.sessionMinutes, 1, 5 );
+            this.tableLayoutPanel1.Controls.Add( this.label15, 2, 5 );
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point( 3, 3 );
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -193,6 +196,7 @@
             // 
             // browseBox
             // 
+            this.tableLayoutPanel1.SetColumnSpan( this.browseBox, 2 );
             this.browseBox.Location = new System.Drawing.Point( 105, 0 );
             this.browseBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.browseBox.Name = "browseBox";
@@ -206,6 +210,7 @@
             this.logFormatBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
                         | System.Windows.Forms.AnchorStyles.Left )
                         | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.tableLayoutPanel1.SetColumnSpan( this.logFormatBox, 2 );
             this.logFormatBox.Location = new System.Drawing.Point( 105, 73 );
             this.logFormatBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.logFormatBox.Name = "logFormatBox";
@@ -219,6 +224,7 @@
             this.emoteFormatBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
                         | System.Windows.Forms.AnchorStyles.Left )
                         | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.tableLayoutPanel1.SetColumnSpan( this.emoteFormatBox, 2 );
             this.emoteFormatBox.Location = new System.Drawing.Point( 105, 119 );
             this.emoteFormatBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.emoteFormatBox.Name = "emoteFormatBox";
@@ -232,6 +238,7 @@
             this.filenameBox.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
                         | System.Windows.Forms.AnchorStyles.Left )
                         | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.tableLayoutPanel1.SetColumnSpan( this.filenameBox, 2 );
             this.filenameBox.Location = new System.Drawing.Point( 105, 29 );
             this.filenameBox.Margin = new System.Windows.Forms.Padding( 0 );
             this.filenameBox.Name = "filenameBox";
@@ -245,11 +252,32 @@
             this.tableLayoutPanel1.SetColumnSpan( this.editLinkIdsBox, 2 );
             this.editLinkIdsBox.Location = new System.Drawing.Point( 3, 168 );
             this.editLinkIdsBox.Name = "editLinkIdsBox";
-            this.editLinkIdsBox.Size = new System.Drawing.Size( 173, 23 );
+            this.editLinkIdsBox.Size = new System.Drawing.Size( 206, 23 );
             this.editLinkIdsBox.TabIndex = 13;
             this.editLinkIdsBox.Text = "Edit LinkIDs";
             this.editLinkIdsBox.UseVisualStyleBackColor = true;
             this.editLinkIdsBox.Click += new System.EventHandler( this.editLinkIdsBox_Click );
+            // 
+            // trackSessions
+            // 
+            this.trackSessions.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
+                        | System.Windows.Forms.AnchorStyles.Left )
+                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.trackSessions.AutoSize = true;
+            this.trackSessions.Location = new System.Drawing.Point( 3, 197 );
+            this.trackSessions.Name = "trackSessions";
+            this.trackSessions.Size = new System.Drawing.Size( 99, 20 );
+            this.trackSessions.TabIndex = 14;
+            this.trackSessions.Text = "Track Sessions";
+            this.trackSessions.UseVisualStyleBackColor = true;
+            // 
+            // sessionMinutes
+            // 
+            this.sessionMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sessionMinutes.Location = new System.Drawing.Point( 108, 197 );
+            this.sessionMinutes.Name = "sessionMinutes";
+            this.sessionMinutes.Size = new System.Drawing.Size( 227, 20 );
+            this.sessionMinutes.TabIndex = 15;
             // 
             // tabPage2
             // 
@@ -524,26 +552,18 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "About Steam Chat Logger (beta 4)";
             // 
-            // trackSessions
+            // label15
             // 
-            this.trackSessions.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
+            this.label15.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
                         | System.Windows.Forms.AnchorStyles.Left )
                         | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.trackSessions.AutoSize = true;
-            this.trackSessions.Location = new System.Drawing.Point( 3, 197 );
-            this.trackSessions.Name = "trackSessions";
-            this.trackSessions.Size = new System.Drawing.Size( 99, 20 );
-            this.trackSessions.TabIndex = 14;
-            this.trackSessions.Text = "Track Sessions";
-            this.trackSessions.UseVisualStyleBackColor = true;
-            // 
-            // sessionMinutes
-            // 
-            this.sessionMinutes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sessionMinutes.Location = new System.Drawing.Point( 108, 197 );
-            this.sessionMinutes.Name = "sessionMinutes";
-            this.sessionMinutes.Size = new System.Drawing.Size( 344, 20 );
-            this.sessionMinutes.TabIndex = 15;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point( 341, 194 );
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size( 111, 26 );
+            this.label15.TabIndex = 16;
+            this.label15.Text = "Minutes between sessions";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SettingsForm
             // 
@@ -609,5 +629,6 @@
         private System.Windows.Forms.Button editLinkIdsBox;
         private System.Windows.Forms.CheckBox trackSessions;
         private System.Windows.Forms.TextBox sessionMinutes;
+        private System.Windows.Forms.Label label15;
     }
 }
