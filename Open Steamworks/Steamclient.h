@@ -78,6 +78,7 @@
 #include "ISteamUserStats004.h"
 #include "ISteamUserStats005.h"
 #include "ISteamUserStats006.h"
+#include "ISteamUserstats007.h"
 
 // utils
 #include "ISteamUtils001.h"

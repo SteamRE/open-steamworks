@@ -798,6 +798,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamUserStats007.h"
+						>
+					</File>
+					<File
 						RelativePath=".\UserStatsCommon.h"
 						>
 					</File>
