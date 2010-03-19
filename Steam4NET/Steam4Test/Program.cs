@@ -2,22 +2,12 @@
 using System.Threading;
 
 using Steam4NET;
+using System.Diagnostics;
 
 namespace Steam4Test
 {
     class Program
     {
-        private static ISteamGameServer009 gameserver;
-
-        static void ServerSignOn(LogonSuccess_t logon)
-        {
-            gameserver.SetGameData("a");
-            Console.WriteLine("Server signed on. ");
-            ulong gssteam = gameserver.GetSteamID();
-            CSteamID x = gssteam;
-
-            Console.WriteLine("game server id: " + gssteam);
-        }
 
         static void Main(string[] args)
         {
@@ -31,19 +21,22 @@ namespace Steam4Test
             Console.WriteLine("client: " + steamclient);
 
             int pipe = steamclient.CreateSteamPipe();
-            int user = steamclient.CreateLocalUser(ref pipe, EAccountType.k_EAccountTypeGameServer);
+            int user = steamclient.ConnectToGlobalUser(pipe);
 
             Console.WriteLine(user);
             Console.WriteLine(pipe);
 
             ISteamUtils004 utils = Steamworks.CastInterface<ISteamUtils004>(steamclient.GetISteamUtils(pipe, "SteamUtils004"));
             ISteamFriends005 friends = Steamworks.CastInterface<ISteamFriends005>(steamclient.GetISteamFriends(user, pipe, "SteamFriends005"));
-            gameserver = Steamworks.CastInterface<ISteamGameServer009>(steamclient.GetISteamGameServer(user, pipe, "SteamGameServer009"));
 
-            gameserver.LogOn();
+            int num = friends.GetFriendCount((int)k_EFriendFlags.k_EFriendFlagAll);
+            for (int i = 0; i < num; i++)
+            {
+                CSteamID id = friends.GetFriendByIndex(i, (int)k_EFriendFlags.k_EFriendFlagAll);
+                string name = friends.GetFriendPersonaName(id);
 
-            Callback<LogonSuccess_t> logon = new Callback<LogonSuccess_t>(LogonSuccess_t.k_iCallback);
-            logon.OnRun += ServerSignOn;
+                Debug.WriteLine(name);
+            }
 
             CallbackDispatcher.SpawnDispatchThread(pipe);
             Thread.Sleep(5000);

@@ -608,6 +608,7 @@ namespace Steam4Intermediate
 
                 sb = new StringBuilder();
                 sb.AppendLine("using System;");
+                sb.AppendLine("using System.Text;");
                 sb.AppendLine("using System.Runtime.InteropServices;");
                 sb.AppendLine("using Steam4NET;");
                 sb.AppendLine("");
@@ -859,6 +860,7 @@ namespace Steam4Intermediate
             {
                 BaseNode n;
                 bool passtypeasparam = false;
+                bool utf8magic = false;
 
                 string type = ResolveType(mnode.ret, out n, true);
                 string dtype;
@@ -866,6 +868,11 @@ namespace Steam4Intermediate
                 if (type == "CSteamID")
                 {
                     passtypeasparam = true;
+                }
+
+                if(type == "string")
+                {
+                    utf8magic = true;
                 }
 
                 if (typeDict.TryGetValue(type, out dtype))
@@ -934,7 +941,14 @@ namespace Steam4Intermediate
                 sb.Append("var call = this.GetFunction<Native" + delname + ">(this.Functions." + delname + "); ");
 
                 if (type != "void" && !passtypeasparam)
+                {
                     sb.Append("return ");
+
+                    if(utf8magic)
+                    {
+                        sb.Append("Encoding.UTF8.GetString( Encoding.Default.GetBytes( ");
+                    }
+                }
 
                 sb.Append("call(this.ObjectAddress, ");
 
@@ -945,6 +959,11 @@ namespace Steam4Intermediate
 
                 ProcessMethodArgs(mnode, true);
                 sb.Remove(sb.Length - 2, 2);
+
+                if (utf8magic)
+                {
+                    sb.Append(") ) ");
+                }
 
                 sb.Append("); ");
 
