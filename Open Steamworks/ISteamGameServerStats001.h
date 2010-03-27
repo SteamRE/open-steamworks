@@ -14,17 +14,17 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMGAMESTATS001_H
-#define ISTEAMGAMESTATS001_H
+#ifndef ISTEAMGAMESERVERSTATS001_H
+#define ISTEAMGAMESERVERSTATS001_H
 #ifdef _WIN32
 #pragma once
 #endif
 
 #include "SteamTypes.h"
-#include "GameStatsCommon.h"
+#include "GameServerStatsCommon.h"
 
 
-class ISteamGameStats001
+class ISteamGameServerStats001
 {
 public:
 	virtual unknown_ret GetNewSession( int8, uint64, int, uint32) = 0;
@@ -48,4 +48,4 @@ public:
 	virtual unknown_ret AddRowAttributeInt64( uint64, const char *, int64 ) = 0;
 };
 
-#endif // ISTEAMGAMESTATS001_H
+#endif // ISTEAMGAMESERVERSTATS001_H

@@ -144,7 +144,7 @@
 #include "ISteamGameCoordinator001.h"
 
 // game stats
-#include "ISteamGameStats001.h"
+#include "ISteamGameServerStats001.h"
 
 #ifndef NO_ICLIENT
 // client interfaces

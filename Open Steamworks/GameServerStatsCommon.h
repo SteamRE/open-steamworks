@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-#define STEAMGAMESTATS_INTERFACE_VERSION_001 "SteamGameStats001"
+#define STEAMGAMESERVERSTATS_INTERFACE_VERSION_001 "SteamGameServerStats001"
 
 
 #endif // GAMESTATSCOMMON_H

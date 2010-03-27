@@ -850,11 +850,11 @@
 					Name="ISteamGameStats"
 					>
 					<File
-						RelativePath=".\GameStatsCommon.h"
+						RelativePath=".\GameServerStatsCommon.h"
 						>
 					</File>
 					<File
-						RelativePath=".\ISteamGameStats001.h"
+						RelativePath=".\ISteamGameServerStats001.h"
 						>
 					</File>
 				</Filter>
