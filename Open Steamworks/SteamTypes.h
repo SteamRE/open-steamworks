@@ -46,7 +46,10 @@
 	#define GetProcAddress dlsym
 
 	#define S_API extern "C"
-	#define __cdecl __attribute__((__cdecl__))
+
+	#ifndef __cdecl
+		#define __cdecl __attribute__((__cdecl__))
+	#endif
 
 	typedef unsigned char byte;
 
