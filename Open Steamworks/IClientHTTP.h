@@ -29,7 +29,7 @@ class UNSAFE_INTERFACE IClientHTTP
 public:
 	virtual HTTPRequestHandle CreateHTTPRequest( EHTTPMethod eHTTPRequestMethod, char *pchAbsoluteURL ) = 0;
 	
-	virtual bool SetHTTPRequestContextValue( HTTPRequestHandle hRequest, UINT64 ulContextValue ) = 0;
+	virtual bool SetHTTPRequestContextValue( HTTPRequestHandle hRequest, uint64 ulContextValue ) = 0;
 	virtual bool SetHTTPRequestNetworkActivityTimeout( HTTPRequestHandle hRequest, uint32 unTimeoutSeconds ) = 0;
 	virtual bool SetHTTPRequestHeaderValue( HTTPRequestHandle hRequest, char *pchHeaderName, char *pchHeaderValue ) = 0;
 	virtual bool SetHTTPRequestGetOrPostParameter( HTTPRequestHandle hRequest, char *pchParamName, char *pchParamValue ) = 0;

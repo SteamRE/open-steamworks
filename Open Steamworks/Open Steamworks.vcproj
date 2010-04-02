@@ -391,6 +391,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\IClientHTTP.h"
+					>
+				</File>
+				<File
 					RelativePath=".\IClientMatchmaking.h"
 					>
 				</File>
