@@ -361,11 +361,13 @@ private:
 	} m_steamid;
 };
 
+#ifdef _WIN32
 inline std::ostream& operator<<(std::ostream& out, const CSteamID& s)
 {
 	out << s.Render();
 	return out;
 }
+#endif
 
 inline bool CSteamID::IsValid() const
 {
