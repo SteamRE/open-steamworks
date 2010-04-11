@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Open Steamworks", "Open Steamworks\Open Steamworks.vcproj", "{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat Log", "Chat Log\Chat Log.csproj", "{AD738C92-B479-45C4-96B7-AF778AD4B749}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test Platform", "Test Platform\Test Platform.vcproj", "{4FF0B36E-A56E-4908-A533-4BAD845512D8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "steam_api", "steam_api\steam_api.vcproj", "{B9E5BAE9-4539-42A8-B913-EAFEFEAC05E0}"
@@ -29,16 +27,6 @@ Global
 		{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}.Release|Win32.ActiveCfg = Release|Win32
 		{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}.Release|Win32.Build.0 = Release|Win32
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{AD738C92-B479-45C4-96B7-AF778AD4B749}.Release|Win32.ActiveCfg = Release|Any CPU
 		{4FF0B36E-A56E-4908-A533-4BAD845512D8}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{4FF0B36E-A56E-4908-A533-4BAD845512D8}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{4FF0B36E-A56E-4908-A533-4BAD845512D8}.Debug|Mixed Platforms.Build.0 = Debug|Win32

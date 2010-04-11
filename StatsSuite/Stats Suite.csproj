@@ -107,12 +107,6 @@
     <Compile Include="StatsAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dotnetworks\dotnetworks.vcproj">
-      <Project>{2B6BB86F-539E-4A08-A760-4328D3F76F64}</Project>
-      <Name>dotnetworks</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
