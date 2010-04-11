@@ -2,44 +2,102 @@
 
 namespace Steam4NET
 {
+    internal class BitVector64
+    {
+        private UInt64 data;
+
+        public BitVector64(UInt64 value)
+        {
+            data = value;
+        }
+
+        public UInt64 Data
+        {
+            get { return data; }
+        }
+
+        public UInt64 this[uint bitoffset, UInt64 valuemask]
+        {
+            get
+            {
+                return (data >> (ushort)bitoffset) & valuemask;
+            }
+            set
+            {
+                data = (data & ~(valuemask << (ushort)bitoffset) ) | ( (value & valuemask) << (ushort)bitoffset);
+            }
+        }
+    }
+
     public class CSteamID
     {
-        private UInt64 steamid;
+        private BitVector64 steamid;
 
         public CSteamID(UInt64 id)
         {
-            steamid = id;
+            steamid = new BitVector64(id);
         }
 
-        public UInt32 AccountID()
+        public UInt32 AccountID
         {
-            return (UInt32)(steamid & 0xFFFFFFFF);
+            get
+            {
+                return (UInt32)steamid[0, 0xFFFFFFFF];
+            }
+            set
+            {
+                steamid[0, 0xFFFFFFFF] = value;
+            }
         }
 
-        public UInt32 AccountInstance()
+        public UInt32 AccountInstance
         {
-            return (UInt32)((steamid >> 32) & 0xFFFFF);
+            get
+            {
+                return (UInt32)steamid[32, 0xFFFFF];
+            }
+            set
+            {
+                steamid[32, 0xFFFFF] = (UInt64)value;
+            }
         }
 
-        public EAccountType AccountType()
+        public EAccountType AccountType
         {
-            return (EAccountType)((steamid >> 52) & 0xF);
+            get
+            {
+                return (EAccountType)steamid[52, 0xF];
+            }
+            set
+            {
+                steamid[52, 0xF] = (UInt64)value;
+            }
         }
 
-        public EUniverse AccountUniverse()
+        public EUniverse AccountUniverse
         {
-            return (EUniverse)((steamid >> 56) & 0xFF);
+            get
+            {
+                return (EUniverse)steamid[56, 0xFF];
+            }
+            set
+            {
+                steamid[56, 0xFF] = (UInt64)value;
+            }
         }
 
         public string Render()
         {
-            switch (AccountType())
+            switch (AccountType)
             {
                 case EAccountType.k_EAccountTypeInvalid:
                 case EAccountType.k_EAccountTypeIndividual:
-                    return String.Format("STEAM_0:{0}:{1}", AccountID() % 2, AccountID() / 2);
+                    if(AccountUniverse <= EUniverse.k_EUniversePublic)
+                        return String.Format("STEAM_0:{0}:{1}", AccountID & 1, AccountID >> 1);
+                    else
+                        return String.Format("STEAM_{2}:{0}:{1}", AccountID & 1, AccountID >> 1, (int)AccountUniverse);
                 default:
-                    return Convert.ToString(steamid);
+                    return Convert.ToString(this);
             }
         }
 
@@ -48,20 +106,40 @@ namespace Steam4NET
             return Render();
         }
 
-        // provide this as implicit to make them decide what they want
-        public static implicit operator string( CSteamID sid )
-        {
-            return sid.Render();
-        }
-
         public static implicit operator UInt64( CSteamID sid )
         {
-            return sid.steamid;
+            return sid.steamid.Data;
         }
 
         public static implicit operator CSteamID( UInt64 id )
         {
             return new CSteamID(id);
         }
+
+        public override bool Equals(System.Object obj)
+        {
+            if (obj == null)
+                return false;
+
+            CSteamID sid = obj as CSteamID;
+            if ((System.Object)sid == null)
+                return false;
+
+            return steamid.Data == sid.steamid.Data;
+        }
+
+        public bool Equals(CSteamID sid)
+        {
+            if ((object)sid == null)
+                return false;
+
+            return steamid.Data == sid.steamid.Data;
+        }
+
+        public override int GetHashCode()
+        {
+            return steamid.Data.GetHashCode();
+        }
+
     }
 }

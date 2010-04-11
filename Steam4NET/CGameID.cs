@@ -31,5 +31,30 @@ namespace Steam4NET
         {
             return new CGameID(id);
         }
+
+        public override bool Equals(System.Object obj)
+        {
+            if (obj == null)
+                return false;
+
+            CGameID gid = obj as CGameID;
+            if ((System.Object)gid == null)
+                return false;
+
+            return gameid == gid.gameid;
+        }
+
+        public bool Equals(CGameID gid)
+        {
+            if ((object)gid == null)
+                return false;
+
+            return gameid == gid.gameid;
+        }
+
+        public override int GetHashCode()
+        {
+            return gameid.GetHashCode();
+        }
     }
 }
