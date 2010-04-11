@@ -82,6 +82,7 @@ namespace Steam4NET
 
         public CallbackUnhandled()
         {
+            CallbackDispatcher.SetUnhandledCallback( this );
         }
 
         public CallbackUnhandled(DispatchDelegate myFunc)
@@ -168,7 +169,7 @@ namespace Steam4NET
             while (true)
             {
                 RunCallbacks(pipe);
-                Thread.Sleep(500);
+                Thread.Sleep( 1 );
             }
         }
 
