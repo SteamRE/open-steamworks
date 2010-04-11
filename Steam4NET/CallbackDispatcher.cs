@@ -192,6 +192,8 @@ namespace Steam4NET
             {
                 dispatchThread.Abort();
                 dispatchThread.Join(2500);
+
+                managedThreads.Remove(pipe);
             }
         }
     }
