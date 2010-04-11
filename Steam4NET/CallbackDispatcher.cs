@@ -75,10 +75,34 @@ namespace Steam4NET
         }
     }
 
+    public class CallbackUnhandled
+    {
+        public delegate void DispatchDelegate(CallbackMsg_t msg);
+        public event DispatchDelegate OnRun;
+
+        public CallbackUnhandled()
+        {
+        }
+
+        public CallbackUnhandled(DispatchDelegate myFunc)
+            : this()
+        {
+            this.OnRun += myFunc;
+        }
+
+        public void Run(CallbackMsg_t msg)
+        {
+            if (this.OnRun != null)
+                this.OnRun(msg);
+        }
+    }
+
     public class CallbackDispatcher
     {
         private static Dictionary<int, ICallback> registeredCallbacks = new Dictionary<int, ICallback>();
         private static Dictionary<UInt64, IAPICallback> regiseredAPICallbacks = new Dictionary<UInt64, IAPICallback>();
+
+        private static CallbackUnhandled unhandledCallback = null;
 
         private static Dictionary<int, Thread> managedThreads = new Dictionary<int, Thread>();
 
@@ -97,12 +121,17 @@ namespace Steam4NET
             regiseredAPICallbacks.Remove(callhandle);
         }
 
+        public static void SetUnhandledCallback(CallbackUnhandled callback)
+        {
+            unhandledCallback = callback;
+        }
+
         private static void RunAPICallbacks(SteamAPICallCompleted_t apicall)
         {
             IAPICallback apicallback;
             if(regiseredAPICallbacks.TryGetValue(apicall.m_hAsyncCall, out apicallback))
             {
-                // qq
+                // (Use Steam_GetAPICallResult) etc..
             }
         }
 
@@ -122,6 +151,10 @@ namespace Steam4NET
                 if(registeredCallbacks.TryGetValue(callbackmsg.m_iCallback, out callback))
                 {
                     callback.Run(callbackmsg.m_pubParam);
+                }
+                else if (unhandledCallback != null)
+                {
+                    unhandledCallback.Run(callbackmsg);
                 }
 
                 Steamworks.FreeLastCallback(pipe);
