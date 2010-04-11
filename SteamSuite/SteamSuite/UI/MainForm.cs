@@ -20,7 +20,7 @@ namespace SteamSuite
 
         List<NameEntry> nameEntries;
 
-        Settings sets;
+        Settings sets;        
 
         public MainForm( SteamContext context )
         {
@@ -67,6 +67,30 @@ namespace SteamSuite
             friendsList.Sorted = true;
         }
 
+        void PersonaStateChange( PersonaStateChange_t obj )
+        {
+            txtCallbacks.Invoke( ( MethodInvoker )delegate
+            {
+                txtCallbacks.AppendText( "PersonaStateChange_t: " + context.SteamFriends.GetFriendPersonaName( obj.m_ulSteamID ) + " (" + new CSteamID( obj.m_ulSteamID ).Render() + ") Flags: " + obj.m_nChangeFlags + Environment.NewLine );
+
+                txtCallbacks.ScrollToCaret();
+            } );
+        }
+
+        void UnhandledCallback( CallbackMsg_t msg )
+        {
+            txtCallbacks.Invoke( ( MethodInvoker )delegate
+            {
+                int iCall = ( msg.m_iCallback / 100 ) * 100;
+                ECallbackType type = ( ECallbackType )iCall;
+
+                txtCallbacks.AppendText( "Unhandled callback: " + msg.m_iCallback + " Type: " + type + " Size: " + msg.m_cubParam + Environment.NewLine );
+
+                txtCallbacks.ScrollToCaret();
+            } );
+        }
+
+        /*
         void CallbackDispatcher_Callback( CallbackMsg_t msg )
         {
             txtCallbacks.Invoke( ( MethodInvoker )delegate
@@ -92,7 +116,7 @@ namespace SteamSuite
 
                 txtCallbacks.ScrollToCaret();
             } );
-        }
+        }*/
 
 
         private void btnSetName_Click( object sender, EventArgs e )
@@ -297,7 +321,10 @@ namespace SteamSuite
         private void MainForm_Shown( object sender, EventArgs e )
         {
             context.FriendChatMsg.OnRun += new Callback<FriendChatMsg_t>.DispatchDelegate( FriendChatMsg_OnRun );
-            CallbackDispatcher.Callback += new CallbackDispatcher.CallbackDelegate( CallbackDispatcher_Callback );
+            //CallbackDispatcher.Callback += new CallbackDispatcher.CallbackDelegate( CallbackDispatcher_Callback );
+
+            ICallback psc = new Callback<PersonaStateChange_t>( PersonaStateChange, PersonaStateChange_t.k_iCallback );
+            CallbackUnhandled unhandled = new CallbackUnhandled( UnhandledCallback );
 
             context.StartCallbacks();
         }
