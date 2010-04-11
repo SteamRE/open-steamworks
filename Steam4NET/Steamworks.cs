@@ -91,7 +91,16 @@ namespace Steam4NET
         private static NativeSteamBGetCallback CallSteamBGetCallback;
         public static bool GetCallback(int pipe, ref CallbackMsg_t message, ref int call)
         {
-            return CallSteamBGetCallback(pipe, ref message, ref call);
+            try
+            {
+                return CallSteamBGetCallback( pipe, ref message, ref call );
+            }
+            catch
+            {
+                message = new CallbackMsg_t();
+                call = 0;
+                return false;
+            }
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
