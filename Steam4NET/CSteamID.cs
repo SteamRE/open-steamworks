@@ -136,6 +136,22 @@ namespace Steam4NET
             return steamid.Data == sid.steamid.Data;
         }
 
+        public static bool operator ==(CSteamID a, CSteamID b)
+        {
+            if (System.Object.ReferenceEquals(a, b))
+                return true;
+
+            if (((object)a == null) || ((object)b == null))
+                return false;
+
+            return a.steamid.Data == b.steamid.Data;
+        }
+
+        public static bool operator !=(CSteamID a, CSteamID b)
+        {
+            return !(a == b);
+        }
+
         public override int GetHashCode()
         {
             return steamid.Data.GetHashCode();

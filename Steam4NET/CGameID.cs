@@ -52,6 +52,22 @@ namespace Steam4NET
             return gameid == gid.gameid;
         }
 
+        public static bool operator ==(CGameID a, CGameID b)
+        {
+            if (System.Object.ReferenceEquals(a, b))
+                return true;
+
+            if (((object)a == null) || ((object)b == null))
+                return false;
+
+            return a.gameid == b.gameid;
+        }
+
+        public static bool operator !=(CGameID a, CGameID b)
+        {
+            return !(a == b);
+        }
+
         public override int GetHashCode()
         {
             return gameid.GetHashCode();
