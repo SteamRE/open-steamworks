@@ -1,11 +1,8 @@
-#include "SteamclientAPI.h"
-#include "SteamAPI.h"
+#include "Steamworks.h"
 
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-
-#pragma comment(lib, "..\\steamclient")
 
 ISteamClient008 *steamClient = NULL;
 
@@ -19,7 +16,10 @@ int main()
 {
 	using namespace std;
 
-	Sys_LoadInterface( "steamclient", STEAMCLIENT_INTERFACE_VERSION_008, NULL, (void**)&steamClient );
+	CSteamAPILoader loader;
+	CreateInterfaceFn factory = loader.Load();
+
+	ISteamClient008 *steamClient = (ISteamClient008 *)factory( STEAMCLIENT_INTERFACE_VERSION_008, NULL );
 	if ( !steamClient )
 	{
 		cout << "Error: Unable to load steamclient.dll" << endl;

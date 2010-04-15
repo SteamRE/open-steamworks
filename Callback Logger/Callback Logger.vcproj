@@ -129,6 +129,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="steamclient.lib"
+				ShowProgress="1"
+				AdditionalLibraryDirectories="..\"
 				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
