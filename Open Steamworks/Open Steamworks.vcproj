@@ -1061,11 +1061,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\POSIXLibrary.h"
+			>
+		</File>
+		<File
 			RelativePath=".\SteamTypes.h"
 			>
 		</File>
 		<File
 			RelativePath=".\Steamworks.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Win32Library.h"
 			>
 		</File>
 	</Files>

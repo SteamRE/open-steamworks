@@ -14,312 +14,106 @@
 //
 //=============================================================================
 
-
-#ifndef INTERFACEOSW_H
-#define INTERFACEOSW_H
+#pragma once
 
 #include <cstdlib>
 #include <iostream>
 
 #ifdef _WIN32
-#include <windows.h>
-#include <tchar.h>
-#pragma once
+	#define TARGET_OS_WIN32 1
+	#include <windows.h>
+	#include <tchar.h>
+	#include "Win32Library.h"
+#elif defined(__APPLE_CC__)
+	#define TARGET_OS_MAC 1
+	#include "POSIXLibrary.h"
+	#include <CoreServices/CoreServices.h>
+	#include <sys/param.h>
+#else
+	#define TARGET_OS_UNIX 1
+	#include "POSIXLibrary.h"
 #endif
-
-enum EIFaceResult
-{
-	IFACE_OK = 0,
-	IFACE_FAILED
-};
-
-// load/unload components
-class CSysModule;
-
 
 #define CREATEINTERFACE_PROCNAME "CreateInterface"
-// steam.dll ISteam factory
-#define OLDFACTORY_PROCNAME "_f"
-
-
-#ifndef _WIN32
-// Linux doesn't have this function so this emulates its functionality
-inline void *GetModuleHandleA( const char *name )
-{
-	void *handle;
-
-	if ( name == NULL )
-	{
-		// hmm, how can this be handled under linux....
-		// is it even needed?
-		return NULL;
-	}
-
-	handle = dlopen( name, RTLD_NOW );
-    if ( handle == NULL )
-    {
-            printf("DLOPEN Error:%s\n",dlerror());
-            // couldn't open this file
-            return NULL;
-    }
-
-	// read "man dlopen" for details
-	// in short dlopen() inc a ref count
-	// so dec the ref count by performing the close
-	dlclose(handle);
-	return handle;
-}
-#endif
-
-inline HMODULE Sys_LoadLibrary( const char *pLibraryName )
-{
-#ifdef _WIN32
-	return LoadLibraryExA( pLibraryName, NULL, LOAD_WITH_ALTERED_SEARCH_PATH );
-#else
-	char file[260];
-	sprintf(file, "%s_linux.so", pLibraryName);
-	return dlopen( file, RTLD_NOW );
-#endif
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: returns a pointer to a function, given a module
-// Input  : pModuleName - module name
-//			*pName - proc name
-//-----------------------------------------------------------------------------
-inline void *Sys_GetProcAddress( const char *pModuleName, const char *pName )
-{
-	HMODULE hModule = GetModuleHandleA( pModuleName );
-
-	if ( !hModule )
-		hModule = Sys_LoadLibrary( pModuleName );
-
-//#ifdef _WIN32
-	return (void *)GetProcAddress( hModule, pName );
-//#else
-//	return (CreateInterfaceFn)( dlsym( hModule, CREATEINTERFACE_PROCNAME ) );
-//#endif
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: returns the instance of the named module
-// Input  : *pModuleName - name of the module
-// Output : interface_instance_t - instance of that module
-//-----------------------------------------------------------------------------
-inline CreateInterfaceFn Sys_GetFactory( const char *pModuleName )
-{
-	return (CreateInterfaceFn)( Sys_GetProcAddress( pModuleName, CREATEINTERFACE_PROCNAME ) );
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: returns a pointer to a function, given a module
-// Input  : module - windows HMODULE from Sys_LoadModule()
-//			*pName - proc name
-// Output : factory for this module
-//-----------------------------------------------------------------------------
-inline CreateInterfaceFn Sys_GetFactory( CSysModule *pModule )
-{
-	if ( !pModule )
-		return NULL;
-
-	HMODULE	hDLL = reinterpret_cast<HMODULE>(pModule);
-#ifdef _WIN32
-	return reinterpret_cast<CreateInterfaceFn>( GetProcAddress( hDLL, CREATEINTERFACE_PROCNAME ) );
-#else
-	// Linux gives this error:
-	//../public/interface.cpp: In function `IBaseInterface *(*Sys_GetFactory
-	//(CSysModule *)) (const char *, int *)':
-	//../public/interface.cpp:154: ISO C++ forbids casting between
-	//pointer-to-function and pointer-to-object
-	//
-	// so lets get around it :)
-	return (CreateInterfaceFn)(dlsym( hDLL, CREATEINTERFACE_PROCNAME ));
-#endif
-}
-
-
-inline FactoryFn Sys_GetFactoryOld( const char *pModuleName )
-{
-	return (FactoryFn)( Sys_GetProcAddress( pModuleName, OLDFACTORY_PROCNAME ) );
-}
-
-
-
-//-----------------------------------------------------------------------------
-// Purpose: Loads a DLL/component from disk and returns a handle to it
-// Input  : *pModuleName - filename of the component
-// Output : opaque handle to the module (hides system dependency)
-//-----------------------------------------------------------------------------
-inline CSysModule *Sys_LoadModule( const char *pModuleName )
-{
-	// If using the Steam filesystem, either the DLL must be a minimum footprint
-	// file in the depot (MFP) or a filesystem GetLocalCopy() call must be made
-	// prior to the call to this routine.
-	HMODULE hDLL = Sys_LoadLibrary( pModuleName );
-	return reinterpret_cast<CSysModule *>( hDLL );
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: Unloads a DLL/component from
-// Input  : *pModuleName - filename of the component
-// Output : opaque handle to the module (hides system dependency)
-//-----------------------------------------------------------------------------
-inline void Sys_UnloadModule( CSysModule *pModule )
-{
-	if ( !pModule )
-		return;
-
-	HMODULE	hDLL = reinterpret_cast<HMODULE>( pModule );
-
-#ifdef _WIN32
-	FreeLibrary( hDLL );
-#else
-	dlclose( (void *)hDLL );
-#endif
-}
-
-
-//-----------------------------------------------------------------------------
-// Purpose: get the interface for the specified module and version
-// Input  :
-// Output :
-//-----------------------------------------------------------------------------
-inline bool Sys_LoadInterface(
-	const char *pModuleName,
-	const char *pInterfaceVersionName,
-	CSysModule **pOutModule,
-	void **pOutInterface )
-{
-	CSysModule *pMod = Sys_LoadModule( pModuleName );
-	if ( !pMod )
-		return false;
-
-	CreateInterfaceFn fn = Sys_GetFactory( pMod );
-	if ( !fn )
-	{
-		Sys_UnloadModule( pMod );
-		return false;
-	}
-
-	*pOutInterface = fn( pInterfaceVersionName, NULL );
-	if ( !( *pOutInterface ) )
-	{
-		Sys_UnloadModule( pMod );
-		return false;
-	}
-
-	if ( pOutModule )
-		*pOutModule = pMod;
-
-	return true;
-}
-
-class CDllDemandLoader
-{
-public:
-	CDllDemandLoader( char const *pchModuleName ) : m_pchModuleName( pchModuleName ), m_hModule( 0 ), m_bLoadAttempted( false )	{};
-	virtual				~CDllDemandLoader() { Unload(); };
-
-	CreateInterfaceFn GetFactory(const char *altpath)
-	{
-		if ( !m_hModule && !m_bLoadAttempted )
-		{
-			m_bLoadAttempted = true;
-			if(altpath && *altpath)
-			{
-				char trypath[260];
-				sprintf_s(trypath, sizeof(trypath), "%s\\%s", altpath, m_pchModuleName);
-				m_hModule = Sys_LoadModule( trypath );
-			}
-
-			if(m_hModule == NULL)
-				m_hModule = Sys_LoadModule( m_pchModuleName );
-		}
-
-		if ( !m_hModule )
-		{
-			std::cerr << "Unable to get factory for " << m_pchModuleName << std::endl;
-			return NULL;
-		}
-
-		return Sys_GetFactory( m_hModule );
-	}
-
-	HMODULE GetModule()
-	{
-		return (HMODULE)m_hModule;
-	}
-
-	void Unload()
-	{
-		if ( m_hModule )
-		{
-			Sys_UnloadModule( m_hModule );
-			m_hModule = 0;
-		}
-	}
-
-private:
-	char const	*m_pchModuleName;
-	CSysModule	*m_hModule;
-	bool		m_bLoadAttempted;
-};
 
 class CSteamAPILoader
 {
 public:
-	CSteamAPILoader() :
-#ifdef _WIN32
-	  steamservice("steamservice"),
-#endif
-	  steamclient("steamclient")
-	{
+	CSteamAPILoader() {
 		TryGetSteamDir();
+		TryLoadLibraries();
 	}
-
+	
 	CreateInterfaceFn Load()
 	{
-#ifdef _WIN32
-		if(steamservice.GetFactory(m_pchSteamDirBin) == NULL)
-			return NULL;
-#endif
-		if(steamclient.GetFactory(m_pchSteamDir) == NULL)
-			return NULL;
-
-		return steamclient.GetFactory(m_pchSteamDir);
+		return (CreateInterfaceFn)m_steamclient->GetSymbol( CREATEINTERFACE_PROCNAME );
 	}
 
-	const char *GetSteamDir() { return m_pchSteamDir; }
-	HMODULE GetSteamModule() { return steamclient.GetModule(); }
+	std::string GetSteamDir() {
+		return m_steamDir;
+	}
+	
+	DynamicLibrary * GetSteamModule() {
+		return m_steamclient.get();
+	}
+
 private:
 	void TryGetSteamDir()
 	{
-		memset(m_pchSteamDir, 0, sizeof(m_pchSteamDir));
-#ifdef _WIN32
+#if TARGET_OS_WIN32
 		HKEY hRegKey;
 
 		if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "Software\\Valve\\Steam", 0, KEY_QUERY_VALUE, &hRegKey) == ERROR_SUCCESS)
 		{
-			DWORD dwLength = sizeof(m_pchSteamDir);
-			RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)m_pchSteamDir, &dwLength);
+			char pchSteamDir[MAX_PATH];
+			DWORD dwLength = sizeof(pchSteamDir);
+			RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)pchSteamDir, &dwLength);
 			RegCloseKey(hRegKey);
-
-			strncpy(m_pchSteamDirBin, m_pchSteamDir, sizeof(m_pchSteamDir) - 4);
-			strcat(m_pchSteamDirBin, "\\bin");
-
-			SetDllDirectoryA(m_pchSteamDir);
+			
+			m_steamDir = pchSteamDir;
 		}
+#elif TARGET_OS_MAC
+		CFURLRef url;
+		OSStatus err = LSFindApplicationForInfo(kLSUnknownCreator, CFSTR("com.valvesoftware.steam"), NULL, NULL, &url);
+		if(err) return;
+		
+		UInt8 fsPath[MAXPATHLEN];
+		Boolean success = CFURLGetFileSystemRepresentation(url, true, fsPath, sizeof(fsPath));
+		
+		if(success)
+			m_steamDir = (const char *)fsPath;
+
+		CFRelease(url);
+#else
+		// We don't know where to find Steam on this platform, so we're going
+		// to say it lives in the same directory as our executable
+		m_steamDir = "";
 #endif
 	}
-
-#ifdef _WIN32
-	CDllDemandLoader steamservice;
+	
+	void TryLoadLibraries()
+	{
+#if TARGET_OS_WIN32
+		// steamclient.dll expects to be able to load tier0_s without an absolute
+		// path, so we'll need to add the steam dir to the search path.
+		SetDllDirectory( m_steamDir.c_str() );
+		m_steamclient.reset( new DynamicLibrary( m_steamDir + "\steamclient.dll" ) );
+#elif TARGET_OS_MAC
+		std::string libsPath;
+		if(!m_steamDir.empty()) {
+			libsPath = m_steamDir + "/Contents/MacOS/osx32/";
+		} else {
+			// The user doesn't have steam installed, fall back to using the 
+			// loader's runtime search paths
+			libsPath = "@rpath/";
+		}
+		
+		m_steamclient.reset( new DynamicLibrary( libsPath + "steamclient.dylib" ) );
+#else
+		m_steamclient.reset( new DynamicLibrary( m_steamDir + "steamclient_linux.so" ) );
 #endif
-	CDllDemandLoader steamclient;
-
-	char m_pchSteamDir[260];
-	char m_pchSteamDirBin[260];
-	bool m_bFullyInitialized;
+	}
+	
+	std::string m_steamDir;
+	std::auto_ptr<DynamicLibrary> m_steamclient;
 };
-
-#endif // INTERFACE_H
