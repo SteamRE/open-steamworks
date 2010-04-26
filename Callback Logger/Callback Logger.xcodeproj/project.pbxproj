@@ -1,0 +1,643 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D818A3FF1185055700A363B1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D818A3FE1185055700A363B1 /* CoreFoundation.framework */; };
+		D818A4011185055B00A363B1 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D818A4001185055B00A363B1 /* CoreServices.framework */; };
+		D818A42B1185073100A363B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D818A42A1185073100A363B1 /* main.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D818A3F81185053000A363B1 /* Callback Logger */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Callback Logger"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D818A3FE1185055700A363B1 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		D818A4001185055B00A363B1 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		D818A42A1185073100A363B1 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D818A42D1185073A00A363B1 /* AppsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppsCommon.h; sourceTree = "<group>"; };
+		D818A42E1185073A00A363B1 /* BillingCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillingCommon.h; sourceTree = "<group>"; };
+		D818A42F1185073A00A363B1 /* BridgeCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgeCommon.h; sourceTree = "<group>"; };
+		D818A4301185073A00A363B1 /* CCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCallback.h; sourceTree = "<group>"; };
+		D818A4311185073A00A363B1 /* CGameID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGameID.h; sourceTree = "<group>"; };
+		D818A4321185073A00A363B1 /* ClientCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientCommon.h; sourceTree = "<group>"; };
+		D818A4331185073A00A363B1 /* ContentServerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentServerCommon.h; sourceTree = "<group>"; };
+		D818A4341185073A00A363B1 /* CSteamID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSteamID.h; sourceTree = "<group>"; };
+		D818A4351185073A00A363B1 /* EAccountType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAccountType.h; sourceTree = "<group>"; };
+		D818A4361185073A00A363B1 /* EAppState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAppState.h; sourceTree = "<group>"; };
+		D818A4371185073A00A363B1 /* EAppUsageEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAppUsageEvent.h; sourceTree = "<group>"; };
+		D818A4381185073A00A363B1 /* EAuthSessionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAuthSessionResponse.h; sourceTree = "<group>"; };
+		D818A4391185073A00A363B1 /* EAvatarSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAvatarSize.h; sourceTree = "<group>"; };
+		D818A43A1185073A00A363B1 /* EBeginAuthSessionResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBeginAuthSessionResult.h; sourceTree = "<group>"; };
+		D818A43B1185073A00A363B1 /* ECallState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECallState.h; sourceTree = "<group>"; };
+		D818A43C1185073A00A363B1 /* EChatEntryType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EChatEntryType.h; sourceTree = "<group>"; };
+		D818A43D1185073A00A363B1 /* EChatMemberStateChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EChatMemberStateChange.h; sourceTree = "<group>"; };
+		D818A43E1185073A00A363B1 /* EChatRoomEnterResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EChatRoomEnterResponse.h; sourceTree = "<group>"; };
+		D818A43F1185073A00A363B1 /* EChatRoomType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EChatRoomType.h; sourceTree = "<group>"; };
+		D818A4401185073A00A363B1 /* EChatRoomVoiceStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EChatRoomVoiceStatus.h; sourceTree = "<group>"; };
+		D818A4411185073A00A363B1 /* EClanRank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EClanRank.h; sourceTree = "<group>"; };
+		D818A4421185073A00A363B1 /* EClanRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EClanRelationship.h; sourceTree = "<group>"; };
+		D818A4431185073A00A363B1 /* EConnectionPriority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EConnectionPriority.h; sourceTree = "<group>"; };
+		D818A4441185073A00A363B1 /* ECurrencyCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECurrencyCode.h; sourceTree = "<group>"; };
+		D818A4451185073A00A363B1 /* EDenyReason.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDenyReason.h; sourceTree = "<group>"; };
+		D818A4461185073A00A363B1 /* EDepotBuildStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDepotBuildStatus.h; sourceTree = "<group>"; };
+		D818A4471185073A00A363B1 /* EDetailedPlatformErrorType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDetailedPlatformErrorType.h; sourceTree = "<group>"; };
+		D818A4481185073A00A363B1 /* EFriendFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EFriendFlags.h; sourceTree = "<group>"; };
+		D818A4491185073A00A363B1 /* EFriendMsgType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EFriendMsgType.h; sourceTree = "<group>"; };
+		D818A44A1185073A00A363B1 /* EFriendRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EFriendRelationship.h; sourceTree = "<group>"; };
+		D818A44B1185073A00A363B1 /* EGCMsgResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGCMsgResponse.h; sourceTree = "<group>"; };
+		D818A44C1185073A00A363B1 /* EHTTPMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHTTPMethod.h; sourceTree = "<group>"; };
+		D818A44D1185073A00A363B1 /* EItemCriteriaOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EItemCriteriaOperator.h; sourceTree = "<group>"; };
+		D818A44E1185073A00A363B1 /* EItemQuality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EItemQuality.h; sourceTree = "<group>"; };
+		D818A44F1185073A00A363B1 /* EItemRequestResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EItemRequestResult.h; sourceTree = "<group>"; };
+		D818A4501185073A00A363B1 /* ELeaderboardDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELeaderboardDataRequest.h; sourceTree = "<group>"; };
+		D818A4511185073A00A363B1 /* ELeaderboardDisplayType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELeaderboardDisplayType.h; sourceTree = "<group>"; };
+		D818A4521185073A00A363B1 /* ELeaderboardSortMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELeaderboardSortMethod.h; sourceTree = "<group>"; };
+		D818A4531185073A00A363B1 /* ELicenseFlags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELicenseFlags.h; sourceTree = "<group>"; };
+		D818A4541185073A00A363B1 /* ELobbyComparison.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELobbyComparison.h; sourceTree = "<group>"; };
+		D818A4551185073A00A363B1 /* ELobbyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELobbyType.h; sourceTree = "<group>"; };
+		D818A4561185073A00A363B1 /* ELogonState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELogonState.h; sourceTree = "<group>"; };
+		D818A4571185073A00A363B1 /* EMatchMakingServerResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMatchMakingServerResponse.h; sourceTree = "<group>"; };
+		D818A4581185073A00A363B1 /* EMatchMakingType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMatchMakingType.h; sourceTree = "<group>"; };
+		D818A4591185073A00A363B1 /* ENewsUpdateType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENewsUpdateType.h; sourceTree = "<group>"; };
+		D818A45A1185073A00A363B1 /* ENotificationPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENotificationPosition.h; sourceTree = "<group>"; };
+		D818A45B1185073A00A363B1 /* EnumString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnumString.h; sourceTree = "<group>"; };
+		D818A45C1185073A00A363B1 /* EP2PSend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP2PSend.h; sourceTree = "<group>"; };
+		D818A45D1185073A00A363B1 /* EP2PSessionError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP2PSessionError.h; sourceTree = "<group>"; };
+		D818A45E1185073A00A363B1 /* EPaymentMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPaymentMethod.h; sourceTree = "<group>"; };
+		D818A45F1185073A00A363B1 /* EPersonaChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPersonaChange.h; sourceTree = "<group>"; };
+		D818A4601185073A00A363B1 /* EPersonaState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPersonaState.h; sourceTree = "<group>"; };
+		D818A4611185073A00A363B1 /* EPurchaseResultDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPurchaseResultDetail.h; sourceTree = "<group>"; };
+		D818A4621185073A00A363B1 /* EPurchaseStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPurchaseStatus.h; sourceTree = "<group>"; };
+		D818A4631185073A00A363B1 /* ERegistrySubTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ERegistrySubTree.h; sourceTree = "<group>"; };
+		D818A4641185073A00A363B1 /* EResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EResult.h; sourceTree = "<group>"; };
+		D818A4651185073A00A363B1 /* EServerMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EServerMode.h; sourceTree = "<group>"; };
+		D818A4661185073A00A363B1 /* ESNetSocketConnectionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESNetSocketConnectionType.h; sourceTree = "<group>"; };
+		D818A4671185073A00A363B1 /* ESNetSocketState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESNetSocketState.h; sourceTree = "<group>"; };
+		D818A4681185073A00A363B1 /* EStatusDepotVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EStatusDepotVersion.h; sourceTree = "<group>"; };
+		D818A4691185073A00A363B1 /* ESteamAPICallFailure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamAPICallFailure.h; sourceTree = "<group>"; };
+		D818A46A1185073A00A363B1 /* ESteamAppUpdateStatsQueryType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamAppUpdateStatsQueryType.h; sourceTree = "<group>"; };
+		D818A46B1185073A00A363B1 /* ESteamBillingType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamBillingType.h; sourceTree = "<group>"; };
+		D818A46C1185073A00A363B1 /* ESteamBufferMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamBufferMethod.h; sourceTree = "<group>"; };
+		D818A46D1185073A00A363B1 /* ESteamError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamError.h; sourceTree = "<group>"; };
+		D818A46E1185073A00A363B1 /* ESteamFindFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamFindFilter.h; sourceTree = "<group>"; };
+		D818A46F1185073A00A363B1 /* ESteamNotificationCallbackEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamNotificationCallbackEvent.h; sourceTree = "<group>"; };
+		D818A4701185073A00A363B1 /* ESteamPaymentCardType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamPaymentCardType.h; sourceTree = "<group>"; };
+		D818A4711185073A00A363B1 /* ESteamSeekMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamSeekMethod.h; sourceTree = "<group>"; };
+		D818A4721185073A00A363B1 /* ESteamServerType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamServerType.h; sourceTree = "<group>"; };
+		D818A4731185073A00A363B1 /* ESteamSubscriptionBillingInfoType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamSubscriptionBillingInfoType.h; sourceTree = "<group>"; };
+		D818A4741185073A00A363B1 /* ESteamSubscriptionStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamSubscriptionStatus.h; sourceTree = "<group>"; };
+		D818A4751185073A00A363B1 /* ESteamUserStatType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESteamUserStatType.h; sourceTree = "<group>"; };
+		D818A4761185073A00A363B1 /* ESystemIMType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESystemIMType.h; sourceTree = "<group>"; };
+		D818A4771185073A00A363B1 /* EUniverse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUniverse.h; sourceTree = "<group>"; };
+		D818A4781185073A00A363B1 /* EUserHasLicenseForAppResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EUserHasLicenseForAppResult.h; sourceTree = "<group>"; };
+		D818A4791185073A00A363B1 /* EVACBan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVACBan.h; sourceTree = "<group>"; };
+		D818A47A1185073A00A363B1 /* EVoiceResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EVoiceResult.h; sourceTree = "<group>"; };
+		D818A47B1185073A00A363B1 /* FriendGameInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendGameInfo.h; sourceTree = "<group>"; };
+		D818A47C1185073A00A363B1 /* FriendsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsCommon.h; sourceTree = "<group>"; };
+		D818A47D1185073A00A363B1 /* GameCoordinatorCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCoordinatorCommon.h; sourceTree = "<group>"; };
+		D818A47E1185073A00A363B1 /* GameServerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameServerCommon.h; sourceTree = "<group>"; };
+		D818A47F1185073A00A363B1 /* gameserveritem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameserveritem.h; sourceTree = "<group>"; };
+		D818A4801185073A00A363B1 /* GameServerItemsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameServerItemsCommon.h; sourceTree = "<group>"; };
+		D818A4811185073A00A363B1 /* GameServerStatsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameServerStatsCommon.h; sourceTree = "<group>"; };
+		D818A4821185073A00A363B1 /* IClientAppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientAppManager.h; sourceTree = "<group>"; };
+		D818A4831185073A00A363B1 /* IClientApps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientApps.h; sourceTree = "<group>"; };
+		D818A4841185073A00A363B1 /* IClientBilling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientBilling.h; sourceTree = "<group>"; };
+		D818A4851185073A00A363B1 /* IClientContentServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientContentServer.h; sourceTree = "<group>"; };
+		D818A4861185073A00A363B1 /* IClientDepotBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientDepotBuilder.h; sourceTree = "<group>"; };
+		D818A4871185073A00A363B1 /* IClientEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientEngine.h; sourceTree = "<group>"; };
+		D818A4881185073A00A363B1 /* IClientFriends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientFriends.h; sourceTree = "<group>"; };
+		D818A4891185073A00A363B1 /* IClientGameCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientGameCoordinator.h; sourceTree = "<group>"; };
+		D818A48A1185073A00A363B1 /* IClientGameServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientGameServer.h; sourceTree = "<group>"; };
+		D818A48B1185073A00A363B1 /* IClientGameStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientGameStats.h; sourceTree = "<group>"; };
+		D818A48C1185073A00A363B1 /* IClientHTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientHTTP.h; sourceTree = "<group>"; };
+		D818A48D1185073A00A363B1 /* IClientMatchmaking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientMatchmaking.h; sourceTree = "<group>"; };
+		D818A48E1185073A00A363B1 /* IClientUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientUser.h; sourceTree = "<group>"; };
+		D818A48F1185073A00A363B1 /* IClientUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IClientUtils.h; sourceTree = "<group>"; };
+		D818A4901185073A00A363B1 /* Interface_OSW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interface_OSW.h; sourceTree = "<group>"; };
+		D818A4911185073A00A363B1 /* IP2PController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IP2PController.h; sourceTree = "<group>"; };
+		D818A4921185073A00A363B1 /* ISteam003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteam003.h; sourceTree = "<group>"; };
+		D818A4931185073A00A363B1 /* ISteam004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteam004.h; sourceTree = "<group>"; };
+		D818A4941185073A00A363B1 /* ISteam005.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteam005.h; sourceTree = "<group>"; };
+		D818A4951185073A00A363B1 /* ISteam006.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteam006.h; sourceTree = "<group>"; };
+		D818A4961185073A00A363B1 /* ISteam2Bridge001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteam2Bridge001.h; sourceTree = "<group>"; };
+		D818A4971185073A00A363B1 /* ISteam2Bridge002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteam2Bridge002.h; sourceTree = "<group>"; };
+		D818A4981185073A00A363B1 /* ISteamApps001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamApps001.h; sourceTree = "<group>"; };
+		D818A4991185073A00A363B1 /* ISteamApps002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamApps002.h; sourceTree = "<group>"; };
+		D818A49A1185073A00A363B1 /* ISteamApps003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamApps003.h; sourceTree = "<group>"; };
+		D818A49B1185073A00A363B1 /* ISteamBilling001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamBilling001.h; sourceTree = "<group>"; };
+		D818A49C1185073A00A363B1 /* ISteamBilling002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamBilling002.h; sourceTree = "<group>"; };
+		D818A49D1185073A00A363B1 /* ISteamClient006.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamClient006.h; sourceTree = "<group>"; };
+		D818A49E1185073A00A363B1 /* ISteamClient007.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamClient007.h; sourceTree = "<group>"; };
+		D818A49F1185073A00A363B1 /* ISteamClient008.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamClient008.h; sourceTree = "<group>"; };
+		D818A4A01185073A00A363B1 /* ISteamClient009.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamClient009.h; sourceTree = "<group>"; };
+		D818A4A11185073A00A363B1 /* ISteamContentServer001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamContentServer001.h; sourceTree = "<group>"; };
+		D818A4A21185073A00A363B1 /* ISteamContentServer002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamContentServer002.h; sourceTree = "<group>"; };
+		D818A4A31185073A00A363B1 /* ISteamFriends001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamFriends001.h; sourceTree = "<group>"; };
+		D818A4A41185073A00A363B1 /* ISteamFriends002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamFriends002.h; sourceTree = "<group>"; };
+		D818A4A51185073A00A363B1 /* ISteamFriends003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamFriends003.h; sourceTree = "<group>"; };
+		D818A4A61185073A00A363B1 /* ISteamFriends004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamFriends004.h; sourceTree = "<group>"; };
+		D818A4A71185073A00A363B1 /* ISteamFriends005.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamFriends005.h; sourceTree = "<group>"; };
+		D818A4A81185073A00A363B1 /* ISteamGameCoordinator001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameCoordinator001.h; sourceTree = "<group>"; };
+		D818A4A91185073A00A363B1 /* ISteamGameServer002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServer002.h; sourceTree = "<group>"; };
+		D818A4AA1185073A00A363B1 /* ISteamGameServer003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServer003.h; sourceTree = "<group>"; };
+		D818A4AB1185073A00A363B1 /* ISteamGameServer004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServer004.h; sourceTree = "<group>"; };
+		D818A4AC1185073A00A363B1 /* ISteamGameServer005.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServer005.h; sourceTree = "<group>"; };
+		D818A4AD1185073A00A363B1 /* ISteamGameServer006.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServer006.h; sourceTree = "<group>"; };
+		D818A4AE1185073A00A363B1 /* ISteamGameServer007.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServer007.h; sourceTree = "<group>"; };
+		D818A4AF1185073A00A363B1 /* ISteamGameServer008.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServer008.h; sourceTree = "<group>"; };
+		D818A4B01185073A00A363B1 /* ISteamGameServer009.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServer009.h; sourceTree = "<group>"; };
+		D818A4B11185073A00A363B1 /* ISteamGameServer010.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServer010.h; sourceTree = "<group>"; };
+		D818A4B21185073A00A363B1 /* ISteamGameServerItems002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServerItems002.h; sourceTree = "<group>"; };
+		D818A4B31185073A00A363B1 /* ISteamGameServerItems003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServerItems003.h; sourceTree = "<group>"; };
+		D818A4B41185073A00A363B1 /* ISteamGameServerItems004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServerItems004.h; sourceTree = "<group>"; };
+		D818A4B51185073A00A363B1 /* ISteamGameServerStats001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamGameServerStats001.h; sourceTree = "<group>"; };
+		D818A4B61185073A00A363B1 /* ISteamMasterServerUpdater001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMasterServerUpdater001.h; sourceTree = "<group>"; };
+		D818A4B71185073A00A363B1 /* ISteamMatchmaking001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmaking001.h; sourceTree = "<group>"; };
+		D818A4B81185073A00A363B1 /* ISteamMatchmaking002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmaking002.h; sourceTree = "<group>"; };
+		D818A4B91185073A00A363B1 /* ISteamMatchmaking003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmaking003.h; sourceTree = "<group>"; };
+		D818A4BA1185073A00A363B1 /* ISteamMatchmaking004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmaking004.h; sourceTree = "<group>"; };
+		D818A4BB1185073A00A363B1 /* ISteamMatchmaking005.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmaking005.h; sourceTree = "<group>"; };
+		D818A4BC1185073A00A363B1 /* ISteamMatchmaking006.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmaking006.h; sourceTree = "<group>"; };
+		D818A4BD1185073A00A363B1 /* ISteamMatchmaking007.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmaking007.h; sourceTree = "<group>"; };
+		D818A4BE1185073A00A363B1 /* ISteamMatchmaking008.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmaking008.h; sourceTree = "<group>"; };
+		D818A4BF1185073A00A363B1 /* ISteamMatchmakingServers001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmakingServers001.h; sourceTree = "<group>"; };
+		D818A4C01185073A00A363B1 /* ISteamMatchmakingServers002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamMatchmakingServers002.h; sourceTree = "<group>"; };
+		D818A4C11185073A00A363B1 /* ISteamNetworking001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamNetworking001.h; sourceTree = "<group>"; };
+		D818A4C21185073A00A363B1 /* ISteamNetworking002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamNetworking002.h; sourceTree = "<group>"; };
+		D818A4C31185073A00A363B1 /* ISteamNetworking003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamNetworking003.h; sourceTree = "<group>"; };
+		D818A4C41185073A00A363B1 /* ISteamRemoteStorage001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamRemoteStorage001.h; sourceTree = "<group>"; };
+		D818A4C51185073A00A363B1 /* ISteamRemoteStorage002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamRemoteStorage002.h; sourceTree = "<group>"; };
+		D818A4C61185073A00A363B1 /* ISteamUser004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser004.h; sourceTree = "<group>"; };
+		D818A4C71185073A00A363B1 /* ISteamUser005.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser005.h; sourceTree = "<group>"; };
+		D818A4C81185073A00A363B1 /* ISteamUser006.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser006.h; sourceTree = "<group>"; };
+		D818A4C91185073A00A363B1 /* ISteamUser007.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser007.h; sourceTree = "<group>"; };
+		D818A4CA1185073A00A363B1 /* ISteamUser008.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser008.h; sourceTree = "<group>"; };
+		D818A4CB1185073A00A363B1 /* ISteamUser009.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser009.h; sourceTree = "<group>"; };
+		D818A4CC1185073A00A363B1 /* ISteamUser010.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser010.h; sourceTree = "<group>"; };
+		D818A4CD1185073A00A363B1 /* ISteamUser011.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser011.h; sourceTree = "<group>"; };
+		D818A4CE1185073A00A363B1 /* ISteamUser012.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser012.h; sourceTree = "<group>"; };
+		D818A4CF1185073A00A363B1 /* ISteamUser013.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUser013.h; sourceTree = "<group>"; };
+		D818A4D01185073A00A363B1 /* ISteamUserItems001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserItems001.h; sourceTree = "<group>"; };
+		D818A4D11185073A00A363B1 /* ISteamUserItems002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserItems002.h; sourceTree = "<group>"; };
+		D818A4D21185073A00A363B1 /* ISteamUserItems003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserItems003.h; sourceTree = "<group>"; };
+		D818A4D31185073A00A363B1 /* ISteamUserItems004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserItems004.h; sourceTree = "<group>"; };
+		D818A4D41185073A00A363B1 /* ISteamUserStats001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserStats001.h; sourceTree = "<group>"; };
+		D818A4D51185073A00A363B1 /* ISteamUserStats002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserStats002.h; sourceTree = "<group>"; };
+		D818A4D61185073A00A363B1 /* ISteamUserStats003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserStats003.h; sourceTree = "<group>"; };
+		D818A4D71185073A00A363B1 /* ISteamUserStats004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserStats004.h; sourceTree = "<group>"; };
+		D818A4D81185073A00A363B1 /* ISteamUserStats005.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserStats005.h; sourceTree = "<group>"; };
+		D818A4D91185073A00A363B1 /* ISteamUserStats006.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserStats006.h; sourceTree = "<group>"; };
+		D818A4DA1185073A00A363B1 /* ISteamUserStats007.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUserStats007.h; sourceTree = "<group>"; };
+		D818A4DB1185073A00A363B1 /* ISteamUtils001.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUtils001.h; sourceTree = "<group>"; };
+		D818A4DC1185073A00A363B1 /* ISteamUtils002.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUtils002.h; sourceTree = "<group>"; };
+		D818A4DD1185073A00A363B1 /* ISteamUtils003.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUtils003.h; sourceTree = "<group>"; };
+		D818A4DE1185073A00A363B1 /* ISteamUtils004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUtils004.h; sourceTree = "<group>"; };
+		D818A4DF1185073A00A363B1 /* ISteamUtils005.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISteamUtils005.h; sourceTree = "<group>"; };
+		D818A4E01185073A00A363B1 /* MasterServerUpdaterCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterServerUpdaterCommon.h; sourceTree = "<group>"; };
+		D818A4E11185073A00A363B1 /* MatchmakingCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchmakingCommon.h; sourceTree = "<group>"; };
+		D818A4E21185073A00A363B1 /* MatchMakingKeyValuePair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakingKeyValuePair.h; sourceTree = "<group>"; };
+		D818A4E31185073A00A363B1 /* MatchmakingServersCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchmakingServersCommon.h; sourceTree = "<group>"; };
+		D818A4E41185073A00A363B1 /* NetworkingCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingCommon.h; sourceTree = "<group>"; };
+		D818A4E51185073A00A363B1 /* Open Steamworks.vcproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Open Steamworks.vcproj"; sourceTree = "<group>"; };
+		D818A4E61185073A00A363B1 /* POSIXLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POSIXLibrary.h; sourceTree = "<group>"; };
+		D818A4E71185073A00A363B1 /* RemoteStorageCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteStorageCommon.h; sourceTree = "<group>"; };
+		D818A4E81185073A00A363B1 /* servernetadr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servernetadr.h; sourceTree = "<group>"; };
+		D818A4E91185073A00A363B1 /* Steam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Steam.h; sourceTree = "<group>"; };
+		D818A4EA1185073A00A363B1 /* SteamAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SteamAPI.h; sourceTree = "<group>"; };
+		D818A4EB1185073A00A363B1 /* Steamclient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Steamclient.h; sourceTree = "<group>"; };
+		D818A4EC1185073A00A363B1 /* SteamclientAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SteamclientAPI.h; sourceTree = "<group>"; };
+		D818A4ED1185073A00A363B1 /* SteamSalt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SteamSalt.h; sourceTree = "<group>"; };
+		D818A4EE1185073A00A363B1 /* SteamTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SteamTypes.h; sourceTree = "<group>"; };
+		D818A4EF1185073A00A363B1 /* Steamworks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Steamworks.h; sourceTree = "<group>"; };
+		D818A4F01185073A00A363B1 /* string_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_t.h; sourceTree = "<group>"; };
+		D818A4F11185073A00A363B1 /* TSteamApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamApp.h; sourceTree = "<group>"; };
+		D818A4F21185073A00A363B1 /* TSteamAppDependencyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamAppDependencyInfo.h; sourceTree = "<group>"; };
+		D818A4F31185073A00A363B1 /* TSteamAppLaunchOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamAppLaunchOption.h; sourceTree = "<group>"; };
+		D818A4F41185073A00A363B1 /* TSteamAppStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamAppStats.h; sourceTree = "<group>"; };
+		D818A4F51185073A00A363B1 /* TSteamAppVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamAppVersion.h; sourceTree = "<group>"; };
+		D818A4F61185073A00A363B1 /* TSteamDiscountQualifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamDiscountQualifier.h; sourceTree = "<group>"; };
+		D818A4F71185073A00A363B1 /* TSteamElemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamElemInfo.h; sourceTree = "<group>"; };
+		D818A4F81185073A00A363B1 /* TSteamError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamError.h; sourceTree = "<group>"; };
+		D818A4F91185073A00A363B1 /* TSteamExternalBillingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamExternalBillingInfo.h; sourceTree = "<group>"; };
+		D818A4FA1185073A00A363B1 /* TSteamGlobalUserID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamGlobalUserID.h; sourceTree = "<group>"; };
+		D818A4FB1185073A00A363B1 /* TSteamOfflineStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamOfflineStatus.h; sourceTree = "<group>"; };
+		D818A4FC1185073A00A363B1 /* TSteamPaymentCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamPaymentCardInfo.h; sourceTree = "<group>"; };
+		D818A4FD1185073A00A363B1 /* TSteamPaymentCardReceiptInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamPaymentCardReceiptInfo.h; sourceTree = "<group>"; };
+		D818A4FE1185073A00A363B1 /* TSteamPrepurchaseInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamPrepurchaseInfo.h; sourceTree = "<group>"; };
+		D818A4FF1185073A00A363B1 /* TSteamPrepurchaseReceiptInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamPrepurchaseReceiptInfo.h; sourceTree = "<group>"; };
+		D818A5001185073A00A363B1 /* TSteamProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamProgress.h; sourceTree = "<group>"; };
+		D818A5011185073A00A363B1 /* TSteamSplitLocalUserID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamSplitLocalUserID.h; sourceTree = "<group>"; };
+		D818A5021185073A00A363B1 /* TSteamSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamSubscription.h; sourceTree = "<group>"; };
+		D818A5031185073A00A363B1 /* TSteamSubscriptionBillingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamSubscriptionBillingInfo.h; sourceTree = "<group>"; };
+		D818A5041185073A00A363B1 /* TSteamSubscriptionDiscount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamSubscriptionDiscount.h; sourceTree = "<group>"; };
+		D818A5051185073A00A363B1 /* TSteamSubscriptionReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamSubscriptionReceipt.h; sourceTree = "<group>"; };
+		D818A5061185073A00A363B1 /* TSteamSubscriptionStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamSubscriptionStats.h; sourceTree = "<group>"; };
+		D818A5071185073A00A363B1 /* TSteamUpdateStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSteamUpdateStats.h; sourceTree = "<group>"; };
+		D818A5081185073A00A363B1 /* UserCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCommon.h; sourceTree = "<group>"; };
+		D818A5091185073A00A363B1 /* UserItemsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserItemsCommon.h; sourceTree = "<group>"; };
+		D818A50A1185073A00A363B1 /* UserStatsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStatsCommon.h; sourceTree = "<group>"; };
+		D818A50B1185073A00A363B1 /* UtilsCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsCommon.h; sourceTree = "<group>"; };
+		D818A50C1185073A00A363B1 /* Win32Library.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Win32Library.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D818A3F61185053000A363B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D818A3FF1185055700A363B1 /* CoreFoundation.framework in Frameworks */,
+				D818A4011185055B00A363B1 /* CoreServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D818A2FA118504CC00A363B1 = {
+			isa = PBXGroup;
+			children = (
+				D818A42C1185073A00A363B1 /* Open Steamworks */,
+				D818A4291185072500A363B1 /* Source */,
+				D818A4031185058900A363B1 /* Linked Libraries */,
+				D818A3F91185053000A363B1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D818A3F91185053000A363B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D818A3F81185053000A363B1 /* Callback Logger */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D818A4031185058900A363B1 /* Linked Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				D818A3FE1185055700A363B1 /* CoreFoundation.framework */,
+				D818A4001185055B00A363B1 /* CoreServices.framework */,
+			);
+			name = "Linked Libraries";
+			sourceTree = "<group>";
+		};
+		D818A4291185072500A363B1 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D818A42A1185073100A363B1 /* main.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		D818A42C1185073A00A363B1 /* Open Steamworks */ = {
+			isa = PBXGroup;
+			children = (
+				D818A42D1185073A00A363B1 /* AppsCommon.h */,
+				D818A42E1185073A00A363B1 /* BillingCommon.h */,
+				D818A42F1185073A00A363B1 /* BridgeCommon.h */,
+				D818A4301185073A00A363B1 /* CCallback.h */,
+				D818A4311185073A00A363B1 /* CGameID.h */,
+				D818A4321185073A00A363B1 /* ClientCommon.h */,
+				D818A4331185073A00A363B1 /* ContentServerCommon.h */,
+				D818A4341185073A00A363B1 /* CSteamID.h */,
+				D818A4351185073A00A363B1 /* EAccountType.h */,
+				D818A4361185073A00A363B1 /* EAppState.h */,
+				D818A4371185073A00A363B1 /* EAppUsageEvent.h */,
+				D818A4381185073A00A363B1 /* EAuthSessionResponse.h */,
+				D818A4391185073A00A363B1 /* EAvatarSize.h */,
+				D818A43A1185073A00A363B1 /* EBeginAuthSessionResult.h */,
+				D818A43B1185073A00A363B1 /* ECallState.h */,
+				D818A43C1185073A00A363B1 /* EChatEntryType.h */,
+				D818A43D1185073A00A363B1 /* EChatMemberStateChange.h */,
+				D818A43E1185073A00A363B1 /* EChatRoomEnterResponse.h */,
+				D818A43F1185073A00A363B1 /* EChatRoomType.h */,
+				D818A4401185073A00A363B1 /* EChatRoomVoiceStatus.h */,
+				D818A4411185073A00A363B1 /* EClanRank.h */,
+				D818A4421185073A00A363B1 /* EClanRelationship.h */,
+				D818A4431185073A00A363B1 /* EConnectionPriority.h */,
+				D818A4441185073A00A363B1 /* ECurrencyCode.h */,
+				D818A4451185073A00A363B1 /* EDenyReason.h */,
+				D818A4461185073A00A363B1 /* EDepotBuildStatus.h */,
+				D818A4471185073A00A363B1 /* EDetailedPlatformErrorType.h */,
+				D818A4481185073A00A363B1 /* EFriendFlags.h */,
+				D818A4491185073A00A363B1 /* EFriendMsgType.h */,
+				D818A44A1185073A00A363B1 /* EFriendRelationship.h */,
+				D818A44B1185073A00A363B1 /* EGCMsgResponse.h */,
+				D818A44C1185073A00A363B1 /* EHTTPMethod.h */,
+				D818A44D1185073A00A363B1 /* EItemCriteriaOperator.h */,
+				D818A44E1185073A00A363B1 /* EItemQuality.h */,
+				D818A44F1185073A00A363B1 /* EItemRequestResult.h */,
+				D818A4501185073A00A363B1 /* ELeaderboardDataRequest.h */,
+				D818A4511185073A00A363B1 /* ELeaderboardDisplayType.h */,
+				D818A4521185073A00A363B1 /* ELeaderboardSortMethod.h */,
+				D818A4531185073A00A363B1 /* ELicenseFlags.h */,
+				D818A4541185073A00A363B1 /* ELobbyComparison.h */,
+				D818A4551185073A00A363B1 /* ELobbyType.h */,
+				D818A4561185073A00A363B1 /* ELogonState.h */,
+				D818A4571185073A00A363B1 /* EMatchMakingServerResponse.h */,
+				D818A4581185073A00A363B1 /* EMatchMakingType.h */,
+				D818A4591185073A00A363B1 /* ENewsUpdateType.h */,
+				D818A45A1185073A00A363B1 /* ENotificationPosition.h */,
+				D818A45B1185073A00A363B1 /* EnumString.h */,
+				D818A45C1185073A00A363B1 /* EP2PSend.h */,
+				D818A45D1185073A00A363B1 /* EP2PSessionError.h */,
+				D818A45E1185073A00A363B1 /* EPaymentMethod.h */,
+				D818A45F1185073A00A363B1 /* EPersonaChange.h */,
+				D818A4601185073A00A363B1 /* EPersonaState.h */,
+				D818A4611185073A00A363B1 /* EPurchaseResultDetail.h */,
+				D818A4621185073A00A363B1 /* EPurchaseStatus.h */,
+				D818A4631185073A00A363B1 /* ERegistrySubTree.h */,
+				D818A4641185073A00A363B1 /* EResult.h */,
+				D818A4651185073A00A363B1 /* EServerMode.h */,
+				D818A4661185073A00A363B1 /* ESNetSocketConnectionType.h */,
+				D818A4671185073A00A363B1 /* ESNetSocketState.h */,
+				D818A4681185073A00A363B1 /* EStatusDepotVersion.h */,
+				D818A4691185073A00A363B1 /* ESteamAPICallFailure.h */,
+				D818A46A1185073A00A363B1 /* ESteamAppUpdateStatsQueryType.h */,
+				D818A46B1185073A00A363B1 /* ESteamBillingType.h */,
+				D818A46C1185073A00A363B1 /* ESteamBufferMethod.h */,
+				D818A46D1185073A00A363B1 /* ESteamError.h */,
+				D818A46E1185073A00A363B1 /* ESteamFindFilter.h */,
+				D818A46F1185073A00A363B1 /* ESteamNotificationCallbackEvent.h */,
+				D818A4701185073A00A363B1 /* ESteamPaymentCardType.h */,
+				D818A4711185073A00A363B1 /* ESteamSeekMethod.h */,
+				D818A4721185073A00A363B1 /* ESteamServerType.h */,
+				D818A4731185073A00A363B1 /* ESteamSubscriptionBillingInfoType.h */,
+				D818A4741185073A00A363B1 /* ESteamSubscriptionStatus.h */,
+				D818A4751185073A00A363B1 /* ESteamUserStatType.h */,
+				D818A4761185073A00A363B1 /* ESystemIMType.h */,
+				D818A4771185073A00A363B1 /* EUniverse.h */,
+				D818A4781185073A00A363B1 /* EUserHasLicenseForAppResult.h */,
+				D818A4791185073A00A363B1 /* EVACBan.h */,
+				D818A47A1185073A00A363B1 /* EVoiceResult.h */,
+				D818A47B1185073A00A363B1 /* FriendGameInfo.h */,
+				D818A47C1185073A00A363B1 /* FriendsCommon.h */,
+				D818A47D1185073A00A363B1 /* GameCoordinatorCommon.h */,
+				D818A47E1185073A00A363B1 /* GameServerCommon.h */,
+				D818A47F1185073A00A363B1 /* gameserveritem.h */,
+				D818A4801185073A00A363B1 /* GameServerItemsCommon.h */,
+				D818A4811185073A00A363B1 /* GameServerStatsCommon.h */,
+				D818A4821185073A00A363B1 /* IClientAppManager.h */,
+				D818A4831185073A00A363B1 /* IClientApps.h */,
+				D818A4841185073A00A363B1 /* IClientBilling.h */,
+				D818A4851185073A00A363B1 /* IClientContentServer.h */,
+				D818A4861185073A00A363B1 /* IClientDepotBuilder.h */,
+				D818A4871185073A00A363B1 /* IClientEngine.h */,
+				D818A4881185073A00A363B1 /* IClientFriends.h */,
+				D818A4891185073A00A363B1 /* IClientGameCoordinator.h */,
+				D818A48A1185073A00A363B1 /* IClientGameServer.h */,
+				D818A48B1185073A00A363B1 /* IClientGameStats.h */,
+				D818A48C1185073A00A363B1 /* IClientHTTP.h */,
+				D818A48D1185073A00A363B1 /* IClientMatchmaking.h */,
+				D818A48E1185073A00A363B1 /* IClientUser.h */,
+				D818A48F1185073A00A363B1 /* IClientUtils.h */,
+				D818A4901185073A00A363B1 /* Interface_OSW.h */,
+				D818A4911185073A00A363B1 /* IP2PController.h */,
+				D818A4921185073A00A363B1 /* ISteam003.h */,
+				D818A4931185073A00A363B1 /* ISteam004.h */,
+				D818A4941185073A00A363B1 /* ISteam005.h */,
+				D818A4951185073A00A363B1 /* ISteam006.h */,
+				D818A4961185073A00A363B1 /* ISteam2Bridge001.h */,
+				D818A4971185073A00A363B1 /* ISteam2Bridge002.h */,
+				D818A4981185073A00A363B1 /* ISteamApps001.h */,
+				D818A4991185073A00A363B1 /* ISteamApps002.h */,
+				D818A49A1185073A00A363B1 /* ISteamApps003.h */,
+				D818A49B1185073A00A363B1 /* ISteamBilling001.h */,
+				D818A49C1185073A00A363B1 /* ISteamBilling002.h */,
+				D818A49D1185073A00A363B1 /* ISteamClient006.h */,
+				D818A49E1185073A00A363B1 /* ISteamClient007.h */,
+				D818A49F1185073A00A363B1 /* ISteamClient008.h */,
+				D818A4A01185073A00A363B1 /* ISteamClient009.h */,
+				D818A4A11185073A00A363B1 /* ISteamContentServer001.h */,
+				D818A4A21185073A00A363B1 /* ISteamContentServer002.h */,
+				D818A4A31185073A00A363B1 /* ISteamFriends001.h */,
+				D818A4A41185073A00A363B1 /* ISteamFriends002.h */,
+				D818A4A51185073A00A363B1 /* ISteamFriends003.h */,
+				D818A4A61185073A00A363B1 /* ISteamFriends004.h */,
+				D818A4A71185073A00A363B1 /* ISteamFriends005.h */,
+				D818A4A81185073A00A363B1 /* ISteamGameCoordinator001.h */,
+				D818A4A91185073A00A363B1 /* ISteamGameServer002.h */,
+				D818A4AA1185073A00A363B1 /* ISteamGameServer003.h */,
+				D818A4AB1185073A00A363B1 /* ISteamGameServer004.h */,
+				D818A4AC1185073A00A363B1 /* ISteamGameServer005.h */,
+				D818A4AD1185073A00A363B1 /* ISteamGameServer006.h */,
+				D818A4AE1185073A00A363B1 /* ISteamGameServer007.h */,
+				D818A4AF1185073A00A363B1 /* ISteamGameServer008.h */,
+				D818A4B01185073A00A363B1 /* ISteamGameServer009.h */,
+				D818A4B11185073A00A363B1 /* ISteamGameServer010.h */,
+				D818A4B21185073A00A363B1 /* ISteamGameServerItems002.h */,
+				D818A4B31185073A00A363B1 /* ISteamGameServerItems003.h */,
+				D818A4B41185073A00A363B1 /* ISteamGameServerItems004.h */,
+				D818A4B51185073A00A363B1 /* ISteamGameServerStats001.h */,
+				D818A4B61185073A00A363B1 /* ISteamMasterServerUpdater001.h */,
+				D818A4B71185073A00A363B1 /* ISteamMatchmaking001.h */,
+				D818A4B81185073A00A363B1 /* ISteamMatchmaking002.h */,
+				D818A4B91185073A00A363B1 /* ISteamMatchmaking003.h */,
+				D818A4BA1185073A00A363B1 /* ISteamMatchmaking004.h */,
+				D818A4BB1185073A00A363B1 /* ISteamMatchmaking005.h */,
+				D818A4BC1185073A00A363B1 /* ISteamMatchmaking006.h */,
+				D818A4BD1185073A00A363B1 /* ISteamMatchmaking007.h */,
+				D818A4BE1185073A00A363B1 /* ISteamMatchmaking008.h */,
+				D818A4BF1185073A00A363B1 /* ISteamMatchmakingServers001.h */,
+				D818A4C01185073A00A363B1 /* ISteamMatchmakingServers002.h */,
+				D818A4C11185073A00A363B1 /* ISteamNetworking001.h */,
+				D818A4C21185073A00A363B1 /* ISteamNetworking002.h */,
+				D818A4C31185073A00A363B1 /* ISteamNetworking003.h */,
+				D818A4C41185073A00A363B1 /* ISteamRemoteStorage001.h */,
+				D818A4C51185073A00A363B1 /* ISteamRemoteStorage002.h */,
+				D818A4C61185073A00A363B1 /* ISteamUser004.h */,
+				D818A4C71185073A00A363B1 /* ISteamUser005.h */,
+				D818A4C81185073A00A363B1 /* ISteamUser006.h */,
+				D818A4C91185073A00A363B1 /* ISteamUser007.h */,
+				D818A4CA1185073A00A363B1 /* ISteamUser008.h */,
+				D818A4CB1185073A00A363B1 /* ISteamUser009.h */,
+				D818A4CC1185073A00A363B1 /* ISteamUser010.h */,
+				D818A4CD1185073A00A363B1 /* ISteamUser011.h */,
+				D818A4CE1185073A00A363B1 /* ISteamUser012.h */,
+				D818A4CF1185073A00A363B1 /* ISteamUser013.h */,
+				D818A4D01185073A00A363B1 /* ISteamUserItems001.h */,
+				D818A4D11185073A00A363B1 /* ISteamUserItems002.h */,
+				D818A4D21185073A00A363B1 /* ISteamUserItems003.h */,
+				D818A4D31185073A00A363B1 /* ISteamUserItems004.h */,
+				D818A4D41185073A00A363B1 /* ISteamUserStats001.h */,
+				D818A4D51185073A00A363B1 /* ISteamUserStats002.h */,
+				D818A4D61185073A00A363B1 /* ISteamUserStats003.h */,
+				D818A4D71185073A00A363B1 /* ISteamUserStats004.h */,
+				D818A4D81185073A00A363B1 /* ISteamUserStats005.h */,
+				D818A4D91185073A00A363B1 /* ISteamUserStats006.h */,
+				D818A4DA1185073A00A363B1 /* ISteamUserStats007.h */,
+				D818A4DB1185073A00A363B1 /* ISteamUtils001.h */,
+				D818A4DC1185073A00A363B1 /* ISteamUtils002.h */,
+				D818A4DD1185073A00A363B1 /* ISteamUtils003.h */,
+				D818A4DE1185073A00A363B1 /* ISteamUtils004.h */,
+				D818A4DF1185073A00A363B1 /* ISteamUtils005.h */,
+				D818A4E01185073A00A363B1 /* MasterServerUpdaterCommon.h */,
+				D818A4E11185073A00A363B1 /* MatchmakingCommon.h */,
+				D818A4E21185073A00A363B1 /* MatchMakingKeyValuePair.h */,
+				D818A4E31185073A00A363B1 /* MatchmakingServersCommon.h */,
+				D818A4E41185073A00A363B1 /* NetworkingCommon.h */,
+				D818A4E51185073A00A363B1 /* Open Steamworks.vcproj */,
+				D818A4E61185073A00A363B1 /* POSIXLibrary.h */,
+				D818A4E71185073A00A363B1 /* RemoteStorageCommon.h */,
+				D818A4E81185073A00A363B1 /* servernetadr.h */,
+				D818A4E91185073A00A363B1 /* Steam.h */,
+				D818A4EA1185073A00A363B1 /* SteamAPI.h */,
+				D818A4EB1185073A00A363B1 /* Steamclient.h */,
+				D818A4EC1185073A00A363B1 /* SteamclientAPI.h */,
+				D818A4ED1185073A00A363B1 /* SteamSalt.h */,
+				D818A4EE1185073A00A363B1 /* SteamTypes.h */,
+				D818A4EF1185073A00A363B1 /* Steamworks.h */,
+				D818A4F01185073A00A363B1 /* string_t.h */,
+				D818A4F11185073A00A363B1 /* TSteamApp.h */,
+				D818A4F21185073A00A363B1 /* TSteamAppDependencyInfo.h */,
+				D818A4F31185073A00A363B1 /* TSteamAppLaunchOption.h */,
+				D818A4F41185073A00A363B1 /* TSteamAppStats.h */,
+				D818A4F51185073A00A363B1 /* TSteamAppVersion.h */,
+				D818A4F61185073A00A363B1 /* TSteamDiscountQualifier.h */,
+				D818A4F71185073A00A363B1 /* TSteamElemInfo.h */,
+				D818A4F81185073A00A363B1 /* TSteamError.h */,
+				D818A4F91185073A00A363B1 /* TSteamExternalBillingInfo.h */,
+				D818A4FA1185073A00A363B1 /* TSteamGlobalUserID.h */,
+				D818A4FB1185073A00A363B1 /* TSteamOfflineStatus.h */,
+				D818A4FC1185073A00A363B1 /* TSteamPaymentCardInfo.h */,
+				D818A4FD1185073A00A363B1 /* TSteamPaymentCardReceiptInfo.h */,
+				D818A4FE1185073A00A363B1 /* TSteamPrepurchaseInfo.h */,
+				D818A4FF1185073A00A363B1 /* TSteamPrepurchaseReceiptInfo.h */,
+				D818A5001185073A00A363B1 /* TSteamProgress.h */,
+				D818A5011185073A00A363B1 /* TSteamSplitLocalUserID.h */,
+				D818A5021185073A00A363B1 /* TSteamSubscription.h */,
+				D818A5031185073A00A363B1 /* TSteamSubscriptionBillingInfo.h */,
+				D818A5041185073A00A363B1 /* TSteamSubscriptionDiscount.h */,
+				D818A5051185073A00A363B1 /* TSteamSubscriptionReceipt.h */,
+				D818A5061185073A00A363B1 /* TSteamSubscriptionStats.h */,
+				D818A5071185073A00A363B1 /* TSteamUpdateStats.h */,
+				D818A5081185073A00A363B1 /* UserCommon.h */,
+				D818A5091185073A00A363B1 /* UserItemsCommon.h */,
+				D818A50A1185073A00A363B1 /* UserStatsCommon.h */,
+				D818A50B1185073A00A363B1 /* UtilsCommon.h */,
+				D818A50C1185073A00A363B1 /* Win32Library.h */,
+			);
+			name = "Open Steamworks";
+			path = "../Open Steamworks";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D818A3F71185053000A363B1 /* Callback Logger */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D818A3FD1185053000A363B1 /* Build configuration list for PBXNativeTarget "Callback Logger" */;
+			buildPhases = (
+				D818A3F51185053000A363B1 /* Sources */,
+				D818A3F61185053000A363B1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Callback Logger";
+			productName = "Callback Logger";
+			productReference = D818A3F81185053000A363B1 /* Callback Logger */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D818A2FC118504CC00A363B1 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = D818A2FF118504CC00A363B1 /* Build configuration list for PBXProject "Callback Logger" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 0;
+			mainGroup = D818A2FA118504CC00A363B1;
+			productRefGroup = D818A3F91185053000A363B1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D818A3F71185053000A363B1 /* Callback Logger */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D818A3F51185053000A363B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D818A42B1185073100A363B1 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D818A2FD118504CC00A363B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		D818A2FE118504CC00A363B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			name = Release;
+		};
+		D818A3FB1185053000A363B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "Callback Logger";
+			};
+			name = Debug;
+		};
+		D818A3FC1185053000A363B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = "Callback Logger";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D818A2FF118504CC00A363B1 /* Build configuration list for PBXProject "Callback Logger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D818A2FD118504CC00A363B1 /* Debug */,
+				D818A2FE118504CC00A363B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D818A3FD1185053000A363B1 /* Build configuration list for PBXNativeTarget "Callback Logger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D818A3FB1185053000A363B1 /* Debug */,
+				D818A3FC1185053000A363B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D818A2FC118504CC00A363B1 /* Project object */;
+}
