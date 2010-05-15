@@ -64,8 +64,8 @@ public:
 	virtual unknown_ret GetLobbyOwner( CSteamID ) = 0;
 	virtual unknown_ret SetLobbyOwner( CSteamID, CSteamID ) = 0;
 
-	virtual unknown_ret GetGMSServerCount( void ) = 0;
-	virtual unknown_ret GetGMSServerAddress( int, uint32 *, uint16 * 0) = 0;
+	virtual unknown_ret GetGMSServerCount() = 0;
+	virtual unknown_ret GetGMSServerAddress( int a, uint32 *b, uint16 *c ) = 0;
 };
 
 
