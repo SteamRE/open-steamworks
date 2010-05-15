@@ -97,7 +97,7 @@ private:
 		// steamclient.dll expects to be able to load tier0_s without an absolute
 		// path, so we'll need to add the steam dir to the search path.
 		SetDllDirectory( m_steamDir.c_str() );
-		m_steamclient.reset( new DynamicLibrary( m_steamDir + "\steamclient.dll" ) );
+		m_steamclient.reset( new DynamicLibrary( m_steamDir + "\\steamclient.dll" ) );
 #elif TARGET_OS_MAC
 		std::string libsPath;
 		if(!m_steamDir.empty()) {

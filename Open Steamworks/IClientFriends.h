@@ -45,10 +45,12 @@ public:
 	virtual int GetFriendCount( int iFriendFlags ) = 0;
 	virtual CSteamID GetFriendByIndex( int iFriend, int iFriendFlags ) = 0;
 
+	virtual int GetOnlineFriendCount() = 0;
+
 	// gets the relationship to a user
-	virtual EFriendRelationship GetFriendRelationship( CSteamID steamIDFriend ) = 0;
+	virtual EFriendRelationship GetFriendRelationship( CSteamID steamIDFriend, int a ) = 0;
 	// returns true if the specified user is considered a friend (can see our online status)
-	virtual EPersonaState GetFriendPersonaState( CSteamID steamIDFriend ) = 0;
+	virtual EPersonaState GetFriendPersonaState( CSteamID steamIDFriend, int a ) = 0;
 	// returns the name of a friend - guaranteed to not be NULL.
 	virtual const char *GetFriendPersonaName( CSteamID steamIDFriend ) = 0;
 
@@ -108,6 +110,8 @@ public:
 	virtual CSteamID GetClanByIndex( int iClan ) = 0;
 
 	virtual const char *GetClanName( CSteamID steamID ) = 0;
+
+	virtual bool GetFriendActivityCounts( int *a, int *b) = 0;
 	virtual bool GetClanActivityCounts( CSteamID steamID, int *pnOnline, int *pnInGame, int *pnChatting ) = 0;
 
 	virtual bool IsClanPublic( CSteamID steamID ) = 0;
@@ -125,7 +129,7 @@ public:
 	virtual CSteamID *GetCoplayFriend( int iCoplayEvent ) = 0;
 
 	// most likely a RTime32
-	virtual RTime32 *GetFriendCoplayTime( CSteamID steamID ) = 0;
+	virtual RTime32 GetFriendCoplayTime( CSteamID steamID ) = 0;
 	virtual CGameID GetFriendCoplayGame( CSteamID steamID ) = 0;
 
 	virtual bool JoinChatRoom( CSteamID steamID ) = 0;
@@ -286,6 +290,13 @@ public:
 	virtual void TestVoicePacketLoss( float flPacketDropFraction ) = 0;
 
 	virtual HVoiceCall FindFriendVoiceChatHandle( CSteamID steamID ) = 0;
+
+	virtual unknown_ret RequestFriendsWhoPlayGame( CGameID gameId ) = 0;
+	virtual uint32 GetCountFriendsWhoPlayGame( CGameID gameId ) = 0;
+
+	virtual CSteamID GetFriendWhoPlaysGame( uint32 , CGameID gameId ) = 0;
+	virtual unknown_ret SetPlayedWith( CSteamID steamId ) = 0;
+
 };
 
 #endif // ICLIENTFRIENDS_H

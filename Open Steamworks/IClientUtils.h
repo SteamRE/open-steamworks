@@ -27,6 +27,10 @@
 class UNSAFE_INTERFACE IClientUtils
 {
 public:
+
+	virtual const char *GetInstallPath() = 0;
+	virtual const char *GetManagedContentRoot() = 0;
+
 	// return the number of seconds since the user 
 	virtual uint32 GetSecondsSinceAppActive() = 0;
 	virtual uint32 GetSecondsSinceComputerActive() = 0;
@@ -41,8 +45,8 @@ public:
 	// e.g "US" or "UK".
 	virtual const char *GetIPCountry() = 0;
 
-	virtual unknown_ret LoadFileFromCDN( const char*, bool *, int, uint64 ) = 0;
-	virtual unknown_ret WriteCDNFileToDisk( int, const char* ) = 0;
+	//virtual unknown_ret LoadFileFromCDN( const char*, bool *, int, uint64 ) = 0;
+	//virtual unknown_ret WriteCDNFileToDisk( int, const char* ) = 0;
 
 	// returns true if the image exists, and valid sizes were filled out
 	virtual bool GetImageSize( int iImage, uint32 *pnWidth, uint32 *pnHeight ) = 0;
@@ -76,6 +80,8 @@ public:
 	virtual unknown_ret SignalAppsToShutDown() = 0;
 
 	virtual unknown_ret GetCellID() = 0;
+
+	virtual bool IsGlobalInstance() = 0;
 };
 
 #endif // ICLIENTUTILS_H
