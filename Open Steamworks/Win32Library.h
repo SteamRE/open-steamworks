@@ -29,7 +29,7 @@ public:
 	
 	void * GetSymbol(std::string name) {
 		if(!m_handle) return NULL;
-		return GetProcAddress( m_handle, name.c_str() );
+		return (void *)GetProcAddress( m_handle, name.c_str() );
 	}
 	
 	bool IsLoaded() const {
