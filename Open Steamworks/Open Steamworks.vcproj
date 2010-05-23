@@ -210,6 +210,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\EGroupEvent.h"
+						>
+					</File>
+					<File
 						RelativePath=".\EItemCriteriaOperator.h"
 						>
 					</File>

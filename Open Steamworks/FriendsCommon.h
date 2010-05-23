@@ -98,6 +98,25 @@ struct FriendChatMsg_t
 };
 #pragma pack(pop)
 
+// 82 FF 0A 00 00 00 88 01 | 0A D7 44 01 01 00 10 01 | 02 00 00 00 | 82 FF 0A 00 | 0A D7 44 01 01 00 10 01 // leaving
+// 82 FF 0A 00 00 00 88 01 | 0A D7 44 01 01 00 10 01 | 01 00 00 00 | 40 DD B4 05 | 0A D7 44 01 01 00 10 01 // joining
+// 82 FF 0A 00 00 00 88 01 | 0A D7 44 01 01 00 10 01 | 08 00 00 00 | 82 FF 0A 00 | 22 23 E2 03 01 00 10 01 // kicking
+
+#pragma pack(push, 1)
+struct GroupJoinLeave_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 10 };
+
+	CSteamID m_GroupID;
+	CSteamID m_SteamID;
+
+	uint16 m_iState;
+	uint16 m_iAccountID;
+
+	CSteamID m_KickerID;
+};
+#pragma pack(pop)
+
 // 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 04 00 00 00
 // 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 20 00 00 00
 // 05 F4 25 33 EA 03 80 01 | 4F 70 A4 01 01 00 10 01 | 01 00 00 00 | 21 00 00 00
@@ -125,6 +144,28 @@ struct FriendEndChatSession_t
 // 321 - 16 bytes
 // -------------------------------
 // 7d 74 08 00 00 00 70 01 00 01 00 00 e0 c6 74 04
+// 76 18 00 00 00 00 70 01 00 00 00 00 00 00 00 00
+// 1B BB 17 00 00 00 70 01 00 00 00 00 00 00 00 00
+// 82 FF 0A 00 00 00 70 01 00 00 00 00 00 00 00 00
+struct GroupUnknown_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 21 };
+
+	CSteamID m_GroupID;
+	uint64 m_Unknown;
+};
+
+
+// 329 - 16 bytes
+// -------------------------------
+// 82 FF 0A 00 00 00 88 01 | 0A D7 44 01 01 00 10 01
+struct GroupUnknown2_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 29 };
+
+	CSteamID m_GroupID;
+	CSteamID m_SteamID;
+};
 
 
 //-----------------------------------------------------------------------------

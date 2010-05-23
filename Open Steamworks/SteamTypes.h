@@ -172,6 +172,7 @@ typedef unsigned int uintp;
 #include "EStatusDepotVersion.h"
 #include "EP2PSessionError.h"
 #include "EP2PSend.h"
+#include "EGroupEvent.h"
 
 #ifndef NO_STEAM
 // steam
