@@ -538,6 +538,13 @@ namespace Steam4NET
 		k_EClanRankMember = 3,
 	}
 	
+	public enum EGroupEvent
+	{
+		k_EGroupEventJoined = 1,
+		k_EGroupEventLeft = 2,
+		k_EGroupEventKicked = 8,
+	}
+	
 	public enum EItemCriteriaOperator
 	{
 		k_EOperator_String_EQ = 0,
@@ -1017,6 +1024,17 @@ namespace Steam4NET
 		public const int k_iMessage = 1003;
 	}
 	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=224)]
+	public struct GroupJoinLeave_t
+	{
+		public UInt64 m_GroupID;
+		public UInt64 m_SteamID;
+		public UInt16 m_iState;
+		public UInt16 m_iAccountID;
+		public UInt64 m_KickerID;
+		public const int k_iCallback = 310;
+	}
+	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=64)]
 	public struct AppDataChanged_t
 	{
@@ -1071,7 +1089,8 @@ namespace Steam4NET
 		public UInt32 m_nType;
 		public UInt32 m_nModID;
 	}
-
+	
+	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=8)]
 	public struct SteamShutdown_t
 	{
@@ -1525,6 +1544,14 @@ namespace Steam4NET
 		public const int k_iCallback = 306;
 	}
 	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=128)]
+	public struct GroupUnknown2_t
+	{
+		public UInt64 m_GroupID;
+		public UInt64 m_SteamID;
+		public const int k_iCallback = 329;
+	}
+	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=256)]
 	public struct LeaderboardScoreUploaded_t
 	{
@@ -1601,6 +1628,14 @@ namespace Steam4NET
 	{
 		public UInt32 messageLength;
 		public const int k_iCallback = 1701;
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=128)]
+	public struct GroupUnknown_t
+	{
+		public UInt64 m_GroupID;
+		public UInt64 m_Unknown;
+		public const int k_iCallback = 321;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=128)]
