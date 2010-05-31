@@ -91,8 +91,8 @@ struct FriendChatMsg_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 6 };
 
-	uint64 m_ulReceiver;			// other participant in the msg
-	uint64 m_ulSender;				// steamID of the friend who has sent this message
+	CSteamID m_ulReceiver;			// other participant in the msg
+	CSteamID m_ulSender;				// steamID of the friend who has sent this message
 	uint32 m_iUnknown1;				// unknown
 	uint32 m_iChatID;				// chat id
 };
