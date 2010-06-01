@@ -100,6 +100,8 @@ public:
 	// Ask for the gameplay stats for the server. Results returned in a callback
 	virtual void GetGameplayStats( ) = 0;
 
+	// Gets the reputation score for the game server. This API also checks if the server or some
+	// other server on the same IP is banned from the Steam master servers.
 	virtual unknown_ret GetServerReputation( ) = 0;
 
 	// Ask if a user in in the specified group, results returns async by GSUserGroupStatus_t
