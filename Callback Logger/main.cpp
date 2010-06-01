@@ -7,6 +7,11 @@
 
 #pragma comment(lib, "../steamclient.lib" )
 
+#ifndef _WIN32
+void Sleep(int x) {
+	usleep(x);
+}
+#endif
 
 
 int main()
