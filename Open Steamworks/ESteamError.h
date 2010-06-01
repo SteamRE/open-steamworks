@@ -20,8 +20,6 @@
 #pragma once
 #endif
 
-#include "EnumString.h"
-
 typedef enum ESteamError
 {
 	eSteamErrorNone													= 0,
@@ -91,76 +89,5 @@ typedef enum ESteamError
 
 	eSteamErrorOffline												= 201,
 } ESteamError;
-
-Begin_Enum_String( ESteamError )
-{
-	Enum_String( eSteamErrorNone );
-	Enum_String( eSteamErrorUnknown );
-	Enum_String( eSteamErrorLibraryNotInitialized );
-	Enum_String( eSteamErrorLibraryAlreadyInitialized );
-	Enum_String( eSteamErrorConfig );
-	Enum_String( eSteamErrorContentServerConnect );
-	Enum_String( eSteamErrorBadHandle );
-	Enum_String( eSteamErrorHandlesExhausted );
-	Enum_String( eSteamErrorBadArg );
-	Enum_String( eSteamErrorNotFound );
-	Enum_String( eSteamErrorRead );
-	Enum_String( eSteamErrorEOF );
-	Enum_String( eSteamErrorSeek );
-	Enum_String( eSteamErrorCannotWriteNonUserConfigFile );
-	Enum_String( eSteamErrorCacheOpen );
-	Enum_String( eSteamErrorCacheRead );
-	Enum_String( eSteamErrorCacheCorrupted );
-	Enum_String( eSteamErrorCacheWrite );
-	Enum_String( eSteamErrorCacheSession );
-	Enum_String( eSteamErrorCacheInternal );
-	Enum_String( eSteamErrorCacheBadApp );
-	Enum_String( eSteamErrorCacheVersion );
-	Enum_String( eSteamErrorCacheBadFingerPrint );
-
-	Enum_String( eSteamErrorNotFinishedProcessing );
-	Enum_String( eSteamErrorNothingToDo	);
-	Enum_String( eSteamErrorCorruptEncryptedUserIDTicket );
-	Enum_String( eSteamErrorSocketLibraryNotInitialized );
-	Enum_String( eSteamErrorFailedToConnectToUserIDTicketValidationServer );
-	Enum_String( eSteamErrorBadProtocolVersion );
-	Enum_String( eSteamErrorReplayedUserIDTicketFromClient );
-	Enum_String( eSteamErrorReceiveResultBufferTooSmall );
-	Enum_String( eSteamErrorSendFailed );
-	Enum_String( eSteamErrorReceiveFailed );
-	Enum_String( eSteamErrorReplayedReplyFromUserIDTicketValidationServer );
-	Enum_String( eSteamErrorBadSignatureFromUserIDTicketValidationServer );
-	Enum_String( eSteamErrorValidationStalledSoAborted );
-	Enum_String( eSteamErrorInvalidUserIDTicket );
-	Enum_String( eSteamErrorClientLoginRateTooHigh );
-	Enum_String( eSteamErrorClientWasNeverValidated );
-	Enum_String( eSteamErrorInternalSendBufferTooSmall );
-	Enum_String( eSteamErrorInternalReceiveBufferTooSmall );
-	Enum_String( eSteamErrorUserTicketExpired );
-	Enum_String( eSteamErrorCDKeyAlreadyInUseOnAnotherClient );
-
-	Enum_String( eSteamErrorNotLoggedIn );
-	Enum_String( eSteamErrorAlreadyExists );
-	Enum_String( eSteamErrorAlreadySubscribed );
-	Enum_String( eSteamErrorNotSubscribed );
-	Enum_String( eSteamErrorAccessDenied );
-	Enum_String( eSteamErrorFailedToCreateCacheFile );
-	Enum_String( eSteamErrorCallStalledSoAborted );
-	Enum_String( eSteamErrorEngineNotRunning );
-	Enum_String( eSteamErrorEngineConnectionLost );
-	Enum_String( eSteamErrorLoginFailed );
-	Enum_String( eSteamErrorAccountPending );
-	Enum_String( eSteamErrorCacheWasMissingRetry );
-	Enum_String( eSteamErrorLocalTimeIncorrect );
-	Enum_String( eSteamErrorCacheNeedsDecryption );
-	Enum_String( eSteamErrorAccountDisabled );
-	Enum_String( eSteamErrorCacheNeedsRepair );
-	Enum_String( eSteamErrorRebootRequired );
-
-	Enum_String( eSteamErrorNetwork );
-
-	Enum_String( eSteamErrorOffline );
-}
-End_Enum_String( ESteamError );
 
 #endif // ESTEAMERROR_H

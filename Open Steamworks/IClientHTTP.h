@@ -22,7 +22,21 @@
 
 #include "SteamTypes.h"
 
+
+
 #define CLIENTHTTP_INTERFACE_VERSION "CLIENTHTTP_INTERFACE_VERSION001"
+
+
+
+typedef enum EHTTPMethod
+{
+	k_EHTTPMethodInvalid = 0,
+	k_EHTTPMethodGET = 1,
+	k_EHTTPMethodHEAD = 2,
+	k_EHTTPMethodPOST = 3,
+} EHTTPMethod;
+
+
 
 class UNSAFE_INTERFACE IClientHTTP
 {

@@ -20,17 +20,27 @@
 #pragma once
 #endif
 
-#include "EnumString.h"
+
+
+#define CLIENTGAMECOORDINATOR_INTERFACE_VERSION "CLIENTGAMECOORDINATOR_INTERFACE_VERSION001"
 
 #define STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 "SteamGameCoordinator001"
 
-struct GameCoordinatorMessageAvailable_t
-{
-	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 1 };
-	uint32 messageLength;
-};
 
-enum EGCMessages
+
+typedef enum EGCMsgResponse
+{
+	k_EGCMsgResponseOK,
+	k_EGCMsgResponseDenied,
+	k_EGCMsgResponseServerError,
+	k_EGCMsgResponseTimeout,
+	k_EGCMsgResponseInvalid,
+	k_EGCMsgResponseNoMatch,
+	k_EGCMsgResponseUnknownError,
+	k_EGCMsgResponseNotLoggedOn,
+} EGCMsgResponse;
+
+typedef enum EGCMessages
 {
 	k_ESOMsg_Create = 21,
 	k_ESOMsg_Update,
@@ -51,31 +61,16 @@ enum EGCMessages
 
 	k_EMsgGCDev_NewItemRequest = 2001,
 	k_EMsgGCDev_NewItemRequestResponse
-};
+} EGCMessages;
 
-Begin_Enum_String(EGCMessages)
+
+
+struct GameCoordinatorMessageAvailable_t
 {
-	Enum_String( k_ESOMsg_Create );
-	Enum_String( k_ESOMsg_Update );
-	Enum_String( k_ESOMsg_Destroy );
-	Enum_String( k_ESOMsg_CacheSubscribed );
-	Enum_String( k_ESOMsg_CacheUnsubscribed );
+	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 1 };
 
-	Enum_String( k_EGCMsgStartPlaying );
-	Enum_String( k_EGCMsgStopPlaying );
-	Enum_String( k_EGCMsgStartGameserver );
-	Enum_String( k_EGCMsgStopGameserver );
-
-	Enum_String( k_EMsgGCSetItemPosition );
-	Enum_String( k_EMsgGCCraft );
-	Enum_String( k_EMsgGCCraftResponse );
-	Enum_String( k_EMsgGCDelete );
-
-	Enum_String( k_EMsgGCDev_NewItemRequest );
-	Enum_String( k_EMsgGCDev_NewItemRequestResponse );
-}
-End_Enum_String( EGCMessages );
-
+	uint32 messageLength;
+};
 
 #pragma pack(push, 1)
 
@@ -103,7 +98,6 @@ struct SOMsgCreate_t
 	uint16 attribcount;
 };
 
-
 /*
 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 76f0da0200000000 0105 0f000080
 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 21ccd90200000000 0105 10000080
@@ -122,7 +116,6 @@ struct SOMsgUpdate_t
 	uint32 position;
 };
 
-
 /*
 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 7f7e1b0200000000
 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 5a77020200000000
@@ -140,9 +133,6 @@ struct SOMsgDeleted_t
 	uint64 itemid;
 };
 
-/*
-Too long, log that yourself
-*/
 struct SOMsgCacheSubscribed_t
 {
 	enum { k_iMessage = k_ESOMsg_CacheSubscribed };

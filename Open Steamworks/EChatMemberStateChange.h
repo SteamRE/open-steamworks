@@ -20,13 +20,11 @@
 #pragma once
 #endif
 
-#include "EnumString.h"
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Used in ChatInfo messages - fields specific to a chat member - must fit in a uint32
 //-----------------------------------------------------------------------------
-enum EChatMemberStateChange
+typedef enum EChatMemberStateChange
 {
 	// Specific to joining / leaving the chatroom
 	k_EChatMemberStateChangeEntered			= 0x0001,		// This user has joined or is joining the chat room
@@ -34,17 +32,6 @@ enum EChatMemberStateChange
 	k_EChatMemberStateChangeDisconnected	= 0x0004,		// User disconnected without leaving the chat first
 	k_EChatMemberStateChangeKicked			= 0x0008,		// User kicked
 	k_EChatMemberStateChangeBanned			= 0x0010,		// User kicked and banned
-};
-
-
-Begin_Enum_String(EChatMemberStateChange)
-{
-	Enum_String( k_EChatMemberStateChangeEntered );		// This user has joined or is joining the chat room
-	Enum_String( k_EChatMemberStateChangeLeft );		// This user has left or is leaving the chat room
-	Enum_String( k_EChatMemberStateChangeDisconnected );		// User disconnected without leaving the chat first
-	Enum_String( k_EChatMemberStateChangeKicked );		// User kicked
-	Enum_String( k_EChatMemberStateChangeBanned );		// User kicked and banned
-}
-End_Enum_String;
+} EChatMemberStateChange;
 
 #endif // ECHATMEMBERSTATECHANGE_H

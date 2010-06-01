@@ -20,8 +20,74 @@
 #pragma once
 #endif
 
+
+
+#define CLIENTBILLING_INTERFACE_VERSION "CLIENTBILLING_INTERFACE_VERSION001"
+
 #define STEAMBILLING_INTERFACE_VERSION_001 "SteamBilling001"
 #define STEAMBILLING_INTERFACE_VERSION_002 "SteamBilling002"
+
+
+
+typedef enum ECurrencyCode
+{
+	k_ECurrencyCodeInvalid = 0,
+	k_ECurrencyCodeUSD = 1,
+	k_ECurrencyCodeGBP = 2,
+	k_ECurrencyCodeEUR = 3,
+	k_ECurrencyCodeMax = 4,
+} ECurrencyCode;
+
+// Flags for licenses - BITS
+typedef enum ELicenseFlags
+{
+	k_ELicenseFlagRenew = 0x01,				// Renew this license next period
+	k_ELicenseFlagRenewalFailed = 0x02,		// Auto-renew failed
+	k_ELicenseFlagPending = 0x04,			// Purchase or renewal is pending
+	k_ELicenseFlagExpired = 0x08,			// Regular expiration (no renewal attempted)
+	k_ELicenseFlagCancelledByUser = 0x10,	// Cancelled by the user
+	k_ELicenseFlagCancelledByAdmin = 0x20,	// Cancelled by customer support
+} ELicenseFlags;
+
+// Payment methods for purchases - BIT FLAGS so can be used to indicate
+// acceptable payment methods for packages
+typedef enum EPaymentMethod
+{
+	k_EPaymentMethodNone = 0x00,
+	k_EPaymentMethodCDKey = 0x01,		
+	k_EPaymentMethodCreditCard = 0x02,
+	k_EPaymentMethodPayPal = 0x04,		
+	k_EPaymentMethodManual = 0x08,		// Purchase was added by Steam support
+} EPaymentMethod;
+
+typedef enum EPurchaseResultDetail
+{
+	k_EPurchaseResultNoDetail = 0,
+	k_EPurchaseResultAVSFailure = 1,
+	k_EPurchaseResultInsufficientFunds = 2,
+	k_EPurchaseResultContactSupport = 3,
+	k_EPurchaseResultTimeout = 4,
+
+	// these are mainly used for testing
+	k_EPurchaseResultInvalidPackage = 5,
+	k_EPurchaseResultInvalidPaymentMethod = 6,
+	k_EPurchaseResultInvalidData = 7,
+	k_EPurchaseResultOthersInProgress = 8,
+	k_EPurchaseResultAlreadyPurchased = 9,
+	k_EPurchaseResultWrongPrice = 10
+} EPurchaseResultDetail;
+
+typedef enum EPurchaseStatus
+{
+	k_EPurchasePending = 0,
+	k_EPurchaseSucceeded = 1,
+	k_EPurchaseFailed = 2,
+	k_EPurchaseRefunded = 3,
+	k_EPurchaseInit = 4,
+	k_EPurchaseChargedback = 5,
+	k_EPurchaseRevoked = 6,
+} EPurchaseStatus;
+
 
 
 //-----------------------------------------------------------------------------

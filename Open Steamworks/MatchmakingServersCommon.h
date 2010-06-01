@@ -20,8 +20,31 @@
 #pragma once
 #endif
 
+
+
 #define STEAMMATCHMAKINGSERVERS_INTERFACE_VERSION_001 "SteamMatchMakingServers001"
 #define STEAMMATCHMAKINGSERVERS_INTERFACE_VERSION_002 "SteamMatchMakingServers002"
+
+
+
+typedef enum EMatchMakingServerResponse
+{
+	eServerResponded = 0,
+	eServerFailedToRespond,
+	eNoServersListedOnMasterServer // for the Internet query type, returned in response callback if no servers of this type match
+} EMatchMakingServerResponse;
+
+typedef enum EMatchMakingType
+{
+	eInternetServer = 0,
+	eLANServer,
+	eFriendsServer,
+	eFavoritesServer,
+	eHistoryServer,
+	eSpectatorServer,
+	eInvalidServer 
+} EMatchMakingType;
+
 
 
 //-----------------------------------------------------------------------------

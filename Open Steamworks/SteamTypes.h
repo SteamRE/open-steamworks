@@ -45,15 +45,17 @@
 	#define HMODULE void *
 	#define GetProcAddress dlsym
 
+
 	#define S_API extern "C"
 
 	#ifndef __cdecl
 		#define __cdecl __attribute__((__cdecl__))
 	#endif
 
+	// mac doesn't have errno_t ??
+	typedef unsigned int errno_t;
 	typedef unsigned char byte;
 
-	#define WINSIZE(X)
 #endif
 
 // this is an MSVC project.. but for the same of supporting other compilers we have to jump through hoops
@@ -116,75 +118,26 @@ typedef unsigned int uintp;
 #endif // else _WIN32
 
 // steamclient/api
+#include "EAccountType.h"
+#include "EChatMemberStateChange.h"
+#include "ELobbyType.h"
+#include "ENotificationPosition.h"
+#include "EPersonalQuestion.h"
 #include "EResult.h"
 #include "EUniverse.h"
-#include "EDenyReason.h"
-#include "EAccountType.h"
-#include "ESteamUserStatType.h"
-#include "EChatEntryType.h"
-#include "EChatRoomEnterResponse.h"
 #include "EServerMode.h"
-#include "EFriendRelationship.h"
-#include "EPersonaState.h"
-#include "EFriendFlags.h"
-#include "EPersonaChange.h"
-#include "EFriendMsgType.h"
-#include "ERegistrySubTree.h"
-#include "EAppUsageEvent.h"
-#include "ELogonState.h"
-#include "EVACBan.h"
-#include "EItemRequestResult.h"
-#include "EItemQuality.h"
-#include "EMatchMakingServerResponse.h"
-#include "EMatchMakingType.h"
-#include "EPaymentMethod.h"
-#include "ELicenseFlags.h"
-#include "EPurchaseResultDetail.h"
-#include "ESteamAPICallFailure.h"
-#include "EAvatarSize.h"
-#include "ELobbyType.h"
-#include "ELobbyComparison.h"
-#include "ESNetSocketState.h"
-#include "ESNetSocketConnectionType.h"
-#include "ELeaderboardDataRequest.h"
-#include "ELeaderboardSortMethod.h"
-#include "ELeaderboardDisplayType.h"
-#include "EVoiceResult.h"
-#include "EBeginAuthSessionResult.h"
-#include "EAuthSessionResponse.h"
-#include "ENotificationPosition.h"
-#include "EItemCriteriaOperator.h"
-#include "ESystemIMType.h"
-#include "ENewsUpdateType.h"
-#include "EAppState.h"
-#include "EPurchaseStatus.h"
-#include "ECurrencyCode.h"
-#include "EConnectionPriority.h"
-#include "EDepotBuildStatus.h"
-#include "EChatRoomType.h"
-#include "ECallState.h"
-#include "EChatRoomVoiceStatus.h"
-#include "EClanRelationship.h"
-#include "EClanRank.h"
-#include "EGCMsgResponse.h"
-#include "EHTTPMethod.h"
-#include "EUserHasLicenseForAppResult.h"
-#include "EStatusDepotVersion.h"
-#include "EP2PSessionError.h"
-#include "EP2PSend.h"
-#include "EGroupEvent.h"
+
+// these is outside NO_STEAM because external things use it
+#include "ESteamError.h"
+#include "ESteamNotify.h"
 
 #ifndef NO_STEAM
 // steam
-#include "EDetailedPlatformErrorType.h"
-#include "ESteamError.h"
 #include "ESteamSeekMethod.h"
 #include "ESteamBufferMethod.h"
 #include "ESteamFindFilter.h"
-#include "ESteamBillingType.h"
 #include "ESteamSubscriptionBillingInfoType.h"
 #include "ESteamPaymentCardType.h"
-#include "ESteamNotificationCallbackEvent.h"
 #include "ESteamAppUpdateStatsQueryType.h"
 #include "ESteamSubscriptionStatus.h"
 #include "ESteamServerType.h"
@@ -198,9 +151,7 @@ typedef void* (*InstantiateInterfaceFn)( void );
 typedef void  (*SteamAPIWarningMessageHook_t)(int hpipe, const char *message);
 typedef void (*KeyValueIteratorCallback_t)(const char* key, const char* value, void* kv);
 
-#ifndef NO_STEAM
 typedef void (*SteamNotificationCallback_t)(ESteamNotify eEvent, unsigned int nData);
-#endif // NO_STEAM
 
 typedef bool (*SteamBGetCallbackFn)( int hpipe, void *pCallbackMsg, int32 *phSteamCall );
 typedef void (*SteamFreeLastCallbackFn)( int hpipe );
@@ -455,29 +406,6 @@ enum ECallbackType
 	k_iSteamGameCoordinatorCallbacks = 1700,
 };
 
-#include "EnumString.h"
-
-Begin_Enum_String(ECallbackType)
-{
-	Enum_String( k_iSteamUserCallbacks);
-	Enum_String( k_iSteamGameServerCallbacks );
-	Enum_String( k_iSteamFriendsCallbacks );
-	Enum_String( k_iSteamBillingCallbacks );
-	Enum_String( k_iSteamMatchmakingCallbacks );
-	Enum_String( k_iSteamContentServerCallbacks );
-	Enum_String( k_iSteamUtilsCallbacks );
-	Enum_String( k_iClientFriendsCallbacks );
-	Enum_String( k_iClientUserCallbacks );
-	Enum_String( k_iSteamAppsCallbacks );
-	Enum_String( k_iSteamUserStatsCallbacks );
-	Enum_String( k_iSteamNetworkingCallbacks );
-	Enum_String( k_iClientRemoteStorageCallbacks );
-	Enum_String( k_iSteamUserItemsCallbacks );
-	Enum_String( k_iSteamGameServerItemsCallbacks );
-	Enum_String( k_iClientUtilsCallbacks );
-	Enum_String( k_iSteamGameCoordinatorCallbacks );
-}
-End_Enum_String( ECallbackType );
 
 #ifndef NO_STEAM
 // steam structs, etc

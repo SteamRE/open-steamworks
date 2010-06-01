@@ -20,21 +20,11 @@
 #pragma once
 #endif
 
-#include "EnumString.h"
-
 typedef enum ESteamFindFilter						/* Filter elements returned by SteamFind{First,Next} */
 {
 	eSteamFindLocalOnly,			/* limit search to local filesystem */
 	eSteamFindRemoteOnly,			/* limit search to remote repository */
 	eSteamFindAll					/* do not limit search (duplicates allowed) */
 } ESteamFindFilter;
-
-Begin_Enum_String(ESteamFindFilter)
-{
-	Enum_String(eSteamFindLocalOnly);
-	Enum_String(eSteamFindRemoteOnly);
-	Enum_String(eSteamFindAll);
-}
-End_Enum_String( ESteamFindFilter );
 
 #endif // ESTEAMFINDFILTER_H

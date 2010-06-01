@@ -14,36 +14,28 @@
 //
 //=============================================================================
 
-#ifndef EPURCHASESTATUS_H
-#define EPURCHASESTATUS_H
+#ifndef ESTEAMNOTIFICATIONCALLBACKEVENT_H
+#define ESTEAMNOTIFICATIONCALLBACKEVENT_H
 #ifdef _WIN32
 #pragma once
 #endif
 
-#include "EnumString.h"
-
-
-typedef enum EPurchaseStatus
+typedef enum ESteamNotify
 {
-	k_EPurchasePending = 0,
-	k_EPurchaseSucceeded = 1,
-	k_EPurchaseFailed = 2,
-	k_EPurchaseRefunded = 3,
-	k_EPurchaseInit = 4,
-	k_EPurchaseChargedback = 5,
-	k_EPurchaseRevoked = 6,
-} EPurchaseStatus;
+	eSteamNotifyTicketsWillExpire = 0,
+	eSteamNotifyAccountInfoChanged = 1,
+	eSteamNotifyContentDescriptionChanged = 2,
+	eSteamNotifyPleaseShutdown = 3,
+	eSteamNotifyNewContentServer = 4,
+	eSteamNotifySubscriptionStatusChanged = 5,
+	eSteamNotifyContentServerConnectionLost = 6,
+	eSteamNotifyCacheLoadingCompleted = 7,
+	eSteamNotifyCacheNeedsDecryption = 8,
+	eSteamNotifyCacheNeedsRepair = 9,
+	eSteamNotifyAppDownloading = 10,
+	eSteamNotifyAppDownloadingPaused = 11,
+} ESteamNotify;
 
-Begin_Enum_String( EPurchaseStatus )
-{
-	Enum_String( k_EPurchasePending );
-	Enum_String( k_EPurchaseSucceeded );
-	Enum_String( k_EPurchaseFailed );
-	Enum_String( k_EPurchaseRefunded );
-	Enum_String( k_EPurchaseInit );
-	Enum_String( k_EPurchaseChargedback );
-	Enum_String( k_EPurchaseRevoked );
-}
-End_Enum_String( EPurchaseStatus );
 
-#endif // EPURCHASESTATUS_H
+
+#endif // ESTEAMNOTIFICATIONCALLBACKEVENT_H

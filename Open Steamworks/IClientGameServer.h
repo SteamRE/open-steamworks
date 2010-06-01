@@ -21,10 +21,11 @@
 #endif
 
 #include "SteamTypes.h"
+#include "GameServerCommon.h"
+#include "UserCommon.h"
+
 
 class ConnectedUserInfo_t;
-
-#define CLIENTGAMESERVER_INTERFACE_VERSION "CLIENTGAMESERVER_INTERFACE_VERSION001"
 
 class UNSAFE_INTERFACE IClientGameServer
 {

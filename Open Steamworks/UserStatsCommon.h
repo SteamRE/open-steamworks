@@ -20,15 +20,6 @@
 #pragma once
 #endif
 
-// a single entry in a leaderboard, as returned by GetDownloadedLeaderboardEntry()
-struct LeaderboardEntry_t
-{
-	CSteamID m_steamIDUser; // user with the entry - use SteamFriends()->GetFriendPersonaName() & SteamFriends()->GetFriendAvatar() to get more info
-	int32 m_nGlobalRank;	// [1..N], where N is the number of users with an entry in the leaderboard
-	int32 m_nScore;			// score as set in the leaderboard
-	int32 m_cDetails;		// number of int32 details available for this entry
-};
-
 
 
 #define STEAMUSERSTATS_INTERFACE_VERSION_001 "STEAMUSERSTATS_INTERFACE_VERSION001"
@@ -38,6 +29,59 @@ struct LeaderboardEntry_t
 #define STEAMUSERSTATS_INTERFACE_VERSION_005 "STEAMUSERSTATS_INTERFACE_VERSION005"
 #define STEAMUSERSTATS_INTERFACE_VERSION_006 "STEAMUSERSTATS_INTERFACE_VERSION006"
 #define STEAMUSERSTATS_INTERFACE_VERSION_007 "STEAMUSERSTATS_INTERFACE_VERSION007"
+
+
+
+//-----------------------------------------------------------------------------
+// types of user game stats fields
+// WARNING: DO NOT RENUMBER EXISTING VALUES - STORED IN DATABASE
+//-----------------------------------------------------------------------------
+typedef enum ESteamUserStatType
+{
+	k_ESteamUserStatTypeINVALID = 0,
+	k_ESteamUserStatTypeINT = 1,
+	k_ESteamUserStatTypeFLOAT = 2,
+	// Read as FLOAT, set with count / session length
+	k_ESteamUserStatTypeAVGRATE = 3,
+	k_ESteamUserStatTypeACHIEVEMENTS = 4,
+	k_ESteamUserStatTypeGROUPACHIEVEMENTS = 5,
+} ESteamUserStatType;
+
+// type of data request, when downloading leaderboard entries
+typedef enum ELeaderboardDataRequest
+{
+	k_ELeaderboardDataRequestGlobal = 0,
+	k_ELeaderboardDataRequestGlobalAroundUser = 1,
+	k_ELeaderboardDataRequestFriends = 2,
+} ELeaderboardDataRequest;
+
+// the display type (used by the Steam Community web site) for a leaderboard
+typedef enum ELeaderboardDisplayType
+{
+	k_ELeaderboardDisplayTypeNone = 0, 
+	k_ELeaderboardDisplayTypeNumeric = 1,			// simple numerical score
+	k_ELeaderboardDisplayTypeTimeSeconds = 2,		// the score represents a time, in seconds
+	k_ELeaderboardDisplayTypeTimeMilliSeconds = 3,	// the score represents a time, in milliseconds
+} ELeaderboardDisplayType;
+
+// the sort order of a leaderboard
+typedef enum ELeaderboardSortMethod
+{
+	k_ELeaderboardSortMethodNone = 0,
+	k_ELeaderboardSortMethodAscending = 1,	// top-score is lowest number
+	k_ELeaderboardSortMethodDescending = 2,	// top-score is highest number
+} ELeaderboardSortMethod;
+
+
+
+// a single entry in a leaderboard, as returned by GetDownloadedLeaderboardEntry()
+struct LeaderboardEntry_t
+{
+	CSteamID m_steamIDUser; // user with the entry - use SteamFriends()->GetFriendPersonaName() & SteamFriends()->GetFriendAvatar() to get more info
+	int32 m_nGlobalRank;	// [1..N], where N is the number of users with an entry in the leaderboard
+	int32 m_nScore;			// score as set in the leaderboard
+	int32 m_cDetails;		// number of int32 details available for this entry
+};
 
 
 

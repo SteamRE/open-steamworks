@@ -14,27 +14,24 @@
 //
 //=============================================================================
 
-#ifndef ECONNECTIONPRIORITY_H
-#define ECONNECTIONPRIORITY_H
+#ifndef EPERSONALQUESTION_H
+#define EPERSONALQUESTION_H
 #ifdef _WIN32
 #pragma once
 #endif
 
-#include "EnumString.h"
-
-typedef enum EConnectionPriority
+typedef enum EPersonalQuestion
 {
-	k_EConnectionPriorityLow = 0,
-	k_EConnectionPriorityMedium = 1,
-	k_EConnectionPriorityHigh = 2,
-} EConnectionPriority;
+	// Never ever change these after initial release.
+	k_EPSMsgNameOfSchool = 0,			// Question: What is the name of your school?
+	k_EPSMsgFavoriteTeam = 1,			// Question: What is your favorite team?
+	k_EPSMsgMothersName = 2,			// Question: What is your mother's maiden name?
+	k_EPSMsgNameOfPet = 3,				// Question: What is the name of your pet?
+	k_EPSMsgChildhoodHero = 4,			// Question: Who was your childhood hero?
+	k_EPSMsgCityBornIn = 5,				// Question: What city were you born in?
 
-Begin_Enum_String( EConnectionPriority )
-{
-	Enum_String( k_EConnectionPriorityLow );
-	Enum_String( k_EConnectionPriorityMedium );
-	Enum_String( k_EConnectionPriorityHigh );
-}
-End_Enum_String( EConnectionPriority );
+	k_EPSMaxPersonalQuestion,
 
-#endif // ECONNECTIONPRIORITY_H
+} EPersonalQuestion;
+
+#endif // EPERSONALQUESTION_H

@@ -20,6 +20,15 @@
 #pragma once
 #endif
 
+typedef enum EDetailedPlatformErrorType
+{
+	eNoDetailedErrorAvailable,
+	eStandardCerrno,
+	eWin32LastError,
+	eWinSockLastError,
+	eDetailedPlatformErrorCount
+} EDetailedPlatformErrorType;
+
 typedef struct TSTeamError
 {
 	ESteamError eSteamError;

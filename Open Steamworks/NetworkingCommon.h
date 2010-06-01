@@ -20,6 +20,89 @@
 #pragma once
 #endif
 
+
+
+#define STEAMNETWORKING_INTERFACE_VERSION_001 "SteamNetworking001"
+#define STEAMNETWORKING_INTERFACE_VERSION_002 "SteamNetworking002"
+#define STEAMNETWORKING_INTERFACE_VERSION_003 "SteamNetworking003"
+
+
+
+// SendP2PPacket() send types
+// Typically k_EP2PSendUnreliable is what you want for UDP-like packets, k_EP2PSendReliable for TCP-like packets
+typedef enum EP2PSend
+{
+	// Basic UDP send. Packets can't be bigger than 1200 bytes (your typical MTU size). Can be lost, or arrive out of order (rare).
+	// The sending API does have some knowledge of the underlying connection, so if there is no NAT-traversal accomplished or
+	// there is a recognized adjustment happening on the connection, the packet will be batched until the connection is open again.
+	k_EP2PSendUnreliable = 0,
+
+	// As above, but if the underlying p2p connection isn't yet established the packet will just be thrown away. Using this on the first
+	// packet sent to a remote host almost guarantees the packet will be dropped.
+	// This is only really useful for kinds of data that should never buffer up, i.e. voice payload packets
+	k_EP2PSendUnreliableNoDelay = 1,
+
+	// Reliable message send. Can send up to 1MB of data in a single message. 
+	// Does fragmentation/re-assembly of messages under the hood, as well as a sliding window for efficient sends of large chunks of data. 
+	k_EP2PSendReliable = 2,
+
+	// As above, but applies the Nagle algorithm to the send - sends will accumulate 
+	// until the current MTU size (typically ~1200 bytes, but can change) or ~200ms has passed (Nagle algorithm). 
+	// Useful if you want to send a set of smaller messages but have the coalesced into a single packet
+	// Since the reliable stream is all ordered, you can do several small message sends with k_EP2PSendReliableWithBuffering and then
+	// do a normal k_EP2PSendReliable to force all the buffered data to be sent.
+	k_EP2PSendReliableWithBuffering = 3,
+
+} EP2PSend;
+
+// list of possible errors returned by SendP2PPacket() API
+// these will be posted in the P2PSessionConnectFail_t callback
+typedef enum EP2PSessionError
+{
+	k_EP2PSessionErrorNone = 0,
+	k_EP2PSessionErrorNotRunningApp = 1,			// target is not running the same game
+	k_EP2PSessionErrorNoRightsToApp = 2,			// local user doesn't own the app that is running
+	k_EP2PSessionErrorDestinationNotLoggedIn = 3,	// target user isn't connected to Steam
+	k_EP2PSessionErrorTimeout = 4,					// target isn't responding, perhaps not calling AcceptP2PSessionWithUser()
+} EP2PSessionError;
+
+// describes how the socket is currently connected
+typedef enum ESNetSocketConnectionType
+{
+	k_ESNetSocketConnectionTypeNotConnected = 0,
+	k_ESNetSocketConnectionTypeUDP = 1,
+	k_ESNetSocketConnectionTypeUDPRelay = 2,
+} ESNetSocketConnectionType;
+
+// connection progress indicators
+typedef enum ESNetSocketState
+{
+	k_ESNetSocketStateInvalid = 0,						
+
+	// communication is valid
+	k_ESNetSocketStateConnected = 1,				
+
+	// states while establishing a connection
+	k_ESNetSocketStateInitiated = 10,				// the connection state machine has started
+
+	// p2p connections
+	k_ESNetSocketStateLocalCandidatesFound = 11,	// we've found our local IP info
+	k_ESNetSocketStateReceivedRemoteCandidates = 12,// we've received information from the remote machine, via the Steam back-end, about their IP info
+
+	// direct connections
+	k_ESNetSocketStateChallengeHandshake = 15,		// we've received a challenge packet from the server
+
+	// failure states
+	k_ESNetSocketStateDisconnecting = 21,			// the API shut it down, and we're in the process of telling the other end	
+	k_ESNetSocketStateLocalDisconnect = 22,			// the API shut it down, and we've completed shutdown
+	k_ESNetSocketStateTimeoutDuringConnect = 23,	// we timed out while trying to creating the connection
+	k_ESNetSocketStateRemoteEndDisconnected = 24,	// the remote end has disconnected from us
+	k_ESNetSocketStateConnectionBroken = 25,		// connection has been broken; either the other end has disappeared or our local network connection has broke
+
+} ESNetSocketState;
+
+
+
 // connection state to a specified user, returned by GetP2PSessionState()
 // this is under-the-hood info about what's going on with a SendP2PPacket(), shouldn't be needed except for debuggin
 struct P2PSessionState_t
@@ -35,9 +118,6 @@ struct P2PSessionState_t
 };
 
 
-#define STEAMNETWORKING_INTERFACE_VERSION_001 "SteamNetworking001"
-#define STEAMNETWORKING_INTERFACE_VERSION_002 "SteamNetworking002"
-#define STEAMNETWORKING_INTERFACE_VERSION_003 "SteamNetworking003"
 
 // callback notification - status of a socket has changed
 struct SocketStatusCallback_t

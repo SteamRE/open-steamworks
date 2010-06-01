@@ -21,8 +21,6 @@
 #endif
 
 
-#include "EnumString.h"
-
 // General result codes
 typedef enum EResult
 {
@@ -78,60 +76,5 @@ typedef enum EResult
 	k_EResultAlreadyLoggedInElsewhere = 50		// You are already logged in elsewhere, you must wait
 
 } EResult;
-
-Begin_Enum_String(EResult)
-{
-	Enum_String( k_EResultOK );						// success
-	Enum_String( k_EResultFail );					// generic failure 
-	Enum_String( k_EResultNoConnection);			// no/failed network connection
-	//Enum_String( k_EResultNoConnectionRetry );	// OBSOLETE - removed
-	Enum_String( k_EResultInvalidPassword );		// password/ticket is invalid
-	Enum_String( k_EResultLoggedInElsewhere );		// same user logged in elsewhere
-	Enum_String( k_EResultInvalidProtocolVer );		// protocol version is incorrect
-	Enum_String( k_EResultInvalidParam);			// a parameter is incorrect
-	Enum_String( k_EResultFileNotFound );			// file was not found
-	Enum_String( k_EResultBusy);					// called method busy - action not taken
-	Enum_String( k_EResultInvalidState );			// called object was in an invalid state
-	Enum_String( k_EResultInvalidName );			// name is invalid
-	Enum_String( k_EResultInvalidEmail );			// email is invalid
-	Enum_String( k_EResultDuplicateName );			// name is not unique
-	Enum_String( k_EResultAccessDenied );			// access is denied
-	Enum_String( k_EResultTimeout );				// operation timed out
-	Enum_String( k_EResultBanned );					// VAC2 banned
-	Enum_String( k_EResultAccountNotFound );		// account not found
-	Enum_String( k_EResultInvalidSteamID);			// steamID is invalid
-	Enum_String( k_EResultServiceUnavailable );		// The requested service is currently unavailable
-	Enum_String( k_EResultNotLoggedOn);				// The user is not logged on
-	Enum_String( k_EResultPending);					// Request is pending (may be in process, or waiting on third party)
-	Enum_String( k_EResultEncryptionFailure );		// Encryption or Decryption failed
-	Enum_String( k_EResultInsufficientPrivilege );	// Insufficient privilege
-	Enum_String( k_EResultLimitExceeded );			// Too much of a good thing
-	Enum_String( k_EResultRevoked );				// Access has been revoked (used for revoked guest passes)
-	Enum_String( k_EResultExpired );				// License/Guest pass the user is trying to access is expired
-	Enum_String( k_EResultAlreadyRedeemed );		// Guest pass has already been redeemed by account, cannot be acked again
-	Enum_String( k_EResultDuplicateRequest );		// The request is a duplicate and the action has already occurred in the past, ignored this time
-	Enum_String( k_EResultAlreadyOwned );			// All the games in this guest pass redemption request are already owned by the user
-	Enum_String( k_EResultIPNotFound );				// IP address not found
-	Enum_String( k_EResultPersistFailed );			// failed to write change to the data store
-	Enum_String( k_EResultLockingFailed );			// failed to acquire access lock for this operation
-	Enum_String( k_EResultLogonSessionReplaced );
-	Enum_String( k_EResultConnectFailed );
-	Enum_String( k_EResultHandshakeFailed );
-	Enum_String( k_EResultIOFailure );
-	Enum_String( k_EResultRemoteDisconnect );
-	Enum_String( k_EResultShoppingCartNotFound );	// failed to find the shopping cart requested
-	Enum_String( k_EResultBlocked );					// a user didn't allow it
-	Enum_String( k_EResultIgnored );						// target is ignoring sender
-	Enum_String( k_EResultNoMatch );						// nothing matching the request found
-	Enum_String( k_EResultAccountDisabled );
-	Enum_String( k_EResultServiceReadOnly );				// this service is not accepting content changes right now
-	Enum_String( k_EResultAccountNotFeatured );			// account doesn't have value, so this feature isn't available
-	Enum_String( k_EResultAdministratorOK );			// allowed to take this action, but only because requester is admin
-	Enum_String( k_EResultContentVersion );			// A Version mismatch in content transmitted within the Steam protocol.
-	Enum_String( k_EResultTryAnotherCM );					// The current CM can't service the user making a request, user should try another.
-	Enum_String( k_EResultPasswordRequiredToKickSession );		// You are already logged in elsewhere, this cached credential login has failed.
-	Enum_String( k_EResultAlreadyLoggedInElsewhere );		// You are already logged in elsewhere, you must wait
-}
-End_Enum_String(EResult);
 
 #endif // ERESULT_H

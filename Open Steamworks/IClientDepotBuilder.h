@@ -22,7 +22,34 @@
 
 #include "SteamTypes.h"
 
+
+
 #define CLIENTDEPOTBUILDER_INTERFACE_VERSION "CLIENTDEPOTBUILDER_INTERFACE_VERSION001"
+
+
+
+typedef enum EDepotBuildStatus
+{
+	k_EDepotBuildStatusInvalid = -1,
+	k_EDepotBuildStatusFailed = 0,
+	k_EDepotBuildStatusProcessingConfig = 1,
+	k_EDepotBuildStatusProcessingData = 2,
+	k_EDepotBuildStatusUploadingData = 3,
+	k_EDepotBuildStatusCompleted = 4,
+}  EDepotBuildStatus;
+
+//-----------------------------------------------------------------------------
+// Purpose: Status of a given depot version, these are stored in the DB, don't renumber
+//-----------------------------------------------------------------------------
+typedef enum EStatusDepotVersion
+{
+	k_EStatusDepotVersionInvalid = 0,
+	k_EStatusDepotVersionCompleteDisabled = 1,
+	k_EStatusDepotVersionCompleteEnabledBeta = 2,
+	k_EStatusDepotVersionCompleteEnabledPublic = 3,
+} EStatusDepotVersion;
+
+
 
 class IClientDepotBuilder
 {

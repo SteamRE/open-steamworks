@@ -20,6 +20,10 @@
 #pragma once
 #endif
 
+
+
+#define CLIENTMATCHMAKING_INTERFACE_VERSION "CLIENTMATCHMAKING_INTERFACE_VERSION001"
+
 #define STEAMMATCHMAKING_INTERFACE_VERSION_001 "SteamMatchMaking001"
 #define STEAMMATCHMAKING_INTERFACE_VERSION_002 "SteamMatchMaking002"
 #define STEAMMATCHMAKING_INTERFACE_VERSION_003 "SteamMatchMaking003"
@@ -32,7 +36,30 @@
 
 
 //-----------------------------------------------------------------------------
-// Callbacks for ISteamMatchmaking (which go through the regular Steam callback registration system)
+// Purpose: Chat Room Enter Responses
+//-----------------------------------------------------------------------------
+typedef enum EChatRoomEnterResponse
+{
+	k_EChatRoomEnterResponseSuccess = 1,		// Success
+	k_EChatRoomEnterResponseDoesntExist = 2,	// Chat doesn't exist (probably closed)
+	k_EChatRoomEnterResponseNotAllowed = 3,		// General Denied - You don't have the permissions needed to join the chat
+	k_EChatRoomEnterResponseFull = 4,			// Chat room has reached its maximum size
+	k_EChatRoomEnterResponseError = 5,			// Unexpected Error
+	k_EChatRoomEnterResponseBanned = 6,			// You are banned from this chat room and may not join
+} EChatRoomEnterResponse;
+
+typedef enum ELobbyComparison
+{
+	k_ELobbyComparisonEqualToOrLessThan = -2,
+	k_ELobbyComparisonLessThan = -1,
+	k_ELobbyComparisonEqual = 0,
+	k_ELobbyComparisonGreaterThan = 1,
+	k_ELobbyComparisonEqualToOrGreaterThan = 2,
+	k_ELobbyComparisonNotEqual = 3,
+} ELobbyComparison;
+
+
+
 //-----------------------------------------------------------------------------
 // Purpose: a server was added/removed from the favorites list, you should refresh now
 //-----------------------------------------------------------------------------
@@ -42,7 +69,7 @@ struct FavoritesListChanged_t
 	uint32 m_nIP; // an IP of 0 means reload the whole list, any other value means just one server
 	uint32 m_nQueryPort;
 	uint32 m_nConnPort;
-	uint32 m_nAppID;
+	AppId_t m_nAppID;
 	uint32 m_nFlags;
 	bool m_bAdd; // true if this is adding the entry, otherwise it is a remove
 };
@@ -57,8 +84,8 @@ struct LobbyInvite_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 3 };
 
-	uint64 m_ulSteamIDUser;		// Steam ID of the person making the invite
-	uint64 m_ulSteamIDLobby;	// Steam ID of the Lobby
+	CSteamID m_ulSteamIDUser;		// Steam ID of the person making the invite
+	CSteamID m_ulSteamIDLobby;	// Steam ID of the Lobby
 };
 
 
@@ -71,7 +98,7 @@ struct LobbyEnter_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 4 };
 
-	uint64 m_ulSteamIDLobby;							// SteamID of the Lobby you have entered
+	CSteamID m_ulSteamIDLobby;							// SteamID of the Lobby you have entered
 	uint32 m_rgfChatPermissions;						// Permissions of the current user
 	bool m_bLocked;										// If true, then only invited users may join
 	EChatRoomEnterResponse m_EChatRoomEnterResponse;	// EChatRoomEnterResponse
@@ -87,8 +114,8 @@ struct LobbyDataUpdate_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 5 };
 
-	uint64 m_ulSteamIDLobby;		// steamID of the Lobby
-	uint64 m_ulSteamIDMember;		// steamID of the member whose data changed, or the room itself
+	CSteamID m_ulSteamIDLobby;		// steamID of the Lobby
+	CSteamID m_ulSteamIDMember;		// steamID of the member whose data changed, or the room itself
 };
 
 //-----------------------------------------------------------------------------
@@ -99,11 +126,11 @@ struct LobbyChatUpdate_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 6 };
 
-	uint64 m_ulSteamIDLobby;			// Lobby ID
-	uint64 m_ulSteamIDUserChanged;		// user who's status in the lobby just changed - can be recipient
-	uint64 m_ulSteamIDMakingChange;		// Chat member who made the change (different from SteamIDUserChange if kicking, muting, etc.)
+	CSteamID m_ulSteamIDLobby;			// Lobby ID
+	CSteamID m_ulSteamIDUserChanged;		// user who's status in the lobby just changed - can be recipient
+	CSteamID m_ulSteamIDMakingChange;		// Chat member who made the change (different from SteamIDUserChange if kicking, muting, etc.)
 										// for example, if one user kicks another from the lobby, this will be set to the id of the user who initiated the kick
-	uint32 m_rgfChatMemberStateChange;	// bitfield of EChatMemberStateChange values
+	EChatMemberStateChange m_rgfChatMemberStateChange;	// bitfield of EChatMemberStateChange values
 };
 
 
@@ -115,8 +142,8 @@ struct LobbyChatMsg_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 7 };
 
-	uint64 m_ulSteamIDLobby;			// the lobby id this is in
-	uint64 m_ulSteamIDUser;				// steamID of the user who has sent this message
+	CSteamID m_ulSteamIDLobby;			// the lobby id this is in
+	CSteamID m_ulSteamIDUser;				// steamID of the user who has sent this message
 	EChatEntryType m_eChatEntryType;	// type of message
 	uint32 m_iChatID;					// index of the chat entry to lookup
 };
@@ -128,8 +155,8 @@ struct LobbyAdminChange_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 8 };
 
-	uint64 m_ulSteamIDLobby;
-	uint64 m_ulSteamIDNewAdmin;
+	CSteamID m_ulSteamIDLobby;
+	CSteamID m_ulSteamIDNewAdmin;
 };
 
 //-----------------------------------------------------------------------------
@@ -142,8 +169,8 @@ struct LobbyGameCreated_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 9 };
 
-	uint64 m_ulSteamIDLobby;		// the lobby we were in
-	uint64 m_ulSteamIDGameServer;	// the new game server that has been created or found for the lobby members
+	CSteamID m_ulSteamIDLobby;		// the lobby we were in
+	CSteamID m_ulSteamIDGameServer;	// the new game server that has been created or found for the lobby members
 	uint32 m_unIP;					// IP & Port of the game server (if any)
 	uint16 m_usPort;
 };
@@ -155,6 +182,7 @@ struct LobbyGameCreated_t
 struct LobbyMatchList_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 10 };
+
 	uint32 m_nLobbiesMatching;		// Number of lobbies that matched search criteria and we have SteamIDs for
 };
 
@@ -166,7 +194,8 @@ struct LobbyMatchList_t
 struct LobbyClosing_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 11 };
-	uint64 m_ulSteamIDLobby;			// Lobby
+
+	CSteamID m_ulSteamIDLobby;			// Lobby
 };
 
 
@@ -177,8 +206,9 @@ struct LobbyClosing_t
 struct LobbyKicked_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 12 };
-	uint64 m_ulSteamIDLobby;			// Lobby
-	uint64 m_ulSteamIDAdmin;			// User who kicked you
+
+	CSteamID m_ulSteamIDLobby;			// Lobby
+	CSteamID m_ulSteamIDAdmin;			// User who kicked you
 };
 
 
@@ -199,7 +229,7 @@ struct LobbyCreated_t
 							// k_EResultAccessDenied - your game isn't set to allow lobbies, or your client does haven't rights to play the game
 							// k_EResultLimitExceeded - your game client has created too many lobbies
 
-	uint64 m_ulSteamIDLobby;		// chat room, zero if failed
+	CSteamID m_ulSteamIDLobby;		// chat room, zero if failed
 };
 
 

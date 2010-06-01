@@ -20,6 +20,21 @@
 #pragma once
 #endif
 
+
+typedef enum EBillingType
+{
+	eNoCost = 0,
+	eBillOnceOnly = 1,
+	eBillMonthly = 2,
+	eProofOfPrepurchaseOnly = 3,
+	eGuestPass = 4,
+	eHardwarePromo = 5,
+	eGift = 6,
+	eAutoGrant = 7,
+	eNumBillingTypes = 8,
+} EBillingType;
+
+
 typedef struct TSteamSubscription
 {
 	char* szName;

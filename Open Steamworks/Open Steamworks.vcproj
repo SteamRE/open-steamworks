@@ -126,123 +126,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\EAppState.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EAppUsageEvent.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EAuthSessionResponse.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EAvatarSize.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EBeginAuthSessionResult.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ECallState.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EChatEntryType.h"
-						>
-					</File>
-					<File
 						RelativePath=".\EChatMemberStateChange.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EChatRoomEnterResponse.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EChatRoomType.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EChatRoomVoiceStatus.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EClanRank.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EClanRelationship.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EConnectionPriority.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ECurrencyCode.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EDenyReason.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EDepotBuildStatus.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EFriendFlags.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EFriendMsgType.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EFriendRelationship.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EGCMsgResponse.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EGroupEvent.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EItemCriteriaOperator.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EItemQuality.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EItemRequestResult.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ELeaderboardDataRequest.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ELeaderboardDisplayType.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ELeaderboardSortMethod.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ELicenseFlags.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ELobbyComparison.h"
 						>
 					</File>
 					<File
@@ -250,55 +134,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\ELogonState.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EMatchMakingServerResponse.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EMatchMakingType.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ENewsUpdateType.h"
-						>
-					</File>
-					<File
 						RelativePath=".\ENotificationPosition.h"
 						>
 					</File>
 					<File
-						RelativePath=".\EP2PSend.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EP2PSessionError.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EPaymentMethod.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EPersonaChange.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EPersonaState.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EPurchaseResultDetail.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EPurchaseStatus.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ERegistrySubTree.h"
+						RelativePath=".\EPersonalQuestion.h"
 						>
 					</File>
 					<File
@@ -310,43 +150,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\ESNetSocketConnectionType.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ESNetSocketState.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EStatusDepotVersion.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ESteamAPICallFailure.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ESteamUserStatType.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ESystemIMType.h"
-						>
-					</File>
-					<File
 						RelativePath=".\EUniverse.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EUserHasLicenseForAppResult.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EVACBan.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EVoiceResult.h"
 						>
 					</File>
 				</Filter>
@@ -986,15 +790,7 @@
 					Name="Enums"
 					>
 					<File
-						RelativePath=".\EDetailedPlatformErrorType.h"
-						>
-					</File>
-					<File
 						RelativePath=".\ESteamAppUpdateStatsQueryType.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ESteamBillingType.h"
 						>
 					</File>
 					<File
@@ -1010,7 +806,7 @@
 						>
 					</File>
 					<File
-						RelativePath=".\ESteamNotificationCallbackEvent.h"
+						RelativePath=".\ESteamNotify.h"
 						>
 					</File>
 					<File
@@ -1056,10 +852,6 @@
 				</File>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath=".\EnumString.h"
-			>
-		</File>
 		<File
 			RelativePath=".\Interface_OSW.h"
 			>

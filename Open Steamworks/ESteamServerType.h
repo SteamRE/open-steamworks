@@ -20,8 +20,6 @@
 #pragma once
 #endif
 
-#include "EnumString.h"
-
 typedef enum ESteamServerType
 {
 	eSteamValveCDKeyValidationServer = 0,
@@ -32,18 +30,5 @@ typedef enum ESteamServerType
 	eSteamRDKFMasterServer = 5,
 	eMaxServerTypes = 6,
 } ESteamServerType;
-
-Begin_Enum_String( ESteamServerType )
-{
-	Enum_String( eSteamValveCDKeyValidationServer );
-	Enum_String( eSteamHalfLifeMasterServer );
-	Enum_String( eSteamFriendsServer );
-	Enum_String( eSteamCSERServer );
-	Enum_String( eSteamHalfLife2MasterServer );
-	Enum_String( eSteamRDKFMasterServer );
-	Enum_String( eMaxServerTypes );
-}
-End_Enum_String( ESteamServerType );
-
 
 #endif // ESTEAMSERVERTYPE_H

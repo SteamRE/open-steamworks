@@ -20,8 +20,6 @@
 #pragma once
 #endif
 
-#include "EnumString.h"
-
 //-----------------------------------------------------------------------------
 // Purpose: Possible positions to tell the overlay to show notifications in
 //-----------------------------------------------------------------------------
@@ -33,13 +31,5 @@ typedef enum ENotificationPosition
 	k_EPositionBottomRight = 3,
 } ENotificationPosition;
 
-Begin_Enum_String(ENotificationPosition)
-{
-	Enum_String( k_EPositionTopLeft );
-	Enum_String( k_EPositionTopRight );
-	Enum_String( k_EPositionBottomLeft );
-	Enum_String( k_EPositionBottomRight );
-}
-End_Enum_String(ENotificationPosition);
 
 #endif // ENOTIFICATIONPOSITION_H

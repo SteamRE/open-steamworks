@@ -20,6 +20,9 @@
 #pragma once
 #endif
 
+#include "SteamTypes.h"
+#include "UserStatsCommon.h"
+
 class ISteamUserStats001
 {
 public:

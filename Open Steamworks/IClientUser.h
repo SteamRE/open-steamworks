@@ -21,10 +21,10 @@
 #endif
 
 #include "SteamTypes.h"
+#include "UserCommon.h"
+
 
 class CNatTraversalStat;
-
-#define CLIENTUSER_INTERFACE_VERSION "CLIENTUSER_INTERFACE_VERSION001"
 
 class UNSAFE_INTERFACE IClientUser
 {

@@ -21,15 +21,15 @@
 #endif
 
 #include "SteamTypes.h"
+#include "AppsCommon.h"
 
-#define CLIENTAPPMANAGER_INTERFACE_VERSION "CLIENTAPPMANAGER_INTERFACE_VERSION001"
 
 class UNSAFE_INTERFACE IClientAppManager
 {
 public:
 	virtual unknown_ret LaunchApp( uint32, uint32, const char* ) = 0;
 	virtual unknown_ret ShutdownApp( uint32, bool ) = 0;
-	virtual unknown_ret GetAppState( uint32 ) = 0;
+	virtual EAppState GetAppState( uint32 ) = 0;
 	virtual unknown_ret InstallApp( uint32, const char* ) = 0;
 	virtual unknown_ret GetAppDir( uint32, char *, uint32 ) = 0;
 	virtual unknown_ret UninstallApp( uint32 ) = 0;

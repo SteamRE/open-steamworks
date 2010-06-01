@@ -21,8 +21,9 @@
 #endif
 
 #include "SteamTypes.h"
+#include "ContentServerCommon.h"
+#include "UserCommon.h"
 
-#define CLIENTCONTENTSERVER_INTERFACE_VERSION "CLIENTCONTENTSERVER_INTERFACE_VERSION001"
 
 class UNSAFE_INTERFACE IClientContentServer
 {

@@ -20,9 +20,25 @@
 #pragma once
 #endif
 
+
+
+#define CLIENTAPPS_INTERFACE_VERSION "CLIENTAPPS_INTERFACE_VERSION001"
+#define CLIENTAPPMANAGER_INTERFACE_VERSION "CLIENTAPPMANAGER_INTERFACE_VERSION001"
+
 #define STEAMAPPS_INTERFACE_VERSION_001 "STEAMAPPS_INTERFACE_VERSION001"
 #define STEAMAPPS_INTERFACE_VERSION_002 "STEAMAPPS_INTERFACE_VERSION002"
 #define STEAMAPPS_INTERFACE_VERSION_003 "STEAMAPPS_INTERFACE_VERSION003"
+
+
+
+typedef enum EAppState
+{
+	k_EAppStateDownloading = 0,
+	k_EAppStatePaused = 1,
+	k_EAppStateDownloadComplete = 2,
+} EAppState;
+
+
 
 //-----------------------------------------------------------------------------
 // Purpose: called when new information about an app has arrived

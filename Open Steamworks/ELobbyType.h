@@ -20,10 +20,6 @@
 #pragma once
 #endif
 
-
-#include "EnumString.h"
-
-
 //-----------------------------------------------------------------------------
 // Purpose: Functions for match making services for clients to get to favorites
 //-----------------------------------------------------------------------------
@@ -36,13 +32,6 @@ typedef enum ELobbyType
 	//	  a user can be in only one regular lobby, and up to two invisible lobbies
 } ELobbyType;
 
-Begin_Enum_String(ELobbyType)
-{
-	Enum_String(k_ELobbyTypeFriendsOnly);
-	Enum_String(k_ELobbyTypePublic);
-	Enum_String(k_ELobbyTypeInvisible);
-}
-End_Enum_String(ELobbyType);
 
 
 #endif // ELOBBYTYPE_H

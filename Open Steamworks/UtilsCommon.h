@@ -20,13 +20,30 @@
 #pragma once
 #endif
 
+
+
+#define CLIENTUTILS_INTERFACE_VERSION "CLIENTUTILS_INTERFACE_VERSION001"
+
 #define STEAMUTILS_INTERFACE_VERSION_001 "SteamUtils001"
 #define STEAMUTILS_INTERFACE_VERSION_003 "SteamUtils003"
 #define STEAMUTILS_INTERFACE_VERSION_002 "SteamUtils002"
 #define STEAMUTILS_INTERFACE_VERSION_004 "SteamUtils004"
 #define STEAMUTILS_INTERFACE_VERSION_005 "SteamUtils005"
 
-// callbacks
+
+
+// Steam API call failure results
+typedef enum ESteamAPICallFailure
+{
+	k_ESteamAPICallFailureNone = -1,			// no failure
+	k_ESteamAPICallFailureSteamGone = 0,		// the local Steam process has gone away
+	k_ESteamAPICallFailureNetworkFailure = 1,	// the network connection to Steam has been broken, or was already broken
+	// SteamServersDisconnected_t callback will be sent around the same time
+	// SteamServersConnected_t will be sent when the client is able to talk to the Steam servers again
+	k_ESteamAPICallFailureInvalidHandle = 2,	// the SteamAPICall_t handle passed in no longer exists
+	k_ESteamAPICallFailureMismatchedCallback = 3,// GetAPICallResult() was called with the wrong callback type for this API call
+} ESteamAPICallFailure;
+
 
 
 //-----------------------------------------------------------------------------

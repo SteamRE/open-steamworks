@@ -22,6 +22,7 @@
 
 #include "SteamTypes.h"
 #include <stdio.h>
+#include <iostream>
 
 #pragma pack( push, 1 )
 

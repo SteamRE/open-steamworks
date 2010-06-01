@@ -21,8 +21,8 @@
 #endif
 
 #include "SteamTypes.h"
+#include "BillingCommon.h"
 
-#define CLIENTBILLING_INTERFACE_VERSION "CLIENTBILLING_INTERFACE_VERSION001"
 
 class UNSAFE_INTERFACE IClientBilling
 {

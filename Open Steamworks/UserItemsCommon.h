@@ -20,9 +20,63 @@
 #pragma once
 #endif
 
+
+
 #define STEAMUSERITEMS_INTERFACE_VERSION_001 "STEAMUSERITEMS_INTERFACE_VERSION001"
 #define STEAMUSERITEMS_INTERFACE_VERSION_002 "STEAMUSERITEMS_INTERFACE_VERSION002"
 #define STEAMUSERITEMS_INTERFACE_VERSION_003 "STEAMUSERITEMS_INTERFACE_VERSION003"
+
+
+
+typedef enum EItemCriteriaOperator
+{
+	k_EOperator_String_EQ,
+	k_EOperator_Not, 
+	k_EOperator_String_Not_EQ = 1,
+	k_EOperator_Float_EQ,
+	k_EOperator_Float_Not_EQ, 
+	k_EOperator_Float_LT,
+	k_EOperator_Float_Not_LT,
+	k_EOperator_Float_LTE, 
+	k_EOperator_Float_Not_LTE,
+	k_EOperator_Float_GT,
+	k_EOperator_Float_Not_GT, 
+	k_EOperator_Float_GTE,
+	k_EOperator_Float_Not_GTE,
+	k_EOperator_Subkey_Contains, 
+	k_EOperator_Subkey_Not_Contains,
+	k_EItemCriteriaOperator_Count
+} EItemCriteriaOperator;
+
+typedef enum EItemQuality
+{
+	k_EItemQuality_Normal, 
+	k_EItemQuality_Common,
+	k_EItemQuality_Rare,
+	k_EItemQuality_Unique,
+	k_EItemQuality_Count,
+	k_EItemQuality_Unk5,
+	k_EItemQuality_Unk6,
+	k_EItemQuality_Community,
+	k_EItemQuality_Valve,
+	k_EItemQuality_SelfMade,
+
+	k_EItemQuality_Max = 0xFF,
+} EItemQuality;
+
+typedef enum EItemRequestResult
+{
+	k_EItemRequestResultOK,
+	k_EItemRequestResultDenied,
+	k_EItemRequestResultServerError,
+	k_EItemRequestResultTimeout,
+	k_EItemRequestResultInvalid,
+	k_EItemRequestResultNoMatch,
+	k_EItemRequestResultUnknownError,
+	k_EItemRequestResultNotLoggedOn
+} EItemRequestResult;
+
+
 
 struct UserItemCount_t
 {

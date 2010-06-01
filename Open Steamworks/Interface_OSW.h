@@ -18,6 +18,8 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <string>
+#include <memory>
 
 #ifdef _WIN32
 	#define TARGET_OS_WIN32 1
@@ -96,7 +98,7 @@ private:
 #if TARGET_OS_WIN32
 		// steamclient.dll expects to be able to load tier0_s without an absolute
 		// path, so we'll need to add the steam dir to the search path.
-		SetDllDirectory( m_steamDir.c_str() );
+		SetDllDirectoryA( m_steamDir.c_str() );
 		m_steamclient.reset( new DynamicLibrary( m_steamDir + "\\steamclient.dll" ) );
 #elif TARGET_OS_MAC
 		std::string libsPath;

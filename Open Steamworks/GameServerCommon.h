@@ -20,6 +20,8 @@
 #pragma once
 #endif
 
+
+
 #define STEAMGAMESERVER_INTERFACE_VERSION_002 "SteamGameServer002"
 #define STEAMGAMESERVER_INTERFACE_VERSION_003 "SteamGameServer003"
 #define STEAMGAMESERVER_INTERFACE_VERSION_004 "SteamGameServer004"
@@ -31,10 +33,34 @@
 #define STEAMGAMESERVER_INTERFACE_VERSION_010 "SteamGameServer010"
 
 
+
+// Result codes to GSHandleClientDeny/Kick
+typedef enum EDenyReason
+{
+	k_EDenyInvalidVersion = 1,
+	k_EDenyGeneric = 2,
+	k_EDenyNotLoggedOn = 3,
+	k_EDenyNoLicense = 4,
+	k_EDenyCheater = 5,
+	k_EDenyLoggedInElseWhere = 6,
+	k_EDenyUnknownText = 7,
+	k_EDenyIncompatibleAnticheat = 8,
+	k_EDenyMemoryCorruption = 9,
+	k_EDenyIncompatibleSoftware = 10,
+	k_EDenySteamConnectionLost = 11,
+	k_EDenySteamConnectionError = 12,
+	k_EDenySteamResponseTimedOut = 13,
+	k_EDenySteamValidationStalled = 14,
+	k_EDenySteamOwnerLeftGuestUser = 15,
+} EDenyReason;
+
+
+
 // client has been approved to connect to this game server
 struct GSClientApprove_t
 {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 1 };
+
 	CSteamID m_SteamID;
 };
 
@@ -43,9 +69,11 @@ struct GSClientApprove_t
 struct GSClientDeny_t
 {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 2 };
+
 	CSteamID m_SteamID;
+
 	EDenyReason m_eDenyReason;
-	char m_pchOptionalText[128];
+	char m_pchOptionalText[ 128 ];
 };
 
 
@@ -53,6 +81,7 @@ struct GSClientDeny_t
 struct GSClientKick_t
 {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 3 };
+
 	CSteamID m_SteamID;
 	EDenyReason m_eDenyReason;
 };
@@ -64,8 +93,9 @@ struct GSClientKick_t
 struct GSClientSteam2Deny_t
 {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 4 };
+
 	uint32 m_UserID;
-	uint32 m_eSteamError;
+	ESteamError m_eSteamError;
 };
 
 
@@ -73,16 +103,19 @@ struct GSClientSteam2Deny_t
 struct GSClientSteam2Accept_t
 {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 5 };
+
 	uint32 m_UserID;
-	uint64 m_SteamID;
+	CSteamID m_SteamID;
 };
 
 // client achievement info
 struct GSClientAchievementStatus_t
 {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 6 };
-	uint64 m_SteamID;
-	char m_pchAchievement[128];
+
+	CSteamID m_SteamID;
+
+	char m_pchAchievement[ 128 ];
 	bool m_bUnlocked;
 };
 
@@ -90,7 +123,9 @@ struct GSClientAchievementStatus_t
 struct GSGameplayStats_t
 {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 7 };
+
 	EResult m_eResult;					// Result of the call
+
 	int32	m_nRank;					// Overall rank of the server (0-based)
 	uint32	m_unTotalConnects;			// Total number of clients who have ever connected to the server
 	uint32	m_unTotalMinutesPlayed;		// Total number of minutes ever played on the server
@@ -101,8 +136,10 @@ struct GSGameplayStats_t
 struct GSClientGroupStatus_t
 {
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 8 };
+
 	CSteamID m_SteamIDUser;
 	CSteamID m_SteamIDGroup;
+
 	bool m_bMember;
 	bool m_bOfficer;
 };
@@ -113,7 +150,8 @@ struct GSClientGroupStatus_t
 struct GSPolicyResponse_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 15 };
-	uint8 m_bSecure;
+
+	bool m_bSecure;
 };
 
 

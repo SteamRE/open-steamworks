@@ -67,7 +67,7 @@ public:
 
 	// generic friend->friend message sending
 	// DEPRECATED, use the sized-buffer version instead (has much higher max buffer size)
-	virtual void SendMsgToFriend( CSteamID steamIDFriend, EFriendMsgType eFriendMsgType, const char *pchMsgBody ) = 0;
+	virtual void SendMsgToFriend( CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const char *pchMsgBody ) = 0;
 	 
 	// steam registry, accessed by friend
 	virtual void SetFriendRegValue( CSteamID steamIDFriend, const char *pchKey, const char *pchValue ) = 0;
@@ -79,10 +79,10 @@ public:
 	// chat message iteration
 	// returns the number of bytes in the message, filling pvData with as many of those bytes as possible
 	// returns 0 if the steamID or iChatID are invalid
-	virtual int GetChatMessage( CSteamID steamIDFriend, int iChatID, void *pvData, int cubData, EFriendMsgType *peFriendMsgType ) = 0;
+	virtual int GetChatMessage( CSteamID steamIDFriend, int iChatID, void *pvData, int cubData, EChatEntryType *peFriendMsgType ) = 0;
  
 	// generic friend->friend message sending, takes a sized buffer
-	virtual bool SendMsgToFriend( CSteamID steamIDFriend, EFriendMsgType eFriendMsgType, const void *pvMsgBody, int cubMsgBody ) = 0;
+	virtual bool SendMsgToFriend( CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const void *pvMsgBody, int cubMsgBody ) = 0;
 
 	// returns the chatID that a chat should be resumed from when switching chat contexts
 	virtual int GetChatIDOfChatHistoryStart( CSteamID steamIDFriend ) = 0;

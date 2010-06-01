@@ -21,8 +21,9 @@
 #endif
 
 #include "SteamTypes.h"
+#include "MatchmakingCommon.h"
+#include "UserCommon.h"
 
-#define CLIENTMATCHMAKING_INTERFACE_VERSION "CLIENTMATCHMAKING_INTERFACE_VERSION001"
 
 class UNSAFE_INTERFACE IClientMatchmaking
 {

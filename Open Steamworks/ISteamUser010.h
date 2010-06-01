@@ -66,7 +66,7 @@ public:
 	virtual void TerminateGameConnection( uint32 unIPServer, uint16 usPortServer ) = 0;
 
 	// used by only a few games to track usage events
-	virtual void TrackAppUsageEvent( CGameID gameID, int eAppUsageEvent, const char *pchExtraInfo = "" ) = 0;
+	virtual void TrackAppUsageEvent( CGameID gameID, EAppUsageEvent eAppUsageEvent, const char *pchExtraInfo = "" ) = 0;
 };
 
 

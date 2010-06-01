@@ -116,7 +116,7 @@ public:
 	virtual unknown_ret SetLanguage( const char* ) = 0;
 
 	// used by only a few games to track usage events
-	virtual void TrackAppUsageEvent( CGameID gameID, int eAppUsageEvent, const char *pchExtraInfo = "" ) = 0;
+	virtual void TrackAppUsageEvent( CGameID gameID, EAppUsageEvent eAppUsageEvent, const char *pchExtraInfo = "" ) = 0;
 
 	virtual unknown_ret SetAccountName( const char* ) = 0;
 	virtual unknown_ret SetPassword( const char* ) = 0;

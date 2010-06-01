@@ -20,8 +20,6 @@
 #pragma once
 #endif
 
-#include "EnumString.h"
-
 // Steam universes.  Each universe is a self-contained Steam instance.
 typedef enum EUniverse
 {
@@ -34,18 +32,5 @@ typedef enum EUniverse
 
 	k_EUniverseMax
 } EUniverse;
-
-Begin_Enum_String(EUniverse)
-{
-	Enum_String( k_EUniverseInvalid );
-	Enum_String( k_EUniversePublic );
-	Enum_String( k_EUniverseBeta );
-	Enum_String( k_EUniverseInternal );
-	Enum_String( k_EUniverseDev );
-	Enum_String( k_EUniverseRC );
-
-	Enum_String( k_EUniverseMax );
-}
-End_Enum_String(EUniverse);
 
 #endif // EUNIVERSE_H

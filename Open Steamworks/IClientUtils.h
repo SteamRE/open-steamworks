@@ -21,8 +21,8 @@
 #endif
 
 #include "SteamTypes.h"
+#include "UtilsCommon.h"
 
-#define CLIENTUTILS_INTERFACE_VERSION "CLIENTUTILS_INTERFACE_VERSION001"
 
 class UNSAFE_INTERFACE IClientUtils
 {

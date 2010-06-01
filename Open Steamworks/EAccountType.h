@@ -21,8 +21,6 @@
 #endif
 
 
-#include "EnumString.h"
-
 // Steam account types
 typedef enum EAccountType
 {
@@ -41,25 +39,6 @@ typedef enum EAccountType
 	// Max of 16 items in this field
 	k_EAccountTypeMax
 } EAccountType;
-
-Begin_Enum_String(EAccountType)
-{
-	Enum_String( k_EAccountTypeInvalid );			
-	Enum_String( k_EAccountTypeIndividual );		// single user account
-	Enum_String( k_EAccountTypeMultiseat );			// multiseat (e.g. cybercafe) account
-	Enum_String( k_EAccountTypeGameServer );		// game server account
-	Enum_String( k_EAccountTypeAnonGameServer );	// anonymous game server account
-	Enum_String( k_EAccountTypePending );			// pending
-	Enum_String( k_EAccountTypeContentServer );		// content server
-	Enum_String( k_EAccountTypeClan );
-	Enum_String( k_EAccountTypeChat );
-	Enum_String( k_EAccountTypeP2PSuperSeeder );	// a fake steamid used by superpeers to seed content to users of Steam P2P stuff
-	Enum_String( k_EAccountTypeAnonUser );
-
-	// Max of 16 items in this field
-	Enum_String( k_EAccountTypeMax );
-}
-End_Enum_String(EAccountType);
 
 
 #endif // EACCOUNTTYPE_H

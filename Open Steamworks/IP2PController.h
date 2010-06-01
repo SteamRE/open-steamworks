@@ -20,7 +20,6 @@
 #pragma once
 #endif
 
-
 #include "SteamTypes.h"
 
 #define P2PCONTROLLER_INTERFACE_VERSION "P2PCONTROLLER_INTERFACE_VERSION001"

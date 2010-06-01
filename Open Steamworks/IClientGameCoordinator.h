@@ -21,17 +21,17 @@
 #endif
 
 #include "SteamTypes.h"
+#include "GameCoordinatorCommon.h"
 
-#define CLIENTGAMECOORDINATOR_INTERFACE_VERSION "CLIENTGAMECOORDINATOR_INTERFACE_VERSION001"
 
 class IClientGameCoordinator
 {
 public:
-	virtual EGCMsgResponse SendMessage(unsigned int messageId, const void *data, unsigned int cbData) = 0;
+	virtual EGCMsgResponse SendMessage( uint32 messageId, const void *data, uint32 cbData ) = 0;
 
-	virtual bool IsMessageAvailable(unsigned int *cbData) = 0;
+	virtual bool IsMessageAvailable( uint32 *cbData ) = 0;
 
-	virtual EGCMsgResponse RetrieveMessage(unsigned int *messageId, void *data, unsigned int cbData, unsigned int *cbDataActual) = 0;
+	virtual EGCMsgResponse RetrieveMessage( uint32 *messageId, void *data, uint32 cbData, uint32 *cbDataActual ) = 0;
 };
 
 #endif
