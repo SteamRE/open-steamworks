@@ -20,8 +20,6 @@
 #pragma once
 #endif
 
-#define _HAS_TR1 0
-
 #include "SteamTypes.h"
 
 #ifndef NO_STEAM
