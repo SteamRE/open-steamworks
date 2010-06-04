@@ -22,15 +22,26 @@ void ShowError( TSteamError *err )
 
 int main()
 {
+	//CSteamAPILoader loader;
+	//CreateInterfaceFn factory = loader.Load();
 
-
-	CSteamAPILoader loader;
-
-	CreateInterfaceFn factory = loader.Load();
+	/*
+	HMODULE hModuleSteamClient = GetModuleHandleA("steamclient.dll");
+	if ( !hModuleSteamClient )
+		hModuleSteamClient = LoadLibraryExA("steamclient.dll", NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
+	CreateInterfaceFn factory = (CreateInterfaceFn)(GetProcAddress(hModuleSteamClient, CREATEINTERFACE_PROCNAME));
+	*/
+#if defined _WIN32
+	CreateInterfaceFn factory = (CreateInterfaceFn)GetProcAddress(GetModuleHandleA("steamclient.dll"), "CreateInterface");
+#elif defined _LINUX
+	void* steamclient_library = dlopen("steamclient.so", RTLD_LAZY);
+	CreateInterfaceFn factory = (CreateInterfaceFn)dlsym(steamclient_library, "CreateInterface");
+	dlclose(steamclient_library);
+#endif
 
 	if ( !factory )
 	{
-		MessageBox( HWND_DESKTOP, "Unable to load steamclient.dll.", "Away Reply", MB_OK );
+		std::cout << "Unable to load steamclient factory." << std::endl;
 		return 0;
 	}
 
@@ -41,7 +52,7 @@ int main()
 	HSteamUser hUser = clientEngine->CreateGlobalUser( &hPipe );
 	if ( !hUser || !hPipe )
 	{
-		MessageBox( HWND_DESKTOP, "Unable to connect to global user.", "Away Reply", MB_OK );
+		std::cout << "Unable to connect to global user." << std::endl;
 		return 0;
 	}
 
@@ -57,7 +68,7 @@ int main()
 	if ( !SteamStartup( STEAM_USING_ALL, &error ) )
 		ShowError( &error );
 	
-
+	/*
 	HMODULE hModule = GetModuleHandle( "steam.dll" );
 	if ( !hModule )
 	{
@@ -71,6 +82,15 @@ int main()
 		std::cout << "Unable to get factory.\n";
 		return 0;
 	}
+	*/
+
+#if defined _WIN32
+	FactoryFn fn = (FactoryFn)GetProcAddress(GetModuleHandleA("steam.dll"), "_f");
+#elif defined _LINUX
+	void* steam_library = dlopen("libsteam.so", RTLD_LAZY);
+	FactoryFn fn = (FactoryFn)dlsym(steam_library, "_f");
+	dlclose(steam_library);
+#endif
 
 	ISteam006 *steam = (ISteam006*)fn( "Steam006" );
 	if ( !steam )
@@ -79,14 +99,14 @@ int main()
 		return 0;
 	}
 
-	std::string userName;
-	std::string passWord;
+	std::string userName = "hurrrusername"; // Username
+	std::string passWord = "passworddurrr"; // Password
 
-	std::cout << "Username: ";
-	std::cin >> userName;
+	//std::cout << "Username: ";
+	//std::cin >> userName;
 
-	std::cout << "Password: ";
-	std::cin >> passWord;
+	//std::cout << "Password: ";
+	//std::cin >> passWord;
 
 	clientUser->SetLoginInformation( userName.c_str(), passWord.c_str(), false );
 
@@ -127,21 +147,79 @@ int main()
 	std::cout << "Logged on!\n";
 
 	CallbackMsg_t callBack;
+	CSteamID adminID;
 
 	while ( true )
 	{
 		if ( Steam_BGetCallback( hPipe, &callBack ) )
 		{
-
-			if ( callBack.m_iCallback == SteamServersConnected_t::k_iCallback )
+			switch (callBack.m_iCallback)
 			{
-				MessageBox( HWND_DESKTOP, "We have successfully logged on!", "FML", MB_OK );
+			case SteamServersConnected_t::k_iCallback:
+				{
+					std::cout << "Successfully logged on!" << std::endl;
 
-				clientFriends->SetPersonaState( k_EPersonaStateOnline );
+					clientUser->SetComputerInUse();
+					clientUser->SetSelfAsPrimaryChatDestination();
+					clientFriends->SetPersonaState( k_EPersonaStateOnline );
+
+					CSteamID friendID;
+					for (int i = 0; i < clientFriends->GetFriendCount(k_EFriendFlagImmediate); i++)
+					{
+						friendID = clientFriends->GetFriendByIndex(i, k_EFriendFlagImmediate);
+
+						if (strcmp(clientFriends->GetFriendPersonaName(friendID), ":MIB: Asherkin") != 0) // Put the persona name of the friend to use as the 'front end' here.
+							continue;
+
+						clientFriends->SendMsgToFriend(friendID, k_EChatEntryTypeChatMsg, "I'm logged on!", 15);
+						adminID = friendID;
+					}
+					break;
+				}
+
+			case FriendChatMsg_t::k_iCallback:
+				{
+					FriendChatMsg_t *friendMessageInfo = (FriendChatMsg_t *)callBack.m_pubParam;
+					if (friendMessageInfo->m_ulSender == adminID)
+					{
+						EChatEntryType msgType;
+						CSteamID chatter;
+
+						// allocate data for message  
+						char *pvData = new char[2049];  
+						memset(pvData, 0, 2049);  
+
+						int length = clientFriends->GetChatMessage(friendMessageInfo->m_ulSender, friendMessageInfo->m_iChatID, pvData, 2049, &msgType, &chatter);  
+
+						if (msgType & k_EChatEntryTypeChatMsg || msgType & k_EChatEntryTypeEmote)  
+						{  
+							std::cout << "Message from " << friendMessageInfo->m_ulSender.Render() << ": " << pvData << std::endl;
+
+							if (strcmp(pvData, "quit") == 0)
+							{
+								clientFriends->SetPersonaState( k_EPersonaStateOffline );
+								clientUser->LogOff();
+								steam->Logout(&error);
+								
+								while ( state == k_ELogonStateLoggingOff || state == k_ELogonStateLoggedOn )
+								{
+									state = clientUser->GetLogonState();
+								}
+
+								exit( 0 );
+							}
+
+							clientFriends->SendMsgToFriend(friendMessageInfo->m_ulSender, msgType, pvData, length);
+						}  
+
+						// clean up  
+						delete [] pvData;
+					}
+					break;
+				}
 			}
 
-			/*
-			std::cout << std::dec;
+			/*std::cout << std::dec;
 			std::cout << "Callback: " << callBack.m_iCallback << " Size: " << callBack.m_cubParam << "\n\t";
 
 			
@@ -153,12 +231,16 @@ int main()
 				std::cout << " ";
 			}
 
-			std::cout << "\n";*/
-
+			std::cout << "\n";
+			*/
 
 			Steam_FreeLastCallback( hPipe );
 		}
 
-		Sleep( 10 );
+#if defined _WIN32
+		Sleep(10);
+#elif defined _LINUX
+		sleep(10);
+#endif
 	}
 }
