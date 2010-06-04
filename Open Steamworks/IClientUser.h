@@ -104,7 +104,7 @@ public:
 	virtual uint32 obselete_GetCMIPAddress();
 	virtual uint32 obselete_GetP2PRelayIPAddress();
 
-	virtual bool RequestWebAuthToken(void);
+	virtual SteamAPICall_t RequestWebAuthToken(void);
 	virtual bool GetLanguage(char* pchLanguage, int cbLanguage);
 	virtual void SetCyberCafe(bool bCyberCafe);
 
