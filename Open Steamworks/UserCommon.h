@@ -141,6 +141,16 @@ typedef enum ESteamUsageEvent
 	k_ESteamUsageEventLocalizedAudioChange = 4,
 } ESteamUsageEvent;
 
+typedef enum EClientStat
+{
+	k_EClientStatP2PConnectionsUDP = 0,
+	k_EClientStatP2PConnectionsRelay = 1,
+	k_EClientStatP2PGameConnections = 2,
+	k_EClientStatP2PVoiceConnections = 3,
+	k_EClientStatBytesDownloaded = 4,
+	k_EClientStatMax = 5,
+} EClientStat;
+
 
 
 //-----------------------------------------------------------------------------
