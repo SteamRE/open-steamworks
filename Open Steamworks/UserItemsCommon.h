@@ -66,7 +66,7 @@ typedef enum EItemQuality
 
 typedef enum EItemRequestResult
 {
-	k_EItemRequestResultOK,
+	k_EItemRequestResultOK = 0,
 	k_EItemRequestResultDenied,
 	k_EItemRequestResultServerError,
 	k_EItemRequestResultTimeout,

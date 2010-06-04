@@ -58,6 +58,13 @@ typedef enum EPaymentMethod
 	k_EPaymentMethodCreditCard = 0x02,
 	k_EPaymentMethodPayPal = 0x04,		
 	k_EPaymentMethodManual = 0x08,		// Purchase was added by Steam support
+	k_EPaymentMethodGuestPass = 8,
+	k_EPaymentMethodHardwarePromo = 16,
+	k_EPaymentMethodClickAndBuy = 32,
+	k_EPaymentMethodAutoGrant = 64,
+	k_EPaymentMethodWallet = 128,
+	k_EPaymentMethodOEMTicket = 256,
+	k_EPaymentMethodSplit = 512,
 } EPaymentMethod;
 
 typedef enum EPurchaseResultDetail
@@ -74,7 +81,28 @@ typedef enum EPurchaseResultDetail
 	k_EPurchaseResultInvalidData = 7,
 	k_EPurchaseResultOthersInProgress = 8,
 	k_EPurchaseResultAlreadyPurchased = 9,
-	k_EPurchaseResultWrongPrice = 10
+	k_EPurchaseResultWrongPrice = 10,
+
+	k_EPurchaseResultFraudCheckFailed = 11,
+	k_EPurchaseResultCancelledByUser = 12,
+	k_EPurchaseResultRestrictedCountry = 13,
+	k_EPurchaseResultBadActivationCode = 14,
+	k_EPurchaseResultDuplicateActivationCode = 15,
+	k_EPurchaseResultUseOtherPaymentMethod = 16,
+	k_EPurchaseResultUseOtherFundingSource = 17,
+	k_EPurchaseResultInvalidShippingAddress = 18,
+	k_EPurchaseResultRegionNotSupported = 19,
+	k_EPurchaseResultAcctIsBlocked = 20,
+	k_EPurchaseResultAcctNotVerified = 21,
+	k_EPurchaseResultInvalidAccount = 22,
+	k_EPurchaseResultStoreBillingCountryMismatch = 23,
+	k_EPurchaseResultDoesNotOwnRequiredApp = 24,
+	k_EPurchaseResultCanceledByNewTransaction = 25,
+	k_EPurchaseResultForceCanceledPending = 26,
+	k_EPurchaseResultFailCurrencyTransProvider = 27,
+	k_EPurchaseResultFailedCyberCafe = 28,
+	k_EPurchaseResultNeedsPreApproval = 29,
+	k_EPurchaseResultPreApprovalDenied = 30,
 } EPurchaseResultDetail;
 
 typedef enum EPurchaseStatus
@@ -86,7 +114,19 @@ typedef enum EPurchaseStatus
 	k_EPurchaseInit = 4,
 	k_EPurchaseChargedback = 5,
 	k_EPurchaseRevoked = 6,
+	k_EPurchaseInDispute = 7,
 } EPurchaseStatus;
+
+typedef enum ECreditCardType
+{
+	k_ECreditCardTypeUnknown = 0,
+	k_ECreditCardTypeVisa = 1,
+	k_ECreditCardTypeMaster = 2,
+	k_ECreditCardTypeAmericanExpress = 3,
+	k_ECreditCardTypeDiscover = 4,
+	k_ECreditCardTypeDinersClub = 5,
+	k_ECreditCardTypeJCB = 6,
+} ECreditCardType;
 
 
 

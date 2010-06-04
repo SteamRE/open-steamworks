@@ -90,8 +90,7 @@ public:
 	// returns only lobbies with the specified number of slots available
 	virtual void AddRequestLobbyListFilterSlotsAvailable( int nSlotsAvailable ) = 0;
 
-	//virtual void AddRequestLobbyListDistanceFilter( ELobbyDistanceFilter filter ) = 0;
-	virtual void AddRequestLobbyListDistanceFilter( int filter ) = 0;
+	virtual void AddRequestLobbyListDistanceFilter( ELobbyDistanceFilter filter ) = 0;
 
 	virtual void AddRequestLobbyListResultCountFilter( int a ) = 0;
 

@@ -74,6 +74,10 @@ typedef enum ESystemIMType
 	k_ESystemIMCardWillExpire = 3,
 	k_ESystemIMSubscriptionExpired = 4,
 
+	k_ESystemIMGuestPassReceived = 5,
+	k_ESystemIMGuestPassGranted = 6,
+	k_ESystemIMGiftRevoked = 7,
+
 	k_ESystemIMTypeMax
 } ESystemIMType;
 
@@ -190,6 +194,38 @@ typedef enum EPersonaChange
 	k_EPersonaChangeRelationshipChanged = 0x200,
 	k_EPersonaChangeNameFirstSet = 0x400,
 } EPersonaChange;
+
+typedef enum EChatPermission
+{
+	k_EChatPermissionClose = 1,
+	k_EChatPermissionInvite = 2,
+	k_EChatPermissionTalk = 8,
+	k_EChatPermissionKick = 16,
+	k_EChatPermissionMute = 32,
+	k_EChatPermissionSetMetadata = 64,
+	k_EChatPermissionChangePermissions = 128,
+	k_EChatPermissionBan = 256,
+	k_EChatPermissionChangeAccess = 512,
+	k_EChatPermissionEveryoneNotInClanDefault = 8,
+	k_EChatPermissionEveryoneDefault = 10,
+	k_EChatPermissionMemberDefault = 282,
+	k_EChatPermissionOfficerDefault = 282,
+	k_EChatPermissionOwnerDefault = 891,
+	k_EChatPermissionMask = 1019,
+} EChatPermission;
+
+//-----------------------------------------------------------------------------
+// Purpose: Chat Room Enter Responses
+//-----------------------------------------------------------------------------
+typedef enum EChatRoomEnterResponse
+{
+	k_EChatRoomEnterResponseSuccess = 1,		// Success
+	k_EChatRoomEnterResponseDoesntExist = 2,	// Chat doesn't exist (probably closed)
+	k_EChatRoomEnterResponseNotAllowed = 3,		// General Denied - You don't have the permissions needed to join the chat
+	k_EChatRoomEnterResponseFull = 4,			// Chat room has reached its maximum size
+	k_EChatRoomEnterResponseError = 5,			// Unexpected Error
+	k_EChatRoomEnterResponseBanned = 6,			// You are banned from this chat room and may not join
+} EChatRoomEnterResponse;
 
 
 

@@ -66,9 +66,9 @@ public:
 	virtual bool GetShippingAddress( char *pchName, char *pchAddress1, char *pchAddress2, char *pchCity, char *pchPostcode, char *pchState, char *pchCountry, char *pchPhone) = 0;
 
 	// Sets the credit card info in the ISteamBilling object for use by other ISteamBilling functions  (may eventually also be stored on server)
-	virtual bool SetCardInfo( uint32, int32 eCreditCardType, const char *pchCardNumber, const char *pchCardHolderName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2, const char *) = 0;
+	virtual bool SetCardInfo( uint32, ECreditCardType eCreditCardType, const char *pchCardNumber, const char *pchCardHolderName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2, const char *) = 0;
 	// Gets any credit card info in the ISteamBilling object (not stored on server)
-	virtual bool GetCardInfo( uint32, int32 *eCreditCardType, char *pchCardNumber, char *pchCardHolderName, char *pchCardExpYear, char *pchCardExpMonth, char *pchCardCVV2, char *) = 0;
+	virtual bool GetCardInfo( uint32, ECreditCardType *eCreditCardType, char *pchCardNumber, char *pchCardHolderName, char *pchCardExpYear, char *pchCardExpMonth, char *pchCardCVV2, char *) = 0;
 
 	virtual uint32 GetLicensePackageID( uint32 licenseId ) = 0;
 	virtual RTime32 GetLicenseTimeCreated( uint32 licenseId ) = 0;

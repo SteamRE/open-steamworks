@@ -200,7 +200,12 @@ const PackageId_t k_uPackageIdInvalid = 0xFFFFFFFF;
 typedef uint32 AppId_t;
 const AppId_t k_uAppIdInvalid = 0x0;
 
-typedef uint32 ShareType_t;
+typedef enum ShareType_t
+{
+	SHARE_STOPIMMEDIATELY = 0,
+	SHARE_RATIO = 1,
+	SHARE_MANUAL = 2,
+} ShareType_t;
 
 // this is baked into client messages and interfaces as an int, 
 // make sure we never break this.  AppIds and DepotIDs also presently
@@ -260,6 +265,8 @@ const uint32 k_cchFriendChatMsgMax = 32 * 1024;
 
 // maximum number of characters in a users name
 const int k_cchPersonaNameMax = 128;
+// maximum number of wide(?) characters in a users name
+const int k_cwchPersonaNameMax = 32;
 
 // size limit on chat room or member metadata
 const uint32 k_cubChatMetadataMax = 8192;

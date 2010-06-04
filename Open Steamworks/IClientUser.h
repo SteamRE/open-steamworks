@@ -144,8 +144,7 @@ public:
 
 	virtual PackageId_t GetPackageIDForGuestPassToRedeemByGID(GID_t gid);
 
-	//virtual void TrackSteamUsageEvent(ESteamUsageEvent eSteamUsageEvent, byte const* pubKV, uint32 cubKV);
-	virtual void TrackSteamUsageEvent(uint32 eSteamUsageEvent, const char* pubKV, uint32 cubKV);
+	virtual void TrackSteamUsageEvent( ESteamUsageEvent  eSteamUsageEvent, const char* pubKV, uint32 cubKV);
 
 	virtual void SetComputerInUse();
 

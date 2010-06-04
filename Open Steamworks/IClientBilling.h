@@ -58,8 +58,8 @@ public:
 	virtual bool SetShippingAddress( const char *pchFirstName, const char *pchLastName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone ) = 0;
 	virtual bool GetShippingAddress( char* pchFirstName, char* pchLastName, char* pchAddress1, char* pchAddress2, char* pchCity, char* pchPostcode, char* pchState, char* pchCountry, char* pchPhone ) = 0;
 
-	virtual bool SetCardInfo( uint32 nCardIndex, int32 eCreditCardType, const char *pchCardNumber, const char *pchCardHolderFirstName, const char *pchCardHolderLastName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2 ) = 0;
-	virtual bool GetCardInfo( uint32 nCardIndex, int32* peCreditCardType, char* pchCardNumber, char* pchCardHolderFirstName, char* pchCardHolderLastName, char* pchCardExpYear, char* pchCardExpMonth, char* pchCardCVV2 ) = 0;
+	virtual bool SetCardInfo( uint32 nCardIndex, ECreditCardType eCreditCardType, const char *pchCardNumber, const char *pchCardHolderFirstName, const char *pchCardHolderLastName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2 ) = 0;
+	virtual bool GetCardInfo( uint32 nCardIndex, ECreditCardType *peCreditCardType, char* pchCardNumber, char* pchCardHolderFirstName, char* pchCardHolderLastName, char* pchCardExpYear, char* pchCardExpMonth, char* pchCardCVV2 ) = 0;
 
 	virtual uint32 SetGiftInfo( const char *pchEmailGiftee, CSteamID steamIDGiftee, const char *pchGifteeName, const char *pchGiftMessage, const char *pchSentiment, const char *pchGiverSignature ) = 0;
 
@@ -96,7 +96,7 @@ public:
 	virtual bool InitClickAndBuyPurchase( PackageId_t nPackageID, int64 nAccountNum, const char *pchState, const char *pchCountryCode, uint32 nGiftID ) = 0;
 	virtual bool GetPreviousClickAndBuyAccount( int64* pnAccountNum, char* pchState, char* pchCountryCode ) = 0;
 
-	virtual bool GetReceiptCardInfo( uint32 nReceiptIndex, int32* eCreditCardType, char* pchCardLast4Digits, char* pchCardHolderFirstName, char* pchCardHolderLastName, char* pchCardExpYear, char* pchCardExpMonth ) = 0;
+	virtual bool GetReceiptCardInfo( uint32 nReceiptIndex, ECreditCardType* eCreditCardType, char* pchCardLast4Digits, char* pchCardHolderFirstName, char* pchCardHolderLastName, char* pchCardExpYear, char* pchCardExpMonth ) = 0;
 	virtual bool GetReceiptBillingAddress( uint32 nReceiptIndex, char* pchFirstName, char* pchLastName, char* pchAddress1, char* pchAddress2, char* pchCity, char* pchPostcode, char* pchState, char* pchCountry, char* pchPhone ) = 0;
 	virtual uint32 GetReceiptLineItemCount( uint32 nReceiptIndex ) = 0;
 	virtual bool GetReceiptLineItemInfo( uint32 nReceiptIndex, uint32 nLineItemIndex, PackageId_t* nPackageID, uint32* nBaseCost, uint32* nDiscount, uint32* nTax, uint32* nShipping, ECurrencyCode* eCurrencyCode ) = 0;

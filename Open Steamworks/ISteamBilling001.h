@@ -41,9 +41,9 @@ public:
 	virtual bool GetFinalPrice( int32 nPackageID ) = 0;
 
 	// Sets the credit card info in the ISteamBilling object for use by other ISteamBilling functions  (may eventually also be stored on server)
-	virtual bool SetCardInfo( int32 eCreditCardType, const char *pchCardNumber, const char *pchCardHolderName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2 ) = 0;
+	virtual bool SetCardInfo( ECreditCardType eCreditCardType, const char *pchCardNumber, const char *pchCardHolderName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2 ) = 0;
 	// Gets any credit card info in the ISteamBilling object (not stored on server)
-	virtual bool GetCardInfo( int32 *eCreditCardType, char *pchCardNumber, char *pchCardHolderName, char *pchCardExpYear, char *pchCardExpMonth, char *pchCardCVV2 ) = 0;
+	virtual bool GetCardInfo( ECreditCardType *eCreditCardType, char *pchCardNumber, char *pchCardHolderName, char *pchCardExpYear, char *pchCardExpMonth, char *pchCardCVV2 ) = 0;
 
 	// Ask the server to purchase a package: requires that ISteamBilling cardinfo, billing & shipping address are set
 	// gidCardID - if non-NIL, use a server stored card

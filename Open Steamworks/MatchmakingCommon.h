@@ -20,6 +20,8 @@
 #pragma once
 #endif
 
+#include "FriendsCommon.h"
+
 
 
 #define CLIENTMATCHMAKING_INTERFACE_VERSION "CLIENTMATCHMAKING_INTERFACE_VERSION001"
@@ -35,18 +37,6 @@
 
 
 
-//-----------------------------------------------------------------------------
-// Purpose: Chat Room Enter Responses
-//-----------------------------------------------------------------------------
-typedef enum EChatRoomEnterResponse
-{
-	k_EChatRoomEnterResponseSuccess = 1,		// Success
-	k_EChatRoomEnterResponseDoesntExist = 2,	// Chat doesn't exist (probably closed)
-	k_EChatRoomEnterResponseNotAllowed = 3,		// General Denied - You don't have the permissions needed to join the chat
-	k_EChatRoomEnterResponseFull = 4,			// Chat room has reached its maximum size
-	k_EChatRoomEnterResponseError = 5,			// Unexpected Error
-	k_EChatRoomEnterResponseBanned = 6,			// You are banned from this chat room and may not join
-} EChatRoomEnterResponse;
 
 typedef enum ELobbyComparison
 {
@@ -57,6 +47,14 @@ typedef enum ELobbyComparison
 	k_ELobbyComparisonEqualToOrGreaterThan = 2,
 	k_ELobbyComparisonNotEqual = 3,
 } ELobbyComparison;
+
+typedef enum ELobbyDistanceFilter
+{
+	k_ELobbyDistanceFilterClose = 0,
+	k_ELobbyDistanceFilterDefault = 1,
+	k_ELobbyDistanceFilterFar = 2,
+	k_ELobbyDistanceFilterWorldwide = 3,
+} ELobbyDistanceFilter;
 
 
 
@@ -99,7 +97,7 @@ struct LobbyEnter_t
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 4 };
 
 	CSteamID m_ulSteamIDLobby;							// SteamID of the Lobby you have entered
-	uint32 m_rgfChatPermissions;						// Permissions of the current user
+	EChatPermission m_rgfChatPermissions;						// Permissions of the current user
 	bool m_bLocked;										// If true, then only invited users may join
 	EChatRoomEnterResponse m_EChatRoomEnterResponse;	// EChatRoomEnterResponse
 };

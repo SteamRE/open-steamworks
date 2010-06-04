@@ -73,7 +73,12 @@ typedef enum EResult
 	k_EResultContentVersion = 47,				// A Version mismatch in content transmitted within the Steam protocol.
 	k_EResultTryAnotherCM = 48,					// The current CM can't service the user making a request, user should try another.
 	k_EResultPasswordRequiredToKickSession = 49,		// You are already logged in elsewhere, this cached credential login has failed.
-	k_EResultAlreadyLoggedInElsewhere = 50		// You are already logged in elsewhere, you must wait
+	k_EResultAlreadyLoggedInElsewhere = 50,		// You are already logged in elsewhere, you must wait
+	k_EResultSuspended = 51,
+	k_EResultCancelled = 52,
+	k_EResultDataCorruption = 53,
+	k_EResultDiskFull = 54,
+	k_EResultRemoteCallFailed = 55,
 
 } EResult;
 

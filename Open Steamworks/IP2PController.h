@@ -22,6 +22,13 @@
 
 #include "SteamTypes.h"
 
+typedef enum EP2PHostType
+{
+	HOSTTYPE_NETWORKED = 0,
+	HOSTTYPE_NETWORKED_TESTING = 1,
+	HOSTTYPE_SIMULATIONMODE = 2,
+} EP2PHostType;
+
 #define P2PCONTROLLER_INTERFACE_VERSION "P2PCONTROLLER_INTERFACE_VERSION001"
 
 
@@ -106,8 +113,7 @@ public:
 	//virtual unknown_ret GetFileIDFromVST( const char*, VstFileID *, uint32 ) = 0
 	virtual unknown_ret GetFileIDFromVST( const char*, uint32 *, uint32 ) = 0;
 
-	//virtual unknown_ret SetHostType( IP2PEngine::EP2PHostType ) = 0;
-	virtual unknown_ret SetHostType( uint32 ) = 0;
+	virtual unknown_ret SetHostType( EP2PHostType eP2PHostType ) = 0;
 
 	virtual unknown_ret SetRegistryHive( char  const* ) = 0;
 };

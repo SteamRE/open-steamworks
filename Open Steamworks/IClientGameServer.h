@@ -51,8 +51,7 @@ public:
 
 	virtual unknown_ret SetCellID( uint32 ) = 0;
 
-	//virtual unknown_ret TrackSteamUsageEvent( ESteamUsageEvent, unsigned const char*, uint32 ) = 0;
-	virtual unknown_ret TrackSteamUsageEvent( uint32, unsigned const char*, uint32 ) = 0;
+	virtual unknown_ret TrackSteamUsageEvent( ESteamUsageEvent eSteamUsageEvent, unsigned const char*, uint32 ) = 0;
 
 	// Handles receiving a new connection from a Steam user.  This call will ask the Steam
 	// servers to validate the users identity, app ownership, and VAC status.  If the Steam servers 

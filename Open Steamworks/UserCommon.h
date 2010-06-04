@@ -83,6 +83,8 @@ typedef enum ERegistrySubTree
 	k_ERegistrySubTreeGameServers = 3,
 	k_ERegistrySubTreeFriends = 4,
 	k_ERegistrySubTreeSystem = 5,
+	k_ERegistrySubTreeAppOwnershipTickets = 6,
+	k_ERegistrySubTreeLegacyCDKeys = 7,
 } ERegistrySubTree;
 
 typedef enum ELogonState
@@ -131,8 +133,13 @@ typedef enum ENewsUpdateType
 	k_EClientUpdate = 4,	// new version of the steam client is available
 } ENewsUpdateType;
 
-
-
+typedef enum ESteamUsageEvent
+{
+	k_ESteamUsageEventMarketingMessageView = 1,
+	k_ESteamUsageEventHardwareSurvey = 2,
+	k_ESteamUsageEventDownloadStarted = 3,
+	k_ESteamUsageEventLocalizedAudioChange = 4,
+} ESteamUsageEvent;
 
 
 
