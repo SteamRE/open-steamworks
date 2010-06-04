@@ -1,111 +1,164 @@
+
 #include "Steamworks.h"
 
 #include <iostream>
 #include <iomanip>
 
-#include "../fmod/fmod.hpp"
-#include "../fmod/fmod_errors.h"
-#pragma comment(lib, "../fmodex_vc")
+#pragma comment( lib, "../steamclient" )
+#pragma comment( lib, "../steam" )
 
-#pragma comment(lib, "../steamclient")
 
-#define ERRCHECK( result ) \
-	if ( result != FMOD_OK ) \
-	{ \
-		printf("FMOD error! (%d): %s", result, FMOD_ErrorString( result ) ); \
-		getchar(); \
-		exit( EXIT_FAILURE ); \
-	}
+void ShowError( TSteamError *err )
+{
+	if ( !IS_STEAM_ERROR( (*err) ) )
+		return;
 
+	std::cout << "Error: " << err->szDesc << "\n";
+
+	getchar();
+
+	exit( 0 );
+}
 
 int main()
 {
-	FMOD::System *system;
-	FMOD_RESULT result;
-	
-	result = FMOD::System_Create( &system );
-	ERRCHECK( result );
-
-	result = system->init( 100, FMOD_INIT_NORMAL, NULL);
-	ERRCHECK( result );
 
 
 	CSteamAPILoader loader;
 
 	CreateInterfaceFn factory = loader.Load();
 
-	ISteamClient008 *steamClient = (ISteamClient008 *)factory( STEAMCLIENT_INTERFACE_VERSION_008, NULL );
+	if ( !factory )
+	{
+		MessageBox( HWND_DESKTOP, "Unable to load steamclient.dll.", "Away Reply", MB_OK );
+		return 0;
+	}
 
-	HSteamPipe pipe = steamClient->CreateSteamPipe();
-	HSteamUser user = steamClient->ConnectToGlobalUser( pipe );
+	ISteamClient009 *steamClient = (ISteamClient009 *)factory( STEAMCLIENT_INTERFACE_VERSION_009, NULL );
+	IClientEngine *clientEngine = (IClientEngine *)factory( CLIENTENGINE_INTERFACE_VERSION, NULL );
 
-	ISteamUser012 *steamUser = (ISteamUser012 *)steamClient->GetISteamUser( user, pipe, STEAMUSER_INTERFACE_VERSION_012 );
+	HSteamPipe hPipe;
+	HSteamUser hUser = clientEngine->CreateGlobalUser( &hPipe );
+	if ( !hUser || !hPipe )
+	{
+		MessageBox( HWND_DESKTOP, "Unable to connect to global user.", "Away Reply", MB_OK );
+		return 0;
+	}
 
-	getchar();
+	IClientUser *clientUser = (IClientUser *)clientEngine->GetIClientUser( hUser, hPipe, CLIENTUSER_INTERFACE_VERSION );
+	IClientFriends *clientFriends = (IClientFriends *)clientEngine->GetIClientFriends( hUser, hPipe, CLIENTFRIENDS_INTERFACE_VERSION );
+	ISteam2Bridge002 *steam2Bridge = (ISteam2Bridge002 *)steamClient->GetISteamGenericInterface( hUser, hPipe, STEAM2BRIDGE_INTERFACE_VERSION_002 );
 
-	printf( "RECORDING\n" );
-	steamUser->StartVoiceRecording();
+	TSteamError error;
 
-	steamUser->StopVoiceRecording();
-	printf( "DONE!\n" );
+	if ( !SteamStartEngine( &error ) )
+		ShowError( &error );
 
-	void *pVoiceData = malloc( 10000 );
-	uint32 actualSize;
+	if ( !SteamStartup( STEAM_USING_ALL, &error ) )
+		ShowError( &error );
+	
 
-	void *pUncompressed = malloc( 50000 );
-	uint32 realSize;
+	HMODULE hModule = GetModuleHandle( "steam.dll" );
+	if ( !hModule )
+	{
+		std::cout << "Unable to get steam.dll module.\n";
+		return 0;
+	}
 
-	while ( steamUser->GetCompressedVoice( pVoiceData, 10000, &actualSize ) != k_EVoiceResultOK ) ;
+	FactoryFn fn = (FactoryFn)GetProcAddress( hModule, "_f" );
+	if ( !fn )
+	{
+		std::cout << "Unable to get factory.\n";
+		return 0;
+	}
 
-	EVoiceResult res = steamUser->DecompressVoice( pVoiceData, actualSize, pUncompressed, 50000, &realSize );
+	ISteam006 *steam = (ISteam006*)fn( "Steam006" );
+	if ( !steam )
+	{
+		std::cout << "Unable to get ISteam006.\n";
+		return 0;
+	}
 
-	FMOD_CREATESOUNDEXINFO exInfo;
-	memset( (void*)&exInfo, 0, sizeof( FMOD_CREATESOUNDEXINFO ) );
-	exInfo.cbsize = sizeof( FMOD_CREATESOUNDEXINFO );
-	exInfo.length = realSize;
-	exInfo.defaultfrequency = 11025;
-	exInfo.numchannels = 1;
-	exInfo.format = FMOD_SOUND_FORMAT_PCM16;
+	std::string userName;
+	std::string passWord;
 
-	FMOD::Sound *snd;
+	std::cout << "Username: ";
+	std::cin >> userName;
 
-	result = system->createSound( (char *)pUncompressed, FMOD_HARDWARE | FMOD_OPENMEMORY | FMOD_OPENRAW, &exInfo, &snd );
-	ERRCHECK( result );
+	std::cout << "Password: ";
+	std::cin >> passWord;
 
-	FMOD::Channel *chan;
-	result = system->playSound( FMOD_CHANNEL_FREE, snd, false, &chan );
-	ERRCHECK( result );
+	clientUser->SetLoginInformation( userName.c_str(), passWord.c_str(), false );
 
-	CallbackMsg_t callbackMsg;
-	HSteamCall call;
+	SteamCallHandle_t handle = steam->Login( userName.c_str(), passWord.c_str(), 1, &error );
+	if ( handle == STEAM_INVALID_CALL_HANDLE )
+		ShowError( &error );
+
+	if ( !steam->BlockingCall( handle, 100, &error ) )
+		ShowError( &error );
+
+	char szUser[ 255 ];
+	uint32 userChars;
+	TSteamGlobalUserID globalId;
+
+	if ( !steam->GetUser( szUser, sizeof( szUser ), &userChars, &globalId, &error ) )
+		ShowError( &error );
+
+	char szEmailAddress[ 255 ];
+	uint32 emailChars;
+
+	if ( !steam->GetCurrentEmailAddress( szEmailAddress, sizeof( szEmailAddress ), &emailChars, &error ) )
+		ShowError( &error );
+
+	CSteamID steamId;
+	steamId.SetFromSteam2( &globalId, steam2Bridge->GetConnectedUniverse() );
+
+	clientUser->SetEmail( szEmailAddress );
+
+	clientUser->LogOn( steamId );
+
+	ELogonState state = clientUser->GetLogonState();
+
+	while ( state == k_ELogonStateLoggingOn )
+	{
+		state = clientUser->GetLogonState();
+	}
+
+	std::cout << "Logged on!\n";
+
+	CallbackMsg_t callBack;
+
 	while ( true )
 	{
-		if ( Steam_BGetCallback( pipe, &callbackMsg, &call ) )
+		if ( Steam_BGetCallback( hPipe, &callBack ) )
 		{
-			int32 callBack = callbackMsg.m_iCallback;
-			ECallbackType type = (ECallbackType)((callBack / 100) * 100);
 
-			std::cout << "[SERVER] Unhandled Callback: " << callBack << ", Type: " << EnumString<ECallbackType>::From(type) << ", Size: " << callbackMsg.m_cubParam << std::endl;
-
-			int32 callSize = callbackMsg.m_cubParam;
-			unsigned char *data = callbackMsg.m_pubParam;
-			std::cout << "  ";
-			for (int i = 0; i < callSize; i++)
+			if ( callBack.m_iCallback == SteamServersConnected_t::k_iCallback )
 			{
-				unsigned char value = data[i];
+				MessageBox( HWND_DESKTOP, "We have successfully logged on!", "FML", MB_OK );
 
-				std::cout << std::hex << std::setw(2) << std::setfill('0') << std::uppercase << (unsigned int)value;
+				clientFriends->SetPersonaState( k_EPersonaStateOnline );
+			}
+
+			/*
+			std::cout << std::dec;
+			std::cout << "Callback: " << callBack.m_iCallback << " Size: " << callBack.m_cubParam << "\n\t";
+
+			
+			for ( int i = 0; i < callBack.m_cubParam; i++ )
+			{
+				unsigned char value = callBack.m_pubParam[ i ];
+
+				std::cout << std::hex << std::setw( 2 ) << std::setfill( '0' ) << std::uppercase << (unsigned int)value;
 				std::cout << " ";
 			}
 
-			std::cout << std::resetiosflags(std::ios_base::hex | std::ios_base::uppercase) << std::endl;
+			std::cout << "\n";*/
 
-			Steam_FreeLastCallback( pipe );
+
+			Steam_FreeLastCallback( hPipe );
 		}
 
-		system->update();
-
-		Sleep(1);
+		Sleep( 10 );
 	}
-
 }
