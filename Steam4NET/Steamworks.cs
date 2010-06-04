@@ -12,84 +12,102 @@ namespace Steam4NET
 {
     public class Steamworks
     {
-       private struct Native
+        private struct Native
         {
-            [DllImport("kernel32.dll", SetLastError = true)]
-            internal static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
-            
-            [DllImport("kernel32.dll", SetLastError = true)]
-            internal static extern IntPtr LoadLibraryEx(string lpszLib, IntPtr hFile, UInt32 dwFlags);
-            
-            [DllImport("kernel32.dll", SetLastError = true)]
-            internal static extern IntPtr SetDllDirectory(string lpPathName);
-            
+            [DllImport( "kernel32.dll", SetLastError = true )]
+            internal static extern IntPtr GetProcAddress( IntPtr hModule, string procName );
+
+            [DllImport( "kernel32.dll", SetLastError = true )]
+            internal static extern IntPtr LoadLibraryEx( string lpszLib, IntPtr hFile, UInt32 dwFlags );
+
+            [DllImport( "kernel32.dll", SetLastError = true )]
+            internal static extern IntPtr SetDllDirectory( string lpPathName );
+
             internal const UInt32 LOAD_WITH_ALTERED_SEARCH_PATH = 8;
         }
 
-        private static Delegate GetExportDelegate<TDelegate>(IntPtr module, string name)
+        private static Delegate GetExportDelegate<TDelegate>( IntPtr module, string name )
         {
-            IntPtr address = Native.GetProcAddress(module, name);
+            IntPtr address = Native.GetProcAddress( module, name );
 
-            if (address == IntPtr.Zero)
+            if ( address == IntPtr.Zero )
             {
                 return null;
             }
 
-            return Marshal.GetDelegateForFunctionPointer(address, typeof(TDelegate));
+            return Marshal.GetDelegateForFunctionPointer( address, typeof( TDelegate ) );
         }
 
-        private static TDelegate GetExportFunction<TDelegate>(IntPtr module, string name)
+        private static TDelegate GetExportFunction<TDelegate>( IntPtr module, string name )
             where TDelegate : class
         {
-            return (TDelegate)((object)GetExportDelegate<TDelegate>(module, name));
+            return ( TDelegate )( ( object )GetExportDelegate<TDelegate>( module, name ) );
         }
 
-        private static IntPtr Handle = IntPtr.Zero;
+        private static IntPtr SteamClientHandle = IntPtr.Zero;
+        private static IntPtr SteamHandle = IntPtr.Zero;
 
         public static string GetInstallPath()
         {
-            return (string)Registry.GetValue(
+            return ( string )Registry.GetValue(
                 @"HKEY_LOCAL_MACHINE\Software\Valve\Steam",
                 "InstallPath",
-                null);
+                null );
         }
 
-        [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
-        private delegate IntPtr NativeCreateInterface(string version, IntPtr returnCode);
+        [UnmanagedFunctionPointer( CallingConvention.StdCall, CharSet = CharSet.Ansi )]
+        private delegate IntPtr NativeCreateInterface( string version, IntPtr returnCode );
         private static NativeCreateInterface CallCreateInterface;
-        public static TClass CreateInterface<TClass>(string version)
+        public static TClass CreateInterface<TClass>( string version )
             where TClass : INativeWrapper, new()
         {
-            IntPtr address = CallCreateInterface(version, IntPtr.Zero);
+            IntPtr address = CallCreateInterface( version, IntPtr.Zero );
 
-            if (address == IntPtr.Zero)
+            if ( address == IntPtr.Zero )
             {
-                return default(TClass);
+                return default( TClass );
             }
 
             var rez = new TClass();
-            rez.SetupFunctions(address);
+            rez.SetupFunctions( address );
             return rez;
         }
 
-        public static TClass CastInterface<TClass>(IntPtr address)
+        [UnmanagedFunctionPointer( CallingConvention.StdCall, CharSet = CharSet.Ansi )]
+        private delegate IntPtr NativeFactoryInterface( string version );
+        private static NativeFactoryInterface CallFactoryInterface;
+        public static TClass CreateSteamInterface<TClass>( string version )
             where TClass : INativeWrapper, new()
         {
-            if(address == IntPtr.Zero)
+            IntPtr address = CallFactoryInterface( version );
+
+            if ( address == IntPtr.Zero )
+                return default( TClass );
+
+            var rez = new TClass();
+            rez.SetupFunctions( address );
+
+            return rez;
+        }
+
+        public static TClass CastInterface<TClass>( IntPtr address )
+            where TClass : INativeWrapper, new()
+        {
+            if ( address == IntPtr.Zero )
             {
-                return default(TClass);
+                return default( TClass );
             }
 
             var rez = new TClass();
-            rez.SetupFunctions(address);
+            rez.SetupFunctions( address );
             return rez;
         }
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        private delegate bool NativeSteamBGetCallback(int pipe, ref CallbackMsg_t message, ref int call);
+        [UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+        [return: MarshalAs( UnmanagedType.I1 )]
+        private delegate bool NativeSteamBGetCallback( int pipe, ref CallbackMsg_t message, ref int call );
         private static NativeSteamBGetCallback CallSteamBGetCallback;
-        public static bool GetCallback(int pipe, ref CallbackMsg_t message, ref int call)
+        public static bool GetCallback( int pipe, ref CallbackMsg_t message, ref int call )
         {
             try
             {
@@ -103,59 +121,73 @@ namespace Steam4NET
             }
         }
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        private delegate bool NativeSteamFreeLastCallback(int pipe);
+        [UnmanagedFunctionPointer( CallingConvention.Cdecl )]
+        [return: MarshalAs( UnmanagedType.I1 )]
+        private delegate bool NativeSteamFreeLastCallback( int pipe );
         private static NativeSteamFreeLastCallback CallSteamFreeLastCallback;
-        public static bool FreeLastCallback(int pipe)
+        public static bool FreeLastCallback( int pipe )
         {
-            return CallSteamFreeLastCallback(pipe);
+            return CallSteamFreeLastCallback( pipe );
         }
 
         public static bool Load()
         {
-            if (Handle != IntPtr.Zero)
-            {
+            if ( SteamClientHandle != IntPtr.Zero && SteamHandle != IntPtr.Zero )
                 return true;
-            }
 
             string path = GetInstallPath();
-            if (path == null)
+            if ( path == null )
             {
                 return false;
             }
 
-            Native.SetDllDirectory(path + ";" + Path.Combine(path, "bin"));
+            Native.SetDllDirectory( path + ";" + Path.Combine( path, "bin" ) );
 
-            path = Path.Combine(path, "steamclient.dll");
-            IntPtr module = Native.LoadLibraryEx(path, IntPtr.Zero, Native.LOAD_WITH_ALTERED_SEARCH_PATH);
-            if (module == IntPtr.Zero)
+            string oldPath = path;
+
+            path = Path.Combine( path, "steamclient.dll" );
+            IntPtr module = Native.LoadLibraryEx( path, IntPtr.Zero, Native.LOAD_WITH_ALTERED_SEARCH_PATH );
+            if ( module == IntPtr.Zero )
             {
                 return false;
             }
 
             CallCreateInterface = GetExportFunction<NativeCreateInterface>(
-                module, "CreateInterface");
-            if (CallCreateInterface == null)
+                module, "CreateInterface" );
+            if ( CallCreateInterface == null )
             {
                 return false;
             }
 
             CallSteamBGetCallback = GetExportFunction<NativeSteamBGetCallback>(
-                module, "Steam_BGetCallback");
-            if (CallSteamBGetCallback == null)
+                module, "Steam_BGetCallback" );
+            if ( CallSteamBGetCallback == null )
             {
                 return false;
             }
 
             CallSteamFreeLastCallback = GetExportFunction<NativeSteamFreeLastCallback>(
-                module, "Steam_FreeLastCallback");
-            if (CallSteamFreeLastCallback == null)
+                module, "Steam_FreeLastCallback" );
+            if ( CallSteamFreeLastCallback == null )
             {
                 return false;
             }
 
-            Handle = module;
+            SteamClientHandle = module;
+
+            path = Path.Combine( oldPath, "steam.dll" );
+
+            module = Native.LoadLibraryEx( path, IntPtr.Zero, Native.LOAD_WITH_ALTERED_SEARCH_PATH );
+
+            if ( module == IntPtr.Zero )
+                return false;
+
+            CallFactoryInterface = GetExportFunction<NativeFactoryInterface>( module, "_f" );
+            if ( CallFactoryInterface == null )
+                return false;
+
+            SteamHandle = module;
+
             return true;
         }
     }

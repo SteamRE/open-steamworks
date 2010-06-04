@@ -24,6 +24,9 @@ namespace Steam4NET
 
             [DllImport("steamclient_linux", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             internal static extern IntPtr CreateInterface(string version, IntPtr returnCode);
+
+            [DllImport( "libsteam", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi )]
+            internal static extern IntPtr _f( string version );
         }
 
         public static TClass CreateInterface<TClass>(string version)
@@ -38,6 +41,20 @@ namespace Steam4NET
 
             var rez = new TClass();
             rez.SetupFunctions(address);
+            return rez;
+        }
+
+        public static TClass CreateSteamInterface<TClass>( string version )
+            where TClass : INativeWrapper, new()
+        {
+            IntPtr address = Native._f( version );
+
+            if ( address == IntPtr.Zero )
+                return default( TClass );
+
+            var rez = new TClass();
+            rez.SetupFunctions( address );
+
             return rez;
         }
 
