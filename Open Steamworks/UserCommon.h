@@ -348,5 +348,13 @@ struct ValidateAuthTicketResponse_t
 	EAuthSessionResponse m_eAuthSessionResponse;
 };
 
+struct MsgWebAuthToken_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 48 };
+	
+	bool m_bValid;
+	char m_Token[ 512 ];
+};
+
 
 #endif // USERCOMMON_H

@@ -37,6 +37,7 @@
 #endif
 
 #define CREATEINTERFACE_PROCNAME "CreateInterface"
+#define FACTORY_PROCNAME "_f"
 
 class CSteamAPILoader
 {
@@ -51,13 +52,24 @@ public:
 		return (CreateInterfaceFn)m_steamclient->GetSymbol( CREATEINTERFACE_PROCNAME );
 	}
 
+	FactoryFn LoadFactory()
+	{
+		return (FactoryFn)m_steam->GetSymbol( FACTORY_PROCNAME );
+	}
+
 	std::string GetSteamDir() {
 		return m_steamDir;
 	}
 	
-	DynamicLibrary * GetSteamModule() {
+	DynamicLibrary *GetSteamClientModule()
+	{
 		return m_steamclient.get();
 	}
+	DynamicLibrary *GetSteamModule()
+	{
+		return m_steam.get();
+	}
+
 
 private:
 	void TryGetSteamDir()
@@ -96,11 +108,16 @@ private:
 	void TryLoadLibraries()
 	{
 #if TARGET_OS_WIN32
+
 		// steamclient.dll expects to be able to load tier0_s without an absolute
 		// path, so we'll need to add the steam dir to the search path.
 		SetDllDirectoryA( m_steamDir.c_str() );
+
 		m_steamclient.reset( new DynamicLibrary( m_steamDir + "\\steamclient.dll" ) );
+		m_steam.reset( new DynamicLibrary( m_steamDir + "\\steam.dll" ) );
+
 #elif TARGET_OS_MAC
+
 		std::string libsPath;
 		if(!m_steamDir.empty()) {
 			libsPath = m_steamDir + "/Contents/MacOS/osx32/";
@@ -111,11 +128,18 @@ private:
 		}
 		
 		m_steamclient.reset( new DynamicLibrary( libsPath + "steamclient.dylib" ) );
+		m_steam.reset( new DynamicLibrary( libsPath + "libsteam.dylib" ) );
+
 #else
-		m_steamclient.reset( new DynamicLibrary( m_steamDir + "steamclient_linux.so" ) );
+
+		m_steamclient.reset( new DynamicLibrary( m_steamDir + "steamclient.so" ) );
+		m_steam.reset( new DynamicLibrary( m_steamDir + "libsteam.so" ) );
+
 #endif
 	}
 	
 	std::string m_steamDir;
+
 	std::auto_ptr<DynamicLibrary> m_steamclient;
+	std::auto_ptr<DynamicLibrary> m_steam;
 };
