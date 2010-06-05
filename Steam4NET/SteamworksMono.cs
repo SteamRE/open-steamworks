@@ -14,15 +14,15 @@ namespace Steam4NET
     {
         private struct Native
         {
-            [DllImport("steamclient_linux", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("steamclient", CallingConvention = CallingConvention.Cdecl)]
             [return: MarshalAs(UnmanagedType.I1)]
             internal static extern bool Steam_BGetCallback(int pipe, ref CallbackMsg_t message, ref int call);
 
-            [DllImport("steamclient_linux", CallingConvention = CallingConvention.Cdecl)]
+            [DllImport("steamclient", CallingConvention = CallingConvention.Cdecl)]
             [return: MarshalAs(UnmanagedType.I1)]
             internal static extern bool Steam_FreeLastCallback(int pipe);
 
-            [DllImport("steamclient_linux", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+            [DllImport("steamclient", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
             internal static extern IntPtr CreateInterface(string version, IntPtr returnCode);
 
             [DllImport( "libsteam", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi )]

@@ -105,18 +105,17 @@ namespace Steam4NET
 
         [UnmanagedFunctionPointer( CallingConvention.Cdecl )]
         [return: MarshalAs( UnmanagedType.I1 )]
-        private delegate bool NativeSteamBGetCallback( int pipe, ref CallbackMsg_t message, ref int call );
+        private delegate bool NativeSteamBGetCallback( int pipe, ref CallbackMsg_t message );
         private static NativeSteamBGetCallback CallSteamBGetCallback;
-        public static bool GetCallback( int pipe, ref CallbackMsg_t message, ref int call )
+        public static bool GetCallback( int pipe, ref CallbackMsg_t message )
         {
             try
             {
-                return CallSteamBGetCallback( pipe, ref message, ref call );
+                return CallSteamBGetCallback( pipe, ref message );
             }
             catch
             {
                 message = new CallbackMsg_t();
-                call = 0;
                 return false;
             }
         }
