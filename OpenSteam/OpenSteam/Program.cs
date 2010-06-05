@@ -9,16 +9,6 @@ using System.Security;
 
 namespace OpenSteam
 {
-    [StructLayout( LayoutKind.Sequential )]
-    public struct NativeMessage
-    {
-        public IntPtr handle;
-        public uint msg;
-        public IntPtr wParam;
-        public IntPtr lParam;
-        public uint time;
-        public Point p;
-    }
 
     static class Program
     {
