@@ -16,6 +16,7 @@ namespace OpenSteam
         public static IClientUser ClientUser { get; private set; }
 
         public static ISteam2Bridge002 Steam2Bridge { get; private set; }
+        public static ISteamFriends002 SteamFriends { get; private set; }
 
         public static void Initialize()
         {
@@ -34,9 +35,19 @@ namespace OpenSteam
 
             ClientUser = Steamworks.CastInterface<IClientUser>( ClientEngine.GetIClientUser( HSteamUser, HSteamPipe, "CLIENTUSER_INTERFACE_VERSION001" ) );
             Steam2Bridge = Steamworks.CastInterface<ISteam2Bridge002>( SteamClient.GetISteamGenericInterface( HSteamUser, HSteamPipe, "STEAM2BRIDGE_INTERFACE_VERSION002" ) );
+            SteamFriends = Steamworks.CastInterface<ISteamFriends002>( SteamClient.GetISteamFriends( HSteamUser, HSteamPipe, "SteamFriends002" ) );
 
-            if ( ClientUser == null || Steam2Bridge == null )
+            if ( ClientUser == null || Steam2Bridge == null || SteamFriends == null )
                 throw new Exception( "Unable to get interfaces." );
+        }
+
+        public static void Shutdown()
+        {
+            if ( SteamFriends != null )
+                SteamFriends.SetPersonaState( EPersonaState.k_EPersonaStateOffline );
+
+            if ( ClientUser != null )
+                ClientUser.LogOff();
         }
 
         public static void ReadyLogin( string userName, string passWord )

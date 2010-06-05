@@ -69,7 +69,7 @@ namespace OpenSteam
             Application.Idle += ( s, e ) => { ff.RunCallbacks(); };
             Application.Run( ff );
 
-            //Steam3.Shutdown(); // TODO: implement
+            Steam3.Shutdown();
             Steam2.Shutdown();
         }
     }
