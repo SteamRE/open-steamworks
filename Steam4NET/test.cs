@@ -1076,29 +1076,32 @@ namespace Steam4NET
 		public EUniverse m_EUniverse;
 	}
 	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=64)]
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi )]
 	public struct TSteamSplitLocalUserID
 	{
 		public UInt32 Low32bits;
 		public UInt32 High32bits;
 	}
-	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=128)]
-	public struct TSteamGlobalUserID
-	{
-		public UInt16 m_SteamInstanceID;
 
-		[StructLayout(LayoutKind.Explicit,CharSet=CharSet.Ansi,Pack=1,Size=64)]
-		public struct Unionm_SteamLocalUserID
-		{
-			[FieldOffset(0)]
-			public UInt64 As64bits;
-			[FieldOffset(0)]
-			public TSteamSplitLocalUserID Split;
-		}
-		public Unionm_SteamLocalUserID m_SteamLocalUserID;
+    [StructLayout( LayoutKind.Sequential, CharSet = CharSet.Ansi )]
+    public struct TSteamGlobalUserID
+    {
+        public UInt16 m_SteamInstanceID;
+        public UInt32 High32Bits;
+        public UInt32 Low32Bits;
 
-	}
+        /*[StructLayout( LayoutKind.Explicit, CharSet = CharSet.Ansi )]
+        public struct Unionm_SteamLocalUserID
+        {
+            [FieldOffset( 0 )]
+            public UInt64 As64bits;
+            [FieldOffset( 0 )]
+            public TSteamSplitLocalUserID Split;
+        }
+        [FieldOffset( 2 )]
+        public Unionm_SteamLocalUserID m_SteamLocalUserID;*/
+
+    }
 
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=160)]
@@ -1953,15 +1956,15 @@ namespace Steam4NET
 		public UInt32 uMaxIconSize;
 		public UInt32 uMaxDependencies;
 	}
-	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=2112)]
-	public struct TSteamProgress
-	{
-		public Int32 bValid;
-		public UInt32 uPercentDone;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
-		public SByte[] szProgress;
-	}
+
+    [StructLayout( LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 4 )]
+    public struct TSteamProgress
+    {
+        public int Valid;
+        public int Percent;
+        [MarshalAs( UnmanagedType.ByValTStr, SizeConst = 255 )]
+        public string Progress;
+    }
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=9408)]
 	public struct TSteamPaymentCardInfo
@@ -2106,16 +2109,15 @@ namespace Steam4NET
 
 	}
 	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=2112)]
-	public struct TSTeamError
+    [StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=4)]
+	public struct TSteamError
 	{
 		public ESteamError eSteamError;
 		public EDetailedPlatformErrorType eDetailedErrorType;
 		public Int32 nDetailedErrorCode;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
-		public SByte[] szDesc;
+        [MarshalAs( UnmanagedType.ByValTStr, SizeConst = 255 )]
+		public string szDesc;
 	}
-	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=0)]
 	public struct CCallbackMgr
 	{
@@ -2968,164 +2970,164 @@ namespace Steam4NET
 	
 	public class ISteam003 : NativeWrapper<ISteam003VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePassword(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPassphrase, ref TSTeamError pError);
-		public UInt32 ChangePassword(string cszCurrentPassphrase, string cszNewPassphrase, ref TSTeamError pError) { var call = this.GetFunction<NativeChangePassword>(this.Functions.ChangePassword); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPassphrase, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePassword(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError);
+		public UInt32 ChangePassword(string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError) { var call = this.GetFunction<NativeChangePassword>(this.Functions.ChangePassword); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPassphrase, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentEmailAddress(IntPtr thisobj, string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSTeamError pError);
-		public Int32 GetCurrentEmailAddress(string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCurrentEmailAddress>(this.Functions.GetCurrentEmailAddress); return call(this.ObjectAddress, szEmailaddress, uBufSize, ref puEmailaddressChars, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentEmailAddress(IntPtr thisobj, string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSteamError pError);
+		public Int32 GetCurrentEmailAddress(string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSteamError pError) { var call = this.GetFunction<NativeGetCurrentEmailAddress>(this.Functions.GetCurrentEmailAddress); return call(this.ObjectAddress, szEmailaddress, uBufSize, ref puEmailaddressChars, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePersonalQA(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSTeamError pError);
-		public UInt32 ChangePersonalQA(string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSTeamError pError) { var call = this.GetFunction<NativeChangePersonalQA>(this.Functions.ChangePersonalQA); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPersonalQuestion, cszNewAnswerToQuestion, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePersonalQA(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSteamError pError);
+		public UInt32 ChangePersonalQA(string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSteamError pError) { var call = this.GetFunction<NativeChangePersonalQA>(this.Functions.ChangePersonalQA); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPersonalQuestion, cszNewAnswerToQuestion, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeEmailAddress(IntPtr thisobj, string cszNewEmailAddress, ref TSTeamError pError);
-		public UInt32 ChangeEmailAddress(string cszNewEmailAddress, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeEmailAddress>(this.Functions.ChangeEmailAddress); return call(this.ObjectAddress, cszNewEmailAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeEmailAddress(IntPtr thisobj, string cszNewEmailAddress, ref TSteamError pError);
+		public UInt32 ChangeEmailAddress(string cszNewEmailAddress, ref TSteamError pError) { var call = this.GetFunction<NativeChangeEmailAddress>(this.Functions.ChangeEmailAddress); return call(this.ObjectAddress, cszNewEmailAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeVerifyEmailAddress(IntPtr thisobj, string cszEmailAddress, ref TSTeamError pError);
-		public UInt32 VerifyEmailAddress(string cszEmailAddress, ref TSTeamError pError) { var call = this.GetFunction<NativeVerifyEmailAddress>(this.Functions.VerifyEmailAddress); return call(this.ObjectAddress, cszEmailAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeVerifyEmailAddress(IntPtr thisobj, string cszEmailAddress, ref TSteamError pError);
+		public UInt32 VerifyEmailAddress(string cszEmailAddress, ref TSteamError pError) { var call = this.GetFunction<NativeVerifyEmailAddress>(this.Functions.VerifyEmailAddress); return call(this.ObjectAddress, cszEmailAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestEmailAddressVerificationEmail(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 RequestEmailAddressVerificationEmail(ref TSTeamError pError) { var call = this.GetFunction<NativeRequestEmailAddressVerificationEmail>(this.Functions.RequestEmailAddressVerificationEmail); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestEmailAddressVerificationEmail(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 RequestEmailAddressVerificationEmail(ref TSteamError pError) { var call = this.GetFunction<NativeRequestEmailAddressVerificationEmail>(this.Functions.RequestEmailAddressVerificationEmail); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountName(IntPtr thisobj, string cszCurrentAccountName, string cszNewAccountName, ref TSTeamError pError);
-		public UInt32 ChangeAccountName(string cszCurrentAccountName, string cszNewAccountName, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeAccountName>(this.Functions.ChangeAccountName); return call(this.ObjectAddress, cszCurrentAccountName, cszNewAccountName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountName(IntPtr thisobj, string cszCurrentAccountName, string cszNewAccountName, ref TSteamError pError);
+		public UInt32 ChangeAccountName(string cszCurrentAccountName, string cszNewAccountName, ref TSteamError pError) { var call = this.GetFunction<NativeChangeAccountName>(this.Functions.ChangeAccountName); return call(this.ObjectAddress, cszCurrentAccountName, cszNewAccountName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountAppFilesystem(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 MountAppFilesystem(ref TSTeamError pError) { var call = this.GetFunction<NativeMountAppFilesystem>(this.Functions.MountAppFilesystem); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountAppFilesystem(IntPtr thisobj, ref TSteamError pError);
+		public Int32 MountAppFilesystem(ref TSteamError pError) { var call = this.GetFunction<NativeMountAppFilesystem>(this.Functions.MountAppFilesystem); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountAppFilesystem(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 UnmountAppFilesystem(ref TSTeamError pError) { var call = this.GetFunction<NativeUnmountAppFilesystem>(this.Functions.UnmountAppFilesystem); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountAppFilesystem(IntPtr thisobj, ref TSteamError pError);
+		public Int32 UnmountAppFilesystem(ref TSteamError pError) { var call = this.GetFunction<NativeUnmountAppFilesystem>(this.Functions.UnmountAppFilesystem); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountFilesystem(IntPtr thisobj, UInt32 uAppId, string szMountPath, ref TSTeamError pError);
-		public Int32 MountFilesystem(UInt32 uAppId, string szMountPath, ref TSTeamError pError) { var call = this.GetFunction<NativeMountFilesystem>(this.Functions.MountFilesystem); return call(this.ObjectAddress, uAppId, szMountPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountFilesystem(IntPtr thisobj, UInt32 uAppId, string szMountPath, ref TSteamError pError);
+		public Int32 MountFilesystem(UInt32 uAppId, string szMountPath, ref TSteamError pError) { var call = this.GetFunction<NativeMountFilesystem>(this.Functions.MountFilesystem); return call(this.ObjectAddress, uAppId, szMountPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystem(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public Int32 UnmountFilesystem(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeUnmountFilesystem>(this.Functions.UnmountFilesystem); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystem(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public Int32 UnmountFilesystem(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeUnmountFilesystem>(this.Functions.UnmountFilesystem); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStat(IntPtr thisobj, string cszName, ref TSteamElemInfo pInfo, ref TSTeamError pError);
-		public Int32 Stat(string cszName, ref TSteamElemInfo pInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeStat>(this.Functions.Stat); return call(this.ObjectAddress, cszName, ref pInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStat(IntPtr thisobj, string cszName, ref TSteamElemInfo pInfo, ref TSteamError pError);
+		public Int32 Stat(string cszName, ref TSteamElemInfo pInfo, ref TSteamError pError) { var call = this.GetFunction<NativeStat>(this.Functions.Stat); return call(this.ObjectAddress, cszName, ref pInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetvBuf(IntPtr thisobj, UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSTeamError pError);
-		public Int32 SetvBuf(UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSTeamError pError) { var call = this.GetFunction<NativeSetvBuf>(this.Functions.SetvBuf); return call(this.ObjectAddress, hFile, pBuf, eMethod, uBytes, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetvBuf(IntPtr thisobj, UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSteamError pError);
+		public Int32 SetvBuf(UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSteamError pError) { var call = this.GetFunction<NativeSetvBuf>(this.Functions.SetvBuf); return call(this.ObjectAddress, hFile, pBuf, eMethod, uBytes, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFlushFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 FlushFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeFlushFile>(this.Functions.FlushFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFlushFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 FlushFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeFlushFile>(this.Functions.FlushFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFile(IntPtr thisobj, string cszName, string cszMode, ref TSTeamError pError);
-		public UInt32 OpenFile(string cszName, string cszMode, ref TSTeamError pError) { var call = this.GetFunction<NativeOpenFile>(this.Functions.OpenFile); return call(this.ObjectAddress, cszName, cszMode, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFile(IntPtr thisobj, string cszName, string cszMode, ref TSteamError pError);
+		public UInt32 OpenFile(string cszName, string cszMode, ref TSteamError pError) { var call = this.GetFunction<NativeOpenFile>(this.Functions.OpenFile); return call(this.ObjectAddress, cszName, cszMode, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileEx(IntPtr thisobj, string cszFileName, string cszMode, ref UInt32 puSize, ref TSTeamError pError);
-		public UInt32 OpenFileEx(string cszFileName, string cszMode, ref UInt32 puSize, ref TSTeamError pError) { var call = this.GetFunction<NativeOpenFileEx>(this.Functions.OpenFileEx); return call(this.ObjectAddress, cszFileName, cszMode, ref puSize, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileEx(IntPtr thisobj, string cszFileName, string cszMode, ref UInt32 puSize, ref TSteamError pError);
+		public UInt32 OpenFileEx(string cszFileName, string cszMode, ref UInt32 puSize, ref TSteamError pError) { var call = this.GetFunction<NativeOpenFileEx>(this.Functions.OpenFileEx); return call(this.ObjectAddress, cszFileName, cszMode, ref puSize, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenTmpFile(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 OpenTmpFile(ref TSTeamError pError) { var call = this.GetFunction<NativeOpenTmpFile>(this.Functions.OpenTmpFile); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenTmpFile(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 OpenTmpFile(ref TSteamError pError) { var call = this.GetFunction<NativeOpenTmpFile>(this.Functions.OpenTmpFile); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearError(IntPtr thisobj, ref TSTeamError pError);
-		public void ClearError(ref TSTeamError pError) { var call = this.GetFunction<NativeClearError>(this.Functions.ClearError); call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearError(IntPtr thisobj, ref TSteamError pError);
+		public void ClearError(ref TSteamError pError) { var call = this.GetFunction<NativeClearError>(this.Functions.ClearError); call(this.ObjectAddress, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetVersion(IntPtr thisobj, string szVersion, UInt32 uVersionBufSize);
 		public Int32 GetVersion(string szVersion, UInt32 uVersionBufSize) { var call = this.GetFunction<NativeGetVersion>(this.Functions.GetVersion); return call(this.ObjectAddress, szVersion, uVersionBufSize); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError);
-		public Int32 GetOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError) { var call = this.GetFunction<NativeGetOfflineStatus>(this.Functions.GetOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError);
+		public Int32 GetOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError) { var call = this.GetFunction<NativeGetOfflineStatus>(this.Functions.GetOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeChangeOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError);
-		public Int32 ChangeOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeOfflineStatus>(this.Functions.ChangeOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeChangeOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError);
+		public Int32 ChangeOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError) { var call = this.GetFunction<NativeChangeOfflineStatus>(this.Functions.ChangeOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeProcessCall(IntPtr thisobj, UInt32 handle, ref TSteamProgress pProgress, ref TSTeamError pError);
-		public Int32 ProcessCall(UInt32 handle, ref TSteamProgress pProgress, ref TSTeamError pError) { var call = this.GetFunction<NativeProcessCall>(this.Functions.ProcessCall); return call(this.ObjectAddress, handle, ref pProgress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeProcessCall(IntPtr thisobj, UInt32 handle, ref TSteamProgress pProgress, ref TSteamError pError);
+		public Int32 ProcessCall(UInt32 handle, ref TSteamProgress pProgress, ref TSteamError pError) { var call = this.GetFunction<NativeProcessCall>(this.Functions.ProcessCall); return call(this.ObjectAddress, handle, ref pProgress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAbortCall(IntPtr thisobj, UInt32 handle, ref TSTeamError pError);
-		public Int32 AbortCall(UInt32 handle, ref TSTeamError pError) { var call = this.GetFunction<NativeAbortCall>(this.Functions.AbortCall); return call(this.ObjectAddress, handle, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAbortCall(IntPtr thisobj, UInt32 handle, ref TSteamError pError);
+		public Int32 AbortCall(UInt32 handle, ref TSteamError pError) { var call = this.GetFunction<NativeAbortCall>(this.Functions.AbortCall); return call(this.ObjectAddress, handle, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBlockingCall(IntPtr thisobj, UInt32 handle, UInt32 uiProcessTickMS, ref TSTeamError pError);
-		public Int32 BlockingCall(UInt32 handle, UInt32 uiProcessTickMS, ref TSTeamError pError) { var call = this.GetFunction<NativeBlockingCall>(this.Functions.BlockingCall); return call(this.ObjectAddress, handle, uiProcessTickMS, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBlockingCall(IntPtr thisobj, UInt32 handle, UInt32 uiProcessTickMS, ref TSteamError pError);
+		public Int32 BlockingCall(UInt32 handle, UInt32 uiProcessTickMS, ref TSteamError pError) { var call = this.GetFunction<NativeBlockingCall>(this.Functions.BlockingCall); return call(this.ObjectAddress, handle, uiProcessTickMS, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStallCount(IntPtr thisobj, UInt32 uNumStalls, ref TSTeamError pError);
-		public Int32 SetMaxStallCount(UInt32 uNumStalls, ref TSTeamError pError) { var call = this.GetFunction<NativeSetMaxStallCount>(this.Functions.SetMaxStallCount); return call(this.ObjectAddress, uNumStalls, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStallCount(IntPtr thisobj, UInt32 uNumStalls, ref TSteamError pError);
+		public Int32 SetMaxStallCount(UInt32 uNumStalls, ref TSteamError pError) { var call = this.GetFunction<NativeSetMaxStallCount>(this.Functions.SetMaxStallCount); return call(this.ObjectAddress, uNumStalls, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 CloseFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeCloseFile>(this.Functions.CloseFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 CloseFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeCloseFile>(this.Functions.CloseFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReadFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError);
-		public UInt32 ReadFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeReadFile>(this.Functions.ReadFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReadFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError);
+		public UInt32 ReadFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeReadFile>(this.Functions.ReadFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError);
-		public UInt32 WriteFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeWriteFile>(this.Functions.WriteFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError);
+		public UInt32 WriteFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeWriteFile>(this.Functions.WriteFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetc(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 Getc(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeGetc>(this.Functions.Getc); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetc(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 Getc(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeGetc>(this.Functions.Getc); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePutc(IntPtr thisobj, Int32 cChar, UInt32 hFile, ref TSTeamError pError);
-		public Int32 Putc(Int32 cChar, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativePutc>(this.Functions.Putc); return call(this.ObjectAddress, cChar, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePutc(IntPtr thisobj, Int32 cChar, UInt32 hFile, ref TSteamError pError);
+		public Int32 Putc(Int32 cChar, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativePutc>(this.Functions.Putc); return call(this.ObjectAddress, cChar, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFile(IntPtr thisobj, UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSTeamError pError);
-		public Int32 SeekFile(UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSTeamError pError) { var call = this.GetFunction<NativeSeekFile>(this.Functions.SeekFile); return call(this.ObjectAddress, hFile, lOffset, sm, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFile(IntPtr thisobj, UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError);
+		public Int32 SeekFile(UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError) { var call = this.GetFunction<NativeSeekFile>(this.Functions.SeekFile); return call(this.ObjectAddress, hFile, lOffset, sm, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTellFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 TellFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeTellFile>(this.Functions.TellFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTellFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 TellFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeTellFile>(this.Functions.TellFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSizeFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 SizeFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeSizeFile>(this.Functions.SizeFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSizeFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 SizeFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeSizeFile>(this.Functions.SizeFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFindFirst(IntPtr thisobj, string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSTeamError pError);
-		public UInt32 FindFirst(string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeFindFirst>(this.Functions.FindFirst); return call(this.ObjectAddress, cszPattern, eFilter, ref pFindInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFindFirst(IntPtr thisobj, string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSteamError pError);
+		public UInt32 FindFirst(string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSteamError pError) { var call = this.GetFunction<NativeFindFirst>(this.Functions.FindFirst); return call(this.ObjectAddress, cszPattern, eFilter, ref pFindInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindNext(IntPtr thisobj, UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSTeamError pError);
-		public Int32 FindNext(UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeFindNext>(this.Functions.FindNext); return call(this.ObjectAddress, hFind, ref pFindInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindNext(IntPtr thisobj, UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSteamError pError);
+		public Int32 FindNext(UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSteamError pError) { var call = this.GetFunction<NativeFindNext>(this.Functions.FindNext); return call(this.ObjectAddress, hFind, ref pFindInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindClose(IntPtr thisobj, UInt32 hFind, ref TSTeamError pError);
-		public Int32 FindClose(UInt32 hFind, ref TSTeamError pError) { var call = this.GetFunction<NativeFindClose>(this.Functions.FindClose); return call(this.ObjectAddress, hFind, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindClose(IntPtr thisobj, UInt32 hFind, ref TSteamError pError);
+		public Int32 FindClose(UInt32 hFind, ref TSteamError pError) { var call = this.GetFunction<NativeFindClose>(this.Functions.FindClose); return call(this.ObjectAddress, hFind, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalFileCopy(IntPtr thisobj, string cszName, ref TSTeamError pError);
-		public Int32 GetLocalFileCopy(string cszName, ref TSTeamError pError) { var call = this.GetFunction<NativeGetLocalFileCopy>(this.Functions.GetLocalFileCopy); return call(this.ObjectAddress, cszName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalFileCopy(IntPtr thisobj, string cszName, ref TSteamError pError);
+		public Int32 GetLocalFileCopy(string cszName, ref TSteamError pError) { var call = this.GetFunction<NativeGetLocalFileCopy>(this.Functions.GetLocalFileCopy); return call(this.ObjectAddress, cszName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileImmediatelyAvailable(IntPtr thisobj, string cszName, ref TSTeamError pError);
-		public Int32 IsFileImmediatelyAvailable(string cszName, ref TSTeamError pError) { var call = this.GetFunction<NativeIsFileImmediatelyAvailable>(this.Functions.IsFileImmediatelyAvailable); return call(this.ObjectAddress, cszName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileImmediatelyAvailable(IntPtr thisobj, string cszName, ref TSteamError pError);
+		public Int32 IsFileImmediatelyAvailable(string cszName, ref TSteamError pError) { var call = this.GetFunction<NativeIsFileImmediatelyAvailable>(this.Functions.IsFileImmediatelyAvailable); return call(this.ObjectAddress, cszName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeed(IntPtr thisobj, string cszHintList, Int32 bForgetEverything, ref TSTeamError pError);
-		public Int32 HintResourceNeed(string cszHintList, Int32 bForgetEverything, ref TSTeamError pError) { var call = this.GetFunction<NativeHintResourceNeed>(this.Functions.HintResourceNeed); return call(this.ObjectAddress, cszHintList, bForgetEverything, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeed(IntPtr thisobj, string cszHintList, Int32 bForgetEverything, ref TSteamError pError);
+		public Int32 HintResourceNeed(string cszHintList, Int32 bForgetEverything, ref TSteamError pError) { var call = this.GetFunction<NativeHintResourceNeed>(this.Functions.HintResourceNeed); return call(this.ObjectAddress, cszHintList, bForgetEverything, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForgetAllHints(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ForgetAllHints(ref TSTeamError pError) { var call = this.GetFunction<NativeForgetAllHints>(this.Functions.ForgetAllHints); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForgetAllHints(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ForgetAllHints(ref TSteamError pError) { var call = this.GetFunction<NativeForgetAllHints>(this.Functions.ForgetAllHints); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePauseCachePreloading(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 PauseCachePreloading(ref TSTeamError pError) { var call = this.GetFunction<NativePauseCachePreloading>(this.Functions.PauseCachePreloading); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePauseCachePreloading(IntPtr thisobj, ref TSteamError pError);
+		public Int32 PauseCachePreloading(ref TSteamError pError) { var call = this.GetFunction<NativePauseCachePreloading>(this.Functions.PauseCachePreloading); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResumeCachePreloading(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ResumeCachePreloading(ref TSTeamError pError) { var call = this.GetFunction<NativeResumeCachePreloading>(this.Functions.ResumeCachePreloading); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResumeCachePreloading(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ResumeCachePreloading(ref TSteamError pError) { var call = this.GetFunction<NativeResumeCachePreloading>(this.Functions.ResumeCachePreloading); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForResources(IntPtr thisobj, string cszMasterList, ref TSTeamError pError);
-		public UInt32 WaitForResources(string cszMasterList, ref TSTeamError pError) { var call = this.GetFunction<NativeWaitForResources>(this.Functions.WaitForResources); return call(this.ObjectAddress, cszMasterList, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForResources(IntPtr thisobj, string cszMasterList, ref TSteamError pError);
+		public UInt32 WaitForResources(string cszMasterList, ref TSteamError pError) { var call = this.GetFunction<NativeWaitForResources>(this.Functions.WaitForResources); return call(this.ObjectAddress, cszMasterList, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartEngine(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 StartEngine(ref TSTeamError pError) { var call = this.GetFunction<NativeStartEngine>(this.Functions.StartEngine); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartEngine(IntPtr thisobj, ref TSteamError pError);
+		public Int32 StartEngine(ref TSteamError pError) { var call = this.GetFunction<NativeStartEngine>(this.Functions.StartEngine); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeShutdownEngine(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ShutdownEngine(ref TSTeamError pError) { var call = this.GetFunction<NativeShutdownEngine>(this.Functions.ShutdownEngine); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeShutdownEngine(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ShutdownEngine(ref TSteamError pError) { var call = this.GetFunction<NativeShutdownEngine>(this.Functions.ShutdownEngine); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartup(IntPtr thisobj, UInt32 uUsingMask, ref TSTeamError pError);
-		public Int32 Startup(UInt32 uUsingMask, ref TSTeamError pError) { var call = this.GetFunction<NativeStartup>(this.Functions.Startup); return call(this.ObjectAddress, uUsingMask, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartup(IntPtr thisobj, UInt32 uUsingMask, ref TSteamError pError);
+		public Int32 Startup(UInt32 uUsingMask, ref TSteamError pError) { var call = this.GetFunction<NativeStartup>(this.Functions.Startup); return call(this.ObjectAddress, uUsingMask, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCleanup(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 Cleanup(ref TSTeamError pError) { var call = this.GetFunction<NativeCleanup>(this.Functions.Cleanup); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCleanup(IntPtr thisobj, ref TSteamError pError);
+		public Int32 Cleanup(ref TSteamError pError) { var call = this.GetFunction<NativeCleanup>(this.Functions.Cleanup); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeNumAppsRunning(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 NumAppsRunning(ref TSTeamError pError) { var call = this.GetFunction<NativeNumAppsRunning>(this.Functions.NumAppsRunning); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeNumAppsRunning(IntPtr thisobj, ref TSteamError pError);
+		public Int32 NumAppsRunning(ref TSteamError pError) { var call = this.GetFunction<NativeNumAppsRunning>(this.Functions.NumAppsRunning); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccount(IntPtr thisobj, string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSTeamError pError);
-		public UInt32 CreateAccount(string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSTeamError pError) { var call = this.GetFunction<NativeCreateAccount>(this.Functions.CreateAccount); return call(this.ObjectAddress, cszUser, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, cszArg6, ref pbCreated, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccount(IntPtr thisobj, string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSteamError pError);
+		public UInt32 CreateAccount(string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSteamError pError) { var call = this.GetFunction<NativeCreateAccount>(this.Functions.CreateAccount); return call(this.ObjectAddress, cszUser, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, cszArg6, ref pbCreated, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNames(IntPtr thisobj, string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSTeamError pError);
-		public UInt32 GenerateSuggestedAccountNames(string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeGenerateSuggestedAccountNames>(this.Functions.GenerateSuggestedAccountNames); return call(this.ObjectAddress, cszArg1, cszArg2, szArg3, uArg4, ref puArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNames(IntPtr thisobj, string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSteamError pError);
+		public UInt32 GenerateSuggestedAccountNames(string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSteamError pError) { var call = this.GetFunction<NativeGenerateSuggestedAccountNames>(this.Functions.GenerateSuggestedAccountNames); return call(this.ObjectAddress, cszArg1, cszArg2, szArg3, uArg4, ref puArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsLoggedIn(IntPtr thisobj, ref Int32 pbIsLoggedIn, ref TSTeamError pError);
-		public Int32 IsLoggedIn(ref Int32 pbIsLoggedIn, ref TSTeamError pError) { var call = this.GetFunction<NativeIsLoggedIn>(this.Functions.IsLoggedIn); return call(this.ObjectAddress, ref pbIsLoggedIn, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsLoggedIn(IntPtr thisobj, ref Int32 pbIsLoggedIn, ref TSteamError pError);
+		public Int32 IsLoggedIn(ref Int32 pbIsLoggedIn, ref TSteamError pError) { var call = this.GetFunction<NativeIsLoggedIn>(this.Functions.IsLoggedIn); return call(this.ObjectAddress, ref pbIsLoggedIn, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogout(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 Logout(ref TSTeamError pError) { var call = this.GetFunction<NativeLogout>(this.Functions.Logout); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogout(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 Logout(ref TSteamError pError) { var call = this.GetFunction<NativeLogout>(this.Functions.Logout); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputer(IntPtr thisobj, ref Int32 pbIsSecure, ref TSTeamError pError);
-		public Int32 IsSecureComputer(ref Int32 pbIsSecure, ref TSTeamError pError) { var call = this.GetFunction<NativeIsSecureComputer>(this.Functions.IsSecureComputer); return call(this.ObjectAddress, ref pbIsSecure, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputer(IntPtr thisobj, ref Int32 pbIsSecure, ref TSteamError pError);
+		public Int32 IsSecureComputer(ref Int32 pbIsSecure, ref TSteamError pError) { var call = this.GetFunction<NativeIsSecureComputer>(this.Functions.IsSecureComputer); return call(this.ObjectAddress, ref pbIsSecure, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateLogContext(IntPtr thisobj, string cszName);
 		public UInt32 CreateLogContext(string cszName) { var call = this.GetFunction<NativeCreateLogContext>(this.Functions.CreateLogContext); return call(this.ObjectAddress, cszName); }
@@ -3139,197 +3141,197 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogResourceLoadFinished(IntPtr thisobj, string cszMsg);
 		public void LogResourceLoadFinished(string cszMsg) { var call = this.GetFunction<NativeLogResourceLoadFinished>(this.Functions.LogResourceLoadFinished); call(this.ObjectAddress, cszMsg); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshLogin(IntPtr thisobj, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError);
-		public UInt32 RefreshLogin(string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError) { var call = this.GetFunction<NativeRefreshLogin>(this.Functions.RefreshLogin); return call(this.ObjectAddress, cszPassphrase, bIsSecureComputer, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshLogin(IntPtr thisobj, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError);
+		public UInt32 RefreshLogin(string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError) { var call = this.GetFunction<NativeRefreshLogin>(this.Functions.RefreshLogin); return call(this.ObjectAddress, cszPassphrase, bIsSecureComputer, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPassword(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSTeamError pError);
-		public Int32 VerifyPassword(string cszArg1, ref Int32 piArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeVerifyPassword>(this.Functions.VerifyPassword); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPassword(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSteamError pError);
+		public Int32 VerifyPassword(string cszArg1, ref Int32 piArg2, ref TSteamError pError) { var call = this.GetFunction<NativeVerifyPassword>(this.Functions.VerifyPassword); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserType(IntPtr thisobj, ref UInt32 puArg1, ref TSTeamError pError);
-		public Int32 GetUserType(ref UInt32 puArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeGetUserType>(this.Functions.GetUserType); return call(this.ObjectAddress, ref puArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserType(IntPtr thisobj, ref UInt32 puArg1, ref TSteamError pError);
+		public Int32 GetUserType(ref UInt32 puArg1, ref TSteamError pError) { var call = this.GetFunction<NativeGetUserType>(this.Functions.GetUserType); return call(this.ObjectAddress, ref puArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppStats(IntPtr thisobj, ref TSteamAppStats pAppStats, ref TSTeamError pError);
-		public Int32 GetAppStats(ref TSteamAppStats pAppStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppStats>(this.Functions.GetAppStats); return call(this.ObjectAddress, ref pAppStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppStats(IntPtr thisobj, ref TSteamAppStats pAppStats, ref TSteamError pError);
+		public Int32 GetAppStats(ref TSteamAppStats pAppStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppStats>(this.Functions.GetAppStats); return call(this.ObjectAddress, ref pAppStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUse(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSTeamError pError);
-		public UInt32 IsAccountNameInUse(string cszArg1, ref Int32 piArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeIsAccountNameInUse>(this.Functions.IsAccountNameInUse); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUse(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSteamError pError);
+		public UInt32 IsAccountNameInUse(string cszArg1, ref Int32 piArg2, ref TSteamError pError) { var call = this.GetFunction<NativeIsAccountNameInUse>(this.Functions.IsAccountNameInUse); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError);
-		public Int32 GetAppIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError);
+		public Int32 GetAppIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStats(IntPtr thisobj, ref TSteamSubscriptionStats pSubscriptionStats, ref TSTeamError pError);
-		public Int32 GetSubscriptionStats(ref TSteamSubscriptionStats pSubscriptionStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionStats>(this.Functions.GetSubscriptionStats); return call(this.ObjectAddress, ref pSubscriptionStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStats(IntPtr thisobj, ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError);
+		public Int32 GetSubscriptionStats(ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionStats>(this.Functions.GetSubscriptionStats); return call(this.ObjectAddress, ref pSubscriptionStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfo(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 RefreshAccountInfo(ref TSTeamError pError) { var call = this.GetFunction<NativeRefreshAccountInfo>(this.Functions.RefreshAccountInfo); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfo(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 RefreshAccountInfo(ref TSteamError pError) { var call = this.GetFunction<NativeRefreshAccountInfo>(this.Functions.RefreshAccountInfo); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError);
-		public UInt32 Subscribe(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeSubscribe>(this.Functions.Subscribe); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError);
+		public UInt32 Subscribe(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError) { var call = this.GetFunction<NativeSubscribe>(this.Functions.Subscribe); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUnsubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSTeamError pError);
-		public UInt32 Unsubscribe(UInt32 uSubscriptionId, ref TSTeamError pError) { var call = this.GetFunction<NativeUnsubscribe>(this.Functions.Unsubscribe); return call(this.ObjectAddress, uSubscriptionId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUnsubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamError pError);
+		public UInt32 Unsubscribe(UInt32 uSubscriptionId, ref TSteamError pError) { var call = this.GetFunction<NativeUnsubscribe>(this.Functions.Unsubscribe); return call(this.ObjectAddress, uSubscriptionId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionReceipt(IntPtr thisobj, UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSTeamError pError);
-		public Int32 GetSubscriptionReceipt(UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionReceipt>(this.Functions.GetSubscriptionReceipt); return call(this.ObjectAddress, arg1, ref pSteamSubscriptionReceipt, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionReceipt(IntPtr thisobj, UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSteamError pError);
+		public Int32 GetSubscriptionReceipt(UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionReceipt>(this.Functions.GetSubscriptionReceipt); return call(this.ObjectAddress, arg1, ref pSteamSubscriptionReceipt, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatus(IntPtr thisobj, ref UInt32 puArg1, ref TSTeamError pError);
-		public Int32 GetAccountStatus(ref UInt32 puArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAccountStatus>(this.Functions.GetAccountStatus); return call(this.ObjectAddress, ref puArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatus(IntPtr thisobj, ref UInt32 puArg1, ref TSteamError pError);
+		public Int32 GetAccountStatus(ref UInt32 puArg1, ref TSteamError pError) { var call = this.GetFunction<NativeGetAccountStatus>(this.Functions.GetAccountStatus); return call(this.ObjectAddress, ref puArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUser(IntPtr thisobj, string cszUser, ref Int32 pbUserSet, ref TSTeamError pError);
-		public UInt32 SetUser(string cszUser, ref Int32 pbUserSet, ref TSTeamError pError) { var call = this.GetFunction<NativeSetUser>(this.Functions.SetUser); return call(this.ObjectAddress, cszUser, ref pbUserSet, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUser(IntPtr thisobj, string cszUser, ref Int32 pbUserSet, ref TSteamError pError);
+		public UInt32 SetUser(string cszUser, ref Int32 pbUserSet, ref TSteamError pError) { var call = this.GetFunction<NativeSetUser>(this.Functions.SetUser); return call(this.ObjectAddress, cszUser, ref pbUserSet, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUser(IntPtr thisobj, string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError);
-		public Int32 GetUser(string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError) { var call = this.GetFunction<NativeGetUser>(this.Functions.GetUser); return call(this.ObjectAddress, szUser, uBufSize, ref puUserChars, ref pSteamGlobalUserID, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUser(IntPtr thisobj, string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError);
+		public Int32 GetUser(string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError) { var call = this.GetFunction<NativeGetUser>(this.Functions.GetUser); return call(this.ObjectAddress, szUser, uBufSize, ref puUserChars, ref pSteamGlobalUserID, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogin(IntPtr thisobj, string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError);
-		public UInt32 Login(string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError) { var call = this.GetFunction<NativeLogin>(this.Functions.Login); return call(this.ObjectAddress, cszUser, cszPassphrase, bIsSecureComputer, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogin(IntPtr thisobj, string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError);
+		public UInt32 Login(string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError) { var call = this.GetFunction<NativeLogin>(this.Functions.Login); return call(this.ObjectAddress, cszUser, cszPassphrase, bIsSecureComputer, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceipt(IntPtr thisobj, UInt32 uArg1, ref TSTeamError pError);
-		public UInt32 AckSubscriptionReceipt(UInt32 uArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeAckSubscriptionReceipt>(this.Functions.AckSubscriptionReceipt); return call(this.ObjectAddress, uArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceipt(IntPtr thisobj, UInt32 uArg1, ref TSteamError pError);
+		public UInt32 AckSubscriptionReceipt(UInt32 uArg1, ref TSteamError pError) { var call = this.GetFunction<NativeAckSubscriptionReceipt>(this.Functions.AckSubscriptionReceipt); return call(this.ObjectAddress, uArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribed(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSTeamError pError);
-		public Int32 IsAppSubscribed(UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSTeamError pError) { var call = this.GetFunction<NativeIsAppSubscribed>(this.Functions.IsAppSubscribed); return call(this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pReserved, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribed(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError);
+		public Int32 IsAppSubscribed(UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError) { var call = this.GetFunction<NativeIsAppSubscribed>(this.Functions.IsAppSubscribed); return call(this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pReserved, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError);
-		public Int32 GetSubscriptionIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionIds>(this.Functions.GetSubscriptionIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError);
+		public Int32 GetSubscriptionIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionIds>(this.Functions.GetSubscriptionIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscription(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSTeamError pError);
-		public Int32 EnumerateSubscription(UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscription>(this.Functions.EnumerateSubscription); return call(this.ObjectAddress, uSubscriptionId, ref pSubscription, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscription(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSteamError pError);
+		public Int32 EnumerateSubscription(UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscription>(this.Functions.EnumerateSubscription); return call(this.ObjectAddress, uSubscriptionId, ref pSubscription, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscount(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSTeamError pError);
-		public Int32 EnumerateSubscriptionDiscount(UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscount>(this.Functions.EnumerateSubscriptionDiscount); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, ref pSteamSubscriptionDiscount, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscount(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError);
+		public Int32 EnumerateSubscriptionDiscount(UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscount>(this.Functions.EnumerateSubscriptionDiscount); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, ref pSteamSubscriptionDiscount, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifier(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSTeamError pError);
-		public Int32 EnumerateSubscriptionDiscountQualifier(UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscountQualifier>(this.Functions.EnumerateSubscriptionDiscountQualifier); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, uQualifierIdx, ref pSteamDiscountQualifier, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifier(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError);
+		public Int32 EnumerateSubscriptionDiscountQualifier(UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscountQualifier>(this.Functions.EnumerateSubscriptionDiscountQualifier); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, uQualifierIdx, ref pSteamDiscountQualifier, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateApp(IntPtr thisobj, UInt32 uAppId, ref TSteamApp pApp, ref TSTeamError pError);
-		public Int32 EnumerateApp(UInt32 uAppId, ref TSteamApp pApp, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateApp>(this.Functions.EnumerateApp); return call(this.ObjectAddress, uAppId, ref pApp, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateApp(IntPtr thisobj, UInt32 uAppId, ref TSteamApp pApp, ref TSteamError pError);
+		public Int32 EnumerateApp(UInt32 uAppId, ref TSteamApp pApp, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateApp>(this.Functions.EnumerateApp); return call(this.ObjectAddress, uAppId, ref pApp, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppLaunchOption(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSTeamError pError);
-		public Int32 EnumerateAppLaunchOption(UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppLaunchOption>(this.Functions.EnumerateAppLaunchOption); return call(this.ObjectAddress, uAppId, uLaunchOptionIndex, ref pLaunchOption, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppLaunchOption(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSteamError pError);
+		public Int32 EnumerateAppLaunchOption(UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppLaunchOption>(this.Functions.EnumerateAppLaunchOption); return call(this.ObjectAddress, uAppId, uLaunchOptionIndex, ref pLaunchOption, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDeleteAccount(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 DeleteAccount(ref TSTeamError pError) { var call = this.GetFunction<NativeDeleteAccount>(this.Functions.DeleteAccount); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDeleteAccount(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 DeleteAccount(ref TSteamError pError) { var call = this.GetFunction<NativeDeleteAccount>(this.Functions.DeleteAccount); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppIcon(IntPtr thisobj, UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSTeamError pError);
-		public Int32 EnumerateAppIcon(UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppIcon>(this.Functions.EnumerateAppIcon); return call(this.ObjectAddress, uAppId, uIconIndex, pIconData, uIconDataBufSize, ref puSizeOfIconData, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppIcon(IntPtr thisobj, UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSteamError pError);
+		public Int32 EnumerateAppIcon(UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppIcon>(this.Functions.EnumerateAppIcon); return call(this.ObjectAddress, uAppId, uIconIndex, pIconData, uIconDataBufSize, ref puSizeOfIconData, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLaunchApp(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSTeamError pError);
-		public UInt32 LaunchApp(UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSTeamError pError) { var call = this.GetFunction<NativeLaunchApp>(this.Functions.LaunchApp); return call(this.ObjectAddress, uAppId, uLaunchOption, cszArgs, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLaunchApp(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSteamError pError);
+		public UInt32 LaunchApp(UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSteamError pError) { var call = this.GetFunction<NativeLaunchApp>(this.Functions.LaunchApp); return call(this.ObjectAddress, uAppId, uLaunchOption, cszArgs, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheFilePath(IntPtr thisobj, UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetCacheFilePath(UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheFilePath>(this.Functions.GetCacheFilePath); return call(this.ObjectAddress, uAppId, szFilePath, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheFilePath(IntPtr thisobj, UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetCacheFilePath(UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheFilePath>(this.Functions.GetCacheFilePath); return call(this.ObjectAddress, uAppId, szFilePath, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSTeamError pError);
-		public Int32 EnumerateAppVersion(UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppVersion>(this.Functions.EnumerateAppVersion); return call(this.ObjectAddress, uAppId, uVersionIndex, ref pAppVersion, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSteamError pError);
+		public Int32 EnumerateAppVersion(UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppVersion>(this.Functions.EnumerateAppVersion); return call(this.ObjectAddress, uAppId, uVersionIndex, ref pAppVersion, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependency(IntPtr thisobj, UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError);
-		public Int32 EnumerateAppDependency(UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppDependency>(this.Functions.EnumerateAppDependency); return call(this.ObjectAddress, AppId, uDependency, ref pDependencyInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependency(IntPtr thisobj, UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError);
+		public Int32 EnumerateAppDependency(UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppDependency>(this.Functions.EnumerateAppDependency); return call(this.ObjectAddress, AppId, uDependency, ref pDependencyInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 StartLoadingCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeStartLoadingCache>(this.Functions.StartLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 StartLoadingCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeStartLoadingCache>(this.Functions.StartLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInsertAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError);
-		public Int32 InsertAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeInsertAppDependency>(this.Functions.InsertAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pDependencyInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInsertAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError);
+		public Int32 InsertAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError) { var call = this.GetFunction<NativeInsertAppDependency>(this.Functions.InsertAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pDependencyInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRemoveAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSTeamError pError);
-		public Int32 RemoveAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSTeamError pError) { var call = this.GetFunction<NativeRemoveAppDependency>(this.Functions.RemoveAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRemoveAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamError pError);
+		public Int32 RemoveAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamError pError) { var call = this.GetFunction<NativeRemoveAppDependency>(this.Functions.RemoveAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindApp(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public Int32 FindApp(string cszArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeFindApp>(this.Functions.FindApp); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindApp(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public Int32 FindApp(string cszArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeFindApp>(this.Functions.FindApp); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSTeamError pError);
-		public Int32 GetAppDependencies(UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError);
+		public Int32 GetAppDependencies(UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribed(IntPtr thisobj, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSTeamError pError);
-		public Int32 IsSubscribed(UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSTeamError pError) { var call = this.GetFunction<NativeIsSubscribed>(this.Functions.IsSubscribed); return call(this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribed(IntPtr thisobj, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError);
+		public Int32 IsSubscribed(UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError) { var call = this.GetFunction<NativeIsSubscribed>(this.Functions.IsSubscribed); return call(this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedInfo(IntPtr thisobj, UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSTeamError pError);
-		public Int32 GetAppUserDefinedInfo(UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedInfo>(this.Functions.GetAppUserDefinedInfo); return call(this.ObjectAddress, uAppId, cszPropertyName, szPropertyValue, uBufSize, ref puPropertyValueLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedInfo(IntPtr thisobj, UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSteamError pError);
+		public Int32 GetAppUserDefinedInfo(UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedInfo>(this.Functions.GetAppUserDefinedInfo); return call(this.ObjectAddress, uAppId, cszPropertyName, szPropertyValue, uBufSize, ref puPropertyValueLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppReadyToLaunch(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 WaitForAppReadyToLaunch(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeWaitForAppReadyToLaunch>(this.Functions.WaitForAppReadyToLaunch); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppReadyToLaunch(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 WaitForAppReadyToLaunch(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeWaitForAppReadyToLaunch>(this.Functions.WaitForAppReadyToLaunch); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsCacheLoadingEnabled(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsLoading, ref TSTeamError pError);
-		public Int32 IsCacheLoadingEnabled(UInt32 uAppId, ref Int32 pbIsLoading, ref TSTeamError pError) { var call = this.GetFunction<NativeIsCacheLoadingEnabled>(this.Functions.IsCacheLoadingEnabled); return call(this.ObjectAddress, uAppId, ref pbIsLoading, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsCacheLoadingEnabled(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsLoading, ref TSteamError pError);
+		public Int32 IsCacheLoadingEnabled(UInt32 uAppId, ref Int32 pbIsLoading, ref TSteamError pError) { var call = this.GetFunction<NativeIsCacheLoadingEnabled>(this.Functions.IsCacheLoadingEnabled); return call(this.ObjectAddress, uAppId, ref pbIsLoading, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStopLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 StopLoadingCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeStopLoadingCache>(this.Functions.StopLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStopLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 StopLoadingCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeStopLoadingCache>(this.Functions.StopLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ESteamError NativeGetEncryptedUserIDTicket(IntPtr thisobj, byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSTeamError pError);
-		public ESteamError GetEncryptedUserIDTicket(byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSTeamError pError) { var call = this.GetFunction<NativeGetEncryptedUserIDTicket>(this.Functions.GetEncryptedUserIDTicket); return call(this.ObjectAddress, pEncryptionKeyReceivedFromAppServer, uEncryptionKeyLength, pOutputBuffer, uSizeOfOutputBuffer, ref pReceiveSizeOfEncryptedTicket, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ESteamError NativeGetEncryptedUserIDTicket(IntPtr thisobj, byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSteamError pError);
+		public ESteamError GetEncryptedUserIDTicket(byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSteamError pError) { var call = this.GetFunction<NativeGetEncryptedUserIDTicket>(this.Functions.GetEncryptedUserIDTicket); return call(this.ObjectAddress, pEncryptionKeyReceivedFromAppServer, uEncryptionKeyLength, pOutputBuffer, uSizeOfOutputBuffer, ref pReceiveSizeOfEncryptedTicket, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFlushCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 FlushCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeFlushCache>(this.Functions.FlushCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFlushCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 FlushCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeFlushCache>(this.Functions.FlushCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCaches(IntPtr thisobj, UInt32 uAppId, Int32 iArg2, ref TSTeamError pError);
-		public UInt32 RepairOrDecryptCaches(UInt32 uAppId, Int32 iArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeRepairOrDecryptCaches>(this.Functions.RepairOrDecryptCaches); return call(this.ObjectAddress, uAppId, iArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCaches(IntPtr thisobj, UInt32 uAppId, Int32 iArg2, ref TSteamError pError);
+		public UInt32 RepairOrDecryptCaches(UInt32 uAppId, Int32 iArg2, ref TSteamError pError) { var call = this.GetFunction<NativeRepairOrDecryptCaches>(this.Functions.RepairOrDecryptCaches); return call(this.ObjectAddress, uAppId, iArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoadCacheFromDir(IntPtr thisobj, UInt32 uAppId, string cszPath, ref TSTeamError pError);
-		public UInt32 LoadCacheFromDir(UInt32 uAppId, string cszPath, ref TSTeamError pError) { var call = this.GetFunction<NativeLoadCacheFromDir>(this.Functions.LoadCacheFromDir); return call(this.ObjectAddress, uAppId, cszPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoadCacheFromDir(IntPtr thisobj, UInt32 uAppId, string cszPath, ref TSteamError pError);
+		public UInt32 LoadCacheFromDir(UInt32 uAppId, string cszPath, ref TSteamError pError) { var call = this.GetFunction<NativeLoadCacheFromDir>(this.Functions.LoadCacheFromDir); return call(this.ObjectAddress, uAppId, cszPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDefaultDirectory(IntPtr thisobj, string szPath, ref TSTeamError pError);
-		public Int32 GetCacheDefaultDirectory(string szPath, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheDefaultDirectory>(this.Functions.GetCacheDefaultDirectory); return call(this.ObjectAddress, szPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDefaultDirectory(IntPtr thisobj, string szPath, ref TSteamError pError);
+		public Int32 GetCacheDefaultDirectory(string szPath, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheDefaultDirectory>(this.Functions.GetCacheDefaultDirectory); return call(this.ObjectAddress, szPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetCacheDefaultDirectory(IntPtr thisobj, string cszPath, ref TSTeamError pError);
-		public Int32 SetCacheDefaultDirectory(string cszPath, ref TSTeamError pError) { var call = this.GetFunction<NativeSetCacheDefaultDirectory>(this.Functions.SetCacheDefaultDirectory); return call(this.ObjectAddress, cszPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetCacheDefaultDirectory(IntPtr thisobj, string cszPath, ref TSteamError pError);
+		public Int32 SetCacheDefaultDirectory(string cszPath, ref TSteamError pError) { var call = this.GetFunction<NativeSetCacheDefaultDirectory>(this.Functions.SetCacheDefaultDirectory); return call(this.ObjectAddress, cszPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDir(IntPtr thisobj, UInt32 uAppId, string szAppDir, ref TSTeamError pError);
-		public Int32 GetAppDir(UInt32 uAppId, string szAppDir, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppDir>(this.Functions.GetAppDir); return call(this.ObjectAddress, uAppId, szAppDir, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDir(IntPtr thisobj, UInt32 uAppId, string szAppDir, ref TSteamError pError);
+		public Int32 GetAppDir(UInt32 uAppId, string szAppDir, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDir>(this.Functions.GetAppDir); return call(this.ObjectAddress, uAppId, szAppDir, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMoveApp(IntPtr thisobj, UInt32 uAppId, string szPath, ref TSTeamError pError);
-		public UInt32 MoveApp(UInt32 uAppId, string szPath, ref TSTeamError pError) { var call = this.GetFunction<NativeMoveApp>(this.Functions.MoveApp); return call(this.ObjectAddress, uAppId, szPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMoveApp(IntPtr thisobj, UInt32 uAppId, string szPath, ref TSteamError pError);
+		public UInt32 MoveApp(UInt32 uAppId, string szPath, ref TSteamError pError) { var call = this.GetFunction<NativeMoveApp>(this.Functions.MoveApp); return call(this.ObjectAddress, uAppId, szPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppCacheSize(IntPtr thisobj, UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSTeamError pError);
-		public UInt32 GetAppCacheSize(UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppCacheSize>(this.Functions.GetAppCacheSize); return call(this.ObjectAddress, uAppId, ref puCacheSizeInMb, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppCacheSize(IntPtr thisobj, UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSteamError pError);
+		public UInt32 GetAppCacheSize(UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppCacheSize>(this.Functions.GetAppCacheSize); return call(this.ObjectAddress, uAppId, ref puCacheSizeInMb, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppCacheSize(IntPtr thisobj, UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSTeamError pError);
-		public UInt32 SetAppCacheSize(UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSTeamError pError) { var call = this.GetFunction<NativeSetAppCacheSize>(this.Functions.SetAppCacheSize); return call(this.ObjectAddress, uAppId, uCacheSizeInMb, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppCacheSize(IntPtr thisobj, UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSteamError pError);
+		public UInt32 SetAppCacheSize(UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSteamError pError) { var call = this.GetFunction<NativeSetAppCacheSize>(this.Functions.SetAppCacheSize); return call(this.ObjectAddress, uAppId, uCacheSizeInMb, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uAppVersionId, ref TSTeamError pError);
-		public UInt32 SetAppVersion(UInt32 uAppId, UInt32 uAppVersionId, ref TSTeamError pError) { var call = this.GetFunction<NativeSetAppVersion>(this.Functions.SetAppVersion); return call(this.ObjectAddress, uAppId, uAppVersionId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uAppVersionId, ref TSteamError pError);
+		public UInt32 SetAppVersion(UInt32 uAppId, UInt32 uAppVersionId, ref TSteamError pError) { var call = this.GetFunction<NativeSetAppVersion>(this.Functions.SetAppVersion); return call(this.ObjectAddress, uAppId, uAppVersionId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUninstall(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 Uninstall(ref TSTeamError pError) { var call = this.GetFunction<NativeUninstall>(this.Functions.Uninstall); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUninstall(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 Uninstall(ref TSteamError pError) { var call = this.GetFunction<NativeUninstall>(this.Functions.Uninstall); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetNotificationCallback(IntPtr thisobj, ref IntPtr pCallbackFunction, ref TSTeamError pError);
-		public Int32 SetNotificationCallback(ref IntPtr pCallbackFunction, ref TSTeamError pError) { var call = this.GetFunction<NativeSetNotificationCallback>(this.Functions.SetNotificationCallback); return call(this.ObjectAddress, ref pCallbackFunction, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetNotificationCallback(IntPtr thisobj, ref IntPtr pCallbackFunction, ref TSteamError pError);
+		public Int32 SetNotificationCallback(ref IntPtr pCallbackFunction, ref TSteamError pError) { var call = this.GetFunction<NativeSetNotificationCallback>(this.Functions.SetNotificationCallback); return call(this.ObjectAddress, ref pCallbackFunction, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPassword(IntPtr thisobj, string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSTeamError pError);
-		public UInt32 ChangeForgottenPassword(string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeForgottenPassword>(this.Functions.ChangeForgottenPassword); return call(this.ObjectAddress, cszArg1, cszArg2, cszArg3, cszArg4, ref piArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPassword(IntPtr thisobj, string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSteamError pError);
+		public UInt32 ChangeForgottenPassword(string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSteamError pError) { var call = this.GetFunction<NativeChangeForgottenPassword>(this.Functions.ChangeForgottenPassword); return call(this.ObjectAddress, cszArg1, cszArg2, cszArg3, cszArg4, ref piArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmail(IntPtr thisobj, string cszArg1, string szArg2, ref TSTeamError pError);
-		public UInt32 RequestForgottenPasswordEmail(string cszArg1, string szArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestForgottenPasswordEmail>(this.Functions.RequestForgottenPasswordEmail); return call(this.ObjectAddress, cszArg1, szArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmail(IntPtr thisobj, string cszArg1, string szArg2, ref TSteamError pError);
+		public UInt32 RequestForgottenPasswordEmail(string cszArg1, string szArg2, ref TSteamError pError) { var call = this.GetFunction<NativeRequestForgottenPasswordEmail>(this.Functions.RequestForgottenPasswordEmail); return call(this.ObjectAddress, cszArg1, szArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmail(IntPtr thisobj, string cszArg1, ref TSTeamError pError);
-		public UInt32 RequestAccountsByEmailAddressEmail(string cszArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestAccountsByEmailAddressEmail>(this.Functions.RequestAccountsByEmailAddressEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmail(IntPtr thisobj, string cszArg1, ref TSteamError pError);
+		public UInt32 RequestAccountsByEmailAddressEmail(string cszArg1, ref TSteamError pError) { var call = this.GetFunction<NativeRequestAccountsByEmailAddressEmail>(this.Functions.RequestAccountsByEmailAddressEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmail(IntPtr thisobj, string cszArg1, ref TSTeamError pError);
-		public UInt32 RequestAccountsByCdKeyEmail(string cszArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestAccountsByCdKeyEmail>(this.Functions.RequestAccountsByCdKeyEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmail(IntPtr thisobj, string cszArg1, ref TSteamError pError);
+		public UInt32 RequestAccountsByCdKeyEmail(string cszArg1, ref TSteamError pError) { var call = this.GetFunction<NativeRequestAccountsByCdKeyEmail>(this.Functions.RequestAccountsByCdKeyEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddress(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public UInt32 GetNumAccountsWithEmailAddress(string cszArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeGetNumAccountsWithEmailAddress>(this.Functions.GetNumAccountsWithEmailAddress); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddress(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public UInt32 GetNumAccountsWithEmailAddress(string cszArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeGetNumAccountsWithEmailAddress>(this.Functions.GetNumAccountsWithEmailAddress); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateAccountBillingInfo(IntPtr thisobj, ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSTeamError pError);
-		public UInt32 UpdateAccountBillingInfo(ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeUpdateAccountBillingInfo>(this.Functions.UpdateAccountBillingInfo); return call(this.ObjectAddress, ref pPaymentCardInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateAccountBillingInfo(IntPtr thisobj, ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSteamError pError);
+		public UInt32 UpdateAccountBillingInfo(ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSteamError pError) { var call = this.GetFunction<NativeUpdateAccountBillingInfo>(this.Functions.UpdateAccountBillingInfo); return call(this.ObjectAddress, ref pPaymentCardInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateSubscriptionBillingInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError);
-		public UInt32 UpdateSubscriptionBillingInfo(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeUpdateSubscriptionBillingInfo>(this.Functions.UpdateSubscriptionBillingInfo); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateSubscriptionBillingInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError);
+		public UInt32 UpdateSubscriptionBillingInfo(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError) { var call = this.GetFunction<NativeUpdateSubscriptionBillingInfo>(this.Functions.UpdateSubscriptionBillingInfo); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSponsorUrl(IntPtr thisobj, UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSTeamError pError);
-		public Int32 GetSponsorUrl(UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSponsorUrl>(this.Functions.GetSponsorUrl); return call(this.ObjectAddress, uAppId, szUrl, uBufSize, ref pUrlChars, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSponsorUrl(IntPtr thisobj, UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSteamError pError);
+		public Int32 GetSponsorUrl(UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSteamError pError) { var call = this.GetFunction<NativeGetSponsorUrl>(this.Functions.GetSponsorUrl); return call(this.ObjectAddress, uAppId, szUrl, uBufSize, ref pUrlChars, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfo(IntPtr thisobj, UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSTeamError pError);
-		public Int32 GetContentServerInfo(UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSTeamError pError) { var call = this.GetFunction<NativeGetContentServerInfo>(this.Functions.GetContentServerInfo); return call(this.ObjectAddress, uArg1, ref puArg2, ref puArg3, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfo(IntPtr thisobj, UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError);
+		public Int32 GetContentServerInfo(UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError) { var call = this.GetFunction<NativeGetContentServerInfo>(this.Functions.GetContentServerInfo); return call(this.ObjectAddress, uArg1, ref puArg2, ref puArg3, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStats(IntPtr thisobj, UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError);
-		public UInt32 GetAppUpdateStats(UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUpdateStats>(this.Functions.GetAppUpdateStats); return call(this.ObjectAddress, uAppId, eSteamAppUpdateStatsQueryType, ref pUpdateStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStats(IntPtr thisobj, UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError);
+		public UInt32 GetAppUpdateStats(UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUpdateStats>(this.Functions.GetAppUpdateStats); return call(this.ObjectAddress, uAppId, eSteamAppUpdateStatsQueryType, ref pUpdateStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTotalUpdateStats(IntPtr thisobj, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError);
-		public Int32 GetTotalUpdateStats(ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetTotalUpdateStats>(this.Functions.GetTotalUpdateStats); return call(this.ObjectAddress, ref pUpdateStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTotalUpdateStats(IntPtr thisobj, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError);
+		public Int32 GetTotalUpdateStats(ref TSteamUpdateStats pUpdateStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetTotalUpdateStats>(this.Functions.GetTotalUpdateStats); return call(this.ObjectAddress, ref pUpdateStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateCachePreloaders(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 CreateCachePreloaders(ref TSTeamError pError) { var call = this.GetFunction<NativeCreateCachePreloaders>(this.Functions.CreateCachePreloaders); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateCachePreloaders(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 CreateCachePreloaders(ref TSteamError pError) { var call = this.GetFunction<NativeCreateCachePreloaders>(this.Functions.CreateCachePreloaders); return call(this.ObjectAddress, ref pError); }
 
 	}
 	
@@ -3474,164 +3476,164 @@ namespace Steam4NET
 	
 	public class ISteam005 : NativeWrapper<ISteam005VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePassword(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPassphrase, ref TSTeamError pError);
-		public UInt32 ChangePassword(string cszCurrentPassphrase, string cszNewPassphrase, ref TSTeamError pError) { var call = this.GetFunction<NativeChangePassword>(this.Functions.ChangePassword); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPassphrase, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePassword(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError);
+		public UInt32 ChangePassword(string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError) { var call = this.GetFunction<NativeChangePassword>(this.Functions.ChangePassword); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPassphrase, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentEmailAddress(IntPtr thisobj, string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSTeamError pError);
-		public Int32 GetCurrentEmailAddress(string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCurrentEmailAddress>(this.Functions.GetCurrentEmailAddress); return call(this.ObjectAddress, szEmailaddress, uBufSize, ref puEmailaddressChars, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentEmailAddress(IntPtr thisobj, string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSteamError pError);
+		public Int32 GetCurrentEmailAddress(string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSteamError pError) { var call = this.GetFunction<NativeGetCurrentEmailAddress>(this.Functions.GetCurrentEmailAddress); return call(this.ObjectAddress, szEmailaddress, uBufSize, ref puEmailaddressChars, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePersonalQA(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSTeamError pError);
-		public UInt32 ChangePersonalQA(string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSTeamError pError) { var call = this.GetFunction<NativeChangePersonalQA>(this.Functions.ChangePersonalQA); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPersonalQuestion, cszNewAnswerToQuestion, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePersonalQA(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSteamError pError);
+		public UInt32 ChangePersonalQA(string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSteamError pError) { var call = this.GetFunction<NativeChangePersonalQA>(this.Functions.ChangePersonalQA); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPersonalQuestion, cszNewAnswerToQuestion, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeEmailAddress(IntPtr thisobj, string cszNewEmailAddress, ref TSTeamError pError);
-		public UInt32 ChangeEmailAddress(string cszNewEmailAddress, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeEmailAddress>(this.Functions.ChangeEmailAddress); return call(this.ObjectAddress, cszNewEmailAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeEmailAddress(IntPtr thisobj, string cszNewEmailAddress, ref TSteamError pError);
+		public UInt32 ChangeEmailAddress(string cszNewEmailAddress, ref TSteamError pError) { var call = this.GetFunction<NativeChangeEmailAddress>(this.Functions.ChangeEmailAddress); return call(this.ObjectAddress, cszNewEmailAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeVerifyEmailAddress(IntPtr thisobj, string cszEmailAddress, ref TSTeamError pError);
-		public UInt32 VerifyEmailAddress(string cszEmailAddress, ref TSTeamError pError) { var call = this.GetFunction<NativeVerifyEmailAddress>(this.Functions.VerifyEmailAddress); return call(this.ObjectAddress, cszEmailAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeVerifyEmailAddress(IntPtr thisobj, string cszEmailAddress, ref TSteamError pError);
+		public UInt32 VerifyEmailAddress(string cszEmailAddress, ref TSteamError pError) { var call = this.GetFunction<NativeVerifyEmailAddress>(this.Functions.VerifyEmailAddress); return call(this.ObjectAddress, cszEmailAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestEmailAddressVerificationEmail(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 RequestEmailAddressVerificationEmail(ref TSTeamError pError) { var call = this.GetFunction<NativeRequestEmailAddressVerificationEmail>(this.Functions.RequestEmailAddressVerificationEmail); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestEmailAddressVerificationEmail(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 RequestEmailAddressVerificationEmail(ref TSteamError pError) { var call = this.GetFunction<NativeRequestEmailAddressVerificationEmail>(this.Functions.RequestEmailAddressVerificationEmail); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountName(IntPtr thisobj, string cszCurrentAccountName, string cszNewAccountName, ref TSTeamError pError);
-		public UInt32 ChangeAccountName(string cszCurrentAccountName, string cszNewAccountName, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeAccountName>(this.Functions.ChangeAccountName); return call(this.ObjectAddress, cszCurrentAccountName, cszNewAccountName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountName(IntPtr thisobj, string cszCurrentAccountName, string cszNewAccountName, ref TSteamError pError);
+		public UInt32 ChangeAccountName(string cszCurrentAccountName, string cszNewAccountName, ref TSteamError pError) { var call = this.GetFunction<NativeChangeAccountName>(this.Functions.ChangeAccountName); return call(this.ObjectAddress, cszCurrentAccountName, cszNewAccountName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountAppFilesystem(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 MountAppFilesystem(ref TSTeamError pError) { var call = this.GetFunction<NativeMountAppFilesystem>(this.Functions.MountAppFilesystem); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountAppFilesystem(IntPtr thisobj, ref TSteamError pError);
+		public Int32 MountAppFilesystem(ref TSteamError pError) { var call = this.GetFunction<NativeMountAppFilesystem>(this.Functions.MountAppFilesystem); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountAppFilesystem(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 UnmountAppFilesystem(ref TSTeamError pError) { var call = this.GetFunction<NativeUnmountAppFilesystem>(this.Functions.UnmountAppFilesystem); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountAppFilesystem(IntPtr thisobj, ref TSteamError pError);
+		public Int32 UnmountAppFilesystem(ref TSteamError pError) { var call = this.GetFunction<NativeUnmountAppFilesystem>(this.Functions.UnmountAppFilesystem); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountFilesystem(IntPtr thisobj, UInt32 uAppId, string szMountPath, ref TSTeamError pError);
-		public Int32 MountFilesystem(UInt32 uAppId, string szMountPath, ref TSTeamError pError) { var call = this.GetFunction<NativeMountFilesystem>(this.Functions.MountFilesystem); return call(this.ObjectAddress, uAppId, szMountPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountFilesystem(IntPtr thisobj, UInt32 uAppId, string szMountPath, ref TSteamError pError);
+		public Int32 MountFilesystem(UInt32 uAppId, string szMountPath, ref TSteamError pError) { var call = this.GetFunction<NativeMountFilesystem>(this.Functions.MountFilesystem); return call(this.ObjectAddress, uAppId, szMountPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystem(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public Int32 UnmountFilesystem(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeUnmountFilesystem>(this.Functions.UnmountFilesystem); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystem(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public Int32 UnmountFilesystem(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeUnmountFilesystem>(this.Functions.UnmountFilesystem); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStat(IntPtr thisobj, string cszName, ref TSteamElemInfo pInfo, ref TSTeamError pError);
-		public Int32 Stat(string cszName, ref TSteamElemInfo pInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeStat>(this.Functions.Stat); return call(this.ObjectAddress, cszName, ref pInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStat(IntPtr thisobj, string cszName, ref TSteamElemInfo pInfo, ref TSteamError pError);
+		public Int32 Stat(string cszName, ref TSteamElemInfo pInfo, ref TSteamError pError) { var call = this.GetFunction<NativeStat>(this.Functions.Stat); return call(this.ObjectAddress, cszName, ref pInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetvBuf(IntPtr thisobj, UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSTeamError pError);
-		public Int32 SetvBuf(UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSTeamError pError) { var call = this.GetFunction<NativeSetvBuf>(this.Functions.SetvBuf); return call(this.ObjectAddress, hFile, pBuf, eMethod, uBytes, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetvBuf(IntPtr thisobj, UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSteamError pError);
+		public Int32 SetvBuf(UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSteamError pError) { var call = this.GetFunction<NativeSetvBuf>(this.Functions.SetvBuf); return call(this.ObjectAddress, hFile, pBuf, eMethod, uBytes, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFlushFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 FlushFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeFlushFile>(this.Functions.FlushFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFlushFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 FlushFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeFlushFile>(this.Functions.FlushFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFile(IntPtr thisobj, string cszName, string cszMode, ref TSTeamError pError);
-		public UInt32 OpenFile(string cszName, string cszMode, ref TSTeamError pError) { var call = this.GetFunction<NativeOpenFile>(this.Functions.OpenFile); return call(this.ObjectAddress, cszName, cszMode, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFile(IntPtr thisobj, string cszName, string cszMode, ref TSteamError pError);
+		public UInt32 OpenFile(string cszName, string cszMode, ref TSteamError pError) { var call = this.GetFunction<NativeOpenFile>(this.Functions.OpenFile); return call(this.ObjectAddress, cszName, cszMode, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileEx(IntPtr thisobj, string cszFileName, string cszMode, ref UInt32 puSize, ref TSTeamError pError);
-		public UInt32 OpenFileEx(string cszFileName, string cszMode, ref UInt32 puSize, ref TSTeamError pError) { var call = this.GetFunction<NativeOpenFileEx>(this.Functions.OpenFileEx); return call(this.ObjectAddress, cszFileName, cszMode, ref puSize, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileEx(IntPtr thisobj, string cszFileName, string cszMode, ref UInt32 puSize, ref TSteamError pError);
+		public UInt32 OpenFileEx(string cszFileName, string cszMode, ref UInt32 puSize, ref TSteamError pError) { var call = this.GetFunction<NativeOpenFileEx>(this.Functions.OpenFileEx); return call(this.ObjectAddress, cszFileName, cszMode, ref puSize, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenTmpFile(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 OpenTmpFile(ref TSTeamError pError) { var call = this.GetFunction<NativeOpenTmpFile>(this.Functions.OpenTmpFile); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenTmpFile(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 OpenTmpFile(ref TSteamError pError) { var call = this.GetFunction<NativeOpenTmpFile>(this.Functions.OpenTmpFile); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearError(IntPtr thisobj, ref TSTeamError pError);
-		public void ClearError(ref TSTeamError pError) { var call = this.GetFunction<NativeClearError>(this.Functions.ClearError); call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearError(IntPtr thisobj, ref TSteamError pError);
+		public void ClearError(ref TSteamError pError) { var call = this.GetFunction<NativeClearError>(this.Functions.ClearError); call(this.ObjectAddress, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetVersion(IntPtr thisobj, string szVersion, UInt32 uVersionBufSize);
 		public Int32 GetVersion(string szVersion, UInt32 uVersionBufSize) { var call = this.GetFunction<NativeGetVersion>(this.Functions.GetVersion); return call(this.ObjectAddress, szVersion, uVersionBufSize); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError);
-		public Int32 GetOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError) { var call = this.GetFunction<NativeGetOfflineStatus>(this.Functions.GetOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError);
+		public Int32 GetOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError) { var call = this.GetFunction<NativeGetOfflineStatus>(this.Functions.GetOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeChangeOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError);
-		public Int32 ChangeOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeOfflineStatus>(this.Functions.ChangeOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeChangeOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError);
+		public Int32 ChangeOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError) { var call = this.GetFunction<NativeChangeOfflineStatus>(this.Functions.ChangeOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeProcessCall(IntPtr thisobj, UInt32 handle, ref TSteamProgress pProgress, ref TSTeamError pError);
-		public Int32 ProcessCall(UInt32 handle, ref TSteamProgress pProgress, ref TSTeamError pError) { var call = this.GetFunction<NativeProcessCall>(this.Functions.ProcessCall); return call(this.ObjectAddress, handle, ref pProgress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeProcessCall(IntPtr thisobj, UInt32 handle, ref TSteamProgress pProgress, ref TSteamError pError);
+		public Int32 ProcessCall(UInt32 handle, ref TSteamProgress pProgress, ref TSteamError pError) { var call = this.GetFunction<NativeProcessCall>(this.Functions.ProcessCall); return call(this.ObjectAddress, handle, ref pProgress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAbortCall(IntPtr thisobj, UInt32 handle, ref TSTeamError pError);
-		public Int32 AbortCall(UInt32 handle, ref TSTeamError pError) { var call = this.GetFunction<NativeAbortCall>(this.Functions.AbortCall); return call(this.ObjectAddress, handle, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAbortCall(IntPtr thisobj, UInt32 handle, ref TSteamError pError);
+		public Int32 AbortCall(UInt32 handle, ref TSteamError pError) { var call = this.GetFunction<NativeAbortCall>(this.Functions.AbortCall); return call(this.ObjectAddress, handle, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBlockingCall(IntPtr thisobj, UInt32 handle, UInt32 uiProcessTickMS, ref TSTeamError pError);
-		public Int32 BlockingCall(UInt32 handle, UInt32 uiProcessTickMS, ref TSTeamError pError) { var call = this.GetFunction<NativeBlockingCall>(this.Functions.BlockingCall); return call(this.ObjectAddress, handle, uiProcessTickMS, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBlockingCall(IntPtr thisobj, UInt32 handle, UInt32 uiProcessTickMS, ref TSteamError pError);
+		public Int32 BlockingCall(UInt32 handle, UInt32 uiProcessTickMS, ref TSteamError pError) { var call = this.GetFunction<NativeBlockingCall>(this.Functions.BlockingCall); return call(this.ObjectAddress, handle, uiProcessTickMS, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStallCount(IntPtr thisobj, UInt32 uNumStalls, ref TSTeamError pError);
-		public Int32 SetMaxStallCount(UInt32 uNumStalls, ref TSTeamError pError) { var call = this.GetFunction<NativeSetMaxStallCount>(this.Functions.SetMaxStallCount); return call(this.ObjectAddress, uNumStalls, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStallCount(IntPtr thisobj, UInt32 uNumStalls, ref TSteamError pError);
+		public Int32 SetMaxStallCount(UInt32 uNumStalls, ref TSteamError pError) { var call = this.GetFunction<NativeSetMaxStallCount>(this.Functions.SetMaxStallCount); return call(this.ObjectAddress, uNumStalls, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 CloseFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeCloseFile>(this.Functions.CloseFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 CloseFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeCloseFile>(this.Functions.CloseFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReadFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError);
-		public UInt32 ReadFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeReadFile>(this.Functions.ReadFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReadFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError);
+		public UInt32 ReadFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeReadFile>(this.Functions.ReadFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError);
-		public UInt32 WriteFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeWriteFile>(this.Functions.WriteFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError);
+		public UInt32 WriteFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeWriteFile>(this.Functions.WriteFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetc(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 Getc(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeGetc>(this.Functions.Getc); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetc(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 Getc(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeGetc>(this.Functions.Getc); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePutc(IntPtr thisobj, Int32 cChar, UInt32 hFile, ref TSTeamError pError);
-		public Int32 Putc(Int32 cChar, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativePutc>(this.Functions.Putc); return call(this.ObjectAddress, cChar, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePutc(IntPtr thisobj, Int32 cChar, UInt32 hFile, ref TSteamError pError);
+		public Int32 Putc(Int32 cChar, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativePutc>(this.Functions.Putc); return call(this.ObjectAddress, cChar, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFile(IntPtr thisobj, UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSTeamError pError);
-		public Int32 SeekFile(UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSTeamError pError) { var call = this.GetFunction<NativeSeekFile>(this.Functions.SeekFile); return call(this.ObjectAddress, hFile, lOffset, sm, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFile(IntPtr thisobj, UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError);
+		public Int32 SeekFile(UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError) { var call = this.GetFunction<NativeSeekFile>(this.Functions.SeekFile); return call(this.ObjectAddress, hFile, lOffset, sm, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTellFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 TellFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeTellFile>(this.Functions.TellFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTellFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 TellFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeTellFile>(this.Functions.TellFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSizeFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 SizeFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeSizeFile>(this.Functions.SizeFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSizeFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 SizeFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeSizeFile>(this.Functions.SizeFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFindFirst(IntPtr thisobj, string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSTeamError pError);
-		public UInt32 FindFirst(string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeFindFirst>(this.Functions.FindFirst); return call(this.ObjectAddress, cszPattern, eFilter, ref pFindInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFindFirst(IntPtr thisobj, string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSteamError pError);
+		public UInt32 FindFirst(string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSteamError pError) { var call = this.GetFunction<NativeFindFirst>(this.Functions.FindFirst); return call(this.ObjectAddress, cszPattern, eFilter, ref pFindInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindNext(IntPtr thisobj, UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSTeamError pError);
-		public Int32 FindNext(UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeFindNext>(this.Functions.FindNext); return call(this.ObjectAddress, hFind, ref pFindInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindNext(IntPtr thisobj, UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSteamError pError);
+		public Int32 FindNext(UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSteamError pError) { var call = this.GetFunction<NativeFindNext>(this.Functions.FindNext); return call(this.ObjectAddress, hFind, ref pFindInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindClose(IntPtr thisobj, UInt32 hFind, ref TSTeamError pError);
-		public Int32 FindClose(UInt32 hFind, ref TSTeamError pError) { var call = this.GetFunction<NativeFindClose>(this.Functions.FindClose); return call(this.ObjectAddress, hFind, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindClose(IntPtr thisobj, UInt32 hFind, ref TSteamError pError);
+		public Int32 FindClose(UInt32 hFind, ref TSteamError pError) { var call = this.GetFunction<NativeFindClose>(this.Functions.FindClose); return call(this.ObjectAddress, hFind, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalFileCopy(IntPtr thisobj, string cszName, ref TSTeamError pError);
-		public Int32 GetLocalFileCopy(string cszName, ref TSTeamError pError) { var call = this.GetFunction<NativeGetLocalFileCopy>(this.Functions.GetLocalFileCopy); return call(this.ObjectAddress, cszName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalFileCopy(IntPtr thisobj, string cszName, ref TSteamError pError);
+		public Int32 GetLocalFileCopy(string cszName, ref TSteamError pError) { var call = this.GetFunction<NativeGetLocalFileCopy>(this.Functions.GetLocalFileCopy); return call(this.ObjectAddress, cszName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileImmediatelyAvailable(IntPtr thisobj, string cszName, ref TSTeamError pError);
-		public Int32 IsFileImmediatelyAvailable(string cszName, ref TSTeamError pError) { var call = this.GetFunction<NativeIsFileImmediatelyAvailable>(this.Functions.IsFileImmediatelyAvailable); return call(this.ObjectAddress, cszName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileImmediatelyAvailable(IntPtr thisobj, string cszName, ref TSteamError pError);
+		public Int32 IsFileImmediatelyAvailable(string cszName, ref TSteamError pError) { var call = this.GetFunction<NativeIsFileImmediatelyAvailable>(this.Functions.IsFileImmediatelyAvailable); return call(this.ObjectAddress, cszName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeed(IntPtr thisobj, string cszHintList, Int32 bForgetEverything, ref TSTeamError pError);
-		public Int32 HintResourceNeed(string cszHintList, Int32 bForgetEverything, ref TSTeamError pError) { var call = this.GetFunction<NativeHintResourceNeed>(this.Functions.HintResourceNeed); return call(this.ObjectAddress, cszHintList, bForgetEverything, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeed(IntPtr thisobj, string cszHintList, Int32 bForgetEverything, ref TSteamError pError);
+		public Int32 HintResourceNeed(string cszHintList, Int32 bForgetEverything, ref TSteamError pError) { var call = this.GetFunction<NativeHintResourceNeed>(this.Functions.HintResourceNeed); return call(this.ObjectAddress, cszHintList, bForgetEverything, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForgetAllHints(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ForgetAllHints(ref TSTeamError pError) { var call = this.GetFunction<NativeForgetAllHints>(this.Functions.ForgetAllHints); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForgetAllHints(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ForgetAllHints(ref TSteamError pError) { var call = this.GetFunction<NativeForgetAllHints>(this.Functions.ForgetAllHints); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePauseCachePreloading(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 PauseCachePreloading(ref TSTeamError pError) { var call = this.GetFunction<NativePauseCachePreloading>(this.Functions.PauseCachePreloading); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePauseCachePreloading(IntPtr thisobj, ref TSteamError pError);
+		public Int32 PauseCachePreloading(ref TSteamError pError) { var call = this.GetFunction<NativePauseCachePreloading>(this.Functions.PauseCachePreloading); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResumeCachePreloading(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ResumeCachePreloading(ref TSTeamError pError) { var call = this.GetFunction<NativeResumeCachePreloading>(this.Functions.ResumeCachePreloading); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResumeCachePreloading(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ResumeCachePreloading(ref TSteamError pError) { var call = this.GetFunction<NativeResumeCachePreloading>(this.Functions.ResumeCachePreloading); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForResources(IntPtr thisobj, string cszMasterList, ref TSTeamError pError);
-		public UInt32 WaitForResources(string cszMasterList, ref TSTeamError pError) { var call = this.GetFunction<NativeWaitForResources>(this.Functions.WaitForResources); return call(this.ObjectAddress, cszMasterList, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForResources(IntPtr thisobj, string cszMasterList, ref TSteamError pError);
+		public UInt32 WaitForResources(string cszMasterList, ref TSteamError pError) { var call = this.GetFunction<NativeWaitForResources>(this.Functions.WaitForResources); return call(this.ObjectAddress, cszMasterList, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartEngine(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 StartEngine(ref TSTeamError pError) { var call = this.GetFunction<NativeStartEngine>(this.Functions.StartEngine); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartEngine(IntPtr thisobj, ref TSteamError pError);
+		public Int32 StartEngine(ref TSteamError pError) { var call = this.GetFunction<NativeStartEngine>(this.Functions.StartEngine); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeShutdownEngine(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ShutdownEngine(ref TSTeamError pError) { var call = this.GetFunction<NativeShutdownEngine>(this.Functions.ShutdownEngine); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeShutdownEngine(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ShutdownEngine(ref TSteamError pError) { var call = this.GetFunction<NativeShutdownEngine>(this.Functions.ShutdownEngine); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartup(IntPtr thisobj, UInt32 uUsingMask, ref TSTeamError pError);
-		public Int32 Startup(UInt32 uUsingMask, ref TSTeamError pError) { var call = this.GetFunction<NativeStartup>(this.Functions.Startup); return call(this.ObjectAddress, uUsingMask, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartup(IntPtr thisobj, UInt32 uUsingMask, ref TSteamError pError);
+		public Int32 Startup(UInt32 uUsingMask, ref TSteamError pError) { var call = this.GetFunction<NativeStartup>(this.Functions.Startup); return call(this.ObjectAddress, uUsingMask, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCleanup(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 Cleanup(ref TSTeamError pError) { var call = this.GetFunction<NativeCleanup>(this.Functions.Cleanup); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCleanup(IntPtr thisobj, ref TSteamError pError);
+		public Int32 Cleanup(ref TSteamError pError) { var call = this.GetFunction<NativeCleanup>(this.Functions.Cleanup); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeNumAppsRunning(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 NumAppsRunning(ref TSTeamError pError) { var call = this.GetFunction<NativeNumAppsRunning>(this.Functions.NumAppsRunning); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeNumAppsRunning(IntPtr thisobj, ref TSteamError pError);
+		public Int32 NumAppsRunning(ref TSteamError pError) { var call = this.GetFunction<NativeNumAppsRunning>(this.Functions.NumAppsRunning); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccount(IntPtr thisobj, string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSTeamError pError);
-		public UInt32 CreateAccount(string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSTeamError pError) { var call = this.GetFunction<NativeCreateAccount>(this.Functions.CreateAccount); return call(this.ObjectAddress, cszUser, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, cszArg6, ref pbCreated, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccount(IntPtr thisobj, string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSteamError pError);
+		public UInt32 CreateAccount(string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSteamError pError) { var call = this.GetFunction<NativeCreateAccount>(this.Functions.CreateAccount); return call(this.ObjectAddress, cszUser, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, cszArg6, ref pbCreated, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNames(IntPtr thisobj, string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSTeamError pError);
-		public UInt32 GenerateSuggestedAccountNames(string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeGenerateSuggestedAccountNames>(this.Functions.GenerateSuggestedAccountNames); return call(this.ObjectAddress, cszArg1, cszArg2, szArg3, uArg4, ref puArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNames(IntPtr thisobj, string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSteamError pError);
+		public UInt32 GenerateSuggestedAccountNames(string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSteamError pError) { var call = this.GetFunction<NativeGenerateSuggestedAccountNames>(this.Functions.GenerateSuggestedAccountNames); return call(this.ObjectAddress, cszArg1, cszArg2, szArg3, uArg4, ref puArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsLoggedIn(IntPtr thisobj, ref Int32 pbIsLoggedIn, ref TSTeamError pError);
-		public Int32 IsLoggedIn(ref Int32 pbIsLoggedIn, ref TSTeamError pError) { var call = this.GetFunction<NativeIsLoggedIn>(this.Functions.IsLoggedIn); return call(this.ObjectAddress, ref pbIsLoggedIn, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsLoggedIn(IntPtr thisobj, ref Int32 pbIsLoggedIn, ref TSteamError pError);
+		public Int32 IsLoggedIn(ref Int32 pbIsLoggedIn, ref TSteamError pError) { var call = this.GetFunction<NativeIsLoggedIn>(this.Functions.IsLoggedIn); return call(this.ObjectAddress, ref pbIsLoggedIn, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogout(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 Logout(ref TSTeamError pError) { var call = this.GetFunction<NativeLogout>(this.Functions.Logout); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogout(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 Logout(ref TSteamError pError) { var call = this.GetFunction<NativeLogout>(this.Functions.Logout); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputer(IntPtr thisobj, ref Int32 pbIsSecure, ref TSTeamError pError);
-		public Int32 IsSecureComputer(ref Int32 pbIsSecure, ref TSTeamError pError) { var call = this.GetFunction<NativeIsSecureComputer>(this.Functions.IsSecureComputer); return call(this.ObjectAddress, ref pbIsSecure, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputer(IntPtr thisobj, ref Int32 pbIsSecure, ref TSteamError pError);
+		public Int32 IsSecureComputer(ref Int32 pbIsSecure, ref TSteamError pError) { var call = this.GetFunction<NativeIsSecureComputer>(this.Functions.IsSecureComputer); return call(this.ObjectAddress, ref pbIsSecure, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateLogContext(IntPtr thisobj, string cszName);
 		public UInt32 CreateLogContext(string cszName) { var call = this.GetFunction<NativeCreateLogContext>(this.Functions.CreateLogContext); return call(this.ObjectAddress, cszName); }
@@ -3645,197 +3647,197 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogResourceLoadFinished(IntPtr thisobj, string cszMsg);
 		public void LogResourceLoadFinished(string cszMsg) { var call = this.GetFunction<NativeLogResourceLoadFinished>(this.Functions.LogResourceLoadFinished); call(this.ObjectAddress, cszMsg); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshLogin(IntPtr thisobj, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError);
-		public UInt32 RefreshLogin(string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError) { var call = this.GetFunction<NativeRefreshLogin>(this.Functions.RefreshLogin); return call(this.ObjectAddress, cszPassphrase, bIsSecureComputer, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshLogin(IntPtr thisobj, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError);
+		public UInt32 RefreshLogin(string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError) { var call = this.GetFunction<NativeRefreshLogin>(this.Functions.RefreshLogin); return call(this.ObjectAddress, cszPassphrase, bIsSecureComputer, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPassword(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSTeamError pError);
-		public Int32 VerifyPassword(string cszArg1, ref Int32 piArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeVerifyPassword>(this.Functions.VerifyPassword); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPassword(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSteamError pError);
+		public Int32 VerifyPassword(string cszArg1, ref Int32 piArg2, ref TSteamError pError) { var call = this.GetFunction<NativeVerifyPassword>(this.Functions.VerifyPassword); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserType(IntPtr thisobj, ref UInt32 puArg1, ref TSTeamError pError);
-		public Int32 GetUserType(ref UInt32 puArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeGetUserType>(this.Functions.GetUserType); return call(this.ObjectAddress, ref puArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserType(IntPtr thisobj, ref UInt32 puArg1, ref TSteamError pError);
+		public Int32 GetUserType(ref UInt32 puArg1, ref TSteamError pError) { var call = this.GetFunction<NativeGetUserType>(this.Functions.GetUserType); return call(this.ObjectAddress, ref puArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppStats(IntPtr thisobj, ref TSteamAppStats pAppStats, ref TSTeamError pError);
-		public Int32 GetAppStats(ref TSteamAppStats pAppStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppStats>(this.Functions.GetAppStats); return call(this.ObjectAddress, ref pAppStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppStats(IntPtr thisobj, ref TSteamAppStats pAppStats, ref TSteamError pError);
+		public Int32 GetAppStats(ref TSteamAppStats pAppStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppStats>(this.Functions.GetAppStats); return call(this.ObjectAddress, ref pAppStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUse(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSTeamError pError);
-		public UInt32 IsAccountNameInUse(string cszArg1, ref Int32 piArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeIsAccountNameInUse>(this.Functions.IsAccountNameInUse); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUse(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSteamError pError);
+		public UInt32 IsAccountNameInUse(string cszArg1, ref Int32 piArg2, ref TSteamError pError) { var call = this.GetFunction<NativeIsAccountNameInUse>(this.Functions.IsAccountNameInUse); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError);
-		public Int32 GetAppIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError);
+		public Int32 GetAppIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStats(IntPtr thisobj, ref TSteamSubscriptionStats pSubscriptionStats, ref TSTeamError pError);
-		public Int32 GetSubscriptionStats(ref TSteamSubscriptionStats pSubscriptionStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionStats>(this.Functions.GetSubscriptionStats); return call(this.ObjectAddress, ref pSubscriptionStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStats(IntPtr thisobj, ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError);
+		public Int32 GetSubscriptionStats(ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionStats>(this.Functions.GetSubscriptionStats); return call(this.ObjectAddress, ref pSubscriptionStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfo(IntPtr thisobj, Int32 arg1, ref TSTeamError pError);
-		public UInt32 RefreshAccountInfo(Int32 arg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRefreshAccountInfo>(this.Functions.RefreshAccountInfo); return call(this.ObjectAddress, arg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfo(IntPtr thisobj, Int32 arg1, ref TSteamError pError);
+		public UInt32 RefreshAccountInfo(Int32 arg1, ref TSteamError pError) { var call = this.GetFunction<NativeRefreshAccountInfo>(this.Functions.RefreshAccountInfo); return call(this.ObjectAddress, arg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError);
-		public UInt32 Subscribe(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeSubscribe>(this.Functions.Subscribe); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError);
+		public UInt32 Subscribe(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError) { var call = this.GetFunction<NativeSubscribe>(this.Functions.Subscribe); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUnsubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSTeamError pError);
-		public UInt32 Unsubscribe(UInt32 uSubscriptionId, ref TSTeamError pError) { var call = this.GetFunction<NativeUnsubscribe>(this.Functions.Unsubscribe); return call(this.ObjectAddress, uSubscriptionId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUnsubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamError pError);
+		public UInt32 Unsubscribe(UInt32 uSubscriptionId, ref TSteamError pError) { var call = this.GetFunction<NativeUnsubscribe>(this.Functions.Unsubscribe); return call(this.ObjectAddress, uSubscriptionId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionReceipt(IntPtr thisobj, UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSTeamError pError);
-		public Int32 GetSubscriptionReceipt(UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionReceipt>(this.Functions.GetSubscriptionReceipt); return call(this.ObjectAddress, arg1, ref pSteamSubscriptionReceipt, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionReceipt(IntPtr thisobj, UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSteamError pError);
+		public Int32 GetSubscriptionReceipt(UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionReceipt>(this.Functions.GetSubscriptionReceipt); return call(this.ObjectAddress, arg1, ref pSteamSubscriptionReceipt, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatus(IntPtr thisobj, ref UInt32 puArg1, ref TSTeamError pError);
-		public Int32 GetAccountStatus(ref UInt32 puArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAccountStatus>(this.Functions.GetAccountStatus); return call(this.ObjectAddress, ref puArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatus(IntPtr thisobj, ref UInt32 puArg1, ref TSteamError pError);
+		public Int32 GetAccountStatus(ref UInt32 puArg1, ref TSteamError pError) { var call = this.GetFunction<NativeGetAccountStatus>(this.Functions.GetAccountStatus); return call(this.ObjectAddress, ref puArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUser(IntPtr thisobj, string cszUser, ref Int32 pbUserSet, ref TSTeamError pError);
-		public UInt32 SetUser(string cszUser, ref Int32 pbUserSet, ref TSTeamError pError) { var call = this.GetFunction<NativeSetUser>(this.Functions.SetUser); return call(this.ObjectAddress, cszUser, ref pbUserSet, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUser(IntPtr thisobj, string cszUser, ref Int32 pbUserSet, ref TSteamError pError);
+		public UInt32 SetUser(string cszUser, ref Int32 pbUserSet, ref TSteamError pError) { var call = this.GetFunction<NativeSetUser>(this.Functions.SetUser); return call(this.ObjectAddress, cszUser, ref pbUserSet, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUser(IntPtr thisobj, string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError);
-		public Int32 GetUser(string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError) { var call = this.GetFunction<NativeGetUser>(this.Functions.GetUser); return call(this.ObjectAddress, szUser, uBufSize, ref puUserChars, ref pSteamGlobalUserID, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUser(IntPtr thisobj, string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError);
+		public Int32 GetUser(string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError) { var call = this.GetFunction<NativeGetUser>(this.Functions.GetUser); return call(this.ObjectAddress, szUser, uBufSize, ref puUserChars, ref pSteamGlobalUserID, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogin(IntPtr thisobj, string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError);
-		public UInt32 Login(string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError) { var call = this.GetFunction<NativeLogin>(this.Functions.Login); return call(this.ObjectAddress, cszUser, cszPassphrase, bIsSecureComputer, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogin(IntPtr thisobj, string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError);
+		public UInt32 Login(string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError) { var call = this.GetFunction<NativeLogin>(this.Functions.Login); return call(this.ObjectAddress, cszUser, cszPassphrase, bIsSecureComputer, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceipt(IntPtr thisobj, UInt32 uArg1, ref TSTeamError pError);
-		public UInt32 AckSubscriptionReceipt(UInt32 uArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeAckSubscriptionReceipt>(this.Functions.AckSubscriptionReceipt); return call(this.ObjectAddress, uArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceipt(IntPtr thisobj, UInt32 uArg1, ref TSteamError pError);
+		public UInt32 AckSubscriptionReceipt(UInt32 uArg1, ref TSteamError pError) { var call = this.GetFunction<NativeAckSubscriptionReceipt>(this.Functions.AckSubscriptionReceipt); return call(this.ObjectAddress, uArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribed(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSTeamError pError);
-		public Int32 IsAppSubscribed(UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSTeamError pError) { var call = this.GetFunction<NativeIsAppSubscribed>(this.Functions.IsAppSubscribed); return call(this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pReserved, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribed(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError);
+		public Int32 IsAppSubscribed(UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError) { var call = this.GetFunction<NativeIsAppSubscribed>(this.Functions.IsAppSubscribed); return call(this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pReserved, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError);
-		public Int32 GetSubscriptionIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionIds>(this.Functions.GetSubscriptionIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError);
+		public Int32 GetSubscriptionIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionIds>(this.Functions.GetSubscriptionIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscription(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSTeamError pError);
-		public Int32 EnumerateSubscription(UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscription>(this.Functions.EnumerateSubscription); return call(this.ObjectAddress, uSubscriptionId, ref pSubscription, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscription(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSteamError pError);
+		public Int32 EnumerateSubscription(UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscription>(this.Functions.EnumerateSubscription); return call(this.ObjectAddress, uSubscriptionId, ref pSubscription, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscount(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSTeamError pError);
-		public Int32 EnumerateSubscriptionDiscount(UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscount>(this.Functions.EnumerateSubscriptionDiscount); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, ref pSteamSubscriptionDiscount, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscount(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError);
+		public Int32 EnumerateSubscriptionDiscount(UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscount>(this.Functions.EnumerateSubscriptionDiscount); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, ref pSteamSubscriptionDiscount, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifier(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSTeamError pError);
-		public Int32 EnumerateSubscriptionDiscountQualifier(UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscountQualifier>(this.Functions.EnumerateSubscriptionDiscountQualifier); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, uQualifierIdx, ref pSteamDiscountQualifier, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifier(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError);
+		public Int32 EnumerateSubscriptionDiscountQualifier(UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscountQualifier>(this.Functions.EnumerateSubscriptionDiscountQualifier); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, uQualifierIdx, ref pSteamDiscountQualifier, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateApp(IntPtr thisobj, UInt32 uAppId, ref TSteamApp pApp, ref TSTeamError pError);
-		public Int32 EnumerateApp(UInt32 uAppId, ref TSteamApp pApp, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateApp>(this.Functions.EnumerateApp); return call(this.ObjectAddress, uAppId, ref pApp, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateApp(IntPtr thisobj, UInt32 uAppId, ref TSteamApp pApp, ref TSteamError pError);
+		public Int32 EnumerateApp(UInt32 uAppId, ref TSteamApp pApp, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateApp>(this.Functions.EnumerateApp); return call(this.ObjectAddress, uAppId, ref pApp, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppLaunchOption(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSTeamError pError);
-		public Int32 EnumerateAppLaunchOption(UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppLaunchOption>(this.Functions.EnumerateAppLaunchOption); return call(this.ObjectAddress, uAppId, uLaunchOptionIndex, ref pLaunchOption, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppLaunchOption(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSteamError pError);
+		public Int32 EnumerateAppLaunchOption(UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppLaunchOption>(this.Functions.EnumerateAppLaunchOption); return call(this.ObjectAddress, uAppId, uLaunchOptionIndex, ref pLaunchOption, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDeleteAccount(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 DeleteAccount(ref TSTeamError pError) { var call = this.GetFunction<NativeDeleteAccount>(this.Functions.DeleteAccount); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDeleteAccount(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 DeleteAccount(ref TSteamError pError) { var call = this.GetFunction<NativeDeleteAccount>(this.Functions.DeleteAccount); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppIcon(IntPtr thisobj, UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSTeamError pError);
-		public Int32 EnumerateAppIcon(UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppIcon>(this.Functions.EnumerateAppIcon); return call(this.ObjectAddress, uAppId, uIconIndex, pIconData, uIconDataBufSize, ref puSizeOfIconData, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppIcon(IntPtr thisobj, UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSteamError pError);
+		public Int32 EnumerateAppIcon(UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppIcon>(this.Functions.EnumerateAppIcon); return call(this.ObjectAddress, uAppId, uIconIndex, pIconData, uIconDataBufSize, ref puSizeOfIconData, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLaunchApp(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSTeamError pError);
-		public UInt32 LaunchApp(UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSTeamError pError) { var call = this.GetFunction<NativeLaunchApp>(this.Functions.LaunchApp); return call(this.ObjectAddress, uAppId, uLaunchOption, cszArgs, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLaunchApp(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSteamError pError);
+		public UInt32 LaunchApp(UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSteamError pError) { var call = this.GetFunction<NativeLaunchApp>(this.Functions.LaunchApp); return call(this.ObjectAddress, uAppId, uLaunchOption, cszArgs, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheFilePath(IntPtr thisobj, UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetCacheFilePath(UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheFilePath>(this.Functions.GetCacheFilePath); return call(this.ObjectAddress, uAppId, szFilePath, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheFilePath(IntPtr thisobj, UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetCacheFilePath(UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheFilePath>(this.Functions.GetCacheFilePath); return call(this.ObjectAddress, uAppId, szFilePath, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSTeamError pError);
-		public Int32 EnumerateAppVersion(UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppVersion>(this.Functions.EnumerateAppVersion); return call(this.ObjectAddress, uAppId, uVersionIndex, ref pAppVersion, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSteamError pError);
+		public Int32 EnumerateAppVersion(UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppVersion>(this.Functions.EnumerateAppVersion); return call(this.ObjectAddress, uAppId, uVersionIndex, ref pAppVersion, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependency(IntPtr thisobj, UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError);
-		public Int32 EnumerateAppDependency(UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppDependency>(this.Functions.EnumerateAppDependency); return call(this.ObjectAddress, AppId, uDependency, ref pDependencyInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependency(IntPtr thisobj, UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError);
+		public Int32 EnumerateAppDependency(UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppDependency>(this.Functions.EnumerateAppDependency); return call(this.ObjectAddress, AppId, uDependency, ref pDependencyInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 StartLoadingCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeStartLoadingCache>(this.Functions.StartLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 StartLoadingCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeStartLoadingCache>(this.Functions.StartLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInsertAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError);
-		public Int32 InsertAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeInsertAppDependency>(this.Functions.InsertAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pDependencyInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInsertAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError);
+		public Int32 InsertAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError) { var call = this.GetFunction<NativeInsertAppDependency>(this.Functions.InsertAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pDependencyInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRemoveAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSTeamError pError);
-		public Int32 RemoveAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSTeamError pError) { var call = this.GetFunction<NativeRemoveAppDependency>(this.Functions.RemoveAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRemoveAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamError pError);
+		public Int32 RemoveAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamError pError) { var call = this.GetFunction<NativeRemoveAppDependency>(this.Functions.RemoveAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindApp(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public Int32 FindApp(string cszArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeFindApp>(this.Functions.FindApp); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindApp(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public Int32 FindApp(string cszArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeFindApp>(this.Functions.FindApp); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSTeamError pError);
-		public Int32 GetAppDependencies(UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError);
+		public Int32 GetAppDependencies(UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribed(IntPtr thisobj, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSTeamError pError);
-		public Int32 IsSubscribed(UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSTeamError pError) { var call = this.GetFunction<NativeIsSubscribed>(this.Functions.IsSubscribed); return call(this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribed(IntPtr thisobj, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError);
+		public Int32 IsSubscribed(UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError) { var call = this.GetFunction<NativeIsSubscribed>(this.Functions.IsSubscribed); return call(this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedInfo(IntPtr thisobj, UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSTeamError pError);
-		public Int32 GetAppUserDefinedInfo(UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedInfo>(this.Functions.GetAppUserDefinedInfo); return call(this.ObjectAddress, uAppId, cszPropertyName, szPropertyValue, uBufSize, ref puPropertyValueLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedInfo(IntPtr thisobj, UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSteamError pError);
+		public Int32 GetAppUserDefinedInfo(UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedInfo>(this.Functions.GetAppUserDefinedInfo); return call(this.ObjectAddress, uAppId, cszPropertyName, szPropertyValue, uBufSize, ref puPropertyValueLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppReadyToLaunch(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 WaitForAppReadyToLaunch(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeWaitForAppReadyToLaunch>(this.Functions.WaitForAppReadyToLaunch); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppReadyToLaunch(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 WaitForAppReadyToLaunch(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeWaitForAppReadyToLaunch>(this.Functions.WaitForAppReadyToLaunch); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsCacheLoadingEnabled(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsLoading, ref TSTeamError pError);
-		public Int32 IsCacheLoadingEnabled(UInt32 uAppId, ref Int32 pbIsLoading, ref TSTeamError pError) { var call = this.GetFunction<NativeIsCacheLoadingEnabled>(this.Functions.IsCacheLoadingEnabled); return call(this.ObjectAddress, uAppId, ref pbIsLoading, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsCacheLoadingEnabled(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsLoading, ref TSteamError pError);
+		public Int32 IsCacheLoadingEnabled(UInt32 uAppId, ref Int32 pbIsLoading, ref TSteamError pError) { var call = this.GetFunction<NativeIsCacheLoadingEnabled>(this.Functions.IsCacheLoadingEnabled); return call(this.ObjectAddress, uAppId, ref pbIsLoading, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStopLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 StopLoadingCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeStopLoadingCache>(this.Functions.StopLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStopLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 StopLoadingCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeStopLoadingCache>(this.Functions.StopLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ESteamError NativeGetEncryptedUserIDTicket(IntPtr thisobj, byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSTeamError pError);
-		public ESteamError GetEncryptedUserIDTicket(byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSTeamError pError) { var call = this.GetFunction<NativeGetEncryptedUserIDTicket>(this.Functions.GetEncryptedUserIDTicket); return call(this.ObjectAddress, pEncryptionKeyReceivedFromAppServer, uEncryptionKeyLength, pOutputBuffer, uSizeOfOutputBuffer, ref pReceiveSizeOfEncryptedTicket, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ESteamError NativeGetEncryptedUserIDTicket(IntPtr thisobj, byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSteamError pError);
+		public ESteamError GetEncryptedUserIDTicket(byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSteamError pError) { var call = this.GetFunction<NativeGetEncryptedUserIDTicket>(this.Functions.GetEncryptedUserIDTicket); return call(this.ObjectAddress, pEncryptionKeyReceivedFromAppServer, uEncryptionKeyLength, pOutputBuffer, uSizeOfOutputBuffer, ref pReceiveSizeOfEncryptedTicket, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFlushCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 FlushCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeFlushCache>(this.Functions.FlushCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFlushCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 FlushCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeFlushCache>(this.Functions.FlushCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCaches(IntPtr thisobj, UInt32 uAppId, Int32 iArg2, ref TSTeamError pError);
-		public UInt32 RepairOrDecryptCaches(UInt32 uAppId, Int32 iArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeRepairOrDecryptCaches>(this.Functions.RepairOrDecryptCaches); return call(this.ObjectAddress, uAppId, iArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCaches(IntPtr thisobj, UInt32 uAppId, Int32 iArg2, ref TSteamError pError);
+		public UInt32 RepairOrDecryptCaches(UInt32 uAppId, Int32 iArg2, ref TSteamError pError) { var call = this.GetFunction<NativeRepairOrDecryptCaches>(this.Functions.RepairOrDecryptCaches); return call(this.ObjectAddress, uAppId, iArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoadCacheFromDir(IntPtr thisobj, UInt32 uAppId, string cszPath, ref TSTeamError pError);
-		public UInt32 LoadCacheFromDir(UInt32 uAppId, string cszPath, ref TSTeamError pError) { var call = this.GetFunction<NativeLoadCacheFromDir>(this.Functions.LoadCacheFromDir); return call(this.ObjectAddress, uAppId, cszPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoadCacheFromDir(IntPtr thisobj, UInt32 uAppId, string cszPath, ref TSteamError pError);
+		public UInt32 LoadCacheFromDir(UInt32 uAppId, string cszPath, ref TSteamError pError) { var call = this.GetFunction<NativeLoadCacheFromDir>(this.Functions.LoadCacheFromDir); return call(this.ObjectAddress, uAppId, cszPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDefaultDirectory(IntPtr thisobj, string szPath, ref TSTeamError pError);
-		public Int32 GetCacheDefaultDirectory(string szPath, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheDefaultDirectory>(this.Functions.GetCacheDefaultDirectory); return call(this.ObjectAddress, szPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDefaultDirectory(IntPtr thisobj, string szPath, ref TSteamError pError);
+		public Int32 GetCacheDefaultDirectory(string szPath, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheDefaultDirectory>(this.Functions.GetCacheDefaultDirectory); return call(this.ObjectAddress, szPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetCacheDefaultDirectory(IntPtr thisobj, string cszPath, ref TSTeamError pError);
-		public Int32 SetCacheDefaultDirectory(string cszPath, ref TSTeamError pError) { var call = this.GetFunction<NativeSetCacheDefaultDirectory>(this.Functions.SetCacheDefaultDirectory); return call(this.ObjectAddress, cszPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetCacheDefaultDirectory(IntPtr thisobj, string cszPath, ref TSteamError pError);
+		public Int32 SetCacheDefaultDirectory(string cszPath, ref TSteamError pError) { var call = this.GetFunction<NativeSetCacheDefaultDirectory>(this.Functions.SetCacheDefaultDirectory); return call(this.ObjectAddress, cszPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDir(IntPtr thisobj, UInt32 uAppId, string szAppDir, ref TSTeamError pError);
-		public Int32 GetAppDir(UInt32 uAppId, string szAppDir, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppDir>(this.Functions.GetAppDir); return call(this.ObjectAddress, uAppId, szAppDir, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDir(IntPtr thisobj, UInt32 uAppId, string szAppDir, ref TSteamError pError);
+		public Int32 GetAppDir(UInt32 uAppId, string szAppDir, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDir>(this.Functions.GetAppDir); return call(this.ObjectAddress, uAppId, szAppDir, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMoveApp(IntPtr thisobj, UInt32 uAppId, string szPath, ref TSTeamError pError);
-		public UInt32 MoveApp(UInt32 uAppId, string szPath, ref TSTeamError pError) { var call = this.GetFunction<NativeMoveApp>(this.Functions.MoveApp); return call(this.ObjectAddress, uAppId, szPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMoveApp(IntPtr thisobj, UInt32 uAppId, string szPath, ref TSteamError pError);
+		public UInt32 MoveApp(UInt32 uAppId, string szPath, ref TSteamError pError) { var call = this.GetFunction<NativeMoveApp>(this.Functions.MoveApp); return call(this.ObjectAddress, uAppId, szPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppCacheSize(IntPtr thisobj, UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSTeamError pError);
-		public UInt32 GetAppCacheSize(UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppCacheSize>(this.Functions.GetAppCacheSize); return call(this.ObjectAddress, uAppId, ref puCacheSizeInMb, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppCacheSize(IntPtr thisobj, UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSteamError pError);
+		public UInt32 GetAppCacheSize(UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppCacheSize>(this.Functions.GetAppCacheSize); return call(this.ObjectAddress, uAppId, ref puCacheSizeInMb, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppCacheSize(IntPtr thisobj, UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSTeamError pError);
-		public UInt32 SetAppCacheSize(UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSTeamError pError) { var call = this.GetFunction<NativeSetAppCacheSize>(this.Functions.SetAppCacheSize); return call(this.ObjectAddress, uAppId, uCacheSizeInMb, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppCacheSize(IntPtr thisobj, UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSteamError pError);
+		public UInt32 SetAppCacheSize(UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSteamError pError) { var call = this.GetFunction<NativeSetAppCacheSize>(this.Functions.SetAppCacheSize); return call(this.ObjectAddress, uAppId, uCacheSizeInMb, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uAppVersionId, ref TSTeamError pError);
-		public UInt32 SetAppVersion(UInt32 uAppId, UInt32 uAppVersionId, ref TSTeamError pError) { var call = this.GetFunction<NativeSetAppVersion>(this.Functions.SetAppVersion); return call(this.ObjectAddress, uAppId, uAppVersionId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uAppVersionId, ref TSteamError pError);
+		public UInt32 SetAppVersion(UInt32 uAppId, UInt32 uAppVersionId, ref TSteamError pError) { var call = this.GetFunction<NativeSetAppVersion>(this.Functions.SetAppVersion); return call(this.ObjectAddress, uAppId, uAppVersionId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUninstall(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 Uninstall(ref TSTeamError pError) { var call = this.GetFunction<NativeUninstall>(this.Functions.Uninstall); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUninstall(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 Uninstall(ref TSteamError pError) { var call = this.GetFunction<NativeUninstall>(this.Functions.Uninstall); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetNotificationCallback(IntPtr thisobj, ref IntPtr pCallbackFunction, ref TSTeamError pError);
-		public Int32 SetNotificationCallback(ref IntPtr pCallbackFunction, ref TSTeamError pError) { var call = this.GetFunction<NativeSetNotificationCallback>(this.Functions.SetNotificationCallback); return call(this.ObjectAddress, ref pCallbackFunction, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetNotificationCallback(IntPtr thisobj, ref IntPtr pCallbackFunction, ref TSteamError pError);
+		public Int32 SetNotificationCallback(ref IntPtr pCallbackFunction, ref TSteamError pError) { var call = this.GetFunction<NativeSetNotificationCallback>(this.Functions.SetNotificationCallback); return call(this.ObjectAddress, ref pCallbackFunction, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPassword(IntPtr thisobj, string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSTeamError pError);
-		public UInt32 ChangeForgottenPassword(string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeForgottenPassword>(this.Functions.ChangeForgottenPassword); return call(this.ObjectAddress, cszArg1, cszArg2, cszArg3, cszArg4, ref piArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPassword(IntPtr thisobj, string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSteamError pError);
+		public UInt32 ChangeForgottenPassword(string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSteamError pError) { var call = this.GetFunction<NativeChangeForgottenPassword>(this.Functions.ChangeForgottenPassword); return call(this.ObjectAddress, cszArg1, cszArg2, cszArg3, cszArg4, ref piArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmail(IntPtr thisobj, string cszArg1, string szArg2, ref TSTeamError pError);
-		public UInt32 RequestForgottenPasswordEmail(string cszArg1, string szArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestForgottenPasswordEmail>(this.Functions.RequestForgottenPasswordEmail); return call(this.ObjectAddress, cszArg1, szArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmail(IntPtr thisobj, string cszArg1, string szArg2, ref TSteamError pError);
+		public UInt32 RequestForgottenPasswordEmail(string cszArg1, string szArg2, ref TSteamError pError) { var call = this.GetFunction<NativeRequestForgottenPasswordEmail>(this.Functions.RequestForgottenPasswordEmail); return call(this.ObjectAddress, cszArg1, szArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmail(IntPtr thisobj, string cszArg1, ref TSTeamError pError);
-		public UInt32 RequestAccountsByEmailAddressEmail(string cszArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestAccountsByEmailAddressEmail>(this.Functions.RequestAccountsByEmailAddressEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmail(IntPtr thisobj, string cszArg1, ref TSteamError pError);
+		public UInt32 RequestAccountsByEmailAddressEmail(string cszArg1, ref TSteamError pError) { var call = this.GetFunction<NativeRequestAccountsByEmailAddressEmail>(this.Functions.RequestAccountsByEmailAddressEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmail(IntPtr thisobj, string cszArg1, ref TSTeamError pError);
-		public UInt32 RequestAccountsByCdKeyEmail(string cszArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestAccountsByCdKeyEmail>(this.Functions.RequestAccountsByCdKeyEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmail(IntPtr thisobj, string cszArg1, ref TSteamError pError);
+		public UInt32 RequestAccountsByCdKeyEmail(string cszArg1, ref TSteamError pError) { var call = this.GetFunction<NativeRequestAccountsByCdKeyEmail>(this.Functions.RequestAccountsByCdKeyEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddress(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public UInt32 GetNumAccountsWithEmailAddress(string cszArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeGetNumAccountsWithEmailAddress>(this.Functions.GetNumAccountsWithEmailAddress); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddress(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public UInt32 GetNumAccountsWithEmailAddress(string cszArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeGetNumAccountsWithEmailAddress>(this.Functions.GetNumAccountsWithEmailAddress); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateAccountBillingInfo(IntPtr thisobj, ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSTeamError pError);
-		public UInt32 UpdateAccountBillingInfo(ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeUpdateAccountBillingInfo>(this.Functions.UpdateAccountBillingInfo); return call(this.ObjectAddress, ref pPaymentCardInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateAccountBillingInfo(IntPtr thisobj, ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSteamError pError);
+		public UInt32 UpdateAccountBillingInfo(ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSteamError pError) { var call = this.GetFunction<NativeUpdateAccountBillingInfo>(this.Functions.UpdateAccountBillingInfo); return call(this.ObjectAddress, ref pPaymentCardInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateSubscriptionBillingInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError);
-		public UInt32 UpdateSubscriptionBillingInfo(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeUpdateSubscriptionBillingInfo>(this.Functions.UpdateSubscriptionBillingInfo); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateSubscriptionBillingInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError);
+		public UInt32 UpdateSubscriptionBillingInfo(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError) { var call = this.GetFunction<NativeUpdateSubscriptionBillingInfo>(this.Functions.UpdateSubscriptionBillingInfo); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSponsorUrl(IntPtr thisobj, UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSTeamError pError);
-		public Int32 GetSponsorUrl(UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSponsorUrl>(this.Functions.GetSponsorUrl); return call(this.ObjectAddress, uAppId, szUrl, uBufSize, ref pUrlChars, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSponsorUrl(IntPtr thisobj, UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSteamError pError);
+		public Int32 GetSponsorUrl(UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSteamError pError) { var call = this.GetFunction<NativeGetSponsorUrl>(this.Functions.GetSponsorUrl); return call(this.ObjectAddress, uAppId, szUrl, uBufSize, ref pUrlChars, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfo(IntPtr thisobj, UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSTeamError pError);
-		public Int32 GetContentServerInfo(UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSTeamError pError) { var call = this.GetFunction<NativeGetContentServerInfo>(this.Functions.GetContentServerInfo); return call(this.ObjectAddress, uArg1, ref puArg2, ref puArg3, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfo(IntPtr thisobj, UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError);
+		public Int32 GetContentServerInfo(UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError) { var call = this.GetFunction<NativeGetContentServerInfo>(this.Functions.GetContentServerInfo); return call(this.ObjectAddress, uArg1, ref puArg2, ref puArg3, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStats(IntPtr thisobj, UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError);
-		public UInt32 GetAppUpdateStats(UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUpdateStats>(this.Functions.GetAppUpdateStats); return call(this.ObjectAddress, uAppId, eSteamAppUpdateStatsQueryType, ref pUpdateStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStats(IntPtr thisobj, UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError);
+		public UInt32 GetAppUpdateStats(UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUpdateStats>(this.Functions.GetAppUpdateStats); return call(this.ObjectAddress, uAppId, eSteamAppUpdateStatsQueryType, ref pUpdateStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTotalUpdateStats(IntPtr thisobj, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError);
-		public Int32 GetTotalUpdateStats(ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetTotalUpdateStats>(this.Functions.GetTotalUpdateStats); return call(this.ObjectAddress, ref pUpdateStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTotalUpdateStats(IntPtr thisobj, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError);
+		public Int32 GetTotalUpdateStats(ref TSteamUpdateStats pUpdateStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetTotalUpdateStats>(this.Functions.GetTotalUpdateStats); return call(this.ObjectAddress, ref pUpdateStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateCachePreloaders(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 CreateCachePreloaders(ref TSTeamError pError) { var call = this.GetFunction<NativeCreateCachePreloaders>(this.Functions.CreateCachePreloaders); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateCachePreloaders(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 CreateCachePreloaders(ref TSteamError pError) { var call = this.GetFunction<NativeCreateCachePreloaders>(this.Functions.CreateCachePreloaders); return call(this.ObjectAddress, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeWin32SetMiniDumpComment(IntPtr thisobj, string cszComment);
 		public void Win32SetMiniDumpComment(string cszComment) { var call = this.GetFunction<NativeWin32SetMiniDumpComment>(this.Functions.Win32SetMiniDumpComment); call(this.ObjectAddress, cszComment); }
@@ -3849,32 +3851,32 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeWin32WriteMiniDump(IntPtr thisobj, string arg1, string arg2, string arg3, string arg4, UInt32 arg5);
 		public void Win32WriteMiniDump(string arg1, string arg2, string arg3, string arg4, UInt32 arg5) { var call = this.GetFunction<NativeWin32WriteMiniDump>(this.Functions.Win32WriteMiniDump); call(this.ObjectAddress, arg1, arg2, arg3, arg4, arg5); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentAppId(IntPtr thisobj, ref UInt32 puAppId, ref TSTeamError pError);
-		public Int32 GetCurrentAppId(ref UInt32 puAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCurrentAppId>(this.Functions.GetCurrentAppId); return call(this.ObjectAddress, ref puAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentAppId(IntPtr thisobj, ref UInt32 puAppId, ref TSteamError pError);
+		public Int32 GetCurrentAppId(ref UInt32 puAppId, ref TSteamError pError) { var call = this.GetFunction<NativeGetCurrentAppId>(this.Functions.GetCurrentAppId); return call(this.ObjectAddress, ref puAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppPurchaseCountry(IntPtr thisobj, UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetAppPurchaseCountry(UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppPurchaseCountry>(this.Functions.GetAppPurchaseCountry); return call(this.ObjectAddress, uAppId, szCountryCode, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppPurchaseCountry(IntPtr thisobj, UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetAppPurchaseCountry(UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppPurchaseCountry>(this.Functions.GetAppPurchaseCountry); return call(this.ObjectAddress, uAppId, szCountryCode, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalClientVersion(IntPtr thisobj, ref UInt32 puArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public Int32 GetLocalClientVersion(ref UInt32 puArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeGetLocalClientVersion>(this.Functions.GetLocalClientVersion); return call(this.ObjectAddress, ref puArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalClientVersion(IntPtr thisobj, ref UInt32 puArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public Int32 GetLocalClientVersion(ref UInt32 puArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeGetLocalClientVersion>(this.Functions.GetLocalClientVersion); return call(this.ObjectAddress, ref puArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileNeededByCache(IntPtr thisobj, UInt32 uArg1, string cszFileName, UInt32 uArg3, ref TSTeamError pError);
-		public Int32 IsFileNeededByCache(UInt32 uArg1, string cszFileName, UInt32 uArg3, ref TSTeamError pError) { var call = this.GetFunction<NativeIsFileNeededByCache>(this.Functions.IsFileNeededByCache); return call(this.ObjectAddress, uArg1, cszFileName, uArg3, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileNeededByCache(IntPtr thisobj, UInt32 uArg1, string cszFileName, UInt32 uArg3, ref TSteamError pError);
+		public Int32 IsFileNeededByCache(UInt32 uArg1, string cszFileName, UInt32 uArg3, ref TSteamError pError) { var call = this.GetFunction<NativeIsFileNeededByCache>(this.Functions.IsFileNeededByCache); return call(this.ObjectAddress, uArg1, cszFileName, uArg3, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLoadFileToCache(IntPtr thisobj, UInt32 uArg1, string cszArg2, byte[] pcvArg3, UInt32 uArg4, UInt32 uArg5, ref TSTeamError pError);
-		public Int32 LoadFileToCache(UInt32 uArg1, string cszArg2, byte[] pcvArg3, UInt32 uArg4, UInt32 uArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeLoadFileToCache>(this.Functions.LoadFileToCache); return call(this.ObjectAddress, uArg1, cszArg2, pcvArg3, uArg4, uArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLoadFileToCache(IntPtr thisobj, UInt32 uArg1, string cszArg2, byte[] pcvArg3, UInt32 uArg4, UInt32 uArg5, ref TSteamError pError);
+		public Int32 LoadFileToCache(UInt32 uArg1, string cszArg2, byte[] pcvArg3, UInt32 uArg4, UInt32 uArg5, ref TSteamError pError) { var call = this.GetFunction<NativeLoadFileToCache>(this.Functions.LoadFileToCache); return call(this.ObjectAddress, uArg1, cszArg2, pcvArg3, uArg4, uArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDecryptionKey(IntPtr thisobj, UInt32 uAppId, string szCacheDecryptionKey, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetCacheDecryptionKey(UInt32 uAppId, string szCacheDecryptionKey, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheDecryptionKey>(this.Functions.GetCacheDecryptionKey); return call(this.ObjectAddress, uAppId, szCacheDecryptionKey, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDecryptionKey(IntPtr thisobj, UInt32 uAppId, string szCacheDecryptionKey, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetCacheDecryptionKey(UInt32 uAppId, string szCacheDecryptionKey, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheDecryptionKey>(this.Functions.GetCacheDecryptionKey); return call(this.ObjectAddress, uAppId, szCacheDecryptionKey, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionExtendedInfo(IntPtr thisobj, UInt32 uSubscritptionId, string cszKeyName, string szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetSubscriptionExtendedInfo(UInt32 uSubscritptionId, string cszKeyName, string szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionExtendedInfo>(this.Functions.GetSubscriptionExtendedInfo); return call(this.ObjectAddress, uSubscritptionId, cszKeyName, szKeyValue, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionExtendedInfo(IntPtr thisobj, UInt32 uSubscritptionId, string cszKeyName, string szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetSubscriptionExtendedInfo(UInt32 uSubscritptionId, string cszKeyName, string szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionExtendedInfo>(this.Functions.GetSubscriptionExtendedInfo); return call(this.ObjectAddress, uSubscritptionId, cszKeyName, szKeyValue, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionPurchaseCountry(IntPtr thisobj, UInt32 uSubscritptionId, string szCountry, UInt32 arg3, ref Int32 piRecievedLength, ref TSTeamError pError);
-		public Int32 GetSubscriptionPurchaseCountry(UInt32 uSubscritptionId, string szCountry, UInt32 arg3, ref Int32 piRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionPurchaseCountry>(this.Functions.GetSubscriptionPurchaseCountry); return call(this.ObjectAddress, uSubscritptionId, szCountry, arg3, ref piRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionPurchaseCountry(IntPtr thisobj, UInt32 uSubscritptionId, string szCountry, UInt32 arg3, ref Int32 piRecievedLength, ref TSteamError pError);
+		public Int32 GetSubscriptionPurchaseCountry(UInt32 uSubscritptionId, string szCountry, UInt32 arg3, ref Int32 piRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionPurchaseCountry>(this.Functions.GetSubscriptionPurchaseCountry); return call(this.ObjectAddress, uSubscritptionId, szCountry, arg3, ref piRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedRecord(IntPtr thisobj, UInt32 uAppId, ref byte[] AddEntryToKeyValueFunc, byte[] pvCKeyValue, ref TSTeamError pError);
-		public Int32 GetAppUserDefinedRecord(UInt32 uAppId, ref byte[] AddEntryToKeyValueFunc, byte[] pvCKeyValue, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedRecord>(this.Functions.GetAppUserDefinedRecord); return call(this.ObjectAddress, uAppId, ref AddEntryToKeyValueFunc, pvCKeyValue, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedRecord(IntPtr thisobj, UInt32 uAppId, ref byte[] AddEntryToKeyValueFunc, byte[] pvCKeyValue, ref TSteamError pError);
+		public Int32 GetAppUserDefinedRecord(UInt32 uAppId, ref byte[] AddEntryToKeyValueFunc, byte[] pvCKeyValue, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedRecord>(this.Functions.GetAppUserDefinedRecord); return call(this.ObjectAddress, uAppId, ref AddEntryToKeyValueFunc, pvCKeyValue, ref pError); }
 
 	}
 	
@@ -8052,164 +8054,164 @@ namespace Steam4NET
 	
 	public class ISteam004 : NativeWrapper<ISteam004VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePassword(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPassphrase, ref TSTeamError pError);
-		public UInt32 ChangePassword(string cszCurrentPassphrase, string cszNewPassphrase, ref TSTeamError pError) { var call = this.GetFunction<NativeChangePassword>(this.Functions.ChangePassword); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPassphrase, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePassword(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError);
+		public UInt32 ChangePassword(string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError) { var call = this.GetFunction<NativeChangePassword>(this.Functions.ChangePassword); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPassphrase, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentEmailAddress(IntPtr thisobj, string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSTeamError pError);
-		public Int32 GetCurrentEmailAddress(string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCurrentEmailAddress>(this.Functions.GetCurrentEmailAddress); return call(this.ObjectAddress, szEmailaddress, uBufSize, ref puEmailaddressChars, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentEmailAddress(IntPtr thisobj, string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSteamError pError);
+		public Int32 GetCurrentEmailAddress(string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSteamError pError) { var call = this.GetFunction<NativeGetCurrentEmailAddress>(this.Functions.GetCurrentEmailAddress); return call(this.ObjectAddress, szEmailaddress, uBufSize, ref puEmailaddressChars, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePersonalQA(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSTeamError pError);
-		public UInt32 ChangePersonalQA(string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSTeamError pError) { var call = this.GetFunction<NativeChangePersonalQA>(this.Functions.ChangePersonalQA); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPersonalQuestion, cszNewAnswerToQuestion, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePersonalQA(IntPtr thisobj, string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSteamError pError);
+		public UInt32 ChangePersonalQA(string cszCurrentPassphrase, string cszNewPersonalQuestion, string cszNewAnswerToQuestion, ref TSteamError pError) { var call = this.GetFunction<NativeChangePersonalQA>(this.Functions.ChangePersonalQA); return call(this.ObjectAddress, cszCurrentPassphrase, cszNewPersonalQuestion, cszNewAnswerToQuestion, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeEmailAddress(IntPtr thisobj, string cszNewEmailAddress, ref TSTeamError pError);
-		public UInt32 ChangeEmailAddress(string cszNewEmailAddress, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeEmailAddress>(this.Functions.ChangeEmailAddress); return call(this.ObjectAddress, cszNewEmailAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeEmailAddress(IntPtr thisobj, string cszNewEmailAddress, ref TSteamError pError);
+		public UInt32 ChangeEmailAddress(string cszNewEmailAddress, ref TSteamError pError) { var call = this.GetFunction<NativeChangeEmailAddress>(this.Functions.ChangeEmailAddress); return call(this.ObjectAddress, cszNewEmailAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeVerifyEmailAddress(IntPtr thisobj, string cszEmailAddress, ref TSTeamError pError);
-		public UInt32 VerifyEmailAddress(string cszEmailAddress, ref TSTeamError pError) { var call = this.GetFunction<NativeVerifyEmailAddress>(this.Functions.VerifyEmailAddress); return call(this.ObjectAddress, cszEmailAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeVerifyEmailAddress(IntPtr thisobj, string cszEmailAddress, ref TSteamError pError);
+		public UInt32 VerifyEmailAddress(string cszEmailAddress, ref TSteamError pError) { var call = this.GetFunction<NativeVerifyEmailAddress>(this.Functions.VerifyEmailAddress); return call(this.ObjectAddress, cszEmailAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestEmailAddressVerificationEmail(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 RequestEmailAddressVerificationEmail(ref TSTeamError pError) { var call = this.GetFunction<NativeRequestEmailAddressVerificationEmail>(this.Functions.RequestEmailAddressVerificationEmail); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestEmailAddressVerificationEmail(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 RequestEmailAddressVerificationEmail(ref TSteamError pError) { var call = this.GetFunction<NativeRequestEmailAddressVerificationEmail>(this.Functions.RequestEmailAddressVerificationEmail); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountName(IntPtr thisobj, string cszCurrentAccountName, string cszNewAccountName, ref TSTeamError pError);
-		public UInt32 ChangeAccountName(string cszCurrentAccountName, string cszNewAccountName, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeAccountName>(this.Functions.ChangeAccountName); return call(this.ObjectAddress, cszCurrentAccountName, cszNewAccountName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountName(IntPtr thisobj, string cszCurrentAccountName, string cszNewAccountName, ref TSteamError pError);
+		public UInt32 ChangeAccountName(string cszCurrentAccountName, string cszNewAccountName, ref TSteamError pError) { var call = this.GetFunction<NativeChangeAccountName>(this.Functions.ChangeAccountName); return call(this.ObjectAddress, cszCurrentAccountName, cszNewAccountName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountAppFilesystem(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 MountAppFilesystem(ref TSTeamError pError) { var call = this.GetFunction<NativeMountAppFilesystem>(this.Functions.MountAppFilesystem); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountAppFilesystem(IntPtr thisobj, ref TSteamError pError);
+		public Int32 MountAppFilesystem(ref TSteamError pError) { var call = this.GetFunction<NativeMountAppFilesystem>(this.Functions.MountAppFilesystem); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountAppFilesystem(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 UnmountAppFilesystem(ref TSTeamError pError) { var call = this.GetFunction<NativeUnmountAppFilesystem>(this.Functions.UnmountAppFilesystem); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountAppFilesystem(IntPtr thisobj, ref TSteamError pError);
+		public Int32 UnmountAppFilesystem(ref TSteamError pError) { var call = this.GetFunction<NativeUnmountAppFilesystem>(this.Functions.UnmountAppFilesystem); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountFilesystem(IntPtr thisobj, UInt32 uAppId, string szMountPath, ref TSTeamError pError);
-		public Int32 MountFilesystem(UInt32 uAppId, string szMountPath, ref TSTeamError pError) { var call = this.GetFunction<NativeMountFilesystem>(this.Functions.MountFilesystem); return call(this.ObjectAddress, uAppId, szMountPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountFilesystem(IntPtr thisobj, UInt32 uAppId, string szMountPath, ref TSteamError pError);
+		public Int32 MountFilesystem(UInt32 uAppId, string szMountPath, ref TSteamError pError) { var call = this.GetFunction<NativeMountFilesystem>(this.Functions.MountFilesystem); return call(this.ObjectAddress, uAppId, szMountPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystem(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public Int32 UnmountFilesystem(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeUnmountFilesystem>(this.Functions.UnmountFilesystem); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystem(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public Int32 UnmountFilesystem(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeUnmountFilesystem>(this.Functions.UnmountFilesystem); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStat(IntPtr thisobj, string cszName, ref TSteamElemInfo pInfo, ref TSTeamError pError);
-		public Int32 Stat(string cszName, ref TSteamElemInfo pInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeStat>(this.Functions.Stat); return call(this.ObjectAddress, cszName, ref pInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStat(IntPtr thisobj, string cszName, ref TSteamElemInfo pInfo, ref TSteamError pError);
+		public Int32 Stat(string cszName, ref TSteamElemInfo pInfo, ref TSteamError pError) { var call = this.GetFunction<NativeStat>(this.Functions.Stat); return call(this.ObjectAddress, cszName, ref pInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetvBuf(IntPtr thisobj, UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSTeamError pError);
-		public Int32 SetvBuf(UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSTeamError pError) { var call = this.GetFunction<NativeSetvBuf>(this.Functions.SetvBuf); return call(this.ObjectAddress, hFile, pBuf, eMethod, uBytes, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetvBuf(IntPtr thisobj, UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSteamError pError);
+		public Int32 SetvBuf(UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSteamError pError) { var call = this.GetFunction<NativeSetvBuf>(this.Functions.SetvBuf); return call(this.ObjectAddress, hFile, pBuf, eMethod, uBytes, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFlushFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 FlushFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeFlushFile>(this.Functions.FlushFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFlushFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 FlushFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeFlushFile>(this.Functions.FlushFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFile(IntPtr thisobj, string cszName, string cszMode, ref TSTeamError pError);
-		public UInt32 OpenFile(string cszName, string cszMode, ref TSTeamError pError) { var call = this.GetFunction<NativeOpenFile>(this.Functions.OpenFile); return call(this.ObjectAddress, cszName, cszMode, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFile(IntPtr thisobj, string cszName, string cszMode, ref TSteamError pError);
+		public UInt32 OpenFile(string cszName, string cszMode, ref TSteamError pError) { var call = this.GetFunction<NativeOpenFile>(this.Functions.OpenFile); return call(this.ObjectAddress, cszName, cszMode, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileEx(IntPtr thisobj, string cszFileName, string cszMode, ref UInt32 puSize, ref TSTeamError pError);
-		public UInt32 OpenFileEx(string cszFileName, string cszMode, ref UInt32 puSize, ref TSTeamError pError) { var call = this.GetFunction<NativeOpenFileEx>(this.Functions.OpenFileEx); return call(this.ObjectAddress, cszFileName, cszMode, ref puSize, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileEx(IntPtr thisobj, string cszFileName, string cszMode, ref UInt32 puSize, ref TSteamError pError);
+		public UInt32 OpenFileEx(string cszFileName, string cszMode, ref UInt32 puSize, ref TSteamError pError) { var call = this.GetFunction<NativeOpenFileEx>(this.Functions.OpenFileEx); return call(this.ObjectAddress, cszFileName, cszMode, ref puSize, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenTmpFile(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 OpenTmpFile(ref TSTeamError pError) { var call = this.GetFunction<NativeOpenTmpFile>(this.Functions.OpenTmpFile); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenTmpFile(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 OpenTmpFile(ref TSteamError pError) { var call = this.GetFunction<NativeOpenTmpFile>(this.Functions.OpenTmpFile); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearError(IntPtr thisobj, ref TSTeamError pError);
-		public void ClearError(ref TSTeamError pError) { var call = this.GetFunction<NativeClearError>(this.Functions.ClearError); call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearError(IntPtr thisobj, ref TSteamError pError);
+		public void ClearError(ref TSteamError pError) { var call = this.GetFunction<NativeClearError>(this.Functions.ClearError); call(this.ObjectAddress, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetVersion(IntPtr thisobj, string szVersion, UInt32 uVersionBufSize);
 		public Int32 GetVersion(string szVersion, UInt32 uVersionBufSize) { var call = this.GetFunction<NativeGetVersion>(this.Functions.GetVersion); return call(this.ObjectAddress, szVersion, uVersionBufSize); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError);
-		public Int32 GetOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError) { var call = this.GetFunction<NativeGetOfflineStatus>(this.Functions.GetOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError);
+		public Int32 GetOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError) { var call = this.GetFunction<NativeGetOfflineStatus>(this.Functions.GetOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeChangeOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError);
-		public Int32 ChangeOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeOfflineStatus>(this.Functions.ChangeOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeChangeOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError);
+		public Int32 ChangeOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError) { var call = this.GetFunction<NativeChangeOfflineStatus>(this.Functions.ChangeOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeProcessCall(IntPtr thisobj, UInt32 handle, ref TSteamProgress pProgress, ref TSTeamError pError);
-		public Int32 ProcessCall(UInt32 handle, ref TSteamProgress pProgress, ref TSTeamError pError) { var call = this.GetFunction<NativeProcessCall>(this.Functions.ProcessCall); return call(this.ObjectAddress, handle, ref pProgress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeProcessCall(IntPtr thisobj, UInt32 handle, ref TSteamProgress pProgress, ref TSteamError pError);
+		public Int32 ProcessCall(UInt32 handle, ref TSteamProgress pProgress, ref TSteamError pError) { var call = this.GetFunction<NativeProcessCall>(this.Functions.ProcessCall); return call(this.ObjectAddress, handle, ref pProgress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAbortCall(IntPtr thisobj, UInt32 handle, ref TSTeamError pError);
-		public Int32 AbortCall(UInt32 handle, ref TSTeamError pError) { var call = this.GetFunction<NativeAbortCall>(this.Functions.AbortCall); return call(this.ObjectAddress, handle, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAbortCall(IntPtr thisobj, UInt32 handle, ref TSteamError pError);
+		public Int32 AbortCall(UInt32 handle, ref TSteamError pError) { var call = this.GetFunction<NativeAbortCall>(this.Functions.AbortCall); return call(this.ObjectAddress, handle, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBlockingCall(IntPtr thisobj, UInt32 handle, UInt32 uiProcessTickMS, ref TSTeamError pError);
-		public Int32 BlockingCall(UInt32 handle, UInt32 uiProcessTickMS, ref TSTeamError pError) { var call = this.GetFunction<NativeBlockingCall>(this.Functions.BlockingCall); return call(this.ObjectAddress, handle, uiProcessTickMS, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBlockingCall(IntPtr thisobj, UInt32 handle, UInt32 uiProcessTickMS, ref TSteamError pError);
+		public Int32 BlockingCall(UInt32 handle, UInt32 uiProcessTickMS, ref TSteamError pError) { var call = this.GetFunction<NativeBlockingCall>(this.Functions.BlockingCall); return call(this.ObjectAddress, handle, uiProcessTickMS, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStallCount(IntPtr thisobj, UInt32 uNumStalls, ref TSTeamError pError);
-		public Int32 SetMaxStallCount(UInt32 uNumStalls, ref TSTeamError pError) { var call = this.GetFunction<NativeSetMaxStallCount>(this.Functions.SetMaxStallCount); return call(this.ObjectAddress, uNumStalls, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStallCount(IntPtr thisobj, UInt32 uNumStalls, ref TSteamError pError);
+		public Int32 SetMaxStallCount(UInt32 uNumStalls, ref TSteamError pError) { var call = this.GetFunction<NativeSetMaxStallCount>(this.Functions.SetMaxStallCount); return call(this.ObjectAddress, uNumStalls, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 CloseFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeCloseFile>(this.Functions.CloseFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 CloseFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeCloseFile>(this.Functions.CloseFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReadFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError);
-		public UInt32 ReadFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeReadFile>(this.Functions.ReadFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReadFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError);
+		public UInt32 ReadFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeReadFile>(this.Functions.ReadFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError);
-		public UInt32 WriteFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeWriteFile>(this.Functions.WriteFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError);
+		public UInt32 WriteFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeWriteFile>(this.Functions.WriteFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetc(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 Getc(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeGetc>(this.Functions.Getc); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetc(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 Getc(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeGetc>(this.Functions.Getc); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePutc(IntPtr thisobj, Int32 cChar, UInt32 hFile, ref TSTeamError pError);
-		public Int32 Putc(Int32 cChar, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativePutc>(this.Functions.Putc); return call(this.ObjectAddress, cChar, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePutc(IntPtr thisobj, Int32 cChar, UInt32 hFile, ref TSteamError pError);
+		public Int32 Putc(Int32 cChar, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativePutc>(this.Functions.Putc); return call(this.ObjectAddress, cChar, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFile(IntPtr thisobj, UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSTeamError pError);
-		public Int32 SeekFile(UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSTeamError pError) { var call = this.GetFunction<NativeSeekFile>(this.Functions.SeekFile); return call(this.ObjectAddress, hFile, lOffset, sm, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFile(IntPtr thisobj, UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError);
+		public Int32 SeekFile(UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError) { var call = this.GetFunction<NativeSeekFile>(this.Functions.SeekFile); return call(this.ObjectAddress, hFile, lOffset, sm, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTellFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 TellFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeTellFile>(this.Functions.TellFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTellFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 TellFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeTellFile>(this.Functions.TellFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSizeFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 SizeFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeSizeFile>(this.Functions.SizeFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSizeFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 SizeFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeSizeFile>(this.Functions.SizeFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFindFirst(IntPtr thisobj, string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSTeamError pError);
-		public UInt32 FindFirst(string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeFindFirst>(this.Functions.FindFirst); return call(this.ObjectAddress, cszPattern, eFilter, ref pFindInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFindFirst(IntPtr thisobj, string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSteamError pError);
+		public UInt32 FindFirst(string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSteamError pError) { var call = this.GetFunction<NativeFindFirst>(this.Functions.FindFirst); return call(this.ObjectAddress, cszPattern, eFilter, ref pFindInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindNext(IntPtr thisobj, UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSTeamError pError);
-		public Int32 FindNext(UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeFindNext>(this.Functions.FindNext); return call(this.ObjectAddress, hFind, ref pFindInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindNext(IntPtr thisobj, UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSteamError pError);
+		public Int32 FindNext(UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSteamError pError) { var call = this.GetFunction<NativeFindNext>(this.Functions.FindNext); return call(this.ObjectAddress, hFind, ref pFindInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindClose(IntPtr thisobj, UInt32 hFind, ref TSTeamError pError);
-		public Int32 FindClose(UInt32 hFind, ref TSTeamError pError) { var call = this.GetFunction<NativeFindClose>(this.Functions.FindClose); return call(this.ObjectAddress, hFind, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindClose(IntPtr thisobj, UInt32 hFind, ref TSteamError pError);
+		public Int32 FindClose(UInt32 hFind, ref TSteamError pError) { var call = this.GetFunction<NativeFindClose>(this.Functions.FindClose); return call(this.ObjectAddress, hFind, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalFileCopy(IntPtr thisobj, string cszName, ref TSTeamError pError);
-		public Int32 GetLocalFileCopy(string cszName, ref TSTeamError pError) { var call = this.GetFunction<NativeGetLocalFileCopy>(this.Functions.GetLocalFileCopy); return call(this.ObjectAddress, cszName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalFileCopy(IntPtr thisobj, string cszName, ref TSteamError pError);
+		public Int32 GetLocalFileCopy(string cszName, ref TSteamError pError) { var call = this.GetFunction<NativeGetLocalFileCopy>(this.Functions.GetLocalFileCopy); return call(this.ObjectAddress, cszName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileImmediatelyAvailable(IntPtr thisobj, string cszName, ref TSTeamError pError);
-		public Int32 IsFileImmediatelyAvailable(string cszName, ref TSTeamError pError) { var call = this.GetFunction<NativeIsFileImmediatelyAvailable>(this.Functions.IsFileImmediatelyAvailable); return call(this.ObjectAddress, cszName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileImmediatelyAvailable(IntPtr thisobj, string cszName, ref TSteamError pError);
+		public Int32 IsFileImmediatelyAvailable(string cszName, ref TSteamError pError) { var call = this.GetFunction<NativeIsFileImmediatelyAvailable>(this.Functions.IsFileImmediatelyAvailable); return call(this.ObjectAddress, cszName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeed(IntPtr thisobj, string cszHintList, Int32 bForgetEverything, ref TSTeamError pError);
-		public Int32 HintResourceNeed(string cszHintList, Int32 bForgetEverything, ref TSTeamError pError) { var call = this.GetFunction<NativeHintResourceNeed>(this.Functions.HintResourceNeed); return call(this.ObjectAddress, cszHintList, bForgetEverything, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeed(IntPtr thisobj, string cszHintList, Int32 bForgetEverything, ref TSteamError pError);
+		public Int32 HintResourceNeed(string cszHintList, Int32 bForgetEverything, ref TSteamError pError) { var call = this.GetFunction<NativeHintResourceNeed>(this.Functions.HintResourceNeed); return call(this.ObjectAddress, cszHintList, bForgetEverything, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForgetAllHints(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ForgetAllHints(ref TSTeamError pError) { var call = this.GetFunction<NativeForgetAllHints>(this.Functions.ForgetAllHints); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForgetAllHints(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ForgetAllHints(ref TSteamError pError) { var call = this.GetFunction<NativeForgetAllHints>(this.Functions.ForgetAllHints); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePauseCachePreloading(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 PauseCachePreloading(ref TSTeamError pError) { var call = this.GetFunction<NativePauseCachePreloading>(this.Functions.PauseCachePreloading); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePauseCachePreloading(IntPtr thisobj, ref TSteamError pError);
+		public Int32 PauseCachePreloading(ref TSteamError pError) { var call = this.GetFunction<NativePauseCachePreloading>(this.Functions.PauseCachePreloading); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResumeCachePreloading(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ResumeCachePreloading(ref TSTeamError pError) { var call = this.GetFunction<NativeResumeCachePreloading>(this.Functions.ResumeCachePreloading); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResumeCachePreloading(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ResumeCachePreloading(ref TSteamError pError) { var call = this.GetFunction<NativeResumeCachePreloading>(this.Functions.ResumeCachePreloading); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForResources(IntPtr thisobj, string cszMasterList, ref TSTeamError pError);
-		public UInt32 WaitForResources(string cszMasterList, ref TSTeamError pError) { var call = this.GetFunction<NativeWaitForResources>(this.Functions.WaitForResources); return call(this.ObjectAddress, cszMasterList, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForResources(IntPtr thisobj, string cszMasterList, ref TSteamError pError);
+		public UInt32 WaitForResources(string cszMasterList, ref TSteamError pError) { var call = this.GetFunction<NativeWaitForResources>(this.Functions.WaitForResources); return call(this.ObjectAddress, cszMasterList, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartEngine(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 StartEngine(ref TSTeamError pError) { var call = this.GetFunction<NativeStartEngine>(this.Functions.StartEngine); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartEngine(IntPtr thisobj, ref TSteamError pError);
+		public Int32 StartEngine(ref TSteamError pError) { var call = this.GetFunction<NativeStartEngine>(this.Functions.StartEngine); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeShutdownEngine(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ShutdownEngine(ref TSTeamError pError) { var call = this.GetFunction<NativeShutdownEngine>(this.Functions.ShutdownEngine); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeShutdownEngine(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ShutdownEngine(ref TSteamError pError) { var call = this.GetFunction<NativeShutdownEngine>(this.Functions.ShutdownEngine); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartup(IntPtr thisobj, UInt32 uUsingMask, ref TSTeamError pError);
-		public Int32 Startup(UInt32 uUsingMask, ref TSTeamError pError) { var call = this.GetFunction<NativeStartup>(this.Functions.Startup); return call(this.ObjectAddress, uUsingMask, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartup(IntPtr thisobj, UInt32 uUsingMask, ref TSteamError pError);
+		public Int32 Startup(UInt32 uUsingMask, ref TSteamError pError) { var call = this.GetFunction<NativeStartup>(this.Functions.Startup); return call(this.ObjectAddress, uUsingMask, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCleanup(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 Cleanup(ref TSTeamError pError) { var call = this.GetFunction<NativeCleanup>(this.Functions.Cleanup); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCleanup(IntPtr thisobj, ref TSteamError pError);
+		public Int32 Cleanup(ref TSteamError pError) { var call = this.GetFunction<NativeCleanup>(this.Functions.Cleanup); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeNumAppsRunning(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 NumAppsRunning(ref TSTeamError pError) { var call = this.GetFunction<NativeNumAppsRunning>(this.Functions.NumAppsRunning); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeNumAppsRunning(IntPtr thisobj, ref TSteamError pError);
+		public Int32 NumAppsRunning(ref TSteamError pError) { var call = this.GetFunction<NativeNumAppsRunning>(this.Functions.NumAppsRunning); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccount(IntPtr thisobj, string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSTeamError pError);
-		public UInt32 CreateAccount(string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSTeamError pError) { var call = this.GetFunction<NativeCreateAccount>(this.Functions.CreateAccount); return call(this.ObjectAddress, cszUser, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, cszArg6, ref pbCreated, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccount(IntPtr thisobj, string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSteamError pError);
+		public UInt32 CreateAccount(string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSteamError pError) { var call = this.GetFunction<NativeCreateAccount>(this.Functions.CreateAccount); return call(this.ObjectAddress, cszUser, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, cszArg6, ref pbCreated, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNames(IntPtr thisobj, string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSTeamError pError);
-		public UInt32 GenerateSuggestedAccountNames(string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeGenerateSuggestedAccountNames>(this.Functions.GenerateSuggestedAccountNames); return call(this.ObjectAddress, cszArg1, cszArg2, szArg3, uArg4, ref puArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNames(IntPtr thisobj, string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSteamError pError);
+		public UInt32 GenerateSuggestedAccountNames(string cszArg1, string cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSteamError pError) { var call = this.GetFunction<NativeGenerateSuggestedAccountNames>(this.Functions.GenerateSuggestedAccountNames); return call(this.ObjectAddress, cszArg1, cszArg2, szArg3, uArg4, ref puArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsLoggedIn(IntPtr thisobj, ref Int32 pbIsLoggedIn, ref TSTeamError pError);
-		public Int32 IsLoggedIn(ref Int32 pbIsLoggedIn, ref TSTeamError pError) { var call = this.GetFunction<NativeIsLoggedIn>(this.Functions.IsLoggedIn); return call(this.ObjectAddress, ref pbIsLoggedIn, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsLoggedIn(IntPtr thisobj, ref Int32 pbIsLoggedIn, ref TSteamError pError);
+		public Int32 IsLoggedIn(ref Int32 pbIsLoggedIn, ref TSteamError pError) { var call = this.GetFunction<NativeIsLoggedIn>(this.Functions.IsLoggedIn); return call(this.ObjectAddress, ref pbIsLoggedIn, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogout(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 Logout(ref TSTeamError pError) { var call = this.GetFunction<NativeLogout>(this.Functions.Logout); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogout(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 Logout(ref TSteamError pError) { var call = this.GetFunction<NativeLogout>(this.Functions.Logout); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputer(IntPtr thisobj, ref Int32 pbIsSecure, ref TSTeamError pError);
-		public Int32 IsSecureComputer(ref Int32 pbIsSecure, ref TSTeamError pError) { var call = this.GetFunction<NativeIsSecureComputer>(this.Functions.IsSecureComputer); return call(this.ObjectAddress, ref pbIsSecure, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputer(IntPtr thisobj, ref Int32 pbIsSecure, ref TSteamError pError);
+		public Int32 IsSecureComputer(ref Int32 pbIsSecure, ref TSteamError pError) { var call = this.GetFunction<NativeIsSecureComputer>(this.Functions.IsSecureComputer); return call(this.ObjectAddress, ref pbIsSecure, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateLogContext(IntPtr thisobj, string cszName);
 		public UInt32 CreateLogContext(string cszName) { var call = this.GetFunction<NativeCreateLogContext>(this.Functions.CreateLogContext); return call(this.ObjectAddress, cszName); }
@@ -8223,197 +8225,197 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogResourceLoadFinished(IntPtr thisobj, string cszMsg);
 		public void LogResourceLoadFinished(string cszMsg) { var call = this.GetFunction<NativeLogResourceLoadFinished>(this.Functions.LogResourceLoadFinished); call(this.ObjectAddress, cszMsg); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshLogin(IntPtr thisobj, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError);
-		public UInt32 RefreshLogin(string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError) { var call = this.GetFunction<NativeRefreshLogin>(this.Functions.RefreshLogin); return call(this.ObjectAddress, cszPassphrase, bIsSecureComputer, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshLogin(IntPtr thisobj, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError);
+		public UInt32 RefreshLogin(string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError) { var call = this.GetFunction<NativeRefreshLogin>(this.Functions.RefreshLogin); return call(this.ObjectAddress, cszPassphrase, bIsSecureComputer, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPassword(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSTeamError pError);
-		public Int32 VerifyPassword(string cszArg1, ref Int32 piArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeVerifyPassword>(this.Functions.VerifyPassword); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPassword(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSteamError pError);
+		public Int32 VerifyPassword(string cszArg1, ref Int32 piArg2, ref TSteamError pError) { var call = this.GetFunction<NativeVerifyPassword>(this.Functions.VerifyPassword); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserType(IntPtr thisobj, ref UInt32 puArg1, ref TSTeamError pError);
-		public Int32 GetUserType(ref UInt32 puArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeGetUserType>(this.Functions.GetUserType); return call(this.ObjectAddress, ref puArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserType(IntPtr thisobj, ref UInt32 puArg1, ref TSteamError pError);
+		public Int32 GetUserType(ref UInt32 puArg1, ref TSteamError pError) { var call = this.GetFunction<NativeGetUserType>(this.Functions.GetUserType); return call(this.ObjectAddress, ref puArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppStats(IntPtr thisobj, ref TSteamAppStats pAppStats, ref TSTeamError pError);
-		public Int32 GetAppStats(ref TSteamAppStats pAppStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppStats>(this.Functions.GetAppStats); return call(this.ObjectAddress, ref pAppStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppStats(IntPtr thisobj, ref TSteamAppStats pAppStats, ref TSteamError pError);
+		public Int32 GetAppStats(ref TSteamAppStats pAppStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppStats>(this.Functions.GetAppStats); return call(this.ObjectAddress, ref pAppStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUse(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSTeamError pError);
-		public UInt32 IsAccountNameInUse(string cszArg1, ref Int32 piArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeIsAccountNameInUse>(this.Functions.IsAccountNameInUse); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUse(IntPtr thisobj, string cszArg1, ref Int32 piArg2, ref TSteamError pError);
+		public UInt32 IsAccountNameInUse(string cszArg1, ref Int32 piArg2, ref TSteamError pError) { var call = this.GetFunction<NativeIsAccountNameInUse>(this.Functions.IsAccountNameInUse); return call(this.ObjectAddress, cszArg1, ref piArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError);
-		public Int32 GetAppIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError);
+		public Int32 GetAppIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStats(IntPtr thisobj, ref TSteamSubscriptionStats pSubscriptionStats, ref TSTeamError pError);
-		public Int32 GetSubscriptionStats(ref TSteamSubscriptionStats pSubscriptionStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionStats>(this.Functions.GetSubscriptionStats); return call(this.ObjectAddress, ref pSubscriptionStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStats(IntPtr thisobj, ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError);
+		public Int32 GetSubscriptionStats(ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionStats>(this.Functions.GetSubscriptionStats); return call(this.ObjectAddress, ref pSubscriptionStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfo(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 RefreshAccountInfo(ref TSTeamError pError) { var call = this.GetFunction<NativeRefreshAccountInfo>(this.Functions.RefreshAccountInfo); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfo(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 RefreshAccountInfo(ref TSteamError pError) { var call = this.GetFunction<NativeRefreshAccountInfo>(this.Functions.RefreshAccountInfo); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError);
-		public UInt32 Subscribe(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeSubscribe>(this.Functions.Subscribe); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError);
+		public UInt32 Subscribe(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError) { var call = this.GetFunction<NativeSubscribe>(this.Functions.Subscribe); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUnsubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSTeamError pError);
-		public UInt32 Unsubscribe(UInt32 uSubscriptionId, ref TSTeamError pError) { var call = this.GetFunction<NativeUnsubscribe>(this.Functions.Unsubscribe); return call(this.ObjectAddress, uSubscriptionId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUnsubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamError pError);
+		public UInt32 Unsubscribe(UInt32 uSubscriptionId, ref TSteamError pError) { var call = this.GetFunction<NativeUnsubscribe>(this.Functions.Unsubscribe); return call(this.ObjectAddress, uSubscriptionId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionReceipt(IntPtr thisobj, UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSTeamError pError);
-		public Int32 GetSubscriptionReceipt(UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionReceipt>(this.Functions.GetSubscriptionReceipt); return call(this.ObjectAddress, arg1, ref pSteamSubscriptionReceipt, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionReceipt(IntPtr thisobj, UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSteamError pError);
+		public Int32 GetSubscriptionReceipt(UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionReceipt>(this.Functions.GetSubscriptionReceipt); return call(this.ObjectAddress, arg1, ref pSteamSubscriptionReceipt, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatus(IntPtr thisobj, ref UInt32 puArg1, ref TSTeamError pError);
-		public Int32 GetAccountStatus(ref UInt32 puArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAccountStatus>(this.Functions.GetAccountStatus); return call(this.ObjectAddress, ref puArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatus(IntPtr thisobj, ref UInt32 puArg1, ref TSteamError pError);
+		public Int32 GetAccountStatus(ref UInt32 puArg1, ref TSteamError pError) { var call = this.GetFunction<NativeGetAccountStatus>(this.Functions.GetAccountStatus); return call(this.ObjectAddress, ref puArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUser(IntPtr thisobj, string cszUser, ref Int32 pbUserSet, ref TSTeamError pError);
-		public UInt32 SetUser(string cszUser, ref Int32 pbUserSet, ref TSTeamError pError) { var call = this.GetFunction<NativeSetUser>(this.Functions.SetUser); return call(this.ObjectAddress, cszUser, ref pbUserSet, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUser(IntPtr thisobj, string cszUser, ref Int32 pbUserSet, ref TSteamError pError);
+		public UInt32 SetUser(string cszUser, ref Int32 pbUserSet, ref TSteamError pError) { var call = this.GetFunction<NativeSetUser>(this.Functions.SetUser); return call(this.ObjectAddress, cszUser, ref pbUserSet, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUser(IntPtr thisobj, string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError);
-		public Int32 GetUser(string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError) { var call = this.GetFunction<NativeGetUser>(this.Functions.GetUser); return call(this.ObjectAddress, szUser, uBufSize, ref puUserChars, ref pSteamGlobalUserID, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUser(IntPtr thisobj, string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError);
+		public Int32 GetUser(string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError) { var call = this.GetFunction<NativeGetUser>(this.Functions.GetUser); return call(this.ObjectAddress, szUser, uBufSize, ref puUserChars, ref pSteamGlobalUserID, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogin(IntPtr thisobj, string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError);
-		public UInt32 Login(string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError) { var call = this.GetFunction<NativeLogin>(this.Functions.Login); return call(this.ObjectAddress, cszUser, cszPassphrase, bIsSecureComputer, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogin(IntPtr thisobj, string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError);
+		public UInt32 Login(string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError) { var call = this.GetFunction<NativeLogin>(this.Functions.Login); return call(this.ObjectAddress, cszUser, cszPassphrase, bIsSecureComputer, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceipt(IntPtr thisobj, UInt32 uArg1, ref TSTeamError pError);
-		public UInt32 AckSubscriptionReceipt(UInt32 uArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeAckSubscriptionReceipt>(this.Functions.AckSubscriptionReceipt); return call(this.ObjectAddress, uArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceipt(IntPtr thisobj, UInt32 uArg1, ref TSteamError pError);
+		public UInt32 AckSubscriptionReceipt(UInt32 uArg1, ref TSteamError pError) { var call = this.GetFunction<NativeAckSubscriptionReceipt>(this.Functions.AckSubscriptionReceipt); return call(this.ObjectAddress, uArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribed(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSTeamError pError);
-		public Int32 IsAppSubscribed(UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSTeamError pError) { var call = this.GetFunction<NativeIsAppSubscribed>(this.Functions.IsAppSubscribed); return call(this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pReserved, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribed(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError);
+		public Int32 IsAppSubscribed(UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError) { var call = this.GetFunction<NativeIsAppSubscribed>(this.Functions.IsAppSubscribed); return call(this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pReserved, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError);
-		public Int32 GetSubscriptionIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionIds>(this.Functions.GetSubscriptionIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError);
+		public Int32 GetSubscriptionIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionIds>(this.Functions.GetSubscriptionIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscription(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSTeamError pError);
-		public Int32 EnumerateSubscription(UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscription>(this.Functions.EnumerateSubscription); return call(this.ObjectAddress, uSubscriptionId, ref pSubscription, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscription(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSteamError pError);
+		public Int32 EnumerateSubscription(UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscription>(this.Functions.EnumerateSubscription); return call(this.ObjectAddress, uSubscriptionId, ref pSubscription, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscount(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSTeamError pError);
-		public Int32 EnumerateSubscriptionDiscount(UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscount>(this.Functions.EnumerateSubscriptionDiscount); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, ref pSteamSubscriptionDiscount, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscount(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError);
+		public Int32 EnumerateSubscriptionDiscount(UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscount>(this.Functions.EnumerateSubscriptionDiscount); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, ref pSteamSubscriptionDiscount, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifier(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSTeamError pError);
-		public Int32 EnumerateSubscriptionDiscountQualifier(UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscountQualifier>(this.Functions.EnumerateSubscriptionDiscountQualifier); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, uQualifierIdx, ref pSteamDiscountQualifier, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifier(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError);
+		public Int32 EnumerateSubscriptionDiscountQualifier(UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscountQualifier>(this.Functions.EnumerateSubscriptionDiscountQualifier); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, uQualifierIdx, ref pSteamDiscountQualifier, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateApp(IntPtr thisobj, UInt32 uAppId, ref TSteamApp pApp, ref TSTeamError pError);
-		public Int32 EnumerateApp(UInt32 uAppId, ref TSteamApp pApp, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateApp>(this.Functions.EnumerateApp); return call(this.ObjectAddress, uAppId, ref pApp, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateApp(IntPtr thisobj, UInt32 uAppId, ref TSteamApp pApp, ref TSteamError pError);
+		public Int32 EnumerateApp(UInt32 uAppId, ref TSteamApp pApp, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateApp>(this.Functions.EnumerateApp); return call(this.ObjectAddress, uAppId, ref pApp, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppLaunchOption(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSTeamError pError);
-		public Int32 EnumerateAppLaunchOption(UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppLaunchOption>(this.Functions.EnumerateAppLaunchOption); return call(this.ObjectAddress, uAppId, uLaunchOptionIndex, ref pLaunchOption, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppLaunchOption(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSteamError pError);
+		public Int32 EnumerateAppLaunchOption(UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppLaunchOption>(this.Functions.EnumerateAppLaunchOption); return call(this.ObjectAddress, uAppId, uLaunchOptionIndex, ref pLaunchOption, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDeleteAccount(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 DeleteAccount(ref TSTeamError pError) { var call = this.GetFunction<NativeDeleteAccount>(this.Functions.DeleteAccount); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDeleteAccount(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 DeleteAccount(ref TSteamError pError) { var call = this.GetFunction<NativeDeleteAccount>(this.Functions.DeleteAccount); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppIcon(IntPtr thisobj, UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSTeamError pError);
-		public Int32 EnumerateAppIcon(UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppIcon>(this.Functions.EnumerateAppIcon); return call(this.ObjectAddress, uAppId, uIconIndex, pIconData, uIconDataBufSize, ref puSizeOfIconData, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppIcon(IntPtr thisobj, UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSteamError pError);
+		public Int32 EnumerateAppIcon(UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppIcon>(this.Functions.EnumerateAppIcon); return call(this.ObjectAddress, uAppId, uIconIndex, pIconData, uIconDataBufSize, ref puSizeOfIconData, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLaunchApp(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSTeamError pError);
-		public UInt32 LaunchApp(UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSTeamError pError) { var call = this.GetFunction<NativeLaunchApp>(this.Functions.LaunchApp); return call(this.ObjectAddress, uAppId, uLaunchOption, cszArgs, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLaunchApp(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSteamError pError);
+		public UInt32 LaunchApp(UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSteamError pError) { var call = this.GetFunction<NativeLaunchApp>(this.Functions.LaunchApp); return call(this.ObjectAddress, uAppId, uLaunchOption, cszArgs, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheFilePath(IntPtr thisobj, UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetCacheFilePath(UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheFilePath>(this.Functions.GetCacheFilePath); return call(this.ObjectAddress, uAppId, szFilePath, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheFilePath(IntPtr thisobj, UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetCacheFilePath(UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheFilePath>(this.Functions.GetCacheFilePath); return call(this.ObjectAddress, uAppId, szFilePath, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSTeamError pError);
-		public Int32 EnumerateAppVersion(UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppVersion>(this.Functions.EnumerateAppVersion); return call(this.ObjectAddress, uAppId, uVersionIndex, ref pAppVersion, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSteamError pError);
+		public Int32 EnumerateAppVersion(UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppVersion>(this.Functions.EnumerateAppVersion); return call(this.ObjectAddress, uAppId, uVersionIndex, ref pAppVersion, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependency(IntPtr thisobj, UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError);
-		public Int32 EnumerateAppDependency(UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppDependency>(this.Functions.EnumerateAppDependency); return call(this.ObjectAddress, AppId, uDependency, ref pDependencyInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependency(IntPtr thisobj, UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError);
+		public Int32 EnumerateAppDependency(UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppDependency>(this.Functions.EnumerateAppDependency); return call(this.ObjectAddress, AppId, uDependency, ref pDependencyInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 StartLoadingCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeStartLoadingCache>(this.Functions.StartLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 StartLoadingCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeStartLoadingCache>(this.Functions.StartLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInsertAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError);
-		public Int32 InsertAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeInsertAppDependency>(this.Functions.InsertAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pDependencyInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInsertAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError);
+		public Int32 InsertAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError) { var call = this.GetFunction<NativeInsertAppDependency>(this.Functions.InsertAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pDependencyInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRemoveAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSTeamError pError);
-		public Int32 RemoveAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSTeamError pError) { var call = this.GetFunction<NativeRemoveAppDependency>(this.Functions.RemoveAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRemoveAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamError pError);
+		public Int32 RemoveAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamError pError) { var call = this.GetFunction<NativeRemoveAppDependency>(this.Functions.RemoveAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindApp(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public Int32 FindApp(string cszArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeFindApp>(this.Functions.FindApp); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindApp(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public Int32 FindApp(string cszArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeFindApp>(this.Functions.FindApp); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSTeamError pError);
-		public Int32 GetAppDependencies(UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError);
+		public Int32 GetAppDependencies(UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribed(IntPtr thisobj, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSTeamError pError);
-		public Int32 IsSubscribed(UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSTeamError pError) { var call = this.GetFunction<NativeIsSubscribed>(this.Functions.IsSubscribed); return call(this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribed(IntPtr thisobj, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError);
+		public Int32 IsSubscribed(UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError) { var call = this.GetFunction<NativeIsSubscribed>(this.Functions.IsSubscribed); return call(this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedInfo(IntPtr thisobj, UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSTeamError pError);
-		public Int32 GetAppUserDefinedInfo(UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedInfo>(this.Functions.GetAppUserDefinedInfo); return call(this.ObjectAddress, uAppId, cszPropertyName, szPropertyValue, uBufSize, ref puPropertyValueLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedInfo(IntPtr thisobj, UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSteamError pError);
+		public Int32 GetAppUserDefinedInfo(UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedInfo>(this.Functions.GetAppUserDefinedInfo); return call(this.ObjectAddress, uAppId, cszPropertyName, szPropertyValue, uBufSize, ref puPropertyValueLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppReadyToLaunch(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 WaitForAppReadyToLaunch(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeWaitForAppReadyToLaunch>(this.Functions.WaitForAppReadyToLaunch); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppReadyToLaunch(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 WaitForAppReadyToLaunch(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeWaitForAppReadyToLaunch>(this.Functions.WaitForAppReadyToLaunch); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsCacheLoadingEnabled(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsLoading, ref TSTeamError pError);
-		public Int32 IsCacheLoadingEnabled(UInt32 uAppId, ref Int32 pbIsLoading, ref TSTeamError pError) { var call = this.GetFunction<NativeIsCacheLoadingEnabled>(this.Functions.IsCacheLoadingEnabled); return call(this.ObjectAddress, uAppId, ref pbIsLoading, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsCacheLoadingEnabled(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsLoading, ref TSteamError pError);
+		public Int32 IsCacheLoadingEnabled(UInt32 uAppId, ref Int32 pbIsLoading, ref TSteamError pError) { var call = this.GetFunction<NativeIsCacheLoadingEnabled>(this.Functions.IsCacheLoadingEnabled); return call(this.ObjectAddress, uAppId, ref pbIsLoading, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStopLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 StopLoadingCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeStopLoadingCache>(this.Functions.StopLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStopLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 StopLoadingCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeStopLoadingCache>(this.Functions.StopLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ESteamError NativeGetEncryptedUserIDTicket(IntPtr thisobj, byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSTeamError pError);
-		public ESteamError GetEncryptedUserIDTicket(byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSTeamError pError) { var call = this.GetFunction<NativeGetEncryptedUserIDTicket>(this.Functions.GetEncryptedUserIDTicket); return call(this.ObjectAddress, pEncryptionKeyReceivedFromAppServer, uEncryptionKeyLength, pOutputBuffer, uSizeOfOutputBuffer, ref pReceiveSizeOfEncryptedTicket, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ESteamError NativeGetEncryptedUserIDTicket(IntPtr thisobj, byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSteamError pError);
+		public ESteamError GetEncryptedUserIDTicket(byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSteamError pError) { var call = this.GetFunction<NativeGetEncryptedUserIDTicket>(this.Functions.GetEncryptedUserIDTicket); return call(this.ObjectAddress, pEncryptionKeyReceivedFromAppServer, uEncryptionKeyLength, pOutputBuffer, uSizeOfOutputBuffer, ref pReceiveSizeOfEncryptedTicket, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFlushCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 FlushCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeFlushCache>(this.Functions.FlushCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFlushCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 FlushCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeFlushCache>(this.Functions.FlushCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCaches(IntPtr thisobj, UInt32 uAppId, Int32 iArg2, ref TSTeamError pError);
-		public UInt32 RepairOrDecryptCaches(UInt32 uAppId, Int32 iArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeRepairOrDecryptCaches>(this.Functions.RepairOrDecryptCaches); return call(this.ObjectAddress, uAppId, iArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCaches(IntPtr thisobj, UInt32 uAppId, Int32 iArg2, ref TSteamError pError);
+		public UInt32 RepairOrDecryptCaches(UInt32 uAppId, Int32 iArg2, ref TSteamError pError) { var call = this.GetFunction<NativeRepairOrDecryptCaches>(this.Functions.RepairOrDecryptCaches); return call(this.ObjectAddress, uAppId, iArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoadCacheFromDir(IntPtr thisobj, UInt32 uAppId, string cszPath, ref TSTeamError pError);
-		public UInt32 LoadCacheFromDir(UInt32 uAppId, string cszPath, ref TSTeamError pError) { var call = this.GetFunction<NativeLoadCacheFromDir>(this.Functions.LoadCacheFromDir); return call(this.ObjectAddress, uAppId, cszPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoadCacheFromDir(IntPtr thisobj, UInt32 uAppId, string cszPath, ref TSteamError pError);
+		public UInt32 LoadCacheFromDir(UInt32 uAppId, string cszPath, ref TSteamError pError) { var call = this.GetFunction<NativeLoadCacheFromDir>(this.Functions.LoadCacheFromDir); return call(this.ObjectAddress, uAppId, cszPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDefaultDirectory(IntPtr thisobj, string szPath, ref TSTeamError pError);
-		public Int32 GetCacheDefaultDirectory(string szPath, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheDefaultDirectory>(this.Functions.GetCacheDefaultDirectory); return call(this.ObjectAddress, szPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDefaultDirectory(IntPtr thisobj, string szPath, ref TSteamError pError);
+		public Int32 GetCacheDefaultDirectory(string szPath, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheDefaultDirectory>(this.Functions.GetCacheDefaultDirectory); return call(this.ObjectAddress, szPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetCacheDefaultDirectory(IntPtr thisobj, string cszPath, ref TSTeamError pError);
-		public Int32 SetCacheDefaultDirectory(string cszPath, ref TSTeamError pError) { var call = this.GetFunction<NativeSetCacheDefaultDirectory>(this.Functions.SetCacheDefaultDirectory); return call(this.ObjectAddress, cszPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetCacheDefaultDirectory(IntPtr thisobj, string cszPath, ref TSteamError pError);
+		public Int32 SetCacheDefaultDirectory(string cszPath, ref TSteamError pError) { var call = this.GetFunction<NativeSetCacheDefaultDirectory>(this.Functions.SetCacheDefaultDirectory); return call(this.ObjectAddress, cszPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDir(IntPtr thisobj, UInt32 uAppId, string szAppDir, ref TSTeamError pError);
-		public Int32 GetAppDir(UInt32 uAppId, string szAppDir, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppDir>(this.Functions.GetAppDir); return call(this.ObjectAddress, uAppId, szAppDir, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDir(IntPtr thisobj, UInt32 uAppId, string szAppDir, ref TSteamError pError);
+		public Int32 GetAppDir(UInt32 uAppId, string szAppDir, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDir>(this.Functions.GetAppDir); return call(this.ObjectAddress, uAppId, szAppDir, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMoveApp(IntPtr thisobj, UInt32 uAppId, string szPath, ref TSTeamError pError);
-		public UInt32 MoveApp(UInt32 uAppId, string szPath, ref TSTeamError pError) { var call = this.GetFunction<NativeMoveApp>(this.Functions.MoveApp); return call(this.ObjectAddress, uAppId, szPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMoveApp(IntPtr thisobj, UInt32 uAppId, string szPath, ref TSteamError pError);
+		public UInt32 MoveApp(UInt32 uAppId, string szPath, ref TSteamError pError) { var call = this.GetFunction<NativeMoveApp>(this.Functions.MoveApp); return call(this.ObjectAddress, uAppId, szPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppCacheSize(IntPtr thisobj, UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSTeamError pError);
-		public UInt32 GetAppCacheSize(UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppCacheSize>(this.Functions.GetAppCacheSize); return call(this.ObjectAddress, uAppId, ref puCacheSizeInMb, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppCacheSize(IntPtr thisobj, UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSteamError pError);
+		public UInt32 GetAppCacheSize(UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppCacheSize>(this.Functions.GetAppCacheSize); return call(this.ObjectAddress, uAppId, ref puCacheSizeInMb, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppCacheSize(IntPtr thisobj, UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSTeamError pError);
-		public UInt32 SetAppCacheSize(UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSTeamError pError) { var call = this.GetFunction<NativeSetAppCacheSize>(this.Functions.SetAppCacheSize); return call(this.ObjectAddress, uAppId, uCacheSizeInMb, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppCacheSize(IntPtr thisobj, UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSteamError pError);
+		public UInt32 SetAppCacheSize(UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSteamError pError) { var call = this.GetFunction<NativeSetAppCacheSize>(this.Functions.SetAppCacheSize); return call(this.ObjectAddress, uAppId, uCacheSizeInMb, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uAppVersionId, ref TSTeamError pError);
-		public UInt32 SetAppVersion(UInt32 uAppId, UInt32 uAppVersionId, ref TSTeamError pError) { var call = this.GetFunction<NativeSetAppVersion>(this.Functions.SetAppVersion); return call(this.ObjectAddress, uAppId, uAppVersionId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uAppVersionId, ref TSteamError pError);
+		public UInt32 SetAppVersion(UInt32 uAppId, UInt32 uAppVersionId, ref TSteamError pError) { var call = this.GetFunction<NativeSetAppVersion>(this.Functions.SetAppVersion); return call(this.ObjectAddress, uAppId, uAppVersionId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUninstall(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 Uninstall(ref TSTeamError pError) { var call = this.GetFunction<NativeUninstall>(this.Functions.Uninstall); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUninstall(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 Uninstall(ref TSteamError pError) { var call = this.GetFunction<NativeUninstall>(this.Functions.Uninstall); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetNotificationCallback(IntPtr thisobj, ref IntPtr pCallbackFunction, ref TSTeamError pError);
-		public Int32 SetNotificationCallback(ref IntPtr pCallbackFunction, ref TSTeamError pError) { var call = this.GetFunction<NativeSetNotificationCallback>(this.Functions.SetNotificationCallback); return call(this.ObjectAddress, ref pCallbackFunction, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetNotificationCallback(IntPtr thisobj, ref IntPtr pCallbackFunction, ref TSteamError pError);
+		public Int32 SetNotificationCallback(ref IntPtr pCallbackFunction, ref TSteamError pError) { var call = this.GetFunction<NativeSetNotificationCallback>(this.Functions.SetNotificationCallback); return call(this.ObjectAddress, ref pCallbackFunction, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPassword(IntPtr thisobj, string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSTeamError pError);
-		public UInt32 ChangeForgottenPassword(string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeForgottenPassword>(this.Functions.ChangeForgottenPassword); return call(this.ObjectAddress, cszArg1, cszArg2, cszArg3, cszArg4, ref piArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPassword(IntPtr thisobj, string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSteamError pError);
+		public UInt32 ChangeForgottenPassword(string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSteamError pError) { var call = this.GetFunction<NativeChangeForgottenPassword>(this.Functions.ChangeForgottenPassword); return call(this.ObjectAddress, cszArg1, cszArg2, cszArg3, cszArg4, ref piArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmail(IntPtr thisobj, string cszArg1, string szArg2, ref TSTeamError pError);
-		public UInt32 RequestForgottenPasswordEmail(string cszArg1, string szArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestForgottenPasswordEmail>(this.Functions.RequestForgottenPasswordEmail); return call(this.ObjectAddress, cszArg1, szArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmail(IntPtr thisobj, string cszArg1, string szArg2, ref TSteamError pError);
+		public UInt32 RequestForgottenPasswordEmail(string cszArg1, string szArg2, ref TSteamError pError) { var call = this.GetFunction<NativeRequestForgottenPasswordEmail>(this.Functions.RequestForgottenPasswordEmail); return call(this.ObjectAddress, cszArg1, szArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmail(IntPtr thisobj, string cszArg1, ref TSTeamError pError);
-		public UInt32 RequestAccountsByEmailAddressEmail(string cszArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestAccountsByEmailAddressEmail>(this.Functions.RequestAccountsByEmailAddressEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmail(IntPtr thisobj, string cszArg1, ref TSteamError pError);
+		public UInt32 RequestAccountsByEmailAddressEmail(string cszArg1, ref TSteamError pError) { var call = this.GetFunction<NativeRequestAccountsByEmailAddressEmail>(this.Functions.RequestAccountsByEmailAddressEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmail(IntPtr thisobj, string cszArg1, ref TSTeamError pError);
-		public UInt32 RequestAccountsByCdKeyEmail(string cszArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestAccountsByCdKeyEmail>(this.Functions.RequestAccountsByCdKeyEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmail(IntPtr thisobj, string cszArg1, ref TSteamError pError);
+		public UInt32 RequestAccountsByCdKeyEmail(string cszArg1, ref TSteamError pError) { var call = this.GetFunction<NativeRequestAccountsByCdKeyEmail>(this.Functions.RequestAccountsByCdKeyEmail); return call(this.ObjectAddress, cszArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddress(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public UInt32 GetNumAccountsWithEmailAddress(string cszArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeGetNumAccountsWithEmailAddress>(this.Functions.GetNumAccountsWithEmailAddress); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddress(IntPtr thisobj, string cszArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public UInt32 GetNumAccountsWithEmailAddress(string cszArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeGetNumAccountsWithEmailAddress>(this.Functions.GetNumAccountsWithEmailAddress); return call(this.ObjectAddress, cszArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateAccountBillingInfo(IntPtr thisobj, ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSTeamError pError);
-		public UInt32 UpdateAccountBillingInfo(ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeUpdateAccountBillingInfo>(this.Functions.UpdateAccountBillingInfo); return call(this.ObjectAddress, ref pPaymentCardInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateAccountBillingInfo(IntPtr thisobj, ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSteamError pError);
+		public UInt32 UpdateAccountBillingInfo(ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSteamError pError) { var call = this.GetFunction<NativeUpdateAccountBillingInfo>(this.Functions.UpdateAccountBillingInfo); return call(this.ObjectAddress, ref pPaymentCardInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateSubscriptionBillingInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError);
-		public UInt32 UpdateSubscriptionBillingInfo(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeUpdateSubscriptionBillingInfo>(this.Functions.UpdateSubscriptionBillingInfo); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateSubscriptionBillingInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError);
+		public UInt32 UpdateSubscriptionBillingInfo(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError) { var call = this.GetFunction<NativeUpdateSubscriptionBillingInfo>(this.Functions.UpdateSubscriptionBillingInfo); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSponsorUrl(IntPtr thisobj, UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSTeamError pError);
-		public Int32 GetSponsorUrl(UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSponsorUrl>(this.Functions.GetSponsorUrl); return call(this.ObjectAddress, uAppId, szUrl, uBufSize, ref pUrlChars, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSponsorUrl(IntPtr thisobj, UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSteamError pError);
+		public Int32 GetSponsorUrl(UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSteamError pError) { var call = this.GetFunction<NativeGetSponsorUrl>(this.Functions.GetSponsorUrl); return call(this.ObjectAddress, uAppId, szUrl, uBufSize, ref pUrlChars, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfo(IntPtr thisobj, UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSTeamError pError);
-		public Int32 GetContentServerInfo(UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSTeamError pError) { var call = this.GetFunction<NativeGetContentServerInfo>(this.Functions.GetContentServerInfo); return call(this.ObjectAddress, uArg1, ref puArg2, ref puArg3, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfo(IntPtr thisobj, UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError);
+		public Int32 GetContentServerInfo(UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError) { var call = this.GetFunction<NativeGetContentServerInfo>(this.Functions.GetContentServerInfo); return call(this.ObjectAddress, uArg1, ref puArg2, ref puArg3, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStats(IntPtr thisobj, UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError);
-		public UInt32 GetAppUpdateStats(UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUpdateStats>(this.Functions.GetAppUpdateStats); return call(this.ObjectAddress, uAppId, eSteamAppUpdateStatsQueryType, ref pUpdateStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStats(IntPtr thisobj, UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError);
+		public UInt32 GetAppUpdateStats(UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUpdateStats>(this.Functions.GetAppUpdateStats); return call(this.ObjectAddress, uAppId, eSteamAppUpdateStatsQueryType, ref pUpdateStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTotalUpdateStats(IntPtr thisobj, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError);
-		public Int32 GetTotalUpdateStats(ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetTotalUpdateStats>(this.Functions.GetTotalUpdateStats); return call(this.ObjectAddress, ref pUpdateStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTotalUpdateStats(IntPtr thisobj, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError);
+		public Int32 GetTotalUpdateStats(ref TSteamUpdateStats pUpdateStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetTotalUpdateStats>(this.Functions.GetTotalUpdateStats); return call(this.ObjectAddress, ref pUpdateStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateCachePreloaders(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 CreateCachePreloaders(ref TSTeamError pError) { var call = this.GetFunction<NativeCreateCachePreloaders>(this.Functions.CreateCachePreloaders); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateCachePreloaders(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 CreateCachePreloaders(ref TSteamError pError) { var call = this.GetFunction<NativeCreateCachePreloaders>(this.Functions.CreateCachePreloaders); return call(this.ObjectAddress, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeWin32SetMiniDumpComment(IntPtr thisobj, string cszComment);
 		public void Win32SetMiniDumpComment(string cszComment) { var call = this.GetFunction<NativeWin32SetMiniDumpComment>(this.Functions.Win32SetMiniDumpComment); call(this.ObjectAddress, cszComment); }
@@ -8427,11 +8429,11 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeWin32WriteMiniDump(IntPtr thisobj, string arg1, string arg2, string arg3, string arg4, UInt32 arg5);
 		public void Win32WriteMiniDump(string arg1, string arg2, string arg3, string arg4, UInt32 arg5) { var call = this.GetFunction<NativeWin32WriteMiniDump>(this.Functions.Win32WriteMiniDump); call(this.ObjectAddress, arg1, arg2, arg3, arg4, arg5); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentAppId(IntPtr thisobj, ref UInt32 puAppId, ref TSTeamError pError);
-		public Int32 GetCurrentAppId(ref UInt32 puAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCurrentAppId>(this.Functions.GetCurrentAppId); return call(this.ObjectAddress, ref puAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentAppId(IntPtr thisobj, ref UInt32 puAppId, ref TSteamError pError);
+		public Int32 GetCurrentAppId(ref UInt32 puAppId, ref TSteamError pError) { var call = this.GetFunction<NativeGetCurrentAppId>(this.Functions.GetCurrentAppId); return call(this.ObjectAddress, ref puAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppPurchaseCountry(IntPtr thisobj, UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetAppPurchaseCountry(UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppPurchaseCountry>(this.Functions.GetAppPurchaseCountry); return call(this.ObjectAddress, uAppId, szCountryCode, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppPurchaseCountry(IntPtr thisobj, UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetAppPurchaseCountry(UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppPurchaseCountry>(this.Functions.GetAppPurchaseCountry); return call(this.ObjectAddress, uAppId, szCountryCode, uBufferLength, ref puRecievedLength, ref pError); }
 
 	}
 	
@@ -8585,164 +8587,164 @@ namespace Steam4NET
 	
 	public class ISteam006 : NativeWrapper<ISteam006VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePassword(IntPtr thisobj, ref string_t cszCurrentPassphrase, ref string_t cszNewPassphrase, ref TSTeamError pError);
-		public UInt32 ChangePassword(ref string_t cszCurrentPassphrase, ref string_t cszNewPassphrase, ref TSTeamError pError) { var call = this.GetFunction<NativeChangePassword>(this.Functions.ChangePassword); return call(this.ObjectAddress, ref cszCurrentPassphrase, ref cszNewPassphrase, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePassword(IntPtr thisobj, ref string_t cszCurrentPassphrase, ref string_t cszNewPassphrase, ref TSteamError pError);
+		public UInt32 ChangePassword(ref string_t cszCurrentPassphrase, ref string_t cszNewPassphrase, ref TSteamError pError) { var call = this.GetFunction<NativeChangePassword>(this.Functions.ChangePassword); return call(this.ObjectAddress, ref cszCurrentPassphrase, ref cszNewPassphrase, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentEmailAddress(IntPtr thisobj, string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSTeamError pError);
-		public Int32 GetCurrentEmailAddress(string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCurrentEmailAddress>(this.Functions.GetCurrentEmailAddress); return call(this.ObjectAddress, szEmailaddress, uBufSize, ref puEmailaddressChars, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentEmailAddress(IntPtr thisobj, string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSteamError pError);
+		public Int32 GetCurrentEmailAddress(string szEmailaddress, UInt32 uBufSize, ref UInt32 puEmailaddressChars, ref TSteamError pError) { var call = this.GetFunction<NativeGetCurrentEmailAddress>(this.Functions.GetCurrentEmailAddress); return call(this.ObjectAddress, szEmailaddress, uBufSize, ref puEmailaddressChars, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePersonalQA(IntPtr thisobj, ref string_t cszCurrentPassphrase, ref string_t cszNewPersonalQuestion, ref string_t cszNewAnswerToQuestion, ref TSTeamError pError);
-		public UInt32 ChangePersonalQA(ref string_t cszCurrentPassphrase, ref string_t cszNewPersonalQuestion, ref string_t cszNewAnswerToQuestion, ref TSTeamError pError) { var call = this.GetFunction<NativeChangePersonalQA>(this.Functions.ChangePersonalQA); return call(this.ObjectAddress, ref cszCurrentPassphrase, ref cszNewPersonalQuestion, ref cszNewAnswerToQuestion, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePersonalQA(IntPtr thisobj, ref string_t cszCurrentPassphrase, ref string_t cszNewPersonalQuestion, ref string_t cszNewAnswerToQuestion, ref TSteamError pError);
+		public UInt32 ChangePersonalQA(ref string_t cszCurrentPassphrase, ref string_t cszNewPersonalQuestion, ref string_t cszNewAnswerToQuestion, ref TSteamError pError) { var call = this.GetFunction<NativeChangePersonalQA>(this.Functions.ChangePersonalQA); return call(this.ObjectAddress, ref cszCurrentPassphrase, ref cszNewPersonalQuestion, ref cszNewAnswerToQuestion, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeEmailAddress(IntPtr thisobj, ref string_t cszNewEmailAddress, ref TSTeamError pError);
-		public UInt32 ChangeEmailAddress(ref string_t cszNewEmailAddress, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeEmailAddress>(this.Functions.ChangeEmailAddress); return call(this.ObjectAddress, ref cszNewEmailAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeEmailAddress(IntPtr thisobj, ref string_t cszNewEmailAddress, ref TSteamError pError);
+		public UInt32 ChangeEmailAddress(ref string_t cszNewEmailAddress, ref TSteamError pError) { var call = this.GetFunction<NativeChangeEmailAddress>(this.Functions.ChangeEmailAddress); return call(this.ObjectAddress, ref cszNewEmailAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeVerifyEmailAddress(IntPtr thisobj, ref string_t cszEmailAddress, ref TSTeamError pError);
-		public UInt32 VerifyEmailAddress(ref string_t cszEmailAddress, ref TSTeamError pError) { var call = this.GetFunction<NativeVerifyEmailAddress>(this.Functions.VerifyEmailAddress); return call(this.ObjectAddress, ref cszEmailAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeVerifyEmailAddress(IntPtr thisobj, ref string_t cszEmailAddress, ref TSteamError pError);
+		public UInt32 VerifyEmailAddress(ref string_t cszEmailAddress, ref TSteamError pError) { var call = this.GetFunction<NativeVerifyEmailAddress>(this.Functions.VerifyEmailAddress); return call(this.ObjectAddress, ref cszEmailAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestEmailAddressVerificationEmail(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 RequestEmailAddressVerificationEmail(ref TSTeamError pError) { var call = this.GetFunction<NativeRequestEmailAddressVerificationEmail>(this.Functions.RequestEmailAddressVerificationEmail); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestEmailAddressVerificationEmail(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 RequestEmailAddressVerificationEmail(ref TSteamError pError) { var call = this.GetFunction<NativeRequestEmailAddressVerificationEmail>(this.Functions.RequestEmailAddressVerificationEmail); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountName(IntPtr thisobj, ref string_t cszCurrentAccountName, ref string_t cszNewAccountName, ref TSTeamError pError);
-		public UInt32 ChangeAccountName(ref string_t cszCurrentAccountName, ref string_t cszNewAccountName, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeAccountName>(this.Functions.ChangeAccountName); return call(this.ObjectAddress, ref cszCurrentAccountName, ref cszNewAccountName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountName(IntPtr thisobj, ref string_t cszCurrentAccountName, ref string_t cszNewAccountName, ref TSteamError pError);
+		public UInt32 ChangeAccountName(ref string_t cszCurrentAccountName, ref string_t cszNewAccountName, ref TSteamError pError) { var call = this.GetFunction<NativeChangeAccountName>(this.Functions.ChangeAccountName); return call(this.ObjectAddress, ref cszCurrentAccountName, ref cszNewAccountName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountAppFilesystem(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 MountAppFilesystem(ref TSTeamError pError) { var call = this.GetFunction<NativeMountAppFilesystem>(this.Functions.MountAppFilesystem); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountAppFilesystem(IntPtr thisobj, ref TSteamError pError);
+		public Int32 MountAppFilesystem(ref TSteamError pError) { var call = this.GetFunction<NativeMountAppFilesystem>(this.Functions.MountAppFilesystem); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountAppFilesystem(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 UnmountAppFilesystem(ref TSTeamError pError) { var call = this.GetFunction<NativeUnmountAppFilesystem>(this.Functions.UnmountAppFilesystem); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountAppFilesystem(IntPtr thisobj, ref TSteamError pError);
+		public Int32 UnmountAppFilesystem(ref TSteamError pError) { var call = this.GetFunction<NativeUnmountAppFilesystem>(this.Functions.UnmountAppFilesystem); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMountFilesystem(IntPtr thisobj, UInt32 uAppId, ref string_t szMountPath, ref TSTeamError pError);
-		public UInt32 MountFilesystem(UInt32 uAppId, ref string_t szMountPath, ref TSTeamError pError) { var call = this.GetFunction<NativeMountFilesystem>(this.Functions.MountFilesystem); return call(this.ObjectAddress, uAppId, ref szMountPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMountFilesystem(IntPtr thisobj, UInt32 uAppId, ref string_t szMountPath, ref TSteamError pError);
+		public UInt32 MountFilesystem(UInt32 uAppId, ref string_t szMountPath, ref TSteamError pError) { var call = this.GetFunction<NativeMountFilesystem>(this.Functions.MountFilesystem); return call(this.ObjectAddress, uAppId, ref szMountPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystem(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 UnmountFilesystem(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeUnmountFilesystem>(this.Functions.UnmountFilesystem); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystem(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 UnmountFilesystem(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeUnmountFilesystem>(this.Functions.UnmountFilesystem); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStat(IntPtr thisobj, ref string_t cszName, ref TSteamElemInfo pInfo, ref TSTeamError pError);
-		public Int32 Stat(ref string_t cszName, ref TSteamElemInfo pInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeStat>(this.Functions.Stat); return call(this.ObjectAddress, ref cszName, ref pInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStat(IntPtr thisobj, ref string_t cszName, ref TSteamElemInfo pInfo, ref TSteamError pError);
+		public Int32 Stat(ref string_t cszName, ref TSteamElemInfo pInfo, ref TSteamError pError) { var call = this.GetFunction<NativeStat>(this.Functions.Stat); return call(this.ObjectAddress, ref cszName, ref pInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetvBuf(IntPtr thisobj, UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSTeamError pError);
-		public Int32 SetvBuf(UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSTeamError pError) { var call = this.GetFunction<NativeSetvBuf>(this.Functions.SetvBuf); return call(this.ObjectAddress, hFile, pBuf, eMethod, uBytes, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetvBuf(IntPtr thisobj, UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSteamError pError);
+		public Int32 SetvBuf(UInt32 hFile, byte[] pBuf, ESteamBufferMethod eMethod, UInt32 uBytes, ref TSteamError pError) { var call = this.GetFunction<NativeSetvBuf>(this.Functions.SetvBuf); return call(this.ObjectAddress, hFile, pBuf, eMethod, uBytes, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFlushFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 FlushFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeFlushFile>(this.Functions.FlushFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFlushFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 FlushFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeFlushFile>(this.Functions.FlushFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFile(IntPtr thisobj, ref string_t cszName, ref string_t cszMode, ref TSTeamError pError);
-		public UInt32 OpenFile(ref string_t cszName, ref string_t cszMode, ref TSTeamError pError) { var call = this.GetFunction<NativeOpenFile>(this.Functions.OpenFile); return call(this.ObjectAddress, ref cszName, ref cszMode, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFile(IntPtr thisobj, ref string_t cszName, ref string_t cszMode, ref TSteamError pError);
+		public UInt32 OpenFile(ref string_t cszName, ref string_t cszMode, ref TSteamError pError) { var call = this.GetFunction<NativeOpenFile>(this.Functions.OpenFile); return call(this.ObjectAddress, ref cszName, ref cszMode, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileEx(IntPtr thisobj, ref string_t cszFileName, ref string_t cszMode, Int32 iArg3, ref UInt32 puSize, ref Int32 piArg5, ref TSTeamError pError);
-		public UInt32 OpenFileEx(ref string_t cszFileName, ref string_t cszMode, Int32 iArg3, ref UInt32 puSize, ref Int32 piArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeOpenFileEx>(this.Functions.OpenFileEx); return call(this.ObjectAddress, ref cszFileName, ref cszMode, iArg3, ref puSize, ref piArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileEx(IntPtr thisobj, ref string_t cszFileName, ref string_t cszMode, Int32 iArg3, ref UInt32 puSize, ref Int32 piArg5, ref TSteamError pError);
+		public UInt32 OpenFileEx(ref string_t cszFileName, ref string_t cszMode, Int32 iArg3, ref UInt32 puSize, ref Int32 piArg5, ref TSteamError pError) { var call = this.GetFunction<NativeOpenFileEx>(this.Functions.OpenFileEx); return call(this.ObjectAddress, ref cszFileName, ref cszMode, iArg3, ref puSize, ref piArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenTmpFile(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 OpenTmpFile(ref TSTeamError pError) { var call = this.GetFunction<NativeOpenTmpFile>(this.Functions.OpenTmpFile); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenTmpFile(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 OpenTmpFile(ref TSteamError pError) { var call = this.GetFunction<NativeOpenTmpFile>(this.Functions.OpenTmpFile); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearError(IntPtr thisobj, ref TSTeamError pError);
-		public void ClearError(ref TSTeamError pError) { var call = this.GetFunction<NativeClearError>(this.Functions.ClearError); call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearError(IntPtr thisobj, ref TSteamError pError);
+		public void ClearError(ref TSteamError pError) { var call = this.GetFunction<NativeClearError>(this.Functions.ClearError); call(this.ObjectAddress, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetVersion(IntPtr thisobj, string szVersion, UInt32 uVersionBufSize);
 		public Int32 GetVersion(string szVersion, UInt32 uVersionBufSize) { var call = this.GetFunction<NativeGetVersion>(this.Functions.GetVersion); return call(this.ObjectAddress, szVersion, uVersionBufSize); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError);
-		public Int32 GetOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError) { var call = this.GetFunction<NativeGetOfflineStatus>(this.Functions.GetOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError);
+		public Int32 GetOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError) { var call = this.GetFunction<NativeGetOfflineStatus>(this.Functions.GetOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeChangeOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError);
-		public Int32 ChangeOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeOfflineStatus>(this.Functions.ChangeOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeChangeOfflineStatus(IntPtr thisobj, ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError);
+		public Int32 ChangeOfflineStatus(ref TSteamOfflineStatus pSteamOfflineStatus, ref TSteamError pError) { var call = this.GetFunction<NativeChangeOfflineStatus>(this.Functions.ChangeOfflineStatus); return call(this.ObjectAddress, ref pSteamOfflineStatus, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeProcessCall(IntPtr thisobj, UInt32 handle, ref TSteamProgress pProgress, ref TSTeamError pError);
-		public Int32 ProcessCall(UInt32 handle, ref TSteamProgress pProgress, ref TSTeamError pError) { var call = this.GetFunction<NativeProcessCall>(this.Functions.ProcessCall); return call(this.ObjectAddress, handle, ref pProgress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeProcessCall(IntPtr thisobj, UInt32 handle, ref TSteamProgress pProgress, ref TSteamError pError);
+		public Int32 ProcessCall(UInt32 handle, ref TSteamProgress pProgress, ref TSteamError pError) { var call = this.GetFunction<NativeProcessCall>(this.Functions.ProcessCall); return call(this.ObjectAddress, handle, ref pProgress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAbortCall(IntPtr thisobj, UInt32 handle, ref TSTeamError pError);
-		public Int32 AbortCall(UInt32 handle, ref TSTeamError pError) { var call = this.GetFunction<NativeAbortCall>(this.Functions.AbortCall); return call(this.ObjectAddress, handle, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAbortCall(IntPtr thisobj, UInt32 handle, ref TSteamError pError);
+		public Int32 AbortCall(UInt32 handle, ref TSteamError pError) { var call = this.GetFunction<NativeAbortCall>(this.Functions.AbortCall); return call(this.ObjectAddress, handle, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBlockingCall(IntPtr thisobj, UInt32 handle, UInt32 uiProcessTickMS, ref TSTeamError pError);
-		public Int32 BlockingCall(UInt32 handle, UInt32 uiProcessTickMS, ref TSTeamError pError) { var call = this.GetFunction<NativeBlockingCall>(this.Functions.BlockingCall); return call(this.ObjectAddress, handle, uiProcessTickMS, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeBlockingCall(IntPtr thisobj, UInt32 handle, UInt32 uiProcessTickMS, ref TSteamError pError);
+		public Int32 BlockingCall(UInt32 handle, UInt32 uiProcessTickMS, ref TSteamError pError) { var call = this.GetFunction<NativeBlockingCall>(this.Functions.BlockingCall); return call(this.ObjectAddress, handle, uiProcessTickMS, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStallCount(IntPtr thisobj, UInt32 uNumStalls, ref TSTeamError pError);
-		public Int32 SetMaxStallCount(UInt32 uNumStalls, ref TSTeamError pError) { var call = this.GetFunction<NativeSetMaxStallCount>(this.Functions.SetMaxStallCount); return call(this.ObjectAddress, uNumStalls, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStallCount(IntPtr thisobj, UInt32 uNumStalls, ref TSteamError pError);
+		public Int32 SetMaxStallCount(UInt32 uNumStalls, ref TSteamError pError) { var call = this.GetFunction<NativeSetMaxStallCount>(this.Functions.SetMaxStallCount); return call(this.ObjectAddress, uNumStalls, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 CloseFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeCloseFile>(this.Functions.CloseFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCloseFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 CloseFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeCloseFile>(this.Functions.CloseFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReadFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError);
-		public UInt32 ReadFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeReadFile>(this.Functions.ReadFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReadFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError);
+		public UInt32 ReadFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeReadFile>(this.Functions.ReadFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError);
-		public UInt32 WriteFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeWriteFile>(this.Functions.WriteFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteFile(IntPtr thisobj, byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError);
+		public UInt32 WriteFile(byte[] pBuf, UInt32 uSize, UInt32 uCount, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeWriteFile>(this.Functions.WriteFile); return call(this.ObjectAddress, pBuf, uSize, uCount, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetc(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 Getc(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeGetc>(this.Functions.Getc); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetc(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 Getc(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeGetc>(this.Functions.Getc); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePutc(IntPtr thisobj, Int32 cChar, UInt32 hFile, ref TSTeamError pError);
-		public Int32 Putc(Int32 cChar, UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativePutc>(this.Functions.Putc); return call(this.ObjectAddress, cChar, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePutc(IntPtr thisobj, Int32 cChar, UInt32 hFile, ref TSteamError pError);
+		public Int32 Putc(Int32 cChar, UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativePutc>(this.Functions.Putc); return call(this.ObjectAddress, cChar, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFile(IntPtr thisobj, UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSTeamError pError);
-		public Int32 SeekFile(UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSTeamError pError) { var call = this.GetFunction<NativeSeekFile>(this.Functions.SeekFile); return call(this.ObjectAddress, hFile, lOffset, sm, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFile(IntPtr thisobj, UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError);
+		public Int32 SeekFile(UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError) { var call = this.GetFunction<NativeSeekFile>(this.Functions.SeekFile); return call(this.ObjectAddress, hFile, lOffset, sm, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTellFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 TellFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeTellFile>(this.Functions.TellFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTellFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 TellFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeTellFile>(this.Functions.TellFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSizeFile(IntPtr thisobj, UInt32 hFile, ref TSTeamError pError);
-		public Int32 SizeFile(UInt32 hFile, ref TSTeamError pError) { var call = this.GetFunction<NativeSizeFile>(this.Functions.SizeFile); return call(this.ObjectAddress, hFile, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSizeFile(IntPtr thisobj, UInt32 hFile, ref TSteamError pError);
+		public Int32 SizeFile(UInt32 hFile, ref TSteamError pError) { var call = this.GetFunction<NativeSizeFile>(this.Functions.SizeFile); return call(this.ObjectAddress, hFile, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFindFirst(IntPtr thisobj, string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSTeamError pError);
-		public UInt32 FindFirst(string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeFindFirst>(this.Functions.FindFirst); return call(this.ObjectAddress, cszPattern, eFilter, ref pFindInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFindFirst(IntPtr thisobj, string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSteamError pError);
+		public UInt32 FindFirst(string cszPattern, ESteamFindFilter eFilter, ref TSteamElemInfo pFindInfo, ref TSteamError pError) { var call = this.GetFunction<NativeFindFirst>(this.Functions.FindFirst); return call(this.ObjectAddress, cszPattern, eFilter, ref pFindInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindNext(IntPtr thisobj, UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSTeamError pError);
-		public Int32 FindNext(UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeFindNext>(this.Functions.FindNext); return call(this.ObjectAddress, hFind, ref pFindInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindNext(IntPtr thisobj, UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSteamError pError);
+		public Int32 FindNext(UInt32 hFind, ref TSteamElemInfo pFindInfo, ref TSteamError pError) { var call = this.GetFunction<NativeFindNext>(this.Functions.FindNext); return call(this.ObjectAddress, hFind, ref pFindInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindClose(IntPtr thisobj, UInt32 hFind, ref TSTeamError pError);
-		public Int32 FindClose(UInt32 hFind, ref TSTeamError pError) { var call = this.GetFunction<NativeFindClose>(this.Functions.FindClose); return call(this.ObjectAddress, hFind, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindClose(IntPtr thisobj, UInt32 hFind, ref TSteamError pError);
+		public Int32 FindClose(UInt32 hFind, ref TSteamError pError) { var call = this.GetFunction<NativeFindClose>(this.Functions.FindClose); return call(this.ObjectAddress, hFind, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalFileCopy(IntPtr thisobj, string cszName, ref TSTeamError pError);
-		public Int32 GetLocalFileCopy(string cszName, ref TSTeamError pError) { var call = this.GetFunction<NativeGetLocalFileCopy>(this.Functions.GetLocalFileCopy); return call(this.ObjectAddress, cszName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalFileCopy(IntPtr thisobj, string cszName, ref TSteamError pError);
+		public Int32 GetLocalFileCopy(string cszName, ref TSteamError pError) { var call = this.GetFunction<NativeGetLocalFileCopy>(this.Functions.GetLocalFileCopy); return call(this.ObjectAddress, cszName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileImmediatelyAvailable(IntPtr thisobj, string cszName, ref TSTeamError pError);
-		public Int32 IsFileImmediatelyAvailable(string cszName, ref TSTeamError pError) { var call = this.GetFunction<NativeIsFileImmediatelyAvailable>(this.Functions.IsFileImmediatelyAvailable); return call(this.ObjectAddress, cszName, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileImmediatelyAvailable(IntPtr thisobj, string cszName, ref TSteamError pError);
+		public Int32 IsFileImmediatelyAvailable(string cszName, ref TSteamError pError) { var call = this.GetFunction<NativeIsFileImmediatelyAvailable>(this.Functions.IsFileImmediatelyAvailable); return call(this.ObjectAddress, cszName, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeed(IntPtr thisobj, string cszHintList, Int32 bForgetEverything, ref TSTeamError pError);
-		public Int32 HintResourceNeed(string cszHintList, Int32 bForgetEverything, ref TSTeamError pError) { var call = this.GetFunction<NativeHintResourceNeed>(this.Functions.HintResourceNeed); return call(this.ObjectAddress, cszHintList, bForgetEverything, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeed(IntPtr thisobj, string cszHintList, Int32 bForgetEverything, ref TSteamError pError);
+		public Int32 HintResourceNeed(string cszHintList, Int32 bForgetEverything, ref TSteamError pError) { var call = this.GetFunction<NativeHintResourceNeed>(this.Functions.HintResourceNeed); return call(this.ObjectAddress, cszHintList, bForgetEverything, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForgetAllHints(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ForgetAllHints(ref TSTeamError pError) { var call = this.GetFunction<NativeForgetAllHints>(this.Functions.ForgetAllHints); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForgetAllHints(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ForgetAllHints(ref TSteamError pError) { var call = this.GetFunction<NativeForgetAllHints>(this.Functions.ForgetAllHints); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePauseCachePreloading(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 PauseCachePreloading(ref TSTeamError pError) { var call = this.GetFunction<NativePauseCachePreloading>(this.Functions.PauseCachePreloading); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePauseCachePreloading(IntPtr thisobj, ref TSteamError pError);
+		public Int32 PauseCachePreloading(ref TSteamError pError) { var call = this.GetFunction<NativePauseCachePreloading>(this.Functions.PauseCachePreloading); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResumeCachePreloading(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ResumeCachePreloading(ref TSTeamError pError) { var call = this.GetFunction<NativeResumeCachePreloading>(this.Functions.ResumeCachePreloading); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResumeCachePreloading(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ResumeCachePreloading(ref TSteamError pError) { var call = this.GetFunction<NativeResumeCachePreloading>(this.Functions.ResumeCachePreloading); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForResources(IntPtr thisobj, string cszMasterList, ref TSTeamError pError);
-		public UInt32 WaitForResources(string cszMasterList, ref TSTeamError pError) { var call = this.GetFunction<NativeWaitForResources>(this.Functions.WaitForResources); return call(this.ObjectAddress, cszMasterList, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForResources(IntPtr thisobj, string cszMasterList, ref TSteamError pError);
+		public UInt32 WaitForResources(string cszMasterList, ref TSteamError pError) { var call = this.GetFunction<NativeWaitForResources>(this.Functions.WaitForResources); return call(this.ObjectAddress, cszMasterList, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartEngine(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 StartEngine(ref TSTeamError pError) { var call = this.GetFunction<NativeStartEngine>(this.Functions.StartEngine); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartEngine(IntPtr thisobj, ref TSteamError pError);
+		public Int32 StartEngine(ref TSteamError pError) { var call = this.GetFunction<NativeStartEngine>(this.Functions.StartEngine); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeShutdownEngine(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 ShutdownEngine(ref TSTeamError pError) { var call = this.GetFunction<NativeShutdownEngine>(this.Functions.ShutdownEngine); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeShutdownEngine(IntPtr thisobj, ref TSteamError pError);
+		public Int32 ShutdownEngine(ref TSteamError pError) { var call = this.GetFunction<NativeShutdownEngine>(this.Functions.ShutdownEngine); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartup(IntPtr thisobj, UInt32 uUsingMask, ref TSTeamError pError);
-		public Int32 Startup(UInt32 uUsingMask, ref TSTeamError pError) { var call = this.GetFunction<NativeStartup>(this.Functions.Startup); return call(this.ObjectAddress, uUsingMask, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStartup(IntPtr thisobj, UInt32 uUsingMask, ref TSteamError pError);
+		public Int32 Startup(UInt32 uUsingMask, ref TSteamError pError) { var call = this.GetFunction<NativeStartup>(this.Functions.Startup); return call(this.ObjectAddress, uUsingMask, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCleanup(IntPtr thisobj, ref TSTeamError pError);
-		public Int32 Cleanup(ref TSTeamError pError) { var call = this.GetFunction<NativeCleanup>(this.Functions.Cleanup); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCleanup(IntPtr thisobj, ref TSteamError pError);
+		public Int32 Cleanup(ref TSteamError pError) { var call = this.GetFunction<NativeCleanup>(this.Functions.Cleanup); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeNumAppsRunning(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 NumAppsRunning(ref TSTeamError pError) { var call = this.GetFunction<NativeNumAppsRunning>(this.Functions.NumAppsRunning); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeNumAppsRunning(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 NumAppsRunning(ref TSteamError pError) { var call = this.GetFunction<NativeNumAppsRunning>(this.Functions.NumAppsRunning); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccount(IntPtr thisobj, string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, ref string_t cszArg6, ref Int32 pbCreated, ref TSTeamError pError);
-		public UInt32 CreateAccount(string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, ref string_t cszArg6, ref Int32 pbCreated, ref TSTeamError pError) { var call = this.GetFunction<NativeCreateAccount>(this.Functions.CreateAccount); return call(this.ObjectAddress, cszUser, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, ref cszArg6, ref pbCreated, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccount(IntPtr thisobj, string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, ref string_t cszArg6, ref Int32 pbCreated, ref TSteamError pError);
+		public UInt32 CreateAccount(string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, ref string_t cszArg6, ref Int32 pbCreated, ref TSteamError pError) { var call = this.GetFunction<NativeCreateAccount>(this.Functions.CreateAccount); return call(this.ObjectAddress, cszUser, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, ref cszArg6, ref pbCreated, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNames(IntPtr thisobj, ref string_t cszArg1, ref string_t cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSTeamError pError);
-		public UInt32 GenerateSuggestedAccountNames(ref string_t cszArg1, ref string_t cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeGenerateSuggestedAccountNames>(this.Functions.GenerateSuggestedAccountNames); return call(this.ObjectAddress, ref cszArg1, ref cszArg2, szArg3, uArg4, ref puArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNames(IntPtr thisobj, ref string_t cszArg1, ref string_t cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSteamError pError);
+		public UInt32 GenerateSuggestedAccountNames(ref string_t cszArg1, ref string_t cszArg2, string szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSteamError pError) { var call = this.GetFunction<NativeGenerateSuggestedAccountNames>(this.Functions.GenerateSuggestedAccountNames); return call(this.ObjectAddress, ref cszArg1, ref cszArg2, szArg3, uArg4, ref puArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsLoggedIn(IntPtr thisobj, ref Int32 pbIsLoggedIn, ref TSTeamError pError);
-		public Int32 IsLoggedIn(ref Int32 pbIsLoggedIn, ref TSTeamError pError) { var call = this.GetFunction<NativeIsLoggedIn>(this.Functions.IsLoggedIn); return call(this.ObjectAddress, ref pbIsLoggedIn, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsLoggedIn(IntPtr thisobj, ref Int32 pbIsLoggedIn, ref TSteamError pError);
+		public Int32 IsLoggedIn(ref Int32 pbIsLoggedIn, ref TSteamError pError) { var call = this.GetFunction<NativeIsLoggedIn>(this.Functions.IsLoggedIn); return call(this.ObjectAddress, ref pbIsLoggedIn, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogout(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 Logout(ref TSTeamError pError) { var call = this.GetFunction<NativeLogout>(this.Functions.Logout); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogout(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 Logout(ref TSteamError pError) { var call = this.GetFunction<NativeLogout>(this.Functions.Logout); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputer(IntPtr thisobj, ref Int32 pbIsSecure, ref TSTeamError pError);
-		public Int32 IsSecureComputer(ref Int32 pbIsSecure, ref TSTeamError pError) { var call = this.GetFunction<NativeIsSecureComputer>(this.Functions.IsSecureComputer); return call(this.ObjectAddress, ref pbIsSecure, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputer(IntPtr thisobj, ref Int32 pbIsSecure, ref TSteamError pError);
+		public Int32 IsSecureComputer(ref Int32 pbIsSecure, ref TSteamError pError) { var call = this.GetFunction<NativeIsSecureComputer>(this.Functions.IsSecureComputer); return call(this.ObjectAddress, ref pbIsSecure, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateLogContext(IntPtr thisobj, string cszName);
 		public UInt32 CreateLogContext(string cszName) { var call = this.GetFunction<NativeCreateLogContext>(this.Functions.CreateLogContext); return call(this.ObjectAddress, cszName); }
@@ -8756,197 +8758,197 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogResourceLoadFinished(IntPtr thisobj, string cszMsg);
 		public void LogResourceLoadFinished(string cszMsg) { var call = this.GetFunction<NativeLogResourceLoadFinished>(this.Functions.LogResourceLoadFinished); call(this.ObjectAddress, cszMsg); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshLogin(IntPtr thisobj, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError);
-		public UInt32 RefreshLogin(string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError) { var call = this.GetFunction<NativeRefreshLogin>(this.Functions.RefreshLogin); return call(this.ObjectAddress, cszPassphrase, bIsSecureComputer, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshLogin(IntPtr thisobj, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError);
+		public UInt32 RefreshLogin(string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError) { var call = this.GetFunction<NativeRefreshLogin>(this.Functions.RefreshLogin); return call(this.ObjectAddress, cszPassphrase, bIsSecureComputer, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPassword(IntPtr thisobj, ref string_t cszArg1, ref Int32 piArg2, ref TSTeamError pError);
-		public Int32 VerifyPassword(ref string_t cszArg1, ref Int32 piArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeVerifyPassword>(this.Functions.VerifyPassword); return call(this.ObjectAddress, ref cszArg1, ref piArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPassword(IntPtr thisobj, ref string_t cszArg1, ref Int32 piArg2, ref TSteamError pError);
+		public Int32 VerifyPassword(ref string_t cszArg1, ref Int32 piArg2, ref TSteamError pError) { var call = this.GetFunction<NativeVerifyPassword>(this.Functions.VerifyPassword); return call(this.ObjectAddress, ref cszArg1, ref piArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserType(IntPtr thisobj, ref UInt32 puArg1, ref TSTeamError pError);
-		public Int32 GetUserType(ref UInt32 puArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeGetUserType>(this.Functions.GetUserType); return call(this.ObjectAddress, ref puArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserType(IntPtr thisobj, ref UInt32 puArg1, ref TSteamError pError);
+		public Int32 GetUserType(ref UInt32 puArg1, ref TSteamError pError) { var call = this.GetFunction<NativeGetUserType>(this.Functions.GetUserType); return call(this.ObjectAddress, ref puArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppStats(IntPtr thisobj, ref TSteamAppStats pAppStats, ref TSTeamError pError);
-		public Int32 GetAppStats(ref TSteamAppStats pAppStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppStats>(this.Functions.GetAppStats); return call(this.ObjectAddress, ref pAppStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppStats(IntPtr thisobj, ref TSteamAppStats pAppStats, ref TSteamError pError);
+		public Int32 GetAppStats(ref TSteamAppStats pAppStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppStats>(this.Functions.GetAppStats); return call(this.ObjectAddress, ref pAppStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUse(IntPtr thisobj, ref string_t cszUser, ref Int32 pbInUse, ref TSTeamError pError);
-		public UInt32 IsAccountNameInUse(ref string_t cszUser, ref Int32 pbInUse, ref TSTeamError pError) { var call = this.GetFunction<NativeIsAccountNameInUse>(this.Functions.IsAccountNameInUse); return call(this.ObjectAddress, ref cszUser, ref pbInUse, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUse(IntPtr thisobj, ref string_t cszUser, ref Int32 pbInUse, ref TSteamError pError);
+		public UInt32 IsAccountNameInUse(ref string_t cszUser, ref Int32 pbInUse, ref TSteamError pError) { var call = this.GetFunction<NativeIsAccountNameInUse>(this.Functions.IsAccountNameInUse); return call(this.ObjectAddress, ref cszUser, ref pbInUse, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError);
-		public Int32 GetAppIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError);
+		public Int32 GetAppIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStats(IntPtr thisobj, ref TSteamSubscriptionStats pSubscriptionStats, ref TSTeamError pError);
-		public Int32 GetSubscriptionStats(ref TSteamSubscriptionStats pSubscriptionStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionStats>(this.Functions.GetSubscriptionStats); return call(this.ObjectAddress, ref pSubscriptionStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStats(IntPtr thisobj, ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError);
+		public Int32 GetSubscriptionStats(ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionStats>(this.Functions.GetSubscriptionStats); return call(this.ObjectAddress, ref pSubscriptionStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfo(IntPtr thisobj, Int32 arg1, ref TSTeamError pError);
-		public UInt32 RefreshAccountInfo(Int32 arg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRefreshAccountInfo>(this.Functions.RefreshAccountInfo); return call(this.ObjectAddress, arg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfo(IntPtr thisobj, Int32 arg1, ref TSteamError pError);
+		public UInt32 RefreshAccountInfo(Int32 arg1, ref TSteamError pError) { var call = this.GetFunction<NativeRefreshAccountInfo>(this.Functions.RefreshAccountInfo); return call(this.ObjectAddress, arg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError);
-		public UInt32 Subscribe(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeSubscribe>(this.Functions.Subscribe); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError);
+		public UInt32 Subscribe(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError) { var call = this.GetFunction<NativeSubscribe>(this.Functions.Subscribe); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUnsubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSTeamError pError);
-		public UInt32 Unsubscribe(UInt32 uSubscriptionId, ref TSTeamError pError) { var call = this.GetFunction<NativeUnsubscribe>(this.Functions.Unsubscribe); return call(this.ObjectAddress, uSubscriptionId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUnsubscribe(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamError pError);
+		public UInt32 Unsubscribe(UInt32 uSubscriptionId, ref TSteamError pError) { var call = this.GetFunction<NativeUnsubscribe>(this.Functions.Unsubscribe); return call(this.ObjectAddress, uSubscriptionId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionReceipt(IntPtr thisobj, UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSTeamError pError);
-		public Int32 GetSubscriptionReceipt(UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionReceipt>(this.Functions.GetSubscriptionReceipt); return call(this.ObjectAddress, arg1, ref pSteamSubscriptionReceipt, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionReceipt(IntPtr thisobj, UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSteamError pError);
+		public Int32 GetSubscriptionReceipt(UInt32 arg1, ref TSteamSubscriptionReceipt pSteamSubscriptionReceipt, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionReceipt>(this.Functions.GetSubscriptionReceipt); return call(this.ObjectAddress, arg1, ref pSteamSubscriptionReceipt, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatus(IntPtr thisobj, ref UInt32 puArg1, ref TSTeamError pError);
-		public Int32 GetAccountStatus(ref UInt32 puArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAccountStatus>(this.Functions.GetAccountStatus); return call(this.ObjectAddress, ref puArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatus(IntPtr thisobj, ref UInt32 puArg1, ref TSteamError pError);
+		public Int32 GetAccountStatus(ref UInt32 puArg1, ref TSteamError pError) { var call = this.GetFunction<NativeGetAccountStatus>(this.Functions.GetAccountStatus); return call(this.ObjectAddress, ref puArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUser(IntPtr thisobj, string cszUser, ref Int32 pbUserSet, ref TSTeamError pError);
-		public UInt32 SetUser(string cszUser, ref Int32 pbUserSet, ref TSTeamError pError) { var call = this.GetFunction<NativeSetUser>(this.Functions.SetUser); return call(this.ObjectAddress, cszUser, ref pbUserSet, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUser(IntPtr thisobj, string cszUser, ref Int32 pbUserSet, ref TSteamError pError);
+		public UInt32 SetUser(string cszUser, ref Int32 pbUserSet, ref TSteamError pError) { var call = this.GetFunction<NativeSetUser>(this.Functions.SetUser); return call(this.ObjectAddress, cszUser, ref pbUserSet, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUser(IntPtr thisobj, string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError);
-		public Int32 GetUser(string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError) { var call = this.GetFunction<NativeGetUser>(this.Functions.GetUser); return call(this.ObjectAddress, szUser, uBufSize, ref puUserChars, ref pSteamGlobalUserID, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUser(IntPtr thisobj, string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError);
+		public Int32 GetUser(string szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError) { var call = this.GetFunction<NativeGetUser>(this.Functions.GetUser); return call(this.ObjectAddress, szUser, uBufSize, ref puUserChars, ref pSteamGlobalUserID, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogin(IntPtr thisobj, string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError);
-		public UInt32 Login(string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSTeamError pError) { var call = this.GetFunction<NativeLogin>(this.Functions.Login); return call(this.ObjectAddress, cszUser, cszPassphrase, bIsSecureComputer, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLogin(IntPtr thisobj, string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError);
+		public UInt32 Login(string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError) { var call = this.GetFunction<NativeLogin>(this.Functions.Login); return call(this.ObjectAddress, cszUser, cszPassphrase, bIsSecureComputer, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceipt(IntPtr thisobj, UInt32 uArg1, ref TSTeamError pError);
-		public UInt32 AckSubscriptionReceipt(UInt32 uArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeAckSubscriptionReceipt>(this.Functions.AckSubscriptionReceipt); return call(this.ObjectAddress, uArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceipt(IntPtr thisobj, UInt32 uArg1, ref TSteamError pError);
+		public UInt32 AckSubscriptionReceipt(UInt32 uArg1, ref TSteamError pError) { var call = this.GetFunction<NativeAckSubscriptionReceipt>(this.Functions.AckSubscriptionReceipt); return call(this.ObjectAddress, uArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribed(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSTeamError pError);
-		public Int32 IsAppSubscribed(UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSTeamError pError) { var call = this.GetFunction<NativeIsAppSubscribed>(this.Functions.IsAppSubscribed); return call(this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pReserved, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribed(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError);
+		public Int32 IsAppSubscribed(UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError) { var call = this.GetFunction<NativeIsAppSubscribed>(this.Functions.IsAppSubscribed); return call(this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pReserved, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError);
-		public Int32 GetSubscriptionIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionIds>(this.Functions.GetSubscriptionIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError);
+		public Int32 GetSubscriptionIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionIds>(this.Functions.GetSubscriptionIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscription(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSTeamError pError);
-		public Int32 EnumerateSubscription(UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscription>(this.Functions.EnumerateSubscription); return call(this.ObjectAddress, uSubscriptionId, ref pSubscription, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscription(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSteamError pError);
+		public Int32 EnumerateSubscription(UInt32 uSubscriptionId, ref TSteamSubscription pSubscription, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscription>(this.Functions.EnumerateSubscription); return call(this.ObjectAddress, uSubscriptionId, ref pSubscription, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscount(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSTeamError pError);
-		public Int32 EnumerateSubscriptionDiscount(UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscount>(this.Functions.EnumerateSubscriptionDiscount); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, ref pSteamSubscriptionDiscount, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscount(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError);
+		public Int32 EnumerateSubscriptionDiscount(UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscount>(this.Functions.EnumerateSubscriptionDiscount); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, ref pSteamSubscriptionDiscount, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifier(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSTeamError pError);
-		public Int32 EnumerateSubscriptionDiscountQualifier(UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscountQualifier>(this.Functions.EnumerateSubscriptionDiscountQualifier); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, uQualifierIdx, ref pSteamDiscountQualifier, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifier(IntPtr thisobj, UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError);
+		public Int32 EnumerateSubscriptionDiscountQualifier(UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateSubscriptionDiscountQualifier>(this.Functions.EnumerateSubscriptionDiscountQualifier); return call(this.ObjectAddress, uSubscriptionId, uDiscountIdx, uQualifierIdx, ref pSteamDiscountQualifier, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateApp(IntPtr thisobj, UInt32 uAppId, ref TSteamApp pApp, ref TSTeamError pError);
-		public Int32 EnumerateApp(UInt32 uAppId, ref TSteamApp pApp, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateApp>(this.Functions.EnumerateApp); return call(this.ObjectAddress, uAppId, ref pApp, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateApp(IntPtr thisobj, UInt32 uAppId, ref TSteamApp pApp, ref TSteamError pError);
+		public Int32 EnumerateApp(UInt32 uAppId, ref TSteamApp pApp, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateApp>(this.Functions.EnumerateApp); return call(this.ObjectAddress, uAppId, ref pApp, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppLaunchOption(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSTeamError pError);
-		public Int32 EnumerateAppLaunchOption(UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppLaunchOption>(this.Functions.EnumerateAppLaunchOption); return call(this.ObjectAddress, uAppId, uLaunchOptionIndex, ref pLaunchOption, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppLaunchOption(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSteamError pError);
+		public Int32 EnumerateAppLaunchOption(UInt32 uAppId, UInt32 uLaunchOptionIndex, ref TSteamAppLaunchOption pLaunchOption, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppLaunchOption>(this.Functions.EnumerateAppLaunchOption); return call(this.ObjectAddress, uAppId, uLaunchOptionIndex, ref pLaunchOption, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDeleteAccount(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 DeleteAccount(ref TSTeamError pError) { var call = this.GetFunction<NativeDeleteAccount>(this.Functions.DeleteAccount); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDeleteAccount(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 DeleteAccount(ref TSteamError pError) { var call = this.GetFunction<NativeDeleteAccount>(this.Functions.DeleteAccount); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppIcon(IntPtr thisobj, UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSTeamError pError);
-		public Int32 EnumerateAppIcon(UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppIcon>(this.Functions.EnumerateAppIcon); return call(this.ObjectAddress, uAppId, uIconIndex, pIconData, uIconDataBufSize, ref puSizeOfIconData, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppIcon(IntPtr thisobj, UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSteamError pError);
+		public Int32 EnumerateAppIcon(UInt32 uAppId, UInt32 uIconIndex, byte[] pIconData, UInt32 uIconDataBufSize, ref UInt32 puSizeOfIconData, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppIcon>(this.Functions.EnumerateAppIcon); return call(this.ObjectAddress, uAppId, uIconIndex, pIconData, uIconDataBufSize, ref puSizeOfIconData, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLaunchApp(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSTeamError pError);
-		public UInt32 LaunchApp(UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSTeamError pError) { var call = this.GetFunction<NativeLaunchApp>(this.Functions.LaunchApp); return call(this.ObjectAddress, uAppId, uLaunchOption, cszArgs, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLaunchApp(IntPtr thisobj, UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSteamError pError);
+		public UInt32 LaunchApp(UInt32 uAppId, UInt32 uLaunchOption, string cszArgs, ref TSteamError pError) { var call = this.GetFunction<NativeLaunchApp>(this.Functions.LaunchApp); return call(this.ObjectAddress, uAppId, uLaunchOption, cszArgs, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheFilePath(IntPtr thisobj, UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetCacheFilePath(UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheFilePath>(this.Functions.GetCacheFilePath); return call(this.ObjectAddress, uAppId, szFilePath, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheFilePath(IntPtr thisobj, UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetCacheFilePath(UInt32 uAppId, string szFilePath, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheFilePath>(this.Functions.GetCacheFilePath); return call(this.ObjectAddress, uAppId, szFilePath, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSTeamError pError);
-		public Int32 EnumerateAppVersion(UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppVersion>(this.Functions.EnumerateAppVersion); return call(this.ObjectAddress, uAppId, uVersionIndex, ref pAppVersion, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSteamError pError);
+		public Int32 EnumerateAppVersion(UInt32 uAppId, UInt32 uVersionIndex, ref TSteamAppVersion pAppVersion, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppVersion>(this.Functions.EnumerateAppVersion); return call(this.ObjectAddress, uAppId, uVersionIndex, ref pAppVersion, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError);
-		public Int32 EnumerateAppDependency(UInt32 uAppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeEnumerateAppDependency>(this.Functions.EnumerateAppDependency); return call(this.ObjectAddress, uAppId, uDependency, ref pDependencyInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError);
+		public Int32 EnumerateAppDependency(UInt32 uAppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError) { var call = this.GetFunction<NativeEnumerateAppDependency>(this.Functions.EnumerateAppDependency); return call(this.ObjectAddress, uAppId, uDependency, ref pDependencyInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 StartLoadingCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeStartLoadingCache>(this.Functions.StartLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 StartLoadingCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeStartLoadingCache>(this.Functions.StartLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInsertAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError);
-		public Int32 InsertAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeInsertAppDependency>(this.Functions.InsertAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pDependencyInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInsertAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError);
+		public Int32 InsertAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError) { var call = this.GetFunction<NativeInsertAppDependency>(this.Functions.InsertAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pDependencyInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRemoveAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSTeamError pError);
-		public Int32 RemoveAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSTeamError pError) { var call = this.GetFunction<NativeRemoveAppDependency>(this.Functions.RemoveAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRemoveAppDependency(IntPtr thisobj, UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamError pError);
+		public Int32 RemoveAppDependency(UInt32 uAppId, UInt32 uFileSystemIndex, ref TSteamError pError) { var call = this.GetFunction<NativeRemoveAppDependency>(this.Functions.RemoveAppDependency); return call(this.ObjectAddress, uAppId, uFileSystemIndex, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindApp(IntPtr thisobj, ref string_t cszArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public Int32 FindApp(ref string_t cszArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeFindApp>(this.Functions.FindApp); return call(this.ObjectAddress, ref cszArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindApp(IntPtr thisobj, ref string_t cszArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public Int32 FindApp(ref string_t cszArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeFindApp>(this.Functions.FindApp); return call(this.ObjectAddress, ref cszArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSTeamError pError);
-		public Int32 GetAppDependencies(UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError);
+		public Int32 GetAppDependencies(UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribed(IntPtr thisobj, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSTeamError pError);
-		public Int32 IsSubscribed(UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSTeamError pError) { var call = this.GetFunction<NativeIsSubscribed>(this.Functions.IsSubscribed); return call(this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribed(IntPtr thisobj, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError);
+		public Int32 IsSubscribed(UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError) { var call = this.GetFunction<NativeIsSubscribed>(this.Functions.IsSubscribed); return call(this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedInfo(IntPtr thisobj, UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSTeamError pError);
-		public Int32 GetAppUserDefinedInfo(UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedInfo>(this.Functions.GetAppUserDefinedInfo); return call(this.ObjectAddress, uAppId, cszPropertyName, szPropertyValue, uBufSize, ref puPropertyValueLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedInfo(IntPtr thisobj, UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSteamError pError);
+		public Int32 GetAppUserDefinedInfo(UInt32 uAppId, string cszPropertyName, string szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedInfo>(this.Functions.GetAppUserDefinedInfo); return call(this.ObjectAddress, uAppId, cszPropertyName, szPropertyValue, uBufSize, ref puPropertyValueLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppReadyToLaunch(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 WaitForAppReadyToLaunch(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeWaitForAppReadyToLaunch>(this.Functions.WaitForAppReadyToLaunch); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppReadyToLaunch(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 WaitForAppReadyToLaunch(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeWaitForAppReadyToLaunch>(this.Functions.WaitForAppReadyToLaunch); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsCacheLoadingEnabled(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsLoading, ref TSTeamError pError);
-		public Int32 IsCacheLoadingEnabled(UInt32 uAppId, ref Int32 pbIsLoading, ref TSTeamError pError) { var call = this.GetFunction<NativeIsCacheLoadingEnabled>(this.Functions.IsCacheLoadingEnabled); return call(this.ObjectAddress, uAppId, ref pbIsLoading, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsCacheLoadingEnabled(IntPtr thisobj, UInt32 uAppId, ref Int32 pbIsLoading, ref TSteamError pError);
+		public Int32 IsCacheLoadingEnabled(UInt32 uAppId, ref Int32 pbIsLoading, ref TSteamError pError) { var call = this.GetFunction<NativeIsCacheLoadingEnabled>(this.Functions.IsCacheLoadingEnabled); return call(this.ObjectAddress, uAppId, ref pbIsLoading, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStopLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 StopLoadingCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeStopLoadingCache>(this.Functions.StopLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStopLoadingCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 StopLoadingCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeStopLoadingCache>(this.Functions.StopLoadingCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ESteamError NativeGetEncryptedUserIDTicket(IntPtr thisobj, byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSTeamError pError);
-		public ESteamError GetEncryptedUserIDTicket(byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSTeamError pError) { var call = this.GetFunction<NativeGetEncryptedUserIDTicket>(this.Functions.GetEncryptedUserIDTicket); return call(this.ObjectAddress, pEncryptionKeyReceivedFromAppServer, uEncryptionKeyLength, pOutputBuffer, uSizeOfOutputBuffer, ref pReceiveSizeOfEncryptedTicket, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ESteamError NativeGetEncryptedUserIDTicket(IntPtr thisobj, byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSteamError pError);
+		public ESteamError GetEncryptedUserIDTicket(byte[] pEncryptionKeyReceivedFromAppServer, UInt32 uEncryptionKeyLength, byte[] pOutputBuffer, UInt32 uSizeOfOutputBuffer, ref UInt32 pReceiveSizeOfEncryptedTicket, ref TSteamError pError) { var call = this.GetFunction<NativeGetEncryptedUserIDTicket>(this.Functions.GetEncryptedUserIDTicket); return call(this.ObjectAddress, pEncryptionKeyReceivedFromAppServer, uEncryptionKeyLength, pOutputBuffer, uSizeOfOutputBuffer, ref pReceiveSizeOfEncryptedTicket, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFlushCache(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 FlushCache(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeFlushCache>(this.Functions.FlushCache); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFlushCache(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 FlushCache(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeFlushCache>(this.Functions.FlushCache); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCaches(IntPtr thisobj, UInt32 uAppId, Int32 iArg2, ref TSTeamError pError);
-		public UInt32 RepairOrDecryptCaches(UInt32 uAppId, Int32 iArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeRepairOrDecryptCaches>(this.Functions.RepairOrDecryptCaches); return call(this.ObjectAddress, uAppId, iArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCaches(IntPtr thisobj, UInt32 uAppId, Int32 iArg2, ref TSteamError pError);
+		public UInt32 RepairOrDecryptCaches(UInt32 uAppId, Int32 iArg2, ref TSteamError pError) { var call = this.GetFunction<NativeRepairOrDecryptCaches>(this.Functions.RepairOrDecryptCaches); return call(this.ObjectAddress, uAppId, iArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoadCacheFromDir(IntPtr thisobj, UInt32 uAppId, string cszPath, ref TSTeamError pError);
-		public UInt32 LoadCacheFromDir(UInt32 uAppId, string cszPath, ref TSTeamError pError) { var call = this.GetFunction<NativeLoadCacheFromDir>(this.Functions.LoadCacheFromDir); return call(this.ObjectAddress, uAppId, cszPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoadCacheFromDir(IntPtr thisobj, UInt32 uAppId, string cszPath, ref TSteamError pError);
+		public UInt32 LoadCacheFromDir(UInt32 uAppId, string cszPath, ref TSteamError pError) { var call = this.GetFunction<NativeLoadCacheFromDir>(this.Functions.LoadCacheFromDir); return call(this.ObjectAddress, uAppId, cszPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDefaultDirectory(IntPtr thisobj, string szPath, ref TSTeamError pError);
-		public Int32 GetCacheDefaultDirectory(string szPath, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheDefaultDirectory>(this.Functions.GetCacheDefaultDirectory); return call(this.ObjectAddress, szPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDefaultDirectory(IntPtr thisobj, string szPath, ref TSteamError pError);
+		public Int32 GetCacheDefaultDirectory(string szPath, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheDefaultDirectory>(this.Functions.GetCacheDefaultDirectory); return call(this.ObjectAddress, szPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetCacheDefaultDirectory(IntPtr thisobj, string cszPath, ref TSTeamError pError);
-		public Int32 SetCacheDefaultDirectory(string cszPath, ref TSTeamError pError) { var call = this.GetFunction<NativeSetCacheDefaultDirectory>(this.Functions.SetCacheDefaultDirectory); return call(this.ObjectAddress, cszPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetCacheDefaultDirectory(IntPtr thisobj, string cszPath, ref TSteamError pError);
+		public Int32 SetCacheDefaultDirectory(string cszPath, ref TSteamError pError) { var call = this.GetFunction<NativeSetCacheDefaultDirectory>(this.Functions.SetCacheDefaultDirectory); return call(this.ObjectAddress, cszPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDir(IntPtr thisobj, UInt32 uAppId, string szAppDir, ref TSTeamError pError);
-		public Int32 GetAppDir(UInt32 uAppId, string szAppDir, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppDir>(this.Functions.GetAppDir); return call(this.ObjectAddress, uAppId, szAppDir, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDir(IntPtr thisobj, UInt32 uAppId, string szAppDir, ref TSteamError pError);
+		public Int32 GetAppDir(UInt32 uAppId, string szAppDir, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDir>(this.Functions.GetAppDir); return call(this.ObjectAddress, uAppId, szAppDir, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMoveApp(IntPtr thisobj, UInt32 uAppId, string szPath, ref TSTeamError pError);
-		public UInt32 MoveApp(UInt32 uAppId, string szPath, ref TSTeamError pError) { var call = this.GetFunction<NativeMoveApp>(this.Functions.MoveApp); return call(this.ObjectAddress, uAppId, szPath, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMoveApp(IntPtr thisobj, UInt32 uAppId, string szPath, ref TSteamError pError);
+		public UInt32 MoveApp(UInt32 uAppId, string szPath, ref TSteamError pError) { var call = this.GetFunction<NativeMoveApp>(this.Functions.MoveApp); return call(this.ObjectAddress, uAppId, szPath, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppCacheSize(IntPtr thisobj, UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSTeamError pError);
-		public UInt32 GetAppCacheSize(UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppCacheSize>(this.Functions.GetAppCacheSize); return call(this.ObjectAddress, uAppId, ref puCacheSizeInMb, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppCacheSize(IntPtr thisobj, UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSteamError pError);
+		public UInt32 GetAppCacheSize(UInt32 uAppId, ref UInt32 puCacheSizeInMb, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppCacheSize>(this.Functions.GetAppCacheSize); return call(this.ObjectAddress, uAppId, ref puCacheSizeInMb, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppCacheSize(IntPtr thisobj, UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSTeamError pError);
-		public UInt32 SetAppCacheSize(UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSTeamError pError) { var call = this.GetFunction<NativeSetAppCacheSize>(this.Functions.SetAppCacheSize); return call(this.ObjectAddress, uAppId, uCacheSizeInMb, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppCacheSize(IntPtr thisobj, UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSteamError pError);
+		public UInt32 SetAppCacheSize(UInt32 uAppId, UInt32 uCacheSizeInMb, ref TSteamError pError) { var call = this.GetFunction<NativeSetAppCacheSize>(this.Functions.SetAppCacheSize); return call(this.ObjectAddress, uAppId, uCacheSizeInMb, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uAppVersionId, ref TSTeamError pError);
-		public UInt32 SetAppVersion(UInt32 uAppId, UInt32 uAppVersionId, ref TSTeamError pError) { var call = this.GetFunction<NativeSetAppVersion>(this.Functions.SetAppVersion); return call(this.ObjectAddress, uAppId, uAppVersionId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppVersion(IntPtr thisobj, UInt32 uAppId, UInt32 uAppVersionId, ref TSteamError pError);
+		public UInt32 SetAppVersion(UInt32 uAppId, UInt32 uAppVersionId, ref TSteamError pError) { var call = this.GetFunction<NativeSetAppVersion>(this.Functions.SetAppVersion); return call(this.ObjectAddress, uAppId, uAppVersionId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUninstall(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 Uninstall(ref TSTeamError pError) { var call = this.GetFunction<NativeUninstall>(this.Functions.Uninstall); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUninstall(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 Uninstall(ref TSteamError pError) { var call = this.GetFunction<NativeUninstall>(this.Functions.Uninstall); return call(this.ObjectAddress, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetNotificationCallback(IntPtr thisobj, ref IntPtr pCallbackFunction, ref TSTeamError pError);
-		public Int32 SetNotificationCallback(ref IntPtr pCallbackFunction, ref TSTeamError pError) { var call = this.GetFunction<NativeSetNotificationCallback>(this.Functions.SetNotificationCallback); return call(this.ObjectAddress, ref pCallbackFunction, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetNotificationCallback(IntPtr thisobj, ref IntPtr pCallbackFunction, ref TSteamError pError);
+		public Int32 SetNotificationCallback(ref IntPtr pCallbackFunction, ref TSteamError pError) { var call = this.GetFunction<NativeSetNotificationCallback>(this.Functions.SetNotificationCallback); return call(this.ObjectAddress, ref pCallbackFunction, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPassword(IntPtr thisobj, ref string_t cszArg1, ref string_t cszArg2, ref string_t cszArg3, ref string_t cszArg4, ref Int32 piArg5, ref TSTeamError pError);
-		public UInt32 ChangeForgottenPassword(ref string_t cszArg1, ref string_t cszArg2, ref string_t cszArg3, ref string_t cszArg4, ref Int32 piArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeChangeForgottenPassword>(this.Functions.ChangeForgottenPassword); return call(this.ObjectAddress, ref cszArg1, ref cszArg2, ref cszArg3, ref cszArg4, ref piArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPassword(IntPtr thisobj, ref string_t cszArg1, ref string_t cszArg2, ref string_t cszArg3, ref string_t cszArg4, ref Int32 piArg5, ref TSteamError pError);
+		public UInt32 ChangeForgottenPassword(ref string_t cszArg1, ref string_t cszArg2, ref string_t cszArg3, ref string_t cszArg4, ref Int32 piArg5, ref TSteamError pError) { var call = this.GetFunction<NativeChangeForgottenPassword>(this.Functions.ChangeForgottenPassword); return call(this.ObjectAddress, ref cszArg1, ref cszArg2, ref cszArg3, ref cszArg4, ref piArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmail(IntPtr thisobj, ref string_t cszArg1, string szArg2, ref TSTeamError pError);
-		public UInt32 RequestForgottenPasswordEmail(ref string_t cszArg1, string szArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestForgottenPasswordEmail>(this.Functions.RequestForgottenPasswordEmail); return call(this.ObjectAddress, ref cszArg1, szArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmail(IntPtr thisobj, ref string_t cszArg1, string szArg2, ref TSteamError pError);
+		public UInt32 RequestForgottenPasswordEmail(ref string_t cszArg1, string szArg2, ref TSteamError pError) { var call = this.GetFunction<NativeRequestForgottenPasswordEmail>(this.Functions.RequestForgottenPasswordEmail); return call(this.ObjectAddress, ref cszArg1, szArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmail(IntPtr thisobj, ref string_t cszArg1, ref TSTeamError pError);
-		public UInt32 RequestAccountsByEmailAddressEmail(ref string_t cszArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestAccountsByEmailAddressEmail>(this.Functions.RequestAccountsByEmailAddressEmail); return call(this.ObjectAddress, ref cszArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmail(IntPtr thisobj, ref string_t cszArg1, ref TSteamError pError);
+		public UInt32 RequestAccountsByEmailAddressEmail(ref string_t cszArg1, ref TSteamError pError) { var call = this.GetFunction<NativeRequestAccountsByEmailAddressEmail>(this.Functions.RequestAccountsByEmailAddressEmail); return call(this.ObjectAddress, ref cszArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmail(IntPtr thisobj, ref string_t cszArg1, ref TSTeamError pError);
-		public UInt32 RequestAccountsByCdKeyEmail(ref string_t cszArg1, ref TSTeamError pError) { var call = this.GetFunction<NativeRequestAccountsByCdKeyEmail>(this.Functions.RequestAccountsByCdKeyEmail); return call(this.ObjectAddress, ref cszArg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmail(IntPtr thisobj, ref string_t cszArg1, ref TSteamError pError);
+		public UInt32 RequestAccountsByCdKeyEmail(ref string_t cszArg1, ref TSteamError pError) { var call = this.GetFunction<NativeRequestAccountsByCdKeyEmail>(this.Functions.RequestAccountsByCdKeyEmail); return call(this.ObjectAddress, ref cszArg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddress(IntPtr thisobj, ref string_t cszArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public UInt32 GetNumAccountsWithEmailAddress(ref string_t cszArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeGetNumAccountsWithEmailAddress>(this.Functions.GetNumAccountsWithEmailAddress); return call(this.ObjectAddress, ref cszArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddress(IntPtr thisobj, ref string_t cszArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public UInt32 GetNumAccountsWithEmailAddress(ref string_t cszArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeGetNumAccountsWithEmailAddress>(this.Functions.GetNumAccountsWithEmailAddress); return call(this.ObjectAddress, ref cszArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateAccountBillingInfo(IntPtr thisobj, ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSTeamError pError);
-		public UInt32 UpdateAccountBillingInfo(ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeUpdateAccountBillingInfo>(this.Functions.UpdateAccountBillingInfo); return call(this.ObjectAddress, ref pPaymentCardInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateAccountBillingInfo(IntPtr thisobj, ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSteamError pError);
+		public UInt32 UpdateAccountBillingInfo(ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSteamError pError) { var call = this.GetFunction<NativeUpdateAccountBillingInfo>(this.Functions.UpdateAccountBillingInfo); return call(this.ObjectAddress, ref pPaymentCardInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateSubscriptionBillingInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError);
-		public UInt32 UpdateSubscriptionBillingInfo(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSTeamError pError) { var call = this.GetFunction<NativeUpdateSubscriptionBillingInfo>(this.Functions.UpdateSubscriptionBillingInfo); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateSubscriptionBillingInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError);
+		public UInt32 UpdateSubscriptionBillingInfo(UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError) { var call = this.GetFunction<NativeUpdateSubscriptionBillingInfo>(this.Functions.UpdateSubscriptionBillingInfo); return call(this.ObjectAddress, uSubscriptionId, ref pSubscriptionBillingInfo, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSponsorUrl(IntPtr thisobj, UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSTeamError pError);
-		public Int32 GetSponsorUrl(UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSponsorUrl>(this.Functions.GetSponsorUrl); return call(this.ObjectAddress, uAppId, szUrl, uBufSize, ref pUrlChars, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSponsorUrl(IntPtr thisobj, UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSteamError pError);
+		public Int32 GetSponsorUrl(UInt32 uAppId, string szUrl, UInt32 uBufSize, ref UInt32 pUrlChars, ref TSteamError pError) { var call = this.GetFunction<NativeGetSponsorUrl>(this.Functions.GetSponsorUrl); return call(this.ObjectAddress, uAppId, szUrl, uBufSize, ref pUrlChars, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfo(IntPtr thisobj, UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSTeamError pError);
-		public Int32 GetContentServerInfo(UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSTeamError pError) { var call = this.GetFunction<NativeGetContentServerInfo>(this.Functions.GetContentServerInfo); return call(this.ObjectAddress, uArg1, ref puArg2, ref puArg3, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfo(IntPtr thisobj, UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError);
+		public Int32 GetContentServerInfo(UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError) { var call = this.GetFunction<NativeGetContentServerInfo>(this.Functions.GetContentServerInfo); return call(this.ObjectAddress, uArg1, ref puArg2, ref puArg3, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStats(IntPtr thisobj, UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError);
-		public UInt32 GetAppUpdateStats(UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUpdateStats>(this.Functions.GetAppUpdateStats); return call(this.ObjectAddress, uAppId, eSteamAppUpdateStatsQueryType, ref pUpdateStats, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStats(IntPtr thisobj, UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError);
+		public UInt32 GetAppUpdateStats(UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUpdateStats>(this.Functions.GetAppUpdateStats); return call(this.ObjectAddress, uAppId, eSteamAppUpdateStatsQueryType, ref pUpdateStats, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTotalUpdateStats(IntPtr thisobj, ref TSteamUpdateStats arg1, ref TSTeamError pError);
-		public Int32 GetTotalUpdateStats(ref TSteamUpdateStats arg1, ref TSTeamError pError) { var call = this.GetFunction<NativeGetTotalUpdateStats>(this.Functions.GetTotalUpdateStats); return call(this.ObjectAddress, ref arg1, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTotalUpdateStats(IntPtr thisobj, ref TSteamUpdateStats arg1, ref TSteamError pError);
+		public Int32 GetTotalUpdateStats(ref TSteamUpdateStats arg1, ref TSteamError pError) { var call = this.GetFunction<NativeGetTotalUpdateStats>(this.Functions.GetTotalUpdateStats); return call(this.ObjectAddress, ref arg1, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateCachePreloaders(IntPtr thisobj, ref TSTeamError pError);
-		public UInt32 CreateCachePreloaders(ref TSTeamError pError) { var call = this.GetFunction<NativeCreateCachePreloaders>(this.Functions.CreateCachePreloaders); return call(this.ObjectAddress, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateCachePreloaders(IntPtr thisobj, ref TSteamError pError);
+		public UInt32 CreateCachePreloaders(ref TSteamError pError) { var call = this.GetFunction<NativeCreateCachePreloaders>(this.Functions.CreateCachePreloaders); return call(this.ObjectAddress, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeWin32SetMiniDumpComment(IntPtr thisobj, ref string_t cszComment);
 		public void Win32SetMiniDumpComment(ref string_t cszComment) { var call = this.GetFunction<NativeWin32SetMiniDumpComment>(this.Functions.Win32SetMiniDumpComment); call(this.ObjectAddress, ref cszComment); }
@@ -8960,32 +8962,32 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeWin32WriteMiniDump(IntPtr thisobj, ref string_t arg1, ref string_t arg2, ref string_t arg3, ref string_t arg4, UInt32 arg5);
 		public void Win32WriteMiniDump(ref string_t arg1, ref string_t arg2, ref string_t arg3, ref string_t arg4, UInt32 arg5) { var call = this.GetFunction<NativeWin32WriteMiniDump>(this.Functions.Win32WriteMiniDump); call(this.ObjectAddress, ref arg1, ref arg2, ref arg3, ref arg4, arg5); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentAppId(IntPtr thisobj, ref UInt32 puAppId, ref TSTeamError pError);
-		public Int32 GetCurrentAppId(ref UInt32 puAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCurrentAppId>(this.Functions.GetCurrentAppId); return call(this.ObjectAddress, ref puAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentAppId(IntPtr thisobj, ref UInt32 puAppId, ref TSteamError pError);
+		public Int32 GetCurrentAppId(ref UInt32 puAppId, ref TSteamError pError) { var call = this.GetFunction<NativeGetCurrentAppId>(this.Functions.GetCurrentAppId); return call(this.ObjectAddress, ref puAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppPurchaseCountry(IntPtr thisobj, UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref Int32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetAppPurchaseCountry(UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref Int32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppPurchaseCountry>(this.Functions.GetAppPurchaseCountry); return call(this.ObjectAddress, uAppId, szCountryCode, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppPurchaseCountry(IntPtr thisobj, UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref Int32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetAppPurchaseCountry(UInt32 uAppId, string szCountryCode, UInt32 uBufferLength, ref Int32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppPurchaseCountry>(this.Functions.GetAppPurchaseCountry); return call(this.ObjectAddress, uAppId, szCountryCode, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalClientVersion(IntPtr thisobj, ref UInt32 puArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public Int32 GetLocalClientVersion(ref UInt32 puArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeGetLocalClientVersion>(this.Functions.GetLocalClientVersion); return call(this.ObjectAddress, ref puArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalClientVersion(IntPtr thisobj, ref UInt32 puArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public Int32 GetLocalClientVersion(ref UInt32 puArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeGetLocalClientVersion>(this.Functions.GetLocalClientVersion); return call(this.ObjectAddress, ref puArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileNeededByCache(IntPtr thisobj, UInt32 uAppId, ref string_t cszFileName, UInt32 uArg3, ref TSTeamError pError);
-		public Int32 IsFileNeededByCache(UInt32 uAppId, ref string_t cszFileName, UInt32 uArg3, ref TSTeamError pError) { var call = this.GetFunction<NativeIsFileNeededByCache>(this.Functions.IsFileNeededByCache); return call(this.ObjectAddress, uAppId, ref cszFileName, uArg3, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileNeededByCache(IntPtr thisobj, UInt32 uAppId, ref string_t cszFileName, UInt32 uArg3, ref TSteamError pError);
+		public Int32 IsFileNeededByCache(UInt32 uAppId, ref string_t cszFileName, UInt32 uArg3, ref TSteamError pError) { var call = this.GetFunction<NativeIsFileNeededByCache>(this.Functions.IsFileNeededByCache); return call(this.ObjectAddress, uAppId, ref cszFileName, uArg3, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLoadFileToCache(IntPtr thisobj, UInt32 uArg1, ref string_t cszArg2, byte[] pcvArg3, UInt32 uArg4, UInt32 uArg5, ref TSTeamError pError);
-		public Int32 LoadFileToCache(UInt32 uArg1, ref string_t cszArg2, byte[] pcvArg3, UInt32 uArg4, UInt32 uArg5, ref TSTeamError pError) { var call = this.GetFunction<NativeLoadFileToCache>(this.Functions.LoadFileToCache); return call(this.ObjectAddress, uArg1, ref cszArg2, pcvArg3, uArg4, uArg5, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLoadFileToCache(IntPtr thisobj, UInt32 uArg1, ref string_t cszArg2, byte[] pcvArg3, UInt32 uArg4, UInt32 uArg5, ref TSteamError pError);
+		public Int32 LoadFileToCache(UInt32 uArg1, ref string_t cszArg2, byte[] pcvArg3, UInt32 uArg4, UInt32 uArg5, ref TSteamError pError) { var call = this.GetFunction<NativeLoadFileToCache>(this.Functions.LoadFileToCache); return call(this.ObjectAddress, uArg1, ref cszArg2, pcvArg3, uArg4, uArg5, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDecryptionKey(IntPtr thisobj, UInt32 uAppId, string szCacheDecryptionKey, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetCacheDecryptionKey(UInt32 uAppId, string szCacheDecryptionKey, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCacheDecryptionKey>(this.Functions.GetCacheDecryptionKey); return call(this.ObjectAddress, uAppId, szCacheDecryptionKey, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDecryptionKey(IntPtr thisobj, UInt32 uAppId, string szCacheDecryptionKey, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetCacheDecryptionKey(UInt32 uAppId, string szCacheDecryptionKey, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetCacheDecryptionKey>(this.Functions.GetCacheDecryptionKey); return call(this.ObjectAddress, uAppId, szCacheDecryptionKey, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionExtendedInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref string_t cszKeyName, string szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError);
-		public Int32 GetSubscriptionExtendedInfo(UInt32 uSubscriptionId, ref string_t cszKeyName, string szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionExtendedInfo>(this.Functions.GetSubscriptionExtendedInfo); return call(this.ObjectAddress, uSubscriptionId, ref cszKeyName, szKeyValue, uBufferLength, ref puRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionExtendedInfo(IntPtr thisobj, UInt32 uSubscriptionId, ref string_t cszKeyName, string szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError);
+		public Int32 GetSubscriptionExtendedInfo(UInt32 uSubscriptionId, ref string_t cszKeyName, string szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionExtendedInfo>(this.Functions.GetSubscriptionExtendedInfo); return call(this.ObjectAddress, uSubscriptionId, ref cszKeyName, szKeyValue, uBufferLength, ref puRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionPurchaseCountry(IntPtr thisobj, UInt32 uSubscriptionId, string szCountry, UInt32 arg3, ref Int32 piRecievedLength, ref TSTeamError pError);
-		public Int32 GetSubscriptionPurchaseCountry(UInt32 uSubscriptionId, string szCountry, UInt32 arg3, ref Int32 piRecievedLength, ref TSTeamError pError) { var call = this.GetFunction<NativeGetSubscriptionPurchaseCountry>(this.Functions.GetSubscriptionPurchaseCountry); return call(this.ObjectAddress, uSubscriptionId, szCountry, arg3, ref piRecievedLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionPurchaseCountry(IntPtr thisobj, UInt32 uSubscriptionId, string szCountry, UInt32 arg3, ref Int32 piRecievedLength, ref TSteamError pError);
+		public Int32 GetSubscriptionPurchaseCountry(UInt32 uSubscriptionId, string szCountry, UInt32 arg3, ref Int32 piRecievedLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionPurchaseCountry>(this.Functions.GetSubscriptionPurchaseCountry); return call(this.ObjectAddress, uSubscriptionId, szCountry, arg3, ref piRecievedLength, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedRecord(IntPtr thisobj, UInt32 uAppId, ref byte[] AddEntryToKeyValueFunc, byte[] pvCKeyValue, ref TSTeamError pError);
-		public Int32 GetAppUserDefinedRecord(UInt32 uAppId, ref byte[] AddEntryToKeyValueFunc, byte[] pvCKeyValue, ref TSTeamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedRecord>(this.Functions.GetAppUserDefinedRecord); return call(this.ObjectAddress, uAppId, ref AddEntryToKeyValueFunc, pvCKeyValue, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedRecord(IntPtr thisobj, UInt32 uAppId, ref byte[] AddEntryToKeyValueFunc, byte[] pvCKeyValue, ref TSteamError pError);
+		public Int32 GetAppUserDefinedRecord(UInt32 uAppId, ref byte[] AddEntryToKeyValueFunc, byte[] pvCKeyValue, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppUserDefinedRecord>(this.Functions.GetAppUserDefinedRecord); return call(this.ObjectAddress, uAppId, ref AddEntryToKeyValueFunc, pvCKeyValue, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindServersNumServers(IntPtr thisobj, ESteamServerType eSteamServerType);
 		public Int32 FindServersNumServers(ESteamServerType eSteamServerType) { var call = this.GetFunction<NativeFindServersNumServers>(this.Functions.FindServersNumServers); return call(this.ObjectAddress, eSteamServerType); }
@@ -8996,23 +8998,23 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string_t NativeFindServersGetErrorString(IntPtr thisobj);
 		public string_t FindServersGetErrorString() { var call = this.GetFunction<NativeFindServersGetErrorString>(this.Functions.FindServersGetErrorString); return call(this.ObjectAddress); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCheckAppOwnership(IntPtr thisobj, UInt32 uAppId, ref Int32 pbOwned, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError);
-		public Int32 CheckAppOwnership(UInt32 uAppId, ref Int32 pbOwned, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSTeamError pError) { var call = this.GetFunction<NativeCheckAppOwnership>(this.Functions.CheckAppOwnership); return call(this.ObjectAddress, uAppId, ref pbOwned, ref pSteamGlobalUserID, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCheckAppOwnership(IntPtr thisobj, UInt32 uAppId, ref Int32 pbOwned, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError);
+		public Int32 CheckAppOwnership(UInt32 uAppId, ref Int32 pbOwned, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError) { var call = this.GetFunction<NativeCheckAppOwnership>(this.Functions.CheckAppOwnership); return call(this.ObjectAddress, uAppId, ref pbOwned, ref pSteamGlobalUserID, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetCachePercentFragmentation(IntPtr thisobj, UInt32 uAppId, ref UInt32 puPercentFragmented, ref TSTeamError pError);
-		public UInt32 GetCachePercentFragmentation(UInt32 uAppId, ref UInt32 puPercentFragmented, ref TSTeamError pError) { var call = this.GetFunction<NativeGetCachePercentFragmentation>(this.Functions.GetCachePercentFragmentation); return call(this.ObjectAddress, uAppId, ref puPercentFragmented, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetCachePercentFragmentation(IntPtr thisobj, UInt32 uAppId, ref UInt32 puPercentFragmented, ref TSteamError pError);
+		public UInt32 GetCachePercentFragmentation(UInt32 uAppId, ref UInt32 puPercentFragmented, ref TSteamError pError) { var call = this.GetFunction<NativeGetCachePercentFragmentation>(this.Functions.GetCachePercentFragmentation); return call(this.ObjectAddress, uAppId, ref puPercentFragmented, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDefragCaches(IntPtr thisobj, UInt32 uAppId, ref TSTeamError pError);
-		public UInt32 DefragCaches(UInt32 uAppId, ref TSTeamError pError) { var call = this.GetFunction<NativeDefragCaches>(this.Functions.DefragCaches); return call(this.ObjectAddress, uAppId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeDefragCaches(IntPtr thisobj, UInt32 uAppId, ref TSteamError pError);
+		public UInt32 DefragCaches(UInt32 uAppId, ref TSteamError pError) { var call = this.GetFunction<NativeDefragCaches>(this.Functions.DefragCaches); return call(this.ObjectAddress, uAppId, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileNeededByApp(IntPtr thisobj, UInt32 uAppId, ref string_t cszFileName, UInt32 uArg1, ref UInt32 puArg2, ref TSTeamError pError);
-		public Int32 IsFileNeededByApp(UInt32 uAppId, ref string_t cszFileName, UInt32 uArg1, ref UInt32 puArg2, ref TSTeamError pError) { var call = this.GetFunction<NativeIsFileNeededByApp>(this.Functions.IsFileNeededByApp); return call(this.ObjectAddress, uAppId, ref cszFileName, uArg1, ref puArg2, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileNeededByApp(IntPtr thisobj, UInt32 uAppId, ref string_t cszFileName, UInt32 uArg1, ref UInt32 puArg2, ref TSteamError pError);
+		public Int32 IsFileNeededByApp(UInt32 uAppId, ref string_t cszFileName, UInt32 uArg1, ref UInt32 puArg2, ref TSteamError pError) { var call = this.GetFunction<NativeIsFileNeededByApp>(this.Functions.IsFileNeededByApp); return call(this.ObjectAddress, uAppId, ref cszFileName, uArg1, ref puArg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppResources(IntPtr thisobj, UInt32 uAppId, ref string_t cszMasterList, ref TSTeamError pError);
-		public UInt32 WaitForAppResources(UInt32 uAppId, ref string_t cszMasterList, ref TSTeamError pError) { var call = this.GetFunction<NativeWaitForAppResources>(this.Functions.WaitForAppResources); return call(this.ObjectAddress, uAppId, ref cszMasterList, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWaitForAppResources(IntPtr thisobj, UInt32 uAppId, ref string_t cszMasterList, ref TSteamError pError);
+		public UInt32 WaitForAppResources(UInt32 uAppId, ref string_t cszMasterList, ref TSteamError pError) { var call = this.GetFunction<NativeWaitForAppResources>(this.Functions.WaitForAppResources); return call(this.ObjectAddress, uAppId, ref cszMasterList, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForceCellId(IntPtr thisobj, UInt32 uCellId, ref TSTeamError pError);
-		public Int32 ForceCellId(UInt32 uCellId, ref TSTeamError pError) { var call = this.GetFunction<NativeForceCellId>(this.Functions.ForceCellId); return call(this.ObjectAddress, uCellId, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForceCellId(IntPtr thisobj, UInt32 uCellId, ref TSteamError pError);
+		public Int32 ForceCellId(UInt32 uCellId, ref TSteamError pError) { var call = this.GetFunction<NativeForceCellId>(this.Functions.ForceCellId); return call(this.ObjectAddress, uCellId, ref pError); }
 
 	}
 	
