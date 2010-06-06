@@ -59,10 +59,9 @@ typedef enum EAppState
 struct AppDataChanged_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 1 };
-	uint32 m_Sequence;
-	uint32 m_Unknown;
-	//uint32 m_nAppID;
-	//bool m_bWebDataChanged;
+
+	AppId_t m_nAppID;
+	bool m_bWebDataChanged;
 };
 
 //-----------------------------------------------------------------------------
