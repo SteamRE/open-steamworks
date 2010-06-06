@@ -23,6 +23,7 @@
 #include "SteamTypes.h"
 #include "AppsCommon.h"
 
+struct AppUpdateInfo_s;
 
 class UNSAFE_INTERFACE IClientAppManager
 {
@@ -30,11 +31,12 @@ public:
 	virtual unknown_ret LaunchApp( uint32, uint32, const char* ) = 0;
 	virtual unknown_ret ShutdownApp( uint32, bool ) = 0;
 	virtual EAppState GetAppState( uint32 ) = 0;
-	virtual unknown_ret InstallApp( uint32, const char* ) = 0;
+	virtual unknown_ret InstallApp( uint32, const char*, int) = 0;
 	virtual unknown_ret GetAppDir( uint32, char *, uint32 ) = 0;
-	virtual unknown_ret UninstallApp( uint32 ) = 0;
+	virtual unknown_ret UninstallApp( uint32, bool ) = 0;
+	virtual unknown_ret GetUpdateInfo(unsigned int, AppUpdateInfo_s *) = 0;
 	virtual unknown_ret StartDownloadingUpdate( uint32 ) = 0;
-	virtual unknown_ret StopDownloadingUpdate( uint32 ) = 0;
+	virtual unknown_ret StopDownloadingUpdate( uint32, bool ) = 0;
 	virtual unknown_ret ApplyUpdate( uint32 ) = 0;
 	virtual unknown_ret VerifyApp( uint32 ) = 0;
 	virtual unknown_ret GetFileInfo( uint32, const char*, uint64*, uint32 * ) = 0;

@@ -23,4 +23,11 @@
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_001 "STEAMREMOTESTORAGE_INTERFACE_VERSION001"
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_002 "STEAMREMOTESTORAGE_INTERFACE_VERSION002"
 
+typedef enum ERemoteStorageFileRoot
+{
+	k_ERemoteStorageFileRootInvalid = 0,
+	k_ERemoteStorageFileRootDefault,
+	k_ERemoteStorageFileRootMax
+} ERemoteStorageFileRoot;
+
 #endif // REMOTESTORAGECOMMON_H

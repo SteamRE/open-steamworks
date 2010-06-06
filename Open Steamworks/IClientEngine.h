@@ -91,7 +91,7 @@ public:
 	virtual uint32 GetIPCCallCount() = 0;
 
 	virtual IClientUserStats* GetIClientUserStats( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
-	virtual IClientGameServerStats *GetIClientGameServerStatss( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
+	virtual IClientGameServerStats *GetIClientGameServerStats( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
 	virtual IClientNetworking* GetIClientNetworking( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientRemoteStorage* GetIClientRemoteStorage( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;

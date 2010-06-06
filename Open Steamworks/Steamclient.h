@@ -160,6 +160,7 @@
 #include "IClientGameServer.h"
 #include "IClientGameStats.h"
 #include "IClientMatchmaking.h"
+#include "IClientRemoteStorage.h"
 #include "IClientUser.h"
 #include "IClientUtils.h"
 #include "IP2PController.h"

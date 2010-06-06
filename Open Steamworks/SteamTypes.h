@@ -245,6 +245,8 @@ typedef uint32 HTTPRequestHandle;
 
 typedef int unknown_ret; // unknown return value
 
+typedef int EMarketingMessageFlags;
+
 typedef int HServerQuery;
 const int HSERVERQUERY_INVALID = 0xffffffff;
 

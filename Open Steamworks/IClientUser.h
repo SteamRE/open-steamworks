@@ -118,7 +118,7 @@ public:
 	virtual void TrackNatTraversalStat( CNatTraversalStat const* pNatStat ) = 0;
 
 	virtual void RefreshSteam2Login() = 0;
-	virtual void RefreshSteam2LoginWithSecureOption() = 0;
+	virtual void RefreshSteam2LoginWithSecureOption( bool ) = 0;
 	virtual bool Steam2IsSecureComputer() = 0;
 
 	virtual PackageId_t GetPackageIDForGuestPassToRedeemByGID( GID_t gid ) = 0;
@@ -194,7 +194,7 @@ public:
 	virtual bool GetAppDecryptionKey( uint32 nAppID, void* pvBuffer, uint32 cbBufferLength ) = 0;
 
 	virtual int GetMarketingMessageCount() = 0;
-	virtual bool GetMarketingMessage( int cMarketingMessage, uint64* gidMarketingMessageID, char* pubMsgUrl, int cubMessageUrl ) = 0;
+	virtual bool GetMarketingMessage( int cMarketingMessage, uint64* gidMarketingMessageID, char* pubMsgUrl, int cubMessageUrl, EMarketingMessageFlags * ) = 0;
 
 	virtual HAuthTicket GetAuthSessionTicket( void* pMyAuthTicket, int cbMaxMyAuthTicket, uint32* pcbAuthTicket ) = 0;
 

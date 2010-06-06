@@ -26,6 +26,7 @@
 
 class UNSAFE_INTERFACE IClientApps
 {
+public:
 	// returns 0 if the key does not exist
 	// this may be true on first call, since the app data may not be cached locally yet
 	// If you expect it to exists wait for the AppDataChanged_t after the first failure and ask again
