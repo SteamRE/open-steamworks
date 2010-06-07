@@ -33,9 +33,9 @@
 
 typedef enum EAppState
 {
-	k_EAppStateDownloading = 0,
-	k_EAppStatePaused = 1,
-	k_EAppStateDownloadComplete = 2,
+	k_EAppStateInvalid = 0,
+	k_EAppStateUninstalled = 1,
+	k_EAppStateUpdateRequired = 2,
 	k_EAppStateFullyInstalled = 4,
 	k_EAppStateDataEncrypted = 8,
 	k_EAppStateDataLocked = 16,
@@ -46,7 +46,7 @@ typedef enum EAppState
 	k_EAppStateUpdateSuspended = 1024,
 	k_EAppStateUninstalling = 2048,
 	k_EAppStateReconfiguring = 4096,
-	k_EAppStateDownloading2 = 8192,
+	k_EAppStateDownloading = 8192,
 	k_EAppStateStaging = 16384,
 	k_EAppStateCommitting = 32768,
 } EAppState;
