@@ -102,7 +102,7 @@ S_API void STEAM_CALL SteamAPI_RunCallbacks()
 
 S_API const char* STEAM_CALL SteamAPI_GetSteamInstallPath()
 {
-	return loader.GetSteamDir();
+	return loader.GetSteamDir().c_str();
 }
 
 

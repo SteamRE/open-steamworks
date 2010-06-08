@@ -6,7 +6,7 @@ public:
 	void Set(HMODULE mod);
 	void ResolveExports();
 
-	inline bool Steam_BGetCallback( HSteamPipe hSteamPipe, CallbackMsg_t *pCallbackMsg, HSteamCall *phSteamCall ) { return getcallback(hSteamPipe, pCallbackMsg, phSteamCall); }
+	inline bool Steam_BGetCallback( HSteamPipe hSteamPipe, CallbackMsg_t *pCallbackMsg ) { return getcallback(hSteamPipe, pCallbackMsg); }
 	inline void Steam_FreeLastCallback( HSteamPipe hSteamPipe ) { freelastcallback(hSteamPipe); }
 	inline bool Steam_GetAPICallResult( HSteamPipe hSteamPipe, SteamAPICall_t hSteamAPICall, void *pCallback, int cubCallback, int iCallbackExpected, bool *pbFailed) { return getapicallresult(hSteamPipe, hSteamAPICall, pCallback, cubCallback, iCallbackExpected, pbFailed); }
 

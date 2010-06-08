@@ -55,15 +55,14 @@ void CallbackManager::RunAPICallbacks(HSteamPipe pipe, SteamAPICallCompleted_t *
 void CallbackManager::RunCallbacks(HSteamPipe pipe, bool bGameServer)
 {
 	CallbackMsg_t callbackMsg;
-	HSteamCall steamCall;
 
-	while( provider.Steam_BGetCallback(pipe, &callbackMsg, &steamCall) )
+	while( provider.Steam_BGetCallback(pipe, &callbackMsg) )
 	{
 		currentUser = callbackMsg.m_hSteamUser;
 
 		int32 callBack = callbackMsg.m_iCallback;
 		ECallbackType type = (ECallbackType)((callBack / 100) * 100);
-		std::cout << "[DEBUG] Callback: " << callBack << ", Type: " << EnumString<ECallbackType>::From(type) << ", Size: " << callbackMsg.m_cubParam << std::endl;
+		std::cout << "[DEBUG] Callback: " << callBack << ", Type: " << type << ", Size: " << callbackMsg.m_cubParam << std::endl;
 
 		if(callbackMsg.m_iCallback == SteamAPICallCompleted_t::k_iCallback)
 		{
