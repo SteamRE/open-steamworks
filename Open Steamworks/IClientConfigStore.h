@@ -21,15 +21,14 @@
 #endif
 
 #include "SteamTypes.h"
+#include "UtilsCommon.h"
 
 // this is a guess,  i couldn't find it in the bins
 #define CLIENTCONFIGSTORE_INTERFACE_VERSION "CLIENTCONFIGSTORE_INTERFACE_VERSION001"
 
-typedef uint32 EConfigStore;
 
 class UNSAFE_INTERFACE IClientConfigStore
 {
-
 public:
 	virtual unknown_ret IsSet( EConfigStore eConfigStore, const char *a ) = 0;
 

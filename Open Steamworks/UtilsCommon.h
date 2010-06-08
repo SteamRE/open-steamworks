@@ -44,6 +44,15 @@ typedef enum ESteamAPICallFailure
 	k_ESteamAPICallFailureMismatchedCallback = 3,// GetAPICallResult() was called with the wrong callback type for this API call
 } ESteamAPICallFailure;
 
+typedef enum EConfigStore
+{
+	k_EConfigStoreInvalid = 0,
+	k_EConfigStoreInstall = 1,
+	k_EConfigStoreUserRoaming = 2,
+	k_EConfigStoreUserLocal = 3,
+	k_EConfigStoreMax = 4,
+} EConfigStore;
+
 
 
 //-----------------------------------------------------------------------------
@@ -81,6 +90,14 @@ struct SteamAPICallCompleted_t
 struct SteamShutdown_t
 {
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 4 };
+};
+
+struct SteamConfigStoreChanged_t
+{
+	enum { k_iCallback = k_iSteamUtilsCallbacks + 5 };
+
+	EConfigStore m_eConfigStore;
+	char m_szRootOfChanges[ 255 ];
 };
 
 

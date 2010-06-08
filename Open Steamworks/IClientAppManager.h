@@ -23,33 +23,38 @@
 #include "SteamTypes.h"
 #include "AppsCommon.h"
 
-struct AppUpdateInfo_s;
+struct AppUpdateInfo_s
+{
+	RTime32 m_timeUpdateStart;
+	uint64 m_unBytesToDownload;
+	uint64 m_unBytesDownloaded;
+	uint64 m_unBytesToWrite;
+	uint64 m_unBytesWritten;
+};
 
 class UNSAFE_INTERFACE IClientAppManager
 {
 public:
-	virtual unknown_ret LaunchApp( AppId_t appId, uint32, const char* ) = 0;
-	virtual unknown_ret ShutdownApp( AppId_t appId, bool ) = 0;
+	virtual bool LaunchApp( AppId_t unAppID, uint32 uLaunchOption, const char *cszArgs ) = 0;
+	virtual bool ShutdownApp( AppId_t unAppID, bool bForce ) = 0;
 
-	virtual EAppState GetAppState( AppId_t appId ) = 0;
+	virtual EAppState GetAppState( AppId_t unAppID ) = 0;
 
-	virtual unknown_ret InstallApp( AppId_t appId, const char*, int) = 0;
+	virtual bool InstallApp( AppId_t unAppID, const char *phBuffer, int cbBuffer ) = 0;
+	virtual uint32 GetAppDir( AppId_t unAppID, char *szBuffer, uint32 cubBuffer ) = 0;
+	virtual bool UninstallApp( AppId_t unAppID, bool bComplete ) = 0;
 
-	virtual unknown_ret GetAppDir( AppId_t appId, char *szBuffer, uint32 cubBuffer ) = 0;
+	virtual uint32 GetUpdateInfo( AppId_t unAppID, AppUpdateInfo_s *pUpdateInfo ) = 0;
 
-	virtual unknown_ret UninstallApp( AppId_t appId, bool ) = 0;
+	virtual bool StartDownloadingUpdates( AppId_t unAppID ) = 0;
+	virtual bool StopDownloadingUpdates( AppId_t unAppID, bool bLockContent ) = 0;
+	virtual bool ApplyUpdate( AppId_t unAppID ) = 0;
 
-	virtual unknown_ret GetUpdateInfo( AppId_t appId, AppUpdateInfo_s *) = 0;
+	virtual bool VerifyApp( AppId_t unAppID ) = 0;
 
-	virtual unknown_ret StartDownloadingUpdate( AppId_t appId ) = 0;
-	virtual unknown_ret StopDownloadingUpdate( AppId_t appId, bool ) = 0;
-	virtual unknown_ret ApplyUpdate( AppId_t appId ) = 0;
+	virtual bool GetFileInfo( uint32, const char *pchFileName, uint64 *punFileSize, DepotId_t *puDepotId ) = 0;
 
-	virtual unknown_ret VerifyApp( AppId_t appId ) = 0;
-
-	virtual unknown_ret GetFileInfo( uint32, const char*, uint64*, uint32 * ) = 0;
-
-	virtual unknown_ret SetAppConfig( uint32, unsigned char *, int ) = 0;
+	virtual bool SetAppConfig( uint32, uint8 *pchBuffer, int cbBuffer ) = 0;
 };
 
 #endif // ICLIENTAPPMANAGER_H

@@ -223,6 +223,7 @@ typedef int HVoiceCall;
 typedef uint32 RTime32;
 
 typedef uint32 CellID_t;
+const CellID_t k_uCellIDInvalid = -1;
 
 // handle to a Steam API call
 typedef uint64 SteamAPICall_t;

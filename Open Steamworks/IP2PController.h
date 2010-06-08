@@ -31,6 +31,27 @@ typedef enum EP2PHostType
 
 #define P2PCONTROLLER_INTERFACE_VERSION "P2PCONTROLLER_INTERFACE_VERSION001"
 
+struct PeerInfo_t
+{
+	int m_nSize;
+	CSteamID m_SteamID;
+	char m_adrLocal[ 32 ];
+	char m_adrRemote[ 32 ];
+	bool m_bRemoteChoking;
+	bool m_bRemoteInterested;
+	bool m_bLocalChocking;
+	bool m_bLocalInterested;
+	uint64 m_nAvgInBPS;
+	uint64 m_nAvgOutBPS;
+	uint64 m_nTotalBytesIn;
+	uint64 m_nTotalBytesOut;
+	float m_flCompletionPercent;
+	uint32 m_Handle;
+	bool m_bOutbound;
+	uint8 m_ClientState;
+	float m_flEstimatedBitsPerSecond;
+};
+
 
 class UNSAFE_INTERFACE IP2PController
 {
@@ -81,8 +102,7 @@ public:
 	virtual unknown_ret GetP2PFileInfo( uint32, int, uint32 * ) = 0;
 	virtual unknown_ret GetBlockStates( uint32, int, uint8 * ) = 0;
 	virtual unknown_ret GetAvailBlocks( uint32, int, uint16 * ) = 0;
-	//virtual unknown_ret GetPeerInfo( uint32, int, PeerInfo_t * ) = 0;
-	virtual unknown_ret GetPeerInfo( uint32, int, uint32 * ) = 0;
+	virtual unknown_ret GetPeerInfo( uint32, int, PeerInfo_t * ) = 0;
 	virtual unknown_ret GetPeerBlockInfo( uint32, uint32, int, uint8 * ) = 0;
 	virtual unknown_ret GetP2PKeyValues( uint32 ) = 0;
 	virtual unknown_ret GetP2POptions( uint32 ) = 0;

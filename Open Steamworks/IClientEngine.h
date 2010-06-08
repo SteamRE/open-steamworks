@@ -101,7 +101,7 @@ public:
 
 	virtual IClientDepotBuilder* GetIClientDepotBuilder( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
-	virtual void ConCommandInit( IConCommandBaseAccessor * ) = 0;
+	virtual void ConCommandInit( IConCommandBaseAccessor *pAccessor ) = 0;
 
 	virtual IClientAppManager* GetIClientAppManager( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientConfigStore *GetIClientConfigStore( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
@@ -111,9 +111,9 @@ public:
 	virtual IClientGameStats* GetIClientGameStats( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientHTTP *GetIClientHTTP( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
-	virtual unknown_ret GetIPCServerMap() = 0;
+	virtual void *GetIPCServerMap() = 0;
 
-	virtual unknown_ret OnDebugTextArrived( const char *text ) = 0;
+	virtual unknown_ret OnDebugTextArrived( const char *pchDebugText ) = 0;
 };
 
 #endif // ICLIENTENGINE_H

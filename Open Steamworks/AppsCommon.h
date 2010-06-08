@@ -51,6 +51,11 @@ typedef enum EAppState
 	k_EAppStateCommitting = 32768,
 } EAppState;
 
+typedef enum EAppEvent
+{
+	k_EAppEventDownloadComplete = 2,
+} EAppEvent;
+
 
 
 //-----------------------------------------------------------------------------

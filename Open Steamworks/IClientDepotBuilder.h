@@ -50,17 +50,20 @@ typedef enum EStatusDepotVersion
 } EStatusDepotVersion;
 
 
+typedef uint32 HDEPOTBUILD;
 
 class IClientDepotBuilder
 {
+
 public:
-	virtual DepotId_t InitializeDepotBuildForConfigFile( const char *pchConfigFile ) = 0;
+	virtual HDEPOTBUILD InitializeDepotBuildForConfigFile( const char *pchConfigFile, bool bMakePublic ) = 0;
+	virtual bool GetDepotBuildStatus( HDEPOTBUILD hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
+	virtual bool CloseDepotBuildHandle( HDEPOTBUILD hDepotBuild ) = 0;
 
-	virtual bool GetDepotBuildStatus( DepotId_t hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
+	virtual HDEPOTBUILD ReconstructDepotFromManifestAndChunks( const char *pchLocalManifestPath, const char *pchLocalChunkPath, const char *pchRestorePath ) = 0;
 
-	virtual bool CloseDepotBuildHandle( DepotId_t hDepotBuild ) = 0;
+	virtual bool GetChunkCounts( HDEPOTBUILD hDepotBuild, uint32 *unTotalChunksInNewBuild, uint32 *unChunksAlsoInOldBuild ) = 0;
 
-	virtual int ReconstructDepotFromManifestAndChunks( const char *a, const char *b, const char *c ) = 0;
 };
 
 #endif // ICLIENTDEPOTBUILDER_H
