@@ -48,16 +48,15 @@ public:
 	virtual int GetOnlineFriendCount() = 0;
 
 	// gets the relationship to a user
-	virtual EFriendRelationship GetFriendRelationship( CSteamID steamIDFriend, int a ) = 0;
-	// returns true if the specified user is considered a friend (can see our online status)
-	virtual EPersonaState GetFriendPersonaState( CSteamID steamIDFriend, int a ) = 0;
+	virtual EFriendRelationship GetFriendRelationship( CSteamID steamIDFriend ) = 0;
+	virtual EPersonaState GetFriendPersonaState( CSteamID steamIDFriend ) = 0;
 	// returns the name of a friend - guaranteed to not be NULL.
 	virtual const char *GetFriendPersonaName( CSteamID steamIDFriend ) = 0;
 
 	virtual void SetFriendAlias( CSteamID steamIDFriend, const char *pchAlias ) = 0;
 
 	// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
-	virtual int GetFriendAvatar( CSteamID steamIDFriend, int a ) = 0;
+	virtual int GetFriendAvatar( CSteamID steamIDFriend, EAvatarSize eAvatarSize ) = 0;
 
 	// steam registry, accessed by friend
 	virtual void SetFriendRegValue( CSteamID steamIDFriend, const char *pchKey, const char *pchValue ) = 0;
@@ -65,7 +64,7 @@ public:
 
 	virtual bool DeleteFriendRegValue( CSteamID steamID, const char *pchKey ) = 0;
 
-	virtual bool GetFriendGamePlayed( CSteamID steamID, FriendGameInfo_t * ) = 0;
+	virtual bool GetFriendGamePlayed( CSteamID steamID, FriendGameInfo_t *pGamePlayInfo ) = 0;
 	virtual const char *GetFriendGamePlayedExtraInfo( CSteamID steamID ) = 0;
 
 	virtual CSteamID GetFriendGameServer( CSteamID steamID ) = 0;
@@ -126,7 +125,7 @@ public:
 	virtual bool IsUserInSource( CSteamID steamIDUser, CSteamID steamIDSource ) = 0;
 
 	virtual int GetCoplayFriendCount() = 0;
-	virtual CSteamID *GetCoplayFriend( int iCoplayEvent ) = 0;
+	virtual CSteamID GetCoplayFriend( int iCoplayEvent ) = 0;
 
 	// most likely a RTime32
 	virtual RTime32 GetFriendCoplayTime( CSteamID steamID ) = 0;
@@ -155,14 +154,14 @@ public:
 	virtual bool BanChatMember( CSteamID steamIDchat, CSteamID steamIDuser ) = 0;
 	virtual bool UnBanChatMember( CSteamID steamIDchat, CSteamID steamIDuser ) = 0;
 
-	virtual bool SetChatRoomType( CSteamID steamIDchat, ELobbyType ) = 0;
+	virtual bool SetChatRoomType( CSteamID steamIDchat, ELobbyType eLobbyType ) = 0;
 	virtual bool GetChatRoomLockState( CSteamID steamIDchat, bool *pbLocked ) = 0;
-	virtual bool GetChatRoomPermissions( CSteamID steamIDchat, uint32 * ) = 0;
+	virtual bool GetChatRoomPermissions( CSteamID steamIDchat, uint32 *prgfChatRoomPermissions ) = 0;
 
-	virtual unknown_ret SetChatRoomModerated( CSteamID steamIDchat, bool bModerated ) = 0;
+	virtual bool SetChatRoomModerated( CSteamID steamIDchat, bool bModerated ) = 0;
 	virtual bool ChatRoomModerated( CSteamID steamIDChat ) = 0;
 
-	virtual bool NotifyChatRoomDlgsOfUIChange( CSteamID steamIDchat, bool, bool, bool, bool ) = 0;
+	virtual bool NotifyChatRoomDlgsOfUIChange( CSteamID steamIDchat, bool bShowAvatars, bool bBeepOnNewMsg, bool bShowSteamIDs, bool bShowTimestampOnNewMsg ) = 0;
 
 	virtual bool TerminateChatRoom( CSteamID steamIDchat ) = 0;
 
@@ -291,7 +290,7 @@ public:
 
 	virtual HVoiceCall FindFriendVoiceChatHandle( CSteamID steamID ) = 0;
 
-	virtual unknown_ret RequestFriendsWhoPlayGame( CGameID gameId ) = 0;
+	virtual void RequestFriendsWhoPlayGame( CGameID gameId ) = 0;
 	virtual uint32 GetCountFriendsWhoPlayGame( CGameID gameId ) = 0;
 
 	virtual CSteamID GetFriendWhoPlaysGame( uint32 , CGameID gameId ) = 0;

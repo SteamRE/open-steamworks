@@ -154,5 +154,18 @@ struct GSPolicyResponse_t
 	bool m_bSecure;
 };
 
+#pragma pack( push, 4 )
+struct GSReputation_t
+{
+	EResult m_eResult;
+	uint32 m_unReputationScore;
+	bool m_bBanned;
+	uint32 m_unBannedIP;
+	uint16 m_usBannedPort;
+	uint64 m_ulBannedGameID;
+	uint32 m_unBanExpires;
+};
+#pragma pack( pop )
+
 
 #endif // GAMESERVERCOMMON_H

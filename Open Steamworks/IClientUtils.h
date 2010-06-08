@@ -65,21 +65,23 @@ public:
 	virtual uint8 GetCurrentBatteryPower() = 0;
 
 
-	virtual unknown_ret SetOfflineMode( bool ) = 0;
+	virtual void SetOfflineMode( bool bOffline ) = 0;
 	virtual bool GetOfflineMode() = 0;
 
-	virtual void SetAppIDForCurrentPipe( AppId_t appId ) = 0;
-	virtual uint32 GetAppID() = 0;
+	virtual AppId_t SetAppIDForCurrentPipe( AppId_t appId ) = 0;
+	virtual AppId_t GetAppID() = 0;
 
-	virtual unknown_ret SetAPIDebuggingActive( bool, bool ) = 0;
-	virtual unknown_ret IsAPICallCompleted( uint64, bool * ) = 0;
+	virtual void SetAPIDebuggingActive( bool bActive, bool bVerbose ) = 0;
 
-	virtual unknown_ret GetAPICallFailureReason( uint64 ) = 0;
-	virtual unknown_ret GetAPICallResult( uint64, void *, int, int, bool * ) = 0;
+	// API asynchronous call results
+	// can be used directly, but more commonly used via the callback dispatch API (see steam_api.h)
+	virtual bool IsAPICallCompleted( SteamAPICall_t hSteamAPICall, bool *pbFailed ) = 0;
+	virtual ESteamAPICallFailure GetAPICallFailureReason( SteamAPICall_t hSteamAPICall ) = 0;
+	virtual bool GetAPICallResult( SteamAPICall_t hSteamAPICall, void *pCallback, int cubCallback, int iCallbackExpected, bool *pbFailed ) = 0;
 
-	virtual unknown_ret SignalAppsToShutDown() = 0;
+	virtual bool SignalAppsToShutDown() = 0;
 
-	virtual unknown_ret GetCellID() = 0;
+	virtual CellID_t GetCellID() = 0;
 
 	virtual bool IsGlobalInstance() = 0;
 };

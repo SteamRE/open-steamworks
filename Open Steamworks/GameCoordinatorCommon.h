@@ -74,11 +74,11 @@ typedef enum EGCMessages
 
 
 
-struct GameCoordinatorMessageAvailable_t
+struct GCMessageAvailable_t
 {
 	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 1 };
 
-	uint32 messageLength;
+	uint32 m_nMessageSize;
 };
 
 #pragma pack(push, 1)

@@ -25,7 +25,25 @@
 #include "UserCommon.h"
 
 
-class ConnectedUserInfo_t;
+typedef enum EGameConnectSteamResponse
+{
+	k_EGameConnectSteamResponse_WaitingForResponse = 0,
+	k_EGameConnectSteamResponse_AuthorizedToPlay = 1,
+	k_EGameConnectSteamResponse_Denied = 2,
+	k_EGameConnectSteamResponse_ExceededReasonableTime_StillWaiting = 3,
+} EGameConnectSteamResponse;
+
+struct ConnectedUserInfo_t
+{
+	int m_cubConnectedUserInfo;
+	int m_nCountOfGuestUsers;
+	CSteamID m_SteamID;
+	uint32 m_unIPPublic;
+	uint32 m_nFrags;
+	double m_flConnectTime;
+	EGameConnectSteamResponse m_eGameConnectSteamResponse;
+	EDenyReason m_eDenyReason;
+};
 
 class UNSAFE_INTERFACE IClientGameServer
 {
@@ -36,7 +54,7 @@ public:
 	virtual CSteamID GetSteamID() = 0;
 
 	// steam account management functions
-	virtual void LogOn( CSteamID steamID ) = 0;
+	virtual void LogOn() = 0;
 	virtual void LogOff() = 0;
 	virtual bool LoggedOn() = 0;
 
@@ -44,14 +62,12 @@ public:
 	virtual ELogonState GetLogonState() = 0;
 	virtual bool Connected() = 0;
 
-	//virtual unknown_ret RaiseConnectionPriority( EConnectionPriority ) = 0;
-	virtual unknown_ret RaiseConnectionPriority( uint32 ) = 0;
+	virtual int RaiseConnectionPriority( EConnectionPriority eConnectionPriority ) = 0;
+	virtual void ResetConnectionPriority( int hRaiseConnectionPriorityPrev ) = 0;
 
-	virtual unknown_ret ResetConnectionPriority( int ) = 0;
+	virtual void SetCellID( CellID_t cellID ) = 0;
 
-	virtual unknown_ret SetCellID( uint32 ) = 0;
-
-	virtual unknown_ret TrackSteamUsageEvent( ESteamUsageEvent eSteamUsageEvent, unsigned const char*, uint32 ) = 0;
+	virtual void TrackSteamUsageEvent( ESteamUsageEvent eSteamUsageEvent, const uint8 *pubKV, uint32 cubKV ) = 0;
 
 	// Handles receiving a new connection from a Steam user.  This call will ask the Steam
 	// servers to validate the users identity, app ownership, and VAC status.  If the Steam servers 
@@ -94,10 +110,6 @@ public:
 	virtual bool SetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 
 
-	// Ask if a user has a specific achievement for this game, will get a callback on reply
-	virtual bool GetUserAchievementStatus( CSteamID steamID, const char *pchAchievementName ) = 0;
-
-
 	// Update the data to be displayed in the server browser and matchmaking interfaces for a user
 	// currently connected to the server.  For regular users you must call this after you receive a
 	// GSUserValidationSuccess callback.
@@ -111,9 +123,7 @@ public:
 	// This can be called if spectator goes away or comes back (passing 0 means there is no spectator server now).
 	virtual void UpdateSpectatorPort( uint16 unSpectatorPort ) = 0;
 
-	// Sets a string defining the "gametype" for this server, this is optional, but if it is set
-	// it allows users to filter in the matchmaking/server-browser interfaces based on the value
-	virtual void SetGameType( const char *pchGameType ) = 0; 
+	virtual void SetGameTags( const char *pchGameTags ) = 0; 
 
 	// Sets a string defining the "gamedata" for this server, this is optional, but if it is set
 	// it allows users to filter in the matchmaking/server-browser interfaces based on the value
@@ -121,12 +131,14 @@ public:
 	// acknowledged)
 	virtual void SetGameData( const char *pchGameData) = 0; 
 
-	virtual unknown_ret SetCountOfSimultaneousGuestUsersPerSteamAccount( int ) = 0;
+	virtual void SetCountOfSimultaneousGuestUsersPerSteamAccount( int nCount ) = 0;
 
-	virtual unknown_ret EnumerateConnectedUsers( int, ConnectedUserInfo_t * ) = 0;
+	virtual bool EnumerateConnectedUsers( int iterator, ConnectedUserInfo_t *pConnectedUserInfo ) = 0;
 
 	// Ask for the gameplay stats for the server. Results returned in a callback
-	virtual void GetGameplayStats( ) = 0;
+	virtual void GetGameplayStats() = 0;
+
+	virtual SteamAPICall_t GetServerReputation() = 0;
 
 	// Ask if a user in in the specified group, results returns async by GSUserGroupStatus_t
 	// returns false if we're not connected to the steam servers and thus cannot ask
@@ -143,8 +155,7 @@ public:
 
 	// Authenticate ticket from entity steamID to be sure it is valid and isnt reused
 	// Registers for callbacks if the entity goes offline or cancels the ticket ( see ValidateAuthTicketResponse_t callback and EAuthSessionResponse )
-	//virtual EBeginAuthSessionResult BeginAuthSession( const void *pAuthTicket, int cbAuthTicket, CSteamID steamID ) = 0;
-	virtual int32 BeginAuthSession( const void *pAuthTicket, int cbAuthTicket, CSteamID steamID ) = 0;
+	virtual EBeginAuthSessionResult BeginAuthSession( const void *pAuthTicket, int cbAuthTicket, CSteamID steamID ) = 0;
 
 	// Stop tracking started by BeginAuthSession - called when no longer playing game with this entity
 	virtual void EndAuthSession( CSteamID steamID ) = 0;
@@ -157,19 +168,23 @@ public:
 	//virtual EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
 	virtual int32 IsUserSubscribedAppInTicket( CSteamID steamID, uint32 appID ) = 0;
 
+	// Ask if a user has a specific achievement for this game, will get a callback on reply
+	virtual bool _GetUserAchievementStatus( CSteamID steamID, const char *pchAchievementName ) = 0;
+
 	virtual void _GSSetSpawnCount( uint32 ucSpawn ) = 0;
 	virtual bool _GSGetSteam2GetEncryptionKeyToSendToNewClient( void *pvEncryptionKey, uint32 *pcbEncryptionKey, uint32 cbMaxEncryptionKey ) = 0;
 
-	virtual unknown_ret _GSSendSteam2UserConnect( uint32, const void*, uint32, uint32, unsigned short, const void*, uint32 ) = 0;
-	virtual unknown_ret _GSSendSteam3UserConnect( CSteamID, uint32, const void*, uint32 ) = 0;
-	virtual unknown_ret _GSSendUserConnect( uint32, uint32, unsigned short, const void*, uint32 ) = 0;
-	virtual unknown_ret _GSRemoveUserConnect( uint32 ) = 0;
-	virtual unknown_ret _GSSendUserDisconnect( CSteamID, uint32 ) = 0;
+	virtual bool _GSSendSteam2UserConnect( uint32 unUserID, const void *pvRawKey, uint32 unKeyLen, uint32 unIPPublic, uint16 usPort, const void *pvCookie, uint32 cubCookie ) = 0;
+	virtual bool _GSSendSteam3UserConnect( CSteamID steamID, uint32 unIPPublic, const void *pvCookie, uint32 cubCookie ) = 0;
+
+	virtual bool _GSSendUserConnect( uint32 unUserID, uint32 unIPPublic, uint16 usPort, const void *pvCookie, uint32 cubCookie ) = 0;
+	virtual bool _GSRemoveUserConnect( uint32 unUserID ) = 0;
+	virtual bool _GSSendUserDisconnect( CSteamID steamID, uint32 unUserID ) = 0;
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
-	virtual void _GSUpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
+	virtual bool _GSUpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
-	virtual unknown_ret _GSCreateUnauthenticatedUser( CSteamID * ) = 0;
+	virtual bool _GSCreateUnauthenticatedUser( CSteamID *pSteamID ) = 0;
 };
 
 
