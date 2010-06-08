@@ -188,17 +188,82 @@ typedef	uint8 SHADigest_t[ k_cubDigestSize ];
 typedef	uint8 Salt_t[ k_cubSaltSize ];
 
 typedef uint64 GID_t;		// globally unique identifier
+const GID_t k_GIDNil = -1;
+const GID_t k_TxnIDNil = -1;
+const GID_t k_TxnIDUnknown = 0;
 
 
 // this is baked into client messages and interfaces as an int, 
 // make sure we never break this.
 typedef uint32 PackageId_t;
-const PackageId_t k_uPackageIdInvalid = 0xFFFFFFFF;
+const PackageId_t k_uPackageIdFreeSub = 0;
+const PackageId_t k_uPackageIdInvalid = -1;
+const PackageId_t k_uPackageIdWallet = -2;
+const PackageId_t k_uPackageIdMicroTxn = -3;
 
 // this is baked into client messages and interfaces as an int, 
 // make sure we never break this.
 typedef uint32 AppId_t;
 const AppId_t k_uAppIdInvalid = 0x0;
+const AppId_t k_nGameIDNotepad = 65535;
+const AppId_t k_nGameIDCSSTestApp = 65534;
+const AppId_t k_nGameIDDRMTestApp_Static = 6710;
+const AppId_t k_nGameIDDRMTestApp_Blob = 6711;
+const AppId_t k_nGameIDDRMTestApp_Secrets = 6712;
+const AppId_t k_nGameIDDRMTestApp_SDK = 6713;
+const AppId_t k_nGameIDWinUI = 7;
+const AppId_t k_nGameIDWinUI2 = 8;
+const AppId_t k_nGameIDCS = 10;
+const AppId_t k_nGameIDTFC = 20;
+const AppId_t k_nGameIDDOD = 30;
+const AppId_t k_nGameIDDMC = 40;
+const AppId_t k_nGameIDOpFor = 50;
+const AppId_t k_nGameIDRicochet = 60;
+const AppId_t k_nGameIDHL1 = 70;
+const AppId_t k_nGameIDCZero = 80;
+const AppId_t k_nGameIDCSBeta = 150;
+const AppId_t k_nGameIDBaseSourceSDK = 215;
+const AppId_t k_nGameIDHL2 = 220;
+const AppId_t k_nGameIDCSS = 240;
+const AppId_t k_nDepotHL2Buka = 235;
+const AppId_t k_nGameHL1SRC = 280;
+const AppId_t k_nGameDRMTest = 199;
+const AppId_t k_nGameIDDODSRC = 300;
+const AppId_t k_nGameIDHL2DM = 320;
+const AppId_t k_nGameIDPortal = 400;
+const AppId_t k_nGameIDHL2EP2 = 420;
+const AppId_t k_nGameIDTF2 = 440;
+const AppId_t k_nGameIDL4D = 500;
+const AppId_t k_nGameIDL4DDemo = 530;
+const AppId_t k_nGameIDL4D2 = 550;
+const AppId_t k_nGameIDRedOrchestra = 1200;
+const AppId_t k_nGameIDRedOrchestraBeta = 1210;
+const AppId_t k_nGameIDKillingFloor = 1250;
+const AppId_t k_nGameIDSin1 = 1309;
+const AppId_t k_nGameIDEarth2160 = 1900;
+const AppId_t k_nGameIDTheShip = 2400;
+const AppId_t k_nGameIDTheShipBeta = 2410;
+const AppId_t k_nGameIDDarkMessiahSP = 2100;
+const AppId_t k_nGameIDDarkMessiahMPBeta = 2110;
+const AppId_t k_nGameIDDarkMessiahMP = 2115;
+const AppId_t k_nGameIDDarkMessiahSPDemo = 2120;
+const AppId_t k_nGameIDDarkMessiahFix = 2130;
+const AppId_t k_nGameRaceWTCC = 4230;
+const AppId_t k_nGameIDLostPlanetOld = 6500;
+const AppId_t k_nGameIDLostPlanet = 6510;
+const AppId_t k_nGameIDNBA2K9 = 7740;
+const AppId_t k_nGameIDCallofDuty4 = 7940;
+const AppId_t k_nMLBFrontOfficeManager = 7780;
+const AppId_t k_nGameIDEmpireTotalWar = 10500;
+const AppId_t k_nGameCSSOnline = 11600;
+const AppId_t k_nGameIDFirstSource = 200;
+const AppId_t k_nGameIDLastSource = 999;
+const AppId_t k_nGameIDFirstGoldSource = 10;
+const AppId_t k_nGameIDLastGoldSource = 199;
+const AppId_t k_nGameIDFirstNonSource = 1000;
+const AppId_t k_nGameIDMax = 2147483647;
+const AppId_t k_nGameIDStress = 30020;
+const AppId_t k_nGameIDGCTest = 30100;
 
 typedef enum ShareType_t
 {
@@ -221,6 +286,9 @@ typedef int HVoiceCall;
 // We use this 32 bit time representing real world time.
 // It offers 1 second resolution beginning on January 1, 1970 (Unix time)
 typedef uint32 RTime32;
+const RTime32 k_RTime32Nil = 0;
+const RTime32 k_RTime32MinValid = 10;
+const RTime32 k_RTime32Infinite = 2147483647;
 
 typedef uint32 CellID_t;
 const CellID_t k_uCellIDInvalid = -1;
@@ -268,7 +336,7 @@ const uint32 k_cchFriendChatMsgMax = 32 * 1024;
 
 // maximum number of characters in a users name
 const int k_cchPersonaNameMax = 128;
-// maximum number of wide(?) characters in a users name
+// maximum number of wide characters in a users name
 const int k_cwchPersonaNameMax = 32;
 
 // size limit on chat room or member metadata
