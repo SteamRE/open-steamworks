@@ -38,7 +38,7 @@ public:
 	virtual void SendUserSpecificAppData( AppId_t unAppID, void* pvData, int cbData ) = 0;
 
 	virtual int GetAppDataSection( AppId_t unAppID, int a, uint8 *b, int c ) = 0;
-	virtual unknown_ret RequestAppInfoUpdate( const AppId_t *pAppIDs, int nNumAppIDs, bool bForceUpdate ) = 0;
+	virtual bool RequestAppInfoUpdate( const AppId_t *pAppIDs, int nNumAppIDs, bool bForceUpdate ) = 0;
 
 	virtual unknown_ret NotifyAppStateChanged( AppId_t unAppID, EAppState eAppState ) = 0;
 

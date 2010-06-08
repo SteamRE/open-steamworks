@@ -28,18 +28,27 @@ struct AppUpdateInfo_s;
 class UNSAFE_INTERFACE IClientAppManager
 {
 public:
-	virtual unknown_ret LaunchApp( uint32, uint32, const char* ) = 0;
-	virtual unknown_ret ShutdownApp( uint32, bool ) = 0;
-	virtual EAppState GetAppState( uint32 ) = 0;
-	virtual unknown_ret InstallApp( uint32, const char*, int) = 0;
-	virtual unknown_ret GetAppDir( uint32, char *, uint32 ) = 0;
-	virtual unknown_ret UninstallApp( uint32, bool ) = 0;
-	virtual unknown_ret GetUpdateInfo(unsigned int, AppUpdateInfo_s *) = 0;
-	virtual unknown_ret StartDownloadingUpdate( uint32 ) = 0;
-	virtual unknown_ret StopDownloadingUpdate( uint32, bool ) = 0;
-	virtual unknown_ret ApplyUpdate( uint32 ) = 0;
-	virtual unknown_ret VerifyApp( uint32 ) = 0;
+	virtual unknown_ret LaunchApp( AppId_t appId, uint32, const char* ) = 0;
+	virtual unknown_ret ShutdownApp( AppId_t appId, bool ) = 0;
+
+	virtual EAppState GetAppState( AppId_t appId ) = 0;
+
+	virtual unknown_ret InstallApp( AppId_t appId, const char*, int) = 0;
+
+	virtual unknown_ret GetAppDir( AppId_t appId, char *szBuffer, uint32 cubBuffer ) = 0;
+
+	virtual unknown_ret UninstallApp( AppId_t appId, bool ) = 0;
+
+	virtual unknown_ret GetUpdateInfo( AppId_t appId, AppUpdateInfo_s *) = 0;
+
+	virtual unknown_ret StartDownloadingUpdate( AppId_t appId ) = 0;
+	virtual unknown_ret StopDownloadingUpdate( AppId_t appId, bool ) = 0;
+	virtual unknown_ret ApplyUpdate( AppId_t appId ) = 0;
+
+	virtual unknown_ret VerifyApp( AppId_t appId ) = 0;
+
 	virtual unknown_ret GetFileInfo( uint32, const char*, uint64*, uint32 * ) = 0;
+
 	virtual unknown_ret SetAppConfig( uint32, unsigned char *, int ) = 0;
 };
 

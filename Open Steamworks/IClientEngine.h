@@ -63,12 +63,7 @@ public:
 	virtual HSteamUser CreateLocalUser( HSteamPipe* phSteamPipe, EAccountType eAccountType ) = 0;
 
 	virtual void ReleaseUser( HSteamPipe hSteamPipe, HSteamUser hUser ) = 0;
-/*
-#if defined( _WIN32 ) && defined( STEAM )
-	virtual unknown_ret Unknown( int a, int b ) = 0; // exists in steam's steamclient, but not l4d2's or l4d1's steamclient
-#endif*/
 
-	// this seems to be the actual func... unless this is added and the unknown function still exists in steam
 	virtual bool IsValidHSteamUserPipe( HSteamPipe hSteamPipe, HSteamUser hUser ) = 0;
 
 	virtual IClientUser* GetIClientUser( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
@@ -85,7 +80,6 @@ public:
 	virtual IClientContentServer* GetIClientContentServer( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientMasterServerUpdater* GetIClientMasterServerUpdater( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientMatchmakingServers* GetIClientMatchmakingServers( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
-	//virtual IP2PController* GetIP2PController( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
 	virtual void RunFrame() = 0;
 	virtual uint32 GetIPCCallCount() = 0;
@@ -98,8 +92,6 @@ public:
 
 	virtual void SetWarningMessageHook( SteamAPIWarningMessageHook_t pFunction ) = 0;
 
-	//virtual IClientUserItems* GetIClientUserItems( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
-	//virtual IClientGameServerItems* GetIClientGameServerItems( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientGameCoordinator* GetIClientGameCoordinator( HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char *pchVersion ) = 0;
 
 	virtual void SetOverlayNotificationPosition( ENotificationPosition eNotificationPosition ) = 0;
@@ -114,18 +106,14 @@ public:
 	virtual IClientAppManager* GetIClientAppManager( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientConfigStore *GetIClientConfigStore( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	
-//#if defined( _WIN32 ) && defined( STEAM )
-	virtual bool OverlayNeedsPresent() = 0; // only in steam, since latest update, it seems this is available in the linux bins too...
-//#endif
+	virtual bool OverlayNeedsPresent() = 0;
 
 	virtual IClientGameStats* GetIClientGameStats( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientHTTP *GetIClientHTTP( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
 	virtual unknown_ret GetIPCServerMap() = 0;
 
-#if !defined( STEAM )
-	virtual unknown_ret OnDebugTextArrived( const char *text ) = 0; // linux only
-#endif
+	virtual unknown_ret OnDebugTextArrived( const char *text ) = 0;
 };
 
 #endif // ICLIENTENGINE_H
