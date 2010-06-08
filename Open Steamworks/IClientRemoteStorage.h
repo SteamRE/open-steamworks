@@ -28,28 +28,40 @@ class UNSAFE_INTERFACE IClientRemoteStorage
 {
 public:
 
-	virtual unknown_ret FileWrite( AppId_t nAppId, ERemoteStorageFileRoot, char  const*,void  const*, int ) = 0;
-	virtual unknown_ret GetFileSize( AppId_t nAppId, ERemoteStorageFileRoot, char  const* ) = 0;
-	virtual unknown_ret FileRead( AppId_t nAppId, ERemoteStorageFileRoot, char  const*, void *, int ) = 0;
-	virtual bool FileExists( AppId_t nAppId, ERemoteStorageFileRoot, char  const* ) = 0;
-	virtual int GetFileCount( AppId_t nAppId ) = 0;
-	virtual unknown_ret GetFileNameAndSize( AppId_t nAppId, int, int * ) = 0;
-	virtual unknown_ret GetQuota( AppId_t nAppId, int *, int * ) = 0;
-	virtual unknown_ret FilePersist( AppId_t nAppId, ERemoteStorageFileRoot, char  const* ) = 0;
-	virtual unknown_ret FileForget( AppId_t nAppId, ERemoteStorageFileRoot, char  const* ) = 0;
-	virtual unknown_ret ResolvePath( AppId_t nAppId, ERemoteStorageFileRoot, char  const*, char *, unsigned int ) = 0;
+	virtual bool FileWrite( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, const void *pvData, int cubData ) = 0;
+	virtual int32 GetFileSize( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile  ) = 0;
+
+	virtual int FileRead( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, void *pvData, int cubDataToRead ) = 0;
+	virtual bool FileExists( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+
+	virtual int32 GetFileCount( AppId_t nAppId ) = 0;
+	virtual const char *GetFileNameAndSize( AppId_t nAppId, int iFile, int *pnFileSizeInBytes ) = 0;
+
+	virtual bool GetQuota( AppId_t nAppId, int32 *pnTotalBytes, int32 *pnAvailableBytes ) = 0;
+
+	virtual unknown_ret FilePersist( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+	virtual unknown_ret FileForget( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+
+	virtual unknown_ret ResolvePath( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *, char *, uint32 ) = 0;
+
 	virtual unknown_ret GetFileCountEx( AppId_t nAppId ) = 0;
 	virtual unknown_ret GetFileNameAndSizeEx( AppId_t nAppId, int, ERemoteStorageFileRoot *, int * ) = 0;
+
 	virtual unknown_ret LoadLocalFileInfoCache( AppId_t nAppId ) = 0;
+
 	virtual unknown_ret EvaluateRemoteStorageSyncState( AppId_t nAppId ) = 0;
-	virtual unknown_ret GetRemoteStorageSyncState( AppId_t nAppId ) = 0;
-	virtual unknown_ret HaveLatestFilesLocally( AppId_t nAppId ) = 0;
-	virtual unknown_ret GetConflictingFileTimestamps( AppId_t nAppId, unsigned int *, unsigned int * ) = 0;
+	virtual ERemoteStorageSyncState GetRemoteStorageSyncState( AppId_t nAppId ) = 0;
+
+	virtual bool HaveLatestFilesLocally( AppId_t nAppId ) = 0;
+
+	virtual unknown_ret GetConflictingFileTimestamps( AppId_t nAppId, uint32 *, uint32 * ) = 0;
 	virtual unknown_ret ResolveSyncConflict( AppId_t nAppId, bool ) = 0;
-	virtual unknown_ret SynchronizeApp( AppId_t nAppId, bool, bool ) = 0;
+
+	virtual void SynchronizeApp( AppId_t nAppId, bool bSyncClient, bool bSyncServer ) = 0;
 	virtual bool IsAppSyncInProgress( AppId_t nAppId ) = 0;
-	virtual ERemoteStorageFileRoot ERemoteStorageFileRootFromName( char  const* ) = 0;
-	virtual const char* PchNameFromERemoteStorageFileRoot( ERemoteStorageFileRoot ) = 0;
+
+	virtual ERemoteStorageFileRoot ERemoteStorageFileRootFromName( const char * ) = 0;
+	virtual const char* PchNameFromERemoteStorageFileRoot( ERemoteStorageFileRoot eRemoteStorageFileRoot ) = 0;
 };
 
 #endif // ICLIENTREMOTESTORAGE_H
