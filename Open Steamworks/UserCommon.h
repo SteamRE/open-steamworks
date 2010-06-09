@@ -242,7 +242,7 @@ struct SteamServersDisconnected_t
 	EResult m_eResult;
 };
 
-struct PrimaryChatDestinationSet_t
+struct ClientPrimaryChatDestinationSet_t
 {
 	enum { k_iCallback = k_iClientUserCallbacks + 3 };
 
