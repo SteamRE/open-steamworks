@@ -199,7 +199,7 @@ public:
 
 	virtual int IsUserSubscribedAppInTicket( CSteamID steamID, AppId_t appID ) = 0;
 
-	virtual void SetAccountLimited( bAccountLimited ) = 0;
+	virtual void SetAccountLimited( bool bAccountLimited ) = 0;
 	virtual bool IsAccountLimited() = 0;
 
 	virtual void SendValidationEmail() = 0;
