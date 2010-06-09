@@ -249,7 +249,7 @@ S_API ISteamClient009* STEAM_CALL SteamClient();
 S_API ISteamUser013* STEAM_CALL SteamUser();
 S_API ISteamFriends005* STEAM_CALL SteamFriends();
 S_API ISteamUtils005* STEAM_CALL SteamUtils();
-S_API ISteamMatchmaking007* STEAM_CALL SteamMatchmaking(); // 008 in TF2 steam_api
+S_API ISteamMatchmaking008* STEAM_CALL SteamMatchmaking();
 S_API ISteamUserStats007* STEAM_CALL SteamUserStats();
 S_API ISteamApps003* STEAM_CALL SteamApps();
 S_API ISteamMatchmakingServers002* STEAM_CALL SteamMatchmakingServers();

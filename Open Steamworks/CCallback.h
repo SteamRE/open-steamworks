@@ -131,7 +131,9 @@ public:
 	// then uncomment the empty constructor below and manually call
 	// ::Register() for your object
 	// Or, just call the regular constructor with (NULL, NULL)
-	// CCallback() {}
+#ifdef ENABLE_CALLBACK_EMPTY_CONSTRUCTOR
+	CCallback() {}
+#endif
 	
 	// constructor for initializing this object in owner's constructor
 	CCallback( T *pObj, func_t func ) : m_pObj( pObj ), m_Func( func )
