@@ -372,6 +372,162 @@ struct IPCFailure_t
 	uint8 m_eFailureType;
 };
 
+struct LegacyCDKeyRegistered_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 18 };
+
+	EResult m_eResult;
+	AppId_t m_iAppID;
+	char m_rgchCDKey[ 64 ];
+};
+
+struct AccountInformationUpdated_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 19 };
+};
+
+
+struct GuestPassSent_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 20 };
+
+	EResult m_eResult;
+};
+
+struct GuestPassAcked_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 21 };
+
+	EResult m_eResult;
+
+	PackageId_t m_unPackageID;
+
+	GID_t m_gidGuestPassID;
+	uint64 m_ulGuestPassKey;
+};
+
+struct GuestPassRedeemed_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 22 };
+
+	EResult m_eResult;
+	uint32 m_unPackageID;
+};
+
+struct UpdateGuestPasses_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 23 };
+
+	EResult m_eResult;
+
+	uint32 m_cGuestPassesToGive;
+	uint32 m_cGuestPassesToRedeem;
+};
+
+struct LogOnCredentialsChanged_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 24 };
+};
+
+struct LicensesUpdated_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 25 };
+};
+
+struct CheckPasswordResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 26 };
+
+	EResult m_EResult;
+};
+
+struct ResetPasswordResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 27 };
+
+	EResult m_EResult;
+};
+
+struct AppLifetimeNotice_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 30 };
+
+	AppId_t m_nAppID;
+	int m_nInstanceID;
+	bool m_bExiting;
+};
+
+struct AppOwnershipTicketReceived_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 31 };
+
+	AppId_t m_nAppID;
+};
+
+struct PasswordChangeResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 32 };
+
+	EResult m_EResult;
+};
+
+struct EmailChangeResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 33 };
+
+	EResult m_EResult;
+};
+
+struct SecretQAChangeResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 34 };
+
+	EResult m_EResult;
+};
+
+struct CreateAccountResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 35 };
+
+	EResult m_EResult;
+};
+
+struct SendForgottonPasswordEmailResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 37 };
+
+	EResult m_EResult;
+};
+
+struct ResetForgottonPasswordResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 38 };
+
+	EResult m_EResult;
+};
+
+struct DownloadFromDFSResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 40 };
+
+	EResult m_EResult;
+
+	char m_rgchURL[ 128 ];
+};
+
+struct DRMSDKFileTransferResult_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 41 };
+
+	EResult m_EResult;
+};
+
+struct ClientMarketingMessageUpdate_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 42 };
+};
+
+
 //-----------------------------------------------------------------------------
 // callback for BeginAuthSession
 //-----------------------------------------------------------------------------
