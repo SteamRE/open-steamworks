@@ -222,10 +222,6 @@
 					RelativePath=".\IClientUtils.h"
 					>
 				</File>
-				<File
-					RelativePath=".\IP2PController.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="Steam Interfaces"
