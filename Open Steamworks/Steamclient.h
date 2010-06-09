@@ -109,6 +109,7 @@
 #include "ISteamMatchmaking005.h"
 #include "ISteamMatchmaking006.h"
 #include "ISteamMatchmaking007.h"
+#include "ISteamMatchmaking008.h"
 
 // matchmaking servers
 #include "ISteamMatchmakingServers001.h"
@@ -234,6 +235,7 @@ S_API void STEAM_CALL SteamAPI_Shutdown();
 S_API void STEAM_CALL SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, void* pvExceptionInfo, uint32 uBuildID );
 S_API void STEAM_CALL SteamAPI_SetMiniDumpComment( const char *pchMsg );
 
+#ifndef VERSIONED_STEAMAPI_INTERFACES
 S_API ISteamClient* STEAM_CALL SteamClient();
 S_API ISteamUser* STEAM_CALL SteamUser();
 S_API ISteamFriends* STEAM_CALL SteamFriends();
@@ -242,7 +244,16 @@ S_API ISteamMatchmaking* STEAM_CALL SteamMatchmaking();
 S_API ISteamUserStats* STEAM_CALL SteamUserStats();
 S_API ISteamApps* STEAM_CALL SteamApps();
 S_API ISteamMatchmakingServers* STEAM_CALL SteamMatchmakingServers();
-
+#else
+S_API ISteamClient009* STEAM_CALL SteamClient();
+S_API ISteamUser013* STEAM_CALL SteamUser();
+S_API ISteamFriends005* STEAM_CALL SteamFriends();
+S_API ISteamUtils005* STEAM_CALL SteamUtils();
+S_API ISteamMatchmaking007* STEAM_CALL SteamMatchmaking(); // 008 in TF2 steam_api
+S_API ISteamUserStats007* STEAM_CALL SteamUserStats();
+S_API ISteamApps003* STEAM_CALL SteamApps();
+S_API ISteamMatchmakingServers002* STEAM_CALL SteamMatchmakingServers();
+#endif
 
 // sets whether or not Steam_RunCallbacks() should do a try {} catch (...) {} around calls to issuing callbacks
 S_API void SteamAPI_SetTryCatchCallbacks( bool bTryCatchCallbacks );
