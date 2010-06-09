@@ -69,6 +69,21 @@ struct AppDataChanged_t
 	bool m_bWebDataChanged;
 };
 
+struct RequestAppCallbacksComplete_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 2 };
+};
+
+struct AppInfoUpdateComplete_t // UI
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 3 };
+
+	EResult m_EResult;
+	uint32 m_cAppsUpdated;
+};
+
+
+
 //-----------------------------------------------------------------------------
 // Purpose: posted after the user gains ownership of DLC & that DLC is installed
 //-----------------------------------------------------------------------------
