@@ -151,6 +151,33 @@ typedef enum EClientStat
 	k_EClientStatMax = 5,
 } EClientStat;
 
+typedef enum ENatType
+{
+	eNatTypeUntested = 0,
+	eNatTypeTestFailed = 1,
+	eNatTypeNoUDP = 2,
+	eNatTypeOpenInternet = 3,
+	eNatTypeFullCone = 4,
+	eNatTypeRestrictedCone = 5,
+	eNatTypePortRestrictedCone = 6,
+	eNatTypeUnspecified = 7,
+	eNatTypeSymmetric = 8,
+	eNatTypeSymmetricFirewall = 9,
+	eNatTypeCount = 10,
+} ENatType;
+
+
+
+class CNatTraversalStat
+{
+public:
+	EResult m_eResult;
+	ENatType m_eLocalNatType;
+	ENatType m_eRemoteNatType;
+	bool m_bMultiUserChat : 1;
+	bool m_bRelay : 1;
+};
+
 
 
 //-----------------------------------------------------------------------------
@@ -215,6 +242,13 @@ struct SteamServersDisconnected_t
 	EResult m_eResult;
 };
 
+struct PrimaryChatDestinationSet_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 3 };
+
+	uint8 m_bIsPrimary;
+	uint8 m_bWasPrimary;
+};
 
 //-----------------------------------------------------------------------------
 // Purpose: called when the client is trying to retry logon after being unintentionally logged off
