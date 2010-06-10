@@ -302,6 +302,8 @@ typedef int32 HSteamPipe;
 typedef int32 HSteamUser;
 // reference to a steam call, to filter results by
 typedef int32 HSteamCall;
+// Typedef for handle type you will receive when requesting server list.
+typedef void* HServerListRequest;
 
 // return type of GetAuthSessionTicket
 typedef uint32 HAuthTicket;

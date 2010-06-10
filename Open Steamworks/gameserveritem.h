@@ -54,6 +54,7 @@ private:
 	// For data added after SteamMatchMaking001 add it here
 public:
 	char m_szGameTags[128];			// the tags this server exposes
+	CSteamID m_steamID;				// steamID of the game server - invalid if it's doesn't have one (old server, or not connected to Steam)
 };
 
 
