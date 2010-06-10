@@ -72,13 +72,13 @@ class ISteamMatchmakingServerListResponse
 {
 public:
 	// Server has responded ok with updated data
-	virtual void ServerResponded( int iServer ) = 0; 
+	virtual void ServerResponded( HServerListRequest hRequest, int iServer ) = 0; 
 
 	// Server has failed to respond
-	virtual void ServerFailedToRespond( int iServer ) = 0; 
+	virtual void ServerFailedToRespond( HServerListRequest hRequest, int iServer ) = 0; 
 
 	// A list refresh you had initiated is now 100% completed
-	virtual void RefreshComplete( EMatchMakingServerResponse response ) = 0; 
+	virtual void RefreshComplete( HServerListRequest hRequest, EMatchMakingServerResponse response ) = 0; 
 };
 
 
