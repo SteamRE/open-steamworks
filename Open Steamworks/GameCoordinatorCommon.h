@@ -163,6 +163,7 @@ struct SOMsgCacheSubscribed_Item_t
 	uint8 itemquality;
 	uint32 position;
 	uint32 itemcount;
+	uint16 unk1;
 	uint16 attribcount;
 };
 
