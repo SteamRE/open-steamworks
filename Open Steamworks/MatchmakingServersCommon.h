@@ -68,7 +68,20 @@ typedef enum EMatchMakingType
 // to cancel any in-progress queries so you don't get a callback into the destructed
 // object and crash.
 //-----------------------------------------------------------------------------
-class ISteamMatchmakingServerListResponse
+class ISteamMatchmakingServerListResponse001
+{
+public:
+	// Server has responded ok with updated data
+	virtual void ServerResponded( int iServer ) = 0; 
+
+	// Server has failed to respond
+	virtual void ServerFailedToRespond( int iServer ) = 0; 
+
+	// A list refresh you had initiated is now 100% completed
+	virtual void RefreshComplete( EMatchMakingServerResponse response ) = 0; 
+};
+
+class ISteamMatchmakingServerListResponse002
 {
 public:
 	// Server has responded ok with updated data
@@ -81,6 +94,8 @@ public:
 	virtual void RefreshComplete( HServerListRequest hRequest, EMatchMakingServerResponse response ) = 0; 
 };
 
+//Typedef to the lastest version of the interface
+typedef ISteamMatchmakingServerListResponse002 ISteamMatchmakingServerListResponse;
 
 //-----------------------------------------------------------------------------
 // Purpose: Callback interface for receiving responses after pinging an individual server 
