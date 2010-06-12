@@ -174,6 +174,10 @@
 // callback
 #include "CCallback.h"
 
+// steam_api
+#ifdef VERSION_SAFE_STEAM_API_INTERFACES
+#include "CSteamAPIContext.h"
+#endif // VERSION_SAFE_STEAM_API_INTERFACES
 
 // Breakpad
 S_API errno_t STEAM_CALL Breakpad_SetSteamID( uint64 ulSteamID );
@@ -223,19 +227,17 @@ S_API bool STEAM_CALL Steam_GSBSecure( void *phSteamHandle);
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------//
-//	Steam API setup & teardown
+//  Steam API setup & shutdown
 //
-//	These functions manage loading, initializing and shutdown of the steamclient.dll
-//
-//  bugbug johnc: seperate defining these to defining game server interface more cleanly
+//  These functions manage loading, initializing and shutdown of the steamclient.dll
 //
 //----------------------------------------------------------------------------------------------------------------------------------------------------------//
-S_API bool STEAM_CALL SteamAPI_Init();
-S_API bool STEAM_CALL SteamAPI_InitSafe();
+
+// S_API void STEAM_CALL SteamAPI_Init(); (see below)
 S_API void STEAM_CALL SteamAPI_Shutdown();
 
 // checks if a local Steam client is running 
-S_API bool SteamAPI_IsSteamRunning();
+S_API bool STEAM_CALL SteamAPI_IsSteamRunning();
 
 // Detects if your executable was launched through the Steam client, and restarts your game through 
 // the client if necessary. The Steam client will be started if it is not running.
@@ -248,41 +250,48 @@ S_API bool SteamAPI_IsSteamRunning();
 //
 // NOTE: This function should be used only if you are using CEG or not using Steam's DRM. Once applied
 //       to your executable, Steam's DRM will handle restarting through Steam if necessary.
-S_API bool SteamAPI_RestartAppIfNecessary( uint32 unOwnAppID );
+S_API bool STEAM_CALL SteamAPI_RestartAppIfNecessary( uint32 unOwnAppID );
 
 
 // crash dump recording functions
-S_API void SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, void* pvExceptionInfo, uint32 uBuildID );
-S_API void SteamAPI_SetMiniDumpComment( const char *pchMsg );
+S_API void STEAM_CALL SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, void* pvExceptionInfo, uint32 uBuildID );
+S_API void STEAM_CALL SteamAPI_SetMiniDumpComment( const char *pchMsg );
 
 // this should be called before the game initialized the steam APIs
 // pchDate should be of the format "Mmm dd yyyy" (such as from the __DATE__ macro )
 // pchTime should be of the format "hh:mm:ss" (such as from the __TIME__ macro )
-S_API void SteamAPI_UseBreakpadCrashHandler( char const *pchVersion, char const *pchDate, char const *pchTime );
+S_API void STEAM_CALL SteamAPI_UseBreakpadCrashHandler( char const *pchVersion, char const *pchDate, char const *pchTime );
 
-
-#ifndef VERSIONED_STEAMAPI_INTERFACES
-S_API ISteamClient* STEAM_CALL SteamClient();
-S_API ISteamUser* STEAM_CALL SteamUser();
-S_API ISteamFriends* STEAM_CALL SteamFriends();
-S_API ISteamUtils* STEAM_CALL SteamUtils();
-S_API ISteamMatchmaking* STEAM_CALL SteamMatchmaking();
-S_API ISteamUserStats* STEAM_CALL SteamUserStats();
-S_API ISteamApps* STEAM_CALL SteamApps();
-S_API ISteamMatchmakingServers* STEAM_CALL SteamMatchmakingServers();
-#else
+// interface pointers, configured by SteamAPI_Init()
 S_API ISteamClient009* STEAM_CALL SteamClient();
+
+// VERSION_SAFE_STEAM_API_INTERFACES is usually not necessary, but it provides safety against releasing
+// new steam_api.dll's without recompiling/rereleasing modules that use it.
+//
+// If you use VERSION_SAFE_STEAM_API_INTERFACES, then you should call SteamAPI_InitSafe(). Also, to get the 
+// Steam interfaces, you must create and Init() a CSteamAPIContext (below) and use the interfaces in there.
+//
+// If you don't use VERSION_SAFE_STEAM_API_INTERFACES, then you can use SteamAPI_Init() and the SteamXXXX() 
+// functions below to get at the Steam interfaces.
+//
+#ifdef VERSION_SAFE_STEAM_API_INTERFACES
+S_API bool STEAM_CALL SteamAPI_InitSafe();
+#else
+S_API bool STEAM_CALL SteamAPI_Init();
+
 S_API ISteamUser013* STEAM_CALL SteamUser();
 S_API ISteamFriends005* STEAM_CALL SteamFriends();
 S_API ISteamUtils005* STEAM_CALL SteamUtils();
 S_API ISteamMatchmaking008* STEAM_CALL SteamMatchmaking();
 S_API ISteamUserStats007* STEAM_CALL SteamUserStats();
 S_API ISteamApps003* STEAM_CALL SteamApps();
+S_API ISteamNetworking003* STEAM_CALL SteamNetworking();
 S_API ISteamMatchmakingServers002* STEAM_CALL SteamMatchmakingServers();
-#endif
+S_API ISteamRemoteStorage002* STEAM_CALL SteamRemoteStorage();
+#endif // VERSION_SAFE_STEAM_API_INTERFACES
 
 // sets whether or not Steam_RunCallbacks() should do a try {} catch (...) {} around calls to issuing callbacks
-S_API void SteamAPI_SetTryCatchCallbacks( bool bTryCatchCallbacks );
+S_API void STEAM_CALL SteamAPI_SetTryCatchCallbacks( bool bTryCatchCallbacks );
 
 S_API void STEAM_CALL SteamAPI_RunCallbacks();
 
@@ -311,8 +320,8 @@ S_API HSteamUser STEAM_CALL GetHSteamUser();
 S_API HSteamPipe STEAM_CALL SteamAPI_GetHSteamPipe();
 S_API HSteamUser STEAM_CALL SteamAPI_GetHSteamUser();
 
-S_API bool STEAM_CALL SteamGameServer_InitSafe( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
-S_API bool STEAM_CALL SteamGameServer_Init( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
+//S_API bool STEAM_CALL SteamGameServer_InitSafe( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
+//S_API bool STEAM_CALL SteamGameServer_Init( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
 
 S_API void STEAM_CALL SteamGameServer_Shutdown();
 S_API void STEAM_CALL SteamGameServer_RunCallbacks();
@@ -324,14 +333,27 @@ S_API HSteamPipe STEAM_CALL SteamGameServer_GetHSteamPipe();
 S_API HSteamUser STEAM_CALL SteamGameServer_GetHSteamUser(); 
 S_API int32 STEAM_CALL SteamGameServer_GetIPCCallCount();
 
-S_API ISteamGameServer* STEAM_CALL SteamGameServer();
-S_API ISteamUtils* STEAM_CALL SteamGameServerUtils();
-S_API ISteamMasterServerUpdater* STEAM_CALL SteamMasterServerUpdater();
-S_API ISteamNetworking* STEAM_CALL SteamGameServerNetworking();
+// Note: if you pass MASTERSERVERUPDATERPORT_USEGAMESOCKETSHARE for usQueryPort, then it will use "GameSocketShare" mode, 
+// which means that the game is responsible for sending and receiving UDP packets for the master 
+// server updater. See references to GameSocketShare in isteammasterserverupdater.h.
+//
+// Pass 0 for usGamePort or usSpectatorPort if you're not using that. Then, the master server updater will report 
+// what's running based on that.
+#ifdef VERSION_SAFE_STEAM_API_INTERFACES
+S_API bool STEAM_CALL SteamGameServer_InitSafe( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
+#else
+S_API bool STEAM_CALL SteamGameServer_Init( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
+
+S_API ISteamGameServer010* STEAM_CALL SteamGameServer();
+S_API ISteamUtils005* STEAM_CALL SteamGameServerUtils();
+S_API ISteamMasterServerUpdater001* STEAM_CALL SteamMasterServerUpdater();
+S_API ISteamNetworking003* STEAM_CALL SteamGameServerNetworking();
+S_API ISteamGameServerStats001* STEAM_CALL SteamGameServerStats();
+#endif
 
 //content server
-S_API ISteamContentServer* STEAM_CALL SteamContentServer();
-S_API ISteamUtils* STEAM_CALL SteamContentServerUtils();
+S_API ISteamContentServer002* STEAM_CALL SteamContentServer();
+S_API ISteamUtils005* STEAM_CALL SteamContentServerUtils();
 S_API bool STEAM_CALL SteamContentServer_Init(uint32 unIP, uint16 usPort);
 
 S_API void STEAM_CALL SteamContentServer_Shutdown();
