@@ -39,7 +39,7 @@ public:
 	char m_szGameDir[32];			// current game directory
 	char m_szMap[32];				// current map
 	char m_szGameDescription[64];	// game description
-	int m_nAppID;					// Steam App ID of this server
+	uint32 m_nAppID;				// Steam App ID of this server
 	int m_nPlayers;					// current number of players on the server
 	int m_nMaxPlayers;				// Maximum players that can join this server
 	int m_nBotPlayers;				// Number of bots (i.e simulated players) on this server

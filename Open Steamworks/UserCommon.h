@@ -166,6 +166,21 @@ typedef enum ENatType
 	eNatTypeCount = 10,
 } ENatType;
 
+//-----------------------------------------------------------------------------
+// Purpose: Marketing message flags that change how a client should handle them
+//-----------------------------------------------------------------------------
+typedef enum EMarketingMessageFlags
+{
+	k_EMarketingMessageFlagsNone = 0,
+	k_EMarketingMessageFlagsHighPriority = 1 << 0,
+	k_EMarketingMessageFlagsPlatformWindows = 1 << 1,
+	k_EMarketingMessageFlagsPlatformMac = 1 << 2,
+
+	//aggregate flags
+	k_EMarketingMessageFlagsPlatformRestrictions = 
+	k_EMarketingMessageFlagsPlatformWindows | k_EMarketingMessageFlagsPlatformMac,
+} EMarketingMessageFlags;
+
 
 
 class CNatTraversalStat
@@ -544,6 +559,18 @@ struct MsgWebAuthToken_t
 	
 	bool m_bValid;
 	char m_Token[ 512 ];
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: called when a user has responded to a microtransaction authorization request
+//-----------------------------------------------------------------------------
+struct MicroTxnAuthorizationResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 52 };
+
+	uint32 m_unAppID;			// AppID for this microtransaction
+	uint64 m_ulOrderID;			// OrderID provided for the microtransaction
+	uint8 m_bAuthorized;		// if user authorized transaction
 };
 
 

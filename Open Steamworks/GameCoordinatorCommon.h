@@ -40,13 +40,14 @@ typedef enum EGCMsgResponse
 	k_EGCMsgResponseNotLoggedOn,
 } EGCMsgResponse;
 
+// list of possible return values from the ISteamGameCoordinator API
 typedef enum EGCResults
 {
 	k_EGCResultOK = 0,
-	k_EGCResultNoMessage = 1,
-	k_EGCResultBufferTooSmall = 2,
-	k_EGCResultNotLoggedOn = 3,
-	k_EGCResultInvalidMessage = 4,
+	k_EGCResultNoMessage = 1,			// There is no message in the queue
+	k_EGCResultBufferTooSmall = 2,		// The buffer is too small for the requested message
+	k_EGCResultNotLoggedOn = 3,			// The client is not logged onto Steam
+	k_EGCResultInvalidMessage = 4,		// Something was wrong with the message being sent with SendMessage
 } EGCResults;
 
 typedef enum EGCMessages
@@ -74,11 +75,18 @@ typedef enum EGCMessages
 
 
 
+// callback notification - A new message is available for reading from the message queue
 struct GCMessageAvailable_t
 {
 	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 1 };
 
 	uint32 m_nMessageSize;
+};
+
+// callback notification - A message failed to make it to the GC. It may be down temporarily
+struct GCMessageFailed_t
+{
+	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 2 };
 };
 
 #pragma pack(push, 1)

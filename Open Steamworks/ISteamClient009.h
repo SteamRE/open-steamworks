@@ -27,7 +27,11 @@
 //-----------------------------------------------------------------------------
 // Purpose: Interface to creating a new steam instance, or to
 //			connect to an existing steam instance, whether it's in a
-//			different process or is local
+//			different process or is local.
+//
+//			For most scenarios this is all handled automatically via SteamAPI_Init().
+//			You'll only need to use these interfaces if you have a more complex versioning scheme,
+//			where you want to get different versions of the same interface in different dll's in your project.
 //-----------------------------------------------------------------------------
 class ISteamClient009
 {

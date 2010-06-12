@@ -147,7 +147,6 @@ public:
 
 	// max packet size, in bytes
 	virtual int GetMaxPacketSize( SNetSocket_t hSocket ) = 0;
-
 };
 
 #endif // ISTEAMNETWORKING003_H

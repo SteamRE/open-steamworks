@@ -22,7 +22,7 @@
 
 // servernetadr_t is all the addressing info the serverbrowser needs to know about a game server,
 // namely: its IP, its connection port, and its query port.
-class servernetadr_t
+class servernetadr_t 
 {
 public:
 
@@ -123,8 +123,7 @@ inline const char *servernetadr_t::ToString( uint32 unIP, uint16 usPort ) const
 	static char s[4][64];
 	static int nBuf = 0;
 	unsigned char *ipByte = (unsigned char *)&unIP;
-	sprintf_s( s[nBuf], sizeof( s[nBuf] ), "%u.%u.%u.%u:%i", (int)(ipByte[3]), (int)(ipByte[2]), (int)(ipByte[1]), (int)(ipByte[0]), usPort );
-
+	_snprintf(s[nBuf], sizeof( s[nBuf] ), "%u.%u.%u.%u:%i", (int)(ipByte[3]), (int)(ipByte[2]), (int)(ipByte[1]), (int)(ipByte[0]), usPort );
 	const char *pchRet = s[nBuf];
 	++nBuf;
 	nBuf %= ( (sizeof(s)/sizeof(s[0])) );
@@ -138,7 +137,7 @@ inline const char* servernetadr_t::GetConnectionAddressString() const
 
 inline const char* servernetadr_t::GetQueryAddressString() const
 {
-	return ToString( m_unIP, m_usQueryPort );
+	return ToString( m_unIP, m_usQueryPort );	
 }
 
 inline bool servernetadr_t::operator<(const servernetadr_t &netadr) const

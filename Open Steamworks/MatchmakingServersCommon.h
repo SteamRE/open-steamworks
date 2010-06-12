@@ -47,6 +47,7 @@ typedef enum EMatchMakingType
 
 
 
+
 //-----------------------------------------------------------------------------
 // Callback interfaces for server list functions (see ISteamMatchmakingServers below)
 //
@@ -78,7 +79,7 @@ public:
 	virtual void ServerFailedToRespond( int iServer ) = 0; 
 
 	// A list refresh you had initiated is now 100% completed
-	virtual void RefreshComplete( EMatchMakingServerResponse response ) = 0; 
+	virtual void RefreshComplete( HServerListRequest hRequest, EMatchMakingServerResponse response ) = 0; 
 };
 
 class ISteamMatchmakingServerListResponse002

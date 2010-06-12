@@ -14,45 +14,57 @@
 //
 //=============================================================================
 
-#ifndef GAMESERVERSTATSCOMMON_H
-#define GAMESERVERSTATSCOMMON_H
+#ifndef GAMESTATSCOMMON_H
+#define GAMESTATSCOMMON_H
 #ifdef _WIN32
 #pragma once
 #endif
 
-#define STEAMGAMESERVERSTATS_INTERFACE_VERSION_001 "SteamGameServerStats001"
+
+
+#define STEAMGAMESTATS_INTERFACE_VERSION_001 "SteamGameStats001"
+
+#define CLIENTGAMESTATS_INTERFACE_VERSION "CLIENTGAMESTATS_INTERFACE_VERSION001"
+
+
 
 //-----------------------------------------------------------------------------
-// Purpose: called when the latests stats and achievements have been received
-//			from the server
+// Purpose: nAccountType for GetNewSession
 //-----------------------------------------------------------------------------
-struct GSStatsReceived_t
+typedef enum EGameStatsAccountType
 {
-	enum { k_iCallback = k_iSteamGameServerStatsCallbacks };
-	EResult		m_eResult;		// Success / error fetching the stats
-	CSteamID	m_steamIDUser;	// The user for whom the stats are retrieved for
+	k_EGameStatsAccountType_Steam = 1,				// ullAccountID is a 64-bit SteamID for a player
+	k_EGameStatsAccountType_Xbox = 2,				// ullAccountID is a 64-bit XUID
+	k_EGameStatsAccountType_SteamGameServer = 3,	// ullAccountID is a 64-bit SteamID for a game server
+} EGameStatsAccountType;
+
+
+
+//-----------------------------------------------------------------------------
+// Purpose: callback for GetNewSession() method
+//-----------------------------------------------------------------------------
+struct GameStatsSessionIssued_t
+{
+	enum { k_iCallback = k_iSteamGameStatsCallbacks + 1 };
+
+	uint64	m_ulSessionID;
+	EResult	m_eResult;
+	bool	m_bCollectingAny;
+	bool	m_bCollectingDetails;
 };
 
-//-----------------------------------------------------------------------------
-// Purpose: result of a request to store the user stats for a game
-//-----------------------------------------------------------------------------
-struct GSStatsStored_t
-{
-	enum { k_iCallback = k_iSteamGameServerStatsCallbacks + 1 };
-	EResult		m_eResult;		// success / error
-	CSteamID	m_steamIDUser;	// The user for whom the stats were stored
-};
 
 //-----------------------------------------------------------------------------
-// Purpose: Callback indicating that a user's stats have been unloaded.
-//  Call RequestUserStats again to access stats for this user
+// Purpose: callback for EndSession() method
 //-----------------------------------------------------------------------------
-struct GSStatsUnloaded_t
+struct GameStatsSessionClosed_t
 {
-	enum { k_iCallback = k_iSteamUserStatsCallbacks + 8 };
-	CSteamID	m_steamIDUser;	// User whose stats have been unloaded
+	enum { k_iCallback = k_iSteamGameStatsCallbacks + 2 };
+
+	uint64	m_ulSessionID;
+	EResult	m_eResult;
 };
 
 
 
-#endif // GAMESERVERSTATSCOMMON_H
+#endif // GAMESTATSCOMMON_H

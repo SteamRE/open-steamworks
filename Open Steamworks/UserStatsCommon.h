@@ -173,6 +173,30 @@ struct NumberOfCurrentPlayers_t
 	int32 m_cPlayers;			// Number of players currently playing
 };
 
+//-----------------------------------------------------------------------------
+// Purpose: Callback indicating that a user's stats have been unloaded.
+//  Call RequestUserStats again to access stats for this user
+//-----------------------------------------------------------------------------
+struct UserStatsUnloaded_t
+{
+	enum { k_iCallback = k_iSteamUserStatsCallbacks + 8 };
+
+	CSteamID	m_steamIDUser;	// User whose stats have been unloaded
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: Callback indicating that an achievement icon has been fetched
+//-----------------------------------------------------------------------------
+struct UserAchievementIconFetched_t
+{
+	enum { k_iCallback = k_iSteamUserStatsCallbacks + 9 };
+
+	CGameID		m_nGameID;				// Game this is for
+	char		m_rgchAchievementName[k_cchStatNameMax];		// name of the achievement
+	bool		m_bAchieved;		// Is the icon for the achieved or not achieved version?
+	int			m_nIconHandle;		// Handle to the image, which can be used in ClientUtils()->GetImageRGBA(), 0 means no image is set for the achievement
+};
+
 
 
 

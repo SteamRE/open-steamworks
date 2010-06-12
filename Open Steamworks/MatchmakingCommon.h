@@ -76,7 +76,9 @@ struct FavoritesListChanged_t
 // Purpose: Someone has invited you to join a Lobby
 //			normally you don't need to do anything with this, since
 //			the Steam UI will also display a '<user> has invited you to the lobby, join?' dialog
-//			if the user outside a game chooses to join, your game will be launched with the parameter "+connect_lobby <64-bit lobby id>"
+//
+//			if the user outside a game chooses to join, your game will be launched with the parameter "+connect_lobby <64-bit lobby id>",
+//			or with the callback GameLobbyJoinRequested_t if they're already in-game
 //-----------------------------------------------------------------------------
 struct LobbyInvite_t
 {
@@ -140,10 +142,10 @@ struct LobbyChatMsg_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 7 };
 
-	CSteamID m_ulSteamIDLobby;			// the lobby id this is in
-	CSteamID m_ulSteamIDUser;				// steamID of the user who has sent this message
-	EChatEntryType m_eChatEntryType;	// type of message
-	uint32 m_iChatID;					// index of the chat entry to lookup
+	uint64 m_ulSteamIDLobby;			// the lobby id this is in
+	uint64 m_ulSteamIDUser;			// steamID of the user who has sent this message
+	uint8 m_eChatEntryType;			// type of message
+	uint32 m_iChatID;				// index of the chat entry to lookup
 };
 
 //-----------------------------------------------------------------------------
@@ -198,16 +200,17 @@ struct LobbyClosing_t
 
 
 //-----------------------------------------------------------------------------
-// Purpose: Called when the local user has been kicked from the lobby
-//			lobby details functions will no longer be updated
+// Purpose: posted if a user is forcefully removed from a lobby
+//			can occur if a user loses connection to Steam
 //-----------------------------------------------------------------------------
 struct LobbyKicked_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 12 };
-
-	CSteamID m_ulSteamIDLobby;			// Lobby
-	CSteamID m_ulSteamIDAdmin;			// User who kicked you
+	uint64 m_ulSteamIDLobby;			// Lobby
+	uint64 m_ulSteamIDAdmin;			// User who kicked you - possibly the ID of the lobby itself
+	uint8 m_bKickedDueToDisconnect;		// true if you were kicked from the lobby due to the user losing connection to Steam (currently always true)
 };
+
 
 
 //-----------------------------------------------------------------------------

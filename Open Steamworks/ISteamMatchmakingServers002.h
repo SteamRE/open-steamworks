@@ -24,19 +24,26 @@
 #include "MatchmakingServersCommon.h"
 
 
+
 //-----------------------------------------------------------------------------
 // Purpose: Functions for match making services for clients to get to game lists and details
 //-----------------------------------------------------------------------------
 class ISteamMatchmakingServers002
 {
 public:
-	// Request a new list of servers of a particular type.
-	virtual void *RequestInternetServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse002 *pRequestServersResponse ) = 0;
-	virtual void *RequestLANServerList( AppId_t iApp, ISteamMatchmakingServerListResponse002 *pRequestServersResponse ) = 0;
-	virtual void *RequestFriendsServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse002 *pRequestServersResponse ) = 0;
-	virtual void *RequestFavoritesServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse002 *pRequestServersResponse ) = 0;
-	virtual void *RequestHistoryServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse002 *pRequestServersResponse ) = 0;
-	virtual void *RequestSpectatorServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse002 *pRequestServersResponse ) = 0;
+	// Request a new list of servers of a particular type.  These calls each correspond to one of the EMatchMakingType values.
+	// Each call allocates a new asynchronous request object.
+	// Request object must be released by calling ReleaseRequest( hServerListRequest )
+	virtual HServerListRequest RequestInternetServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse *pRequestServersResponse ) = 0;
+	virtual HServerListRequest RequestLANServerList( AppId_t iApp, ISteamMatchmakingServerListResponse *pRequestServersResponse ) = 0;
+	virtual HServerListRequest RequestFriendsServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse *pRequestServersResponse ) = 0;
+	virtual HServerListRequest RequestFavoritesServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse *pRequestServersResponse ) = 0;
+	virtual HServerListRequest RequestHistoryServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse *pRequestServersResponse ) = 0;
+	virtual HServerListRequest RequestSpectatorServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse *pRequestServersResponse ) = 0;
+
+	// Releases the asynchronous request object and cancels any pending query on it if there's a pending query in progress.
+	// RefreshComplete callback is not posted when request is released.
+	virtual void ReleaseRequest( HServerListRequest hServerListRequest ) = 0;
 
 	/* the filters that are available in the ppchFilters params are:
 
@@ -50,28 +57,34 @@ public:
 
 	*/
 
-	virtual unknown_ret ReleaseRequest( void *pRequest ) = 0;	// do requests return void* now?
-																// i'm assuming they do, this makes logical sense with all the below functions
-
-	virtual gameserveritem_t *GetServerDetails( void *pRequest, int iServer ) = 0;
+	// Get details on a given server in the list, you can get the valid range of index
+	// values by calling GetServerCount().  You will also receive index values in 
+	// ISteamMatchmakingServerListResponse::ServerResponded() callbacks
+	virtual gameserveritem_t *GetServerDetails( HServerListRequest hRequest, int iServer ) = 0; 
 
 	// Cancel an request which is operation on the given list type.  You should call this to cancel
 	// any in-progress requests before destructing a callback object that may have been passed 
 	// to one of the above list request calls.  Not doing so may result in a crash when a callback
 	// occurs on the destructed object.
-	virtual void CancelQuery( void *pRequest ) = 0; 
+	// Canceling a query does not release the allocated request handle.
+	// The request handle must be released using ReleaseRequest( hRequest )
+	virtual void CancelQuery( HServerListRequest hRequest ) = 0; 
 
 	// Ping every server in your list again but don't update the list of servers
-	virtual void RefreshQuery( void *pRequest ) = 0; 
+	// Query callback installed when the server list was requested will be used
+	// again to post notifications and RefreshComplete, so the callback must remain
+	// valid until another RefreshComplete is called on it or the request
+	// is released with ReleaseRequest( hRequest )
+	virtual void RefreshQuery( HServerListRequest hRequest ) = 0; 
 
 	// Returns true if the list is currently refreshing its server list
-	virtual bool IsRefreshing( void *pRequest ) = 0; 
+	virtual bool IsRefreshing( HServerListRequest hRequest ) = 0; 
 
 	// How many servers in the given list, GetServerDetails above takes 0... GetServerCount() - 1
-	virtual int GetServerCount( void *pRequest ) = 0; 
+	virtual int GetServerCount( HServerListRequest hRequest ) = 0; 
 
 	// Refresh a single server inside of a query (rather than all the servers )
-	virtual void RefreshServer( void *pRequest, int iServer ) = 0; 
+	virtual void RefreshServer( HServerListRequest hRequest, int iServer ) = 0; 
 
 
 	//-----------------------------------------------------------------------------

@@ -27,7 +27,7 @@
 // Purpose: Game engines use this to tell the Steam master servers
 // about their games so their games can show up in the server browser.
 //-----------------------------------------------------------------------------
-class ISteamMasterServerUpdater001
+class ISteamMasterServerUpdater
 {
 public:
 
@@ -47,13 +47,13 @@ public:
 	// in their firewalls.
 	//
 	// the IP address and port should be in host order, i.e 127.0.0.1 == 0x7f000001
-	
+
 	// These are used when you've elected to multiplex the game server's UDP socket
 	// rather than having the master server updater use its own sockets.
 	// 
 	// Source games use this to simplify the job of the server admins, so they 
 	// don't have to open up more ports on their firewalls.
-	
+
 	// Call this when a packet that starts with 0xFFFFFFFF comes in. That means
 	// it's for us.
 	virtual bool HandleIncomingPacket( const void *pData, int cbData, uint32 srcIP, uint16 srcPort ) = 0;
@@ -66,13 +66,20 @@ public:
 
 
 	// Functions to set various fields that are used to respond to queries.
-	
+
 	// Call this to set basic data that is passed to the server browser.
-	virtual void SetBasicServerData(unsigned short nProtocolVersion, bool bDedicatedServer,	const char *pRegionName, const char *pProductName, unsigned short nMaxReportedClients, bool bPasswordProtected,	const char *pGameDescription ) = 0;
+	virtual void SetBasicServerData(
+		unsigned short nProtocolVersion,
+		bool bDedicatedServer,
+		const char *pRegionName,
+		const char *pProductName,
+		unsigned short nMaxReportedClients,
+		bool bPasswordProtected,
+		const char *pGameDescription ) = 0;
 
 	// Call this to clear the whole list of key/values that are sent in rules queries.
 	virtual void ClearAllKeyValues() = 0;
-	
+
 	// Call this to add/update a key/value pair.
 	virtual void SetKeyValue( const char *pKey, const char *pValue ) = 0;
 
@@ -87,36 +94,16 @@ public:
 
 	// Force it to request a heartbeat from the master servers.
 	virtual void ForceHeartbeat() = 0;
-	
+
 	// Manually edit and query the master server list.
 	// It will provide name resolution and use the default master server port if none is provided.
 	virtual bool AddMasterServer( const char *pServerAddress ) = 0;
 	virtual bool RemoveMasterServer( const char *pServerAddress ) = 0;
 
 	virtual int GetNumMasterServers() = 0;
-	
+
 	// Returns the # of bytes written to pOut.
 	virtual int GetMasterServerAddress( int iServer, char *pOut, int outBufferSize ) = 0;
-
-#if defined( STEAM )
-
-	virtual unknown_ret Unknown1( char a ) = 0;
-	virtual unknown_ret Unknown2( short a ) = 0;
-
-#else
-
-	virtual unknown_ret SetPort( uint16 ) = 0;
-
-#ifdef NETADR_H
-	virtual unknown_ret UDPRecvPkt( uint32, const &netadr_t , uint8 *, int, void * ) = 0;
-#else
-	virtual unknown_ret DontUseMe() = 0; // include netadr.h to win the prize
-#endif // NETADR_H
-
-	virtual unknown_ret OnUDPFatalError( uint32, uint32 ) = 0;
-
-#endif // defined( STEAM )
-
 };
 
 #endif // ISTEAMMASTERSERVERUPDATER_H

@@ -144,8 +144,11 @@
 // game coordinator
 #include "ISteamGameCoordinator001.h"
 
-// game stats
+// game server stats
 #include "ISteamGameServerStats001.h"
+
+// game stats
+#include "ISteamGameStats001.h"
 
 #ifndef NO_ICLIENT
 // client interfaces
@@ -231,9 +234,32 @@ S_API bool STEAM_CALL SteamAPI_Init();
 S_API bool STEAM_CALL SteamAPI_InitSafe();
 S_API void STEAM_CALL SteamAPI_Shutdown();
 
+// checks if a local Steam client is running 
+S_API bool SteamAPI_IsSteamRunning();
 
-S_API void STEAM_CALL SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, void* pvExceptionInfo, uint32 uBuildID );
-S_API void STEAM_CALL SteamAPI_SetMiniDumpComment( const char *pchMsg );
+// Detects if your executable was launched through the Steam client, and restarts your game through 
+// the client if necessary. The Steam client will be started if it is not running.
+//
+// Returns: true if your executable was NOT launched through the Steam client. This function will
+//          then start your application through the client. Your current process should exit.
+//
+//          false if your executable was started through the Steam client or a steam_appid.txt file
+//          is present in your game's directory (for development). Your current process should continue.
+//
+// NOTE: This function should be used only if you are using CEG or not using Steam's DRM. Once applied
+//       to your executable, Steam's DRM will handle restarting through Steam if necessary.
+S_API bool SteamAPI_RestartAppIfNecessary( uint32 unOwnAppID );
+
+
+// crash dump recording functions
+S_API void SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, void* pvExceptionInfo, uint32 uBuildID );
+S_API void SteamAPI_SetMiniDumpComment( const char *pchMsg );
+
+// this should be called before the game initialized the steam APIs
+// pchDate should be of the format "Mmm dd yyyy" (such as from the __DATE__ macro )
+// pchTime should be of the format "hh:mm:ss" (such as from the __TIME__ macro )
+S_API void SteamAPI_UseBreakpadCrashHandler( char const *pchVersion, char const *pchDate, char const *pchTime );
+
 
 #ifndef VERSIONED_STEAMAPI_INTERFACES
 S_API ISteamClient* STEAM_CALL SteamClient();

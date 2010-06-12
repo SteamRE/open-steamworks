@@ -93,16 +93,16 @@ public:
 	// This can be called if spectator goes away or comes back (passing 0 means there is no spectator server now).
 	virtual void UpdateSpectatorPort( uint16 unSpectatorPort ) = 0;
 
-	// Sets a string defining the "gametype" for this server, this is optional, but if it is set
+	// Sets a string defining the "gametags" for this server, this is optional, but if it is set
 	// it allows users to filter in the matchmaking/server-browser interfaces based on the value
-	virtual void SetGameType( const char *pchGameType ) = 0; 
+	virtual void SetGameTags( const char *pchGameTags ) = 0; 
 
 	// Ask for the gameplay stats for the server. Results returned in a callback
 	virtual void GetGameplayStats( ) = 0;
 
 	// Gets the reputation score for the game server. This API also checks if the server or some
 	// other server on the same IP is banned from the Steam master servers.
-	virtual unknown_ret GetServerReputation( ) = 0;
+	virtual SteamAPICall_t GetServerReputation( ) = 0;
 
 	// Ask if a user in in the specified group, results returns async by GSUserGroupStatus_t
 	// returns false if we're not connected to the steam servers and thus cannot ask

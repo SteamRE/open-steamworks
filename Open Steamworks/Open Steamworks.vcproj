@@ -674,6 +674,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="ISteamGameStats"
+					>
+					<File
+						RelativePath=".\GameStatsCommon.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamGameStats001.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

@@ -144,6 +144,29 @@ struct GSClientGroupStatus_t
 	bool m_bOfficer;
 };
 
+#pragma pack( push, 4 )
+// Sent as a reply to GetServerReputation()
+struct GSReputation_t
+{
+	enum { k_iCallback = k_iSteamGameServerCallbacks + 9 };
+
+	EResult	m_eResult;				// Result of the call;
+	uint32	m_unReputationScore;	// The reputation score for the game server
+	bool	m_bBanned;				// True if the server is banned from the Steam
+	// master servers
+
+	// The following members are only filled out if m_bBanned is true. They will all 
+	// be set to zero otherwise. Master server bans are by IP so it is possible to be
+	// banned even when the score is good high if there is a bad server on another port.
+	// This information can be used to determine which server is bad.
+
+	uint32	m_unBannedIP;		// The IP of the banned server
+	uint16	m_usBannedPort;		// The port of the banned server
+	uint64	m_ulBannedGameID;	// The game ID the banned server is serving
+	uint32	m_unBanExpires;		// Time the ban expires, expressed in the Unix epoch (seconds since 1/1/1970)
+};
+#pragma pack( pop )
+
 
 // received when the game server requests to be displayed as secure (VAC protected)
 // m_bSecure is true if the game server should display itself as secure to users, false otherwise
@@ -151,21 +174,9 @@ struct GSPolicyResponse_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 15 };
 
-	bool m_bSecure;
+	uint8 m_bSecure;
 };
 
-#pragma pack( push, 4 )
-struct GSReputation_t
-{
-	EResult m_eResult;
-	uint32 m_unReputationScore;
-	bool m_bBanned;
-	uint32 m_unBannedIP;
-	uint16 m_usBannedPort;
-	uint64 m_ulBannedGameID;
-	uint32 m_unBanExpires;
-};
-#pragma pack( pop )
 
 
 #endif // GAMESERVERCOMMON_H

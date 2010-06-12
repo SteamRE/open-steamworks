@@ -66,6 +66,7 @@
 	#define _strcpy_s strcpy_s
 #endif
 
+
 #define STEAM_CALL __cdecl
 
 // Steam-specific types. Defined here so this header file can be included in other code bases.
@@ -76,10 +77,18 @@ typedef unsigned char uint8;
 // is there a better place to put this?
 #include "string_t.h"
 
+#if defined( __GNUC__ ) && !defined(POSIX)
+	#if __GNUC__ < 4
+		#error "Steamworks requires GCC 4.X (4.2 or 4.4 have been tested)"
+	#endif
+	#define POSIX 1
+#endif
+
 #if defined(__x86_64__) || defined(_WIN64)
 #define X64BITS
 #endif
 
+typedef unsigned char uint8;
 typedef signed char int8;
 
 #if defined( _WIN32 )
@@ -187,17 +196,29 @@ const uint32 k_unServerFlagPrivate		= 0x20;		// server shouldn't list on master 
 typedef	uint8 SHADigest_t[ k_cubDigestSize ];
 typedef	uint8 Salt_t[ k_cubSaltSize ];
 
-typedef uint64 GID_t;		// globally unique identifier
-const GID_t k_GIDNil = -1;
-const GID_t k_TxnIDNil = -1;
+//-----------------------------------------------------------------------------
+// GID (GlobalID) stuff
+// This is a globally unique identifier.  It's guaranteed to be unique across all
+// racks and servers for as long as a given universe persists.
+//-----------------------------------------------------------------------------
+// NOTE: for GID parsing/rendering and other utils, see gid.h
+typedef uint64 GID_t;
+
+const GID_t k_GIDNil = 0xffffffffffffffffull;
+
+// For convenience, we define a number of types that are just new names for GIDs
+typedef GID_t JobID_t;			// Each Job has a unique ID
+typedef GID_t TxnID_t;			// Each financial transaction has a unique ID
+
+const GID_t k_TxnIDNil = k_GIDNil;
 const GID_t k_TxnIDUnknown = 0;
 
 
 // this is baked into client messages and interfaces as an int, 
 // make sure we never break this.
 typedef uint32 PackageId_t;
-const PackageId_t k_uPackageIdFreeSub = 0;
-const PackageId_t k_uPackageIdInvalid = -1;
+const PackageId_t k_uPackageIdFreeSub = 0x0;
+const PackageId_t k_uPackageIdInvalid = 0xFFFFFFFF;
 const PackageId_t k_uPackageIdWallet = -2;
 const PackageId_t k_uPackageIdMicroTxn = -3;
 
@@ -291,10 +312,11 @@ const RTime32 k_RTime32MinValid = 10;
 const RTime32 k_RTime32Infinite = 2147483647;
 
 typedef uint32 CellID_t;
-const CellID_t k_uCellIDInvalid = -1;
+const CellID_t k_uCellIDInvalid = 0xFFFFFFFF;
 
 // handle to a Steam API call
 typedef uint64 SteamAPICall_t;
+const SteamAPICall_t k_uAPICallInvalid = 0x0;
 
 // handle to a communication pipe to the Steam client
 typedef int32 HSteamPipe;
@@ -302,7 +324,10 @@ typedef int32 HSteamPipe;
 typedef int32 HSteamUser;
 // reference to a steam call, to filter results by
 typedef int32 HSteamCall;
+
+//-----------------------------------------------------------------------------
 // Typedef for handle type you will receive when requesting server list.
+//-----------------------------------------------------------------------------
 typedef void* HServerListRequest;
 
 // return type of GetAuthSessionTicket
@@ -315,8 +340,6 @@ typedef uint64 ItemID;
 typedef uint32 HTTPRequestHandle;
 
 typedef int unknown_ret; // unknown return value
-
-typedef int EMarketingMessageFlags;
 
 typedef int HServerQuery;
 const int HSERVERQUERY_INVALID = 0xffffffff;
@@ -336,10 +359,14 @@ typedef uint32 SNetListenSocket_t;
 // 32KB max size on chat messages
 const uint32 k_cchFriendChatMsgMax = 32 * 1024;
 
-// maximum number of characters in a users name
-const int k_cchPersonaNameMax = 128;
-// maximum number of wide characters in a users name
-const int k_cwchPersonaNameMax = 32;
+// maximum number of characters in a user's name. Two flavors; one for UTF-8 and one for UTF-16.
+// The UTF-8 version has to be very generous to accomodate characters that get large when encoded
+// in UTF-8.
+enum
+{
+	k_cchPersonaNameMax = 128,
+	k_cwchPersonaNameMax = 32,
+};
 
 // size limit on chat room or member metadata
 const uint32 k_cubChatMetadataMax = 8192;
@@ -375,6 +402,7 @@ enum EChatSteamIDInstanceFlags
 
 	k_EChatInstanceFlagClan = ( k_unSteamAccountInstanceMask + 1 ) >> 1,	// top bit
 	k_EChatInstanceFlagLobby = ( k_unSteamAccountInstanceMask + 1 ) >> 2,	// next one down, etc
+	k_EChatInstanceFlagMMSLobby = ( k_unSteamAccountInstanceMask + 1 ) >> 3,	// next one down, etc
 
 	// Max of 8 flags
 };
@@ -484,6 +512,10 @@ enum ECallbackType
 	k_iSteamGameServerItemsCallbacks = 1500,
 	k_iClientUtilsCallbacks = 1600,
 	k_iSteamGameCoordinatorCallbacks = 1700,
+	k_iSteamGameServerStatsCallbacks = 1800,
+	k_iSteam2AsyncCallbacks = 1900,
+	k_iSteamGameStatsCallbacks = 2000,
+	k_iClientHTTPCallbacks = 2100
 };
 
 

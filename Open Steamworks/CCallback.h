@@ -41,7 +41,6 @@ protected:
 	uint8 m_nCallbackFlags;
 	int m_iCallback;
 	friend class CCallbackMgr;
-	friend class CallbackManager;
 };
 
 //-----------------------------------------------------------------------------
@@ -56,7 +55,7 @@ public:
 
 	CCallResult()
 	{
-		m_hAPICall = 0;
+		m_hAPICall = k_uAPICallInvalid;
 		m_pObj = NULL;
 		m_Func = NULL;
 		m_iCallback = P::k_iCallback;
@@ -75,33 +74,37 @@ public:
 			SteamAPI_RegisterCallResult( this, hAPICall );
 	}
 
-	bool IsActive()
+	bool IsActive() const
 	{
-		return ( m_hAPICall != 0 );
+		return ( m_hAPICall != k_uAPICallInvalid );
 	}
 
 	void Cancel()
 	{
-		m_hAPICall = 0;
+		if ( m_hAPICall != k_uAPICallInvalid )
+		{
+			SteamAPI_UnregisterCallResult( this, m_hAPICall );
+			m_hAPICall = k_uAPICallInvalid;
+		}
+
 	}
 
 	~CCallResult()
 	{
-		if ( m_hAPICall )
-			SteamAPI_UnregisterCallResult( this, m_hAPICall );
+		Cancel();
 	}
 
 private:
 	virtual void Run( void *pvParam )
 	{
-		m_hAPICall = 0;
+		m_hAPICall = k_uAPICallInvalid; // caller unregisters for us
 		(m_pObj->*m_Func)( (P *)pvParam, false );		
 	}
 	void Run( void *pvParam, bool bIOFailure, SteamAPICall_t hSteamAPICall )
 	{
 		if ( hSteamAPICall == m_hAPICall )
 		{
-			m_hAPICall = 0;
+			m_hAPICall = k_uAPICallInvalid; // caller unregisters for us
 			(m_pObj->*m_Func)( (P *)pvParam, bIOFailure );			
 		}
 	}
@@ -131,10 +134,10 @@ public:
 	// then uncomment the empty constructor below and manually call
 	// ::Register() for your object
 	// Or, just call the regular constructor with (NULL, NULL)
+
 #ifdef ENABLE_CALLBACK_EMPTY_CONSTRUCTOR
 	CCallback() {}
 #endif
-	
 	// constructor for initializing this object in owner's constructor
 	CCallback( T *pObj, func_t func ) : m_pObj( pObj ), m_Func( func )
 	{
@@ -144,12 +147,16 @@ public:
 
 	~CCallback()
 	{
-		Unregister();
+		if ( m_nCallbackFlags & k_ECallbackFlagsRegistered )
+			Unregister();
 	}
 
 	// manual registration of the callback
 	void Register( T *pObj, func_t func )
 	{
+		if ( !pObj || !func )
+			return;
+
 		if ( m_nCallbackFlags & k_ECallbackFlagsRegistered )
 			Unregister();
 
@@ -159,14 +166,17 @@ public:
 		}
 		m_pObj = pObj;
 		m_Func = func;
+		// SteamAPI_RegisterCallback sets k_ECallbackFlagsRegistered
 		SteamAPI_RegisterCallback( this, P::k_iCallback );
 	}
 
 	void Unregister()
 	{
+		// SteamAPI_UnregisterCallback removes k_ECallbackFlagsRegistered
 		SteamAPI_UnregisterCallback( this );
 	}
 
+	void SetGameserverFlag() { m_nCallbackFlags |= k_ECallbackFlagsGameServer; }
 private:
 	virtual void Run( void *pvParam )
 	{
@@ -186,6 +196,15 @@ private:
 };
 
 
+// Allows you to defer registration of the callback
+template< class T, class P, bool bGameServer >
+class CCallbackManual : public CCallback< T, P, bGameServer >
+{
+public:
+	CCallbackManual() : CCallback< T, P, bGameServer >( NULL, NULL ) {}
+};
+
+
 
 #ifdef _WIN32
 // disable this warning; this pattern need for steam callback registration
@@ -195,6 +214,10 @@ private:
 // utility macro for declaring the function and callback object together
 #define STEAM_CALLBACK( thisclass, func, param, var ) CCallback< thisclass, param, false > var; void func( param *pParam )
 #define STEAM_GAMESERVER_CALLBACK( thisclass, func, param, var ) CCallback< thisclass, param, true > var; void func( param *pParam )
+
+// same as above, but lets you defer the callback binding by calling Register later
+#define STEAM_CALLBACK_MANUAL( thisclass, func, param, var ) CCallbackManual< thisclass, param, false > var; void func( param *pParam )
+
 
 
 #endif // CCALLBACK_H

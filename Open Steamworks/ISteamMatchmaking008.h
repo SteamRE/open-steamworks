@@ -77,8 +77,6 @@ public:
 	*/
 	// 
 	virtual SteamAPICall_t RequestLobbyList() = 0;
-
-
 	// filters for lobbies
 	// this needs to be called before RequestLobbyList() to take effect
 	// these are cleared on each call to RequestLobbyList()
@@ -89,10 +87,10 @@ public:
 	virtual void AddRequestLobbyListNearValueFilter( const char *pchKeyToMatch, int nValueToBeCloseTo ) = 0;
 	// returns only lobbies with the specified number of slots available
 	virtual void AddRequestLobbyListFilterSlotsAvailable( int nSlotsAvailable ) = 0;
-
-	virtual void AddRequestLobbyListDistanceFilter( ELobbyDistanceFilter filter ) = 0;
-
-	virtual void AddRequestLobbyListResultCountFilter( int a ) = 0;
+	// sets the distance for which we should search for lobbies (based on users IP address to location map on the Steam backed)
+	virtual void AddRequestLobbyListDistanceFilter( ELobbyDistanceFilter eLobbyDistanceFilter ) = 0;
+	// sets how many results to return, the lower the count the faster it is to download the lobby results & details to the client
+	virtual void AddRequestLobbyListResultCountFilter( int cMaxResults ) = 0;
 
 	// returns the CSteamID of a lobby, as retrieved by a RequestLobbyList call
 	// should only be called after a LobbyMatchList_t callback is received
@@ -133,8 +131,6 @@ public:
 	
 	// returns the number of users in the specified lobby
 	virtual int GetNumLobbyMembers( CSteamID steamIDLobby ) = 0;
-
-
 	// returns the CSteamID of a user in the lobby
 	// iMember is of range [0,GetNumLobbyMembers())
 	virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;
