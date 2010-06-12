@@ -99,6 +99,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\CSteamAPIContext.h"
+					>
+				</File>
+				<File
 					RelativePath=".\CSteamID.h"
 					>
 				</File>
