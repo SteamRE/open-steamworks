@@ -27,7 +27,7 @@
 // Purpose: Game engines use this to tell the Steam master servers
 // about their games so their games can show up in the server browser.
 //-----------------------------------------------------------------------------
-class ISteamMasterServerUpdater
+class ISteamMasterServerUpdater001
 {
 public:
 
