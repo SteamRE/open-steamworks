@@ -327,18 +327,33 @@ struct SystemIM_t
 //-----------------------------------------------------------------------------
 // Purpose: called when this client has received a chat/invite/etc. message from a friend
 //-----------------------------------------------------------------------------
+#ifdef _WIN32
 #pragma pack(push, 2)
 struct FriendChatMsg_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 6 };
-
+	
 	CSteamID m_ulReceiver;			// other participant in the msg
-	CSteamID m_ulSender;				// steamID of the friend who has sent this message
+	CSteamID m_ulSender;			// steamID of the friend who has sent this message
 	uint8 m_eChatEntryType;
 	uint8 m_bLimitedAccount;
 	uint32 m_iChatID;				// chat id
 };
 #pragma pack(pop)
+#endif
+
+#ifndef _WIN32
+struct FriendChatMsg_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 6 };
+	
+	CSteamID m_ulReceiver;			// other participant in the msg
+	CSteamID m_ulSender;			// steamID of the friend who has sent this message
+	uint16 m_eChatEntryType;
+	uint8 m_bLimitedAccount;
+	uint32 m_iChatID;				// chat id
+};
+#endif
 
 struct FriendInvited_t
 {
@@ -395,17 +410,31 @@ struct ChatMemberStateChange_t
 // 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 04 00 00 00
 // 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 20 00 00 00
 // 05 F4 25 33 EA 03 80 01 | 4F 70 A4 01 01 00 10 01 | 01 00 00 00 | 21 00 00 00
+#ifdef _WIN32
 #pragma pack(push, 4)
 struct ChatRoomMsg_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 11 };
-
+	
 	CSteamID m_ulSteamIDChat;
 	CSteamID m_ulSteamIDUser;
 	uint8 m_eChatEntryType;
 	uint32 m_iChatID;
 };
 #pragma pack(pop)
+#endif
+
+#ifndef _WIN32
+struct ChatRoomMsg_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 11 };
+	
+	CSteamID m_ulSteamIDChat;
+	CSteamID m_ulSteamIDUser;
+	uint16 m_eChatEntryType;
+	uint32 m_iChatID;
+};
+#endif
 
 struct ChatRoomDlgClose_t
 {
