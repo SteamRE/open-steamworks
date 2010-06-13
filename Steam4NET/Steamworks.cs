@@ -23,6 +23,9 @@ namespace Steam4NET
             [DllImport( "kernel32.dll", SetLastError = true )]
             internal static extern IntPtr SetDllDirectory( string lpPathName );
 
+            [DllImport( "steam.dll", CharSet = CharSet.Ansi )]
+            internal static extern IntPtr _f( string version );
+
             internal const UInt32 LOAD_WITH_ALTERED_SEARCH_PATH = 8;
         }
 
@@ -45,7 +48,6 @@ namespace Steam4NET
         }
 
         private static IntPtr SteamClientHandle = IntPtr.Zero;
-        private static IntPtr SteamHandle = IntPtr.Zero;
 
         public static string GetInstallPath()
         {
@@ -73,13 +75,10 @@ namespace Steam4NET
             return rez;
         }
 
-        [UnmanagedFunctionPointer( CallingConvention.StdCall, CharSet = CharSet.Ansi )]
-        private delegate IntPtr NativeFactoryInterface( string version );
-        private static NativeFactoryInterface CallFactoryInterface;
         public static TClass CreateSteamInterface<TClass>( string version )
             where TClass : INativeWrapper, new()
         {
-            IntPtr address = CallFactoryInterface( version );
+            IntPtr address = Native._f( version );
 
             if ( address == IntPtr.Zero )
                 return default( TClass );
@@ -131,7 +130,7 @@ namespace Steam4NET
 
         public static bool Load()
         {
-            if ( SteamClientHandle != IntPtr.Zero && SteamHandle != IntPtr.Zero )
+            if ( SteamClientHandle != IntPtr.Zero )
                 return true;
 
             string path = GetInstallPath();
@@ -174,18 +173,6 @@ namespace Steam4NET
 
             SteamClientHandle = module;
 
-            path = Path.Combine( oldPath, "steam.dll" );
-
-            module = Native.LoadLibraryEx( path, IntPtr.Zero, Native.LOAD_WITH_ALTERED_SEARCH_PATH );
-
-            if ( module == IntPtr.Zero )
-                return false;
-
-            CallFactoryInterface = GetExportFunction<NativeFactoryInterface>( module, "_f" );
-            if ( CallFactoryInterface == null )
-                return false;
-
-            SteamHandle = module;
 
             return true;
         }

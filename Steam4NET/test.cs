@@ -3338,6 +3338,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
 	public class ISteam005VTable
 	{
+        public IntPtr DTor;
 		public IntPtr ChangePassword;
 		public IntPtr GetCurrentEmailAddress;
 		public IntPtr ChangePersonalQA;
@@ -7923,6 +7924,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
 	public class ISteam004VTable
 	{
+        public IntPtr DTor;
 		public IntPtr ChangePassword;
 		public IntPtr GetCurrentEmailAddress;
 		public IntPtr ChangePersonalQA;
@@ -8440,6 +8442,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
 	public class ISteam006VTable
 	{
+        public IntPtr DTor;
 		public IntPtr ChangePassword;
 		public IntPtr GetCurrentEmailAddress;
 		public IntPtr ChangePersonalQA;
