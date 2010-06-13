@@ -130,7 +130,7 @@ public:
 
 	virtual uint64 GetCurrentSessionToken() = 0;
 
-	virtual bool UpdateAppOwnershipTicket( AppId_t nAppID, bool bOnlyUpdateIfStale ) = 0;
+	virtual bool UpdateAppOwnershipTicket( AppId_t nAppID, bool bOnlyUpdateIfStale, bool unk ) = 0;
 
 	virtual bool RequestCustomBinary( const char *pszAbsolutePath, AppId_t nAppID, bool bForceUpdate, bool bAppLaunchRequest ) = 0;
 	virtual bool GetCustomBinariesState( AppId_t unAppID, uint32 *punProgress ) = 0;

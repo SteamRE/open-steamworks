@@ -327,22 +327,6 @@ struct SystemIM_t
 //-----------------------------------------------------------------------------
 // Purpose: called when this client has received a chat/invite/etc. message from a friend
 //-----------------------------------------------------------------------------
-#ifdef _WIN32
-#pragma pack(push, 2)
-struct FriendChatMsg_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 6 };
-	
-	CSteamID m_ulReceiver;			// other participant in the msg
-	CSteamID m_ulSender;			// steamID of the friend who has sent this message
-	uint8 m_eChatEntryType;
-	uint8 m_bLimitedAccount;
-	uint32 m_iChatID;				// chat id
-};
-#pragma pack(pop)
-#endif
-
-#ifndef _WIN32
 struct FriendChatMsg_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 6 };
@@ -353,7 +337,6 @@ struct FriendChatMsg_t
 	uint8 m_bLimitedAccount;
 	uint32 m_iChatID;				// chat id
 };
-#endif
 
 struct FriendInvited_t
 {
