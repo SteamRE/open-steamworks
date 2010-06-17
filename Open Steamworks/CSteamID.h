@@ -22,7 +22,9 @@
 
 #include "SteamTypes.h"
 #include <stdio.h>
+#ifndef NO_CSTEAMID_STL
 #include <iostream>
+#endif //NO_CSTEAMID_STL
 
 #pragma pack( push, 1 )
 
@@ -362,11 +364,13 @@ private:
 	} m_steamid;
 };
 
+#ifndef NO_CSTEAMID_STL
 inline std::ostream& operator<<(std::ostream& out, const CSteamID& s)
 {
 	out << s.Render();
 	return out;
 }
+#endif //NO_CSTEAMID_STL
 
 inline bool CSteamID::IsValid() const
 {
