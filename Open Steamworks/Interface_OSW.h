@@ -14,7 +14,11 @@
 //
 //=============================================================================
 
+#ifndef INTERFACEOSW_H
+#define INTERFACEOSW_H
+#ifdef _WIN32
 #pragma once
+#endif
 
 #include <cstdlib>
 #include <iostream>
@@ -143,3 +147,4 @@ private:
 	std::auto_ptr<DynamicLibrary> m_steamclient;
 	std::auto_ptr<DynamicLibrary> m_steam;
 };
+#endif // INTERFACEOSW_H

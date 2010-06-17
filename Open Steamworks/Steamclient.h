@@ -24,13 +24,27 @@
 #include "SteamTypes.h"
 
 #ifndef STEAMWORKS_CLIENT_INTERFACES
-	#ifdef MSC_VER
+	#ifdef _MSC_VER
 		#define UNSAFE_INTERFACE __declspec(deprecated("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to supress this warning."))
 	#else
 		#define UNSAFE_INTERFACE
 	#endif
 #else
 		#define UNSAFE_INTERFACE
+#endif
+
+#ifndef STEAM_API_NON_VERSIONED_INTERFACES
+	#ifdef _MSC_VER
+		#define S_API_UNSAFE extern "C" __declspec( dllexport deprecated("Steam*() interface accessing functions are unversioned and potentially unsafe. These are versioned to assume you are using the latest version of the steam_api loader, if this is not the case your code is likely to crash, read the comment above the functions to learn about the version safe accessing method that will account for newer steam_api versions, older versions are always unsupported. #define STEAM_API_NON_VERSIONED_INTERFACES to supress this warning.") )
+	#else
+		#define S_API_UNSAFE extern "C"
+	#endif
+#else
+	#ifdef _MSC_VER
+		#define S_API_UNSAFE extern "C" __declspec( dllexport )
+	#else
+		#define S_API_UNSAFE extern "C"
+	#endif
 #endif
 
 #include "SteamTypes.h"
@@ -263,7 +277,7 @@ S_API void STEAM_CALL SteamAPI_SetMiniDumpComment( const char *pchMsg );
 S_API void STEAM_CALL SteamAPI_UseBreakpadCrashHandler( char const *pchVersion, char const *pchDate, char const *pchTime );
 
 // interface pointers, configured by SteamAPI_Init()
-S_API ISteamClient009* STEAM_CALL SteamClient();
+S_API_UNSAFE ISteamClient009* STEAM_CALL SteamClient();
 
 // VERSION_SAFE_STEAM_API_INTERFACES is usually not necessary, but it provides safety against releasing
 // new steam_api.dll's without recompiling/rereleasing modules that use it.
@@ -279,15 +293,15 @@ S_API bool STEAM_CALL SteamAPI_InitSafe();
 #else
 S_API bool STEAM_CALL SteamAPI_Init();
 
-S_API ISteamUser013* STEAM_CALL SteamUser();
-S_API ISteamFriends005* STEAM_CALL SteamFriends();
-S_API ISteamUtils005* STEAM_CALL SteamUtils();
-S_API ISteamMatchmaking008* STEAM_CALL SteamMatchmaking();
-S_API ISteamUserStats007* STEAM_CALL SteamUserStats();
-S_API ISteamApps003* STEAM_CALL SteamApps();
-S_API ISteamNetworking003* STEAM_CALL SteamNetworking();
-S_API ISteamMatchmakingServers002* STEAM_CALL SteamMatchmakingServers();
-S_API ISteamRemoteStorage002* STEAM_CALL SteamRemoteStorage();
+S_API_UNSAFE ISteamUser013* STEAM_CALL SteamUser();
+S_API_UNSAFE ISteamFriends005* STEAM_CALL SteamFriends();
+S_API_UNSAFE ISteamUtils005* STEAM_CALL SteamUtils();
+S_API_UNSAFE ISteamMatchmaking008* STEAM_CALL SteamMatchmaking();
+S_API_UNSAFE ISteamUserStats007* STEAM_CALL SteamUserStats();
+S_API_UNSAFE ISteamApps003* STEAM_CALL SteamApps();
+S_API_UNSAFE ISteamNetworking003* STEAM_CALL SteamNetworking();
+S_API_UNSAFE ISteamMatchmakingServers002* STEAM_CALL SteamMatchmakingServers();
+S_API_UNSAFE ISteamRemoteStorage002* STEAM_CALL SteamRemoteStorage();
 #endif // VERSION_SAFE_STEAM_API_INTERFACES
 
 // sets whether or not Steam_RunCallbacks() should do a try {} catch (...) {} around calls to issuing callbacks
@@ -344,16 +358,16 @@ S_API bool STEAM_CALL SteamGameServer_InitSafe( uint32 unIP, uint16 usPort, uint
 #else
 S_API bool STEAM_CALL SteamGameServer_Init( uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usSpectatorPort, uint16 usQueryPort, EServerMode eServerMode, const char *pchGameDir, const char *pchVersionString );
 
-S_API ISteamGameServer010* STEAM_CALL SteamGameServer();
-S_API ISteamUtils005* STEAM_CALL SteamGameServerUtils();
-S_API ISteamMasterServerUpdater001* STEAM_CALL SteamMasterServerUpdater();
-S_API ISteamNetworking003* STEAM_CALL SteamGameServerNetworking();
-S_API ISteamGameServerStats001* STEAM_CALL SteamGameServerStats();
+S_API_UNSAFE ISteamGameServer010* STEAM_CALL SteamGameServer();
+S_API_UNSAFE ISteamUtils005* STEAM_CALL SteamGameServerUtils();
+S_API_UNSAFE ISteamMasterServerUpdater001* STEAM_CALL SteamMasterServerUpdater();
+S_API_UNSAFE ISteamNetworking003* STEAM_CALL SteamGameServerNetworking();
+S_API_UNSAFE ISteamGameServerStats001* STEAM_CALL SteamGameServerStats();
 #endif
 
 //content server
-S_API ISteamContentServer002* STEAM_CALL SteamContentServer();
-S_API ISteamUtils005* STEAM_CALL SteamContentServerUtils();
+S_API_UNSAFE ISteamContentServer002* STEAM_CALL SteamContentServer();
+S_API_UNSAFE ISteamUtils005* STEAM_CALL SteamContentServerUtils();
 S_API bool STEAM_CALL SteamContentServer_Init(uint32 unIP, uint16 usPort);
 
 S_API void STEAM_CALL SteamContentServer_Shutdown();
