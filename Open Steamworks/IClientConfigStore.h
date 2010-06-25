@@ -23,33 +23,31 @@
 #include "SteamTypes.h"
 #include "UtilsCommon.h"
 
-// this is a guess,  i couldn't find it in the bins
 #define CLIENTCONFIGSTORE_INTERFACE_VERSION "CLIENTCONFIGSTORE_INTERFACE_VERSION001"
-
 
 class UNSAFE_INTERFACE IClientConfigStore
 {
 public:
-	virtual unknown_ret IsSet( EConfigStore eConfigStore, const char *a ) = 0;
+	virtual bool IsSet( EConfigStore eConfigStore, const char *keyName ) = 0;
 
-	virtual unknown_ret GetBool( EConfigStore eConfigStore, const char *a, bool b ) = 0;
-	virtual unknown_ret GetInt( EConfigStore eConfigStore, const char *a, int b ) = 0;
-	virtual unknown_ret GetUint64( EConfigStore eConfigStore, const char *a, uint64 b ) = 0;
-	virtual unknown_ret GetFloat( EConfigStore eConfigStore, const char *a, float b ) = 0;
-	virtual unknown_ret GetString( EConfigStore eConfigStore, const char *a, const char *b ) = 0;
-	virtual unknown_ret GetBinary( EConfigStore eConfigStore, const char *a, uint8 *b, uint32 c ) = 0;
-	virtual unknown_ret GetBinaryWatermarked( EConfigStore eConfigStore, const char *a, uint8 *b, uint32 c ) = 0;
+	virtual bool GetBool( EConfigStore eConfigStore, const char *keyName, bool defaultValue = false ) = 0;
+	virtual int GetInt( EConfigStore eConfigStore, const char *keyName, int defaultValue = 0 ) = 0;
+	virtual uint64 GetUint64( EConfigStore eConfigStore, const char *keyName, uint64 defaultValue = 0 ) = 0;
+	virtual float GetFloat( EConfigStore eConfigStore, const char *keyName, float defaultValue = 0.0f ) = 0;
+	virtual const char* GetString( EConfigStore eConfigStore, const char *keyName, const char *defaultValue = "" ) = 0;
+	virtual bool GetBinary( EConfigStore eConfigStore, const char *keyName, uint8 *pBuffer, uint32 uSize ) = 0;
+	virtual bool GetBinaryWatermarked( EConfigStore eConfigStore, const char *keyName, uint8 *pBuffer, uint32 uSize ) = 0;
 
-	virtual unknown_ret SetBool( EConfigStore eConfigStore, const char *a, bool b ) = 0;
-	virtual unknown_ret SetInt( EConfigStore eConfigStore, const char *a, int b ) = 0;
-	virtual unknown_ret SetUint64( EConfigStore eConfigStore, const char *a, uint64 b ) = 0;
-	virtual unknown_ret SetFloat( EConfigStore eConfigStore, const char *a, float b ) = 0;
-	virtual unknown_ret SetString( EConfigStore eConfigStore, const char *a, const char *b ) = 0;
-	virtual unknown_ret SetBinary( EConfigStore eConfigStore, const char *a, const uint8 *b, uint32 c ) = 0;
-	virtual unknown_ret SetBinaryWatermarked( EConfigStore eConfigStore, const char *a, const uint8 *b, uint32 c ) = 0;
+	virtual void SetBool( EConfigStore eConfigStore, const char *keyName, bool value ) = 0;
+	virtual void SetInt( EConfigStore eConfigStore, const char *keyName, int value ) = 0;
+	virtual void SetUint64( EConfigStore eConfigStore, const char *keyName, uint64 value ) = 0;
+	virtual void SetFloat( EConfigStore eConfigStore, const char *keyName, float value ) = 0;
+	virtual void SetString( EConfigStore eConfigStore, const char *keyName, const char *value ) = 0;
+	virtual void SetBinary( EConfigStore eConfigStore, const char *keyName, const uint8 *pBuffer, uint32 uSize ) = 0;
+	virtual void SetBinaryWatermarked( EConfigStore eConfigStore, const char *keyName, const uint8 *pBuffer, uint32 uSize ) = 0;
 
-	virtual unknown_ret RemoveKey( EConfigStore eConfigStore, const char *a ) = 0;
-	virtual unknown_ret GetKeySerialized( EConfigStore eConfigStore, const char *a, uint8 *b, int c ) = 0;
+	virtual void RemoveKey( EConfigStore eConfigStore, const char *keyName ) = 0;
+	virtual bool GetKeySerialized( EConfigStore eConfigStore, const char *keyName, uint8 *pBuffer, int iSize ) = 0;
 };
 
 #endif // ICLIENTCONFIGSTORE_H
