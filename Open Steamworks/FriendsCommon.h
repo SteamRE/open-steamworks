@@ -395,28 +395,18 @@ struct ChatMemberStateChange_t
 // 05 F4 25 33 EA 03 80 01 | 4F 70 A4 01 01 00 10 01 | 01 00 00 00 | 21 00 00 00
 #ifdef _WIN32
 #pragma pack(push, 4)
+#endif
 struct ChatRoomMsg_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 11 };
-	
+
 	CSteamID m_ulSteamIDChat;
 	CSteamID m_ulSteamIDUser;
 	uint8 m_eChatEntryType;
 	uint32 m_iChatID;
 };
+#ifdef _WIN32
 #pragma pack(pop)
-#endif
-
-#ifndef _WIN32
-struct ChatRoomMsg_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 11 };
-	
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDUser;
-	uint16 m_eChatEntryType;
-	uint32 m_iChatID;
-};
 #endif
 
 struct ChatRoomDlgClose_t
