@@ -17,9 +17,8 @@
 #ifndef SERVERBROWSER_H
 #define SERVERBROWSER_H
 
-#define VERSIONED_STEAMAPI_INTERFACES
 #include "Steamworks.h"
-#include <list>
+#include "CUtlVector.h"
 
 // Class to encapsulate game server data
 class CGameServer
@@ -45,6 +44,14 @@ public:
 	int GetBotPlayers() { return m_nBotPlayers; }
 	int GetMaxPlayers() { return m_nMaxPlayers; }
 
+	bool operator==(const CGameServer &other) const {
+		return this->m_steamID == other.m_steamID;
+	}
+
+	bool operator!=(const CGameServer &other) const {
+		return !(*this == other);
+	}
+
 private:
 	uint32 m_unIPAddress;			// IP address for the server
 	int32 m_nConnectionPort;		// Port for game clients to connect to for this server
@@ -63,7 +70,7 @@ private:
 	CSteamID m_steamID;
 };
 
-class CServerBrowser : public ISteamMatchmakingServerListResponse
+class CServerBrowser : public ISteamMatchmakingServerListResponse, public ISteamMatchmakingRulesResponse
 {
 public:
 	CServerBrowser();
@@ -81,21 +88,29 @@ public:
 	void RefreshComplete( HServerListRequest hReq, EMatchMakingServerResponse response );
 
 	bool IsRefreshing() { return m_bRequestingServers; }
-	std::list< CGameServer > GetList() { return m_ListGameServers; }
-	int GetNumServers() { return m_nServers; }
+
+public: // ISteamMatchmakingRulesResponse
+	// Got data on a rule on the server -- you'll get one of these per rule defined on
+	// the server you are querying
+	virtual void RulesResponded( const char *pchRule, const char *pchValue );
+
+	// The server failed to respond to the request for rule details
+	virtual void RulesFailedToRespond();
+
+	// The server has finished responding to the rule details request 
+	// (ie, you won't get anymore RulesResponded callbacks)
+	virtual void RulesRefreshComplete();
+
+public:	
+	// List of game servers
+	CUtlVector<CGameServer> m_ListGameServers; 
 
 private:
-	// Track the number of servers we know about
-	int m_nServers;
-
 	// Track whether we are in the middle of a refresh or not
 	bool m_bRequestingServers;
 
 	// Track what server list request is currently running
 	HServerListRequest m_hServerListRequest;
-
-	// List of game servers
-	std::list< CGameServer > m_ListGameServers; 
 };
 
 #endif //SERVERBROWSER_H

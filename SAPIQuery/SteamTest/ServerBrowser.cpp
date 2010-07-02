@@ -14,6 +14,7 @@
 //
 //=============================================================================
 
+#define STEAM_API_NON_VERSIONED_INTERFACES
 #include "ServerBrowser.h"
 
 //-----------------------------------------------------------------------------
@@ -43,7 +44,6 @@ CGameServer::CGameServer( gameserveritem_t *pGameServerItem )
 //-----------------------------------------------------------------------------
 CServerBrowser::CServerBrowser()
 {
-	m_nServers = 0;
 	m_bRequestingServers = false;
 	m_hServerListRequest = NULL;
 }
@@ -80,8 +80,7 @@ void CServerBrowser::RefreshInternetServers()
 
 	// Track that we are now in a refresh, what type of refresh, and reset our server count
 	m_bRequestingServers = true;
-	m_nServers = 0;
-	m_ListGameServers.clear();
+	m_ListGameServers.Purge();
 
 	// Allocate some filters, there are some common pre-defined values that can be used:
 	//
@@ -125,8 +124,7 @@ void CServerBrowser::RefreshLANServers()
 
 	// Track that we are now in a refresh, what type of refresh, and reset our server count
 	m_bRequestingServers = true;
-	m_nServers = 0;
-	m_ListGameServers.clear();
+	m_ListGameServers.Purge();
 
 	// LAN refresh doesn't accept filters like internet above does
 	m_hServerListRequest = SteamMatchmakingServers()->RequestLANServerList( SteamUtils()->GetAppID(), this );
@@ -151,9 +149,9 @@ void CServerBrowser::ServerResponded( HServerListRequest hReq, int iServer )
 			//if (strncmp(pServer->m_szMap, "tfdb_", 5) == 0)
 			//{
 			//	std::cout << "Name: " << pServer->GetName() << " - " << "Map: " << pServer->m_szMap << std::endl;
-
-				m_ListGameServers.push_back( CGameServer( pServer ) );
-				m_nServers++;
+				CGameServer pGameServer = CGameServer(pServer);
+				if (!m_ListGameServers.HasElement(pGameServer))
+					m_ListGameServers.AddToTail(pGameServer);
 			//}
 		}
 	}
@@ -181,4 +179,19 @@ void CServerBrowser::RefreshComplete( HServerListRequest hReq, EMatchMakingServe
 	// Doesn't really matter to us whether the response tells us the refresh succeeded or failed,
 	// we just track whether we are done refreshing or not
 	m_bRequestingServers = false; 
+}
+
+void CServerBrowser::RulesResponded( const char *pchRule, const char *pchValue )
+{
+	std::cout << pchRule << " = " << pchValue << std::endl;
+}
+
+void CServerBrowser::RulesFailedToRespond()
+{
+
+}
+
+void CServerBrowser::RulesRefreshComplete()
+{
+
 }

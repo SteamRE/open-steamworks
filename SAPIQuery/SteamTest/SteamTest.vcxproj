@@ -87,6 +87,9 @@
     <ClCompile Include="SteamTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CUtlMemory.h" />
+    <ClInclude Include="CUtlVector.h" />
+    <ClInclude Include="platform.h" />
     <ClInclude Include="ServerBrowser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

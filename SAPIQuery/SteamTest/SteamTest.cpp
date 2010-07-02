@@ -1,10 +1,18 @@
+#define STEAM_API_NON_VERSIONED_INTERFACES
+
 #include <Steamworks.h>
+
 #include "ServerBrowser.h"
+
+#include "CUtlVector.h"
+
 #include <conio.h>
 #include <iomanip>
 
 int main(int argc, char* argv[])
 {
+	SetEnvironmentVariableA("SteamAppId", "7");
+
 	if (!SteamAPI_Init())
 	{
 		return 1;
@@ -22,44 +30,51 @@ int main(int argc, char* argv[])
 		Sleep(1);
 	}
 
-	std::cout << " done. (" << serverBrowser->GetNumServers() << " servers found)" << std::endl;
+	std::cout << " done. (" << serverBrowser->m_ListGameServers.Count() << " servers found)" << std::endl;
 
-	std::list<CGameServer>::iterator iter;
-	std::list<CGameServer> List = serverBrowser->GetList();
-	std::list<CGameServer> FinalList;
+	CUtlVector<CGameServer> DodgeballServers;
 
-	int maxLenServerName = 0;
-	int maxLenMapName = 0;
-	int maxLenPing = 4;
-	int maxLenPlayerCount = 7;
+	size_t maxLenServerName = 4;
+	size_t maxLenMapName = 3;
+	size_t maxLenPing = 4;
+	size_t maxLenPlayerCount = 7;
+	size_t maxLenSteamID = 7;
 
-	for( iter = List.begin(); iter != List.end(); ++iter )
+	for ( int i = 0; i < serverBrowser->m_ListGameServers.Count(); ++i )
 	{
-		if (strncmp(iter->GetMap(), "tfdb_", 5))
+		if ((strncmp(serverBrowser->m_ListGameServers.Element(i).GetMap(), "tfdb_", 5) != 0) /* && (strncmp(serverBrowser->m_ListGameServers.Element(i).GetMap(), "db_", 3) != 0) */ )
 			continue;
 
-		if (strlen(iter->GetName()) > maxLenServerName)
-			maxLenServerName = strlen(iter->GetName());
+		if (strlen(serverBrowser->m_ListGameServers.Element(i).GetName()) > maxLenServerName)
+			maxLenServerName = strlen(serverBrowser->m_ListGameServers.Element(i).GetName());
 
-		if (strlen(iter->GetMap()) > maxLenMapName)
-			maxLenMapName = strlen(iter->GetMap());
+		if (strlen(serverBrowser->m_ListGameServers.Element(i).GetMap()) > maxLenMapName)
+			maxLenMapName = strlen(serverBrowser->m_ListGameServers.Element(i).GetMap());
 
-		FinalList.push_back(*iter);
+		if (strlen(serverBrowser->m_ListGameServers.Element(i).GetSteamID().SteamRender()) > maxLenSteamID)
+			maxLenSteamID = strlen(serverBrowser->m_ListGameServers.Element(i).GetSteamID().SteamRender());
+
+		DodgeballServers.AddToTail(serverBrowser->m_ListGameServers.Element(i));
 	}
 
 	maxLenServerName += 1;
 	maxLenMapName += 1;
 	maxLenPing += 1;
 	maxLenPlayerCount += 1;
+	maxLenSteamID += 1;
 
 	std::cout << std::left;
 
-	std::cout << std::endl << std::setw(maxLenServerName) << "Name" << std::setw(maxLenMapName) << "Map" << std::setw(maxLenPlayerCount) << "Players" << std::setw(maxLenPing) << "Ping" << std::endl;
+	std::cout << std::endl << std::setw(maxLenServerName) << "Name" << std::setw(maxLenMapName) << "Map" << std::setw(maxLenPlayerCount) << "Players" << std::setw(maxLenPing) << "Ping" << std::setw(maxLenSteamID) << "SteamID" << std::endl;
 
-	for( iter = FinalList.begin(); iter != FinalList.end(); ++iter )
+	for ( int i = 0; i < DodgeballServers.Count(); ++i )
 	{
-		std::cout << std::setw(maxLenServerName) << iter->GetName() << std::setw(maxLenMapName) << iter->GetMap() << std::right << std::setw(2) << iter->GetPlayers() << std::setw(1) << "/" << std::setw(2) << iter->GetMaxPlayers() << std::setw(3) << " " << std::left << std::setw(maxLenPing) << iter->GetPing() << std::endl;
+		std::cout << std::setw(maxLenServerName) << DodgeballServers.Element(i).GetName() << std::setw(maxLenMapName) << DodgeballServers.Element(i).GetMap() << std::right << std::setw(2) << DodgeballServers.Element(i).GetPlayers() << std::setw(1) << "/" << std::setw(2) << DodgeballServers.Element(i).GetMaxPlayers() << std::setw(3) << " " << std::left << std::setw(maxLenPing) << DodgeballServers.Element(i).GetPing() << std::setw(maxLenSteamID) << DodgeballServers.Element(i).GetSteamID().RenderLadyGaga() << std::endl;
 	}
+
+	//while (!_kbhit()) {}
+	
+	//SteamMatchmakingServers()->ServerRules(1123437328, 27015, serverBrowser); // Broken
 
 	while (!_kbhit()) {}
 
