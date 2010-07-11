@@ -169,6 +169,8 @@ public:
 	virtual int IsFileNeededByApp(unsigned int uAppId, const string_t* cszFileName, unsigned int uArg1, unsigned int* puArg2, TSteamError* pError) = 0;
 	virtual SteamCallHandle_t WaitForAppResources(unsigned int uAppId, const string_t* cszMasterList, TSteamError* pError) = 0;
 	virtual int ForceCellId(unsigned int uCellId, TSteamError* pError) = 0;
+	virtual unknown_ret GetAppDLCStatus( unsigned int a1, unsigned int a2, int *a3, TSteamError *pError ) = 0;
+	virtual unknown_ret StartEngineEx( TSteamError *pError, bool a1, bool a2 ) = 0;
 };
 
 
