@@ -29,7 +29,6 @@ namespace ChatLog
     using System.IO;
     using System.Threading;
     using System.Windows.Forms;
-    using dotnetworks;
 
     static class Program
     {
@@ -165,8 +164,6 @@ namespace ChatLog
                 }*/
 
                 Application.DoEvents();
-
-                logManager.Update();
 
                 Thread.Sleep( 10 );
             }

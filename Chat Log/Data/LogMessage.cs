@@ -2,20 +2,20 @@
 namespace ChatLog
 {
     using System;
-    using dotnetworks;
+    using Steam4NET;
 
     class LogMessage
     {
-        public SteamID Sender;
+        public CSteamID Sender;
         public string SenderName;
 
-        public SteamID Reciever;
+        public CSteamID Reciever;
         public string RecieverName;
 
         public string Message;
 
         public DateTime MessageTime;
 
-        public FriendMsgType MessageType;
+        public EFriendMsgType MessageType;
     }
 }

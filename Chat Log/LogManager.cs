@@ -4,21 +4,24 @@ namespace ChatLog
     using System;
     using System.Globalization;
     using System.IO;
-    using dotnetworks;
+    using Steam4NET;
+    using System.Text;
 
     class LogManager
     {
         Settings sets;
 
-        SteamClient008 steamClient;
-        SteamFriends001 steamFriends;
+        ISteamClient008 steamClient;
+        ISteamFriends002 steamFriends;
 
-        SteamPipeHandle pipe;
-        SteamUserHandle user;
+        int pipe;
+        int user;
 
         Dictionary<ulong, DateTime> sessionInfo;
 
         public event EventHandler<LogFailureEventArgs> LogFailure;
+
+        Callback<FriendChatMsg_t> chatCallback;
 
 
         public LogManager( Settings settings )
@@ -26,6 +29,8 @@ namespace ChatLog
             sets = settings;
 
             sessionInfo = new Dictionary<ulong, DateTime>();
+
+            chatCallback = new Callback<FriendChatMsg_t>( ChatMsg, FriendChatMsg_t.k_iCallback );
 
         }
 
@@ -38,10 +43,14 @@ namespace ChatLog
 
         public bool GetSteamClient()
         {
-            int error;
-            steamClient = (SteamClient008)Steamworks.CreateInterface( SteamClient008.InterfaceVersion, out error );
+            if ( !Steamworks.Load() )
+                return false;
 
-            if ( error > 0 || steamClient == null )
+            
+
+            steamClient = Steamworks.CreateInterface<ISteamClient008>( "SteamClient008" );
+
+            if ( steamClient == null )
                 return false;
 
             return true;
@@ -49,14 +58,14 @@ namespace ChatLog
 
         public bool GetPipe()
         {
-            if ( pipe != null && pipe != SteamPipeHandle.InvalidHandle )
+            if ( pipe != 0 )
             {
                 steamClient.ReleaseSteamPipe( pipe );
             }
 
             pipe = steamClient.CreateSteamPipe();
 
-            if ( pipe == SteamPipeHandle.InvalidHandle )
+            if ( pipe == 0 )
                 return false;
 
             return true;
@@ -64,14 +73,14 @@ namespace ChatLog
 
         public bool GetUser()
         {
-            if ( user != null && user != SteamUserHandle.InvalidHandle )
+            if ( user != null && user != 0 )
             {
                 steamClient.ReleaseUser( pipe, user );
             }
 
             user = steamClient.ConnectToGlobalUser( pipe );
 
-            if ( user == SteamUserHandle.InvalidHandle )
+            if ( user == 0 )
                 return false;
 
             return true;
@@ -79,10 +88,12 @@ namespace ChatLog
 
         public bool GetInterface()
         {
-            steamFriends = (SteamFriends001)steamClient.GetISteamFriends( user, pipe, SteamFriends001.InterfaceVersion );
+            steamFriends = Steamworks.CastInterface<ISteamFriends002>( steamClient.GetISteamFriends( user, pipe, "SteamFriends002" ) );
 
             if ( steamFriends == null )
                 return false;
+
+            CallbackDispatcher.SpawnDispatchThread( pipe );
 
             return true;
         }
@@ -97,12 +108,12 @@ namespace ChatLog
                 return;
             }
 
-            string linkRep = sets.LookupLinkID( log.Sender.ConvertToUint64() );
+            string linkRep = sets.LookupLinkID( log.Sender );
 
             if ( linkRep == null )
                 linkRep = log.SenderName;
 
-            string fileLink = sets.LookupLinkID( log.Reciever.ConvertToUint64() );
+            string fileLink = sets.LookupLinkID( log.Reciever );
 
             if ( fileLink == null )
                 fileLink = log.RecieverName;
@@ -113,7 +124,7 @@ namespace ChatLog
                 directoryName = directoryName.FormatWith(
                     new
                     {
-                        CommunityID = log.Reciever.ConvertToUint64(),
+                        CommunityID = (ulong)log.Reciever,
                         SteamID = log.Reciever.Render().Replace( ":", sets.InvalidReplacement ),
                         Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
                         LinkID = Util.StripInvalidChars( fileLink, sets.InvalidReplacement ),
@@ -155,7 +166,7 @@ namespace ChatLog
                 fileName = fileName.FormatWith(
                     new
                     {
-                        CommunityID = log.Reciever.ConvertToUint64(),
+                        CommunityID = (ulong)log.Reciever,
                         SteamID = log.Reciever.Render().Replace( ":", sets.InvalidReplacement ),
                         Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
                         LinkID = Util.StripInvalidChars( fileLink, sets.InvalidReplacement ),
@@ -203,7 +214,7 @@ namespace ChatLog
             {
                 Name = log.SenderName,
                 SteamID = log.Sender.Render(),
-                CommunityID = log.Sender.ConvertToUint64(),
+                CommunityID = (ulong)log.Sender,
                 LinkID = linkRep,
 
                 Message = log.Message,
@@ -220,7 +231,7 @@ namespace ChatLog
 
             };
 
-            if ( log.MessageType == FriendMsgType.Chat )
+            if ( log.MessageType == EFriendMsgType.k_EFriendMsgTypeChat )
             {
                 logMessage = sets.LogFormat;
 
@@ -240,7 +251,7 @@ namespace ChatLog
                     return;
                 }
             }
-            else if ( log.MessageType == FriendMsgType.ChatSent ) // these are emotes for the newer interface versions
+            else if ( log.MessageType == EFriendMsgType.k_EFriendMsgTypeChatSent ) // these are emotes for the newer interface versions
             {
                 logMessage = sets.EmoteFormat;
 
@@ -264,7 +275,7 @@ namespace ChatLog
             if ( string.IsNullOrEmpty( logMessage ) )
                 return;
 
-            ulong senderId = log.Sender.ConvertToUint64();
+            ulong senderId = log.Sender;
 
             if ( sets.TrackSessions )
             {
@@ -297,6 +308,34 @@ namespace ChatLog
             }
         }
 
+        void ChatMsg( FriendChatMsg_t chatMsg )
+        {
+            
+            byte[] msgData = new byte[ 1024 * 4 ];
+            EChatEntryType type = EChatEntryType.k_EChatEntryTypeChatMsg;
+
+            CSteamID reciever = new CSteamID( chatMsg.m_ulReceiver );
+
+            int msgLength = steamFriends.GetChatMessage( chatMsg.m_ulReceiver, ( int )chatMsg.m_iChatID, msgData, msgData.Length, ref type );
+
+            if ( msgLength < 0 )
+                msgLength = 1; // JUST IN CASE!!
+
+            LogMessage log = new LogMessage();
+
+            log.Sender = new CSteamID( chatMsg.m_ulSender );
+            log.SenderName = steamFriends.GetFriendPersonaName( log.Sender );
+
+            log.Reciever = reciever;
+            log.RecieverName = steamFriends.GetFriendPersonaName( log.Reciever );
+
+            log.Message = Encoding.UTF8.GetString( msgData ).Substring( 0, msgLength - 1 );
+            log.MessageTime = DateTime.Now;
+            log.MessageType = (EFriendMsgType)type;
+
+            AddLog( log );
+        }
+        /*
         public void Update()
         {
             Callback callback;
@@ -343,7 +382,7 @@ namespace ChatLog
 
                 Steamworks.Steam_FreeLastCallback( pipe );
             }
-        }
+        }*/
 
     }
 }
