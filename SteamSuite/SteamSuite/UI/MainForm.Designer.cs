@@ -48,11 +48,14 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.txtNameChanger = new System.Windows.Forms.TextBox();
             this.btnEnable = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupList = new SteamSuite.FriendList();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -82,12 +85,6 @@
             // 
             this.cmbState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbState.FormattingEnabled = true;
-            this.cmbState.Items.AddRange( new object[] {
-            "Offline",
-            "Online",
-            "Busy",
-            "Away",
-            "Snooze"} );
             this.cmbState.Location = new System.Drawing.Point( 47, 74 );
             this.cmbState.Name = "cmbState";
             this.cmbState.Size = new System.Drawing.Size( 170, 21 );
@@ -128,7 +125,7 @@
             this.groupBox2.Controls.Add( this.friendsList );
             this.groupBox2.Location = new System.Drawing.Point( 241, 12 );
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size( 301, 429 );
+            this.groupBox2.Size = new System.Drawing.Size( 187, 429 );
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Friends";
@@ -140,7 +137,7 @@
             this.friendsList.IntegralHeight = false;
             this.friendsList.Location = new System.Drawing.Point( 3, 16 );
             this.friendsList.Name = "friendsList";
-            this.friendsList.Size = new System.Drawing.Size( 295, 410 );
+            this.friendsList.Size = new System.Drawing.Size( 181, 410 );
             this.friendsList.SteamContext = null;
             this.friendsList.TabIndex = 0;
             this.friendsList.DoubleClick += new System.EventHandler( this.friendsList_DoubleClick );
@@ -203,7 +200,7 @@
             this.groupBox4.Controls.Add( this.txtCallbacks );
             this.groupBox4.Location = new System.Drawing.Point( 12, 447 );
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size( 530, 89 );
+            this.groupBox4.Size = new System.Drawing.Size( 628, 89 );
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Debug Callbacks";
@@ -211,7 +208,7 @@
             // btnAbout
             // 
             this.btnAbout.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.btnAbout.Location = new System.Drawing.Point( 455, 66 );
+            this.btnAbout.Location = new System.Drawing.Point( 553, 66 );
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size( 75, 23 );
             this.btnAbout.TabIndex = 1;
@@ -227,7 +224,7 @@
             this.txtCallbacks.Location = new System.Drawing.Point( 3, 16 );
             this.txtCallbacks.Name = "txtCallbacks";
             this.txtCallbacks.ReadOnly = true;
-            this.txtCallbacks.Size = new System.Drawing.Size( 524, 70 );
+            this.txtCallbacks.Size = new System.Drawing.Size( 622, 70 );
             this.txtCallbacks.TabIndex = 0;
             this.txtCallbacks.Text = "";
             // 
@@ -263,11 +260,36 @@
             this.btnEnable.UseVisualStyleBackColor = true;
             this.btnEnable.Click += new System.EventHandler( this.btnEnable_Click );
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
+                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.groupBox6.Controls.Add( this.groupList );
+            this.groupBox6.Location = new System.Drawing.Point( 434, 12 );
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size( 206, 429 );
+            this.groupBox6.TabIndex = 2;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Groups";
+            // 
+            // groupList
+            // 
+            this.groupList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.groupList.IntegralHeight = false;
+            this.groupList.Location = new System.Drawing.Point( 3, 16 );
+            this.groupList.Name = "groupList";
+            this.groupList.Size = new System.Drawing.Size( 200, 410 );
+            this.groupList.SteamContext = null;
+            this.groupList.TabIndex = 0;
+            this.groupList.DoubleClick += new System.EventHandler( this.groupList_DoubleClick );
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size( 554, 548 );
+            this.ClientSize = new System.Drawing.Size( 652, 548 );
+            this.Controls.Add( this.groupBox6 );
             this.Controls.Add( this.groupBox5 );
             this.Controls.Add( this.groupBox4 );
             this.Controls.Add( this.groupBox3 );
@@ -286,6 +308,7 @@
             this.groupBox4.ResumeLayout( false );
             this.groupBox5.ResumeLayout( false );
             this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout( false );
             this.ResumeLayout( false );
 
         }
@@ -311,5 +334,7 @@
         private System.Windows.Forms.Button btnEnable;
         private System.Windows.Forms.TextBox txtNameChanger;
         private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private FriendList groupList;
     }
 }

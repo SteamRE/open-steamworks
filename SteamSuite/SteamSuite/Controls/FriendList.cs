@@ -19,20 +19,34 @@ namespace SteamSuite
                 return;
             }
 
-            Friend friendObj = (Friend)Items[e.Index];
+            if ( Items[ e.Index ] is Friend )
+            {
+                Friend friendObj = ( Friend )Items[ e.Index ];
 
-            this.DrawMode = DrawMode.OwnerDrawFixed;
+                this.DrawMode = DrawMode.OwnerDrawFixed;
 
-            e.DrawBackground();
+                e.DrawBackground();
 
-            e.DrawFocusRectangle();
+                e.DrawFocusRectangle();
 
-            EPersonaState state = SteamContext.SteamFriends.GetFriendPersonaState( friendObj.SteamID );
+                EPersonaState state = SteamContext.SteamFriends.GetFriendPersonaState( friendObj.SteamID );
 
-            if ( state == EPersonaState.k_EPersonaStateOffline )
-                e.Graphics.DrawString( friendObj.PersonaName, e.Font, new SolidBrush( Color.Red ), e.Bounds );
-            else
-                e.Graphics.DrawString( friendObj.PersonaName, e.Font, new SolidBrush( Color.Green ), e.Bounds );
+                if ( state == EPersonaState.k_EPersonaStateOffline )
+                    e.Graphics.DrawString( friendObj.PersonaName, e.Font, new SolidBrush( Color.Red ), e.Bounds );
+                else
+                    e.Graphics.DrawString( friendObj.PersonaName, e.Font, new SolidBrush( Color.Green ), e.Bounds );
+            }
+            else if ( Items[ e.Index ] is Group )
+            {
+                Group groupObj = ( Group )Items[ e.Index ];
+
+                this.DrawMode = DrawMode.OwnerDrawFixed;
+
+                e.DrawBackground();
+                e.DrawFocusRectangle();
+
+                e.Graphics.DrawString( groupObj.GroupName, e.Font, new SolidBrush( e.ForeColor ), e.Bounds );
+            }
         }
     }
 }

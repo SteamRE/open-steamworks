@@ -24,12 +24,20 @@ namespace SteamSuite
 
         public MainForm( SteamContext context )
         {
-            sets = Settings.Load( "settings.xml" );
-
-            if ( sets == null )
+            try
             {
-                sets = new Settings();
-                sets.Save( "settings.xml" );
+                sets = Settings.Load( "settings.xml" );
+
+                if ( sets == null )
+                {
+                    sets = new Settings();
+                    sets.Save( "settings.xml" );
+                }
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( "Unable to load settings!\n\n" + ex.ToString() );
+				sets = new Settings();
             }
 
             InitializeComponent();
@@ -49,13 +57,17 @@ namespace SteamSuite
             friendsList.SteamContext = context;
 
             txtPersonaName.Text = context.SteamFriends.GetPersonaName();
-            cmbState.SelectedIndex = ( int )context.SteamFriends.GetPersonaState();
 
-            for ( int i = 0 ; i < context.SteamFriends.GetFriendCount( ( int )k_EFriendFlags.k_EFriendFlagImmediate ) ; ++i )
+            for ( int x = -2 ; x < ( int )( EPersonaState.k_EPersonaStateMax + 2 ) ; x++ )
+                cmbState.Items.Add( ( EPersonaState )x );
+
+            cmbState.SelectedIndex = ( int )( context.SteamFriends.GetPersonaState() + 2 );
+
+            for ( int i = 0 ; i < context.SteamFriends.GetFriendCount( ( int )EFriendFlags.k_EFriendFlagImmediate ) ; ++i )
             {
                 Friend friend = new Friend();
 
-                CSteamID steamId = context.SteamFriends.GetFriendByIndex( i, ( int )k_EFriendFlags.k_EFriendFlagImmediate );
+                CSteamID steamId = context.SteamFriends.GetFriendByIndex( i, ( int )EFriendFlags.k_EFriendFlagImmediate );
                 string friendName = context.SteamFriends.GetFriendPersonaName( steamId );
 
                 friend.SteamID = steamId;
@@ -64,7 +76,22 @@ namespace SteamSuite
                 friendsList.Items.Add( friend );
             }
 
+            for ( int x = 0 ; x < context.ClientFriends.GetChatRoomCount() ; ++x )
+            {
+                Group group = new Group();
+
+                CSteamID steamId = context.ClientFriends.GetChatRoomByIndex( x );
+                string groupName = context.ClientFriends.GetChatRoomName( steamId );
+
+                group.SteamID = steamId;
+                group.GroupName = groupName;
+
+                groupList.Items.Add( group );
+                
+            }
+
             friendsList.Sorted = true;
+            groupList.Sorted = true;
         }
 
         void PersonaStateChange( PersonaStateChange_t obj )
@@ -90,34 +117,6 @@ namespace SteamSuite
             } );
         }
 
-        /*
-        void CallbackDispatcher_Callback( CallbackMsg_t msg )
-        {
-            txtCallbacks.Invoke( ( MethodInvoker )delegate
-            {
-                int iCall = ( msg.m_iCallback / 100 ) * 100;
-                ECallbackType type = ( ECallbackType )iCall;
-
-
-                switch ( msg.m_iCallback )
-                {
-                    case PersonaStateChange_t.k_iCallback:
-                        PersonaStateChange_t personaChange = CallbackDispatcher.CastCallback<PersonaStateChange_t>( msg.m_pubParam );
-                        txtCallbacks.AppendText( "PersonaStateChange_t: " + context.SteamFriends.GetFriendPersonaName( personaChange.m_ulSteamID ) + " (" + new CSteamID( personaChange.m_ulSteamID ).Render() + ") Flags: " + personaChange.m_nChangeFlags + Environment.NewLine );
-                        break;
-
-                    case FriendChatMsg_t.k_iCallback: // ignore these!
-                        break;
-
-                    default:
-                        txtCallbacks.AppendText( "Unhandled callback: " + msg.m_iCallback + " Type: " + type + " Size: " + msg.m_cubParam + Environment.NewLine );
-                        break;
-                }
-
-                txtCallbacks.ScrollToCaret();
-            } );
-        }*/
-
 
         private void btnSetName_Click( object sender, EventArgs e )
         {
@@ -126,7 +125,28 @@ namespace SteamSuite
 
         private void cmbState_SelectedIndexChanged( object sender, EventArgs e )
         {
-            context.SteamFriends.SetPersonaState( ( EPersonaState )cmbState.SelectedIndex );
+            context.SteamFriends.SetPersonaState( ( EPersonaState )( cmbState.SelectedIndex - 2 ) );
+        }
+
+        private void groupList_DoubleClick( object sender, EventArgs e )
+        {
+            if ( groupList.SelectedItem == null )
+                return;
+
+            Group groupObj = ( Group )groupList.SelectedItem;
+
+            foreach ( GroupForm groupForm in this.OwnedForms )
+            {
+                if ( groupForm.Group.SteamID == groupObj.SteamID )
+                {
+                    groupForm.Focus();
+                    return;
+                }
+            }
+
+            GroupForm gf = new GroupForm( context, groupObj );
+
+            gf.Show( this );
         }
 
         private void friendsList_DoubleClick( object sender, EventArgs e )
@@ -149,6 +169,11 @@ namespace SteamSuite
             MessageForm mf = new MessageForm( context, friendObj, sets );
 
             mf.Show( this );
+        }
+
+        void GroupChatMsg_OnRun( GroupChatMsg_t param )
+        {
+            
         }
 
         void FriendChatMsg_OnRun( FriendChatMsg_t param )
@@ -321,7 +346,7 @@ namespace SteamSuite
         private void MainForm_Shown( object sender, EventArgs e )
         {
             context.FriendChatMsg.OnRun += new Callback<FriendChatMsg_t>.DispatchDelegate( FriendChatMsg_OnRun );
-            //CallbackDispatcher.Callback += new CallbackDispatcher.CallbackDelegate( CallbackDispatcher_Callback );
+            context.GroupChatMsg.OnRun += new Callback<GroupChatMsg_t>.DispatchDelegate( GroupChatMsg_OnRun );
 
             ICallback psc = new Callback<PersonaStateChange_t>( PersonaStateChange, PersonaStateChange_t.k_iCallback );
             CallbackUnhandled unhandled = new CallbackUnhandled( UnhandledCallback );
