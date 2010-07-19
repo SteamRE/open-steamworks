@@ -1076,31 +1076,18 @@ namespace Steam4NET
 		public EUniverse m_EUniverse;
 	}
 	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi )]
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi, Size=64 )]
 	public struct TSteamSplitLocalUserID
 	{
 		public UInt32 Low32bits;
 		public UInt32 High32bits;
 	}
 
-    [StructLayout( LayoutKind.Sequential, CharSet = CharSet.Ansi )]
+    [StructLayout( LayoutKind.Sequential, CharSet = CharSet.Ansi, Size=80)]
     public struct TSteamGlobalUserID
     {
         public UInt16 m_SteamInstanceID;
-        public UInt32 High32Bits;
-        public UInt32 Low32Bits;
-
-        /*[StructLayout( LayoutKind.Explicit, CharSet = CharSet.Ansi )]
-        public struct Unionm_SteamLocalUserID
-        {
-            [FieldOffset( 0 )]
-            public UInt64 As64bits;
-            [FieldOffset( 0 )]
-            public TSteamSplitLocalUserID Split;
-        }
-        [FieldOffset( 2 )]
-        public Unionm_SteamLocalUserID m_SteamLocalUserID;*/
-
+        public UInt64 As64Bits;
     }
 
 	
