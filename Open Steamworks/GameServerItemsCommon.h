@@ -29,7 +29,7 @@
 #define STEAMGAMESERVERITEMS_INTERFACE_VERSION_004 "STEAMGAMESERVERITEMS_INTERFACE_VERSION004"
 
 
-
+#pragma pack( push, 8 )
 struct GSItemCount_t
 {
 	enum { k_iCallback = k_iSteamGameServerItemsCallbacks };
@@ -54,7 +54,6 @@ struct GSItemGranted_t
 	ItemID m_itemID;
 };
 
-#pragma pack(push, 1)
 struct GSItemGetBlob_t
 {
 	enum { k_iCallback = k_iSteamGameServerItemsCallbacks + 8 };
@@ -70,7 +69,7 @@ struct GSItemSetBlob_t
 	EItemRequestResult m_eResult;
 	uint32 Unk;
 };
-#pragma pack(pop)
+#pragma pack( pop )
 
 // 1511 - item server connection success?
 // --------------------------------------

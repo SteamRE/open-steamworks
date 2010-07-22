@@ -92,6 +92,7 @@ struct LeaderboardEntry_t
 
 
 
+#pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when the latests stats and achievements have been received
 //			from the server
@@ -203,6 +204,8 @@ struct UserAchievementIconFetched_t
 	bool		m_bAchieved;		// Is the icon for the achieved or not achieved version?
 	int			m_nIconHandle;		// Handle to the image, which can be used in ClientUtils()->GetImageRGBA(), 0 means no image is set for the achievement
 };
+
+#pragma pack( pop )
 
 
 

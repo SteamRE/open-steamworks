@@ -262,7 +262,7 @@ typedef enum EChatActionResult
 } EChatActionResult;
 
 
-
+#pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called after a friend has been successfully added
 //-----------------------------------------------------------------------------
@@ -393,9 +393,6 @@ struct ChatMemberStateChange_t
 // 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 04 00 00 00
 // 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 20 00 00 00
 // 05 F4 25 33 EA 03 80 01 | 4F 70 A4 01 01 00 10 01 | 01 00 00 00 | 21 00 00 00
-#ifdef _WIN32
-#pragma pack(push, 4)
-#endif
 struct ChatRoomMsg_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 11 };
@@ -405,9 +402,6 @@ struct ChatRoomMsg_t
 	uint8 m_eChatEntryType;
 	uint32 m_iChatID;
 };
-#ifdef _WIN32
-#pragma pack(pop)
-#endif
 
 struct ChatRoomDlgClose_t
 {
@@ -620,6 +614,7 @@ struct FriendIgnored_t
 	CSteamID m_ulSteamFriendID;
 	bool m_bIgnored;
 };
+#pragma pack( pop )
 
 
 

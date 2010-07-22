@@ -55,6 +55,7 @@ typedef enum EConfigStore
 
 
 
+#pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: The country of the user changed
 //-----------------------------------------------------------------------------
@@ -99,6 +100,7 @@ struct SteamConfigStoreChanged_t
 	EConfigStore m_eConfigStore;
 	char m_szRootOfChanges[ 255 ];
 };
+#pragma pack( pop )
 
 
 #endif // UTILSCOMMON_H

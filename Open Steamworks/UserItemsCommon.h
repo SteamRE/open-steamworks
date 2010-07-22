@@ -77,7 +77,7 @@ typedef enum EItemRequestResult
 } EItemRequestResult;
 
 
-
+#pragma pack( push, 8 )
 struct UserItemCount_t
 {
     enum { k_iCallback = k_iSteamUserItemsCallbacks };
@@ -92,6 +92,7 @@ struct UserItemCount_t
 struct UserItemMoved_t
 {
 	enum { k_iCallback = k_iSteamUserItemsCallbacks + 1 };
+
 	ItemID m_itemID;
 	uint32 Unk0;
 	uint32 Unk1;
@@ -101,6 +102,7 @@ struct UserItemMoved_t
 struct UserItemDeleted_t
 {
 	enum { k_iCallback = k_iSteamUserItemsCallbacks + 2 };
+
 	ItemID m_itemID;
 	uint32 Unk0;
 	uint32 Unk1;
@@ -115,14 +117,15 @@ struct UserItemDeleted_t
 struct UserItemGranted_t
 {
 	enum { k_iCallback = k_iSteamUserItemsCallbacks + 3 };
+
 	ItemID m_itemID;
 	CGameID m_gameID;
 };
 
-#pragma pack(push, 1)
 struct UserItemGetBlob_t
 {
 	enum { k_iCallback = k_iSteamUserItemsCallbacks + 4 };
+
 	ItemID m_itemID;
 	EItemRequestResult m_eResult;
 	uint8 itemBlob[1024];
@@ -131,10 +134,12 @@ struct UserItemGetBlob_t
 struct UserItemSetBlob_t
 {
 	enum { k_iCallback = k_iSteamUserItemsCallbacks + 5 };
+
 	ItemID m_itemID;
 	EItemRequestResult m_eResult;
 	uint32 Unk;
 };
+
 #pragma pack(pop)
 
 #endif // USERITEMSCOMMON_H

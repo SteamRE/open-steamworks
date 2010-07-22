@@ -121,11 +121,12 @@ struct P2PSessionState_t
 };
 
 
-
+#pragma pack( push, 8 )
 // callback notification - status of a socket has changed
 struct SocketStatusCallback_t
 { 
 	enum { k_iCallback = k_iSteamNetworkingCallbacks + 1 };
+
 	SNetSocket_t m_hSocket;				// the socket used to send/receive data to the remote host
 	SNetListenSocket_t m_hListenSocket;	// this is the server socket that we were listening on; NULL if this was an outgoing connection
 	CSteamID m_steamIDRemote;			// remote steamID we have connected to, if it has one
@@ -138,6 +139,7 @@ struct SocketStatusCallback_t
 struct P2PSessionRequest_t
 { 
 	enum { k_iCallback = k_iSteamNetworkingCallbacks + 2 };
+
 	CSteamID m_steamIDRemote;			// user who wants to talk to us
 };
 
@@ -148,8 +150,10 @@ struct P2PSessionRequest_t
 struct P2PSessionConnectFail_t
 { 
 	enum { k_iCallback = k_iSteamNetworkingCallbacks + 3 };
+
 	CSteamID m_steamIDRemote;			// user we were sending packets to
 	uint8 m_eP2PSessionError;			// EP2PSessionError indicating why we're having trouble
 };
+#pragma pack( pop )
 
 #endif // NETWORKINGCOMMON_H

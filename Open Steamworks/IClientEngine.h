@@ -48,8 +48,6 @@ class IClientHTTP;
 class IClientGameServerStats;
 class IClientConfigStore;
 
-#define CLIENTENGINE_INTERFACE_VERSION "CLIENTENGINE_INTERFACE_VERSION001"
-
 class UNSAFE_INTERFACE IClientEngine
 {
 

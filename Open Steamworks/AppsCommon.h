@@ -58,6 +58,7 @@ typedef enum EAppEvent
 
 
 
+#pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when new information about an app has arrived
 //-----------------------------------------------------------------------------
@@ -65,8 +66,10 @@ struct AppDataChanged_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 1 };
 
-	AppId_t m_nAppID;
-	bool m_bWebDataChanged;
+	uint32 m_nAppID;
+
+	bool m_bBySteamUI;
+	bool m_bCDDBUpdate;
 };
 
 struct RequestAppCallbacksComplete_t
@@ -74,7 +77,7 @@ struct RequestAppCallbacksComplete_t
 	enum { k_iCallback = k_iSteamAppsCallbacks + 2 };
 };
 
-struct AppInfoUpdateComplete_t // UI
+struct AppInfoUpdateComplete_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 3 };
 
@@ -83,14 +86,15 @@ struct AppInfoUpdateComplete_t // UI
 };
 
 
-
 //-----------------------------------------------------------------------------
 // Purpose: posted after the user gains ownership of DLC & that DLC is installed
 //-----------------------------------------------------------------------------
 struct DlcInstalled_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 5 };
-	AppId_t m_nAppID;		// AppID of the DLC
+
+	uint32 m_nAppID;		// AppID of the DLC
 };
+#pragma pack( pop )
 
 #endif // APPSCOMMON_H

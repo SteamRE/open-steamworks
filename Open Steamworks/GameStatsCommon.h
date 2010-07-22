@@ -40,6 +40,7 @@ typedef enum EGameStatsAccountType
 
 
 
+#pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: callback for GetNewSession() method
 //-----------------------------------------------------------------------------
@@ -64,6 +65,7 @@ struct GameStatsSessionClosed_t
 	uint64	m_ulSessionID;
 	EResult	m_eResult;
 };
+#pragma pack( pop )
 
 
 

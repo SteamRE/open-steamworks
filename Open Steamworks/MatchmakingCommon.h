@@ -58,12 +58,14 @@ typedef enum ELobbyDistanceFilter
 
 
 
+#pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: a server was added/removed from the favorites list, you should refresh now
 //-----------------------------------------------------------------------------
 struct FavoritesListChanged_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 2 };
+
 	uint32 m_nIP; // an IP of 0 means reload the whole list, any other value means just one server
 	uint32 m_nQueryPort;
 	uint32 m_nConnPort;
@@ -232,6 +234,7 @@ struct LobbyCreated_t
 
 	CSteamID m_ulSteamIDLobby;		// chat room, zero if failed
 };
+#pragma pack( pop )
 
 
 

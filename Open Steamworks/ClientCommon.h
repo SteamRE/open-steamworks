@@ -40,10 +40,15 @@ class ISteamRemoteStorage;
 class ISteamGameServerItems;
 class ISteamGameServerStats;
 
+
+
+#define CLIENTENGINE_INTERFACE_VERSION "CLIENTENGINE_INTERFACE_VERSION001"
+
 #define STEAMCLIENT_INTERFACE_VERSION_006		"SteamClient006"
 #define STEAMCLIENT_INTERFACE_VERSION_007		"SteamClient007"
 #define STEAMCLIENT_INTERFACE_VERSION_008		"SteamClient008"
 #define STEAMCLIENT_INTERFACE_VERSION_009		"SteamClient009"
+
 
 
 #endif

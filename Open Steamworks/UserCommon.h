@@ -194,7 +194,7 @@ public:
 };
 
 
-
+#pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when a logon attempt has succeeded
 //-----------------------------------------------------------------------------
@@ -572,6 +572,7 @@ struct MicroTxnAuthorizationResponse_t
 	uint64 m_ulOrderID;			// OrderID provided for the microtransaction
 	uint8 m_bAuthorized;		// if user authorized transaction
 };
+#pragma pack( pop )
 
 
 #endif // USERCOMMON_H

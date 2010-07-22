@@ -129,7 +129,7 @@ typedef enum ECreditCardType
 } ECreditCardType;
 
 
-
+#pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when this client has received a finalprice message from a Billing
 //-----------------------------------------------------------------------------
@@ -149,8 +149,9 @@ struct PurchaseMsg_t
 		enum { k_iCallback = k_iSteamBillingCallbacks + 2 };
 
 		uint32 m_bSuccess;
-		EPurchaseResultDetail m_EPurchaseResultDetail;			// Detailed result information
+		int32 m_EPurchaseResultDetail;			// Detailed result information
 };
+#pragma pack( pop, 8 )
 
 
 #endif // BILLINGCOMMON_H

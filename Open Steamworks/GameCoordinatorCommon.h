@@ -75,6 +75,7 @@ typedef enum EGCMessages
 
 
 
+#pragma pack( push, 8 )
 // callback notification - A new message is available for reading from the message queue
 struct GCMessageAvailable_t
 {
@@ -88,6 +89,7 @@ struct GCMessageFailed_t
 {
 	enum { k_iCallback = k_iSteamGameCoordinatorCallbacks + 2 };
 };
+#pragma pack( pop )
 
 #pragma pack(push, 1)
 

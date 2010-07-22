@@ -55,7 +55,7 @@ typedef enum EDenyReason
 } EDenyReason;
 
 
-
+#pragma pack( push, 8 )
 // client has been approved to connect to this game server
 struct GSClientApprove_t
 {
@@ -144,7 +144,6 @@ struct GSClientGroupStatus_t
 	bool m_bOfficer;
 };
 
-#pragma pack( push, 4 )
 // Sent as a reply to GetServerReputation()
 struct GSReputation_t
 {
@@ -165,7 +164,6 @@ struct GSReputation_t
 	uint64	m_ulBannedGameID;	// The game ID the banned server is serving
 	uint32	m_unBanExpires;		// Time the ban expires, expressed in the Unix epoch (seconds since 1/1/1970)
 };
-#pragma pack( pop )
 
 
 // received when the game server requests to be displayed as secure (VAC protected)
@@ -176,6 +174,7 @@ struct GSPolicyResponse_t
 
 	uint8 m_bSecure;
 };
+#pragma pack( pop )
 
 
 
