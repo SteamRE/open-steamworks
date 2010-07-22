@@ -64,6 +64,13 @@ typedef enum ELeaderboardDisplayType
 	k_ELeaderboardDisplayTypeTimeMilliSeconds = 3,	// the score represents a time, in milliseconds
 } ELeaderboardDisplayType;
 
+typedef enum ELeaderboardUploadScoreMethod
+{
+	k_ELeaderboardUploadScoreMethodNone = 0,
+	k_ELeaderboardUploadScoreMethodKeepBest = 1,	// Leaderboard will keep user's best score
+	k_ELeaderboardUploadScoreMethodForceUpdate = 2,	// Leaderboard will always replace score with specified
+} ELeaderboardUploadScoreMethod;
+
 // the sort order of a leaderboard
 typedef enum ELeaderboardSortMethod
 {
