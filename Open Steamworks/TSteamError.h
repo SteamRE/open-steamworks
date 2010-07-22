@@ -29,7 +29,7 @@ typedef enum EDetailedPlatformErrorType
 	eDetailedPlatformErrorCount
 } EDetailedPlatformErrorType;
 
-typedef struct TSTeamError
+typedef struct TSteamError
 {
 	ESteamError eSteamError;
 	EDetailedPlatformErrorType eDetailedErrorType;
