@@ -151,7 +151,7 @@ struct PurchaseMsg_t
 		uint32 m_bSuccess;
 		int32 m_EPurchaseResultDetail;			// Detailed result information
 };
-#pragma pack( pop, 8 )
+#pragma pack( pop )
 
 
 #endif // BILLINGCOMMON_H
