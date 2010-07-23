@@ -4,68 +4,114 @@ namespace Steam4NET
 {
     public class CGameID
     {
-        public const int k_EGameIDTypeApp = 0;
-        public const int k_EGameIDTypeGameMod = 1;
-        public const int k_EGameIDTypeShortcut = 2;
-        public const int k_EGameIDTypeP2P = 3;
-
-        private UInt64 gameid;
-
-        public CGameID(UInt64 id)
+        public enum EGameID
         {
-            gameid = id;
+            k_EGameIDTypeApp = 0,
+            k_EGameIDTypeGameMod = 1,
+            k_EGameIDTypeShortcut = 2,
+            k_EGameIDTypeP2P = 3
+        }
+
+        private BitVector64 gameid;
+
+        public CGameID()
+            : this( 0 )
+        {
+        }
+        public CGameID( UInt64 id )
+        {
+            gameid = new BitVector64( id );
+        }
+        public CGameID( Int32 nAppID )
+            : this()
+        {
         }
 
         // provide this as implicit to make them decide what they want
-        public static implicit operator string(CGameID gid)
+        public static implicit operator string( CGameID gid )
         {
-            return gid.gameid.ToString();
+            return gid.gameid.Data.ToString();
         }
 
-        public static implicit operator UInt64(CGameID gid)
+        public static implicit operator UInt64( CGameID gid )
         {
-            return gid.gameid;
+            return gid.gameid.Data;
         }
 
-        public static implicit operator CGameID(UInt64 id)
+        public static implicit operator CGameID( UInt64 id )
         {
-            return new CGameID(id);
+            return new CGameID( id );
         }
 
-        public override bool Equals(System.Object obj)
+        public UInt32 AppID
         {
-            if (obj == null)
+            get
+            {
+                return ( UInt32 )gameid[ 0, 0xFFFFFF ];
+            }
+            set
+            {
+                gameid[ 0, 0xFFFFFF ] = ( UInt64 )value;
+            }
+        }
+        public EGameID AppType
+        {
+            get
+            {
+                return ( EGameID )gameid[ 24, 0xFF ];
+            }
+            set
+            {
+                gameid[ 24, 0xFF ] = ( UInt64 )value;
+            }
+        }
+        public UInt32 ModID
+        {
+            get
+            {
+                return ( UInt32 )gameid[ 32, 0xFFFFFFFF ];
+            }
+            set
+            {
+                gameid[ 32, 0xFFFFFFFF ] = ( UInt64 )value;
+            }
+        }
+        
+
+        public override bool Equals( System.Object obj )
+        {
+            if ( obj == null )
                 return false;
 
             CGameID gid = obj as CGameID;
-            if ((System.Object)gid == null)
+            if ( ( System.Object )gid == null )
                 return false;
 
-            return gameid == gid.gameid;
+            return gameid.Data == gid.gameid.Data;
         }
 
-        public bool Equals(CGameID gid)
+        public bool Equals( CGameID gid )
         {
-            if ((object)gid == null)
+            if ( ( object )gid == null )
                 return false;
 
-            return gameid == gid.gameid;
+            return gameid.Data == gid.gameid.Data;
         }
 
-        public static bool operator ==(CGameID a, CGameID b)
+        public static bool operator ==( CGameID a, CGameID b )
         {
-            if (System.Object.ReferenceEquals(a, b))
+            if ( System.Object.ReferenceEquals( a, b ) )
                 return true;
 
-            if (((object)a == null) || ((object)b == null))
+            if ( ( ( object )a == null ) || ( ( object )b == null ) )
                 return false;
 
-            return a.gameid == b.gameid;
+            return a.gameid.Data == b.gameid.Data;
         }
 
-        public static bool operator !=(CGameID a, CGameID b)
+        public static bool operator !=( CGameID a, CGameID b )
         {
-            return !(a == b);
+            return !( a == b );
         }
 
         public override int GetHashCode()
