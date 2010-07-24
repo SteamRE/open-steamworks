@@ -46,8 +46,6 @@ namespace ChatLog
             if ( !Steamworks.Load() )
                 return false;
 
-            
-
             steamClient = Steamworks.CreateInterface<ISteamClient008>( "SteamClient008" );
 
             if ( steamClient == null )
@@ -73,7 +71,7 @@ namespace ChatLog
 
         public bool GetUser()
         {
-            if ( user != null && user != 0 )
+            if ( user != 0 )
             {
                 steamClient.ReleaseUser( pipe, user );
             }
@@ -231,7 +229,7 @@ namespace ChatLog
 
             };
 
-            if ( log.MessageType == EFriendMsgType.k_EFriendMsgTypeChat )
+            if ( log.MessageType == EChatEntryType.k_EChatEntryTypeChatMsg )
             {
                 logMessage = sets.LogFormat;
 
@@ -251,7 +249,7 @@ namespace ChatLog
                     return;
                 }
             }
-            else if ( log.MessageType == EFriendMsgType.k_EFriendMsgTypeChatSent ) // these are emotes for the newer interface versions
+            else if ( log.MessageType == EChatEntryType.k_EChatEntryTypeEmote )
             {
                 logMessage = sets.EmoteFormat;
 
@@ -318,6 +316,9 @@ namespace ChatLog
 
             int msgLength = steamFriends.GetChatMessage( chatMsg.m_ulReceiver, ( int )chatMsg.m_iChatID, msgData, msgData.Length, ref type );
 
+            if ( type == EChatEntryType.k_EChatEntryTypeTyping )
+                return;
+
             if ( msgLength < 0 )
                 msgLength = 1; // JUST IN CASE!!
 
@@ -331,7 +332,7 @@ namespace ChatLog
 
             log.Message = Encoding.UTF8.GetString( msgData ).Substring( 0, msgLength - 1 );
             log.MessageTime = DateTime.Now;
-            log.MessageType = (EFriendMsgType)type;
+            log.MessageType = type;
 
             AddLog( log );
         }

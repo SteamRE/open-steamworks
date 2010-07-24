@@ -94,7 +94,7 @@ namespace ChatLog
 
 
             // gasp a label.. what could it be for?
-        SteamInit:
+        //SteamInit: // maybe someday this will come back (not likely)
 
             bool waited = false;
 

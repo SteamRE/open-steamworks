@@ -16,6 +16,6 @@ namespace ChatLog
 
         public DateTime MessageTime;
 
-        public EFriendMsgType MessageType;
+        public EChatEntryType MessageType;
     }
 }
