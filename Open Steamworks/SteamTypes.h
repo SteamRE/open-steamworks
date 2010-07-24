@@ -419,7 +419,7 @@ enum EChatSteamIDInstanceFlags
 #define STEAM_DATE_SIZE									(9)
 #define STEAM_TIME_SIZE									(9)
 #define STEAM_CARD_NUMBER_SIZE							(17)
-#define STEAM_CONFIRMATION_CODE_SIZE					(16)
+#define STEAM_CONFIRMATION_CODE_SIZE					(22)
 #define STEAM_CARD_HOLDERNAME_SIZE						(100)
 #define STEAM_CARD_APPROVAL_CODE_SIZE					(100)
 #define STEAM_CARD_EXPYEAR_SIZE							(4)
