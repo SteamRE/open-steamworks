@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Open Steamworks"
 	ProjectGUID="{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}"
 	RootNamespace="SteamclientAPI"
@@ -220,6 +220,10 @@
 				</File>
 				<File
 					RelativePath=".\IClientUser.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IClientUserStats.h"
 					>
 				</File>
 				<File

@@ -180,6 +180,7 @@
 #include "IClientMatchmaking.h"
 #include "IClientRemoteStorage.h"
 #include "IClientUser.h"
+#include "IClientUserStats.h"
 #include "IClientUtils.h"
 #include "IClientHTTP.h"
 #include "IClientConfigStore.h"
