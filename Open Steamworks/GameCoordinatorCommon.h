@@ -214,7 +214,9 @@ struct SOMsgCacheSubscribed_Item_t
 	uint8 itemquality;
 	uint32 position;
 	uint32 itemcount;
-	uint16 unk1;
+	uint16 namelength;
+	// Variable length data:
+	// char customname[namelength]
 	uint16 attribcount;
 	// Variable length data:
 	// [SOMsgCacheSubscribed_Item_Attrib_t] * attribcount
