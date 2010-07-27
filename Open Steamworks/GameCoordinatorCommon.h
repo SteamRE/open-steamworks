@@ -62,12 +62,51 @@ typedef enum EGCMessages
 	k_EGCMsgStopPlaying,
 	k_EGCMsgStartGameserver,
 	k_EGCMsgStopGameserver,
+	k_EGCMsgWGRequest,
+
+	k_EGCMsgGetUserGameStatsSchema = 59,
+	k_EGCMsgGetUserGameStatsSchemaResponse,
+	k_EGCMsgGetUserStats,
+	k_EGCMsgGetUserStatsResponse,
+	k_EGCMsgAppInfoUpdated,
+	k_EGCMsgValidateSession,
+	k_EGCMsgValidateSessionResponse,
+	k_EGCMsgLookupAccountFromInput,
+	k_EGCMsgSendHTTPRequest,
+	k_EGCMsgSendHTTPRequestResponse,
+	k_EGCMsgPreTestSetup,
+	k_EGCMsgRecordSupportAction,
+	k_EGCMsgGetAccountDetails,
+	k_EGCMsgSendInterAppMessage,
+	k_EGCMsgReceiveInterAppMessage,
+
+	k_EGCMsgWebAPIRegisterInterfaces = 101,
+	k_EGCMsgWebAPIJobRequest,
+	k_EGCMsgWebAPIRegistrationRequested,
 
 	k_EMsgGCSetItemPosition = 1001,
 	k_EMsgGCCraft,
 	k_EMsgGCCraftResponse,
 	k_EMsgGCDelete,
 	k_EMsgGCVerifyCacheSubscription,
+	k_EMsgGCNameItem,
+	k_EMsgGCDecodeItem,
+	k_EMsgGCDecodeItemResponse,
+	k_EMsgGCPaintItem,
+	k_EMsgGCPaintItemResponse,
+	k_EMsgGCGoldenWrenchBroadcast,
+	k_EMsgGCMOTDRequest,
+	k_EMsgGCMOTDRequestResponse,
+	k_EMsgGCAddItemToSocket,
+	k_EMsgGCAddItemToSocketResponse,
+	k_EMsgGCAddSocketToBaseItem,
+	k_EMsgGCAddSocketToItem,
+	k_EMsgGCAddSocketToItemResponse,
+	k_EMsgGCNameBaseItem,
+	k_EMsgGCNameBaseItemResponse,
+	k_EMsgGCRemoveSocketItem,
+	k_EMsgGCRemoveSocketItemResponse,
+
 
 	k_EMsgGCDev_NewItemRequest = 2001,
 	k_EMsgGCDev_NewItemRequestResponse
@@ -162,6 +201,8 @@ struct SOMsgCacheSubscribed_t
 	uint32 unknown;
 	uint16 padding;
 	uint16 itemcount;
+	// Variable length data:
+	// [SOMsgCacheSubscribed_Item_t] * itemcount
 };
 
 struct SOMsgCacheSubscribed_Item_t
@@ -175,6 +216,8 @@ struct SOMsgCacheSubscribed_Item_t
 	uint32 itemcount;
 	uint16 unk1;
 	uint16 attribcount;
+	// Variable length data:
+	// [SOMsgCacheSubscribed_Item_Attrib_t] * attribcount
 };
 
 struct SOMsgCacheSubscribed_Item_Attrib_t
@@ -222,7 +265,8 @@ struct GCCraft_t
 	char garbage[16];
 	uint16 blueprint;//0xffff = unknown blueprint
 	uint16 itemcount;
-	//+ (uint64 itemid)*itemcount
+	// Variable length data:
+	// [uint64 itemid] * itemcount
 };
 
 
@@ -251,6 +295,7 @@ struct GCDelete_t
 	uint64 itemID;
 };
 
+
 /*
 0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001
 */
@@ -261,6 +306,27 @@ struct GCVerifyCacheSubscription_t
 	uint16 id;
 	char garbage[16];
 	CSteamID steamid;
+};
+
+
+/*
+0100 ffffffffffffffffffffffffffffffff 28000000 4d61783637202846522900
+0100 ffffffffffffffffffffffffffffffff 29000000 54726962697400
+0100 ffffffffffffffffffffffffffffffff 2a000000 776973686d617374657200
+0100 ffffffffffffffffffffffffffffffff 2b000000 416d616e6f6f00
+0100 ffffffffffffffffffffffffffffffff 2c000000 7c4b47437c2047617920526f62696e00
+0100 ffffffffffffffffffffffffffffffff 2d000000 416e6164757200
+0100 ffffffffffffffffffffffffffffffff 2e000000 54686520436f726e62616c6c657200
+0100 ffffffffffffffffffffffffffffffff 2f000000 69736c6100
+*/
+struct GCGoldenWrenchBroadcast_t
+{
+	enum { k_iMessage = k_EMsgGCGoldenWrenchBroadcast };
+	uint16 id;
+	char garbage[16];
+	uint32 WrenchNumber;
+	// Variable length data:
+	// char OwnerName[];
 };
 
 #pragma pack(pop)
