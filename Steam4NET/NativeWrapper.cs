@@ -16,6 +16,12 @@ namespace Steam4NET
     public abstract class NativeWrapper<TNativeFunctions> : INativeWrapper
     {
         protected IntPtr ObjectAddress;
+
+        public IntPtr Interface
+        {
+            get { return ObjectAddress; }
+        }
+
         protected TNativeFunctions Functions;
 
         public override string ToString()
@@ -25,6 +31,7 @@ namespace Steam4NET
                 typeof(TNativeFunctions),
                 this.ObjectAddress.ToInt32());
         }
+
 
         public void SetupFunctions(IntPtr objectAddress)
         {
