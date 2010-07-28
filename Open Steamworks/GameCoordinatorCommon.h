@@ -326,7 +326,8 @@ struct GCGoldenWrenchBroadcast_t
 	enum { k_iMessage = k_EMsgGCGoldenWrenchBroadcast };
 	uint16 id;
 	char garbage[16];
-	uint32 WrenchNumber;
+	uint16 WrenchNumber;
+	uint16 State; // 0 = Found, 1 = Destroyed
 	// Variable length data:
 	// char OwnerName[];
 };
