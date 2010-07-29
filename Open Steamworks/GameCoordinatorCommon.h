@@ -52,13 +52,17 @@ typedef enum EGCResults
 
 typedef enum EGCMessages
 {
+	k_EGCMsgGenericReply = 10,
+
 	k_ESOMsg_Create = 21,
 	k_ESOMsg_Update,
 	k_ESOMsg_Destroy,
 	k_ESOMsg_CacheSubscribed,
 	k_ESOMsg_CacheUnsubscribed,
 
-	k_EGCMsgStartPlaying = 53,
+	k_EGCMsgAchievementAwarded = 51,
+	k_EGCMsgConCommand,
+	k_EGCMsgStartPlaying,
 	k_EGCMsgStopPlaying,
 	k_EGCMsgStartGameserver,
 	k_EGCMsgStopGameserver,
@@ -132,11 +136,52 @@ struct GCMessageFailed_t
 
 #pragma pack(push, 1)
 
-/*
-0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 d069ea0200000000 86cf4e00 8f13 01 03 00000000 01000000 0000
-0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 cff9ea0200000000 86cf4e00 2a00 01 03 00000000 01000000 0000
-0100 ffffffffffffffffffffffffffffffff 86cf4e0001001001 01000000 8dbaf70200000000 86cf4e00 8b13 01 03 00000000 01000000 0000
-*/
+
+struct SOMsgCacheSubscribed_t
+{
+	enum { k_iMessage = k_ESOMsg_CacheSubscribed };
+
+	uint16 id;
+	char garbage[16];
+	CSteamID steamid;
+	uint32 unknown;
+	uint16 padding;
+	uint16 itemcount;
+	// Variable length data:
+	// [SOMsgCacheSubscribed_Item_t] * itemcount
+};
+
+struct SOMsgCacheSubscribed_Item_t
+{
+	uint64 itemid;
+	uint32 accountid;
+	uint16 itemdefindex;
+	uint8 itemlevel;
+	uint8 itemquality;
+	uint32 position;
+	uint32 itemcount;
+	uint16 namelength;
+	// Variable length data:
+	// char customname[namelength];
+	// uint16 attribcount;
+	// [SOMsgCacheSubscribed_Item_Attrib_t] * attribcount
+};
+
+struct SOMsgCacheSubscribed_Item_Attrib_t
+{
+	uint16 attribindex;
+	float value;
+};
+
+struct SOMsgCacheUnsubscribed_t
+{
+	enum { k_iMessage = k_ESOMsg_CacheUnsubscribed };
+
+	uint16 id;
+	char garbage[16];
+	CSteamID steamid;
+};
+
 struct SOMsgCreate_t
 {
 	enum { k_iMessage = k_ESOMsg_Create };
@@ -144,16 +189,7 @@ struct SOMsgCreate_t
 	char garbage[16];
 	CSteamID steamid;
 	uint32 unknown;
-	
-	//Same as SOMsgCacheSubscribed_Item_t
-	uint64 itemid;
-	uint32 accountid;
-	uint16 itemtype;
-	uint8 itemlevel;
-	uint8 itemquality;
-	uint32 position;
-	uint32 itemcount;
-	uint16 attribcount;
+	SOMsgCacheSubscribed_Item_t item;
 };
 
 /*
@@ -190,54 +226,6 @@ struct SOMsgDeleted_t
 	uint32 unk1;
 	uint64 itemid;
 };
-
-struct SOMsgCacheSubscribed_t
-{
-	enum { k_iMessage = k_ESOMsg_CacheSubscribed };
-
-	uint16 id;
-	char garbage[16];
-	CSteamID steamid;
-	uint32 unknown;
-	uint16 padding;
-	uint16 itemcount;
-	// Variable length data:
-	// [SOMsgCacheSubscribed_Item_t] * itemcount
-};
-
-struct SOMsgCacheSubscribed_Item_t
-{
-	uint64 itemid;
-	uint32 accountid;
-	uint16 itemdefindex;
-	uint8 itemlevel;
-	uint8 itemquality;
-	uint32 position;
-	uint32 itemcount;
-	uint16 namelength;
-	// Variable length data:
-	// char customname[namelength]
-	uint16 attribcount;
-	// Variable length data:
-	// [SOMsgCacheSubscribed_Item_Attrib_t] * attribcount
-};
-
-struct SOMsgCacheSubscribed_Item_Attrib_t
-{
-	uint16 attribindex;
-	float value;
-};
-
-
-struct SOMsgCacheUnsubscribed_t
-{
-	enum { k_iMessage = k_ESOMsg_CacheUnsubscribed };
-
-	uint16 id;
-	char garbage[16];
-	CSteamID steamid;
-};
-
 
 /*
 0100 ffffffffffffffffffffffffffffffff 76f0da0200000000 0f000080 00000000
