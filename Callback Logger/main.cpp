@@ -43,8 +43,8 @@ int main()
 			int32 callBack = callbackMsg.m_iCallback;
 			ECallbackType type = ( ECallbackType )( ( callBack / 100 ) * 100 );
 			
-			cout << "Callback: " << callBack << ", Type: " << EnumString<ECallbackType>::From( type ) << ", Size: " << callbackMsg.m_cubParam << endl << "  ";
-			logFile << "Callback: " << callBack << ", Type: " << EnumString<ECallbackType>::From( type ) << ", Size: " << callbackMsg.m_cubParam << endl << "  ";
+			cout << "Callback: " << callBack << ", Type: " << type << ", Size: " << callbackMsg.m_cubParam << endl << "  ";
+			logFile << "Callback: " << callBack << ", Type: " << type << ", Size: " << callbackMsg.m_cubParam << endl << "  ";
 			
 			for ( int i = 0; i < callbackMsg.m_cubParam; i++ )
 			{
