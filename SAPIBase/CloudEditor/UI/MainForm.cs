@@ -23,7 +23,7 @@ namespace CloudEditor
 
             this.Icon = Icon.FromHandle( Properties.Resources.weather_clouds.GetHicon() );
 
-            this.Text = string.Format( "Cloud Editor - [{0}/{1}]", Steam.GetAppData( ( uint )appId, "name" ), appId );
+            this.Text = string.Format( "Cloud Editor - [ {0} / AppID {1} ]", Steam.GetAppData( ( uint )appId, "name" ), appId );
 
             if ( !Cloud.IsEnabled() )
             {
