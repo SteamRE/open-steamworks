@@ -115,7 +115,7 @@ public:
 	virtual SteamCallHandle_t StartLoadingCache(unsigned int uAppId, TSteamError *pError) = 0;
 	virtual int InsertAppDependency(unsigned int uAppId, unsigned int uFileSystemIndex, TSteamAppDependencyInfo *pDependencyInfo, TSteamError *pError) = 0;
 	virtual int RemoveAppDependency(unsigned int uAppId, unsigned int uFileSystemIndex, TSteamError *pError) = 0;
-	virtual int FindApp(const string_t* cszArg1, unsigned int* puArg2, TSteamError *pError) = 0;
+	virtual int FindApp(const string_t* cszArg1, unsigned int *, TSteamError *pError) = 0;
 	virtual int GetAppDependencies(unsigned int uAppId, unsigned int* puDependecies, unsigned int uBufferLength, TSteamError *pError) = 0;
 	virtual int IsSubscribed(unsigned int uSubscriptionId, int *pbIsSubscribed, int *pReserved, TSteamError *pError) = 0;
 	virtual int GetAppUserDefinedInfo(unsigned int uAppId, const char *cszPropertyName, char *szPropertyValue, unsigned int uBufSize, unsigned int *puPropertyValueLength, TSteamError *pError) = 0;
@@ -169,7 +169,7 @@ public:
 	virtual int IsFileNeededByApp(unsigned int uAppId, const string_t* cszFileName, unsigned int uArg1, unsigned int* puArg2, TSteamError* pError) = 0;
 	virtual SteamCallHandle_t WaitForAppResources(unsigned int uAppId, const string_t* cszMasterList, TSteamError* pError) = 0;
 	virtual int ForceCellId(unsigned int uCellId, TSteamError* pError) = 0;
-	virtual unknown_ret GetAppDLCStatus( unsigned int a1, unsigned int a2, int *a3, TSteamError *pError ) = 0;
+	virtual int GetAppDLCStatus( unsigned int nAppID, unsigned int nDlcId, int *pbOwned, TSteamError *pError ) = 0;
 	virtual unknown_ret StartEngineEx( TSteamError *pError, bool a1, bool a2 ) = 0;
 };
 
