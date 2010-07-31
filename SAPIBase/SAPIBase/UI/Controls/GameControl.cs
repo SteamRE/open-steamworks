@@ -82,10 +82,13 @@ namespace SAPIBase
 
             if ( iconImage == null )
             {
-                Font gameFont = new Font( "Tahoma", 8 );
-                SizeF size = gfx.MeasureString( GameName + "\n" + AppID, gameFont );
+                string appName = Steam.GetAppData( AppID, "name" );
+                string displayText = string.Format( "{0}\n{1}\nAppID: {2}", GameName, appName, AppID );
 
-                gfx.DrawString( GameName + "\n" + AppID, gameFont, Brushes.Black, new PointF( 5, ( this.Height / 2.0f ) - ( size.Height / 2.0f ) ) );
+                Font gameFont = new Font( "Tahoma", 8 );
+                SizeF size = gfx.MeasureString( displayText, gameFont );
+
+                gfx.DrawString( displayText, gameFont, Brushes.Black, new PointF( 5, ( this.Height / 2.0f ) - ( size.Height / 2.0f ) ) );
             }
             else
             {

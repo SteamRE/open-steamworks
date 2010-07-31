@@ -54,6 +54,9 @@ namespace SAPIBase
                 TryLoadAddIn( addinFile );
             }
 
+            if ( loadedAddins.Count == 0 )
+                DebugLog.AppendText( "Warning: 0 AddIns loaded!" );
+
             DebugLog.AppendText( "Done!{0}", Environment.NewLine );
         }
 

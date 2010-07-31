@@ -21,6 +21,8 @@ namespace SAPIBase
 
             InitializeComponent();
 
+            this.Icon = Icon.FromHandle( Properties.Resources.world.GetHicon() );
+
             SetStatus( "Loading Addins..." );
 
             addInManager.LoadAddIns( Application.StartupPath );
@@ -56,7 +58,6 @@ namespace SAPIBase
 
             Steam.App[] apps = Steam.GetSubscribedApps( ( app ) =>
                 {
-                    Application.DoEvents();
 
                     // hide anything that isn't an installable game
                     if ( Settings.HideNonInstallable && Steam.GetAppData( app.uId, "gamedir" ) == "" )
@@ -110,8 +111,6 @@ namespace SAPIBase
                 gc.RequestIcon();
 
                 gamePanel.Controls.Add( gc );
-
-                Application.DoEvents();
             }
 
             gamePanel.ResumeLayout();
@@ -204,6 +203,7 @@ namespace SAPIBase
 
         private void aboutToolStripMenuItem_Click( object sender, EventArgs e )
         {
+            // todo: show about window
         }
     }
 }

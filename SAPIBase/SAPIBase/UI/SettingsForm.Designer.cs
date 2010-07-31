@@ -48,22 +48,28 @@
             // 
             this.okButton.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point( 240, 216 );
+            this.okButton.Image = global::SAPIBase.Properties.Resources.accept;
+            this.okButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.okButton.Location = new System.Drawing.Point( 237, 216 );
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size( 75, 23 );
             this.okButton.TabIndex = 1;
-            this.okButton.Text = "OK";
+            this.okButton.Text = "Ok";
+            this.okButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.okButton.UseVisualStyleBackColor = true;
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point( 6, 216 );
+            this.cancelButton.Image = global::SAPIBase.Properties.Resources.cancel;
+            this.cancelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cancelButton.Location = new System.Drawing.Point( 9, 216 );
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size( 75, 23 );
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "Cancel";
+            this.cancelButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
             // groupBox1

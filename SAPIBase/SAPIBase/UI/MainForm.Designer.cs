@@ -32,18 +32,18 @@
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.gamePanel = new SAPIBase.GamePanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.steamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gameContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gamePanel = new SAPIBase.GamePanel();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -87,9 +87,20 @@
             // 
             // statusLabel
             // 
+            this.statusLabel.Image = global::SAPIBase.Properties.Resources.information;
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size( 74, 17 );
+            this.statusLabel.Size = new System.Drawing.Size( 90, 17 );
             this.statusLabel.Text = "Status: None";
+            // 
+            // gamePanel
+            // 
+            this.gamePanel.AutoScroll = true;
+            this.gamePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.gamePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gamePanel.Location = new System.Drawing.Point( 0, 0 );
+            this.gamePanel.Name = "gamePanel";
+            this.gamePanel.Size = new System.Drawing.Size( 607, 290 );
+            this.gamePanel.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -113,13 +124,6 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size( 37, 20 );
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler( this.exitToolStripMenuItem_Click );
-            // 
             // gameToolStripMenuItem
             // 
             this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
@@ -138,12 +142,10 @@
             this.steamToolStripMenuItem.Size = new System.Drawing.Size( 52, 20 );
             this.steamToolStripMenuItem.Text = "&Steam";
             // 
-            // refreshGamesToolStripMenuItem
+            // toolStripMenuItem4
             // 
-            this.refreshGamesToolStripMenuItem.Name = "refreshGamesToolStripMenuItem";
-            this.refreshGamesToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
-            this.refreshGamesToolStripMenuItem.Text = "&Refresh Games";
-            this.refreshGamesToolStripMenuItem.Click += new System.EventHandler( this.refreshGamesToolStripMenuItem_Click );
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size( 149, 6 );
             // 
             // helpToolStripMenuItem
             // 
@@ -153,40 +155,43 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size( 44, 20 );
             this.helpToolStripMenuItem.Text = "&Help";
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
-            this.aboutToolStripMenuItem.Text = "&About...";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
-            // 
             // gameContextMenu
             // 
             this.gameContextMenu.Name = "gameContextMenu";
-            this.gameContextMenu.Size = new System.Drawing.Size( 153, 26 );
+            this.gameContextMenu.Size = new System.Drawing.Size( 61, 4 );
             this.gameContextMenu.Opening += new System.ComponentModel.CancelEventHandler( this.gameContextMenu_Opening );
             // 
-            // toolStripMenuItem4
+            // exitToolStripMenuItem
             // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size( 149, 6 );
+            this.exitToolStripMenuItem.Image = global::SAPIBase.Properties.Resources.cross;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size( 92, 22 );
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler( this.exitToolStripMenuItem_Click );
+            // 
+            // refreshGamesToolStripMenuItem
+            // 
+            this.refreshGamesToolStripMenuItem.Image = global::SAPIBase.Properties.Resources.arrow_refresh;
+            this.refreshGamesToolStripMenuItem.Name = "refreshGamesToolStripMenuItem";
+            this.refreshGamesToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.refreshGamesToolStripMenuItem.Text = "&Refresh Games";
+            this.refreshGamesToolStripMenuItem.Click += new System.EventHandler( this.refreshGamesToolStripMenuItem_Click );
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.Image = global::SAPIBase.Properties.Resources.script;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler( this.settingsToolStripMenuItem_Click );
             // 
-            // gamePanel
+            // aboutToolStripMenuItem
             // 
-            this.gamePanel.AutoScroll = true;
-            this.gamePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.gamePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gamePanel.Location = new System.Drawing.Point( 0, 0 );
-            this.gamePanel.Name = "gamePanel";
-            this.gamePanel.Size = new System.Drawing.Size( 607, 290 );
-            this.gamePanel.TabIndex = 0;
+            this.aboutToolStripMenuItem.Image = global::SAPIBase.Properties.Resources.help;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 116, 22 );
+            this.aboutToolStripMenuItem.Text = "&About...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
             // 
             // MainForm
             // 

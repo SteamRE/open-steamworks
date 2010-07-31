@@ -13,6 +13,8 @@ namespace SAPIBase
         public DebugForm()
         {
             InitializeComponent();
+
+            this.Icon = Icon.FromHandle( Properties.Resources.world.GetHicon() );
         }
 
         protected override void OnFormClosing( FormClosingEventArgs e )

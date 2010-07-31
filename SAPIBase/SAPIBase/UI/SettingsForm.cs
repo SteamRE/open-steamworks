@@ -16,6 +16,8 @@ namespace SAPIBase
         {
             InitializeComponent();
 
+            this.Icon = Icon.FromHandle( Properties.Resources.world.GetHicon() );
+
             PropertyInfo[] props = typeof( Settings ).GetProperties( BindingFlags.Public | BindingFlags.Static );
 
             foreach ( PropertyInfo pi in props )
