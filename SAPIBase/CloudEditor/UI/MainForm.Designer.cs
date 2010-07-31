@@ -201,7 +201,7 @@
             // 
             this.aboutToolStripMenuItem.Image = global::CloudEditor.Properties.Resources.help;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 107, 22 );
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
             // 
@@ -217,25 +217,25 @@
             this.toolStripMenuItem3,
             this.deleteToolStripMenuItem} );
             this.fileMenuStrip.Name = "contextMenuStrip1";
-            this.fileMenuStrip.Size = new System.Drawing.Size( 125, 132 );
+            this.fileMenuStrip.Size = new System.Drawing.Size( 153, 154 );
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Enabled = false;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size( 124, 22 );
+            this.toolStripMenuItem2.Size = new System.Drawing.Size( 152, 22 );
             this.toolStripMenuItem2.Text = "[]";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size( 121, 6 );
+            this.toolStripMenuItem1.Size = new System.Drawing.Size( 149, 6 );
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Image = global::CloudEditor.Properties.Resources.drive_disk;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size( 124, 22 );
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.saveToolStripMenuItem.Text = "Save...";
             this.saveToolStripMenuItem.Click += new System.EventHandler( this.saveToolStripMenuItem_Click );
             // 
@@ -243,33 +243,34 @@
             // 
             this.replaceToolStripMenuItem.Image = global::CloudEditor.Properties.Resources.arrow_up;
             this.replaceToolStripMenuItem.Name = "replaceToolStripMenuItem";
-            this.replaceToolStripMenuItem.Size = new System.Drawing.Size( 124, 22 );
+            this.replaceToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.replaceToolStripMenuItem.Text = "Replace...";
+            this.replaceToolStripMenuItem.Click += new System.EventHandler( this.replaceToolStripMenuItem_Click );
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size( 121, 6 );
+            this.toolStripMenuItem4.Size = new System.Drawing.Size( 149, 6 );
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = global::CloudEditor.Properties.Resources.table_edit;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size( 124, 22 );
+            this.editToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler( this.editToolStripMenuItem_Click );
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size( 121, 6 );
+            this.toolStripMenuItem3.Size = new System.Drawing.Size( 149, 6 );
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Enabled = false;
             this.deleteToolStripMenuItem.Image = global::CloudEditor.Properties.Resources.delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size( 124, 22 );
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler( this.deleteToolStripMenuItem_Click );
             // 

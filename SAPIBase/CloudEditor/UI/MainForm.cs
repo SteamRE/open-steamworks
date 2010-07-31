@@ -118,8 +118,10 @@ namespace CloudEditor
             sfd.DefaultExt = Path.GetExtension( fileName );
             sfd.OverwritePrompt = true;
             sfd.SupportMultiDottedExtensions = true;
-            sfd.Filter = string.Format( "{0} files (*{0})|*{0}|All files (*.*)|*.*", sfd.DefaultExt );
+            sfd.FileName = Path.GetFileName( fileName );
+            sfd.Filter = string.Format( "{0} Files (*.{0})|*.{0}|All Files (*.*)|*.*", sfd.DefaultExt );
             sfd.Title = string.Format( "Save \"{0}\"...", fileName );
+            sfd.ValidateNames = true;
 
             if ( sfd.ShowDialog() != DialogResult.OK )
                 return;
@@ -148,6 +150,50 @@ namespace CloudEditor
             }
 
             DebugLog.AppendText( "Done!{0}", Environment.NewLine );
+        }
+        void ReplaceFile( string fileName )
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.CheckFileExists = true;
+            ofd.CheckPathExists = true;
+            ofd.DefaultExt = Path.GetExtension( fileName );
+            ofd.Filter = string.Format( "{0} Files (*.{0})|*.{0}|All Files (*.*)|*.*", ofd.DefaultExt );
+            ofd.Multiselect = false;
+            ofd.SupportMultiDottedExtensions = true;
+            ofd.Title = string.Format( "Replace \"{0}\"...", fileName );
+            ofd.ValidateNames = true;
+
+            if ( ofd.ShowDialog() != DialogResult.OK )
+                return;
+
+            byte[] data = null;
+
+            DebugLog.AppendText( "Reading Local File..." );
+
+            try
+            {
+                data = File.ReadAllBytes( ofd.FileName );
+            }
+            catch ( Exception ex )
+            {
+                DebugLog.AppendText( "Failed: {1}{0}", ex.Message, Environment.NewLine );
+                return;
+            }
+
+            DebugLog.AppendText( "Done!{0}", Environment.NewLine );
+
+
+            DebugLog.AppendText( "Cloud - Writing File..." );
+
+            if ( !Cloud.WriteFile( fileName, data ) )
+            {
+                DebugLog.AppendText( "Failed!{0}", Environment.NewLine );
+                return;
+            }
+
+            DebugLog.AppendText( "Done!{0}", Environment.NewLine );
+
+            RefreshFiles();
         }
 
         private void fileList_MouseClick( object sender, MouseEventArgs e )
@@ -182,6 +228,15 @@ namespace CloudEditor
 
             SaveFile( lvi.FileName );
         }
+        private void replaceToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            if ( fileList.SelectedItems.Count == 0 )
+                return;
+
+            FileListViewItem lvi = fileList.SelectedItems[ 0 ] as FileListViewItem;
+
+            ReplaceFile( lvi.FileName );
+        }
         private void editToolStripMenuItem_Click( object sender, EventArgs e )
         {
             if ( fileList.SelectedItems.Count == 0 )
@@ -211,7 +266,5 @@ namespace CloudEditor
         {
             new AboutForm().ShowDialog( this );
         }
-
-
     }
 }
