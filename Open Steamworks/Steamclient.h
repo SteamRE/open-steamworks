@@ -75,6 +75,7 @@
 #include "ISteamUser011.h"
 #include "ISteamUser012.h"
 #include "ISteamUser013.h"
+#include "ISteamUser014.h"
 
 // user items
 #include "ISteamUserItems001.h"

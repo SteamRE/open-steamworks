@@ -574,6 +574,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamUser014.h"
+						>
+					</File>
+					<File
 						RelativePath=".\UserCommon.h"
 						>
 					</File>
