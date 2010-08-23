@@ -61,6 +61,8 @@
 #include "ISteamFriends003.h"
 #include "ISteamFriends004.h"
 #include "ISteamFriends005.h"
+#include "ISteamFriends006.h"
+#include "ISteamFriends007.h"
 
 // user
 #include "ISteamUser004.h"

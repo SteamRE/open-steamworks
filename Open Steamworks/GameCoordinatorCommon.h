@@ -350,9 +350,9 @@ struct GCMOTDRequestResponse_t
 
 struct GCMOTDRequestResponse_News_t
 {
-	uint16 id;
-	uint32 timestamp;
 	// Variable length data:
+	// char id[];
+	// uint32 timestamp;
 	// char Title[];
 	// char Content[];
 	// char URL[];

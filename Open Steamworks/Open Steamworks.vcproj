@@ -353,6 +353,14 @@
 						RelativePath=".\ISteamFriends005.h"
 						>
 					</File>
+					<File
+						RelativePath=".\ISteamFriends006.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamFriends007.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="ISteamGameServer"
