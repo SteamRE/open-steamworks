@@ -23,7 +23,6 @@
 #include "SteamTypes.h"
 #include "RemoteStorageCommon.h"
 
-
 class UNSAFE_INTERFACE IClientRemoteStorage
 {
 public:
@@ -34,18 +33,21 @@ public:
 	virtual int FileRead( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, void *pvData, int cubDataToRead ) = 0;
 	virtual bool FileExists( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
-	virtual int32 GetFileCount( AppId_t nAppId ) = 0;
-	virtual const char *GetFileNameAndSize( AppId_t nAppId, int iFile, int *pnFileSizeInBytes ) = 0;
+	virtual int32 GetFileCount( AppId_t nAppId, bool bUnk1 ) = 0;
+	virtual const char *GetFileNameAndSize( AppId_t nAppId, int iFile, int *pnFileSizeInBytes, int iUnk2 ,bool bUnk1 ) = 0;
 
 	virtual bool GetQuota( AppId_t nAppId, int32 *pnTotalBytes, int32 *pnAvailableBytes ) = 0;
+	
+	virtual bool IsCloudEnabledForAccount();
+	virtual bool IsCloudEnabledForApp( AppId_t nAppId );
+	virtual bool SetCloudEnabledForApp( AppId_t nAppId, bool bEnable );
 
 	virtual unknown_ret FilePersist( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 	virtual unknown_ret FileForget( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
 	virtual unknown_ret ResolvePath( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *, char *, uint32 ) = 0;
 
-	virtual unknown_ret GetFileCountEx( AppId_t nAppId ) = 0;
-	virtual unknown_ret GetFileNameAndSizeEx( AppId_t nAppId, int, ERemoteStorageFileRoot *, int * ) = 0;
+	virtual bool SetCloudEnabledForAccount( bool bEnable);
 
 	virtual unknown_ret LoadLocalFileInfoCache( AppId_t nAppId ) = 0;
 

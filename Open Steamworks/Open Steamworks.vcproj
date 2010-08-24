@@ -215,6 +215,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\IClientNetworking.h"
+					>
+				</File>
+				<File
 					RelativePath=".\IClientRemoteStorage.h"
 					>
 				</File>

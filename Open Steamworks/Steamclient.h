@@ -182,6 +182,7 @@
 #include "IClientGameServer.h"
 #include "IClientGameStats.h"
 #include "IClientMatchmaking.h"
+#include "IClientNetworking.h"
 #include "IClientRemoteStorage.h"
 #include "IClientUser.h"
 #include "IClientUserStats.h"
