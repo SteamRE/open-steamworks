@@ -510,6 +510,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamNetworking004.h"
+						>
+					</File>
+					<File
 						RelativePath=".\NetworkingCommon.h"
 						>
 					</File>

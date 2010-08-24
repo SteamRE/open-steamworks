@@ -136,6 +136,7 @@
 #include "ISteamNetworking001.h"
 #include "ISteamNetworking002.h"
 #include "ISteamNetworking003.h"
+#include "ISteamNetworking004.h"
 
 // billing
 #include "ISteamBilling001.h"
