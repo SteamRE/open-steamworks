@@ -31,6 +31,7 @@ public:
 	virtual HSteamUser GetHSteamUser() = 0;
 
 	virtual void LogOn( CSteamID steamID ) = 0;
+	virtual void LogOnWithPassword( const char * pchLogin, const char * pchPassword ) = 0;
 	virtual void LogOff() = 0;
 	virtual bool LoggedOn() = 0;
 	virtual ELogonState GetLogonState() = 0;
@@ -199,6 +200,11 @@ public:
 
 	virtual int IsUserSubscribedAppInTicket( CSteamID steamID, AppId_t appID ) = 0;
 
+	virtual bool AdvertiseGame( CGameID gameID, CSteamID steamIDGameServer, uint32 unIPServer , uint16 usPortServer ) = 0;
+
+	virtual unknown_ret RequestEncryptedAppTicket(...) = 0;
+	virtual unknown_ret GetEncryptedAppTicket(...) = 0;
+
 	virtual void SetAccountLimited( bool bAccountLimited ) = 0;
 	virtual bool IsAccountLimited() = 0;
 
@@ -222,6 +228,8 @@ public:
 	virtual bool SupportUser() = 0;
 
 	virtual bool IsAppOverlayEnabled( uint32 ) = 0;
+
+	virtual bool IsBehindNAT() = 0;
 
 	virtual AppId_t GetMicroTxnAppID( uint64 ) = 0;
 	virtual unknown_ret GetMicroTxnOrderID( uint64 ) = 0;
