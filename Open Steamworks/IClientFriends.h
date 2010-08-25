@@ -56,7 +56,10 @@ public:
 	virtual void SetFriendAlias( CSteamID steamIDFriend, const char *pchAlias ) = 0;
 
 	// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
-	virtual int GetFriendAvatar( CSteamID steamIDFriend, EAvatarSize eAvatarSize ) = 0;
+	virtual int GetSmallFriendAvatar( CSteamID steamIDFriend ) = 0;
+	virtual int GetMediumFriendAvatar( CSteamID steamIDFriend ) = 0;
+	virtual int GetLargeFriendAvatar( CSteamID steamIDFriend ) = 0;
+
 
 	// steam registry, accessed by friend
 	virtual void SetFriendRegValue( CSteamID steamIDFriend, const char *pchKey, const char *pchValue ) = 0;
@@ -109,12 +112,15 @@ public:
 	virtual CSteamID GetClanByIndex( int iClan ) = 0;
 
 	virtual const char *GetClanName( CSteamID steamID ) = 0;
+	virtual const char *GetClanTag( CSteamID steamID ) = 0;
 
 	virtual bool GetFriendActivityCounts( int *a, int *b) = 0;
 	virtual bool GetClanActivityCounts( CSteamID steamID, int *pnOnline, int *pnInGame, int *pnChatting ) = 0;
 
 	virtual bool IsClanPublic( CSteamID steamID ) = 0;
 	virtual bool IsClanLarge( CSteamID steamID ) = 0;
+
+	virtual unknown_ret SubscribeToPersonaStateFeed( CSteamID, bool ) = 0;
 
 	virtual bool InviteFriendToClan( CSteamID steamIDfriend, CSteamID steamIDclan ) = 0;
 	virtual bool AcknowledgeInviteToClan( CSteamID steamID, bool bAcceptOrDenyClanInvite ) = 0;
@@ -273,6 +279,7 @@ public:
 	virtual void ActivateGameOverlayToUser( const char *pchDialog, CSteamID steamID ) = 0;
 	virtual void ActivateGameOverlayToWebPage( const char *pchUrl ) = 0;
 	virtual void ActivateGameOverlayToStore( AppId_t nAppId ) = 0;
+	virtual void ActivateGameOverlayInviteDialog( CSteamID steamIDLobby ) = 0;
 
 	virtual void NotifyGameOverlayStateChanged( bool bActive ) = 0;
 	virtual void NotifyGameServerChangeRequested( const char *pchServerAddress, const char *pchPassword ) = 0;
@@ -294,7 +301,7 @@ public:
 	virtual uint32 GetCountFriendsWhoPlayGame( CGameID gameId ) = 0;
 
 	virtual CSteamID GetFriendWhoPlaysGame( uint32 , CGameID gameId ) = 0;
-	virtual unknown_ret SetPlayedWith( CSteamID steamId ) = 0;
+	virtual void SetPlayedWith( CSteamID steamId ) = 0;
 
 };
 
