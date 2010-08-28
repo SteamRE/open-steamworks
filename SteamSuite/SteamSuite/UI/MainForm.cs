@@ -76,22 +76,7 @@ namespace SteamSuite
                 friendsList.Items.Add( friend );
             }
 
-            for ( int x = 0 ; x < context.ClientFriends.GetChatRoomCount() ; ++x )
-            {
-                Group group = new Group();
-
-                CSteamID steamId = context.ClientFriends.GetChatRoomByIndex( x );
-                string groupName = context.ClientFriends.GetChatRoomName( steamId );
-
-                group.SteamID = steamId;
-                group.GroupName = groupName;
-
-                groupList.Items.Add( group );
-                
-            }
-
             friendsList.Sorted = true;
-            groupList.Sorted = true;
         }
 
         void PersonaStateChange( PersonaStateChange_t obj )
@@ -128,26 +113,6 @@ namespace SteamSuite
             context.SteamFriends.SetPersonaState( ( EPersonaState )( cmbState.SelectedIndex - 2 ) );
         }
 
-        private void groupList_DoubleClick( object sender, EventArgs e )
-        {
-            if ( groupList.SelectedItem == null )
-                return;
-
-            Group groupObj = ( Group )groupList.SelectedItem;
-
-            foreach ( GroupForm groupForm in this.OwnedForms )
-            {
-                if ( groupForm.Group.SteamID == groupObj.SteamID )
-                {
-                    groupForm.Focus();
-                    return;
-                }
-            }
-
-            GroupForm gf = new GroupForm( context, groupObj );
-
-            gf.Show( this );
-        }
 
         private void friendsList_DoubleClick( object sender, EventArgs e )
         {
@@ -171,10 +136,6 @@ namespace SteamSuite
             mf.Show( this );
         }
 
-        void GroupChatMsg_OnRun( GroupChatMsg_t param )
-        {
-            
-        }
 
         void FriendChatMsg_OnRun( FriendChatMsg_t param )
         {
@@ -346,7 +307,6 @@ namespace SteamSuite
         private void MainForm_Shown( object sender, EventArgs e )
         {
             context.FriendChatMsg.OnRun += new Callback<FriendChatMsg_t>.DispatchDelegate( FriendChatMsg_OnRun );
-            context.GroupChatMsg.OnRun += new Callback<GroupChatMsg_t>.DispatchDelegate( GroupChatMsg_OnRun );
 
             ICallback psc = new Callback<PersonaStateChange_t>( PersonaStateChange, PersonaStateChange_t.k_iCallback );
             CallbackUnhandled unhandled = new CallbackUnhandled( UnhandledCallback );

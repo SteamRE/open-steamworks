@@ -8,18 +8,15 @@ namespace SteamSuite
     public class SteamContext
     {
         public ISteamClient008 SteamClient { get; set; }
-        public IClientEngine ClientEngine { get; set; }
 
         public int Pipe { get; set; }
         public int User { get; set; }
 
         public ISteamFriends002 SteamFriends { get; set; }
-        public IClientFriends ClientFriends { get; set; }
 
         public ISteamUser013 SteamUser { get; set; }
 
         public Callback<FriendChatMsg_t> FriendChatMsg = new Callback<FriendChatMsg_t>( FriendChatMsg_t.k_iCallback );
-        public Callback<GroupChatMsg_t> GroupChatMsg = new Callback<GroupChatMsg_t>( GroupChatMsg_t.k_iCallback );
 
 
         public SteamContext()
@@ -35,10 +32,6 @@ namespace SteamSuite
             if ( SteamClient == null )
                 return false;
 
-            ClientEngine = Steamworks.CreateInterface<IClientEngine>( "CLIENTENGINE_INTERFACE_VERSION001" );
-            if ( ClientEngine == null )
-                return false;
-
 
             Pipe = SteamClient.CreateSteamPipe();
             if ( Pipe == 0 )
@@ -51,10 +44,6 @@ namespace SteamSuite
 
             SteamFriends = Steamworks.CastInterface<ISteamFriends002>( SteamClient.GetISteamFriends( User, Pipe, "SteamFriends002" ) );
             if ( SteamFriends == null )
-                return false;
-
-            ClientFriends = Steamworks.CastInterface<IClientFriends>( ClientEngine.GetIClientFriends( User, Pipe, "CLIENTFRIENDS_INTERFACE_VERSION001" ) );
-            if ( ClientFriends == null )
                 return false;
 
 

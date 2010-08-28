@@ -36,17 +36,6 @@ namespace SteamSuite
                 else
                     e.Graphics.DrawString( friendObj.PersonaName, e.Font, new SolidBrush( Color.Green ), e.Bounds );
             }
-            else if ( Items[ e.Index ] is Group )
-            {
-                Group groupObj = ( Group )Items[ e.Index ];
-
-                this.DrawMode = DrawMode.OwnerDrawFixed;
-
-                e.DrawBackground();
-                e.DrawFocusRectangle();
-
-                e.Graphics.DrawString( groupObj.GroupName, e.Font, new SolidBrush( e.ForeColor ), e.Bounds );
-            }
         }
     }
 }
