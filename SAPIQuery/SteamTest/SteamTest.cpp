@@ -11,7 +11,7 @@
 
 int main(int argc, char* argv[])
 {
-	SetEnvironmentVariableA("SteamAppId", "7");
+	SetEnvironmentVariableA("SteamAppId", "440");
 
 	if (!SteamAPI_Init())
 	{
