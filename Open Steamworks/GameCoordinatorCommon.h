@@ -67,8 +67,8 @@ typedef enum EGCMessages
 	k_EGCMsgStartGameserver,
 	k_EGCMsgStopGameserver,
 	k_EGCMsgWGRequest,
-
-	k_EGCMsgGetUserGameStatsSchema = 59,
+	k_EGCMsgWGResponse,
+	k_EGCMsgGetUserGameStatsSchema,
 	k_EGCMsgGetUserGameStatsSchemaResponse,
 	k_EGCMsgGetUserStats,
 	k_EGCMsgGetUserStatsResponse,
@@ -83,6 +83,7 @@ typedef enum EGCMessages
 	k_EGCMsgGetAccountDetails,
 	k_EGCMsgSendInterAppMessage,
 	k_EGCMsgReceiveInterAppMessage,
+	k_EGCMsgFindAccounts,
 
 	k_EGCMsgWebAPIRegisterInterfaces = 101,
 	k_EGCMsgWebAPIJobRequest,
@@ -110,7 +111,29 @@ typedef enum EGCMessages
 	k_EMsgGCNameBaseItemResponse,
 	k_EMsgGCRemoveSocketItem,
 	k_EMsgGCRemoveSocketItemResponse,
+	k_EMsgGCCustomizeItemTexture,
+	k_EMsgGCCustomizeItemTextureResponse,
+	k_EMsgGCUseItemRequest,
+	k_EMsgGCUseItemResponse,
+	k_EMsgGCGiftedItems,
+	k_EMsgGCSpawnItem,
+	k_EMsgGCRespawnPostLoadoutChange,
 
+	k_EMsgGCTrading_InitiateTradeRequest = 1501,
+	k_EMsgGCTrading_InitiateTradeResponse,
+	k_EMsgGCTrading_StartSession,
+	k_EMsgGCTrading_SetItem,
+	k_EMsgGCTrading_RemoveItem,
+	k_EMsgGCTrading_UpdateTradeInfo,
+	k_EMsgGCTrading_SetReadiness,
+	k_EMsgGCTrading_ReadinessResponse,
+	k_EMsgGCTrading_SessionClosed,
+	k_EMsgGCTrading_CancelSession,
+	k_EMsgGCTrading_TradeChatMsg,
+	k_EMsgGCTrading_ConfirmOffer,
+
+	k_EMsgGCServerBrowser_FavoriteServer = 1601,
+	k_EMsgGCServerBrowser_BlacklistServer,
 
 	k_EMsgGCDev_NewItemRequest = 2001,
 	k_EMsgGCDev_NewItemRequestResponse
