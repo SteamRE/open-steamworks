@@ -30,11 +30,11 @@ class UNSAFE_INTERFACE IClientConfigStore
 public:
 	virtual bool IsSet( EConfigStore eConfigStore, const char *keyName ) = 0;
 
-	virtual bool GetBool( EConfigStore eConfigStore, const char *keyName, bool defaultValue = false ) = 0;
-	virtual int GetInt( EConfigStore eConfigStore, const char *keyName, int defaultValue = 0 ) = 0;
-	virtual uint64 GetUint64( EConfigStore eConfigStore, const char *keyName, uint64 defaultValue = 0 ) = 0;
-	virtual float GetFloat( EConfigStore eConfigStore, const char *keyName, float defaultValue = 0.0f ) = 0;
-	virtual const char* GetString( EConfigStore eConfigStore, const char *keyName, const char *defaultValue = "" ) = 0;
+	virtual bool GetBool( EConfigStore eConfigStore, const char *keyName, bool defaultValue ) = 0;
+	virtual int GetInt( EConfigStore eConfigStore, const char *keyName, int defaultValue ) = 0;
+	virtual uint64 GetUint64( EConfigStore eConfigStore, const char *keyName, uint64 defaultValue ) = 0;
+	virtual float GetFloat( EConfigStore eConfigStore, const char *keyName, float defaultValue ) = 0;
+	virtual const char* GetString( EConfigStore eConfigStore, const char *keyName, const char *defaultValue ) = 0;
 	virtual bool GetBinary( EConfigStore eConfigStore, const char *keyName, uint8 *pBuffer, uint32 uSize ) = 0;
 	virtual bool GetBinaryWatermarked( EConfigStore eConfigStore, const char *keyName, uint8 *pBuffer, uint32 uSize ) = 0;
 
