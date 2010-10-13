@@ -186,6 +186,8 @@ public:
 	virtual uint32 GetAppOwnershipTicketLength( uint32 nAppID ) = 0;
 	virtual uint32 GetAppOwnershipTicketData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
 
+	virtual unknown_ret GetAppOwnershipTicketExtendedData( /* ... */ ) = 0;
+
 	virtual bool GetAppDecryptionKey( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
 
 	virtual int GetMarketingMessageCount() = 0;
