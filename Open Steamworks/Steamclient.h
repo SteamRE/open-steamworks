@@ -168,6 +168,9 @@
 // game stats
 #include "ISteamGameStats001.h"
 
+// app ticket
+#include "ISteamAppTicket001.h"
+
 #ifndef NO_ICLIENT
 // client interfaces
 #include "IClientEngine.h"

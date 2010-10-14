@@ -714,6 +714,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="ISteamAppTicket"
+					>
+					<File
+						RelativePath=".\AppTicketCommon.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamAppTicket001.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
