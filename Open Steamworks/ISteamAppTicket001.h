@@ -26,7 +26,7 @@
 class ISteamAppTicket001
 {
 public:
-	virtual uint32 GetAppOwnershipTicketExtendedData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, unknown_ret*, unknown_ret*, unknown_ret*, unknown_ret* ) = 0;
+	virtual uint32 GetAppOwnershipTicketExtendedData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, int*, int*, uint32* ticket_length, uint32* signature_length ) = 0;
 };
 
 #endif // ISTEAMAPPTICKET001_H
