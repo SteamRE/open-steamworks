@@ -32,6 +32,7 @@ public:
 
 	virtual void LogOn( CSteamID steamID ) = 0;
 	virtual void LogOnWithPassword( const char * pchLogin, const char * pchPassword ) = 0;
+	virtual void LogOnAndCreateNewSteamAccountIfNeeded( /* ... */ ) = 0;
 	virtual void LogOff() = 0;
 	virtual bool LoggedOn() = 0;
 	virtual ELogonState GetLogonState() = 0;
@@ -186,7 +187,7 @@ public:
 	virtual uint32 GetAppOwnershipTicketLength( uint32 nAppID ) = 0;
 	virtual uint32 GetAppOwnershipTicketData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
 
-	virtual uint32 GetAppOwnershipTicketExtendedData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, unknown_ret*, unknown_ret*, unknown_ret*, unknown_ret* ) = 0;
+	virtual uint32 GetAppOwnershipTicketExtendedData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, unknown_ret*, unknown_ret*, uint32* ticket_length, uint32* signature_length ) = 0;
 
 	virtual bool GetAppDecryptionKey( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
 
@@ -257,6 +258,13 @@ public:
 	virtual bool BGetAppMinutesPlayed( uint32, int *, int * ) = 0;
 
 	virtual bool BGetGuideURL( uint32, char *, uint32 ) = 0;
+
+	virtual unknown_ret GetClientAppListResponse_AddApp( /* ... */ ) = 0;
+	virtual unknown_ret GetClientAppListResponse_AddDLC( /* ... */ ) = 0;
+	virtual unknown_ret GetClientAppListResponse_Done( /* ... */ ) = 0;
+	virtual unknown_ret PostUIResultToClientJob( /* ... */ ) = 0;
+	virtual unknown_ret BWriteScreenshotForGame( /* ... */ ) = 0;
+	virtual unknown_ret BRecreateThumbnailForScreenshot( /* ... */ ) = 0;
 };
 
 #endif // ICLIENTUSER_H
