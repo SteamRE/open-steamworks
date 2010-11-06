@@ -30,9 +30,9 @@ class UNSAFE_INTERFACE IClientUser
 public:
 	virtual HSteamUser GetHSteamUser() = 0;
 
-	virtual void LogOn( CSteamID steamID ) = 0;
-	virtual void LogOnWithPassword( const char * pchLogin, const char * pchPassword ) = 0;
-	virtual void LogOnAndCreateNewSteamAccountIfNeeded( /* ... */ ) = 0;
+	virtual void LogOn( uint8 unk1, CSteamID steamID ) = 0;
+	virtual void LogOnWithPassword( uint8 unk1, const char * pchLogin, const char * pchPassword ) = 0;
+	virtual void LogOnAndCreateNewSteamAccountIfNeeded( uint8 unk1 ) = 0;
 	virtual void LogOff() = 0;
 	virtual bool LoggedOn() = 0;
 	virtual ELogonState GetLogonState() = 0;
