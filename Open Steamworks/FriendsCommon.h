@@ -31,6 +31,7 @@
 #define STEAMFRIENDS_INTERFACE_VERSION_005 "SteamFriends005"
 #define STEAMFRIENDS_INTERFACE_VERSION_006 "SteamFriends006"
 #define STEAMFRIENDS_INTERFACE_VERSION_007 "SteamFriends007"
+#define STEAMFRIENDS_INTERFACE_VERSION_008 "SteamFriends008"
 
 
 //-----------------------------------------------------------------------------
