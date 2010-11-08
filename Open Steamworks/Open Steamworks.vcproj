@@ -273,6 +273,10 @@
 						RelativePath=".\ISteamApps003.h"
 						>
 					</File>
+					<File
+						RelativePath=".\ISteamApps004.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="ISteamBilling"

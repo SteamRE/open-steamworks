@@ -88,6 +88,7 @@
 #include "ISteamApps001.h"
 #include "ISteamApps002.h"
 #include "ISteamApps003.h"
+#include "ISteamApps004.h"
 
 // user stats
 #include "ISteamUserStats001.h"
