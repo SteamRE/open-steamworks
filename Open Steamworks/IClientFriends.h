@@ -304,9 +304,9 @@ public:
 	virtual void SetPlayedWith( CSteamID steamId ) = 0;
 	
 	virtual SteamAPICall_t RequestClanOfficerList( CSteamID clanId ) = 0;
-	virtual bool GetClanOwner( CSteamID *ownerId, CSteamID clanId ) = 0;
+	virtual CSteamID GetClanOwner( CSteamID clanId ) = 0;
 	virtual int GetClanOfficerCount( CSteamID clanId ) = 0;
-	virtual bool GetClanOfficerByIndex( CSteamID *officerId, CSteamID clanId, int iIndex ) = 0;
+	virtual CSteamID GetClanOfficerByIndex( CSteamID clanId, int iIndex ) = 0;
 
 	virtual unknown_ret GetUserRestrictions() = 0;
 };
