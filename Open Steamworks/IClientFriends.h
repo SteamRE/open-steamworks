@@ -215,8 +215,8 @@ public:
 	virtual bool IsVoiceCalibrating() = 0;
 	virtual float GetVoiceCalibrationSamplePeak() = 0;
 
-	virtual void SetForceMicRecord( bool bForce ) = 0;
-	virtual bool GetForceMicRecord() = 0;
+	//virtual void SetForceMicRecord( bool bForce ) = 0;
+	//virtual bool GetForceMicRecord() = 0;
 
 	virtual void SetMicBoost( bool bBoost ) = 0;
 	virtual bool GetMicBoost() = 0;
@@ -302,7 +302,13 @@ public:
 
 	virtual CSteamID GetFriendWhoPlaysGame( uint32 , CGameID gameId ) = 0;
 	virtual void SetPlayedWith( CSteamID steamId ) = 0;
+	
+	virtual SteamAPICall_t RequestClanOfficerList( CSteamID clanId ) = 0;
+	virtual bool GetClanOwner( CSteamID *ownerId, CSteamID clanId ) = 0;
+	virtual int GetClanOfficerCount( CSteamID clanId ) = 0;
+	virtual bool GetClanOfficerByIndex( CSteamID *officerId, CSteamID clanId, int iIndex ) = 0;
 
+	virtual unknown_ret GetUserRestrictions() = 0;
 };
 
 #endif // ICLIENTFRIENDS_H
