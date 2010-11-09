@@ -2766,7 +2766,7 @@ namespace Steam4NET
 		public ESteamError eSteamError;
 		public EDetailedPlatformErrorType eDetailedErrorType;
 		public uint ErrCode;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 255)]
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 255)]
 		public string szDesc;
 	}
 	
