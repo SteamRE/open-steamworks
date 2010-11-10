@@ -6773,8 +6773,8 @@ namespace Steam4NET
 	
 	public class ISteamApps001 : NativeWrapper<ISteamApps001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppData(IntPtr thisobj, UInt32 nAppID, string pchKey, string pchValue, Int32 cchValueMax);
-		public Int32 GetAppData(UInt32 nAppID, string pchKey, string pchValue, Int32 cchValueMax) { var call = this.GetFunction<NativeGetAppData>(this.Functions.GetAppData); return call(this.ObjectAddress, nAppID, pchKey, pchValue, cchValueMax); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppData(IntPtr thisobj, UInt32 nAppID, string pchKey, StringBuilder pchValue, Int32 cchValueMax);
+		public Int32 GetAppData(UInt32 nAppID, string pchKey, StringBuilder pchValue, Int32 cchValueMax) { var call = this.GetFunction<NativeGetAppData>(this.Functions.GetAppData); return call(this.ObjectAddress, nAppID, pchKey, pchValue, cchValueMax); }
 
 	}
 	
