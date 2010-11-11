@@ -24,7 +24,9 @@
 	#ifndef WINVER
 		#define WINVER 0x502
 	#endif
-	#define _CRT_SECURE_NO_WARNINGS // we don't use unsafe functions unsafely!
+	#ifndef _CRT_SECURE_NO_WARNINGS
+		#define _CRT_SECURE_NO_WARNINGS // we don't use unsafe functions unsafely!
+	#endif
 	#include <windows.h>
 
 	#undef SendMessage // for ISteamGameCoordinator001 to work right..
