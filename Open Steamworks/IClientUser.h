@@ -205,8 +205,8 @@ public:
 
 	virtual bool AdvertiseGame( CGameID gameID, CSteamID steamIDGameServer, uint32 unIPServer , uint16 usPortServer ) = 0;
 
-	virtual unknown_ret RequestEncryptedAppTicket( /* ... */ ) = 0;
-	virtual unknown_ret GetEncryptedAppTicket( /* ... */ ) = 0;
+	virtual SteamAPICall_t RequestEncryptedAppTicket( const void *pUserData, int cbUserData ) = 0;
+	virtual bool GetEncryptedAppTicket( void *pTicket, int cbMaxTicket, uint32 *pcbTicket ) = 0;
 
 	virtual void SetAccountLimited( bool bAccountLimited ) = 0;
 	virtual bool IsAccountLimited() = 0;

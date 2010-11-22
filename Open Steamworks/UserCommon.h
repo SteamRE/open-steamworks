@@ -572,6 +572,14 @@ struct MicroTxnAuthorizationResponse_t
 	uint64 m_ulOrderID;			// OrderID provided for the microtransaction
 	uint8 m_bAuthorized;		// if user authorized transaction
 };
+
+
+struct EncryptedAppTicketResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 154 };
+	EResult m_eResult;
+};
+
 #pragma pack( pop )
 
 
