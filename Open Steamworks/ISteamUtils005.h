@@ -100,6 +100,8 @@ public:
 	// in that case, and then you can check for this periodically (roughly 33hz is desirable) and make sure you
 	// refresh the screen with Present or SwapBuffers to allow the overlay to do it's work.
 	virtual bool BOverlayNeedsPresent() = 0;
+
+	virtual SteamAPICall_t CheckFileSignature( const char *pFileName ) = 0;
 };
 
 #endif // ISTEAMUTILS005_H
