@@ -103,10 +103,25 @@ struct SteamConfigStoreChanged_t
 };
 */
 
-struct CheckFileSignatureResult_t
+//-----------------------------------------------------------------------------
+// results for CheckFileSignature
+//-----------------------------------------------------------------------------
+enum ECheckFileSignature
+{
+	k_ECheckFileSignatureInvalidSignature = 0,
+	k_ECheckFileSignatureValidSignature = 1,
+	k_ECheckFileSignatureFileNotFound = 2,
+	k_ECheckFileSignatureNoSignaturesFoundForThisApp = 3,
+	k_ECheckFileSignatureNoSignaturesFoundForThisFile = 4,
+};
+
+//-----------------------------------------------------------------------------
+// callback for CheckFileSignature
+//-----------------------------------------------------------------------------
+struct CheckFileSignature_t
 {
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 5 };
-	uint32 m_uResult;
+	ECheckFileSignature m_eCheckFileSignature;
 };
 
 #pragma pack( pop )

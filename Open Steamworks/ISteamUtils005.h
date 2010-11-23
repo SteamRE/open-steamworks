@@ -101,7 +101,8 @@ public:
 	// refresh the screen with Present or SwapBuffers to allow the overlay to do it's work.
 	virtual bool BOverlayNeedsPresent() = 0;
 
-	virtual SteamAPICall_t CheckFileSignature( const char *pFileName ) = 0;
+	// Asynchronous call to check if file is signed, result is returned in CheckFileSignature_t
+	virtual SteamAPICall_t CheckFileSignature( const char *szFileName ) = 0;
 };
 
 #endif // ISTEAMUTILS005_H
