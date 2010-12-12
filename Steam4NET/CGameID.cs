@@ -23,7 +23,7 @@ namespace Steam4NET
             gameid = new BitVector64( id );
         }
         public CGameID( Int32 nAppID )
-            : this()
+            : this( ( UInt64 )nAppID )
         {
         }
 
