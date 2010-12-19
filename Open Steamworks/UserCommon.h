@@ -576,7 +576,7 @@ struct MicroTxnAuthorizationResponse_t
 
 struct EncryptedAppTicketResponse_t
 {
-	enum { k_iCallback = k_iSteamUserCallbacks + 154 };
+	enum { k_iCallback = k_iSteamUserCallbacks + 54 };
 	EResult m_eResult;
 };
 
