@@ -84,7 +84,10 @@ typedef enum EGCMessages
 	k_EGCMsgSendInterAppMessage,
 	k_EGCMsgReceiveInterAppMessage,
 	k_EGCMsgFindAccounts,
-
+	k_EGCMsgPostAlert,
+	k_EGCMsgGetLicenses,
+	k_EGCMsgGetUserStats,
+	
 	k_EGCMsgWebAPIRegisterInterfaces = 101,
 	k_EGCMsgWebAPIJobRequest,
 	k_EGCMsgWebAPIRegistrationRequested,
