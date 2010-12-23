@@ -70,7 +70,7 @@ typedef enum EGCMessages
 	k_EGCMsgWGResponse,
 	k_EGCMsgGetUserGameStatsSchema,
 	k_EGCMsgGetUserGameStatsSchemaResponse,
-	k_EGCMsgGetUserStats,
+	k_EGCMsgGetUserStatsDEPRECATED,
 	k_EGCMsgGetUserStatsResponse,
 	k_EGCMsgAppInfoUpdated,
 	k_EGCMsgValidateSession,
