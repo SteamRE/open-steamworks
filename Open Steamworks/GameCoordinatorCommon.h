@@ -450,6 +450,34 @@ struct GCMOTDRequestResponse_News_t
 	// char URL[];
 };
 
+/*
+These two messages were recently added to TF2 along with two convars (tf_server_identity_token and tf_server_identity_account_id)
+Every TF2 server is sent a GC_GameServer_AuthChallenge message on start up, by default the two convars are blank and the server does not respond to the challenge.
+If however the convars are set, it responds in the following manner:
+accountID is set to the value of the tf_server_identity_account_id convar.
+hash is set to the result of the md5 hash of the value of the tf_server_identity_token convar prepended to the salt recieved in the challenge.
+For example, if tf_server_identity_token was set to "Derp" and 4203408982 was the salt from the challenge, hash would be the md5 hash of "Derp4203408982"
+*/
+struct GC_GameServer_AuthChallenge_t
+{
+	enum { k_iMessage = k_EMsgGC_GameServer_AuthChallenge };
+	uint16 id;
+	char garbage[16];
+	uint8 unknown; // Possibly the terminator for an empty string.
+	// Variable length data:
+	// char salt[];
+}
+
+struct GC_GameServer_AuthChallengeResponse_t
+{
+	enum { k_iMessage = k_EMsgGC_GameServer_AuthChallengeResponse };
+	uint16 id;
+	char garbage[16];
+	uint16 accountID;
+	// Variable length data:
+	// char hash[];
+}
+
 #pragma pack(pop)
 
 #endif // ISTEAMGAMECOORDINATORCOMMON_H
