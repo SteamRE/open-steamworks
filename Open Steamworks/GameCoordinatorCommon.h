@@ -118,6 +118,15 @@ typedef enum EGCMessages
 	k_EMsgGCGiftedItems,
 	k_EMsgGCSpawnItem,
 	k_EMsgGCRespawnPostLoadoutChange,
+	k_EMsgGCRemoveItemName,
+	k_EMsgGCRemoveItemPaint,
+	k_EMsgGCGiftWrapItem,
+	k_EMsgGCGiftWrapItemResponse,
+	k_EMsgGCDeliverGift,
+	k_EMsgGCDeliverGiftResponseGiver,
+	k_EMsgGCDeliverGiftResponseReceiver,
+	k_EMsgGCUnwrapGiftRequest,
+	k_EMsgGCUnwrapGiftResponse,
 
 	k_EMsgGCTrading_InitiateTradeRequest = 1501,
 	k_EMsgGCTrading_InitiateTradeResponse,
@@ -136,7 +145,64 @@ typedef enum EGCMessages
 	k_EMsgGCServerBrowser_BlacklistServer,
 
 	k_EMsgGCDev_NewItemRequest = 2001,
-	k_EMsgGCDev_NewItemRequestResponse
+	k_EMsgGCDev_NewItemRequestResponse,
+	
+	k_EMsgGCSystemMessage = 3001,
+	
+	k_EMsgGCReportWarKill = 5001,
+	k_EMsgGCCoaching_AddToCoaches,
+	k_EMsgGCCoaching_AddToCoachesResponse,
+	k_EMsgGCCoaching_RemoveFromCoaches,
+	k_EMsgGCCoaching_RemoveFromCoachesResponse,
+	k_EMsgGCCoaching_FindCoach,
+	k_EMsgGCCoaching_FindCoachResponse,
+	k_EMsgGCCoaching_AskCoach,
+	k_EMsgGCCoaching_AskCoachResponse,
+	k_EMsgGCCoaching_CoachJoinGame,
+	k_EMsgGCCoaching_CoachJoining,
+	k_EMsgGCCoaching_CoachJoined,
+	k_EMsgGCCoaching_LikeCurrentCoach,
+	k_EMsgGCLookupAccount,
+	k_EMsgGCLookupAccountResponse,
+	k_EMsgGCLookupAccountName,
+	k_EMsgGCLookupAccountNameResponse,
+	
+	k_EMsgGC_RevolvingLootList = 5400,
+	
+	k_EMsgGC_Duel_Request = 5500,
+	k_EMsgGC_Duel_Response,
+	k_EMsgGC_Duel_Results,
+	k_EMsgGC_Duel_Status,
+	
+	k_EMsgGC_Halloween_ReservedItem = 5600,
+	k_EMsgGC_Halloween_GrantItem,
+	k_EMsgGC_Halloween_GrantItemResponse = 5604,
+	k_EMsgGC_Halloween_Cheat_QueryResponse,
+	k_EMsgGC_Halloween_ItemClaimed,
+	
+	k_EMsgGC_GameServer_LevelInfo = 5700,
+	k_EMsgGC_GameServer_AuthChallenge,
+	k_EMsgGC_GameServer_AuthChallengeResponse,
+	
+	k_EMsgGC_MM_RequestMatch = 5800,
+	k_EMsgGC_MM_RequestMatchResponse,
+	k_EMsgGC_MM_ReserveSpot,
+	k_EMsgGC_MM_LoadMap,
+	
+	k_EMsgGC_PickupItemEligibility_Query = 6000,
+	k_EMsgGCDev_GrantWarKill,
+	
+	k_EMsgGCTFGetUserData = 7000,
+	k_EMsgGCTFGetUserDataResponse,
+	k_EMsgGCTFPurchaseInit,
+	k_EMsgGCTFPurchaseInitResponse,
+	k_EMsgGCTFPurchaseFinalize,
+	k_EMsgGCTFPurchaseFinalizeResponse,
+	k_EMsgGCTFPurchaseCancel,
+	k_EMsgGCTFPurchaseCancelResponse,
+	k_EMsgGCTFPurchaseQueryTxn,
+	k_EMsgGCTFPurchaseQueryTxnResponse
+	
 } EGCMessages;
 
 
