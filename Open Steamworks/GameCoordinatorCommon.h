@@ -473,7 +473,7 @@ struct GC_GameServer_AuthChallengeResponse_t
 	enum { k_iMessage = k_EMsgGC_GameServer_AuthChallengeResponse };
 	uint16 id;
 	char garbage[16];
-	uint16 accountID;
+	uint32 accountID;
 	// Variable length data:
 	// char hash[];
 }
