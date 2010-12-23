@@ -478,6 +478,17 @@ struct GC_GameServer_AuthChallengeResponse_t
 	// char hash[];
 }
 
+
+struct GC_GameServer_LevelInfo_t
+{
+	enum { k_iMessage = k_EMsgGC_GameServer_LevelInfo };
+	uint16 id;
+	char garbage[16];
+	uint8 unknown;
+	// Variable length data:
+	// char mapName[];
+}
+
 #pragma pack(pop)
 
 #endif // ISTEAMGAMECOORDINATORCOMMON_H
