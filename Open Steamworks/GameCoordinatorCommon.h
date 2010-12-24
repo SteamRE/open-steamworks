@@ -222,6 +222,17 @@ typedef enum ETFInitTradeResult
 	
 } ETFInitTradeResult;
 
+typedef enum ETFTradeResult
+{
+	k_ETFTradeResultOk,
+	k_ETFTradeResultCanceled, // The trading session has been canceled.
+	k_ETFTradeResultStaleInventory, // The trade was cancelled, because some items do not belong to you or the other player.
+	k_ETFTradeResultUntradeable, // The trade was cancelled, because some items are not allowed in trading.
+	k_ETFTradeResultNoItems, // The trade was cancelled, because there were no items to trade.
+	k_ETFTradeResultDisabled // Trading items is currently disabled.
+	
+} ETFTradeResult;
+
 #pragma pack( push, 8 )
 // callback notification - A new message is available for reading from the message queue
 struct GCMessageAvailable_t
@@ -507,7 +518,7 @@ struct GCTrading_InitiateTradeRequest_t
 	uint16 id;
 	char garbage[16];
 	uint32 unknown; // a challenge? matches the value in the response
-	uint64 steamID;
+	CSteamID steamID;
 	// Variable length data:
 	// char playerName[];
 }
@@ -519,6 +530,14 @@ struct GCTrading_InitiateTradeResponse_t
 	char garbage[16];
 	ETFInitTradeResult result;
 	uint32 unknown; // a challenge? matches the value in the request
+}
+
+struct GCRespawnPostLoadoutChange_t
+{
+	enum { k_iMessage = k_EMsgGCRespawnPostLoadoutChange };
+	uint16 id;
+	char garbage[16];
+	CSteamID steamID;
 }
 
 #pragma pack(pop)
