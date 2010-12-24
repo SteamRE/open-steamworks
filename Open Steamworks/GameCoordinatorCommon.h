@@ -208,7 +208,19 @@ typedef enum EGCMessages
 	
 } EGCMessages;
 
-
+typedef enum ETFInitTradeResult
+{
+	k_ETFInitTradeResultOk,
+	k_ETFInitTradeResultDeclined, // The other player has declined the trade request.
+	k_ETFInitTradeResultVACBanned, // You do not have trading privileges.
+	k_ETFInitTradeResultOtherVACBanned, // The other player does not have trading privileges at this time.
+	k_ETFInitTradeResultBusy, // The other player is currently busy trading with someone else.
+	k_ETFInitTradeResultDisabled, // Trading items is currently disabled.
+	k_ETFInitTradeResultNoLoggedIn, // The other player is not available for trading.
+	k_ETFInitTradeResultCanceled,
+	k_ETFInitTradeResultTooSoon // You must wait at least 30 seconds between trade requests.
+	
+} ETFInitTradeResult;
 
 #pragma pack( push, 8 )
 // callback notification - A new message is available for reading from the message queue
@@ -487,6 +499,26 @@ struct GC_GameServer_LevelInfo_t
 	uint8 unknown;
 	// Variable length data:
 	// char mapName[];
+}
+
+struct GCTrading_InitiateTradeRequest_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_InitiateTradeRequest };
+	uint16 id;
+	char garbage[16];
+	uint32 unknown; // a challenge? matches the value in the response
+	uint64 steamID;
+	// Variable length data:
+	// char playerName[];
+}
+
+struct GCTrading_InitiateTradeResponse_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_InitiateTradeResponse };
+	uint16 id;
+	char garbage[16];
+	ETFInitTradeResult result;
+	uint32 unknown; // a challenge? matches the value in the request
 }
 
 #pragma pack(pop)
