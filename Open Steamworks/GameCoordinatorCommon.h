@@ -489,7 +489,7 @@ struct GC_GameServer_AuthChallenge_t
 	uint8 unknown; // Possibly the terminator for an empty string.
 	// Variable length data:
 	// char salt[];
-}
+};
 
 struct GC_GameServer_AuthChallengeResponse_t
 {
@@ -499,7 +499,7 @@ struct GC_GameServer_AuthChallengeResponse_t
 	uint32 accountID;
 	// Variable length data:
 	// char hash[];
-}
+};
 
 
 struct GC_GameServer_LevelInfo_t
@@ -510,7 +510,7 @@ struct GC_GameServer_LevelInfo_t
 	uint8 unknown;
 	// Variable length data:
 	// char mapName[];
-}
+};
 
 struct GCTrading_InitiateTradeRequest_t
 {
@@ -521,7 +521,7 @@ struct GCTrading_InitiateTradeRequest_t
 	CSteamID steamID;
 	// Variable length data:
 	// char playerName[];
-}
+};
 
 struct GCTrading_InitiateTradeResponse_t
 {
@@ -530,7 +530,7 @@ struct GCTrading_InitiateTradeResponse_t
 	char garbage[16];
 	ETFInitTradeResult result;
 	uint32 unknown; // a challenge? matches the value in the request
-}
+};
 
 struct GCRespawnPostLoadoutChange_t
 {
@@ -538,7 +538,7 @@ struct GCRespawnPostLoadoutChange_t
 	uint16 id;
 	char garbage[16];
 	CSteamID steamID;
-}
+};
 
 #pragma pack(pop)
 
