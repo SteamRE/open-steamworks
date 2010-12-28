@@ -27,6 +27,9 @@ namespace SAPIBase
 
             addInManager.LoadAddIns( Application.StartupPath );
 
+            if ( addInManager.GetAddIns().Length == 0 )
+                Util.MsgBox( this, "Warning: No AddIns loaded. Your installation may be corrupt." );
+
             SetStatus( "None" );
         }
 
@@ -204,6 +207,7 @@ namespace SAPIBase
         private void aboutToolStripMenuItem_Click( object sender, EventArgs e )
         {
             // todo: show about window
+            Util.MsgBox( this, "SAPIBase Launcher\nBy: VoiDeD\n\nIRC: #opensteamworks @ irc.gamesurge.net" );
         }
     }
 }

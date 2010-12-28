@@ -62,6 +62,19 @@ namespace SAPIBase
             return MessageBox.Show( owner, text, MsgTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question );
         }
 
+        public static bool CheckAndLaunchBase( string[] args )
+        {
+            if ( args.Length == 0 )
+            {
+                if ( !Util.StartProcess( "SAPIBase.exe", "" ) )
+                    Util.MsgBox( null, "Unable to launch \"SAPIBase.exe\". Executable may be missing or renamed. Please reinstall." );
+
+                return true;
+            }
+
+            return false;
+        }
+
         public static bool StartProcess( string fileName, string args )
         {
             ProcessStartInfo psi = new ProcessStartInfo()
@@ -83,6 +96,28 @@ namespace SAPIBase
                 return false;
             }
 
+        }
+
+        public static int GetAppID( string[] args )
+        {
+            int appId = -1;
+
+            for ( int x = 0 ; x < args.Length ; x++ )
+            {
+                string arg = args[ x ];
+
+                if ( arg.IndexOf( "-appid", StringComparison.OrdinalIgnoreCase ) == -1 )
+                    continue;
+
+                string[] argSplit = arg.Split( "=".ToCharArray(), StringSplitOptions.RemoveEmptyEntries );
+
+                if ( argSplit.Length != 2 )
+                    continue;
+
+                if ( !int.TryParse( argSplit[ 1 ], out appId ) )
+                    continue;
+            }
+            return appId;
         }
     }
 }

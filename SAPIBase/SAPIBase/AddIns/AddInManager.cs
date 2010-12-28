@@ -22,6 +22,13 @@ namespace SAPIBase
         public AddInManager()
         {
             loadedAddins = new List<AddIn>();
+
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += new ResolveEventHandler( CurrentDomain_ReflectionOnlyAssemblyResolve );
+        }
+
+        Assembly CurrentDomain_ReflectionOnlyAssemblyResolve( object sender, ResolveEventArgs args )
+        {
+            return Assembly.ReflectionOnlyLoad( args.Name );
         }
 
 
@@ -73,6 +80,7 @@ namespace SAPIBase
 
         void TryLoadAddIn( string path )
         {
+
             Assembly asm = null;
             try
             {
@@ -119,6 +127,7 @@ namespace SAPIBase
             };
 
             loadedAddins.Add( adn );
+
         }
 
         public void LaunchAddIn( AddIn addIn, uint appId )
