@@ -71,9 +71,9 @@ namespace Steam4NET
             return rez;
         }
 
-        public static bool GetCallback(int pipe, ref CallbackMsg_t message, ref int call)
+        public static bool GetCallback(int pipe, ref CallbackMsg_t message)
         {
-            return Native.Steam_BGetCallback(pipe, ref message, ref call);
+            return Native.Steam_BGetCallback(pipe, ref message);
         }
 
         public static bool FreeLastCallback(int pipe)

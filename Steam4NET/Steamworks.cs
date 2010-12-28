@@ -38,6 +38,10 @@ namespace Steam4NET
             [return: MarshalAs( UnmanagedType.I1 )]
             internal delegate bool SteamBGetCallback( int pipe, ref CallbackMsg_t message );
 
+            [UnmanagedFunctionPointer(CallingConvention.Cdecl )]
+            [return: MarshalAs( UnmanagedType.I1 )]
+            internal delegate bool SteamGetAPICallResult( int hSteamPipe, ulong hSteamAPICall, IntPtr pCallback, int cubCallback, int iCallbackExpected, ref bool pbFailed );
+
             [UnmanagedFunctionPointer( CallingConvention.Cdecl )]
             [return: MarshalAs( UnmanagedType.I1 )]
             internal delegate bool SteamFreeLastCallback( int pipe );
@@ -182,6 +186,15 @@ namespace Steam4NET
             return CallSteamFreeLastCallback( pipe );
         }
 
+        private static Native.SteamGetAPICallResult CallSteamGetAPICallResult;
+        public static bool GetAPICallResult( int hSteamPipe, ulong hSteamAPICall, IntPtr pCallback, int cubCallback, int iCallbackExpected, ref bool pbFailed )
+        {
+            if ( CallSteamGetAPICallResult == null )
+                throw new InvalidOperationException( "Steam4NET library has not been initialized." );
+
+            return CallSteamGetAPICallResult( hSteamPipe, hSteamAPICall, pCallback, cubCallback, iCallbackExpected, ref pbFailed );
+        }
+
         /// <summary>
         /// Loads the steamclient library. This does not load the steam library. Please use the overload to do so.
         /// </summary>
@@ -265,6 +278,10 @@ namespace Steam4NET
 
             CallSteamFreeLastCallback = Native.GetExportFunction<Native.SteamFreeLastCallback>( module, "Steam_FreeLastCallback" );
             if ( CallSteamFreeLastCallback == null )
+                return false;
+
+            CallSteamGetAPICallResult = Native.GetExportFunction<Native.SteamGetAPICallResult>( module, "Steam_GetAPICallResult" );
+            if ( CallSteamGetAPICallResult == null )
                 return false;
 
             SteamClientHandle = module;

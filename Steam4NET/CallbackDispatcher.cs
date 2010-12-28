@@ -12,6 +12,7 @@ namespace Steam4NET
 
     public interface IAPICallback : ICallback
     {
+        Type GetType();
         int GetCallback();
     }
 
@@ -42,23 +43,28 @@ namespace Steam4NET
         }
     }
 
-    public class APICallCallback<CallbackType> : Callback<CallbackType>, IAPICallback
+    public class APICallCallback<CallbackType> :  IAPICallback
     {
         private int callback;
         private UInt64 callhandle = 0;
+        private Type callType = null;
+
+        public delegate void APIDispatchDelegate( ulong callHandle, CallbackType param );
+        public event APIDispatchDelegate OnRun;
 
         public APICallCallback( int iCallback )
         {
             callback = iCallback;
+            callType = typeof( CallbackType );
         }
 
-        public APICallCallback( DispatchDelegate myFunc, int iCallback )
+        public APICallCallback( APIDispatchDelegate myFunc, int iCallback )
             : this( iCallback )
         {
             this.OnRun += myFunc;
         }
 
-        public APICallCallback( DispatchDelegate myFunc, int iCallback, UInt64 apicallhandle )
+        public APICallCallback( APIDispatchDelegate myFunc, int iCallback, UInt64 apicallhandle )
             : this( myFunc, iCallback )
         {
             SetAPICallHandle( apicallhandle );
@@ -69,13 +75,26 @@ namespace Steam4NET
             if ( callhandle != 0 )
                 CallbackDispatcher.ClearAPICallCallback( this, callhandle );
 
+            callhandle = newcallhandle;
             CallbackDispatcher.RegisterAPICallCallback( this, newcallhandle );
+        }
+
+        public void Run( IntPtr pubParam )
+        {
+            if ( this.OnRun != null )
+                this.OnRun( callhandle, ( CallbackType )Marshal.PtrToStructure( pubParam, typeof( CallbackType ) ) );
         }
 
         public int GetCallback()
         {
             return callback;
         }
+
+        public new Type GetType()
+        {
+            return callType;
+        }
+
     }
 
     public class CallbackUnhandled
@@ -104,7 +123,7 @@ namespace Steam4NET
     public class CallbackDispatcher
     {
         private static Dictionary<int, ICallback> registeredCallbacks = new Dictionary<int, ICallback>();
-        private static Dictionary<UInt64, IAPICallback> regiseredAPICallbacks = new Dictionary<UInt64, IAPICallback>();
+        private static Dictionary<UInt64, IAPICallback> registeredAPICallbacks = new Dictionary<UInt64, IAPICallback>();
 
         private static CallbackUnhandled unhandledCallback = null;
 
@@ -117,12 +136,12 @@ namespace Steam4NET
 
         public static void RegisterAPICallCallback( IAPICallback callback, UInt64 callhandle )
         {
-            regiseredAPICallbacks.Add( callhandle, callback );
+            registeredAPICallbacks.Add( callhandle, callback );
         }
 
         public static void ClearAPICallCallback( IAPICallback callback, UInt64 callhandle )
         {
-            regiseredAPICallbacks.Remove( callhandle );
+            registeredAPICallbacks.Remove( callhandle );
         }
 
         public static void SetUnhandledCallback( CallbackUnhandled callback )
@@ -130,12 +149,34 @@ namespace Steam4NET
             unhandledCallback = callback;
         }
 
-        private static void RunAPICallbacks( SteamAPICallCompleted_t apicall )
+        private static void RunAPICallbacks( int pipe, SteamAPICallCompleted_t apicall )
         {
             IAPICallback apicallback;
-            if ( regiseredAPICallbacks.TryGetValue( apicall.m_hAsyncCall, out apicallback ) )
+            if ( registeredAPICallbacks.TryGetValue( apicall.m_hAsyncCall, out apicallback ) )
             {
-                // (Use Steam_GetAPICallResult) etc..
+                IntPtr pData = IntPtr.Zero;
+
+                try
+                {
+                    int size = Marshal.SizeOf( apicallback.GetType() );
+                    bool bFailed = false;
+                    pData = Marshal.AllocHGlobal( size );
+
+                    if ( !Steamworks.GetAPICallResult( pipe, apicall.m_hAsyncCall, pData, size, apicallback.GetCallback(), ref bFailed ) )
+                        return;
+
+                    if ( bFailed )
+                        return;
+
+                    apicallback.Run( pData );
+
+                }
+                finally
+                {
+                    registeredAPICallbacks.Remove( apicall.m_hAsyncCall );
+
+                    Marshal.FreeHGlobal( pData );
+                }
             }
         }
 
@@ -147,7 +188,7 @@ namespace Steam4NET
             {
                 if ( callbackmsg.m_iCallback == SteamAPICallCompleted_t.k_iCallback )
                 {
-                    RunAPICallbacks( ( SteamAPICallCompleted_t )Marshal.PtrToStructure( callbackmsg.m_pubParam, typeof( SteamAPICallCompleted_t ) ) );
+                    RunAPICallbacks( pipe, ( SteamAPICallCompleted_t )Marshal.PtrToStructure( callbackmsg.m_pubParam, typeof( SteamAPICallCompleted_t ) ) );
                 }
 
                 ICallback callback;
