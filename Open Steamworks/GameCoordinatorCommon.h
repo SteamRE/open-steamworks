@@ -266,6 +266,7 @@ struct SOMsgCacheSubscribed_t
 	// [SOMsgCacheSubscribed_Item_t] * itemcount
 };
 
+// There is 8 unknown bytes at the end of this, exact pos is unknown.
 struct SOMsgCacheSubscribed_Item_t
 {
 	uint64 itemid;
@@ -278,6 +279,11 @@ struct SOMsgCacheSubscribed_Item_t
 	uint16 namelength;
 	// Variable length data:
 	// char customname[namelength];
+	// uint8 unk1;
+	// uint8 origin;
+	// uint16 descriptionlength;
+	// char customdescription[descriptionlength];
+	// uint8 unk2;
 	// uint16 attribcount;
 	// [SOMsgCacheSubscribed_Item_Attrib_t] * attribcount
 };
@@ -517,10 +523,10 @@ struct GCTrading_InitiateTradeRequest_t
 	enum { k_iMessage = k_EMsgGCTrading_InitiateTradeRequest };
 	uint16 id;
 	char garbage[16];
-	uint32 unknown; // a challenge? matches the value in the response
+	uint32 unknown;
 	CSteamID steamID;
 	// Variable length data:
-	// char playerName[];
+	// char playerName[]; // Only present on incoming requests.
 };
 
 struct GCTrading_InitiateTradeResponse_t
@@ -528,8 +534,105 @@ struct GCTrading_InitiateTradeResponse_t
 	enum { k_iMessage = k_EMsgGCTrading_InitiateTradeResponse };
 	uint16 id;
 	char garbage[16];
-	ETFInitTradeResult result;
-	uint32 unknown; // a challenge? matches the value in the request
+	/*ETFInitTradeResult*/ uint32 result;
+	uint32 unknown;
+};
+
+struct GCTrading_TradeChatMsg_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_TradeChatMsg };
+	uint16 id;
+	char garbage[16];
+	uint8 unknown; // possibly a 0-length string
+	// Variable length data:
+	// char chatMsg[];
+};
+
+struct GCTrading_StartSession_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_StartSession };
+	uint16 id;
+	char garbage[16];
+	CSteamID steamID1;
+	CSteamID steamID2;
+	// Variable length data:
+	// char player1Name[];
+	// char player2Name[];
+};
+
+struct GCTrading_SetItem_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_SetItem };
+	uint16 id;
+	char garbage[16];
+	uint8 unk1;
+	uint64 itemID;
+	uint8 slot; // Trade 'slot' it goes in, see below.
+};
+
+struct GCTrading_UpdateTradeInfo_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_UpdateTradeInfo };
+	uint16 id;
+	char garbage[16];
+	uint32 unknown;
+	uint32 unk1;
+	uint64 plyr1_unknown;
+	uint64 plyr1_slot0;
+	uint64 plyr1_slot1;
+	uint64 plyr1_slot2;
+	uint64 plyr1_slot3;
+	uint64 plyr1_slot4;
+	uint64 plyr1_slot5;
+	uint64 plyr1_slot6;
+	uint64 plyr1_slot7;
+	uint64 plyr2_unknown;
+	uint64 plyr2_slot0;
+	uint64 plyr2_slot1;
+	uint64 plyr2_slot2;
+	uint64 plyr2_slot3;
+	uint64 plyr2_slot4;
+	uint64 plyr2_slot5;
+	uint64 plyr2_slot6;
+	uint64 plyr2_slot7;
+};
+
+// All 4 need to be true
+struct GCTrading_ReadinessResponse_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_ReadinessResponse };
+	uint16 id;
+	char garbage[16];
+	uint32 unknown;
+	uint8 response1;
+	uint8 response2;
+	uint8 response3;
+	uint8 response4;
+};
+
+struct GCTrading_SetReadiness_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_SetReadiness };
+	uint16 id;
+	char garbage[16];
+	uint32 unknown;
+	uint8 response;
+};
+
+struct GCTrading_ConfirmOffer_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_ConfirmOffer };
+	uint16 id;
+	char garbage[16];
+	uint32 unknown;
+};
+
+struct GCTrading_SessionClosed_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_SessionClosed };
+	uint16 id;
+	char garbage[16];
+	/*ETFTradeResult*/ uint32 result;
 };
 
 struct GCRespawnPostLoadoutChange_t
