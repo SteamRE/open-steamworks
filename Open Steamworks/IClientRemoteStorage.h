@@ -31,7 +31,18 @@ public:
 	virtual int32 GetFileSize( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile  ) = 0;
 
 	virtual int FileRead( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, void *pvData, int cubDataToRead ) = 0;
+	
+	virtual bool FileForget( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+	virtual bool FileDelete( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+	virtual SteamAPICall_t FileShare( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+
 	virtual bool FileExists( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+
+	virtual bool FilePersisted( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+	virtual int64 GetFileTimestamp( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+
+	virtual bool SetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, int iUnk ) = 0;
+	virtual int GetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
 	virtual int32 GetFileCount( AppId_t nAppId, bool bUnk1 ) = 0;
 	virtual const char *GetFileNameAndSize( AppId_t nAppId, int iFile, int *pnFileSizeInBytes, int iUnk2 ,bool bUnk1 ) = 0;
@@ -42,8 +53,14 @@ public:
 	virtual bool IsCloudEnabledForApp( AppId_t nAppId );
 	virtual bool SetCloudEnabledForApp( AppId_t nAppId, bool bEnable );
 
+	virtual unknown_ret UGCDownload( unknown_ret unk1, unknown_ret unk2 ) = 0;
+	virtual unknown_ret GetUGCDetails( unknown_ret unk1, unknown_ret unk2,  unknown_ret unk3,  unknown_ret unk4,  unknown_ret unk5,  unknown_ret unk6 ) = 0;
+	virtual unknown_ret UGCRead( unknown_ret unk1, unknown_ret unk2,  unknown_ret unk3,  unknown_ret unk4 ) = 0;
+	virtual int32 GetCachedUGCCount() = 0;
+	virtual unknown_ret GetCachedUGCHandle() = 0;
+	virtual unknown_ret ScreenshotWrite(/* ... */) = 0;
+
 	virtual unknown_ret FilePersist( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
-	virtual unknown_ret FileForget( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
 	virtual unknown_ret ResolvePath( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *, char *, uint32 ) = 0;
 

@@ -147,6 +147,8 @@
 // remote storage
 #include "ISteamRemoteStorage001.h"
 #include "ISteamRemoteStorage002.h"
+#include "ISteamRemoteStorage004.h"
+#include "ISteamRemoteStorage003.h"
 
 // content server
 #include "ISteamContentServer001.h"

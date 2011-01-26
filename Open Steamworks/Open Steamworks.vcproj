@@ -542,6 +542,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamRemoteStorage003.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamRemoteStorage004.h"
+						>
+					</File>
+					<File
 						RelativePath=".\RemoteStorageCommon.h"
 						>
 					</File>

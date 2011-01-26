@@ -509,7 +509,7 @@ enum ECallbackType
 	k_iSteamAppsCallbacks = 1000,
 	k_iSteamUserStatsCallbacks = 1100,
 	k_iSteamNetworkingCallbacks = 1200,
-	k_iClientRemoteStorageCallbacks = 1300,
+	k_iSteamRemoteStorageCallbacks = 1300,
 	k_iSteamUserItemsCallbacks = 1400,
 	k_iSteamGameServerItemsCallbacks = 1500,
 	k_iClientUtilsCallbacks = 1600,
