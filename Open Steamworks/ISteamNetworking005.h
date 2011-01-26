@@ -14,8 +14,9 @@
 //
 //=============================================================================
 
-#ifndef ICLIENTNETWORKING_H
-#define ICLIENTNETWORKING_H
+
+#ifndef ISTEAMNETWORKING005_H
+#define ISTEAMNETWORKING005_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -23,12 +24,11 @@
 #include "SteamTypes.h"
 #include "NetworkingCommon.h"
 
-
 //-----------------------------------------------------------------------------
 // Purpose: Functions for making connections and sending data between clients,
 //			traversing NAT's where possible
 //-----------------------------------------------------------------------------
-class UNSAFE_INTERFACE IClientNetworking
+class ISteamNetworking005
 {
 public:
 	////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,4 +152,4 @@ public:
 	virtual int GetMaxPacketSize( SNetSocket_t hSocket ) = 0;
 };
 
-#endif // ICLIENTNETWORKING_H
+#endif // ISTEAMNETWORKING005_H

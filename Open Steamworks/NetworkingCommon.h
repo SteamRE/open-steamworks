@@ -26,7 +26,9 @@
 #define STEAMNETWORKING_INTERFACE_VERSION_002 "SteamNetworking002"
 #define STEAMNETWORKING_INTERFACE_VERSION_003 "SteamNetworking003"
 #define STEAMNETWORKING_INTERFACE_VERSION_004 "SteamNetworking004"
+#define STEAMNETWORKING_INTERFACE_VERSION_005 "SteamNetworking005"
 
+#define CLIENTNETWORKING_INTERFACE_VERSION "ClientNetworking001"
 
 // SendP2PPacket() send types
 // Typically k_EP2PSendUnreliable is what you want for UDP-like packets, k_EP2PSendReliable for TCP-like packets

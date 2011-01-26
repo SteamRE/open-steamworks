@@ -52,7 +52,7 @@ typedef enum ERemoteStorageSyncState
 #pragma pack( push, 8 )
 struct FileShareResult_t
 { 
-	enum { k_iCallback = k_iSteamRemoteStorageCallbacks + 7 };
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 7 };
 
 	int32 unk1;
 	int32 unk2;

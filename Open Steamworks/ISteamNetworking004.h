@@ -40,16 +40,16 @@ public:
 	// the first packet send may be delayed as the NAT-traversal code runs
 	// if we can't get through to the user, an error will be posted via the callback P2PSessionConnectFail_t
 	// see EP2PSend enum above for the descriptions of the different ways of sending packets
-	virtual bool SendP2PPacket( CSteamID steamIDRemote, const void *pubData, uint32 cubData, EP2PSend eP2PSendType, int unk1 ) = 0;
+	virtual bool SendP2PPacket( CSteamID steamIDRemote, const void *pubData, uint32 cubData, EP2PSend eP2PSendType, int iVirtualPort ) = 0;
 
 	// returns true if any data is available for read, and the amount of data that will need to be read
-	virtual bool IsP2PPacketAvailable( uint32 *pcubMsgSize, int unk1 ) = 0;
+	virtual bool IsP2PPacketAvailable( uint32 *pcubMsgSize, int iVirtualPort ) = 0;
 
 	// reads in a packet that has been sent from another user via SendP2PPacket()
 	// returns the size of the message and the steamID of the user who sent it in the last two parameters
 	// if the buffer passed in is too small, the message will be truncated
 	// this call is not blocking, and will return false if no data is available
-	virtual bool ReadP2PPacket( void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, CSteamID *psteamIDRemote, int unk1 ) = 0;
+	virtual bool ReadP2PPacket( void *pubDest, uint32 cubDest, uint32 *pcubMsgSize, CSteamID *psteamIDRemote, int iVirtualPort ) = 0;
 
 	// AcceptP2PSessionWithUser() should only be called in response to a P2PSessionRequest_t callback
 	// P2PSessionRequest_t will be posted if another user tries to send you a packet that you haven't talked to yet
