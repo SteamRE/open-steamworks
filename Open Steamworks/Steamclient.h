@@ -98,6 +98,8 @@
 #include "ISteamUserStats005.h"
 #include "ISteamUserStats006.h"
 #include "ISteamUserStats007.h"
+#include "ISteamUserStats008.h"
+#include "ISteamUserStats009.h"
 
 // utils
 #include "ISteamUtils001.h"

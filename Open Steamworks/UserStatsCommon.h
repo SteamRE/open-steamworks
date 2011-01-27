@@ -29,6 +29,8 @@
 #define STEAMUSERSTATS_INTERFACE_VERSION_005 "STEAMUSERSTATS_INTERFACE_VERSION005"
 #define STEAMUSERSTATS_INTERFACE_VERSION_006 "STEAMUSERSTATS_INTERFACE_VERSION006"
 #define STEAMUSERSTATS_INTERFACE_VERSION_007 "STEAMUSERSTATS_INTERFACE_VERSION007"
+#define STEAMUSERSTATS_INTERFACE_VERSION_008 "STEAMUSERSTATS_INTERFACE_VERSION008"
+#define STEAMUSERSTATS_INTERFACE_VERSION_009 "STEAMUSERSTATS_INTERFACE_VERSION009"
 
 #define CLIENTUSERSTATS_INTERFACE_VERSION "CLIENTUSERSTATS_INTERFACE_VERSION002"
 
@@ -84,7 +86,7 @@ typedef enum ELeaderboardSortMethod
 
 
 // a single entry in a leaderboard, as returned by GetDownloadedLeaderboardEntry()
-struct LeaderboardEntry_t
+struct LeaderboardEntry001_t
 {
 	CSteamID m_steamIDUser; // user with the entry - use SteamFriends()->GetFriendPersonaName() & SteamFriends()->GetFriendAvatar() to get more info
 	int32 m_nGlobalRank;	// [1..N], where N is the number of users with an entry in the leaderboard
@@ -92,7 +94,14 @@ struct LeaderboardEntry_t
 	int32 m_cDetails;		// number of int32 details available for this entry
 };
 
+struct LeaderboardEntry002_t
+{
+	/*
+	TODO : Reverse this struct
+	*/
+};
 
+typedef LeaderboardEntry002_t LeaderboardEntry_t;
 
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------

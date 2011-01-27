@@ -117,6 +117,9 @@ public:
 	// k_ELeaderboardDataRequestFriends requests all the rows for friends of the current user 
 	virtual SteamAPICall_t DownloadLeaderboardEntries( SteamLeaderboard_t hSteamLeaderboard, ELeaderboardDataRequest eLeaderboardDataRequest, int nRangeStart, int nRangeEnd ) = 0;
 
+	virtual unknown_ret DownloadLeaderboardEntriesForUsers( unknown_ret unk1, unknown_ret unk2, unknown_ret unk3, unknown_ret unk4 ) = 0;
+
+
 	// Returns data about a single leaderboard entry
 	// use a for loop from 0 to LeaderboardScoresDownloaded_t::m_cEntryCount to get all the downloaded entries
 	// e.g.
@@ -132,6 +135,10 @@ public:
 	//			}
 	// once you've accessed all the entries, the data will be free'd, and the SteamLeaderboardEntries_t handle will become invalid
 	virtual bool GetDownloadedLeaderboardEntry( SteamLeaderboardEntries_t hSteamLeaderboardEntries, int index, LeaderboardEntry_t *pLeaderboardEntry, int *pDetails, int cDetailsMax ) = 0;
+
+
+	virtual unknown_ret AttachLeaderboardUGC( /* ... */ ) = 0;
+
 
 	// Uploads a user score to the Steam back-end.
 	// This call is asynchronous, with the result returned in LeaderboardScoreUploaded_t
