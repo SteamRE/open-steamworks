@@ -622,7 +622,7 @@ namespace Steam4Intermediate
                 {
                     EnumNode enode = node as EnumNode;
 
-                    if(files[enode.file].StartsWith(@"E:\opensteamworks\Open Steamworks"))
+                    if ( files[ enode.file ].StartsWith( @"G:\dev\C++\Open Steamworks" ) )
                     {
                         if (root.Type() == typeof(StructNode) || root.Type() == typeof(ClassNode))
                         {
@@ -653,14 +653,14 @@ namespace Steam4Intermediate
                 {
                     StructNode snode = node as StructNode;
 
-                    if (files[snode.file].StartsWith(@"E:\opensteamworks\Open Steamworks") && !snode.name.StartsWith("EnumString"))
+                    if ( files[ snode.file ].StartsWith( @"G:\dev\C++\Open Steamworks" ) && !snode.name.StartsWith( "EnumString" ) )
                     {
                         Console.WriteLine("Struct: " + snode.name);
 
                         if (prefix != null)
                             sb.AppendLine(new String('\t', level) + prefix);
 
-                        sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1,Size=" + snode.size + ")]");
+                        sb.AppendLine(new String('\t', level) + "[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=" + snode.size + ")]");
                         sb.AppendLine(new String('\t', level) + "public struct " + snode.name);
                         sb.AppendLine(new String('\t', level) + "{");
 
@@ -689,7 +689,7 @@ namespace Steam4Intermediate
                 {
                     ClassNode cnode = node as ClassNode;
 
-                    if (files[cnode.file].StartsWith(@"E:\opensteamworks\Open Steamworks") && !cnode.name.StartsWith("EnumString"))
+                    if ( files[ cnode.file ].StartsWith( @"G:\dev\C++\Open Steamworks" ) && !cnode.name.StartsWith( "EnumString" ) )
                     {
                         Console.WriteLine("Class: " + cnode.name);
 
@@ -729,7 +729,7 @@ namespace Steam4Intermediate
             if (level == 1)
             {
                 sb.AppendLine("}");
-                File.WriteAllText(@"E:\opensteamworks\Steam4NET\test.cs", sb.ToString());
+                File.WriteAllText(@"G:\dev\C++\Open Steamworks\Steam4NET\test.cs", sb.ToString());
             }
         }
 
@@ -751,7 +751,7 @@ namespace Steam4Intermediate
             {
                 UnionNode unode = n as UnionNode;
 
-                if (files[unode.file].StartsWith(@"E:\opensteamworks\Open Steamworks"))
+                if ( files[ unode.file ].StartsWith( @"G:\dev\C++\Open Steamworks" ) )
                 {
                     string name = unode.name;
 
@@ -989,6 +989,11 @@ namespace Steam4Intermediate
                 string type = ResolveType(arg, out n, true);
                 string dtype;
 
+                bool utf8magic = false;
+
+                if ( type == "string" )
+                    utf8magic = true;
+
                 if (typeDict.TryGetValue(type, out dtype))
                 {
                     type = dtype;
@@ -1016,10 +1021,20 @@ namespace Steam4Intermediate
                     type = "byte[]";
                 }
 
-                if(nameonly)
-                    sb.Append(argname + ", ");
+                if ( nameonly )
+                {
+                    if ( utf8magic )
+                        sb.Append( "Encoding.Default.GetString( Encoding.UTF8.GetBytes( " );
+
+                    sb.Append( argname /*+ ", "*/ );
+
+                    if ( utf8magic )
+                        sb.Append( " ) )" );
+
+                    sb.Append( ", " );
+                }
                 else
-                    sb.Append(type + " " + argname + ", ");
+                    sb.Append( type + " " + argname + ", " );
 
                 paramnum++;
             }
