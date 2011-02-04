@@ -60,7 +60,7 @@ namespace FriendManager
 
         void Highlight()
         {
-            if ( this.Friend.SteamID == SteamContext.ClientUser.GetSteamID() )
+            if ( this.Friend.SteamID == SteamContext.SteamUser.GetSteamID() )
                 return;
 
             if ( this.highlighted )
@@ -72,7 +72,7 @@ namespace FriendManager
         }
         void UnHighlight()
         {
-            if ( this.Friend.SteamID == SteamContext.ClientUser.GetSteamID() )
+            if ( this.Friend.SteamID == SteamContext.SteamUser.GetSteamID() )
                 return;
 
             if ( !this.highlighted )
@@ -108,7 +108,7 @@ namespace FriendManager
                 int width = 32, height = 32;
                 byte[] imgData = new byte[ 4 * width * height ];
 
-                if ( !SteamContext.ClientUtils.GetImageRGBA( avatarId, imgData, imgData.Length ) )
+                if ( !SteamContext.SteamUtils.GetImageRGBA( avatarId, imgData, imgData.Length ) )
                     return Resources.IconUnknown;
 
                 // imgData is in RGBA format, .NET expects BGRA

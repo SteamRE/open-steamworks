@@ -10,21 +10,21 @@ namespace FriendManager
 
         // CLIENTENGINE_INTERFACE_VERSION001
         public static IClientEngine ClientEngine { get; private set; }
+        // SteamClient009
+        public static ISteamClient009 SteamClient { get; private set; }
 
-        public static int SteamPipe { get; private set; }
-        public static int SteamUser { get; private set; }
+        public static int Pipe { get; private set; }
+        public static int User { get; private set; }
 
         // CLIENTFRIENDS_INTERFACE_VERSION001
         public static IClientFriends ClientFriends { get; private set; }
 
-        // CLIENTUTILS_INTERFACE_VERSION001
-        public static IClientUtils ClientUtils { get; private set; }
+        // SteamUser014
+        public static ISteamUser014 SteamUser { get; private set; }
 
-        // CLIENTUSER_INTERFACE_VERSION001
-        public static IClientUser ClientUser { get; private set; }
+        // SteamUtils005
+        public static ISteamUtils005 SteamUtils { get; private set; }
 
-        // CLIENTAPPS_INTERFACE_VERSION001
-        public static IClientApps ClientApps { get; private set; }
 
 
         public static Callback<PersonaStateChange_t> OnStateChange { get; private set; }
@@ -44,38 +44,42 @@ namespace FriendManager
                 throw new SteamException( "Unable to get IClientEngine interface.", ex );
             }
 
+            try
+            {
+                SteamClient = Steamworks.CreateInterface<ISteamClient009>( "SteamClient009" );
+            }
+            catch ( Exception ex)
+            {
+                throw new SteamException( "Unable to get ISteamClient interface.", ex );
+            }
+
             if ( ClientEngine == null )
                 throw new SteamException( "Unable to get IClientEngine interface." );
 
-            SteamPipe = ClientEngine.CreateSteamPipe();
+            Pipe = ClientEngine.CreateSteamPipe();
 
-            if ( SteamPipe == 0 )
+            if ( Pipe == 0 )
                 throw new SteamException( "Unable to aquire steam pipe." );
 
-            SteamUser = ClientEngine.ConnectToGlobalUser( SteamPipe );
+            User = ClientEngine.ConnectToGlobalUser( Pipe );
 
-            if ( SteamUser == 0 )
+            if ( User == 0 )
                 throw new SteamException( "Unable to connect to global user." );
 
 
             ClientFriends = GetInterface<IClientFriends>(
-                () => { return ClientEngine.GetIClientFriends( SteamUser, SteamPipe, "CLIENTFRIENDS_INTERFACE_VERSION001" ); },
+                () => { return ClientEngine.GetIClientFriends( User, Pipe, "CLIENTFRIENDS_INTERFACE_VERSION001" ); },
                 "Unable to get IClientFriends interface."
             );
 
-            ClientUtils = GetInterface<IClientUtils>(
-                () => { return ClientEngine.GetIClientUtils( SteamPipe, "CLIENTUTILS_INTERFACE_VERSION001" ); },
-                "Unable to get IClientUtils interface."
+            SteamUser = GetInterface<ISteamUser014>(
+                () => { return SteamClient.GetISteamUser( User, Pipe, "SteamUser014" ); },
+                "Unable to get ISteamUser interface."
             );
 
-            ClientUser = GetInterface<IClientUser>(
-                () => { return ClientEngine.GetIClientUser( SteamUser, SteamPipe, "CLIENTUSER_INTERFACE_VERSION001" ); },
-                "Unable to get IClientUser interface."
-            );
-
-            ClientApps = GetInterface<IClientApps>(
-                () => { return ClientEngine.GetIClientApps( SteamUser, SteamPipe, "CLIENTAPPS_INTERFACE_VERSION001" ); },
-                "Unable to get IClientApps interface."
+            SteamUtils = GetInterface<ISteamUtils005>(
+                () => { return SteamClient.GetISteamUtils( Pipe, "SteamUtils005" ); },
+                "Unable to get ISteamUtils interface."
             );
 
             OnStateChange = new Callback<PersonaStateChange_t>( PersonaStateChange_t.k_iCallback );
@@ -83,23 +87,23 @@ namespace FriendManager
 
         public static void StartCallbacks()
         {
-            CallbackDispatcher.SpawnDispatchThread( SteamPipe );
+            CallbackDispatcher.SpawnDispatchThread( Pipe );
         }
 
         public static void StopCallbacks()
         {
-            CallbackDispatcher.StopDispatchThread( SteamPipe );
+            CallbackDispatcher.StopDispatchThread( Pipe );
         }
 
         public static void Shutdown()
         {
             if ( ClientEngine != null )
             {
-                if ( SteamUser != 0 )
-                    ClientEngine.ReleaseUser( SteamPipe, SteamUser );
+                if ( User != 0 )
+                    ClientEngine.ReleaseUser( Pipe, User );
 
-                if ( SteamPipe != 0 )
-                    ClientEngine.ReleaseSteamPipe( SteamPipe );
+                if ( Pipe != 0 )
+                    ClientEngine.ReleaseSteamPipe( Pipe );
             }
         }
 

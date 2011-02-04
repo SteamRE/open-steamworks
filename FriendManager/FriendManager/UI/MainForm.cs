@@ -21,7 +21,7 @@ namespace FriendManager
 
             this.Icon = Icon.FromHandle( Resources.MainIcon.GetHicon() );
 
-            selfControl.SetSteamID( new Friend( SteamContext.ClientUser.GetSteamID() ) );
+            selfControl.SetSteamID( new Friend( SteamContext.SteamUser.GetSteamID() ) );
             selfControl.BorderStyle = BorderStyle.None;
 
             ReloadFriends();
@@ -31,30 +31,6 @@ namespace FriendManager
 
         void HandleStateChange( PersonaStateChange_t param )
         {
-            if ( ( param.m_nChangeFlags & EPersonaChange.k_EPersonaChangeComeOnline ) == EPersonaChange.k_EPersonaChangeComeOnline )
-            {
-                ReloadFriends();
-                return;
-            }
-
-            if ( ( param.m_nChangeFlags & EPersonaChange.k_EPersonaChangeGoneOffline ) == EPersonaChange.k_EPersonaChangeGoneOffline )
-            {
-                ReloadFriends();
-                return;
-            }
-
-            if ( ( param.m_nChangeFlags & EPersonaChange.k_EPersonaChangeGamePlayed ) == EPersonaChange.k_EPersonaChangeGamePlayed )
-            {
-                ReloadFriends();
-                return;
-            }
-
-            if ( ( param.m_nChangeFlags & EPersonaChange.k_EPersonaChangeName ) == EPersonaChange.k_EPersonaChangeName )
-            {
-                ReloadFriends();
-                return;
-            }
-
             FriendControl fc = friendsFlow.GetFriendControl( new Friend( param.m_ulSteamID ) );
 
             if ( fc == null )
@@ -121,6 +97,8 @@ namespace FriendManager
             ResizeFriends();
 
             friendsFlow.ResumeLayout();
+            friendsFlow.PerformLayout();
+            friendsFlow.Refresh();
 
             friendsFlow.VerticalScroll.Value = scroll;
         }
@@ -151,7 +129,7 @@ namespace FriendManager
 
         public void ShowContextMenu( Control displayControl, FriendControl friendControl, Point point )
         {
-            if ( friendControl.Friend.SteamID == SteamContext.ClientUser.GetSteamID() )
+            if ( friendControl.Friend.SteamID == SteamContext.SteamUser.GetSteamID() )
                 return;
 
             contextMenu.Show( displayControl, point );
