@@ -523,7 +523,7 @@ struct GCTrading_InitiateTradeRequest_t
 	enum { k_iMessage = k_EMsgGCTrading_InitiateTradeRequest };
 	uint16 id;
 	char garbage[16];
-	uint32 unknown;
+	uint32 challenge;
 	CSteamID steamID;
 	// Variable length data:
 	// char playerName[]; // Only present on incoming requests.
@@ -535,7 +535,7 @@ struct GCTrading_InitiateTradeResponse_t
 	uint16 id;
 	char garbage[16];
 	/*ETFInitTradeResult*/ uint32 result;
-	uint32 unknown;
+	uint32 challenge; // When sending this message as a response, make sure to set this as the same value from the request.
 };
 
 struct GCTrading_TradeChatMsg_t
@@ -568,6 +568,14 @@ struct GCTrading_SetItem_t
 	uint8 unk1;
 	uint64 itemID;
 	uint8 slot; // Trade 'slot' it goes in, see below.
+};
+
+struct GCTrading_RemoveItem_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_RemoveItem };
+	uint16 id;
+	char garbage[16];
+	uint64 itemID;
 };
 
 struct GCTrading_UpdateTradeInfo_t
@@ -604,10 +612,10 @@ struct GCTrading_ReadinessResponse_t
 	uint16 id;
 	char garbage[16];
 	uint32 unknown;
-	uint8 response1;
-	uint8 response2;
-	uint8 response3;
-	uint8 response4;
+	uint8 player1ready;
+	uint8 player2ready;
+	uint8 player1confirmed;
+	uint8 player2confirmed;
 };
 
 struct GCTrading_SetReadiness_t
