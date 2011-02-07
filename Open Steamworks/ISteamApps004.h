@@ -42,9 +42,8 @@ public:
 	// Takes AppID of DLC and checks if the user owns the DLC & if the DLC is installed
 	virtual bool IsDlcInstalled( AppId_t appID ) = 0;
 
-	// I'm not sure about theses functions names
-	virtual uint32 GetPurchaseTime( AppId_t appID ) = 0;
-	virtual bool IsFreeWeekend() = 0;
+	virtual uint32 GetEarliestPurchaseUnixTime( AppId_t appID ) = 0;
+	virtual bool IsSubscribedFromFreeWeekend() = 0;
 };
 
 
