@@ -3067,29 +3067,28 @@ namespace Steam4NET
 		public IntPtr m_pubParam;
 		public Int32 m_cubParam;
 	}
-	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=576)]
-	public struct TSteamApp
-	{
-		public IntPtr szName;
-		public UInt32 uMaxNameChars;
-		public IntPtr szLatestVersionLabel;
-		public UInt32 uMaxLatestVersionLabelChars;
-		public IntPtr szCurrentVersionLabel;
-		public UInt32 uMaxCurrentVersionLabelChars;
-		public IntPtr szInstallDirName;
-		public UInt32 uMaxInstallDirNameChars;
-		public UInt32 uId;
-		public UInt32 uLatestVersionId;
-		public UInt32 uCurrentVersionId;
-		public UInt32 uMinCacheFileSizeMB;
-		public UInt32 uMaxCacheFileSizeMB;
-		public UInt32 uNumLaunchOptions;
-		public UInt32 uNumIcons;
-		public UInt32 uNumVersions;
-		public UInt32 uNumDependencies;
-		public IntPtr szUnkString;
-	}
+
+    [StructLayout( LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 8 )]
+    public struct TSteamApp
+    {
+        public string szName;
+        public UInt32 uMaxNameChars;
+        public string szLatestVersionLabel;
+        public UInt32 uMaxLatestVersionLabelChars;
+        public string szCurrentVersionLabel;
+        public UInt32 uMaxCurrentVersionLabelChars;
+        public string szInstallDirName;
+        public UInt32 uMaxInstallDirNameChars;
+        public UInt32 uId;
+        public UInt32 uLatestVersionId;
+        public UInt32 uCurrentVersionId;
+        public UInt32 uMinCacheFileSizeMB;
+        public UInt32 uMaxCacheFileSizeMB;
+        public UInt32 uNumLaunchOptions;
+        public UInt32 uNumIcons;
+        public UInt32 uNumVersions;
+        public UInt32 uNumDependencies;
+    }
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=8)]
 	public struct GCMOTDRequestResponse_News_t
@@ -10623,8 +10622,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUse(IntPtr thisobj, ref string_t cszUser, ref Int32 pbInUse, ref TSteamError pError);
 		public UInt32 IsAccountNameInUse(ref string_t cszUser, ref Int32 pbInUse, ref TSteamError pError) { var call = this.GetFunction<NativeIsAccountNameInUse>(this.Functions.IsAccountNameInUse); return call(this.ObjectAddress, ref cszUser, ref pbInUse, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError);
-		public Int32 GetAppIds(ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, ref puIds, uMaxIds, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIds(IntPtr thisobj, UInt32[] puIds, UInt32 uMaxIds, ref TSteamError pError);
+		public Int32 GetAppIds( UInt32[] puIds, UInt32 uMaxIds, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppIds>(this.Functions.GetAppIds); return call(this.ObjectAddress, puIds, uMaxIds, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStats(IntPtr thisobj, ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError);
 		public Int32 GetSubscriptionStats(ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError) { var call = this.GetFunction<NativeGetSubscriptionStats>(this.Functions.GetSubscriptionStats); return call(this.ObjectAddress, ref pSubscriptionStats, ref pError); }
@@ -10707,8 +10706,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindApp(IntPtr thisobj, ref string_t cszArg1, ref UInt32 arg2, ref TSteamError pError);
 		public Int32 FindApp(ref string_t cszArg1, ref UInt32 arg2, ref TSteamError pError) { var call = this.GetFunction<NativeFindApp>(this.Functions.FindApp); return call(this.ObjectAddress, ref cszArg1, ref arg2, ref pError); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError);
-		public Int32 GetAppDependencies(UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependencies(IntPtr thisobj, UInt32 uAppId, UInt32[] puDependecies, UInt32 uBufferLength, ref TSteamError pError);
+		public Int32 GetAppDependencies(UInt32 uAppId, UInt32[] puDependecies, UInt32 uBufferLength, ref TSteamError pError) { var call = this.GetFunction<NativeGetAppDependencies>(this.Functions.GetAppDependencies); return call(this.ObjectAddress, uAppId, puDependecies, uBufferLength, ref pError); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribed(IntPtr thisobj, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError);
 		public Int32 IsSubscribed(UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError) { var call = this.GetFunction<NativeIsSubscribed>(this.Functions.IsSubscribed); return call(this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError); }
