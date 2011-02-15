@@ -251,7 +251,6 @@ struct GCMessageFailed_t
 
 #pragma pack(push, 1)
 
-
 struct SOMsgCacheSubscribed_t
 {
 	enum { k_iMessage = k_ESOMsg_CacheSubscribed };
@@ -259,14 +258,13 @@ struct SOMsgCacheSubscribed_t
 	uint16 id;
 	char garbage[16];
 	CSteamID steamid;
-	uint32 unknown;
-	uint16 padding;
+	uint32 numberOfTypes; // Number of different 'sets' of information included, starts with items, goes on to recipes etc.
+	uint16 idOfFirstType; // This should technically be the start of a new struct, but since the item data is the only thing documeted yet...
 	uint16 itemcount;
 	// Variable length data:
 	// [SOMsgCacheSubscribed_Item_t] * itemcount
 };
 
-// There is 8 unknown bytes at the end of this, exact pos is unknown.
 struct SOMsgCacheSubscribed_Item_t
 {
 	uint64 itemid;
@@ -275,17 +273,18 @@ struct SOMsgCacheSubscribed_Item_t
 	uint8 itemlevel;
 	uint8 itemquality;
 	uint32 position;
-	uint32 itemcount;
+	uint32 quantity;
 	uint16 namelength;
 	// Variable length data:
 	// char customname[namelength];
-	// uint8 unk1;
+	// uint8 flags;
 	// uint8 origin;
 	// uint16 descriptionlength;
 	// char customdescription[descriptionlength];
-	// uint8 unk2;
+	// uint8 unk;
 	// uint16 attribcount;
 	// [SOMsgCacheSubscribed_Item_Attrib_t] * attribcount
+	// uint64 containedItem; // If this is set, there is a whole other item after.
 };
 
 struct SOMsgCacheSubscribed_Item_Attrib_t
