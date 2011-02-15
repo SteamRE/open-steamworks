@@ -37,6 +37,7 @@
             // btnOk
             // 
             this.btnOk.BackColor = System.Drawing.Color.FromArgb( ( ( int )( ( ( byte )( 58 ) ) ) ), ( ( int )( ( ( byte )( 58 ) ) ) ), ( ( int )( ( ( byte )( 58 ) ) ) ) );
+            this.btnOk.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOk.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btnOk.Location = new System.Drawing.Point( 12, 71 );
@@ -51,6 +52,7 @@
             // 
             this.btnCancel.BackColor = System.Drawing.Color.FromArgb( ( ( int )( ( ( byte )( 58 ) ) ) ), ( ( int )( ( ( byte )( 58 ) ) ) ), ( ( int )( ( ( byte )( 58 ) ) ) ) );
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btnCancel.Location = new System.Drawing.Point( 210, 71 );
