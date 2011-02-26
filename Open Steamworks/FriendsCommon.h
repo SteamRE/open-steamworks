@@ -616,6 +616,22 @@ struct FriendIgnored_t
 	CSteamID m_ulSteamFriendID;
 	bool m_bIgnored;
 };
+
+struct RichPresenceJoinRequested_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 37 };
+
+	CSteamID m_ulSteamID;
+	char szUnk[512];
+};
+
+struct FriendProfileInfoReceived_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 38 };
+
+	CSteamID m_ulSteamID;
+};
+
 #pragma pack( pop )
 
 
