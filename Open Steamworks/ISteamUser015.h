@@ -105,7 +105,7 @@ public:
 	// data. The suggested buffer size for the destination buffer is 22 kilobytes.
 	virtual EVoiceResult DecompressVoice( void *pCompressed, uint32 cbCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, uint32 nSamplesPerSec ) = 0;
 
-	virtuak uint32 GetVoiceOptimalSampleRate() = 0;
+	virtual uint32 GetVoiceOptimalSampleRate() = 0;
 
 	// Retrieve ticket to be sent to the entity who wishes to authenticate you. 
 	// pcbTicket retrieves the length of the actual ticket.

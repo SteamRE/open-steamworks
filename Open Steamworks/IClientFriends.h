@@ -131,7 +131,7 @@ public:
 	virtual bool IsUserInSource( CSteamID steamIDUser, CSteamID steamIDSource ) = 0;
 
 	virtual int GetCoplayFriendCount() = 0;
-	virtual CSteamID* GetCoplayFriend( CSteamID* pSteamID, int32 iIndex ) = 0;
+	virtual CSteamID GetCoplayFriend( int32 iIndex ) = 0;
 
 	virtual RTime32 GetFriendCoplayTime( CSteamID steamID ) = 0;
 	virtual AppId_t GetFriendCoplayGame( CSteamID steamID ) = 0;
