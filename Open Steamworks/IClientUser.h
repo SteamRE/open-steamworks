@@ -37,7 +37,10 @@ public:
 	virtual bool LoggedOn() = 0;
 	virtual ELogonState GetLogonState() = 0;
 	virtual bool Connected() = 0;
+	virtual bool TryingToLogin() = 0;
+
 	virtual CSteamID GetSteamID() = 0;
+	virtual CSteamID GetConsoleSteamID() = 0;
 
 	virtual bool IsVACBanned( AppId_t nGameID ) = 0;
 	virtual bool RequireShowVACBannedMessage( AppId_t nAppID ) = 0;
@@ -159,7 +162,8 @@ public:
 	virtual EVoiceResult GetVoice( bool bWantCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, bool bWantRaw, void *pRawDestBuffer, uint32 cbRawDestBufferSize, uint32 *nRawBytesWritten ) = 0;
 
 	virtual EVoiceResult GetCompressedVoice( void *pDestBuffer, uint32 cbDestBufferSize, uint32* nBytesWritten ) = 0;
-	virtual EVoiceResult DecompressVoice( void *pCompressed, uint32 cbCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32* nBytesWritten ) = 0;
+	virtual EVoiceResult DecompressVoice( void *pCompressed, uint32 cbCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32* nBytesWritten, uint32 nSamplesPerSec ) = 0;
+	virtual uint32 GetVoiceOptimalSampleRate() = 0;
 
 	virtual bool IsAnyGameRunning() = 0;
 
@@ -245,6 +249,8 @@ public:
 	//virtual bool BGetMicroTxnLineItem( uint64, uint32, CAmount *, uint32 *, char *, uint32 ) = 0;
 	virtual bool BGetMicroTxnLineItem( uint64, uint32, int *, uint32 *, char *, uint32 ) = 0;
 
+	virtual bool BIsSandboxMicroTxn( uint64, uint32 ) = 0;
+
 	//virtual unknown_ret AuthorizeMicroTxn( uint64, EMicroTxnAuthResponse ) = 0;
 	virtual unknown_ret AuthorizeMicroTxn( uint64, int ) = 0;
 
@@ -263,8 +269,16 @@ public:
 	virtual unknown_ret GetClientAppListResponse_AddDLC( /* ... */ ) = 0;
 	virtual unknown_ret GetClientAppListResponse_Done( /* ... */ ) = 0;
 	virtual unknown_ret PostUIResultToClientJob( /* ... */ ) = 0;
-	virtual unknown_ret BWriteScreenshotForGame( /* ... */ ) = 0;
-	virtual unknown_ret BRecreateThumbnailForScreenshot( /* ... */ ) = 0;
+
+	virtual bool PromptToVerifyEmail() = 0;
+	virtual bool PromptToChangePassword() = 0;
+	virtual bool AccountLocked() = 0;
+	virtual bool AccountShouldShowLockUI() = 0;
+	virtual bool AccountLockedByIPT() = 0;
+	virtual unknown_ret GetCountAuthedComputers() = 0;
+	virtual bool AccountCanUseIPT() = 0;
+	virtual unknown_ret ChangeTwoFactorAuthOptions( unknown_ret unk1 ) = 0;
+	virtual unknown_ret Set2ndFactorAuthCode( unknown_ret unk1 ) = 0;
 };
 
 #endif // ICLIENTUSER_H
