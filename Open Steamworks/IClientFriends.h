@@ -41,7 +41,7 @@ public:
 	// sets the status, communicates to server, tells all friends
 	virtual void SetPersonaState( EPersonaState ePersonaState ) = 0;
 
-	virtual bool NotifyUIOfMenuChange( bool bUnk1, bool bUnk2, bool bUnk3 ) = 0;
+	virtual bool NotifyUIOfMenuChange( bool bShowAvatars, bool bSortByName, bool bShowOnlineOnly ) = 0;
 
 	// friend iteration
 	virtual int GetFriendCount( int iFriendFlags ) = 0;
