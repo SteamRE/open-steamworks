@@ -36,7 +36,7 @@
 #define STEAMUSER_INTERFACE_VERSION_012 "SteamUser012"
 #define STEAMUSER_INTERFACE_VERSION_013 "SteamUser013"
 #define STEAMUSER_INTERFACE_VERSION_014 "SteamUser014"
-
+#define STEAMUSER_INTERFACE_VERSION_014 "SteamUser015"
 
 // Callback values for callback ValidateAuthTicketResponse_t which is a response to BeginAuthSession
 typedef enum EAuthSessionResponse

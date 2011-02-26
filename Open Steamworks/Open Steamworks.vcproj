@@ -610,6 +610,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamUser015.h"
+						>
+					</File>
+					<File
 						RelativePath=".\UserCommon.h"
 						>
 					</File>
