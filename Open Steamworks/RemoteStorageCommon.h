@@ -48,6 +48,13 @@ typedef enum ERemoteStorageSyncState
 	k_ERemoteSyncStatePendingChangesInCloudAndLocally = 5,
 } ERemoteStorageSyncState;
 
+typedef enum EScreenshotPrivacy
+{
+	k_EScreenshotPrivacyPrivate = 2,
+	k_EScreenshotPrivacyFriendsOnly = 4,
+	k_EScreenshotPrivacyPublic = 8,
+} EScreenshotPrivacy;
+
 
 #pragma pack( push, 8 )
 struct FileShareResult_t
@@ -59,6 +66,14 @@ struct FileShareResult_t
 	int32 unk3;
 	int32 unk4;
 };
+
+struct ScreenshotBatchResult_t
+{ 
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 12 };
+
+	EResult m_eResult;
+};
+
 #pragma pack( pop )
 
 
