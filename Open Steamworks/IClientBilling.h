@@ -32,7 +32,6 @@ public:
 
 	virtual bool CancelLicense( PackageId_t packageID, int32 nCancelReason ) = 0;
 
-	virtual bool GetPurchaseReceipts( bool bUnacknowledgedOnly ) = 0;
 	virtual bool AcknowledgePurchaseReceipt( uint32 nReceiptIndex ) = 0;
 
 	virtual PackageId_t GetLicensePackageID( uint32 nLicenseIndex ) = 0;
@@ -59,6 +58,10 @@ public:
 	virtual uint32 GetReceiptShipping( uint32 nReceiptIndex ) = 0;
 	virtual ECurrencyCode GetReceiptCurrencyCode( uint32 nReceiptIndex ) = 0;
 	virtual const char *GetReceiptCountryCode( uint32 nReceiptIndex ) = 0;
+	virtual const char *GetReceiptErrorHeadline( uint32 nReceiptIndex ) = 0;
+	virtual const char *GetReceiptErrorString( uint32 nReceiptIndex ) = 0;
+	virtual const char *GetReceiptErrorLinkText( uint32 nReceiptIndex ) = 0;
+	virtual const char *GetReceiptErrorLinkURL( uint32 nReceiptIndex ) = 0;
 
 	virtual uint32 GetNumLicenses() = 0;
 	virtual uint32 GetNumReceipts() = 0;
