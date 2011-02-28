@@ -52,9 +52,11 @@ public:
 
 	virtual bool VerifyApp( AppId_t unAppID ) = 0;
 
-	virtual bool GetFileInfo( uint32, const char *pchFileName, uint64 *punFileSize, DepotId_t *puDepotId ) = 0;
+	virtual bool GetFileInfo( AppId_t unAppID, const char *pchFileName, uint64 *punFileSize, DepotId_t *puDepotId ) = 0;
 
-	virtual bool SetAppConfig( uint32, uint8 *pchBuffer, int cbBuffer ) = 0;
+	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int cbBuffer ) = 0;
+
+	virtual bool IsAppUpToDate( AppId_t unAppID ) = 0;
 };
 
 #endif // ICLIENTAPPMANAGER_H
