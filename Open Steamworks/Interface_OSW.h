@@ -37,6 +37,7 @@
 	#include <sys/param.h>
 #else
 	#define TARGET_OS_UNIX 1
+	#include <libgen.h>
 	#include "POSIXLibrary.h"
 #endif
 
@@ -105,7 +106,13 @@ private:
 #else
 		// We don't know where to find Steam on this platform, so we're going
 		// to say it lives in the same directory as our executable
-		m_steamDir = "";
+		char pchSteamDir[PATH_MAX];
+		if( readlink("/proc/self/exe", pchSteamDir, sizeof(pchSteamDir)) != -1)
+		{
+			m_steamDir = dirname(pchSteamDir);
+		}
+		else
+			m_steamDir = ".";
 #endif
 	}
 	
@@ -136,8 +143,8 @@ private:
 
 #else
 
-		m_steamclient.reset( new DynamicLibrary( m_steamDir + "steamclient.so" ) );
-		m_steam.reset( new DynamicLibrary( m_steamDir + "libsteam.so" ) );
+		m_steamclient.reset( new DynamicLibrary( m_steamDir + "/steamclient.so" ) );
+		m_steam.reset( new DynamicLibrary( m_steamDir + "/libsteam.so" ) );
 
 #endif
 	}
