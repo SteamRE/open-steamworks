@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CallbackDispatcher.cs" />
+    <Compile Include="CGameID.cs" />
     <Compile Include="CSteamID.cs" />
     <Compile Include="NativeWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
