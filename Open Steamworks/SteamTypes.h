@@ -76,9 +76,6 @@
 typedef unsigned char uint8;
 #endif
 
-// is there a better place to put this?
-#include "string_t.h"
-
 #if defined( __GNUC__ ) && !defined(POSIX)
 	#if __GNUC__ < 4
 		#error "Steamworks requires GCC 4.X (4.2 or 4.4 have been tested)"
