@@ -65,7 +65,7 @@ public:
 	virtual void SetOfflineMode( bool bOffline ) = 0;
 	virtual bool GetOfflineMode() = 0;
 
-	virtual AppId_t SetAppIDForCurrentPipe( AppId_t appId ) = 0;
+	virtual AppId_t SetAppIDForCurrentPipe( AppId_t appId, bool bForce ) = 0;
 	virtual AppId_t GetAppID() = 0;
 
 	virtual void SetAPIDebuggingActive( bool bActive, bool bVerbose ) = 0;
