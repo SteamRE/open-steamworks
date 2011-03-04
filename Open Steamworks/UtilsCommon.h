@@ -93,15 +93,13 @@ struct SteamShutdown_t
 	enum { k_iCallback = k_iSteamUtilsCallbacks + 4 };
 };
 
-/*
 struct SteamConfigStoreChanged_t
 {
-	enum { k_iCallback = k_iSteamUtilsCallbacks + 5 };
+	enum { k_iCallback = k_iSteamUtilsCallbacks + 11 };
 
 	EConfigStore m_eConfigStore;
-	char m_szRootOfChanges[ 255 ];
+	char m_szRootOfChanges[ 256 ];
 };
-*/
 
 //-----------------------------------------------------------------------------
 // results for CheckFileSignature
