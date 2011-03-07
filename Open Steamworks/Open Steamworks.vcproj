@@ -215,6 +215,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\IClientMatchmakingServers.h"
+					>
+				</File>
+				<File
 					RelativePath=".\IClientNetworking.h"
 					>
 				</File>
