@@ -143,6 +143,7 @@ typedef enum EGCMessages
 	k_EMsgGCTrading_CancelSession,
 	k_EMsgGCTrading_TradeChatMsg,
 	k_EMsgGCTrading_ConfirmOffer,
+	k_EMsgGCTrading_TradeTypingChatMsg,
 
 	k_EMsgGCServerBrowser_FavoriteServer = 1601,
 	k_EMsgGCServerBrowser_BlacklistServer,
@@ -251,15 +252,26 @@ struct GCMessageFailed_t
 
 #pragma pack(push, 1)
 
+struct GCMsgHeader_t
+{
+	uint16 headerVersion;
+	uint64 targetJobID;
+	uint64 sourceJobID;
+};
+
 struct SOMsgCacheSubscribed_t
 {
 	enum { k_iMessage = k_ESOMsg_CacheSubscribed };
-
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	CSteamID steamid;
 	uint32 numberOfTypes; // Number of different 'sets' of information included, starts with items, goes on to recipes etc.
-	uint16 idOfFirstType; // This should technically be the start of a new struct, but since the item data is the only thing documeted yet...
+	// [SOMsgCacheSubscribed_*s_t] * numberOfTypes; SOMsgCacheSubscribed_Items_t is first, and the only one currently documented.
+};
+
+struct SOMsgCacheSubscribed_Items_t
+{
+	uint16 idOfType; // Check this is 1
 	uint16 itemcount;
 	// Variable length data:
 	// [SOMsgCacheSubscribed_Item_t] * itemcount
@@ -296,17 +308,16 @@ struct SOMsgCacheSubscribed_Item_Attrib_t
 struct SOMsgCacheUnsubscribed_t
 {
 	enum { k_iMessage = k_ESOMsg_CacheUnsubscribed };
-
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	CSteamID steamid;
 };
 
 struct SOMsgCreate_t
 {
 	enum { k_iMessage = k_ESOMsg_Create };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	CSteamID steamid;
 	uint32 unknown;
 	SOMsgCacheSubscribed_Item_t item;
@@ -320,9 +331,8 @@ struct SOMsgCreate_t
 struct SOMsgUpdate_t
 {
 	enum { k_iMessage = k_ESOMsg_Update };
-
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	CSteamID steamid;
 	uint32 unk1;
 	uint64 itemID;
@@ -340,8 +350,8 @@ struct SOMsgUpdate_t
 struct SOMsgDeleted_t
 {
 	enum { k_iMessage = k_ESOMsg_Destroy };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	CSteamID steamid;
 	uint32 unk1;
 	uint64 itemid;
@@ -356,8 +366,8 @@ struct SOMsgDeleted_t
 struct GCSetItemPosition_t
 {
 	enum { k_iMessage = k_EMsgGCSetItemPosition };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint64 itemID;
 	uint32 position;
 	uint32 unk1;
@@ -371,8 +381,8 @@ This one is 4 natasha
 struct GCCraft_t
 {
 	enum { k_iMessage = k_EMsgGCCraft };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint16 blueprint;//0xffff = unknown blueprint
 	uint16 itemcount;
 	// Variable length data:
@@ -386,8 +396,8 @@ struct GCCraft_t
 struct GCCraftResponse_t
 {
 	enum { k_iMessage = k_EMsgGCCraftResponse };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint16 blueprint;//0xffff = failed
 	uint64 unk1;
 	uint64 itemid;
@@ -400,8 +410,8 @@ struct GCCraftResponse_t
 struct GCDelete_t
 {
 	enum { k_iMessage = k_EMsgGCDelete };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint64 itemID;
 };
 
@@ -412,9 +422,8 @@ struct GCDelete_t
 struct GCVerifyCacheSubscription_t
 {
 	enum { k_iMessage = k_EMsgGCVerifyCacheSubscription };
-
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	CSteamID steamid;
 };
 
@@ -432,8 +441,8 @@ struct GCVerifyCacheSubscription_t
 struct GCGoldenWrenchBroadcast_t
 {
 	enum { k_iMessage = k_EMsgGCGoldenWrenchBroadcast };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint16 WrenchNumber;
 	uint16 State; // 0 = Found, 1 = Destroyed
 	// Variable length data:
@@ -448,8 +457,8 @@ struct GCGoldenWrenchBroadcast_t
 struct GCMOTDRequest_t
 {
 	enum { k_iMessage = k_EMsgGCMOTDRequest };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint32 timestamp;
 	uint32 unk1;
 };
@@ -461,8 +470,8 @@ struct GCMOTDRequest_t
 struct GCMOTDRequestResponse_t
 {
 	enum { k_iMessage = k_EMsgGCMOTDRequestResponse };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint16 NumberOfNews;
 	// Variable length data:
 	// [GCMOTDRequestResponse_News_t] * NumberOfNews
@@ -489,8 +498,8 @@ For example, if tf_server_identity_token was set to "Derp" and 4203408982 was th
 struct GC_GameServer_AuthChallenge_t
 {
 	enum { k_iMessage = k_EMsgGC_GameServer_AuthChallenge };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint8 unknown; // Possibly the terminator for an empty string.
 	// Variable length data:
 	// char salt[];
@@ -499,8 +508,8 @@ struct GC_GameServer_AuthChallenge_t
 struct GC_GameServer_AuthChallengeResponse_t
 {
 	enum { k_iMessage = k_EMsgGC_GameServer_AuthChallengeResponse };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint32 accountID;
 	// Variable length data:
 	// char hash[];
@@ -510,8 +519,8 @@ struct GC_GameServer_AuthChallengeResponse_t
 struct GC_GameServer_LevelInfo_t
 {
 	enum { k_iMessage = k_EMsgGC_GameServer_LevelInfo };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint8 unknown;
 	// Variable length data:
 	// char mapName[];
@@ -520,8 +529,8 @@ struct GC_GameServer_LevelInfo_t
 struct GCTrading_InitiateTradeRequest_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_InitiateTradeRequest };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint32 challenge;
 	CSteamID steamID;
 	// Variable length data:
@@ -531,8 +540,8 @@ struct GCTrading_InitiateTradeRequest_t
 struct GCTrading_InitiateTradeResponse_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_InitiateTradeResponse };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	/*ETFInitTradeResult*/ uint32 result;
 	uint32 challenge; // When sending this message as a response, make sure to set this as the same value from the request.
 };
@@ -540,18 +549,24 @@ struct GCTrading_InitiateTradeResponse_t
 struct GCTrading_TradeChatMsg_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_TradeChatMsg };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint8 unknown; // possibly a 0-length string
 	// Variable length data:
 	// char chatMsg[];
 };
 
+struct GCTrading_TradeTypingChatMsg_t
+{
+	enum { k_iMessage = k_EMsgGCTrading_TradeTypingChatMsg };
+	GCMsgHeader_t header;
+};
+
 struct GCTrading_StartSession_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_StartSession };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	CSteamID steamID1;
 	CSteamID steamID2;
 	// Variable length data:
@@ -562,9 +577,9 @@ struct GCTrading_StartSession_t
 struct GCTrading_SetItem_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_SetItem };
-	uint16 id;
-	char garbage[16];
-	uint8 unk1;
+	GCMsgHeader_t header;
+	
+	uint8 showcase;
 	uint64 itemID;
 	uint8 slot; // Trade 'slot' it goes in, see below.
 };
@@ -572,19 +587,22 @@ struct GCTrading_SetItem_t
 struct GCTrading_RemoveItem_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_RemoveItem };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	uint64 itemID;
 };
 
 struct GCTrading_UpdateTradeInfo_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_UpdateTradeInfo };
-	uint16 id;
-	char garbage[16];
-	uint32 unknown;
-	uint32 unk1;
-	uint64 plyr1_unknown;
+	GCMsgHeader_t header;
+	
+	uint32 version;
+	uint8 plyr1_numItems;
+	uint8 plyr2_numItems;
+	uint8 plyr1_numItems_showcase;
+	uint8 plyr2_numItems_showcase;
+	uint64 plyr1_showcase;
 	uint64 plyr1_slot0;
 	uint64 plyr1_slot1;
 	uint64 plyr1_slot2;
@@ -593,7 +611,7 @@ struct GCTrading_UpdateTradeInfo_t
 	uint64 plyr1_slot5;
 	uint64 plyr1_slot6;
 	uint64 plyr1_slot7;
-	uint64 plyr2_unknown;
+	uint64 plyr2_showcase;
 	uint64 plyr2_slot0;
 	uint64 plyr2_slot1;
 	uint64 plyr2_slot2;
@@ -608,9 +626,9 @@ struct GCTrading_UpdateTradeInfo_t
 struct GCTrading_ReadinessResponse_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_ReadinessResponse };
-	uint16 id;
-	char garbage[16];
-	uint32 unknown;
+	GCMsgHeader_t header;
+	
+	uint32 version;
 	uint8 player1ready;
 	uint8 player2ready;
 	uint8 player1confirmed;
@@ -620,33 +638,33 @@ struct GCTrading_ReadinessResponse_t
 struct GCTrading_SetReadiness_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_SetReadiness };
-	uint16 id;
-	char garbage[16];
-	uint32 unknown;
+	GCMsgHeader_t header;
+	
+	uint32 version;
 	uint8 response;
 };
 
 struct GCTrading_ConfirmOffer_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_ConfirmOffer };
-	uint16 id;
-	char garbage[16];
-	uint32 unknown;
+	GCMsgHeader_t header;
+	
+	uint32 version;
 };
 
 struct GCTrading_SessionClosed_t
 {
 	enum { k_iMessage = k_EMsgGCTrading_SessionClosed };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	/*ETFTradeResult*/ uint32 result;
 };
 
 struct GCRespawnPostLoadoutChange_t
 {
 	enum { k_iMessage = k_EMsgGCRespawnPostLoadoutChange };
-	uint16 id;
-	char garbage[16];
+	GCMsgHeader_t header;
+	
 	CSteamID steamID;
 };
 
