@@ -20,7 +20,16 @@
 #pragma once
 #endif
 
-#ifdef _WIN32
+#ifdef CLANG
+	#define S_API extern "C"
+	
+	typedef unsigned int errno_t;
+	typedef unsigned int size_t;
+	typedef unsigned char byte;
+	
+	#define NULL 0
+	
+#elif _WIN32
 	#ifndef WINVER
 		#define WINVER 0x502
 	#endif
@@ -61,7 +70,7 @@
 #endif
 
 // this is an MSVC project.. but for the same of supporting other compilers we have to jump through hoops
-#ifndef _MSC_VER
+#if defined(_MSC_VER) && !defined(CLANG)
 	#define sprintf_s snprintf
 	inline void _strcpy_s(char *dest, size_t len, const char *source) { strncpy(dest, source, len); };
 #else
@@ -72,7 +81,7 @@
 #define STEAM_CALL __cdecl
 
 // Steam-specific types. Defined here so this header file can be included in other code bases.
-#ifndef WCHARTYPES_H
+#if !WCHARTYPES_H && !CLANG
 typedef unsigned char uint8;
 #endif
 
@@ -90,7 +99,7 @@ typedef unsigned char uint8;
 typedef unsigned char uint8;
 typedef signed char int8;
 
-#if defined( _WIN32 )
+#if defined( _WIN32 ) && !defined(CLANG)
 
 typedef __int16 int16;
 typedef unsigned __int16 uint16;
@@ -478,7 +487,7 @@ const unsigned int										STEAM_USE_LATEST_VERSION = 0xFFFFFFFF;
 
 typedef	unsigned short		SteamInstanceID_t;		// MUST be 16 bits
 
-#if defined ( WIN32 )
+#if defined ( WIN32 ) && !defined(CLANG)
 typedef	unsigned __int64	SteamLocalUserID_t;		// MUST be 64 bits
 #else
 typedef	unsigned long long	SteamLocalUserID_t;		// MUST be 64 bits

@@ -36,8 +36,8 @@ public:
 	virtual void SetPersonaState( EPersonaState ePersonaState ) = 0;
 
 	// friend iteration
-	virtual int GetFriendCount( int iFriendFlags ) = 0;
-	virtual CSteamID GetFriendByIndex( int iFriend, int iFriendFlags ) = 0;
+	virtual int GetFriendCount( EFriendFlags iFriendFlags ) = 0;
+	virtual CSteamID GetFriendByIndex( int iFriend, EFriendFlags iFriendFlags ) = 0;
 
 	// gets the relationship to a user
 	virtual EFriendRelationship GetFriendRelationship( CSteamID steamIDFriend ) = 0;
@@ -62,7 +62,7 @@ public:
 	virtual bool RemoveFriend( CSteamID steamIDFriend ) = 0;
 
 	// returns true if the specified user is considered a friend (can see our online status)
-	virtual bool HasFriend( CSteamID steamIDFriend, int iFriendFlags ) = 0;
+	virtual bool HasFriend( CSteamID steamIDFriend, EFriendFlags iFriendFlags ) = 0;
 
 	// adds a friend by email address or account name - value returned in callback
 	virtual HSteamCall AddFriendByName( const char *pchEmailOrAccountName ) = 0;

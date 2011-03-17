@@ -14,7 +14,7 @@
 //
 //=============================================================================
 
-#ifndef CCALLBACK_H
+#if !defined(CCALLBACK_H) && !defined(CLANG)
 #define CCALLBACK_H
 #ifdef _WIN32
 #pragma once

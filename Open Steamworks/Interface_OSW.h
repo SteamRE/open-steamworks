@@ -14,7 +14,7 @@
 //
 //=============================================================================
 
-#ifndef INTERFACEOSW_H
+#if !defined(INTERFACEOSW_H) && !defined(CLANG)
 #define INTERFACEOSW_H
 #ifdef _WIN32
 #pragma once

@@ -21,10 +21,13 @@
 #endif
 
 #include "SteamTypes.h"
+
+#ifndef CLANG
 #include <stdio.h>
 #ifndef NO_CSTEAMID_STL
 #include <iostream>
 #endif //NO_CSTEAMID_STL
+#endif
 
 #pragma pack( push, 1 )
 
@@ -309,6 +312,7 @@ public:
 	void SetEUniverse( EUniverse eUniverse )	{ m_steamid.m_comp.m_EUniverse = eUniverse; }
 	bool IsValid() const;
 
+#ifndef CLANG
 	// this set of functions is hidden, will be moved out of class
 	explicit CSteamID( const char *pchSteamID, EUniverse eDefaultUniverse = k_EUniverseInvalid );
 	const char * Render() const				// renders this steam ID to string
@@ -395,8 +399,6 @@ public:
 		return CSteamID(ulSteamID).SteamRender();
 	}
 
-	#define RenderLadyGaga SteamRender
-
 	void SetFromString( const char *pchSteamID, EUniverse eDefaultUniverse );
 	bool SetFromSteam2String( const char *pchSteam2ID, EUniverse eUniverse );
 
@@ -404,6 +406,7 @@ public:
 	inline bool operator!=( const CSteamID &val ) const { return !operator==( val ); }
 	inline bool operator<( const CSteamID &val ) const { return m_steamid.m_unAll64Bits < val.m_steamid.m_unAll64Bits; }
 	inline bool operator>( const CSteamID &val ) const { return m_steamid.m_unAll64Bits > val.m_steamid.m_unAll64Bits; }
+#endif
 
 	// DEBUG function
 	bool BValidExternalSteamID() const;

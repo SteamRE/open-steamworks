@@ -44,8 +44,8 @@ public:
 	virtual bool NotifyUIOfMenuChange( bool bShowAvatars, bool bSortByName, bool bShowOnlineOnly ) = 0;
 
 	// friend iteration
-	virtual int GetFriendCount( int iFriendFlags ) = 0;
-	virtual CSteamID GetFriendByIndex( int iFriend, int iFriendFlags ) = 0;
+	virtual int GetFriendCount( EFriendFlags iFriendFlags ) = 0;
+	virtual CSteamID GetFriendByIndex( int iFriend, EFriendFlags iFriendFlags ) = 0;
 
 	virtual int GetOnlineFriendCount() = 0;
 
@@ -82,7 +82,7 @@ public:
 
 	virtual bool AddFriend( CSteamID steamID ) = 0;
 	virtual bool RemoveFriend( CSteamID steamID ) = 0;
-	virtual bool HasFriend( CSteamID steamID, int iFriendFlags ) = 0;
+	virtual bool HasFriend( CSteamID steamID, EFriendFlags iFriendFlags ) = 0;
 
 	// adds a friend by email address or account name - value returned in callback
 	virtual HSteamCall AddFriendByName( const char *pchEmailOrAccountName ) = 0;

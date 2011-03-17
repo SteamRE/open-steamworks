@@ -39,8 +39,8 @@ public:
 	virtual EPersonaState GetPersonaState() = 0;
 
 	// friend iteration
-	virtual int GetFriendCount( int iFriendFlags ) = 0;
-	virtual CSteamID GetFriendByIndex( int iFriend, int iFriendFlags ) = 0;
+	virtual int GetFriendCount( EFriendFlags iFriendFlags ) = 0;
+	virtual CSteamID GetFriendByIndex( int iFriend, EFriendFlags iFriendFlags ) = 0;
 
 	// gets the relationship to a user
 	virtual EFriendRelationship GetFriendRelationship( CSteamID steamIDFriend ) = 0;
@@ -56,7 +56,7 @@ public:
 	virtual const char *GetFriendPersonaNameHistory( CSteamID steamIDFriend, int iPersonaName ) = 0;
 
 	// returns true if the specified user is considered a friend
-	virtual bool HasFriend( CSteamID steamIDFriend, int iFriendFlags ) = 0;
+	virtual bool HasFriend( CSteamID steamIDFriend, EFriendFlags iFriendFlags ) = 0;
 
 	// clan functions
 	virtual int GetClanCount() = 0;

@@ -50,6 +50,7 @@ public:
 	const char *GetQueryAddressString() const;
 
 	// Comparison operators and functions.
+#ifndef CLANG
 	bool	operator<(const servernetadr_t &netadr) const;
 	void operator=( const servernetadr_t &that )
 	{
@@ -57,7 +58,7 @@ public:
 		m_usQueryPort = that.m_usQueryPort;
 		m_unIP = that.m_unIP;
 	}
-
+#endif
 
 private:
 	const char *ToString( uint32 unIP, uint16 usPort ) const;
@@ -119,6 +120,7 @@ inline void	servernetadr_t::SetIP( uint32 unIP )
 	m_unIP = unIP;
 }
 
+#ifndef CLANG
 inline const char *servernetadr_t::ToString( uint32 unIP, uint16 usPort ) const
 {
 	static char s[4][64];
@@ -145,5 +147,6 @@ inline bool servernetadr_t::operator<(const servernetadr_t &netadr) const
 {
 	return ( m_unIP < netadr.m_unIP ) || ( m_unIP == netadr.m_unIP && m_usQueryPort < netadr.m_usQueryPort );
 }
+#endif
 
 #endif // SERVERNETADR_H

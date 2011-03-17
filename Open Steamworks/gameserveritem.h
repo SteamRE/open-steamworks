@@ -66,6 +66,7 @@ inline gameserveritem_t::gameserveritem_t()
 	m_szGameTags[0] = 0;
 }
 
+#ifndef CLANG
 inline const char* gameserveritem_t::GetName() const
 {
 	// Use the IP address as the name if nothing is set yet.
@@ -79,6 +80,6 @@ inline void gameserveritem_t::SetName( const char *pName )
 {
 	strncpy( m_szServerName, pName, sizeof( m_szServerName ) );
 }
-
+#endif
 
 #endif // GAMESERVERITEM_H

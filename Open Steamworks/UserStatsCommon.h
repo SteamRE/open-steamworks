@@ -99,6 +99,7 @@ struct LeaderboardEntry002_t
 	/*
 	TODO : Reverse this struct
 	*/
+	int placeholder;
 };
 
 typedef LeaderboardEntry002_t LeaderboardEntry_t;

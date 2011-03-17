@@ -20,17 +20,23 @@
 #pragma once
 #endif
 
+#ifndef CLANG
 #include <stdio.h>
 #include <string.h>
+#endif
 
 struct MatchMakingKeyValuePair_t
 {
 	MatchMakingKeyValuePair_t() { m_szKey[0] = m_szValue[0] = 0; }
+	
+#ifndef CLANG
 	MatchMakingKeyValuePair_t( const char *pchKey, const char *pchValue )
 	{
 		strncpy( m_szKey, pchKey, sizeof(m_szKey) ); // this is a public header, use basic c library string funcs only!
 		strncpy( m_szValue, pchValue, sizeof(m_szValue) );
 	}
+#endif
+
 	char m_szKey[ 256 ];
 	char m_szValue[ 256 ];
 };
