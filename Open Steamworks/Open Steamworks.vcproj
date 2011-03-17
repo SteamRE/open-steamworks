@@ -163,6 +163,10 @@
 				Name="Client Interfaces"
 				>
 				<File
+					RelativePath=".\IClienMasterServerUpdater.h"
+					>
+				</File>
+				<File
 					RelativePath=".\IClientAppManager.h"
 					>
 				</File>
@@ -200,6 +204,10 @@
 				</File>
 				<File
 					RelativePath=".\IClientGameServer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IClientGameServerStats.h"
 					>
 				</File>
 				<File
