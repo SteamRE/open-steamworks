@@ -70,7 +70,7 @@
 #endif
 
 // this is an MSVC project.. but for the same of supporting other compilers we have to jump through hoops
-#if defined(_MSC_VER) && !defined(CLANG)
+#if !defined(_MSC_VER) && !defined(CLANG)
 	#define sprintf_s snprintf
 	inline void _strcpy_s(char *dest, size_t len, const char *source) { strncpy(dest, source, len); };
 #else
