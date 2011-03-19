@@ -50,6 +50,15 @@ typedef enum EGCResults
 	k_EGCResultInvalidMessage = 4,		// Something was wrong with the message being sent with SendMessage
 } EGCResults;
 
+/**
+ * This enum has been updated to match the TF2 Beta's messages.
+ * In addition to now not matching main TF2, Valve moved a lot of messages 
+ * over to the protobuf format. This means that the structs below should no
+ * longer be trusted to be correct.
+ * A protobuf message can be detected with:
+ *  (uMsgType & 0x80000000) == 0x80000000
+ */
+
 typedef enum EGCMessages
 {
 	k_EGCMsgGenericReply = 10,
@@ -59,6 +68,7 @@ typedef enum EGCMessages
 	k_ESOMsg_Destroy,
 	k_ESOMsg_CacheSubscribed,
 	k_ESOMsg_CacheUnsubscribed,
+	k_ESOMsg_UpdateMultiple,
 
 	k_EGCMsgAchievementAwarded = 51,
 	k_EGCMsgConCommand,
@@ -87,10 +97,17 @@ typedef enum EGCMessages
 	k_EGCMsgPostAlert,
 	k_EGCMsgGetLicenses,
 	k_EGCMsgGetUserStats,
+	k_EGCMsgAddFreeLicense = 80,
+	k_EGCMsgAddFreeLicenseResponse,
 	
 	k_EGCMsgWebAPIRegisterInterfaces = 101,
 	k_EGCMsgWebAPIJobRequest,
 	k_EGCMsgWebAPIRegistrationRequested,
+	
+	k_EGCMsgMemCachedGet = 200,
+	k_EGCMsgMemCachedGetResponse,
+	k_EGCMsgMemCachedSet,
+	k_EGCMsgMemCachedDelete
 
 	k_EMsgGCSetItemPosition = 1001,
 	k_EMsgGCCraft,
@@ -130,6 +147,17 @@ typedef enum EGCMessages
 	k_EMsgGCDeliverGiftResponseReceiver,
 	k_EMsgGCUnwrapGiftRequest,
 	k_EMsgGCUnwrapGiftResponse,
+	k_EMsgGCSetItemStyle,
+	k_EMsgGCUsedClaimCodeItem,
+	k_EMsgGCSortItems,
+	k_EMsgGC_RevolvingLootList,
+	k_EMsgGCLookupAccount,
+	k_EMsgGCLookupAccountResponse,
+	k_EMsgGCLookupAccountName,
+	k_EMsgGCLookupAccountNameResponse,
+	k_EMsgGCStartupCheck,
+	k_EMsgGCStartupCheckResponse,
+	k_EMsgGCUpdateItemSchema,
 
 	k_EMsgGCTrading_InitiateTradeRequest = 1501,
 	k_EMsgGCTrading_InitiateTradeResponse,
@@ -151,10 +179,29 @@ typedef enum EGCMessages
 	k_EMsgGCDev_NewItemRequest = 2001,
 	k_EMsgGCDev_NewItemRequestResponse,
 	
-	k_EMsgGCSystemMessage = 3001,
+	k_EMsgGCStoreGetUserData = 3000,
+	k_EMsgGCStoreGetUserDataResponse,
+	k_EMsgGCStorePurchaseInit,
+	k_EMsgGCStorePurchaseInitResponse,
+	k_EMsgGCStorePurchaseFinalize,
+	k_EMsgGCStorePurchaseFinalizeResponse,
+	k_EMsgGCStorePurchaseCancel,
+	k_EMsgGCStorePurchaseCancelResponse,
+	k_EMsgGCStorePurchaseQueryTxn,
+	k_EMsgGCStorePurchaseQueryTxnResponse,
 	
 	k_EMsgGCReportWarKill = 5001,
-	k_EMsgGCCoaching_AddToCoaches,
+	
+	k_EMsgGCVoteKickBanPlayer = 5018,
+	k_EMsgGCVoteKickBanPlayerResult,
+	k_EMsgGCKickPlayer,
+	k_EMsgGCStartedTraining,
+	k_EMsgGCFreeTrial_ChooseMostHelpfulFriend,
+	k_EMsgGCRequestTF2Friends,
+	k_EMsgGCRequestTF2FriendsResponse,
+	k_EMsgGCReplay_UploadedToYouTube,
+	
+	k_EMsgGCCoaching_AddToCoaches = 5200,
 	k_EMsgGCCoaching_AddToCoachesResponse,
 	k_EMsgGCCoaching_RemoveFromCoaches,
 	k_EMsgGCCoaching_RemoveFromCoachesResponse,
@@ -166,12 +213,8 @@ typedef enum EGCMessages
 	k_EMsgGCCoaching_CoachJoining,
 	k_EMsgGCCoaching_CoachJoined,
 	k_EMsgGCCoaching_LikeCurrentCoach,
-	k_EMsgGCLookupAccount,
-	k_EMsgGCLookupAccountResponse,
-	k_EMsgGCLookupAccountName,
-	k_EMsgGCLookupAccountNameResponse,
-	
-	k_EMsgGC_RevolvingLootList = 5400,
+	k_EMsgGCCoaching_RemoveCurrentCoach,
+	k_EMsgGCCoaching_AlreadyRatedCoach,
 	
 	k_EMsgGC_Duel_Request = 5500,
 	k_EMsgGC_Duel_Response,
@@ -187,25 +230,17 @@ typedef enum EGCMessages
 	k_EMsgGC_GameServer_LevelInfo = 5700,
 	k_EMsgGC_GameServer_AuthChallenge,
 	k_EMsgGC_GameServer_AuthChallengeResponse,
+	k_EMsgGC_GameServer_CreateIdentity,
+	k_EMsgGC_GameServer_CreateIdentityResponse,
+	k_EMsgGC_GameServer_List,
+	k_EMsgGC_GameServer_ListResponse,
+	k_EMsgGC_GameServer_AuthResult,
 	
-	k_EMsgGC_MM_RequestMatch = 5800,
-	k_EMsgGC_MM_RequestMatchResponse,
-	k_EMsgGC_MM_ReserveSpot,
-	k_EMsgGC_MM_LoadMap,
+	k_EMsgGC_QP_ScoreServers = 5800,
+	k_EMsgGC_QP_ScoreServersResponse,
 	
 	k_EMsgGC_PickupItemEligibility_Query = 6000,
-	k_EMsgGCDev_GrantWarKill,
-	
-	k_EMsgGCTFGetUserData = 7000,
-	k_EMsgGCTFGetUserDataResponse,
-	k_EMsgGCTFPurchaseInit,
-	k_EMsgGCTFPurchaseInitResponse,
-	k_EMsgGCTFPurchaseFinalize,
-	k_EMsgGCTFPurchaseFinalizeResponse,
-	k_EMsgGCTFPurchaseCancel,
-	k_EMsgGCTFPurchaseCancelResponse,
-	k_EMsgGCTFPurchaseQueryTxn,
-	k_EMsgGCTFPurchaseQueryTxnResponse
+	k_EMsgGCDev_GrantWarKill
 	
 } EGCMessages;
 
