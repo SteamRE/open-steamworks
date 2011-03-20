@@ -107,7 +107,7 @@ typedef enum EGCMessages
 	k_EGCMsgMemCachedGet = 200,
 	k_EGCMsgMemCachedGetResponse,
 	k_EGCMsgMemCachedSet,
-	k_EGCMsgMemCachedDelete
+	k_EGCMsgMemCachedDelete,
 
 	k_EMsgGCSetItemPosition = 1001,
 	k_EMsgGCCraft,
