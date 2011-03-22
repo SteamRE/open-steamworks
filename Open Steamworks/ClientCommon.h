@@ -48,7 +48,7 @@ class ISteamGameServerStats;
 #define STEAMCLIENT_INTERFACE_VERSION_007		"SteamClient007"
 #define STEAMCLIENT_INTERFACE_VERSION_008		"SteamClient008"
 #define STEAMCLIENT_INTERFACE_VERSION_009		"SteamClient009"
-
+#define STEAMCLIENT_INTERFACE_VERSION_010		"SteamClient010"
 
 
 #endif

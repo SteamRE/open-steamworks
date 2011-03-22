@@ -329,6 +329,10 @@
 						RelativePath=".\ISteamClient009.h"
 						>
 					</File>
+					<File
+						RelativePath=".\ISteamClient010.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="ISteamContentServer"
