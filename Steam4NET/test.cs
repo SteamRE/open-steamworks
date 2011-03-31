@@ -426,6 +426,7 @@ namespace Steam4NET
 		k_EUserHasLicenseResultNoAuth = 2,
 	}
 	
+	
 	public enum EChatRoomType
 	{
 		k_EChatRoomTypeFriend = 1,
@@ -820,6 +821,7 @@ namespace Steam4NET
 		k_ESOMsg_Destroy = 23,
 		k_ESOMsg_CacheSubscribed = 24,
 		k_ESOMsg_CacheUnsubscribed = 25,
+		k_ESOMsg_UpdateMultiple = 26,
 		k_EGCMsgAchievementAwarded = 51,
 		k_EGCMsgConCommand = 52,
 		k_EGCMsgStartPlaying = 53,
@@ -847,9 +849,15 @@ namespace Steam4NET
 		k_EGCMsgPostAlert = 75,
 		k_EGCMsgGetLicenses = 76,
 		k_EGCMsgGetUserStats = 77,
+		k_EGCMsgAddFreeLicense = 80,
+		k_EGCMsgAddFreeLicenseResponse = 81,
 		k_EGCMsgWebAPIRegisterInterfaces = 101,
 		k_EGCMsgWebAPIJobRequest = 102,
 		k_EGCMsgWebAPIRegistrationRequested = 103,
+		k_EGCMsgMemCachedGet = 200,
+		k_EGCMsgMemCachedGetResponse = 201,
+		k_EGCMsgMemCachedSet = 202,
+		k_EGCMsgMemCachedDelete = 203,
 		k_EMsgGCSetItemPosition = 1001,
 		k_EMsgGCCraft = 1002,
 		k_EMsgGCCraftResponse = 1003,
@@ -888,6 +896,17 @@ namespace Steam4NET
 		k_EMsgGCDeliverGiftResponseReceiver = 1036,
 		k_EMsgGCUnwrapGiftRequest = 1037,
 		k_EMsgGCUnwrapGiftResponse = 1038,
+		k_EMsgGCSetItemStyle = 1039,
+		k_EMsgGCUsedClaimCodeItem = 1040,
+		k_EMsgGCSortItems = 1041,
+		k_EMsgGC_RevolvingLootList = 1042,
+		k_EMsgGCLookupAccount = 1043,
+		k_EMsgGCLookupAccountResponse = 1044,
+		k_EMsgGCLookupAccountName = 1045,
+		k_EMsgGCLookupAccountNameResponse = 1046,
+		k_EMsgGCStartupCheck = 1047,
+		k_EMsgGCStartupCheckResponse = 1048,
+		k_EMsgGCUpdateItemSchema = 1049,
 		k_EMsgGCTrading_InitiateTradeRequest = 1501,
 		k_EMsgGCTrading_InitiateTradeResponse = 1502,
 		k_EMsgGCTrading_StartSession = 1503,
@@ -900,29 +919,44 @@ namespace Steam4NET
 		k_EMsgGCTrading_CancelSession = 1510,
 		k_EMsgGCTrading_TradeChatMsg = 1511,
 		k_EMsgGCTrading_ConfirmOffer = 1512,
+		k_EMsgGCTrading_TradeTypingChatMsg = 1513,
 		k_EMsgGCServerBrowser_FavoriteServer = 1601,
 		k_EMsgGCServerBrowser_BlacklistServer = 1602,
 		k_EMsgGCDev_NewItemRequest = 2001,
 		k_EMsgGCDev_NewItemRequestResponse = 2002,
-		k_EMsgGCSystemMessage = 3001,
+		k_EMsgGCStoreGetUserData = 3000,
+		k_EMsgGCStoreGetUserDataResponse = 3001,
+		k_EMsgGCStorePurchaseInit = 3002,
+		k_EMsgGCStorePurchaseInitResponse = 3003,
+		k_EMsgGCStorePurchaseFinalize = 3004,
+		k_EMsgGCStorePurchaseFinalizeResponse = 3005,
+		k_EMsgGCStorePurchaseCancel = 3006,
+		k_EMsgGCStorePurchaseCancelResponse = 3007,
+		k_EMsgGCStorePurchaseQueryTxn = 3008,
+		k_EMsgGCStorePurchaseQueryTxnResponse = 3009,
 		k_EMsgGCReportWarKill = 5001,
-		k_EMsgGCCoaching_AddToCoaches = 5002,
-		k_EMsgGCCoaching_AddToCoachesResponse = 5003,
-		k_EMsgGCCoaching_RemoveFromCoaches = 5004,
-		k_EMsgGCCoaching_RemoveFromCoachesResponse = 5005,
-		k_EMsgGCCoaching_FindCoach = 5006,
-		k_EMsgGCCoaching_FindCoachResponse = 5007,
-		k_EMsgGCCoaching_AskCoach = 5008,
-		k_EMsgGCCoaching_AskCoachResponse = 5009,
-		k_EMsgGCCoaching_CoachJoinGame = 5010,
-		k_EMsgGCCoaching_CoachJoining = 5011,
-		k_EMsgGCCoaching_CoachJoined = 5012,
-		k_EMsgGCCoaching_LikeCurrentCoach = 5013,
-		k_EMsgGCLookupAccount = 5014,
-		k_EMsgGCLookupAccountResponse = 5015,
-		k_EMsgGCLookupAccountName = 5016,
-		k_EMsgGCLookupAccountNameResponse = 5017,
-		k_EMsgGC_RevolvingLootList = 5400,
+		k_EMsgGCVoteKickBanPlayer = 5018,
+		k_EMsgGCVoteKickBanPlayerResult = 5019,
+		k_EMsgGCKickPlayer = 5020,
+		k_EMsgGCStartedTraining = 5021,
+		k_EMsgGCFreeTrial_ChooseMostHelpfulFriend = 5022,
+		k_EMsgGCRequestTF2Friends = 5023,
+		k_EMsgGCRequestTF2FriendsResponse = 5024,
+		k_EMsgGCReplay_UploadedToYouTube = 5025,
+		k_EMsgGCCoaching_AddToCoaches = 5200,
+		k_EMsgGCCoaching_AddToCoachesResponse = 5201,
+		k_EMsgGCCoaching_RemoveFromCoaches = 5202,
+		k_EMsgGCCoaching_RemoveFromCoachesResponse = 5203,
+		k_EMsgGCCoaching_FindCoach = 5204,
+		k_EMsgGCCoaching_FindCoachResponse = 5205,
+		k_EMsgGCCoaching_AskCoach = 5206,
+		k_EMsgGCCoaching_AskCoachResponse = 5207,
+		k_EMsgGCCoaching_CoachJoinGame = 5208,
+		k_EMsgGCCoaching_CoachJoining = 5209,
+		k_EMsgGCCoaching_CoachJoined = 5210,
+		k_EMsgGCCoaching_LikeCurrentCoach = 5211,
+		k_EMsgGCCoaching_RemoveCurrentCoach = 5212,
+		k_EMsgGCCoaching_AlreadyRatedCoach = 5213,
 		k_EMsgGC_Duel_Request = 5500,
 		k_EMsgGC_Duel_Response = 5501,
 		k_EMsgGC_Duel_Results = 5502,
@@ -935,22 +969,15 @@ namespace Steam4NET
 		k_EMsgGC_GameServer_LevelInfo = 5700,
 		k_EMsgGC_GameServer_AuthChallenge = 5701,
 		k_EMsgGC_GameServer_AuthChallengeResponse = 5702,
-		k_EMsgGC_MM_RequestMatch = 5800,
-		k_EMsgGC_MM_RequestMatchResponse = 5801,
-		k_EMsgGC_MM_ReserveSpot = 5802,
-		k_EMsgGC_MM_LoadMap = 5803,
+		k_EMsgGC_GameServer_CreateIdentity = 5703,
+		k_EMsgGC_GameServer_CreateIdentityResponse = 5704,
+		k_EMsgGC_GameServer_List = 5705,
+		k_EMsgGC_GameServer_ListResponse = 5706,
+		k_EMsgGC_GameServer_AuthResult = 5707,
+		k_EMsgGC_QP_ScoreServers = 5800,
+		k_EMsgGC_QP_ScoreServersResponse = 5801,
 		k_EMsgGC_PickupItemEligibility_Query = 6000,
 		k_EMsgGCDev_GrantWarKill = 6001,
-		k_EMsgGCTFGetUserData = 7000,
-		k_EMsgGCTFGetUserDataResponse = 7001,
-		k_EMsgGCTFPurchaseInit = 7002,
-		k_EMsgGCTFPurchaseInitResponse = 7003,
-		k_EMsgGCTFPurchaseFinalize = 7004,
-		k_EMsgGCTFPurchaseFinalizeResponse = 7005,
-		k_EMsgGCTFPurchaseCancel = 7006,
-		k_EMsgGCTFPurchaseCancelResponse = 7007,
-		k_EMsgGCTFPurchaseQueryTxn = 7008,
-		k_EMsgGCTFPurchaseQueryTxnResponse = 7009,
 	}
 	
 	public enum EPaymentMethod
@@ -1315,13 +1342,19 @@ namespace Steam4NET
 		k_EStatusDepotVersionCompleteEnabledPublic = 3,
 	}
 	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=144)]
+	public struct GCMsgHeader_t
+	{
+		public UInt16 headerVersion;
+		public UInt64 targetJobID;
+		public UInt64 sourceJobID;
+	}
+	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=224)]
 	public struct GCTrading_SetItem_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
-		public Byte unk1;
+		public GCMsgHeader_t header;
+		public Byte showcase;
 		public UInt64 itemID;
 		public Byte slot;
 		public const int k_iMessage = 1504;
@@ -1330,9 +1363,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=272)]
 	public struct GCSetItemPosition_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 itemID;
 		public UInt32 position;
 		public UInt32 unk1;
@@ -1446,9 +1477,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=208)]
 	public struct SOMsgCacheUnsubscribed_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 steamid;
 		public const int k_iMessage = 25;
 	}
@@ -1464,9 +1493,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=176)]
 	public struct GCGoldenWrenchBroadcast_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt16 WrenchNumber;
 		public UInt16 State;
 		public const int k_iMessage = 1011;
@@ -1511,9 +1538,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=448)]
 	public struct SOMsgCreate_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 steamid;
 		public UInt32 unknown;
 		public SOMsgCacheSubscribed_Item_t item;
@@ -1523,9 +1548,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=208)]
 	public struct GCRespawnPostLoadoutChange_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 steamID;
 		public const int k_iMessage = 1029;
 	}
@@ -1541,10 +1564,8 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=184)]
 	public struct GCTrading_SetReadiness_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
-		public UInt32 unknown;
+		public GCMsgHeader_t header;
+		public UInt32 version;
 		public Byte response;
 		public const int k_iMessage = 1507;
 	}
@@ -1582,9 +1603,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=288)]
 	public struct GCCraftResponse_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt16 blueprint;
 		public UInt64 unk1;
 		public UInt64 itemid;
@@ -1749,16 +1768,12 @@ namespace Steam4NET
 		public const int k_iCallback = 327;
 	}
 	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=272)]
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=240)]
 	public struct SOMsgCacheSubscribed_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 steamid;
 		public UInt32 numberOfTypes;
-		public UInt16 idOfFirstType;
-		public UInt16 itemcount;
 		public const int k_iMessage = 24;
 	}
 	
@@ -1825,12 +1840,17 @@ namespace Steam4NET
 		public const int k_iCallback = 506;
 	}
 	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=144)]
+	public struct GCTrading_TradeTypingChatMsg_t
+	{
+		public GCMsgHeader_t header;
+		public const int k_iMessage = 1513;
+	}
+	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=240)]
 	public struct GCTrading_InitiateTradeRequest_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt32 challenge;
 		public UInt64 steamID;
 		public const int k_iMessage = 1501;
@@ -1877,9 +1897,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=304)]
 	public struct SOMsgDeleted_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 steamid;
 		public UInt32 unk1;
 		public UInt64 itemid;
@@ -2072,9 +2090,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=176)]
 	public struct GCCraft_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt16 blueprint;
 		public UInt16 itemcount;
 		public const int k_iMessage = 1002;
@@ -2110,9 +2126,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=208)]
 	public struct GCTrading_InitiateTradeResponse_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt32 result;
 		public UInt32 challenge;
 		public const int k_iMessage = 1502;
@@ -2155,9 +2169,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=176)]
 	public struct GCTrading_SessionClosed_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt32 result;
 		public const int k_iMessage = 1509;
 	}
@@ -2218,10 +2230,8 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=208)]
 	public struct GCTrading_ReadinessResponse_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
-		public UInt32 unknown;
+		public GCMsgHeader_t header;
+		public UInt32 version;
 		public Byte player1ready;
 		public Byte player2ready;
 		public Byte player1confirmed;
@@ -2242,9 +2252,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=152)]
 	public struct GC_GameServer_AuthChallenge_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public Byte unknown;
 		public const int k_iMessage = 5701;
 	}
@@ -2269,9 +2277,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=208)]
 	public struct GCMOTDRequest_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt32 timestamp;
 		public UInt32 unk1;
 		public const int k_iMessage = 1012;
@@ -2359,9 +2365,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=272)]
 	public struct GCTrading_StartSession_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 steamID1;
 		public UInt64 steamID2;
 		public const int k_iMessage = 1503;
@@ -2379,9 +2383,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=208)]
 	public struct GCDelete_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 itemID;
 		public const int k_iMessage = 1004;
 	}
@@ -2456,6 +2458,15 @@ namespace Steam4NET
 		public const int k_iCallback = 1403;
 	}
 	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=2056)]
+	public struct SteamConfigStoreChanged_t
+	{
+		public EConfigStore m_eConfigStore;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
+		public SByte[] m_szRootOfChanges;
+		public const int k_iCallback = 711;
+	}
+	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=64)]
 	public struct P2PSessionRequest_t
 	{
@@ -2517,9 +2528,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=208)]
 	public struct GCTrading_RemoveItem_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 itemID;
 		public const int k_iMessage = 1505;
 	}
@@ -2552,9 +2561,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=176)]
 	public struct GC_GameServer_AuthChallengeResponse_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt32 accountID;
 		public const int k_iMessage = 5702;
 	}
@@ -2584,9 +2591,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=208)]
 	public struct GCVerifyCacheSubscription_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 steamid;
 		public const int k_iMessage = 1005;
 	}
@@ -2683,12 +2688,13 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=1360)]
 	public struct GCTrading_UpdateTradeInfo_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
-		public UInt32 unknown;
-		public UInt32 unk1;
-		public UInt64 plyr1_unknown;
+		public GCMsgHeader_t header;
+		public UInt32 version;
+		public Byte plyr1_numItems;
+		public Byte plyr2_numItems;
+		public Byte plyr1_numItems_showcase;
+		public Byte plyr2_numItems_showcase;
+		public UInt64 plyr1_showcase;
 		public UInt64 plyr1_slot0;
 		public UInt64 plyr1_slot1;
 		public UInt64 plyr1_slot2;
@@ -2697,7 +2703,7 @@ namespace Steam4NET
 		public UInt64 plyr1_slot5;
 		public UInt64 plyr1_slot6;
 		public UInt64 plyr1_slot7;
-		public UInt64 plyr2_unknown;
+		public UInt64 plyr2_showcase;
 		public UInt64 plyr2_slot0;
 		public UInt64 plyr2_slot1;
 		public UInt64 plyr2_slot2;
@@ -2712,9 +2718,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=160)]
 	public struct GCMOTDRequestResponse_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt16 NumberOfNews;
 		public const int k_iMessage = 1013;
 	}
@@ -2722,9 +2726,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=152)]
 	public struct GC_GameServer_LevelInfo_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public Byte unknown;
 		public const int k_iMessage = 5700;
 	}
@@ -2776,9 +2778,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=152)]
 	public struct GCTrading_TradeChatMsg_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public Byte unknown;
 		public const int k_iMessage = 1511;
 	}
@@ -2803,9 +2803,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=352)]
 	public struct SOMsgUpdate_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
+		public GCMsgHeader_t header;
 		public UInt64 steamid;
 		public UInt32 unk1;
 		public UInt64 itemID;
@@ -2879,10 +2877,8 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=176)]
 	public struct GCTrading_ConfirmOffer_t
 	{
-		public UInt16 id;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-		public SByte[] garbage;
-		public UInt32 unknown;
+		public GCMsgHeader_t header;
+		public UInt32 version;
 		public const int k_iMessage = 1512;
 	}
 	
@@ -3053,6 +3049,13 @@ namespace Steam4NET
 		public SByte[] szPassword;
 	}
 	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=32)]
+	public struct SOMsgCacheSubscribed_Items_t
+	{
+		public UInt16 idOfType;
+		public UInt16 itemcount;
+	}
+	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=1856)]
 	public struct TSteamPrepurchaseInfo
 	{
@@ -3131,11 +3134,6 @@ namespace Steam4NET
 
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=8)]
 	public struct GCMOTDRequestResponse_News_t
-	{
-	}
-	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=0)]
-	public struct IClientMasterServerUpdater
 	{
 	}
 	
@@ -3288,9 +3286,10 @@ namespace Steam4NET
 	{
 	}
 	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=8)]
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=32)]
 	public struct LeaderboardEntry002_t
 	{
+		public Int32 placeholder;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=0)]
@@ -3372,11 +3371,6 @@ namespace Steam4NET
 		public Int32 bIsLongRunningUnattended;
 	}
 	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=0)]
-	public struct IClientGameServerStats
-	{
-	}
-	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=2624)]
 	public struct TSteamSubscription
 	{
@@ -3441,11 +3435,6 @@ namespace Steam4NET
 		}
 		public Unionvalue value;
 
-	}
-	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=0)]
-	public struct IClientMatchmakingServers
-	{
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=2112)]
@@ -3726,8 +3715,8 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLocalScreenshotCount(IntPtr thisobj, UInt64 GameID);
 		public UInt32 GetLocalScreenshotCount(UInt64 GameID) { var call = this.GetFunction<NativeGetLocalScreenshotCount>(this.Functions.GetLocalScreenshotCount); return call(this.ObjectAddress, GameID); }
 
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLocalScreenshot(IntPtr thisobj, UInt64 GameID, UInt32 uIndex, string pchFilename, UInt32 cubFilename, ref UInt32 puWidth, ref UInt32 puHeight, ref UInt32 puTimestamp, ref EScreenshotPrivacy pePrivacy, ref UInt64 unk, string pchCaption, UInt32 cubCaption);
-		[return: MarshalAs(UnmanagedType.I1)] public bool GetLocalScreenshot(UInt64 GameID, UInt32 uIndex, string pchFilename, UInt32 cubFilename, ref UInt32 puWidth, ref UInt32 puHeight, ref UInt32 puTimestamp, ref EScreenshotPrivacy pePrivacy, ref UInt64 unk, string pchCaption, UInt32 cubCaption) { var call = this.GetFunction<NativeGetLocalScreenshot>(this.Functions.GetLocalScreenshot); return call(this.ObjectAddress, GameID, uIndex, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchFilename ) ), cubFilename, ref puWidth, ref puHeight, ref puTimestamp, ref pePrivacy, ref unk, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchCaption ) ), cubCaption); }
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLocalScreenshot(IntPtr thisobj, UInt64 GameID, UInt32 uIndex, string pchFilename, UInt32 cubFilename, ref UInt32 puWidth, ref UInt32 puHeight, ref UInt32 puTimestamp, ref EScreenshotPrivacy pePrivacy, ref UInt64 pulUnk, string pchCaption, UInt32 cubCaption);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetLocalScreenshot(UInt64 GameID, UInt32 uIndex, string pchFilename, UInt32 cubFilename, ref UInt32 puWidth, ref UInt32 puHeight, ref UInt32 puTimestamp, ref EScreenshotPrivacy pePrivacy, ref UInt64 pulUnk, string pchCaption, UInt32 cubCaption) { var call = this.GetFunction<NativeGetLocalScreenshot>(this.Functions.GetLocalScreenshot); return call(this.ObjectAddress, GameID, uIndex, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchFilename ) ), cubFilename, ref puWidth, ref puHeight, ref puTimestamp, ref pePrivacy, ref pulUnk, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchCaption ) ), cubCaption); }
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLocalScreenshotCaption(IntPtr thisobj, UInt64 GameID, string szFilename, string szCaption);
 		[return: MarshalAs(UnmanagedType.I1)] public bool SetLocalScreenshotCaption(UInt64 GameID, string szFilename, string szCaption) { var call = this.GetFunction<NativeSetLocalScreenshotCaption>(this.Functions.SetLocalScreenshotCaption); return call(this.ObjectAddress, GameID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( szFilename ) ), Encoding.Default.GetString( Encoding.UTF8.GetBytes( szCaption ) )); }
@@ -6120,6 +6109,71 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientMasterServerUpdaterVTable
+	{
+		public IntPtr SetActive;
+		public IntPtr SetHeartbeatInterval;
+		public IntPtr HandleIncomingPacket;
+		public IntPtr GetNextOutgoingPacket;
+		public IntPtr SetBasicServerData;
+		public IntPtr ClearAllKeyValues;
+		public IntPtr SetKeyValue;
+		public IntPtr NotifyShutdown;
+		public IntPtr WasRestartRequested;
+		public IntPtr ForceHeartbeat;
+		public IntPtr AddMasterServer;
+		public IntPtr RemoveMasterServer;
+		public IntPtr GetNumMasterServers;
+		public IntPtr GetMasterServerAddress;
+	}
+	
+	public class IClientMasterServerUpdater : NativeWrapper<IClientMasterServerUpdaterVTable>
+	{
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetActive(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool bActive);
+		public void SetActive([MarshalAs(UnmanagedType.I1)] bool bActive) { var call = this.GetFunction<NativeSetActive>(this.Functions.SetActive); call(this.ObjectAddress, bActive); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetHeartbeatInterval(IntPtr thisobj, Int32 iHeartbeatInterval);
+		public void SetHeartbeatInterval(Int32 iHeartbeatInterval) { var call = this.GetFunction<NativeSetHeartbeatInterval>(this.Functions.SetHeartbeatInterval); call(this.ObjectAddress, iHeartbeatInterval); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHandleIncomingPacket(IntPtr thisobj, byte[] pData, Int32 cbData, UInt32 srcIP, UInt16 srcPort);
+		[return: MarshalAs(UnmanagedType.I1)] public bool HandleIncomingPacket(byte[] pData, Int32 cbData, UInt32 srcIP, UInt16 srcPort) { var call = this.GetFunction<NativeHandleIncomingPacket>(this.Functions.HandleIncomingPacket); return call(this.ObjectAddress, pData, cbData, srcIP, srcPort); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNextOutgoingPacket(IntPtr thisobj, byte[] pOut, Int32 cbMaxOut, ref UInt32 pNetAdr, ref UInt16 pPort);
+		public Int32 GetNextOutgoingPacket(byte[] pOut, Int32 cbMaxOut, ref UInt32 pNetAdr, ref UInt16 pPort) { var call = this.GetFunction<NativeGetNextOutgoingPacket>(this.Functions.GetNextOutgoingPacket); return call(this.ObjectAddress, pOut, cbMaxOut, ref pNetAdr, ref pPort); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetBasicServerData(IntPtr thisobj, UInt16 nProtocolVersion, [MarshalAs(UnmanagedType.I1)] bool bDedicatedServer, string pRegionName, string pProductName, UInt16 nMaxReportedClients, [MarshalAs(UnmanagedType.I1)] bool bPasswordProtected, string pGameDescription);
+		public void SetBasicServerData(UInt16 nProtocolVersion, [MarshalAs(UnmanagedType.I1)] bool bDedicatedServer, string pRegionName, string pProductName, UInt16 nMaxReportedClients, [MarshalAs(UnmanagedType.I1)] bool bPasswordProtected, string pGameDescription) { var call = this.GetFunction<NativeSetBasicServerData>(this.Functions.SetBasicServerData); call(this.ObjectAddress, nProtocolVersion, bDedicatedServer, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pRegionName ) ), Encoding.Default.GetString( Encoding.UTF8.GetBytes( pProductName ) ), nMaxReportedClients, bPasswordProtected, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pGameDescription ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearAllKeyValues(IntPtr thisobj);
+		public void ClearAllKeyValues() { var call = this.GetFunction<NativeClearAllKeyValues>(this.Functions.ClearAllKeyValues); call(this.ObjectAddress); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetKeyValue(IntPtr thisobj, string pKey, string pValue);
+		public void SetKeyValue(string pKey, string pValue) { var call = this.GetFunction<NativeSetKeyValue>(this.Functions.SetKeyValue); call(this.ObjectAddress, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pKey ) ), Encoding.Default.GetString( Encoding.UTF8.GetBytes( pValue ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyShutdown(IntPtr thisobj);
+		public void NotifyShutdown() { var call = this.GetFunction<NativeNotifyShutdown>(this.Functions.NotifyShutdown); call(this.ObjectAddress); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeWasRestartRequested(IntPtr thisobj);
+		[return: MarshalAs(UnmanagedType.I1)] public bool WasRestartRequested() { var call = this.GetFunction<NativeWasRestartRequested>(this.Functions.WasRestartRequested); return call(this.ObjectAddress); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeForceHeartbeat(IntPtr thisobj);
+		public void ForceHeartbeat() { var call = this.GetFunction<NativeForceHeartbeat>(this.Functions.ForceHeartbeat); call(this.ObjectAddress); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddMasterServer(IntPtr thisobj, string pServerAddress);
+		[return: MarshalAs(UnmanagedType.I1)] public bool AddMasterServer(string pServerAddress) { var call = this.GetFunction<NativeAddMasterServer>(this.Functions.AddMasterServer); return call(this.ObjectAddress, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pServerAddress ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveMasterServer(IntPtr thisobj, string pServerAddress);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RemoveMasterServer(string pServerAddress) { var call = this.GetFunction<NativeRemoveMasterServer>(this.Functions.RemoveMasterServer); return call(this.ObjectAddress, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pServerAddress ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetNumMasterServers(IntPtr thisobj);
+		public Int32 GetNumMasterServers() { var call = this.GetFunction<NativeGetNumMasterServers>(this.Functions.GetNumMasterServers); return call(this.ObjectAddress); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetMasterServerAddress(IntPtr thisobj, Int32 iServer, string pOut, Int32 outBufferSize);
+		public Int32 GetMasterServerAddress(Int32 iServer, string pOut, Int32 outBufferSize) { var call = this.GetFunction<NativeGetMasterServerAddress>(this.Functions.GetMasterServerAddress); return call(this.ObjectAddress, iServer, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pOut ) ), outBufferSize); }
+
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
 	public class ISteamBilling001VTable
 	{
 		public IntPtr SetBillingAddress;
@@ -6448,6 +6502,107 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamClient010VTable
+	{
+		public IntPtr CreateSteamPipe;
+		public IntPtr ReleaseSteamPipe;
+		public IntPtr ConnectToGlobalUser;
+		public IntPtr CreateLocalUser;
+		public IntPtr ReleaseUser;
+		public IntPtr GetISteamUser;
+		public IntPtr GetISteamGameServer;
+		public IntPtr SetLocalIPBinding;
+		public IntPtr GetISteamFriends;
+		public IntPtr GetISteamUtils;
+		public IntPtr GetISteamMatchmaking;
+		public IntPtr GetISteamMasterServerUpdater;
+		public IntPtr GetISteamMatchmakingServers;
+		public IntPtr GetISteamGenericInterface;
+		public IntPtr GetISteamUserStats;
+		public IntPtr GetISteamGameServerStats;
+		public IntPtr GetISteamApps;
+		public IntPtr GetISteamNetworking;
+		public IntPtr GetISteamRemoteStorage;
+		public IntPtr RunFrame;
+		public IntPtr GetIPCCallCount;
+		public IntPtr SetWarningMessageHook;
+		public IntPtr ShutdownIfAllPipesClosed;
+	}
+	
+	public class ISteamClient010 : NativeWrapper<ISteamClient010VTable>
+	{
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateSteamPipe(IntPtr thisobj);
+		public Int32 CreateSteamPipe() { var call = this.GetFunction<NativeCreateSteamPipe>(this.Functions.CreateSteamPipe); return call(this.ObjectAddress); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeReleaseSteamPipe(IntPtr thisobj, Int32 hSteamPipe);
+		[return: MarshalAs(UnmanagedType.I1)] public bool ReleaseSteamPipe(Int32 hSteamPipe) { var call = this.GetFunction<NativeReleaseSteamPipe>(this.Functions.ReleaseSteamPipe); return call(this.ObjectAddress, hSteamPipe); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeConnectToGlobalUser(IntPtr thisobj, Int32 hSteamPipe);
+		public Int32 ConnectToGlobalUser(Int32 hSteamPipe) { var call = this.GetFunction<NativeConnectToGlobalUser>(this.Functions.ConnectToGlobalUser); return call(this.ObjectAddress, hSteamPipe); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateLocalUser(IntPtr thisobj, ref Int32 phSteamPipe, EAccountType eAccountType);
+		public Int32 CreateLocalUser(ref Int32 phSteamPipe, EAccountType eAccountType) { var call = this.GetFunction<NativeCreateLocalUser>(this.Functions.CreateLocalUser); return call(this.ObjectAddress, ref phSteamPipe, eAccountType); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeReleaseUser(IntPtr thisobj, Int32 hSteamPipe, Int32 hUser);
+		public void ReleaseUser(Int32 hSteamPipe, Int32 hUser) { var call = this.GetFunction<NativeReleaseUser>(this.Functions.ReleaseUser); call(this.ObjectAddress, hSteamPipe, hUser); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamUser(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamUser(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamUser>(this.Functions.GetISteamUser); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamGameServer(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamGameServer(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamGameServer>(this.Functions.GetISteamGameServer); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLocalIPBinding(IntPtr thisobj, UInt32 unIP, UInt16 usPort);
+		public void SetLocalIPBinding(UInt32 unIP, UInt16 usPort) { var call = this.GetFunction<NativeSetLocalIPBinding>(this.Functions.SetLocalIPBinding); call(this.ObjectAddress, unIP, usPort); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamFriends(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamFriends(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamFriends>(this.Functions.GetISteamFriends); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamUtils(IntPtr thisobj, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamUtils(Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamUtils>(this.Functions.GetISteamUtils); return call(this.ObjectAddress, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamMatchmaking(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamMatchmaking(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamMatchmaking>(this.Functions.GetISteamMatchmaking); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamMasterServerUpdater(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamMasterServerUpdater(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamMasterServerUpdater>(this.Functions.GetISteamMasterServerUpdater); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamMatchmakingServers(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamMatchmakingServers(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamMatchmakingServers>(this.Functions.GetISteamMatchmakingServers); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamGenericInterface(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamGenericInterface(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamGenericInterface>(this.Functions.GetISteamGenericInterface); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamUserStats(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamUserStats(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamUserStats>(this.Functions.GetISteamUserStats); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamGameServerStats(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamGameServerStats(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamGameServerStats>(this.Functions.GetISteamGameServerStats); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamApps(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamApps(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamApps>(this.Functions.GetISteamApps); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamNetworking(IntPtr thisobj, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamNetworking(Int32 hSteamUser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamNetworking>(this.Functions.GetISteamNetworking); return call(this.ObjectAddress, hSteamUser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamRemoteStorage(IntPtr thisobj, Int32 hSteamuser, Int32 hSteamPipe, string pchVersion);
+		public IntPtr GetISteamRemoteStorage(Int32 hSteamuser, Int32 hSteamPipe, string pchVersion) { var call = this.GetFunction<NativeGetISteamRemoteStorage>(this.Functions.GetISteamRemoteStorage); return call(this.ObjectAddress, hSteamuser, hSteamPipe, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchVersion ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRunFrame(IntPtr thisobj);
+		public void RunFrame() { var call = this.GetFunction<NativeRunFrame>(this.Functions.RunFrame); call(this.ObjectAddress); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetIPCCallCount(IntPtr thisobj);
+		public UInt32 GetIPCCallCount() { var call = this.GetFunction<NativeGetIPCCallCount>(this.Functions.GetIPCCallCount); return call(this.ObjectAddress); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetWarningMessageHook(IntPtr thisobj, ref IntPtr pFunction);
+		public void SetWarningMessageHook(ref IntPtr pFunction) { var call = this.GetFunction<NativeSetWarningMessageHook>(this.Functions.SetWarningMessageHook); call(this.ObjectAddress, ref pFunction); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeShutdownIfAllPipesClosed(IntPtr thisobj);
+		[return: MarshalAs(UnmanagedType.I1)] public bool ShutdownIfAllPipesClosed() { var call = this.GetFunction<NativeShutdownIfAllPipesClosed>(this.Functions.ShutdownIfAllPipesClosed); return call(this.ObjectAddress); }
+
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
 	public class ISteamGameServerStats001VTable
 	{
 		public IntPtr RequestUserStats;
@@ -6493,6 +6648,47 @@ namespace Steam4NET
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeStoreUserStats(IntPtr thisobj, UInt64 steamIDUser);
 		public UInt64 StoreUserStats(UInt64 steamIDUser) { var call = this.GetFunction<NativeStoreUserStats>(this.Functions.StoreUserStats); return call(this.ObjectAddress, steamIDUser); }
+
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientAppsVTable
+	{
+		public IntPtr GetAppData;
+		public IntPtr GetInternalAppIDFromGameID;
+		public IntPtr RequestAppCallbacks;
+		public IntPtr SendUserSpecificAppData;
+		public IntPtr GetAppDataSection;
+		public IntPtr RequestAppInfoUpdate;
+		public IntPtr NotifyAppEventTriggered;
+		public IntPtr NotifyDlcInstalled;
+	}
+	
+	public class IClientApps : NativeWrapper<IClientAppsVTable>
+	{
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppData(IntPtr thisobj, UInt32 unAppID, string pchKey, string pchValue, Int32 cchValueMax);
+		public Int32 GetAppData(UInt32 unAppID, string pchKey, string pchValue, Int32 cchValueMax) { var call = this.GetFunction<NativeGetAppData>(this.Functions.GetAppData); return call(this.ObjectAddress, unAppID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchKey ) ), Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchValue ) ), cchValueMax); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetInternalAppIDFromGameID(IntPtr thisobj, UInt64 gameID);
+		public UInt32 GetInternalAppIDFromGameID(UInt64 gameID) { var call = this.GetFunction<NativeGetInternalAppIDFromGameID>(this.Functions.GetInternalAppIDFromGameID); return call(this.ObjectAddress, gameID); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestAppCallbacks(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool bOnlyMultiplayerApps);
+		public void RequestAppCallbacks([MarshalAs(UnmanagedType.I1)] bool bOnlyMultiplayerApps) { var call = this.GetFunction<NativeRequestAppCallbacks>(this.Functions.RequestAppCallbacks); call(this.ObjectAddress, bOnlyMultiplayerApps); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserSpecificAppData(IntPtr thisobj, UInt32 unAppID, byte[] pvData, Int32 cbData);
+		public void SendUserSpecificAppData(UInt32 unAppID, byte[] pvData, Int32 cbData) { var call = this.GetFunction<NativeSendUserSpecificAppData>(this.Functions.SendUserSpecificAppData); call(this.ObjectAddress, unAppID, pvData, cbData); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDataSection(IntPtr thisobj, UInt32 unAppID, Int32 eSection, byte[] pchBuffer, Int32 cbBufferMax);
+		public Int32 GetAppDataSection(UInt32 unAppID, Int32 eSection, byte[] pchBuffer, Int32 cbBufferMax) { var call = this.GetFunction<NativeGetAppDataSection>(this.Functions.GetAppDataSection); return call(this.ObjectAddress, unAppID, eSection, pchBuffer, cbBufferMax); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestAppInfoUpdate(IntPtr thisobj, ref UInt32 pAppIDs, Int32 nNumAppIDs, [MarshalAs(UnmanagedType.I1)] bool bForceUpdate);
+		[return: MarshalAs(UnmanagedType.I1)] public bool RequestAppInfoUpdate(ref UInt32 pAppIDs, Int32 nNumAppIDs, [MarshalAs(UnmanagedType.I1)] bool bForceUpdate) { var call = this.GetFunction<NativeRequestAppInfoUpdate>(this.Functions.RequestAppInfoUpdate); return call(this.ObjectAddress, ref pAppIDs, nNumAppIDs, bForceUpdate); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyAppEventTriggered(IntPtr thisobj, UInt32 unAppID, EAppEvent eAppEvent);
+		public void NotifyAppEventTriggered(UInt32 unAppID, EAppEvent eAppEvent) { var call = this.GetFunction<NativeNotifyAppEventTriggered>(this.Functions.NotifyAppEventTriggered); call(this.ObjectAddress, unAppID, eAppEvent); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyDlcInstalled(IntPtr thisobj, UInt32 unAppID);
+		public void NotifyDlcInstalled(UInt32 unAppID) { var call = this.GetFunction<NativeNotifyDlcInstalled>(this.Functions.NotifyDlcInstalled); call(this.ObjectAddress, unAppID); }
 
 	}
 	
@@ -13054,47 +13250,6 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
-	public class IClientAppsVTable
-	{
-		public IntPtr GetAppData;
-		public IntPtr GetInternalAppIDFromGameID;
-		public IntPtr RequestAppCallbacks;
-		public IntPtr SendUserSpecificAppData;
-		public IntPtr GetAppDataSection;
-		public IntPtr RequestAppInfoUpdate;
-		public IntPtr NotifyAppEventTriggered;
-		public IntPtr NotifyDlcInstalled;
-	}
-	
-	public class IClientApps : NativeWrapper<IClientAppsVTable>
-	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppData(IntPtr thisobj, UInt32 unAppID, string pchKey, StringBuilder pchValue, Int32 cchValueMax);
-		public Int32 GetAppData(UInt32 unAppID, string pchKey, StringBuilder pchValue, Int32 cchValueMax) { var call = this.GetFunction<NativeGetAppData>(this.Functions.GetAppData); return call(this.ObjectAddress, unAppID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchKey ) ), pchValue, cchValueMax); }
-
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetInternalAppIDFromGameID(IntPtr thisobj, UInt64 gameID);
-		public UInt32 GetInternalAppIDFromGameID(UInt64 gameID) { var call = this.GetFunction<NativeGetInternalAppIDFromGameID>(this.Functions.GetInternalAppIDFromGameID); return call(this.ObjectAddress, gameID); }
-
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestAppCallbacks(IntPtr thisobj, [MarshalAs(UnmanagedType.I1)] bool bOnlyMultiplayerApps);
-		public void RequestAppCallbacks([MarshalAs(UnmanagedType.I1)] bool bOnlyMultiplayerApps) { var call = this.GetFunction<NativeRequestAppCallbacks>(this.Functions.RequestAppCallbacks); call(this.ObjectAddress, bOnlyMultiplayerApps); }
-
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendUserSpecificAppData(IntPtr thisobj, UInt32 unAppID, byte[] pvData, Int32 cbData);
-		public void SendUserSpecificAppData(UInt32 unAppID, byte[] pvData, Int32 cbData) { var call = this.GetFunction<NativeSendUserSpecificAppData>(this.Functions.SendUserSpecificAppData); call(this.ObjectAddress, unAppID, pvData, cbData); }
-
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDataSection(IntPtr thisobj, UInt32 unAppID, Int32 eSection, byte[] pchBuffer, Int32 cbBufferMax);
-		public Int32 GetAppDataSection(UInt32 unAppID, Int32 eSection, byte[] pchBuffer, Int32 cbBufferMax) { var call = this.GetFunction<NativeGetAppDataSection>(this.Functions.GetAppDataSection); return call(this.ObjectAddress, unAppID, eSection, pchBuffer, cbBufferMax); }
-
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestAppInfoUpdate(IntPtr thisobj, ref UInt32 pAppIDs, Int32 nNumAppIDs, [MarshalAs(UnmanagedType.I1)] bool bForceUpdate);
-		[return: MarshalAs(UnmanagedType.I1)] public bool RequestAppInfoUpdate(ref UInt32 pAppIDs, Int32 nNumAppIDs, [MarshalAs(UnmanagedType.I1)] bool bForceUpdate) { var call = this.GetFunction<NativeRequestAppInfoUpdate>(this.Functions.RequestAppInfoUpdate); return call(this.ObjectAddress, ref pAppIDs, nNumAppIDs, bForceUpdate); }
-
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyAppEventTriggered(IntPtr thisobj, UInt32 unAppID, EAppEvent eAppEvent);
-		public void NotifyAppEventTriggered(UInt32 unAppID, EAppEvent eAppEvent) { var call = this.GetFunction<NativeNotifyAppEventTriggered>(this.Functions.NotifyAppEventTriggered); call(this.ObjectAddress, unAppID, eAppEvent); }
-
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyDlcInstalled(IntPtr thisobj, UInt32 unAppID);
-		public void NotifyDlcInstalled(UInt32 unAppID) { var call = this.GetFunction<NativeNotifyDlcInstalled>(this.Functions.NotifyDlcInstalled); call(this.ObjectAddress, unAppID); }
-
-	}
-	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
 	public class ISteamContentServer001VTable
 	{
 		public IntPtr LogOn;
@@ -14063,6 +14218,185 @@ namespace Steam4NET
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class ISteamMatchmakingServerListResponse001VTable
+	{
+		public IntPtr ServerResponded;
+		public IntPtr ServerFailedToRespond;
+		public IntPtr RefreshComplete;
+	}
+	
+	public class ISteamMatchmakingServerListResponse001 : NativeWrapper<ISteamMatchmakingServerListResponse001VTable>
+	{
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeServerResponded(IntPtr thisobj, Int32 iServer);
+		public void ServerResponded(Int32 iServer) { var call = this.GetFunction<NativeServerResponded>(this.Functions.ServerResponded); call(this.ObjectAddress, iServer); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeServerFailedToRespond(IntPtr thisobj, Int32 iServer);
+		public void ServerFailedToRespond(Int32 iServer) { var call = this.GetFunction<NativeServerFailedToRespond>(this.Functions.ServerFailedToRespond); call(this.ObjectAddress, iServer); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRefreshComplete(IntPtr thisobj, EMatchMakingServerResponse response);
+		public void RefreshComplete(EMatchMakingServerResponse response) { var call = this.GetFunction<NativeRefreshComplete>(this.Functions.RefreshComplete); call(this.ObjectAddress, response); }
+
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientMatchmakingServersVTable
+	{
+		public IntPtr RequestInternetServerList;
+		public IntPtr RequestLANServerList;
+		public IntPtr RequestFriendsServerList;
+		public IntPtr RequestFavoritesServerList;
+		public IntPtr RequestHistoryServerList;
+		public IntPtr RequestSpectatorServerList;
+		public IntPtr ReleaseRequest;
+		public IntPtr GetServerDetails;
+		public IntPtr CancelQuery;
+		public IntPtr RefreshQuery;
+		public IntPtr IsRefreshing;
+		public IntPtr GetServerCount;
+		public IntPtr RefreshServer;
+		public IntPtr PingServer;
+		public IntPtr PlayerDetails;
+		public IntPtr ServerRules;
+		public IntPtr CancelServerQuery;
+		public IntPtr _RequestXxxServerList_v001;
+		public IntPtr _GetServerDetails_v001;
+		public IntPtr _CancelQuery_v001;
+		public IntPtr _RefreshQuery_v001;
+		public IntPtr _IsRefreshing_v001;
+		public IntPtr _GetServerCount_v001;
+		public IntPtr _RefreshServer_v001;
+	}
+	
+	public class IClientMatchmakingServers : NativeWrapper<IClientMatchmakingServersVTable>
+	{
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeRequestInternetServerList(IntPtr thisobj, UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse);
+		public IntPtr RequestInternetServerList(UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse) { var call = this.GetFunction<NativeRequestInternetServerList>(this.Functions.RequestInternetServerList); return call(this.ObjectAddress, iApp, ref ppchFilters, nFilters, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeRequestLANServerList(IntPtr thisobj, UInt32 iApp, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse);
+		public IntPtr RequestLANServerList(UInt32 iApp, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse) { var call = this.GetFunction<NativeRequestLANServerList>(this.Functions.RequestLANServerList); return call(this.ObjectAddress, iApp, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeRequestFriendsServerList(IntPtr thisobj, UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse);
+		public IntPtr RequestFriendsServerList(UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse) { var call = this.GetFunction<NativeRequestFriendsServerList>(this.Functions.RequestFriendsServerList); return call(this.ObjectAddress, iApp, ref ppchFilters, nFilters, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeRequestFavoritesServerList(IntPtr thisobj, UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse);
+		public IntPtr RequestFavoritesServerList(UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse) { var call = this.GetFunction<NativeRequestFavoritesServerList>(this.Functions.RequestFavoritesServerList); return call(this.ObjectAddress, iApp, ref ppchFilters, nFilters, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeRequestHistoryServerList(IntPtr thisobj, UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse);
+		public IntPtr RequestHistoryServerList(UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse) { var call = this.GetFunction<NativeRequestHistoryServerList>(this.Functions.RequestHistoryServerList); return call(this.ObjectAddress, iApp, ref ppchFilters, nFilters, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeRequestSpectatorServerList(IntPtr thisobj, UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse);
+		public IntPtr RequestSpectatorServerList(UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse) { var call = this.GetFunction<NativeRequestSpectatorServerList>(this.Functions.RequestSpectatorServerList); return call(this.ObjectAddress, iApp, ref ppchFilters, nFilters, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeReleaseRequest(IntPtr thisobj, byte[] hServerListRequest);
+		public void ReleaseRequest(byte[] hServerListRequest) { var call = this.GetFunction<NativeReleaseRequest>(this.Functions.ReleaseRequest); call(this.ObjectAddress, hServerListRequest); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate gameserveritem_t NativeGetServerDetails(IntPtr thisobj, byte[] hServerListRequest, Int32 iServer);
+		public gameserveritem_t GetServerDetails(byte[] hServerListRequest, Int32 iServer) { var call = this.GetFunction<NativeGetServerDetails>(this.Functions.GetServerDetails); return call(this.ObjectAddress, hServerListRequest, iServer); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCancelQuery(IntPtr thisobj, byte[] hServerListRequest);
+		public void CancelQuery(byte[] hServerListRequest) { var call = this.GetFunction<NativeCancelQuery>(this.Functions.CancelQuery); call(this.ObjectAddress, hServerListRequest); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRefreshQuery(IntPtr thisobj, byte[] hServerListRequest);
+		public void RefreshQuery(byte[] hServerListRequest) { var call = this.GetFunction<NativeRefreshQuery>(this.Functions.RefreshQuery); call(this.ObjectAddress, hServerListRequest); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsRefreshing(IntPtr thisobj, byte[] hServerListRequest);
+		[return: MarshalAs(UnmanagedType.I1)] public bool IsRefreshing(byte[] hServerListRequest) { var call = this.GetFunction<NativeIsRefreshing>(this.Functions.IsRefreshing); return call(this.ObjectAddress, hServerListRequest); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetServerCount(IntPtr thisobj, byte[] hServerListRequest);
+		public Int32 GetServerCount(byte[] hServerListRequest) { var call = this.GetFunction<NativeGetServerCount>(this.Functions.GetServerCount); return call(this.ObjectAddress, hServerListRequest); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRefreshServer(IntPtr thisobj, byte[] hServerListRequest, Int32 iServer);
+		public void RefreshServer(byte[] hServerListRequest, Int32 iServer) { var call = this.GetFunction<NativeRefreshServer>(this.Functions.RefreshServer); call(this.ObjectAddress, hServerListRequest, iServer); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePingServer(IntPtr thisobj, UInt32 unIP, UInt16 usPort, ref ISteamMatchmakingPingResponse pRequestServersResponse);
+		public Int32 PingServer(UInt32 unIP, UInt16 usPort, ref ISteamMatchmakingPingResponse pRequestServersResponse) { var call = this.GetFunction<NativePingServer>(this.Functions.PingServer); return call(this.ObjectAddress, unIP, usPort, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePlayerDetails(IntPtr thisobj, UInt32 unIP, UInt16 usPort, ref ISteamMatchmakingPlayersResponse pRequestServersResponse);
+		public Int32 PlayerDetails(UInt32 unIP, UInt16 usPort, ref ISteamMatchmakingPlayersResponse pRequestServersResponse) { var call = this.GetFunction<NativePlayerDetails>(this.Functions.PlayerDetails); return call(this.ObjectAddress, unIP, usPort, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeServerRules(IntPtr thisobj, UInt32 unIP, UInt16 usPort, ref ISteamMatchmakingRulesResponse pRequestServersResponse);
+		public Int32 ServerRules(UInt32 unIP, UInt16 usPort, ref ISteamMatchmakingRulesResponse pRequestServersResponse) { var call = this.GetFunction<NativeServerRules>(this.Functions.ServerRules); return call(this.ObjectAddress, unIP, usPort, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCancelServerQuery(IntPtr thisobj, Int32 hServerQuery);
+		public void CancelServerQuery(Int32 hServerQuery) { var call = this.GetFunction<NativeCancelServerQuery>(this.Functions.CancelServerQuery); call(this.ObjectAddress, hServerQuery); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void Native_RequestXxxServerList_v001(IntPtr thisobj, EMatchMakingType eType, UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse001 pRequestServersResponse);
+		public void _RequestXxxServerList_v001(EMatchMakingType eType, UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse001 pRequestServersResponse) { var call = this.GetFunction<Native_RequestXxxServerList_v001>(this.Functions._RequestXxxServerList_v001); call(this.ObjectAddress, eType, iApp, ref ppchFilters, nFilters, ref pRequestServersResponse); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate gameserveritem_t Native_GetServerDetails_v001(IntPtr thisobj, EMatchMakingType eType, Int32 iServer);
+		public gameserveritem_t _GetServerDetails_v001(EMatchMakingType eType, Int32 iServer) { var call = this.GetFunction<Native_GetServerDetails_v001>(this.Functions._GetServerDetails_v001); return call(this.ObjectAddress, eType, iServer); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void Native_CancelQuery_v001(IntPtr thisobj, EMatchMakingType eType);
+		public void _CancelQuery_v001(EMatchMakingType eType) { var call = this.GetFunction<Native_CancelQuery_v001>(this.Functions._CancelQuery_v001); call(this.ObjectAddress, eType); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void Native_RefreshQuery_v001(IntPtr thisobj, EMatchMakingType eType);
+		public void _RefreshQuery_v001(EMatchMakingType eType) { var call = this.GetFunction<Native_RefreshQuery_v001>(this.Functions._RefreshQuery_v001); call(this.ObjectAddress, eType); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool Native_IsRefreshing_v001(IntPtr thisobj, EMatchMakingType eType);
+		[return: MarshalAs(UnmanagedType.I1)] public bool _IsRefreshing_v001(EMatchMakingType eType) { var call = this.GetFunction<Native_IsRefreshing_v001>(this.Functions._IsRefreshing_v001); return call(this.ObjectAddress, eType); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 Native_GetServerCount_v001(IntPtr thisobj, EMatchMakingType eType);
+		public Int32 _GetServerCount_v001(EMatchMakingType eType) { var call = this.GetFunction<Native_GetServerCount_v001>(this.Functions._GetServerCount_v001); return call(this.ObjectAddress, eType); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void Native_RefreshServer_v001(IntPtr thisobj, EMatchMakingType eType, Int32 iServer);
+		public void _RefreshServer_v001(EMatchMakingType eType, Int32 iServer) { var call = this.GetFunction<Native_RefreshServer_v001>(this.Functions._RefreshServer_v001); call(this.ObjectAddress, eType, iServer); }
+
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
+	public class IClientGameServerStatsVTable
+	{
+		public IntPtr RequestUserStats;
+		public IntPtr GetUserStat;
+		public IntPtr GetUserStat1;
+		public IntPtr GetUserAchievement;
+		public IntPtr SetUserStat;
+		public IntPtr SetUserStat1;
+		public IntPtr UpdateUserAvgRateStat;
+		public IntPtr SetUserAchievement;
+		public IntPtr ClearUserAchievement;
+		public IntPtr StoreUserStats;
+		public IntPtr SetMaxStatsLoaded;
+	}
+	
+	public class IClientGameServerStats : NativeWrapper<IClientGameServerStatsVTable>
+	{
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStats(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID);
+		public UInt64 RequestUserStats(UInt64 steamIDUser, UInt64 gameID) { var call = this.GetFunction<NativeRequestUserStats>(this.Functions.RequestUserStats); return call(this.ObjectAddress, steamIDUser, gameID); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID, string pchName, ref Int32 pData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(UInt64 steamIDUser, UInt64 gameID, string pchName, ref Int32 pData) { var call = this.GetFunction<NativeGetUserStat>(this.Functions.GetUserStat); return call(this.ObjectAddress, steamIDUser, gameID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchName ) ), ref pData); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStat1(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID, string pchName, ref float pData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserStat(UInt64 steamIDUser, UInt64 gameID, string pchName, ref float pData) { var call = this.GetFunction<NativeGetUserStat1>(this.Functions.GetUserStat1); return call(this.ObjectAddress, steamIDUser, gameID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchName ) ), ref pData); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievement(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved, Int32 unk3);
+		[return: MarshalAs(UnmanagedType.I1)] public bool GetUserAchievement(UInt64 steamIDUser, UInt64 gameID, string pchName, [MarshalAs(UnmanagedType.I1)] ref bool pbAchieved, Int32 unk3) { var call = this.GetFunction<NativeGetUserAchievement>(this.Functions.GetUserAchievement); return call(this.ObjectAddress, steamIDUser, gameID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchName ) ), ref pbAchieved, unk3); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserStat(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID, string pchName, Int32 nData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetUserStat(UInt64 steamIDUser, UInt64 gameID, string pchName, Int32 nData) { var call = this.GetFunction<NativeSetUserStat>(this.Functions.SetUserStat); return call(this.ObjectAddress, steamIDUser, gameID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchName ) ), nData); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserStat1(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID, string pchName, float fData);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetUserStat(UInt64 steamIDUser, UInt64 gameID, string pchName, float fData) { var call = this.GetFunction<NativeSetUserStat1>(this.Functions.SetUserStat1); return call(this.ObjectAddress, steamIDUser, gameID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchName ) ), fData); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserAvgRateStat(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID, string pchName, float flCountThisSession, double dSessionLength);
+		[return: MarshalAs(UnmanagedType.I1)] public bool UpdateUserAvgRateStat(UInt64 steamIDUser, UInt64 gameID, string pchName, float flCountThisSession, double dSessionLength) { var call = this.GetFunction<NativeUpdateUserAvgRateStat>(this.Functions.UpdateUserAvgRateStat); return call(this.ObjectAddress, steamIDUser, gameID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchName ) ), flCountThisSession, dSessionLength); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserAchievement(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID, string pchName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool SetUserAchievement(UInt64 steamIDUser, UInt64 gameID, string pchName) { var call = this.GetFunction<NativeSetUserAchievement>(this.Functions.SetUserAchievement); return call(this.ObjectAddress, steamIDUser, gameID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchName ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeClearUserAchievement(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID, string pchName);
+		[return: MarshalAs(UnmanagedType.I1)] public bool ClearUserAchievement(UInt64 steamIDUser, UInt64 gameID, string pchName) { var call = this.GetFunction<NativeClearUserAchievement>(this.Functions.ClearUserAchievement); return call(this.ObjectAddress, steamIDUser, gameID, Encoding.Default.GetString( Encoding.UTF8.GetBytes( pchName ) )); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeStoreUserStats(IntPtr thisobj, UInt64 steamIDUser, UInt64 gameID);
+		public UInt64 StoreUserStats(UInt64 steamIDUser, UInt64 gameID) { var call = this.GetFunction<NativeStoreUserStats>(this.Functions.StoreUserStats); return call(this.ObjectAddress, steamIDUser, gameID); }
+
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStatsLoaded(IntPtr thisobj, UInt32 uMax);
+		public Int32 SetMaxStatsLoaded(UInt32 uMax) { var call = this.GetFunction<NativeSetMaxStatsLoaded>(this.Functions.SetMaxStatsLoaded); return call(this.ObjectAddress, uMax); }
+
+	}
+	
+	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
 	public class IClientConfigStoreVTable
 	{
 		public IntPtr IsSet;
@@ -14606,27 +14940,6 @@ namespace Steam4NET
 
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Byte NativeGetCurrentBatteryPower(IntPtr thisobj);
 		public Byte GetCurrentBatteryPower() { var call = this.GetFunction<NativeGetCurrentBatteryPower>(this.Functions.GetCurrentBatteryPower); return call(this.ObjectAddress); }
-
-	}
-	
-	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=1)]
-	public class ISteamMatchmakingServerListResponse001VTable
-	{
-		public IntPtr ServerResponded;
-		public IntPtr ServerFailedToRespond;
-		public IntPtr RefreshComplete;
-	}
-	
-	public class ISteamMatchmakingServerListResponse001 : NativeWrapper<ISteamMatchmakingServerListResponse001VTable>
-	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeServerResponded(IntPtr thisobj, Int32 iServer);
-		public void ServerResponded(Int32 iServer) { var call = this.GetFunction<NativeServerResponded>(this.Functions.ServerResponded); call(this.ObjectAddress, iServer); }
-
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeServerFailedToRespond(IntPtr thisobj, Int32 iServer);
-		public void ServerFailedToRespond(Int32 iServer) { var call = this.GetFunction<NativeServerFailedToRespond>(this.Functions.ServerFailedToRespond); call(this.ObjectAddress, iServer); }
-
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRefreshComplete(IntPtr thisobj, byte[] hRequest, EMatchMakingServerResponse response);
-		public void RefreshComplete(byte[] hRequest, EMatchMakingServerResponse response) { var call = this.GetFunction<NativeRefreshComplete>(this.Functions.RefreshComplete); call(this.ObjectAddress, hRequest, response); }
 
 	}
 	
