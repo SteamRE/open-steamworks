@@ -1,0 +1,1 @@
+clang++ -cc1 -ast-print-xml -DCLANG -DONO_CSTEAMID_STL temp.cpp
