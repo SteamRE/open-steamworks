@@ -63,9 +63,9 @@ public:
 	virtual bool StoreStats( CGameID nGameID ) = 0;
 
 	// Gets the icon of the achievement, which is a handle to be used in IClientUtils::GetImageRGBA( ), or 0 if none set
-	virtual int GetAchievementIcon( CGameID nGameID, const char *pchName ) = 0;
+	virtual int GetAchievementIcon( CGameID nGameID, const char *pchName, EGetAchievementIcon ) = 0;
 	// Get general attributes ( display name / text, etc) for an Achievement
-	virtual const char * GetAchievementDisplayAttribute( CGameID nGameID, const char *pchName, const char *pchKey ) = 0;
+	virtual const char * GetAchievementDisplayAttribute( CGameID nGameID, const char *pchName, const char *pchKey, bool ) = 0;
 
 	// Achievement progress - triggers an AchievementProgress callback, that is all.
 	// Calling this w/ N out of N progress will NOT set the achievement, the game must still do that.
@@ -117,7 +117,7 @@ public:
 	// k_ELeaderboardDataRequestFriends requests all the rows for friends of the current user 
 	virtual SteamAPICall_t DownloadLeaderboardEntries( SteamLeaderboard_t hSteamLeaderboard, ELeaderboardDataRequest eLeaderboardDataRequest, int nRangeStart, int nRangeEnd ) = 0;
 
-	virtual unknown_ret DownloadLeaderboardEntriesForUsers( unknown_ret unk1, unknown_ret unk2, unknown_ret unk3, unknown_ret unk4 ) = 0;
+	virtual unknown_ret DownloadLeaderboardEntriesForUsers( SteamLeaderboard_t hSteamLeaderboard, CSteamID *, int ) = 0;
 
 
 	// Returns data about a single leaderboard entry
@@ -137,7 +137,7 @@ public:
 	virtual bool GetDownloadedLeaderboardEntry( SteamLeaderboardEntries_t hSteamLeaderboardEntries, int index, LeaderboardEntry_t *pLeaderboardEntry, int *pDetails, int cDetailsMax ) = 0;
 
 
-	virtual unknown_ret AttachLeaderboardUGC( /* ... */ ) = 0;
+	virtual SteamAPICall_t AttachLeaderboardUGC( SteamLeaderboard_t hSteamLeaderboard, uint64 Unk1 ) = 0;
 
 
 	// Uploads a user score to the Steam back-end.
@@ -156,6 +156,7 @@ public:
 	virtual unknown_ret RequestGlobalAchievementPercentages( CGameID nGameID ) = 0;
 	virtual unknown_ret GetMostAchievedAchievementInfo( CGameID nGameID, char *a, uint32 b, float *c, bool *d ) = 0;
 	virtual unknown_ret GetNextMostAchievedAchievementInfo( CGameID nGameID, int a, char *b, uint32 c, float *d, bool *f ) = 0;
+	virtual unknown_ret GetAchievementAchievedPercent( CGameID nGameID, char  const*, float * ) = 0;
 };
 
 #endif // ICLIENTUSERSTATS_H

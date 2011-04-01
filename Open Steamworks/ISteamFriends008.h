@@ -124,7 +124,7 @@ public:
 	virtual int GetMediumFriendAvatar( CSteamID steamIDFriend ) = 0;
 	virtual int GetLargeFriendAvatar( CSteamID steamIDFriend ) = 0;
 
-	virtual bool RequestUserInformation( CSteamID steamID, byte unk1 ) = 0;
+	virtual bool RequestUserInformation( CSteamID steamID, bool bUnk1 ) = 0;
 
 	virtual SteamAPICall_t RequestClanOfficerList( CSteamID clanId ) = 0;
 	virtual CSteamID GetClanOwner( CSteamID clanId ) = 0;

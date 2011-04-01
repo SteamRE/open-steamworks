@@ -80,6 +80,7 @@
 #include "ISteamUser013.h"
 #include "ISteamUser014.h"
 #include "ISteamUser015.h"
+#include "ISteamUser016.h"
 
 // user items
 #include "ISteamUserItems001.h"

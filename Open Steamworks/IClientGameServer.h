@@ -179,12 +179,13 @@ public:
 
 	virtual bool _GSSendUserConnect( uint32 unUserID, uint32 unIPPublic, uint16 usPort, const void *pvCookie, uint32 cubCookie ) = 0;
 	virtual bool _GSRemoveUserConnect( uint32 unUserID ) = 0;
-	virtual bool _GSSendUserDisconnect( CSteamID steamID, uint32 unUserID ) = 0;
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
 	virtual bool _GSUpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
 	virtual bool _GSCreateUnauthenticatedUser( CSteamID *pSteamID ) = 0;
+
+	virtual bool _GSSendUserDisconnect( CSteamID, uint32 unUserID ) = 0;
 };
 
 

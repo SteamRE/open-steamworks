@@ -26,12 +26,12 @@
 class ISteamContentServer001
 {
 public:
-	virtual bool LogOn( uint32 a ) = 0;
+	virtual bool LogOn( uint32 uContentServerID ) = 0;
 	virtual bool LogOff() = 0;
 
 	virtual bool LoggedOn() = 0;
 
-	virtual void SendClientContentAuthRequest( CSteamID steamId, uint32 a ) = 0;
+	virtual void SendClientContentAuthRequest( CSteamID steamId, uint32 unContentID ) = 0;
 };
 
 

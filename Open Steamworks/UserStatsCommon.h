@@ -83,7 +83,10 @@ typedef enum ELeaderboardSortMethod
 	k_ELeaderboardSortMethodDescending = 2,	// top-score is highest number
 } ELeaderboardSortMethod;
 
-
+typedef enum EGetAchievementIcon
+{
+	// TODO : Reverse this enum, default value seems to be 0
+} EGetAchievementIcon;
 
 // a single entry in a leaderboard, as returned by GetDownloadedLeaderboardEntry()
 struct LeaderboardEntry001_t

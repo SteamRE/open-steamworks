@@ -53,11 +53,11 @@ public:
 	virtual bool IsCloudEnabledForApp( AppId_t nAppId );
 	virtual bool SetCloudEnabledForApp( AppId_t nAppId, bool bEnable );
 
-	virtual unknown_ret UGCDownload( unknown_ret unk1, unknown_ret unk2 ) = 0;
-	virtual unknown_ret GetUGCDetails( unknown_ret unk1, unknown_ret unk2,  unknown_ret unk3,  unknown_ret unk4,  unknown_ret unk5,  unknown_ret unk6 ) = 0;
-	virtual unknown_ret UGCRead( unknown_ret unk1, unknown_ret unk2,  unknown_ret unk3,  unknown_ret unk4 ) = 0;
+	virtual unknown_ret UGCDownload( unsigned long long ) = 0;
+	virtual unknown_ret GetUGCDetails( unsigned long long,unsigned int *,char **,int *,CSteamID * ) = 0;
+	virtual unknown_ret UGCRead( unsigned long long,void *,int ) = 0;
 	virtual int32 GetCachedUGCCount() = 0;
-	virtual unknown_ret GetCachedUGCHandle() = 0;
+	virtual unknown_ret GetCachedUGCHandle( int32 ) = 0;
 	
 	virtual const char* GetShortcutDisplayName( CGameID GameID ) = 0;
 	virtual void SetShortcutDisplayName( CGameID GameID, const char* szName ) = 0;
@@ -67,12 +67,12 @@ public:
 	virtual uint32 GetNumGamesWithLocalScreenshots() = 0;
 	virtual CGameID GetGameWithLocalScreenshots( uint32 uIndex ) = 0;
 	virtual uint32 GetLocalScreenshotCount( CGameID GameID ) = 0;
-	virtual bool GetLocalScreenshot( CGameID GameID, uint32 uIndex, char* pchFilename, uint32 cubFilename, uint32* puWidth, uint32* puHeight, uint32* puTimestamp, EScreenshotPrivacy* pePrivacy, uint64* pulUnk, char* pchCaption, uint32 cubCaption ) = 0;
+	virtual bool GetLocalScreenshot( CGameID GameID, uint32 uIndex, char* pchFilename, uint32 cubFilename, uint32* puWidth, uint32* puHeight, uint32* puTimestamp, EScreenshotPrivacyState* pePrivacy, uint64* pulUnk, char* pchCaption, uint32 cubCaption ) = 0;
 	virtual bool SetLocalScreenshotCaption( CGameID GameID, const char * szFilename, const char * szCaption ) = 0;
-	virtual bool SetLocalScreenshotPrivacy( CGameID GameID, const char * szFilename, EScreenshotPrivacy ePrivacy ) = 0;
+	virtual bool SetLocalScreenshotPrivacy( CGameID GameID, const char * szFilename, EScreenshotPrivacyState ePrivacy ) = 0;
 	virtual bool ScreenshotStartBatch( CGameID GameID ) = 0;
 	virtual bool ScreenshotAddToBatch( const char* szFilename ) = 0;
-	virtual SteamAPICall_t ScreenshotUploadBatch( EScreenshotPrivacy ePrivacy ) = 0;
+	virtual SteamAPICall_t ScreenshotUploadBatch( EScreenshotPrivacyState ePrivacy ) = 0;
 	virtual SteamAPICall_t ScreenshotDeleteBatch( bool bDeleteFromCloud ) = 0;
 	virtual bool ScreenshotCancelBatch() = 0;
 	virtual void RecoverOldScreenshots() = 0;

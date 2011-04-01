@@ -56,7 +56,10 @@ class IClientDepotBuilder
 {
 
 public:
-	virtual HDEPOTBUILD InitializeDepotBuildForConfigFile( const char *pchConfigFile, bool bMakePublic ) = 0;
+	virtual HDEPOTBUILD InitializeDepotBuildForConfigFile( const char *pchConfigFile ) = 0;
+	
+	virtual unknown_ret StartBuild( HDEPOTBUILD, bool, bool ) = 0;
+
 	virtual bool GetDepotBuildStatus( HDEPOTBUILD hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
 	virtual bool CloseDepotBuildHandle( HDEPOTBUILD hDepotBuild ) = 0;
 
@@ -64,6 +67,7 @@ public:
 
 	virtual bool GetChunkCounts( HDEPOTBUILD hDepotBuild, uint32 *unTotalChunksInNewBuild, uint32 *unChunksAlsoInOldBuild ) = 0;
 
+	virtual bool GetManifestGIDs( HDEPOTBUILD hDepotBuild, uint64 *, uint64 *) = 0;
 };
 
 #endif // ICLIENTDEPOTBUILDER_H

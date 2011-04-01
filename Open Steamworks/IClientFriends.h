@@ -89,7 +89,7 @@ public:
 
 	virtual bool InviteFriendByEmail( const char *pchEmailAddress ) = 0;
 
-	virtual bool RequestUserInformation( CSteamID steamID, byte unk1 ) = 0;
+	virtual bool RequestUserInformation( CSteamID steamID, bool bUnk1 ) = 0;
 
 	virtual bool SetIgnoreFriend( CSteamID steamID, bool bIgnore ) = 0;
 

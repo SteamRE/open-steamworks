@@ -43,6 +43,8 @@ public:
 	virtual void NotifyAppEventTriggered( AppId_t unAppID, EAppEvent eAppEvent ) = 0;
 	virtual void NotifyDlcInstalled( AppId_t unAppID ) = 0;
 
+	virtual int GetDLCCount( AppId_t unAppID ) = 0;
+	virtual bool BGetDLCDataByIndex( AppId_t unAppID, int iIndex, AppId_t* unDLCAppID, bool *, char *, int) = 0;
 };
 
 #endif // ICLIENTAPPS_H

@@ -109,6 +109,8 @@ public:
 	virtual IClientGameStats* GetIClientGameStats( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientHTTP *GetIClientHTTP( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
+	virtual bool ShutdownIfAllPipesClosed() = 0;
+
 	virtual void *GetIPCServerMap() = 0;
 
 	virtual unknown_ret OnDebugTextArrived( const char *pchDebugText ) = 0;

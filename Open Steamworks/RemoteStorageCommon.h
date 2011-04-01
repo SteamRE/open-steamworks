@@ -48,12 +48,12 @@ typedef enum ERemoteStorageSyncState
 	k_ERemoteSyncStatePendingChangesInCloudAndLocally = 5,
 } ERemoteStorageSyncState;
 
-typedef enum EScreenshotPrivacy
+typedef enum EScreenshotPrivacyState
 {
-	k_EScreenshotPrivacyPrivate = 2,
-	k_EScreenshotPrivacyFriendsOnly = 4,
-	k_EScreenshotPrivacyPublic = 8,
-} EScreenshotPrivacy;
+	k_EScreenshotPrivacyStatePrivate = 2,
+	k_EScreenshotPrivacyStateFriendsOnly = 4,
+	k_EScreenshotPrivacyStatePublic = 8,
+} EScreenshotPrivacyState;
 
 
 #pragma pack( push, 8 )

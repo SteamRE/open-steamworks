@@ -44,6 +44,12 @@ public:
 
 	virtual uint32 GetEarliestPurchaseUnixTime( AppId_t appID ) = 0;
 	virtual bool IsSubscribedFromFreeWeekend() = 0;
+
+	virtual int GetDLCCount() = 0;
+	virtual bool GetDLCDataByIndex(int iIndex, AppId_t* pAppID, bool *, char *, int) = 0;
+
+	virtual void InstallDLC( AppId_t appID ) = 0;
+	virtual void UninstallDLC( AppId_t appID ) = 0;
 };
 
 

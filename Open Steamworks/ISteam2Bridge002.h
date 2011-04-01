@@ -62,6 +62,8 @@ public:
 	virtual uint32 GetAppOwnershipTicketData( AppId_t appId, void *lpTicketData, uint32 cubTicketData ) = 0;
 
 	virtual unknown_ret GetAppDecryptionKey( AppId_t appId, void *lpDecryptionKey, uint32 cubDecryptionKey ) = 0;
+
+	virtual const char* GetPlatformName( bool* ) = 0;
 };
 
 #endif // ISTEAM2BRIDGE002_H

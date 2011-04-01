@@ -30,9 +30,9 @@ class UNSAFE_INTERFACE IClientUser
 public:
 	virtual HSteamUser GetHSteamUser() = 0;
 
-	virtual void LogOn( uint8 unk1, CSteamID steamID ) = 0;
-	virtual void LogOnWithPassword( uint8 unk1, const char * pchLogin, const char * pchPassword ) = 0;
-	virtual void LogOnAndCreateNewSteamAccountIfNeeded( uint8 unk1 ) = 0;
+	virtual void LogOn( bool bUnk1, CSteamID steamID ) = 0;
+	virtual void LogOnWithPassword( bool bUnk1, const char * pchLogin, const char * pchPassword ) = 0;
+	virtual void LogOnAndCreateNewSteamAccountIfNeeded( bool bUnk1 ) = 0;
 	virtual void LogOff() = 0;
 	virtual bool LoggedOn() = 0;
 	virtual ELogonState GetLogonState() = 0;
@@ -158,8 +158,8 @@ public:
 	virtual void StopVoiceRecording() = 0;
 	virtual void ResetVoiceRecording() = 0;
 
-	virtual EVoiceResult GetAvailableVoice( uint32 *pcbCompressed, uint32 *pcbRaw ) = 0;
-	virtual EVoiceResult GetVoice( bool bWantCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, bool bWantRaw, void *pRawDestBuffer, uint32 cbRawDestBufferSize, uint32 *nRawBytesWritten ) = 0;
+	virtual EVoiceResult GetAvailableVoice( uint32 *pcbCompressed, uint32 *pcbRaw, uint32 nSamplesPerSec ) = 0;
+	virtual EVoiceResult GetVoice( bool bWantCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, bool bWantRaw, void *pRawDestBuffer, uint32 cbRawDestBufferSize, uint32 *nRawBytesWritten, uint32 nSamplesPerSec ) = 0;
 
 	virtual EVoiceResult GetCompressedVoice( void *pDestBuffer, uint32 cbDestBufferSize, uint32* nBytesWritten ) = 0;
 	virtual EVoiceResult DecompressVoice( void *pCompressed, uint32 cbCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32* nBytesWritten, uint32 nSamplesPerSec ) = 0;
@@ -173,7 +173,7 @@ public:
 
 	virtual void SetSteam2FullASTicket( uint8* pubTicket, int cubTicket ) = 0;
 
-	virtual bool GetEmail( char* pchEmail, int cchEmail ) = 0;
+	virtual bool GetEmail( char* pchEmail, int cchEmail, bool* pbUnk ) = 0;
 
 	virtual void RequestForgottenPasswordEmail( const char *pchAccountName, const char *pchTriedPassword ) = 0;
 
@@ -185,7 +185,7 @@ public:
 
 	virtual bool GetInstallScriptString( AppId_t nAppID, const char *pchInstallPath, const char *pchLanguage, const char *pchKeyname, const char *pchKeyvalue, char* pchValue, int cchValue ) = 0;
 	virtual bool GetInstallScriptState( char* pchDescription, uint32 cchDescription, uint32* punNumSteps, uint32* punCurrStep ) = 0;
-
+//TODO
 	virtual bool SpawnProcess( void *lpVACBlob, uint32 cbBlobSize, const char *lpApplicationName, const char *lpCommandLine, uint32 dwCreationFlags, const char *lpCurrentDirectory, AppId_t nAppID, const char *pchGameName, bool bAlwaysUseShellExec ) = 0;
 	
 	virtual uint32 GetAppOwnershipTicketLength( uint32 nAppID ) = 0;
@@ -225,7 +225,7 @@ public:
 
 	virtual void RequestChangeEmail( const char *pchPassword, int eRequestType ) = 0;
 	virtual void ChangePasswordWithCode( const char *pchOldPassword, const char *pchCode, const char *pchNewPassword ) = 0;
-	virtual void ChangeEmailWithCode( const char *pchPassword, const char *pchCode, const char *pchEmail ) = 0;
+	virtual void ChangeEmailWithCode( const char *pchPassword, const char *pchCode, const char *pchEmail, bool bUnk ) = 0;
 	virtual void ChangeSecretQuestionAndAnswerWithCode( const char *pchPassword, const char *pchCode, const char *pchNewQuestion, const char *pchNewAnswer ) = 0;
 
 	virtual void SetClientStat( EClientStat eStat, int64 llValue, AppId_t nAppID, DepotId_t nDepotID, CellID_t nCellID ) = 0;
@@ -249,7 +249,7 @@ public:
 	//virtual bool BGetMicroTxnLineItem( uint64, uint32, CAmount *, uint32 *, char *, uint32 ) = 0;
 	virtual bool BGetMicroTxnLineItem( uint64, uint32, int *, uint32 *, char *, uint32 ) = 0;
 
-	virtual bool BIsSandboxMicroTxn( uint64, uint32 ) = 0;
+	virtual bool BIsSandboxMicroTxn( uint64, bool* pbUnk ) = 0;
 
 	//virtual unknown_ret AuthorizeMicroTxn( uint64, EMicroTxnAuthResponse ) = 0;
 	virtual unknown_ret AuthorizeMicroTxn( uint64, int ) = 0;
@@ -265,10 +265,10 @@ public:
 
 	virtual bool BGetGuideURL( uint32, char *, uint32 ) = 0;
 
-	virtual unknown_ret GetClientAppListResponse_AddApp( /* ... */ ) = 0;
-	virtual unknown_ret GetClientAppListResponse_AddDLC( /* ... */ ) = 0;
-	virtual unknown_ret GetClientAppListResponse_Done( /* ... */ ) = 0;
-	virtual unknown_ret PostUIResultToClientJob( /* ... */ ) = 0;
+	virtual unknown_ret GetClientAppListResponse_AddApp( unsigned int, bool,bool, bool, char  const*, unsigned long long, unsigned long long, unsigned int ) = 0;
+	virtual unknown_ret GetClientAppListResponse_AddDLC( unsigned int, bool ) = 0;
+	virtual unknown_ret GetClientAppListResponse_Done( unsigned long long ) = 0;
+	virtual unknown_ret PostUIResultToClientJob( unsigned long long, EResult ) = 0;
 
 	virtual bool PromptToVerifyEmail() = 0;
 	virtual bool PromptToChangePassword() = 0;
@@ -277,8 +277,11 @@ public:
 	virtual bool AccountLockedByIPT() = 0;
 	virtual unknown_ret GetCountAuthedComputers() = 0;
 	virtual bool AccountCanUseIPT() = 0;
-	virtual unknown_ret ChangeTwoFactorAuthOptions( unknown_ret unk1 ) = 0;
-	virtual unknown_ret Set2ndFactorAuthCode( unknown_ret unk1 ) = 0;
+	virtual unknown_ret ChangeTwoFactorAuthOptions( int iUnk1 ) = 0;
+	virtual unknown_ret Set2ndFactorAuthCode( const char* pchUnk ) = 0;
+
+	virtual unknown_ret GetEmailDomainFromLogonFailure( char *, int ) = 0;
+	virtual unknown_ret OptionalDLCInstallation( unsigned int, bool ) = 0;
 };
 
 #endif // ICLIENTUSER_H

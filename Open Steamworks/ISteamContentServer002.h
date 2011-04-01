@@ -26,14 +26,14 @@
 class ISteamContentServer002
 {
 public:
-	virtual bool LogOn( uint32 a ) = 0;
+	virtual bool LogOn( uint32 uContentServerID ) = 0;
 	virtual bool LogOff() = 0;
 
 	virtual bool LoggedOn() = 0;
 
-	virtual void SendClientContentAuthRequest( CSteamID steamId, uint32 a, uint64 b, bool c ) = 0;
+	virtual void SendClientContentAuthRequest( CSteamID steamId, uint32 unContentID, uint64 ulSessionToken, bool bTokenPresent ) = 0;
 
-	virtual bool CheckTicket( CSteamID steamId, uint32 a, const void *b, uint32 c ) = 0;
+	virtual bool CheckTicket( CSteamID steamId, uint32 uContentID, const void *pvTicketData, uint32 cubTicketLength ) = 0;
 };
 
 
