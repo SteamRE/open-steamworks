@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMUSER015_H
-#define ISTEAMUSER015_H
+#ifndef ISTEAMUSER016_H
+#define ISTEAMUSER016_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing and manipulating a steam account
 //			associated with one client instance
 //-----------------------------------------------------------------------------
-class ISteamUser015
+class ISteamUser016
 {
 public:
 	// returns the HSteamUser this interface represents
@@ -134,4 +134,4 @@ public:
 	virtual bool GetEncryptedAppTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket) = 0;
 };
 
-#endif // ISTEAMUSER015_H
+#endif // ISTEAMUSER016_H
