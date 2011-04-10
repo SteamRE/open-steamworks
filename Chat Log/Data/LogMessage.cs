@@ -6,6 +6,11 @@ namespace ChatLog
 
     class LogMessage
     {
+        public bool IsGroupMsg;
+
+        public CSteamID ChatRoom;
+        public string ChatRoomName;
+
         public CSteamID Sender;
         public string SenderName;
 

@@ -44,6 +44,9 @@
             this.editLinkIdsBox = new System.Windows.Forms.Button();
             this.trackSessions = new System.Windows.Forms.CheckBox();
             this.sessionMinutes = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.enableGroupChats = new System.Windows.Forms.CheckBox();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,7 +70,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip( this.components );
-            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -180,6 +182,8 @@
             this.tableLayoutPanel1.Controls.Add( this.trackSessions, 0, 5 );
             this.tableLayoutPanel1.Controls.Add( this.sessionMinutes, 1, 5 );
             this.tableLayoutPanel1.Controls.Add( this.label15, 2, 5 );
+            this.tableLayoutPanel1.Controls.Add( this.enableGroupChats, 2, 6 );
+            this.tableLayoutPanel1.Controls.Add( this.statusLabel, 0, 6 );
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point( 3, 3 );
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -191,6 +195,7 @@
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
             this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle() );
+            this.tableLayoutPanel1.RowStyles.Add( new System.Windows.Forms.RowStyle( System.Windows.Forms.SizeType.Absolute, 20F ) );
             this.tableLayoutPanel1.Size = new System.Drawing.Size( 455, 395 );
             this.tableLayoutPanel1.TabIndex = 9;
             // 
@@ -278,6 +283,40 @@
             this.sessionMinutes.Name = "sessionMinutes";
             this.sessionMinutes.Size = new System.Drawing.Size( 227, 20 );
             this.sessionMinutes.TabIndex = 15;
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
+                        | System.Windows.Forms.AnchorStyles.Left )
+                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point( 341, 194 );
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size( 111, 26 );
+            this.label15.TabIndex = 16;
+            this.label15.Text = "Minutes between sessions";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // enableGroupChats
+            // 
+            this.enableGroupChats.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan( this.enableGroupChats, 2 );
+            this.enableGroupChats.Location = new System.Drawing.Point( 3, 236 );
+            this.enableGroupChats.Name = "enableGroupChats";
+            this.enableGroupChats.Size = new System.Drawing.Size( 226, 17 );
+            this.enableGroupChats.TabIndex = 17;
+            this.enableGroupChats.Text = "Enable Group Chat Logging (Experimental)";
+            this.enableGroupChats.UseVisualStyleBackColor = true;
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan( this.statusLabel, 2 );
+            this.statusLabel.Location = new System.Drawing.Point( 3, 220 );
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size( 138, 13 );
+            this.statusLabel.TabIndex = 18;
+            this.statusLabel.Text = "Group Chat Logging Status:";
             // 
             // tabPage2
             // 
@@ -552,19 +591,6 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "About Steam Chat Logger (beta 4)";
             // 
-            // label15
-            // 
-            this.label15.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point( 341, 194 );
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size( 111, 26 );
-            this.label15.TabIndex = 16;
-            this.label15.Text = "Minutes between sessions";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
@@ -630,5 +656,7 @@
         private System.Windows.Forms.CheckBox trackSessions;
         private System.Windows.Forms.TextBox sessionMinutes;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox enableGroupChats;
+        private System.Windows.Forms.Label statusLabel;
     }
 }

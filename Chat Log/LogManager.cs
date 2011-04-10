@@ -1,36 +1,56 @@
-﻿using System.Collections.Generic;
-namespace ChatLog
+﻿namespace ChatLog
 {
     using System;
     using System.Globalization;
     using System.IO;
     using Steam4NET;
     using System.Text;
+    using System.Runtime.InteropServices;
+    using System.Collections.Generic;
+
+    [UnmanagedFunctionPointer( CallingConvention.ThisCall )]
+    delegate Int32 NativeGetChatRoomEntry( IntPtr thisobj, UInt64 steamIDchat, Int32 iChatID, ref UInt64 steamIDuser, byte[] pvData, Int32 cubData, ref EChatEntryType peChatEntryType );
+
+    [UnmanagedFunctionPointer( CallingConvention.ThisCall )]
+    delegate string NativeGetChatRoomName( IntPtr thisobj, UInt64 steamIDchat );
 
     class LogManager
     {
         Settings sets;
 
+        IClientEngine clientEngine;
+        IClientFriends clientFriends;
         ISteamClient008 steamClient;
         ISteamFriends002 steamFriends;
 
         int pipe;
         int user;
 
+        bool groupChatEnabled;
+        NativeGetChatRoomEntry getChatMsg;
+        NativeGetChatRoomName getChatName;
+        string groupStatusMsg;
+
         Dictionary<ulong, DateTime> sessionInfo;
 
         public event EventHandler<LogFailureEventArgs> LogFailure;
 
         Callback<FriendChatMsg_t> chatCallback;
+        Callback<PersonaStateChange_t> stateCallback;
+        Callback<ChatRoomMsg_t> chatRoomCallback;
 
 
         public LogManager( Settings settings )
         {
+            groupChatEnabled = false;
+
             sets = settings;
 
             sessionInfo = new Dictionary<ulong, DateTime>();
 
             chatCallback = new Callback<FriendChatMsg_t>( ChatMsg, FriendChatMsg_t.k_iCallback );
+            stateCallback = new Callback<PersonaStateChange_t>( StateChange, PersonaStateChange_t.k_iCallback );
+            chatRoomCallback = new Callback<ChatRoomMsg_t>( ChatRoomMsg, ChatRoomMsg_t.k_iCallback );
 
         }
 
@@ -47,8 +67,12 @@ namespace ChatLog
                 return false;
 
             steamClient = Steamworks.CreateInterface<ISteamClient008>( "SteamClient008" );
+            clientEngine = Steamworks.CreateInterface<IClientEngine>( "CLIENTENGINE_INTERFACE_VERSION001" );
 
             if ( steamClient == null )
+                return false;
+
+            if ( clientEngine == null )
                 return false;
 
             return true;
@@ -91,9 +115,94 @@ namespace ChatLog
             if ( steamFriends == null )
                 return false;
 
+            clientFriends = Steamworks.CastInterface<IClientFriends>( clientEngine.GetIClientFriends( user, pipe, "CLIENTFRIENDS_INTERFACE_VERSION001" ) );
+
+            if ( clientFriends == null )
+                return false;
+
+            VTScan vtScan = new VTScan( clientFriends.Interface );
+
+            if ( vtScan.Init() )
+            {
+
+                /*
+                .text:3809F73D 6A 00                                   push    0
+                .text:3809F73F 68 62 D4 46 38                          push    offset unk_3846D462
+                .text:3809F744 68 94 03 00 00                          push    394h
+                .text:3809F749 68 40 E7 3C 38                          push    offset aEBuild_slav_20 ; "e:\\build_slave\\steam_rel_client_win32\\b"...
+                .text:3809F74E 6A 00                                   push    0
+                .text:3809F750 68 90 E7 3C 38                          push    offset asc_383CE790 ; "Assertion Failed: bufRet.GetUint8() == "...
+                .text:3809F755 FF 15 44 E5 37 38                       call    ds:AssertMsgImplementation
+                */
+                var results = vtScan.DoScan<NativeGetChatRoomEntry>(
+                    "\x6A\x00\x68\x62\xD4\x46\x38\x68\x94\x03\x00\x00\x68\x40\xE7\x3C\x38\x6A\x00\x68\x90\xE7\x3C\x38\xFF\x15\x44\xE5\x37\x38",
+                    "xxx????xxxxxx????xxx????xxxxxx"
+                );
+
+                if ( results.Count == 0 )
+                {
+                    groupStatusMsg = "Error: Unable to scan for GetChatRoomEntry";
+                }
+                else
+                {
+                    if ( results.Count > 1 )
+                    {
+                        groupStatusMsg = "Error: Scan for GetChatRoomEntry gave multiple results!";
+                    }
+                    else
+                    {
+                        getChatMsg = results[ 0 ].Delegate;
+                    }
+                }
+
+                /*
+                .text:380A06A4 6A 00                                   push    0
+                .text:380A06A6 68 69 D4 46 38                          push    offset unk_3846D469
+                .text:380A06AB 68 AA 03 00 00                          push    3AAh
+                .text:380A06B0 68 40 E7 3C 38                          push    offset aEBuild_slav_20 ; "e:\\build_slave\\steam_rel_client_win32\\b"...
+                .text:380A06B5 6A 00                                   push    0
+                .text:380A06B7 68 90 E7 3C 38                          push    offset asc_383CE790 ; "Assertion Failed: bufRet.GetUint8() == "...
+                .text:380A06BC FF 15 44 E5 37 38                       call    ds:AssertMsgImplementation
+                */
+
+                var results2 = vtScan.DoScan<NativeGetChatRoomName>(
+                    "\x6A\x00\x68\x69\xD4\x46\x38\x68\xAA\x03\x00\x00\x68\x40\xE7\x3C\x38\x6A\x00\x68\x90\xE7\x3C\x38\xFF\x15\x44\xE5\x37\x38",
+                    "xxx????xxxxxx????xxx????xxxxxx"
+                );
+
+                if ( results2.Count == 0 )
+                {
+                    groupStatusMsg = "Error: Unable to scan for GetChatRoomName";
+                }
+                else
+                {
+                    if ( results2.Count > 1 )
+                    {
+                        groupStatusMsg = "Error: Scan for GetChatRoomName gave multiple results!";
+                    }
+                    else
+                    {
+                        getChatName = results2[ 0 ].Delegate;
+                        groupChatEnabled = true;
+                    }
+                }
+            }
+            else
+            {
+                groupStatusMsg = "Error: Unable to initialize scan!";
+            }
+
             CallbackDispatcher.SpawnDispatchThread( pipe );
 
             return true;
+        }
+
+        public string GetGroupChatStatus()
+        {
+            if ( groupChatEnabled )
+                return "Working normally";
+
+            return groupStatusMsg ?? "Not enabled. (Requires restart)";
         }
 
         private void AddLog( LogMessage log )
@@ -111,10 +220,20 @@ namespace ChatLog
             if ( linkRep == null )
                 linkRep = log.SenderName;
 
-            string fileLink = sets.LookupLinkID( log.Reciever );
+            string fileLink = null;
+
+            if ( log.IsGroupMsg )
+                fileLink = sets.LookupLinkID( log.ChatRoom );
+            else
+                fileLink = sets.LookupLinkID( log.Reciever );
 
             if ( fileLink == null )
-                fileLink = log.RecieverName;
+            {
+                if ( log.IsGroupMsg )
+                    fileLink = log.ChatRoomName;
+                else
+                    fileLink = log.RecieverName;
+            }
 
 
             try
@@ -122,7 +241,7 @@ namespace ChatLog
                 directoryName = directoryName.FormatWith(
                     new
                     {
-                        CommunityID = (ulong)log.Reciever,
+                        CommunityID = ( ulong )log.Reciever,
                         SteamID = log.Reciever.Render().Replace( ":", sets.InvalidReplacement ),
                         Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
                         LinkID = Util.StripInvalidChars( fileLink, sets.InvalidReplacement ),
@@ -130,6 +249,7 @@ namespace ChatLog
                         Time = Util.StripInvalidChars( DateTime.Now.ToString( sets.TimeFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
                     }
                 );
+
             }
             catch
             {
@@ -161,17 +281,31 @@ namespace ChatLog
 
             try
             {
-                fileName = fileName.FormatWith(
-                    new
-                    {
-                        CommunityID = (ulong)log.Reciever,
-                        SteamID = log.Reciever.Render().Replace( ":", sets.InvalidReplacement ),
-                        Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
-                        LinkID = Util.StripInvalidChars( fileLink, sets.InvalidReplacement ),
-                        Date = Util.StripInvalidChars( DateTime.Now.ToString( sets.DateFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
-                        Time = Util.StripInvalidChars( DateTime.Now.ToString( sets.TimeFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
-                    }
-                );
+                if ( log.IsGroupMsg )
+                {
+                    fileName = fileName.FormatWith(
+                        new
+                        {
+                            Name = Util.StripInvalidChars( log.ChatRoomName, sets.InvalidReplacement ),
+                            Date = Util.StripInvalidChars( DateTime.Now.ToString( sets.DateFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                            Time = Util.StripInvalidChars( DateTime.Now.ToString( sets.TimeFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                        }
+                    );
+                }
+                else
+                {
+                    fileName = fileName.FormatWith(
+                        new
+                        {
+                            CommunityID = ( ulong )log.Reciever,
+                            SteamID = log.Reciever.Render().Replace( ":", sets.InvalidReplacement ),
+                            Name = Util.StripInvalidChars( log.RecieverName, sets.InvalidReplacement ),
+                            LinkID = Util.StripInvalidChars( fileLink, sets.InvalidReplacement ),
+                            Date = Util.StripInvalidChars( DateTime.Now.ToString( sets.DateFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                            Time = Util.StripInvalidChars( DateTime.Now.ToString( sets.TimeFormat, CultureInfo.CurrentCulture ), sets.InvalidReplacement ),
+                        }
+                    );
+                }
             }
             catch
             {
@@ -275,6 +409,20 @@ namespace ChatLog
 
             ulong senderId = log.Sender;
 
+            if ( log.IsGroupMsg )
+            {
+                try
+                {
+                    File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine );
+                    return;
+                }
+                catch ( Exception ex )
+                {
+                    OnLogFailure( new LogFailureEventArgs( ex.Message ) );
+                    return;
+                }
+            }
+
             if ( sets.TrackSessions )
             {
                 if ( sessionInfo.ContainsKey( senderId ) )
@@ -306,6 +454,44 @@ namespace ChatLog
             }
         }
 
+        void StateChange( PersonaStateChange_t perState )
+        {
+        }
+
+        void ChatRoomMsg( ChatRoomMsg_t chatMsg )
+        {
+            if ( !groupChatEnabled || !sets.GroupChatEnabled )
+                return;
+
+            byte[] msgData = new byte[ 1024 * 4 ];
+            EChatEntryType chatType = EChatEntryType.k_EChatEntryTypeInvalid;
+            ulong chatter = 0;
+
+            int len = getChatMsg( clientFriends.Interface, chatMsg.m_ulSteamIDChat, ( int )chatMsg.m_iChatID, ref chatter, msgData, msgData.Length, ref chatType );
+
+            if ( len <= 0 )
+                len = 1;
+
+            LogMessage log = new LogMessage();
+
+            log.IsGroupMsg = true;
+            log.ChatRoom = chatMsg.m_ulSteamIDChat;
+            log.ChatRoomName = getChatName( clientFriends.Interface, log.ChatRoom );
+
+            log.Sender = new CSteamID( chatMsg.m_ulSteamIDUser );
+            log.SenderName = steamFriends.GetFriendPersonaName( log.Sender );
+
+            log.Reciever = log.Sender;
+            log.RecieverName = log.SenderName;
+
+            log.Message = Encoding.UTF8.GetString( msgData ).Substring( 0, len - 1 );
+            log.MessageTime = DateTime.Now;
+            log.MessageType = chatType;
+
+            AddLog( log );
+            
+        }
+
         void ChatMsg( FriendChatMsg_t chatMsg )
         {
             
@@ -319,7 +505,7 @@ namespace ChatLog
             if ( type == EChatEntryType.k_EChatEntryTypeTyping )
                 return;
 
-            if ( msgLength < 0 )
+            if ( msgLength <= 0 )
                 msgLength = 1; // JUST IN CASE!!
 
             LogMessage log = new LogMessage();
@@ -336,54 +522,11 @@ namespace ChatLog
 
             AddLog( log );
         }
-        /*
-        public void Update()
+
+
+        public void Close()
         {
-            Callback callback;
-            SteamCallHandle steamCall;
-
-            if ( Steamworks.Steam_BGetCallback( pipe, out callback, out steamCall ) )
-            {
-                if ( callback.CallbackNum == FriendChatMsg.Callback )
-                {
-                    FriendChatMsg chatMsg = null;
-
-                    try
-                    {
-                        chatMsg = (FriendChatMsg)callback.CallbackObject;
-                    }
-                    catch
-                    {
-                        Steamworks.Steam_FreeLastCallback( pipe );
-                        OnLogFailure( new LogFailureEventArgs( "Recieved callback was not in the correct format.\nThis indicates a major change in the steam client, please contact voidedweasel@gmail.com." ) );
-                        return;
-                    }
-
-                    string message = string.Empty;
-                    FriendMsgType type;
-
-                    SteamID reciever = chatMsg.Reciever;
-
-                    steamFriends.GetChatMessage( reciever, (int)chatMsg.ChatID, out message, 1024 * 4, out type );
-
-                    LogMessage log = new LogMessage();
-
-                    log.Sender = chatMsg.Sender;
-                    log.SenderName = steamFriends.GetFriendPersonaName( log.Sender );
-
-                    log.Reciever = reciever;
-                    log.RecieverName = steamFriends.GetFriendPersonaName( log.Reciever );
-
-                    log.Message = message;
-                    log.MessageTime = DateTime.Now;
-                    log.MessageType = type;
-
-                    AddLog( log );
-                }
-
-                Steamworks.Steam_FreeLastCallback( pipe );
-            }
-        }*/
-
+            CallbackDispatcher.StopDispatchThread( this.pipe );
+        }
     }
 }

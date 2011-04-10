@@ -29,6 +29,7 @@ namespace ChatLog
     using System.IO;
     using System.Threading;
     using System.Windows.Forms;
+    using Steam4NET;
 
     static class Program
     {
@@ -168,6 +169,8 @@ namespace ChatLog
                 Thread.Sleep( 10 );
             }
 
+            logManager.Close();
+
             GC.KeepAlive( singleMutex );
         }
 
@@ -182,6 +185,7 @@ namespace ChatLog
                 return;
 
             setsForm.Show();
+            setsForm.SetGroupChatStatus( logManager.GetGroupChatStatus() );
         }
 
         static void notifyIcon_Exit( object sender, EventArgs e )

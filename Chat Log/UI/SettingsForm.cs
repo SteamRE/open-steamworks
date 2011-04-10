@@ -63,6 +63,8 @@ namespace ChatLog
 
             sessionMinutes.Text = sets.MinsBetweenSessions.ToString();
 
+            enableGroupChats.Checked = sets.GroupChatEnabled;
+
             UpdateHelp();
         }
 
@@ -185,8 +187,9 @@ namespace ChatLog
             settings.DateFormat = dateFormatBox.Text;
             settings.TimeFormat = timeFormatBox.Text;
 
-
             settings.TrackSessions = trackSessions.Checked;
+
+            settings.GroupChatEnabled = enableGroupChats.Checked;
 
             try
             {
@@ -246,6 +249,11 @@ namespace ChatLog
             LinkIDForm lif = new LinkIDForm( settings );
 
             lif.ShowDialog( this );
+        }
+
+        public void SetGroupChatStatus( string status )
+        {
+            statusLabel.Text = "Group Chat Logging Status: " + status;
         }
     }
 }

@@ -22,6 +22,8 @@ namespace ChatLog
         public bool TrackSessions;
         public int MinsBetweenSessions;
 
+        public bool GroupChatEnabled;
+
         public List<LinkEntry> Links;
 
 
