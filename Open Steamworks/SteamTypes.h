@@ -81,7 +81,7 @@
 #define STEAM_CALL __cdecl
 
 // Steam-specific types. Defined here so this header file can be included in other code bases.
-#if !WCHARTYPES_H && !CLANG
+#if !defined(WCHARTYPES_H) && !defined(CLANG)
 typedef unsigned char uint8;
 #endif
 
