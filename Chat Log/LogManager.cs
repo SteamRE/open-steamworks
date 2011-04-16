@@ -136,7 +136,7 @@
                 */
                 var results = vtScan.DoScan<NativeGetChatRoomEntry>(
                     "\x6A\x00\x68\x62\xD4\x46\x38\x68\x94\x03\x00\x00\x68\x40\xE7\x3C\x38\x6A\x00\x68\x90\xE7\x3C\x38\xFF\x15\x44\xE5\x37\x38",
-                    "xxx????xxxxxx????xxx????xxxxxx"
+                    "xxx????xxxxxx????xxx????xx????"
                 );
 
                 if ( results.Count == 0 )
@@ -167,7 +167,7 @@
 
                 var results2 = vtScan.DoScan<NativeGetChatRoomName>(
                     "\x6A\x00\x68\x69\xD4\x46\x38\x68\xAA\x03\x00\x00\x68\x40\xE7\x3C\x38\x6A\x00\x68\x90\xE7\x3C\x38\xFF\x15\x44\xE5\x37\x38",
-                    "xxx????xxxxxx????xxx????xxxxxx"
+                    "xxx????xxxxxx????xxx????xx????"
                 );
 
                 if ( results2.Count == 0 )
