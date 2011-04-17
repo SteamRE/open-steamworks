@@ -2,7 +2,7 @@
 	Steamclient interfaces finder.
 	By LazyDidrole
 	
-	Licence : Public domain.
+	License : Public domain.
 */
 
 #include <idc.idc>
