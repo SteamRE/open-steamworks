@@ -15,6 +15,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamGameCoordinator0013;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamGameCoordinator001")]
 	public class ISteamGameCoordinator001 : InteropHelp.NativeWrapper<ISteamGameCoordinator001VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EGCResults NativeSendMessageUBU( IntPtr thisptr, UInt32 unMsgType, Byte[] pubData, UInt32 cubData );

@@ -64,6 +64,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientRemoteStorage52;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTREMOTESTORAGE_INTERFACE_VERSION001")]
 	public class IClientRemoteStorage : InteropHelp.NativeWrapper<IClientRemoteStorageVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteUESBI( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile, Byte[] pvData, Int32 cubData );

@@ -64,7 +64,30 @@ namespace Steam4Intermediate.Nodes
             generator.EmitLine("};", depth);
             generator.EmitLine("", depth);
 
+            string className = GetName().Substring(1);
+            string macroName = null;
 
+            if(className.StartsWith("Steam"))
+            {
+                string classValue = className.Substring(0, className.Length - 3).ToUpper();
+                string intValue = className.Substring(className.Length - 3, 3);
+
+                macroName = classValue + "_INTERFACE_VERSION_" + intValue;
+            }
+            else if(className.StartsWith("Client"))
+            {
+                macroName = className.ToUpper() + "_INTERFACE_VERSION";
+            }
+
+            if(macroName != null)
+            {
+                string macroValue = generator.FindMacroByName(macroName);
+                
+                if(macroValue != null)
+                {
+                    generator.EmitLine("[InteropHelp.InterfaceVersion(" + macroValue + ")]", depth);
+                }
+            }
 
             generator.EmitLine("public class " + GetName() + " : InteropHelp.NativeWrapper<" + GetName() + "VTable>", depth);
             generator.EmitLine("{", depth);
@@ -90,7 +113,8 @@ namespace Steam4Intermediate.Nodes
         private void EmitCodeStruct(Generator generator, int depth, int ident)
         {
             generator.EmitLine("[StructLayout(LayoutKind.Sequential,Pack=8)]", depth);
-            generator.EmitLine("public struct " + name, depth);
+            int attribMarker = generator.GetMarker();
+            generator.EmitLine("public struct " + GetName(), depth);
             generator.EmitLine("{", depth);
 
             foreach (INode child in children)
@@ -154,7 +178,23 @@ namespace Steam4Intermediate.Nodes
                         continue;
                     }
 
-                    generator.EmitLine( String.Format( "{0} {1};", types, child.GetName() ), depth + 1 );
+                    generator.EmitLine( String.Format( "public {0} {1};", types, child.GetName() ), depth + 1 );
+                }
+                else if(child is EnumNode)
+                {
+                    // anonymous enum declaration
+                    EnumNode innerEnum = child as EnumNode;
+                    int callback = innerEnum.EmitCodeInnerStructCallback(generator, depth + 1);
+
+                    if(callback > 0)
+                    {
+                        generator.InsertLine("[InteropHelp.CallbackIdentity(" + callback + ")]", attribMarker, depth);
+                    }
+                }
+                else if(child is FieldNode)
+                {
+                    //  anonymous field like union
+                    // not implemented!
                 }
             }
 

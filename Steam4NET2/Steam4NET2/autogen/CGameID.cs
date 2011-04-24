@@ -9,6 +9,15 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct CGameID
 	{
+		public const int k_EGameIDTypeApp = 0;
+	};
+	
+	public enum EGameIDType : int
+	{
+		k_EGameIDTypeApp = 0,
+		k_EGameIDTypeGameMod = 1,
+		k_EGameIDTypeShortcut = 2,
+		k_EGameIDTypeP2P = 3,
 	};
 	
 }

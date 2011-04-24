@@ -9,7 +9,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct CSteamID
 	{
-		SteamID_t m_steamid;
+		public SteamID_t m_steamid;
 	};
 	
 }

@@ -48,93 +48,111 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct LeaderboardEntry001_t
 	{
-		UInt64 m_steamIDUser;
-		Int32 m_nGlobalRank;
-		Int32 m_nScore;
-		Int32 m_cDetails;
+		public UInt64 m_steamIDUser;
+		public Int32 m_nGlobalRank;
+		public Int32 m_nScore;
+		public Int32 m_cDetails;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct LeaderboardEntry002_t
 	{
-		Int32 placeholder;
+		public Int32 placeholder;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1101)]
 	public struct UserStatsReceived_t
 	{
-		UInt64 m_nGameID;
-		EResult m_eResult;
-		UInt64 m_steamIDUser;
+		public const int k_iCallback = 1101;
+		public UInt64 m_nGameID;
+		public EResult m_eResult;
+		public UInt64 m_steamIDUser;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1102)]
 	public struct UserStatsStored_t
 	{
-		UInt64 m_nGameID;
-		EResult m_eResult;
+		public const int k_iCallback = 1102;
+		public UInt64 m_nGameID;
+		public EResult m_eResult;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1103)]
 	public struct UserAchievementStored_t
 	{
-		UInt64 m_nGameID;
+		public const int k_iCallback = 1103;
+		public UInt64 m_nGameID;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bGroupAchievement;
+		public bool m_bGroupAchievement;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-		string m_rgchAchievementName;
-		UInt32 m_nCurProgress;
-		UInt32 m_nMaxProgress;
+		public string m_rgchAchievementName;
+		public UInt32 m_nCurProgress;
+		public UInt32 m_nMaxProgress;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1104)]
 	public struct LeaderboardFindResult_t
 	{
-		UInt64 m_hSteamLeaderboard;
-		Byte m_bLeaderboardFound;
+		public const int k_iCallback = 1104;
+		public UInt64 m_hSteamLeaderboard;
+		public Byte m_bLeaderboardFound;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1105)]
 	public struct LeaderboardScoresDownloaded_t
 	{
-		UInt64 m_hSteamLeaderboard;
-		UInt64 m_hSteamLeaderboardEntries;
-		Int32 m_cEntryCount;
+		public const int k_iCallback = 1105;
+		public UInt64 m_hSteamLeaderboard;
+		public UInt64 m_hSteamLeaderboardEntries;
+		public Int32 m_cEntryCount;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1106)]
 	public struct LeaderboardScoreUploaded_t
 	{
-		Byte m_bSuccess;
-		UInt64 m_hSteamLeaderboard;
-		Int32 m_nScore;
-		Byte m_bScoreChanged;
-		Int32 m_nGlobalRankNew;
-		Int32 m_nGlobalRankPrevious;
+		public const int k_iCallback = 1106;
+		public Byte m_bSuccess;
+		public UInt64 m_hSteamLeaderboard;
+		public Int32 m_nScore;
+		public Byte m_bScoreChanged;
+		public Int32 m_nGlobalRankNew;
+		public Int32 m_nGlobalRankPrevious;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1107)]
 	public struct NumberOfCurrentPlayers_t
 	{
-		Byte m_bSuccess;
-		Int32 m_cPlayers;
+		public const int k_iCallback = 1107;
+		public Byte m_bSuccess;
+		public Int32 m_cPlayers;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1108)]
 	public struct UserStatsUnloaded_t
 	{
-		UInt64 m_steamIDUser;
+		public const int k_iCallback = 1108;
+		public UInt64 m_steamIDUser;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1109)]
 	public struct UserAchievementIconFetched_t
 	{
-		UInt64 m_nGameID;
+		public const int k_iCallback = 1109;
+		public UInt64 m_nGameID;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-		string m_rgchAchievementName;
+		public string m_rgchAchievementName;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bAchieved;
-		Int32 m_nIconHandle;
+		public bool m_bAchieved;
+		public Int32 m_nIconHandle;
 	};
 	
 }

@@ -31,18 +31,22 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1307)]
 	public struct FileShareResult_t
 	{
-		Int32 unk1;
-		Int32 unk2;
-		Int32 unk3;
-		Int32 unk4;
+		public const int k_iCallback = 1307;
+		public Int32 unk1;
+		public Int32 unk2;
+		public Int32 unk3;
+		public Int32 unk4;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1312)]
 	public struct ScreenshotBatchResult_t
 	{
-		EResult m_eResult;
+		public const int k_iCallback = 1312;
+		public EResult m_eResult;
 	};
 	
 }

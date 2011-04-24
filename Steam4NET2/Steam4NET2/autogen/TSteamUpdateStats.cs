@@ -9,8 +9,8 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamUpdateStats
 	{
-		UInt64 uBytesTotal;
-		UInt64 uBytesPresent;
+		public UInt64 uBytesTotal;
+		public UInt64 uBytesPresent;
 	};
 	
 }

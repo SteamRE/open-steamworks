@@ -78,6 +78,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientHTTP13;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTHTTP_INTERFACE_VERSION001")]
 	public class IClientHTTP : InteropHelp.NativeWrapper<IClientHTTPVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateHTTPRequestES( IntPtr thisptr, EHTTPMethod eHTTPRequestMethod, StringBuilder pchAbsoluteURL );

@@ -146,6 +146,7 @@ namespace Steam4NET
 		public IntPtr GetAppUserDefinedRecord134;
 	};
 	
+	[InteropHelp.InterfaceVersion("Steam005")]
 	public class ISteam005 : InteropHelp.NativeWrapper<ISteam005VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePasswordSST( IntPtr thisptr, string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError );

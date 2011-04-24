@@ -25,23 +25,43 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(701)]
+	public struct IPCountry_t
+	{
+		public const int k_iCallback = 701;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(702)]
 	public struct LowBatteryPower_t
 	{
-		Byte m_nMinutesBatteryLeft;
+		public const int k_iCallback = 702;
+		public Byte m_nMinutesBatteryLeft;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(703)]
 	public struct SteamAPICallCompleted_t
 	{
-		UInt64 m_hAsyncCall;
+		public const int k_iCallback = 703;
+		public UInt64 m_hAsyncCall;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(704)]
+	public struct SteamShutdown_t
+	{
+		public const int k_iCallback = 704;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(711)]
 	public struct SteamConfigStoreChanged_t
 	{
-		EConfigStore m_eConfigStore;
+		public const int k_iCallback = 711;
+		public EConfigStore m_eConfigStore;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-		string m_szRootOfChanges;
+		public string m_szRootOfChanges;
 	};
 	
 	public enum ECheckFileSignature : int
@@ -54,9 +74,11 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(705)]
 	public struct CheckFileSignature_t
 	{
-		ECheckFileSignature m_eCheckFileSignature;
+		public const int k_iCallback = 705;
+		public ECheckFileSignature m_eCheckFileSignature;
 	};
 	
 }

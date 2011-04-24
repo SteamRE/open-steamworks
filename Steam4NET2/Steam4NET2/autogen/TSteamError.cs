@@ -18,11 +18,11 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamError
 	{
-		ESteamError eSteamError;
-		EDetailedPlatformErrorType eDetailedErrorType;
-		Int32 nDetailedErrorCode;
+		public ESteamError eSteamError;
+		public EDetailedPlatformErrorType eDetailedErrorType;
+		public Int32 nDetailedErrorCode;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 255)]
-		string szDesc;
+		public string szDesc;
 	};
 	
 }

@@ -35,6 +35,7 @@ namespace Steam4NET
 		k_ESOMsg_Destroy = 23,
 		k_ESOMsg_CacheSubscribed = 24,
 		k_ESOMsg_CacheUnsubscribed = 25,
+		k_ESOMsg_UpdateMultiple = 26,
 		k_EGCMsgAchievementAwarded = 51,
 		k_EGCMsgConCommand = 52,
 		k_EGCMsgStartPlaying = 53,
@@ -62,9 +63,15 @@ namespace Steam4NET
 		k_EGCMsgPostAlert = 75,
 		k_EGCMsgGetLicenses = 76,
 		k_EGCMsgGetUserStats = 77,
+		k_EGCMsgAddFreeLicense = 80,
+		k_EGCMsgAddFreeLicenseResponse = 81,
 		k_EGCMsgWebAPIRegisterInterfaces = 101,
 		k_EGCMsgWebAPIJobRequest = 102,
 		k_EGCMsgWebAPIRegistrationRequested = 103,
+		k_EGCMsgMemCachedGet = 200,
+		k_EGCMsgMemCachedGetResponse = 201,
+		k_EGCMsgMemCachedSet = 202,
+		k_EGCMsgMemCachedDelete = 203,
 		k_EMsgGCSetItemPosition = 1001,
 		k_EMsgGCCraft = 1002,
 		k_EMsgGCCraftResponse = 1003,
@@ -103,6 +110,17 @@ namespace Steam4NET
 		k_EMsgGCDeliverGiftResponseReceiver = 1036,
 		k_EMsgGCUnwrapGiftRequest = 1037,
 		k_EMsgGCUnwrapGiftResponse = 1038,
+		k_EMsgGCSetItemStyle = 1039,
+		k_EMsgGCUsedClaimCodeItem = 1040,
+		k_EMsgGCSortItems = 1041,
+		k_EMsgGC_RevolvingLootList = 1042,
+		k_EMsgGCLookupAccount = 1043,
+		k_EMsgGCLookupAccountResponse = 1044,
+		k_EMsgGCLookupAccountName = 1045,
+		k_EMsgGCLookupAccountNameResponse = 1046,
+		k_EMsgGCStartupCheck = 1047,
+		k_EMsgGCStartupCheckResponse = 1048,
+		k_EMsgGCUpdateItemSchema = 1049,
 		k_EMsgGCTrading_InitiateTradeRequest = 1501,
 		k_EMsgGCTrading_InitiateTradeResponse = 1502,
 		k_EMsgGCTrading_StartSession = 1503,
@@ -120,25 +138,39 @@ namespace Steam4NET
 		k_EMsgGCServerBrowser_BlacklistServer = 1602,
 		k_EMsgGCDev_NewItemRequest = 2001,
 		k_EMsgGCDev_NewItemRequestResponse = 2002,
-		k_EMsgGCSystemMessage = 3001,
+		k_EMsgGCStoreGetUserData = 3000,
+		k_EMsgGCStoreGetUserDataResponse = 3001,
+		k_EMsgGCStorePurchaseInit = 3002,
+		k_EMsgGCStorePurchaseInitResponse = 3003,
+		k_EMsgGCStorePurchaseFinalize = 3004,
+		k_EMsgGCStorePurchaseFinalizeResponse = 3005,
+		k_EMsgGCStorePurchaseCancel = 3006,
+		k_EMsgGCStorePurchaseCancelResponse = 3007,
+		k_EMsgGCStorePurchaseQueryTxn = 3008,
+		k_EMsgGCStorePurchaseQueryTxnResponse = 3009,
 		k_EMsgGCReportWarKill = 5001,
-		k_EMsgGCCoaching_AddToCoaches = 5002,
-		k_EMsgGCCoaching_AddToCoachesResponse = 5003,
-		k_EMsgGCCoaching_RemoveFromCoaches = 5004,
-		k_EMsgGCCoaching_RemoveFromCoachesResponse = 5005,
-		k_EMsgGCCoaching_FindCoach = 5006,
-		k_EMsgGCCoaching_FindCoachResponse = 5007,
-		k_EMsgGCCoaching_AskCoach = 5008,
-		k_EMsgGCCoaching_AskCoachResponse = 5009,
-		k_EMsgGCCoaching_CoachJoinGame = 5010,
-		k_EMsgGCCoaching_CoachJoining = 5011,
-		k_EMsgGCCoaching_CoachJoined = 5012,
-		k_EMsgGCCoaching_LikeCurrentCoach = 5013,
-		k_EMsgGCLookupAccount = 5014,
-		k_EMsgGCLookupAccountResponse = 5015,
-		k_EMsgGCLookupAccountName = 5016,
-		k_EMsgGCLookupAccountNameResponse = 5017,
-		k_EMsgGC_RevolvingLootList = 5400,
+		k_EMsgGCVoteKickBanPlayer = 5018,
+		k_EMsgGCVoteKickBanPlayerResult = 5019,
+		k_EMsgGCKickPlayer = 5020,
+		k_EMsgGCStartedTraining = 5021,
+		k_EMsgGCFreeTrial_ChooseMostHelpfulFriend = 5022,
+		k_EMsgGCRequestTF2Friends = 5023,
+		k_EMsgGCRequestTF2FriendsResponse = 5024,
+		k_EMsgGCReplay_UploadedToYouTube = 5025,
+		k_EMsgGCCoaching_AddToCoaches = 5200,
+		k_EMsgGCCoaching_AddToCoachesResponse = 5201,
+		k_EMsgGCCoaching_RemoveFromCoaches = 5202,
+		k_EMsgGCCoaching_RemoveFromCoachesResponse = 5203,
+		k_EMsgGCCoaching_FindCoach = 5204,
+		k_EMsgGCCoaching_FindCoachResponse = 5205,
+		k_EMsgGCCoaching_AskCoach = 5206,
+		k_EMsgGCCoaching_AskCoachResponse = 5207,
+		k_EMsgGCCoaching_CoachJoinGame = 5208,
+		k_EMsgGCCoaching_CoachJoining = 5209,
+		k_EMsgGCCoaching_CoachJoined = 5210,
+		k_EMsgGCCoaching_LikeCurrentCoach = 5211,
+		k_EMsgGCCoaching_RemoveCurrentCoach = 5212,
+		k_EMsgGCCoaching_AlreadyRatedCoach = 5213,
 		k_EMsgGC_Duel_Request = 5500,
 		k_EMsgGC_Duel_Response = 5501,
 		k_EMsgGC_Duel_Results = 5502,
@@ -151,22 +183,15 @@ namespace Steam4NET
 		k_EMsgGC_GameServer_LevelInfo = 5700,
 		k_EMsgGC_GameServer_AuthChallenge = 5701,
 		k_EMsgGC_GameServer_AuthChallengeResponse = 5702,
-		k_EMsgGC_MM_RequestMatch = 5800,
-		k_EMsgGC_MM_RequestMatchResponse = 5801,
-		k_EMsgGC_MM_ReserveSpot = 5802,
-		k_EMsgGC_MM_LoadMap = 5803,
+		k_EMsgGC_GameServer_CreateIdentity = 5703,
+		k_EMsgGC_GameServer_CreateIdentityResponse = 5704,
+		k_EMsgGC_GameServer_List = 5705,
+		k_EMsgGC_GameServer_ListResponse = 5706,
+		k_EMsgGC_GameServer_AuthResult = 5707,
+		k_EMsgGC_QP_ScoreServers = 5800,
+		k_EMsgGC_QP_ScoreServersResponse = 5801,
 		k_EMsgGC_PickupItemEligibility_Query = 6000,
 		k_EMsgGCDev_GrantWarKill = 6001,
-		k_EMsgGCTFGetUserData = 7000,
-		k_EMsgGCTFGetUserDataResponse = 7001,
-		k_EMsgGCTFPurchaseInit = 7002,
-		k_EMsgGCTFPurchaseInitResponse = 7003,
-		k_EMsgGCTFPurchaseFinalize = 7004,
-		k_EMsgGCTFPurchaseFinalizeResponse = 7005,
-		k_EMsgGCTFPurchaseCancel = 7006,
-		k_EMsgGCTFPurchaseCancelResponse = 7007,
-		k_EMsgGCTFPurchaseQueryTxn = 7008,
-		k_EMsgGCTFPurchaseQueryTxnResponse = 7009,
 	};
 	
 	public enum ETFInitTradeResult : int
@@ -193,294 +218,361 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1701)]
 	public struct GCMessageAvailable_t
 	{
-		UInt32 m_nMessageSize;
+		public const int k_iCallback = 1701;
+		public UInt32 m_nMessageSize;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1702)]
+	public struct GCMessageFailed_t
+	{
+		public const int k_iCallback = 1702;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct GCMsgHeader_t
 	{
-		UInt16 headerVersion;
-		UInt64 targetJobID;
-		UInt64 sourceJobID;
+		public UInt16 headerVersion;
+		public UInt64 targetJobID;
+		public UInt64 sourceJobID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(24)]
 	public struct SOMsgCacheSubscribed_t
 	{
-		GCMsgHeader_t header;
-		UInt64 steamid;
-		UInt32 numberOfTypes;
+		public const int k_iMessage = 24;
+		public GCMsgHeader_t header;
+		public UInt64 steamid;
+		public UInt32 numberOfTypes;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct SOMsgCacheSubscribed_Items_t
 	{
-		UInt16 idOfType;
-		UInt16 itemcount;
+		public UInt16 idOfType;
+		public UInt16 itemcount;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct SOMsgCacheSubscribed_Item_t
 	{
-		UInt64 itemid;
-		UInt32 accountid;
-		UInt16 itemdefindex;
-		Byte itemlevel;
-		Byte itemquality;
-		UInt32 position;
-		UInt32 quantity;
-		UInt16 namelength;
+		public UInt64 itemid;
+		public UInt32 accountid;
+		public UInt16 itemdefindex;
+		public Byte itemlevel;
+		public Byte itemquality;
+		public UInt32 position;
+		public UInt32 quantity;
+		public UInt16 namelength;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct SOMsgCacheSubscribed_Item_Attrib_t
 	{
-		UInt16 attribindex;
-		float value;
+		public UInt16 attribindex;
+		public float value;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(25)]
 	public struct SOMsgCacheUnsubscribed_t
 	{
-		GCMsgHeader_t header;
-		UInt64 steamid;
+		public const int k_iMessage = 25;
+		public GCMsgHeader_t header;
+		public UInt64 steamid;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(21)]
 	public struct SOMsgCreate_t
 	{
-		GCMsgHeader_t header;
-		UInt64 steamid;
-		UInt32 unknown;
-		SOMsgCacheSubscribed_Item_t item;
+		public const int k_iMessage = 21;
+		public GCMsgHeader_t header;
+		public UInt64 steamid;
+		public UInt32 unknown;
+		public SOMsgCacheSubscribed_Item_t item;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(22)]
 	public struct SOMsgUpdate_t
 	{
-		GCMsgHeader_t header;
-		UInt64 steamid;
-		UInt32 unk1;
-		UInt64 itemID;
-		UInt16 unk2;
-		UInt32 position;
+		public const int k_iMessage = 22;
+		public GCMsgHeader_t header;
+		public UInt64 steamid;
+		public UInt32 unk1;
+		public UInt64 itemID;
+		public UInt16 unk2;
+		public UInt32 position;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(23)]
 	public struct SOMsgDeleted_t
 	{
-		GCMsgHeader_t header;
-		UInt64 steamid;
-		UInt32 unk1;
-		UInt64 itemid;
+		public const int k_iMessage = 23;
+		public GCMsgHeader_t header;
+		public UInt64 steamid;
+		public UInt32 unk1;
+		public UInt64 itemid;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1001)]
 	public struct GCSetItemPosition_t
 	{
-		GCMsgHeader_t header;
-		UInt64 itemID;
-		UInt32 position;
-		UInt32 unk1;
+		public const int k_iMessage = 1001;
+		public GCMsgHeader_t header;
+		public UInt64 itemID;
+		public UInt32 position;
+		public UInt32 unk1;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1002)]
 	public struct GCCraft_t
 	{
-		GCMsgHeader_t header;
-		UInt16 blueprint;
-		UInt16 itemcount;
+		public const int k_iMessage = 1002;
+		public GCMsgHeader_t header;
+		public UInt16 blueprint;
+		public UInt16 itemcount;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1003)]
 	public struct GCCraftResponse_t
 	{
-		GCMsgHeader_t header;
-		UInt16 blueprint;
-		UInt64 unk1;
-		UInt64 itemid;
+		public const int k_iMessage = 1003;
+		public GCMsgHeader_t header;
+		public UInt16 blueprint;
+		public UInt64 unk1;
+		public UInt64 itemid;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1004)]
 	public struct GCDelete_t
 	{
-		GCMsgHeader_t header;
-		UInt64 itemID;
+		public const int k_iMessage = 1004;
+		public GCMsgHeader_t header;
+		public UInt64 itemID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1005)]
 	public struct GCVerifyCacheSubscription_t
 	{
-		GCMsgHeader_t header;
-		UInt64 steamid;
+		public const int k_iMessage = 1005;
+		public GCMsgHeader_t header;
+		public UInt64 steamid;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1011)]
 	public struct GCGoldenWrenchBroadcast_t
 	{
-		GCMsgHeader_t header;
-		UInt16 WrenchNumber;
-		UInt16 State;
+		public const int k_iMessage = 1011;
+		public GCMsgHeader_t header;
+		public UInt16 WrenchNumber;
+		public UInt16 State;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1012)]
 	public struct GCMOTDRequest_t
 	{
-		GCMsgHeader_t header;
-		UInt32 timestamp;
-		UInt32 unk1;
+		public const int k_iMessage = 1012;
+		public GCMsgHeader_t header;
+		public UInt32 timestamp;
+		public UInt32 unk1;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1013)]
 	public struct GCMOTDRequestResponse_t
 	{
-		GCMsgHeader_t header;
-		UInt16 NumberOfNews;
+		public const int k_iMessage = 1013;
+		public GCMsgHeader_t header;
+		public UInt16 NumberOfNews;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(5701)]
 	public struct GC_GameServer_AuthChallenge_t
 	{
-		GCMsgHeader_t header;
-		Byte unknown;
+		public const int k_iMessage = 5701;
+		public GCMsgHeader_t header;
+		public Byte unknown;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(5702)]
 	public struct GC_GameServer_AuthChallengeResponse_t
 	{
-		GCMsgHeader_t header;
-		UInt32 accountID;
+		public const int k_iMessage = 5702;
+		public GCMsgHeader_t header;
+		public UInt32 accountID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(5700)]
 	public struct GC_GameServer_LevelInfo_t
 	{
-		GCMsgHeader_t header;
-		Byte unknown;
+		public const int k_iMessage = 5700;
+		public GCMsgHeader_t header;
+		public Byte unknown;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1501)]
 	public struct GCTrading_InitiateTradeRequest_t
 	{
-		GCMsgHeader_t header;
-		UInt32 challenge;
-		UInt64 steamID;
+		public const int k_iMessage = 1501;
+		public GCMsgHeader_t header;
+		public UInt32 challenge;
+		public UInt64 steamID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1502)]
 	public struct GCTrading_InitiateTradeResponse_t
 	{
-		GCMsgHeader_t header;
-		UInt32 result;
-		UInt32 challenge;
+		public const int k_iMessage = 1502;
+		public GCMsgHeader_t header;
+		public UInt32 result;
+		public UInt32 challenge;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1511)]
 	public struct GCTrading_TradeChatMsg_t
 	{
-		GCMsgHeader_t header;
-		Byte unknown;
+		public const int k_iMessage = 1511;
+		public GCMsgHeader_t header;
+		public Byte unknown;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1513)]
 	public struct GCTrading_TradeTypingChatMsg_t
 	{
-		GCMsgHeader_t header;
+		public const int k_iMessage = 1513;
+		public GCMsgHeader_t header;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1503)]
 	public struct GCTrading_StartSession_t
 	{
-		GCMsgHeader_t header;
-		UInt64 steamID1;
-		UInt64 steamID2;
+		public const int k_iMessage = 1503;
+		public GCMsgHeader_t header;
+		public UInt64 steamID1;
+		public UInt64 steamID2;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1504)]
 	public struct GCTrading_SetItem_t
 	{
-		GCMsgHeader_t header;
-		Byte showcase;
-		UInt64 itemID;
-		Byte slot;
+		public const int k_iMessage = 1504;
+		public GCMsgHeader_t header;
+		public Byte showcase;
+		public UInt64 itemID;
+		public Byte slot;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1505)]
 	public struct GCTrading_RemoveItem_t
 	{
-		GCMsgHeader_t header;
-		UInt64 itemID;
+		public const int k_iMessage = 1505;
+		public GCMsgHeader_t header;
+		public UInt64 itemID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1506)]
 	public struct GCTrading_UpdateTradeInfo_t
 	{
-		GCMsgHeader_t header;
-		UInt32 version;
-		Byte plyr1_numItems;
-		Byte plyr2_numItems;
-		Byte plyr1_numItems_showcase;
-		Byte plyr2_numItems_showcase;
-		UInt64 plyr1_showcase;
-		UInt64 plyr1_slot0;
-		UInt64 plyr1_slot1;
-		UInt64 plyr1_slot2;
-		UInt64 plyr1_slot3;
-		UInt64 plyr1_slot4;
-		UInt64 plyr1_slot5;
-		UInt64 plyr1_slot6;
-		UInt64 plyr1_slot7;
-		UInt64 plyr2_showcase;
-		UInt64 plyr2_slot0;
-		UInt64 plyr2_slot1;
-		UInt64 plyr2_slot2;
-		UInt64 plyr2_slot3;
-		UInt64 plyr2_slot4;
-		UInt64 plyr2_slot5;
-		UInt64 plyr2_slot6;
-		UInt64 plyr2_slot7;
+		public const int k_iMessage = 1506;
+		public GCMsgHeader_t header;
+		public UInt32 version;
+		public Byte plyr1_numItems;
+		public Byte plyr2_numItems;
+		public Byte plyr1_numItems_showcase;
+		public Byte plyr2_numItems_showcase;
+		public UInt64 plyr1_showcase;
+		public UInt64 plyr1_slot0;
+		public UInt64 plyr1_slot1;
+		public UInt64 plyr1_slot2;
+		public UInt64 plyr1_slot3;
+		public UInt64 plyr1_slot4;
+		public UInt64 plyr1_slot5;
+		public UInt64 plyr1_slot6;
+		public UInt64 plyr1_slot7;
+		public UInt64 plyr2_showcase;
+		public UInt64 plyr2_slot0;
+		public UInt64 plyr2_slot1;
+		public UInt64 plyr2_slot2;
+		public UInt64 plyr2_slot3;
+		public UInt64 plyr2_slot4;
+		public UInt64 plyr2_slot5;
+		public UInt64 plyr2_slot6;
+		public UInt64 plyr2_slot7;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1508)]
 	public struct GCTrading_ReadinessResponse_t
 	{
-		GCMsgHeader_t header;
-		UInt32 version;
-		Byte player1ready;
-		Byte player2ready;
-		Byte player1confirmed;
-		Byte player2confirmed;
+		public const int k_iMessage = 1508;
+		public GCMsgHeader_t header;
+		public UInt32 version;
+		public Byte player1ready;
+		public Byte player2ready;
+		public Byte player1confirmed;
+		public Byte player2confirmed;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1507)]
 	public struct GCTrading_SetReadiness_t
 	{
-		GCMsgHeader_t header;
-		UInt32 version;
-		Byte response;
+		public const int k_iMessage = 1507;
+		public GCMsgHeader_t header;
+		public UInt32 version;
+		public Byte response;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1512)]
 	public struct GCTrading_ConfirmOffer_t
 	{
-		GCMsgHeader_t header;
-		UInt32 version;
+		public const int k_iMessage = 1512;
+		public GCMsgHeader_t header;
+		public UInt32 version;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1509)]
 	public struct GCTrading_SessionClosed_t
 	{
-		GCMsgHeader_t header;
-		UInt32 result;
+		public const int k_iMessage = 1509;
+		public GCMsgHeader_t header;
+		public UInt32 result;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1029)]
 	public struct GCRespawnPostLoadoutChange_t
 	{
-		GCMsgHeader_t header;
-		UInt64 steamID;
+		public const int k_iMessage = 1029;
+		public GCMsgHeader_t header;
+		public UInt64 steamID;
 	};
 	
 }

@@ -10,9 +10,9 @@ namespace Steam4NET
 	public struct TSteamExternalBillingInfo
 	{
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 101)]
-		string szAccountName;
+		public string szAccountName;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 81)]
-		string szPassword;
+		public string szPassword;
 	};
 	
 }

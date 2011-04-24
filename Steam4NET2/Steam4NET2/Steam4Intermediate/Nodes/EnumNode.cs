@@ -49,5 +49,30 @@ namespace Steam4Intermediate.Nodes
             generator.EmitLine( "", depth );
         }
 
+        public int EmitCodeInnerStructCallback(Generator generator, int depth)
+        {
+            // don't emit an anonymous enum reference, the real enum is attached through the context
+            if (typeNode is EnumNode)
+                return -1;
+
+            INode returntype;
+            bool constness, pointer;
+
+            string types = base.ResolveType(1, out returntype, out constness, out pointer);
+
+            types = generator.ResolveType(types, constness, pointer, true, false);
+
+            foreach (INode child in children)
+            {
+                if (child is EnumConstantNode)
+                {
+                    generator.EmitLine(String.Format("public const {0} {1} = {2};", EnumShortCodes[types], child.GetName(), child.GetAttribute("value")), depth);
+                    return Convert.ToInt32(child.GetAttribute("value"));
+                }
+            }
+
+            return -1;
+        }
+
     }
 }

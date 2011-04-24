@@ -27,6 +27,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamGameServer00515;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamGameServer005")]
 	public class ISteamGameServer005 : InteropHelp.NativeWrapper<ISteamGameServer005VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOn( IntPtr thisptr );

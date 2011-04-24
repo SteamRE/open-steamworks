@@ -10,7 +10,7 @@ namespace Steam4NET
 	public struct SteamSalt
 	{
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-		Byte[] uchSalt;
+		public Byte[] uchSalt;
 	};
 	
 }

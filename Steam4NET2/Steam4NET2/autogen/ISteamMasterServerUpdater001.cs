@@ -26,6 +26,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamMasterServerUpdater00114;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamMasterServerUpdater001")]
 	public class ISteamMasterServerUpdater001 : InteropHelp.NativeWrapper<ISteamMasterServerUpdater001VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetActiveB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bActive );

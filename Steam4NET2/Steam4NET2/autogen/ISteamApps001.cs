@@ -13,6 +13,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamApps0011;
 	};
 	
+	[InteropHelp.InterfaceVersion("STEAMAPPS_INTERFACE_VERSION001")]
 	public class ISteamApps001 : InteropHelp.NativeWrapper<ISteamApps001VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDataUSSI( IntPtr thisptr, UInt32 nAppID, string pchKey, StringBuilder pchValue, Int32 cchValueMax );

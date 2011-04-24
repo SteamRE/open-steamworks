@@ -39,6 +39,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamMatchmaking00427;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamMatchMaking004")]
 	public class ISteamMatchmaking004 : InteropHelp.NativeWrapper<ISteamMatchmaking004VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFavoriteGameCount( IntPtr thisptr );

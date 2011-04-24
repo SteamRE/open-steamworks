@@ -9,8 +9,8 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamSplitLocalUserID
 	{
-		UInt32 Low32bits;
-		UInt32 High32bits;
+		public UInt32 Low32bits;
+		public UInt32 High32bits;
 	};
 	
 }

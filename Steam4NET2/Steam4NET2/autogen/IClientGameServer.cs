@@ -17,14 +17,14 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct ConnectedUserInfo_t
 	{
-		Int32 m_cubConnectedUserInfo;
-		Int32 m_nCountOfGuestUsers;
-		UInt64 m_SteamID;
-		UInt32 m_unIPPublic;
-		UInt32 m_nFrags;
-		double m_flConnectTime;
-		EGameConnectSteamResponse m_eGameConnectSteamResponse;
-		EDenyReason m_eDenyReason;
+		public Int32 m_cubConnectedUserInfo;
+		public Int32 m_nCountOfGuestUsers;
+		public UInt64 m_SteamID;
+		public UInt32 m_unIPPublic;
+		public UInt32 m_nFrags;
+		public double m_flConnectTime;
+		public EGameConnectSteamResponse m_eGameConnectSteamResponse;
+		public EDenyReason m_eDenyReason;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
@@ -75,6 +75,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientGameServer42;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTGAMESERVER_INTERFACE_VERSION001")]
 	public class IClientGameServer : InteropHelp.NativeWrapper<IClientGameServerVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser( IntPtr thisptr );

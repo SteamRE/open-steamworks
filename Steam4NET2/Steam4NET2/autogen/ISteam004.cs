@@ -139,6 +139,7 @@ namespace Steam4NET
 		public IntPtr GetAppPurchaseCountry127;
 	};
 	
+	[InteropHelp.InterfaceVersion("Steam004")]
 	public class ISteam004 : InteropHelp.NativeWrapper<ISteam004VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePasswordSST( IntPtr thisptr, string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError );

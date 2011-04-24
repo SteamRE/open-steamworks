@@ -26,6 +26,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamNetworking00214;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamNetworking002")]
 	public class ISteamNetworking002 : InteropHelp.NativeWrapper<ISteamNetworking002VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateListenSocketIUUB( IntPtr thisptr, Int32 nVirtualP2PPort, UInt32 nIP, UInt16 nPort, [MarshalAs(UnmanagedType.I1)] bool bAllowUseOfPacketRelay );

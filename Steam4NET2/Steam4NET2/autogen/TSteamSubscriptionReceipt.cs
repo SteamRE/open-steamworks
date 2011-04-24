@@ -9,11 +9,11 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamSubscriptionReceipt
 	{
-		ESteamSubscriptionStatus eStatus;
-		ESteamSubscriptionStatus ePreviousStatus;
-		ESteamSubscriptionBillingInfoType eReceiptInfoType;
+		public ESteamSubscriptionStatus eStatus;
+		public ESteamSubscriptionStatus ePreviousStatus;
+		public ESteamSubscriptionBillingInfoType eReceiptInfoType;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 23)]
-		string szConfirmationCode;
+		public string szConfirmationCode;
 	};
 	
 }

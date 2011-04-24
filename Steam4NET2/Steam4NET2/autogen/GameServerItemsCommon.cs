@@ -7,43 +7,53 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1500)]
 	public struct GSItemCount_t
 	{
-		UInt64 m_steamID;
-		EItemRequestResult m_eResult;
-		UInt32 m_unCount;
+		public const int k_iCallback = 1500;
+		public UInt64 m_steamID;
+		public EItemRequestResult m_eResult;
+		public UInt32 m_unCount;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1501)]
 	public struct GSItemRequest_t
 	{
-		UInt64 m_steamID;
-		EItemRequestResult m_eResult;
-		UInt64 m_itemID;
+		public const int k_iCallback = 1501;
+		public UInt64 m_steamID;
+		public EItemRequestResult m_eResult;
+		public UInt64 m_itemID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1507)]
 	public struct GSItemGranted_t
 	{
-		UInt64 m_steamID;
-		UInt64 m_itemID;
+		public const int k_iCallback = 1507;
+		public UInt64 m_steamID;
+		public UInt64 m_itemID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1508)]
 	public struct GSItemGetBlob_t
 	{
-		UInt64 m_itemID;
-		EItemRequestResult m_eResult;
+		public const int k_iCallback = 1508;
+		public UInt64 m_itemID;
+		public EItemRequestResult m_eResult;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 1024)]
-		Byte[] m_itemBlob;
+		public Byte[] m_itemBlob;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1509)]
 	public struct GSItemSetBlob_t
 	{
-		UInt64 m_itemID;
-		EItemRequestResult m_eResult;
-		UInt32 Unk;
+		public const int k_iCallback = 1509;
+		public UInt64 m_itemID;
+		public EItemRequestResult m_eResult;
+		public UInt32 Unk;
 	};
 	
 }

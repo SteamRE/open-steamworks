@@ -100,20 +100,24 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(401)]
 	public struct FinalPriceMsg_t
 	{
-		UInt32 m_bSuccess;
-		UInt32 m_nBaseCost;
-		UInt32 m_nTotalDiscount;
-		UInt32 m_nTax;
-		UInt32 m_nShippingCost;
+		public const int k_iCallback = 401;
+		public UInt32 m_bSuccess;
+		public UInt32 m_nBaseCost;
+		public UInt32 m_nTotalDiscount;
+		public UInt32 m_nTax;
+		public UInt32 m_nShippingCost;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(402)]
 	public struct PurchaseMsg_t
 	{
-		UInt32 m_bSuccess;
-		Int32 m_EPurchaseResultDetail;
+		public const int k_iCallback = 402;
+		public UInt32 m_bSuccess;
+		public Int32 m_EPurchaseResultDetail;
 	};
 	
 }

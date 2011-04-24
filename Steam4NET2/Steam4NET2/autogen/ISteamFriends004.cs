@@ -32,6 +32,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamFriends00420;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamFriends004")]
 	public class ISteamFriends004 : InteropHelp.NativeWrapper<ISteamFriends004VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetPersonaName( IntPtr thisptr );

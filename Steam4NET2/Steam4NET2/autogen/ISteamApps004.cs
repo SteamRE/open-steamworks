@@ -22,6 +22,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamApps00410;
 	};
 	
+	[InteropHelp.InterfaceVersion("STEAMAPPS_INTERFACE_VERSION004")]
 	public class ISteamApps004 : InteropHelp.NativeWrapper<ISteamApps004VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsSubscribed( IntPtr thisptr );

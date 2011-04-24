@@ -35,6 +35,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientDepotBuilder5;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTDEPOTBUILDER_INTERFACE_VERSION001")]
 	public class IClientDepotBuilder : InteropHelp.NativeWrapper<IClientDepotBuilderVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeInitializeDepotBuildForConfigFileSB( IntPtr thisptr, string pchConfigFile, [MarshalAs(UnmanagedType.I1)] bool bMakePublic );

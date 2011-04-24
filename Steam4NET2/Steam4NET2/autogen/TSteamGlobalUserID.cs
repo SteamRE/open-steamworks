@@ -9,7 +9,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamGlobalUserID
 	{
-		UInt16 m_SteamInstanceID;
+		public UInt16 m_SteamInstanceID;
 	};
 	
 }

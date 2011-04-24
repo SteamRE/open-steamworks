@@ -20,6 +20,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientApps8;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTAPPS_INTERFACE_VERSION001")]
 	public class IClientApps : InteropHelp.NativeWrapper<IClientAppsVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDataUSSI( IntPtr thisptr, UInt32 unAppID, string pchKey, StringBuilder pchValue, Int32 cchValueMax );

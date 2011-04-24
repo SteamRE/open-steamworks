@@ -57,6 +57,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamBilling00245;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamBilling002")]
 	public class ISteamBilling002 : InteropHelp.NativeWrapper<ISteamBilling002VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInitCreditCardPurchaseIUB( IntPtr thisptr, Int32 arg0, UInt32 arg1, [MarshalAs(UnmanagedType.I1)] bool arg2 );

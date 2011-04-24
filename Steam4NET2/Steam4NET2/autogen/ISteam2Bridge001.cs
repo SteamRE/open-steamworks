@@ -29,6 +29,7 @@ namespace Steam4NET
 		private IntPtr DTorISteam2Bridge00117;
 	};
 	
+	[InteropHelp.InterfaceVersion("STEAM2BRIDGE_INTERFACE_VERSION001")]
 	public class ISteam2Bridge001 : InteropHelp.NativeWrapper<ISteam2Bridge001VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetSteam2TicketBI( IntPtr thisptr, Byte[] pubTicket, Int32 cubTicket );

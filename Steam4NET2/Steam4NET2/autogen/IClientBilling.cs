@@ -53,6 +53,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientBilling41;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTBILLING_INTERFACE_VERSION001")]
 	public class IClientBilling : InteropHelp.NativeWrapper<IClientBillingVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetActivationCodeInfoS( IntPtr thisptr, string pchActivationCode );

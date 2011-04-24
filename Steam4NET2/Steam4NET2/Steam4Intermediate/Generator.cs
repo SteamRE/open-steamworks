@@ -76,6 +76,7 @@ namespace Steam4Intermediate
 
         private Dictionary<String, INode> NodesByID = new Dictionary<String, INode>();
         private Dictionary<Type, List<INode>> NodesByType = new Dictionary<Type, List<INode>>();
+        private Dictionary<string, string> MacroDefinitions = new Dictionary<string, string>();
 
         private StringBuilder buffer = new StringBuilder();
 
@@ -92,7 +93,7 @@ namespace Steam4Intermediate
 
             foreach (INode node in NodesByType[typeof(FileNode)])
             {
-                if (node.name.Contains("opensteamworks"))
+                if (node.name.Contains("Open Steamworks"))
                 {
                     node.EmitCode(this, 0, 0);
                 }
@@ -108,6 +109,16 @@ namespace Steam4Intermediate
         public void EmitLine( string line, int depth )
         {
             buffer.AppendFormat( "{0}{1}\r\n", new String( '\t', depth ), line );
+        }
+
+        public int GetMarker()
+        {
+            return buffer.Length;
+        }
+
+        public void InsertLine( string line, int marker, int depth)
+        {
+            buffer.Insert(marker, String.Format("{0}{1}\r\n", new String('\t', depth), line));
         }
 
         public string ResolveType( string inputtype, bool constness, bool pointer, bool returntype, bool allow_ref )
@@ -154,7 +165,14 @@ namespace Steam4Intermediate
 
             if( !NodeTypeMap.TryGetValue( node.Name, out parserType ) )
             {
-                Console.WriteLine("Unhandled node type " + node.Name);
+                if(node.Name == "MacroDefine")
+                {
+                    MacroDefinitions.Add(node.Attributes["name"].Value, node.Attributes["value"].Value);
+                } else
+                {
+                    Console.WriteLine("Unhandled node type " + node.Name);
+                }
+                
             }
 
             if ( parserType != null )
@@ -219,5 +237,14 @@ namespace Steam4Intermediate
             return null;
         }
 
+        public string FindMacroByName(string name)
+        {
+            string value;
+
+            if(MacroDefinitions.TryGetValue(name, out value))
+                return value;
+
+            return null; 
+        }
     }
 }

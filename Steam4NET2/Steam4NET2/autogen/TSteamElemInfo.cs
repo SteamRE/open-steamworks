@@ -9,14 +9,14 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamElemInfo
 	{
-		Int32 bIsDir;
-		UInt32 uSizeOrCount;
-		Int32 bIsLocal;
+		public Int32 bIsDir;
+		public UInt32 uSizeOrCount;
+		public Int32 bIsLocal;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 255)]
-		string cszName;
-		Int32 lLastAccessTime;
-		Int32 lLastModificationTime;
-		Int32 lCreationTime;
+		public string cszName;
+		public Int32 lLastAccessTime;
+		public Int32 lLastModificationTime;
+		public Int32 lCreationTime;
 	};
 	
 }

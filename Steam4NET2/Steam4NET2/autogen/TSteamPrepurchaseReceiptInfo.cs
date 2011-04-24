@@ -10,7 +10,7 @@ namespace Steam4NET
 	public struct TSteamPrepurchaseReceiptInfo
 	{
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 21)]
-		string szTypeOfProofOfPurchase;
+		public string szTypeOfProofOfPurchase;
 	};
 	
 }

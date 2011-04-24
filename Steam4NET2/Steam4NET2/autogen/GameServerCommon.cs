@@ -26,88 +26,108 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(201)]
 	public struct GSClientApprove_t
 	{
-		UInt64 m_SteamID;
+		public const int k_iCallback = 201;
+		public UInt64 m_SteamID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(202)]
 	public struct GSClientDeny_t
 	{
-		UInt64 m_SteamID;
-		EDenyReason m_eDenyReason;
+		public const int k_iCallback = 202;
+		public UInt64 m_SteamID;
+		public EDenyReason m_eDenyReason;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-		string m_pchOptionalText;
+		public string m_pchOptionalText;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(203)]
 	public struct GSClientKick_t
 	{
-		UInt64 m_SteamID;
-		EDenyReason m_eDenyReason;
+		public const int k_iCallback = 203;
+		public UInt64 m_SteamID;
+		public EDenyReason m_eDenyReason;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(204)]
 	public struct GSClientSteam2Deny_t
 	{
-		UInt32 m_UserID;
-		ESteamError m_eSteamError;
+		public const int k_iCallback = 204;
+		public UInt32 m_UserID;
+		public ESteamError m_eSteamError;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(205)]
 	public struct GSClientSteam2Accept_t
 	{
-		UInt32 m_UserID;
-		UInt64 m_SteamID;
+		public const int k_iCallback = 205;
+		public UInt32 m_UserID;
+		public UInt64 m_SteamID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(206)]
 	public struct GSClientAchievementStatus_t
 	{
-		UInt64 m_SteamID;
+		public const int k_iCallback = 206;
+		public UInt64 m_SteamID;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-		string m_pchAchievement;
+		public string m_pchAchievement;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bUnlocked;
+		public bool m_bUnlocked;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(207)]
 	public struct GSGameplayStats_t
 	{
-		EResult m_eResult;
-		Int32 m_nRank;
-		UInt32 m_unTotalConnects;
-		UInt32 m_unTotalMinutesPlayed;
+		public const int k_iCallback = 207;
+		public EResult m_eResult;
+		public Int32 m_nRank;
+		public UInt32 m_unTotalConnects;
+		public UInt32 m_unTotalMinutesPlayed;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(208)]
 	public struct GSClientGroupStatus_t
 	{
-		UInt64 m_SteamIDUser;
-		UInt64 m_SteamIDGroup;
+		public const int k_iCallback = 208;
+		public UInt64 m_SteamIDUser;
+		public UInt64 m_SteamIDGroup;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bMember;
+		public bool m_bMember;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bOfficer;
+		public bool m_bOfficer;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(209)]
 	public struct GSReputation_t
 	{
-		EResult m_eResult;
-		UInt32 m_unReputationScore;
+		public const int k_iCallback = 209;
+		public EResult m_eResult;
+		public UInt32 m_unReputationScore;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bBanned;
-		UInt32 m_unBannedIP;
-		UInt16 m_usBannedPort;
-		UInt64 m_ulBannedGameID;
-		UInt32 m_unBanExpires;
+		public bool m_bBanned;
+		public UInt32 m_unBannedIP;
+		public UInt16 m_usBannedPort;
+		public UInt64 m_ulBannedGameID;
+		public UInt32 m_unBanExpires;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(115)]
 	public struct GSPolicyResponse_t
 	{
-		Byte m_bSecure;
+		public const int k_iCallback = 115;
+		public Byte m_bSecure;
 	};
 	
 }

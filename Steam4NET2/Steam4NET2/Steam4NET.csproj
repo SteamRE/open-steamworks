@@ -220,6 +220,7 @@
     <Compile Include="autogen\UserItemsCommon.cs" />
     <Compile Include="autogen\UserStatsCommon.cs" />
     <Compile Include="autogen\UtilsCommon.cs" />
+    <Compile Include="CallbackDispatcher.cs" />
     <Compile Include="CallbackIdentities.cs" />
     <Compile Include="CGameID.cs" />
     <Compile Include="CSteamID.cs" />

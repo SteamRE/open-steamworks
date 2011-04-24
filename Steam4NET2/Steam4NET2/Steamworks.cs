@@ -98,7 +98,7 @@ namespace Steam4NET
             if (CallCreateInterface == null)
                 throw new InvalidOperationException("Steam4NET library has not been initialized.");
 
-            IntPtr address = CallCreateInterface(InterfaceVersions.GetIFace(typeof(TClass)), IntPtr.Zero);
+            IntPtr address = CallCreateInterface(InterfaceVersions.GetInterfaceIdentifier(typeof(TClass)), IntPtr.Zero);
 
             if (address == IntPtr.Zero)
                 return default(TClass);
@@ -121,7 +121,7 @@ namespace Steam4NET
             if (CallCreateSteamInterface == null)
                 throw new InvalidOperationException("Steam4NET library has not been initialized.");
 
-            IntPtr address = CallCreateSteamInterface(InterfaceVersions.GetIFace(typeof(TClass)));
+            IntPtr address = CallCreateSteamInterface(InterfaceVersions.GetInterfaceIdentifier(typeof(TClass)));
 
             if (address == IntPtr.Zero)
                 return default(TClass);

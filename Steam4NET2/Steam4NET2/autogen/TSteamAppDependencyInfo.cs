@@ -9,10 +9,10 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamAppDependencyInfo
 	{
-		UInt32 AppId;
-		UInt32 IsRequired;
+		public UInt32 AppId;
+		public UInt32 IsRequired;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 255)]
-		string szMountName;
+		public string szMountName;
 	};
 	
 }

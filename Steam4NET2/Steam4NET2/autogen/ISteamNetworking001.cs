@@ -24,6 +24,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamNetworking00112;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamNetworking001")]
 	public class ISteamNetworking001 : InteropHelp.NativeWrapper<ISteamNetworking001VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateListenSocketIUU( IntPtr thisptr, Int32 nVirtualP2PPort, UInt32 nIP, UInt16 nPort );

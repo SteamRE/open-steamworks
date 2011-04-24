@@ -9,32 +9,32 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamPaymentCardReceiptInfo
 	{
-		ESteamPaymentCardType eCardType;
+		public ESteamPaymentCardType eCardType;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 5)]
-		string szCardLastFourDigits;
+		public string szCardLastFourDigits;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 101)]
-		string szCardHolderName;
+		public string szCardHolderName;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 129)]
-		string szBillingAddress1;
+		public string szBillingAddress1;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 129)]
-		string szBillingAddress2;
+		public string szBillingAddress2;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 51)]
-		string szBillingCity;
+		public string szBillingCity;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 17)]
-		string szBillingZip;
+		public string szBillingZip;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 33)]
-		string szBillingState;
+		public string szBillingState;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 33)]
-		string szBillingCountry;
+		public string szBillingCountry;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 101)]
-		string szCardApprovalCode;
+		public string szCardApprovalCode;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 10)]
-		string szTransDate;
+		public string szTransDate;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 10)]
-		string szTransTime;
-		UInt32 uPriceWithoutTax;
-		UInt32 uTaxAmount;
-		UInt32 uShippingCost;
+		public string szTransTime;
+		public UInt32 uPriceWithoutTax;
+		public UInt32 uTaxAmount;
+		public UInt32 uShippingCost;
 	};
 	
 }

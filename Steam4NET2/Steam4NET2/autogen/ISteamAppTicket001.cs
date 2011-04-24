@@ -13,6 +13,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamAppTicket0011;
 	};
 	
+	[InteropHelp.InterfaceVersion("STEAMAPPTICKET_INTERFACE_VERSION001")]
 	public class ISteamAppTicket001 : InteropHelp.NativeWrapper<ISteamAppTicket001VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppOwnershipTicketExtendedDataUBUIIUU( IntPtr thisptr, UInt32 nAppID, Byte[] pvBuffer, UInt32 cbBufferLength, ref Int32 arg3, ref Int32 arg4, ref UInt32 ticket_length, ref UInt32 signature_length );

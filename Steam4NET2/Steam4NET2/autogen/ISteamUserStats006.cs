@@ -40,6 +40,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamUserStats00628;
 	};
 	
+	[InteropHelp.InterfaceVersion("STEAMUSERSTATS_INTERFACE_VERSION006")]
 	public class ISteamUserStats006 : InteropHelp.NativeWrapper<ISteamUserStats006VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestCurrentStats( IntPtr thisptr );

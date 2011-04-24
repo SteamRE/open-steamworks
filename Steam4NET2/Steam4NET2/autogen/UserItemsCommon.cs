@@ -54,51 +54,63 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1400)]
 	public struct UserItemCount_t
 	{
-		UInt64 m_gameID;
-		EItemRequestResult m_eResult;
-		UInt32 m_unCount;
+		public const int k_iCallback = 1400;
+		public UInt64 m_gameID;
+		public EItemRequestResult m_eResult;
+		public UInt32 m_unCount;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1401)]
 	public struct UserItemMoved_t
 	{
-		UInt64 m_itemID;
-		UInt32 Unk0;
-		UInt32 Unk1;
+		public const int k_iCallback = 1401;
+		public UInt64 m_itemID;
+		public UInt32 Unk0;
+		public UInt32 Unk1;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1402)]
 	public struct UserItemDeleted_t
 	{
-		UInt64 m_itemID;
-		UInt32 Unk0;
-		UInt32 Unk1;
+		public const int k_iCallback = 1402;
+		public UInt64 m_itemID;
+		public UInt32 Unk0;
+		public UInt32 Unk1;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1403)]
 	public struct UserItemGranted_t
 	{
-		UInt64 m_itemID;
-		UInt64 m_gameID;
+		public const int k_iCallback = 1403;
+		public UInt64 m_itemID;
+		public UInt64 m_gameID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1404)]
 	public struct UserItemGetBlob_t
 	{
-		UInt64 m_itemID;
-		EItemRequestResult m_eResult;
+		public const int k_iCallback = 1404;
+		public UInt64 m_itemID;
+		public EItemRequestResult m_eResult;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 1024)]
-		Byte[] itemBlob;
+		public Byte[] itemBlob;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1405)]
 	public struct UserItemSetBlob_t
 	{
-		UInt64 m_itemID;
-		EItemRequestResult m_eResult;
-		UInt32 Unk;
+		public const int k_iCallback = 1405;
+		public UInt64 m_itemID;
+		public EItemRequestResult m_eResult;
+		public UInt32 Unk;
 	};
 	
 }

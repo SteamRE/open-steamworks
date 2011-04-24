@@ -9,16 +9,16 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamAppStats
 	{
-		UInt32 uNumApps;
-		UInt32 uMaxNameChars;
-		UInt32 uMaxInstallDirNameChars;
-		UInt32 uMaxVersionLabelChars;
-		UInt32 uMaxLaunchOptions;
-		UInt32 uMaxLaunchOptionDescChars;
-		UInt32 uMaxLaunchOptionCmdLineChars;
-		UInt32 uMaxNumIcons;
-		UInt32 uMaxIconSize;
-		UInt32 uMaxDependencies;
+		public UInt32 uNumApps;
+		public UInt32 uMaxNameChars;
+		public UInt32 uMaxInstallDirNameChars;
+		public UInt32 uMaxVersionLabelChars;
+		public UInt32 uMaxLaunchOptions;
+		public UInt32 uMaxLaunchOptionDescChars;
+		public UInt32 uMaxLaunchOptionCmdLineChars;
+		public UInt32 uMaxNumIcons;
+		public UInt32 uMaxIconSize;
+		public UInt32 uMaxDependencies;
 	};
 	
 }

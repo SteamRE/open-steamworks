@@ -19,6 +19,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamRemoteStorage0027;
 	};
 	
+	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION002")]
 	public class ISteamRemoteStorage002 : InteropHelp.NativeWrapper<ISteamRemoteStorage002VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteSBI( IntPtr thisptr, string pchFile, Byte[] pvData, Int32 cubData );

@@ -32,26 +32,39 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1001)]
 	public struct AppDataChanged_t
 	{
-		UInt32 m_nAppID;
+		public const int k_iCallback = 1001;
+		public UInt32 m_nAppID;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bBySteamUI;
+		public bool m_bBySteamUI;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bCDDBUpdate;
+		public bool m_bCDDBUpdate;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1002)]
+	public struct RequestAppCallbacksComplete_t
+	{
+		public const int k_iCallback = 1002;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1003)]
 	public struct AppInfoUpdateComplete_t
 	{
-		EResult m_EResult;
-		UInt32 m_cAppsUpdated;
+		public const int k_iCallback = 1003;
+		public EResult m_EResult;
+		public UInt32 m_cAppsUpdated;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1005)]
 	public struct DlcInstalled_t
 	{
-		UInt32 m_nAppID;
+		public const int k_iCallback = 1005;
+		public UInt32 m_nAppID;
 	};
 	
 }

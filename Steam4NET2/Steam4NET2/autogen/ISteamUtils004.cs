@@ -30,6 +30,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamUtils00418;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamUtils004")]
 	public class ISteamUtils004 : InteropHelp.NativeWrapper<ISteamUtils004VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetSecondsSinceAppActive( IntPtr thisptr );

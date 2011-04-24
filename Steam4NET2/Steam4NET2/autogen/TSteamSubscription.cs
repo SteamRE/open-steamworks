@@ -22,31 +22,31 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamSubscription
 	{
-		IntPtr szName;
-		UInt32 uMaxNameChars;
-		IntPtr puAppIds;
-		UInt32 uMaxAppIds;
-		UInt32 uId;
-		UInt32 uNumApps;
-		EBillingType eBillingType;
-		UInt32 uCostInCents;
-		UInt32 uNumDiscounts;
-		Int32 bIsPreorder;
-		Int32 bRequiresShippingAddress;
-		UInt32 uDomesticShippingCostInCents;
-		UInt32 uInternationalShippingCostInCents;
+		public IntPtr szName;
+		public UInt32 uMaxNameChars;
+		public IntPtr puAppIds;
+		public UInt32 uMaxAppIds;
+		public UInt32 uId;
+		public UInt32 uNumApps;
+		public EBillingType eBillingType;
+		public UInt32 uCostInCents;
+		public UInt32 uNumDiscounts;
+		public Int32 bIsPreorder;
+		public Int32 bRequiresShippingAddress;
+		public UInt32 uDomesticShippingCostInCents;
+		public UInt32 uInternationalShippingCostInCents;
 		[MarshalAs(UnmanagedType.I1)]
-		bool bIsCyberCafeSubscription;
-		UInt32 uGameCode;
+		public bool bIsCyberCafeSubscription;
+		public UInt32 uGameCode;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 255)]
-		string szGameCodeDesc;
+		public string szGameCodeDesc;
 		[MarshalAs(UnmanagedType.I1)]
-		bool bIsDisabled;
+		public bool bIsDisabled;
 		[MarshalAs(UnmanagedType.I1)]
-		bool bRequiresCD;
-		UInt32 uTerritoryCode;
+		public bool bRequiresCD;
+		public UInt32 uTerritoryCode;
 		[MarshalAs(UnmanagedType.I1)]
-		bool bIsSteam3Subscription;
+		public bool bIsSteam3Subscription;
 	};
 	
 }

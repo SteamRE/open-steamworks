@@ -7,23 +7,29 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1800)]
 	public struct GSStatsReceived_t
 	{
-		EResult m_eResult;
-		UInt64 m_steamIDUser;
+		public const int k_iCallback = 1800;
+		public EResult m_eResult;
+		public UInt64 m_steamIDUser;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1801)]
 	public struct GSStatsStored_t
 	{
-		EResult m_eResult;
-		UInt64 m_steamIDUser;
+		public const int k_iCallback = 1801;
+		public EResult m_eResult;
+		public UInt64 m_steamIDUser;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1108)]
 	public struct GSStatsUnloaded_t
 	{
-		UInt64 m_steamIDUser;
+		public const int k_iCallback = 1108;
+		public UInt64 m_steamIDUser;
 	};
 	
 }

@@ -34,6 +34,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamNetworking00522;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamNetworking005")]
 	public class ISteamNetworking005 : InteropHelp.NativeWrapper<ISteamNetworking005VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendP2PPacketCBUEI( IntPtr thisptr, UInt64 steamIDRemote, Byte[] pubData, UInt32 cubData, EP2PSend eP2PSendType, Int32 iVirtualPort );

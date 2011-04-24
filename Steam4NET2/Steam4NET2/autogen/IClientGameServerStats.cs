@@ -6,9 +6,99 @@ using System.Runtime.InteropServices;
 namespace Steam4NET
 {
 
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	public struct IClientGameServerStats
+	[StructLayout(LayoutKind.Sequential,Pack=4)]
+	public class IClientGameServerStatsVTable
 	{
+		public IntPtr RequestUserStats0;
+		public IntPtr GetUserStat1;
+		public IntPtr GetUserStat2;
+		public IntPtr GetUserAchievement3;
+		public IntPtr SetUserStat4;
+		public IntPtr SetUserStat5;
+		public IntPtr UpdateUserAvgRateStat6;
+		public IntPtr SetUserAchievement7;
+		public IntPtr ClearUserAchievement8;
+		public IntPtr StoreUserStats9;
+		public IntPtr SetMaxStatsLoaded10;
+		private IntPtr DTorIClientGameServerStats11;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTGAMESERVERSTATS_INTERFACE_VERSION001")]
+	public class IClientGameServerStats : InteropHelp.NativeWrapper<IClientGameServerStatsVTable>
+	{
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStatsCC( IntPtr thisptr, ref UInt64 retarg, UInt64 steamIDUser, UInt64 gameID );
+		public UInt64 RequestUserStats( CSteamID steamIDUser, CGameID gameID ) 
+		{
+			UInt64 ret = 0; this.GetFunction<NativeRequestUserStatsCC>( this.Functions.RequestUserStats0 )( this.ObjectAddress, ref ret, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64() ); return (UInt64)ret;
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStatCCSI( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName, ref Int32 pData );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool GetUserStat( CSteamID steamIDUser, CGameID gameID, string pchName, ref Int32 pData ) 
+		{
+			return this.GetFunction<NativeGetUserStatCCSI>( this.Functions.GetUserStat1 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName, ref pData ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStatCCSF( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName, ref float pData );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool GetUserStat( CSteamID steamIDUser, CGameID gameID, string pchName, ref float pData ) 
+		{
+			return this.GetFunction<NativeGetUserStatCCSF>( this.Functions.GetUserStat2 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName, ref pData ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementCCSBI( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName, ref bool pbAchieved, Int32 unk3 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool GetUserAchievement( CSteamID steamIDUser, CGameID gameID, string pchName, ref bool pbAchieved, Int32 unk3 ) 
+		{
+			return this.GetFunction<NativeGetUserAchievementCCSBI>( this.Functions.GetUserAchievement3 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName, ref pbAchieved, unk3 ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserStatCCSI( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName, Int32 nData );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool SetUserStat( CSteamID steamIDUser, CGameID gameID, string pchName, Int32 nData ) 
+		{
+			return this.GetFunction<NativeSetUserStatCCSI>( this.Functions.SetUserStat4 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName, nData ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserStatCCSF( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName, float fData );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool SetUserStat( CSteamID steamIDUser, CGameID gameID, string pchName, float fData ) 
+		{
+			return this.GetFunction<NativeSetUserStatCCSF>( this.Functions.SetUserStat5 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName, fData ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserAvgRateStatCCSFD( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName, float flCountThisSession, double dSessionLength );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool UpdateUserAvgRateStat( CSteamID steamIDUser, CGameID gameID, string pchName, float flCountThisSession, double dSessionLength ) 
+		{
+			return this.GetFunction<NativeUpdateUserAvgRateStatCCSFD>( this.Functions.UpdateUserAvgRateStat6 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName, flCountThisSession, dSessionLength ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserAchievementCCS( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool SetUserAchievement( CSteamID steamIDUser, CGameID gameID, string pchName ) 
+		{
+			return this.GetFunction<NativeSetUserAchievementCCS>( this.Functions.SetUserAchievement7 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeClearUserAchievementCCS( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool ClearUserAchievement( CSteamID steamIDUser, CGameID gameID, string pchName ) 
+		{
+			return this.GetFunction<NativeClearUserAchievementCCS>( this.Functions.ClearUserAchievement8 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeStoreUserStatsCC( IntPtr thisptr, ref UInt64 retarg, UInt64 steamIDUser, UInt64 gameID );
+		public UInt64 StoreUserStats( CSteamID steamIDUser, CGameID gameID ) 
+		{
+			UInt64 ret = 0; this.GetFunction<NativeStoreUserStatsCC>( this.Functions.StoreUserStats9 )( this.ObjectAddress, ref ret, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64() ); return (UInt64)ret;
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStatsLoadedU( IntPtr thisptr, UInt32 uMax );
+		public Int32 SetMaxStatsLoaded( UInt32 uMax ) 
+		{
+			return this.GetFunction<NativeSetMaxStatsLoadedU>( this.Functions.SetMaxStatsLoaded10 )( this.ObjectAddress, uMax ); 
+		}
+		
+	};
 }

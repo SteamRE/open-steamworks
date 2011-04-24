@@ -29,6 +29,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamUser01317;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamUser013")]
 	public class ISteamUser013 : InteropHelp.NativeWrapper<ISteamUser013VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser( IntPtr thisptr );

@@ -49,10 +49,10 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct CallbackMsg_t
 	{
-		Int32 m_hSteamUser;
-		Int32 m_iCallback;
-		IntPtr m_pubParam;
-		Int32 m_cubParam;
+		public Int32 m_hSteamUser;
+		public Int32 m_iCallback;
+		public IntPtr m_pubParam;
+		public Int32 m_cubParam;
 	};
 	
 }

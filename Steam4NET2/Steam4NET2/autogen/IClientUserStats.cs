@@ -53,6 +53,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientUserStats41;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTUSERSTATS_INTERFACE_VERSION002")]
 	public class IClientUserStats : InteropHelp.NativeWrapper<IClientUserStatsVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumStatsC( IntPtr thisptr, UInt64 nGameID );

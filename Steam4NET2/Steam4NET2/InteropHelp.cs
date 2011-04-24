@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace Steam4NET
 {
@@ -135,5 +136,26 @@ namespace Steam4NET
             }
         }
 
+        [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+        internal class InterfaceVersionAttribute : System.Attribute
+        {
+            public string Identifier { get; set; }
+
+            public InterfaceVersionAttribute(string versionIdentifier)
+            {
+                Identifier = versionIdentifier;
+            }
+        }
+
+        [AttributeUsage(AttributeTargets.Struct, AllowMultiple = false)]
+        internal class CallbackIdentityAttribute : System.Attribute
+        {
+            public int Identity { get; set; }
+
+            public CallbackIdentityAttribute(int callbackNum)
+            {
+                Identity = callbackNum;
+            }
+        }
     }
 }

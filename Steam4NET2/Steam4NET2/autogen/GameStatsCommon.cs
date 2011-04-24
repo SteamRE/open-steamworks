@@ -14,21 +14,25 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(2001)]
 	public struct GameStatsSessionIssued_t
 	{
-		UInt64 m_ulSessionID;
-		EResult m_eResult;
+		public const int k_iCallback = 2001;
+		public UInt64 m_ulSessionID;
+		public EResult m_eResult;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bCollectingAny;
+		public bool m_bCollectingAny;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bCollectingDetails;
+		public bool m_bCollectingDetails;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(2002)]
 	public struct GameStatsSessionClosed_t
 	{
-		UInt64 m_ulSessionID;
-		EResult m_eResult;
+		public const int k_iCallback = 2002;
+		public UInt64 m_ulSessionID;
+		public EResult m_eResult;
 	};
 	
 }

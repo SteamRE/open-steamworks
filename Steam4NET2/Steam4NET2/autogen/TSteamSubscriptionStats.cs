@@ -9,9 +9,9 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamSubscriptionStats
 	{
-		UInt32 uNumSubscriptions;
-		UInt32 uMaxNameChars;
-		UInt32 uMaxApps;
+		public UInt32 uNumSubscriptions;
+		public UInt32 uMaxNameChars;
+		public UInt32 uMaxApps;
 	};
 	
 }

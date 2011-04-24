@@ -29,6 +29,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamMatchmakingServers00217;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamMatchMakingServers002")]
 	public class ISteamMatchmakingServers002 : InteropHelp.NativeWrapper<ISteamMatchmakingServers002VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeRequestInternetServerListUMUI( IntPtr thisptr, UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse );

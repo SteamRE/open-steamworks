@@ -33,6 +33,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamClient00821;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamClient008")]
 	public class ISteamClient008 : InteropHelp.NativeWrapper<ISteamClient008VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateSteamPipe( IntPtr thisptr );
@@ -69,13 +70,13 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamUserIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamUser<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamUserIIS>( this.Functions.GetISteamUser5 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamUserIIS>( this.Functions.GetISteamUser5 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamGameServerIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamGameServer<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamGameServerIIS>( this.Functions.GetISteamGameServer6 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamGameServerIIS>( this.Functions.GetISteamGameServer6 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLocalIPBindingUU( IntPtr thisptr, UInt32 unIP, UInt16 usPort );
@@ -87,61 +88,61 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamFriendsIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamFriends<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamFriendsIIS>( this.Functions.GetISteamFriends8 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamFriendsIIS>( this.Functions.GetISteamFriends8 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamUtilsIS( IntPtr thisptr, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamUtils<TClass>( Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamUtilsIS>( this.Functions.GetISteamUtils9 )( this.ObjectAddress, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamUtilsIS>( this.Functions.GetISteamUtils9 )( this.ObjectAddress, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamMatchmakingIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamMatchmaking<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamMatchmakingIIS>( this.Functions.GetISteamMatchmaking10 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamMatchmakingIIS>( this.Functions.GetISteamMatchmaking10 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamMasterServerUpdaterIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamMasterServerUpdater<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamMasterServerUpdaterIIS>( this.Functions.GetISteamMasterServerUpdater11 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamMasterServerUpdaterIIS>( this.Functions.GetISteamMasterServerUpdater11 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamMatchmakingServersIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamMatchmakingServers<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamMatchmakingServersIIS>( this.Functions.GetISteamMatchmakingServers12 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamMatchmakingServersIIS>( this.Functions.GetISteamMatchmakingServers12 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamGenericInterfaceIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamGenericInterface<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamGenericInterfaceIIS>( this.Functions.GetISteamGenericInterface13 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamGenericInterfaceIIS>( this.Functions.GetISteamGenericInterface13 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamUserStatsIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamUserStats<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamUserStatsIIS>( this.Functions.GetISteamUserStats14 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamUserStatsIIS>( this.Functions.GetISteamUserStats14 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamAppsIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamApps<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamAppsIIS>( this.Functions.GetISteamApps15 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamAppsIIS>( this.Functions.GetISteamApps15 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamNetworkingIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamNetworking<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamNetworkingIIS>( this.Functions.GetISteamNetworking16 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamNetworkingIIS>( this.Functions.GetISteamNetworking16 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamRemoteStorageIIS( IntPtr thisptr, Int32 hSteamuser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetISteamRemoteStorage<TClass>( Int32 hSteamuser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamRemoteStorageIIS>( this.Functions.GetISteamRemoteStorage17 )( this.ObjectAddress, hSteamuser, hSteamPipe, InterfaceVersions.GetIFace( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamRemoteStorageIIS>( this.Functions.GetISteamRemoteStorage17 )( this.ObjectAddress, hSteamuser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRunFrame( IntPtr thisptr );

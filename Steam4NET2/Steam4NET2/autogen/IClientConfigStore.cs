@@ -29,6 +29,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientConfigStore17;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTCONFIGSTORE_INTERFACE_VERSION001")]
 	public class IClientConfigStore : InteropHelp.NativeWrapper<IClientConfigStoreVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsSetES( IntPtr thisptr, EConfigStore eConfigStore, string keyName );

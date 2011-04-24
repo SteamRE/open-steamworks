@@ -10,9 +10,9 @@ namespace Steam4NET
 	public struct MatchMakingKeyValuePair_t
 	{
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-		string m_szKey;
+		public string m_szKey;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-		string m_szValue;
+		public string m_szValue;
 	};
 	
 }

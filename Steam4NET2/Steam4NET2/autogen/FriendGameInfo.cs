@@ -9,11 +9,11 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct FriendGameInfo_t
 	{
-		UInt64 m_gameID;
-		UInt32 m_unGameIP;
-		UInt16 m_usGamePort;
-		UInt16 m_usQueryPort;
-		UInt64 m_steamIDLobby;
+		public UInt64 m_gameID;
+		public UInt32 m_unGameIP;
+		public UInt16 m_usGamePort;
+		public UInt16 m_usQueryPort;
+		public UInt64 m_steamIDLobby;
 	};
 	
 }

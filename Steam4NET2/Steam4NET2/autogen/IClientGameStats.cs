@@ -25,6 +25,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientGameStats13;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTGAMESTATS_INTERFACE_VERSION001")]
 	public class IClientGameStats : InteropHelp.NativeWrapper<IClientGameStatsVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetNewSessionSUUU( IntPtr thisptr, ref UInt64 retarg, SByte nAccountType, UInt64 ullAccountID, UInt32 nAppID, UInt32 rtTimeStarted );

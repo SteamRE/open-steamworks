@@ -133,6 +133,7 @@ namespace Steam4NET
 		public IntPtr CreateCachePreloaders121;
 	};
 	
+	[InteropHelp.InterfaceVersion("Steam003")]
 	public class ISteam003 : InteropHelp.NativeWrapper<ISteam003VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePasswordSST( IntPtr thisptr, string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError );

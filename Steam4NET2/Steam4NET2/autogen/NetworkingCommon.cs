@@ -48,36 +48,42 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct P2PSessionState_t
 	{
-		Byte m_bConnectionActive;
-		Byte m_bConnecting;
-		Byte m_eP2PSessionError;
-		Byte m_bUsingRelay;
-		Int32 m_nBytesQueuedForSend;
-		Int32 m_nPacketsQueuedForSend;
-		UInt32 m_nRemoteIP;
-		UInt16 m_nRemotePort;
+		public Byte m_bConnectionActive;
+		public Byte m_bConnecting;
+		public Byte m_eP2PSessionError;
+		public Byte m_bUsingRelay;
+		public Int32 m_nBytesQueuedForSend;
+		public Int32 m_nPacketsQueuedForSend;
+		public UInt32 m_nRemoteIP;
+		public UInt16 m_nRemotePort;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1201)]
 	public struct SocketStatusCallback_t
 	{
-		UInt32 m_hSocket;
-		UInt32 m_hListenSocket;
-		UInt64 m_steamIDRemote;
-		Int32 m_eSNetSocketState;
+		public const int k_iCallback = 1201;
+		public UInt32 m_hSocket;
+		public UInt32 m_hListenSocket;
+		public UInt64 m_steamIDRemote;
+		public Int32 m_eSNetSocketState;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1202)]
 	public struct P2PSessionRequest_t
 	{
-		UInt64 m_steamIDRemote;
+		public const int k_iCallback = 1202;
+		public UInt64 m_steamIDRemote;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1203)]
 	public struct P2PSessionConnectFail_t
 	{
-		UInt64 m_steamIDRemote;
-		Byte m_eP2PSessionError;
+		public const int k_iCallback = 1203;
+		public UInt64 m_steamIDRemote;
+		public Byte m_eP2PSessionError;
 	};
 	
 }

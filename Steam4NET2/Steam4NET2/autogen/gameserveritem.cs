@@ -9,33 +9,33 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct gameserveritem_t
 	{
-		servernetadr_t m_NetAdr;
-		Int32 m_nPing;
+		public servernetadr_t m_NetAdr;
+		public Int32 m_nPing;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bHadSuccessfulResponse;
+		public bool m_bHadSuccessfulResponse;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bDoNotRefresh;
+		public bool m_bDoNotRefresh;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
-		string m_szGameDir;
+		public string m_szGameDir;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
-		string m_szMap;
+		public string m_szMap;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-		string m_szGameDescription;
-		UInt32 m_nAppID;
-		Int32 m_nPlayers;
-		Int32 m_nMaxPlayers;
-		Int32 m_nBotPlayers;
+		public string m_szGameDescription;
+		public UInt32 m_nAppID;
+		public Int32 m_nPlayers;
+		public Int32 m_nMaxPlayers;
+		public Int32 m_nBotPlayers;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bPassword;
+		public bool m_bPassword;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bSecure;
-		UInt32 m_ulTimeLastPlayed;
-		Int32 m_nServerVersion;
+		public bool m_bSecure;
+		public UInt32 m_ulTimeLastPlayed;
+		public Int32 m_nServerVersion;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-		string m_szServerName;
+		public string m_szServerName;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-		string m_szGameTags;
-		UInt64 m_steamID;
+		public string m_szGameTags;
+		public UInt64 m_steamID;
 	};
 	
 }

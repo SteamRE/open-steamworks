@@ -9,11 +9,11 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct AppUpdateInfo_s
 	{
-		UInt32 m_timeUpdateStart;
-		UInt64 m_unBytesToDownload;
-		UInt64 m_unBytesDownloaded;
-		UInt64 m_unBytesToWrite;
-		UInt64 m_unBytesWritten;
+		public UInt32 m_timeUpdateStart;
+		public UInt64 m_unBytesToDownload;
+		public UInt64 m_unBytesDownloaded;
+		public UInt64 m_unBytesToWrite;
+		public UInt64 m_unBytesWritten;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
@@ -36,6 +36,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientAppManager14;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTAPPMANAGER_INTERFACE_VERSION001")]
 	public class IClientAppManager : InteropHelp.NativeWrapper<IClientAppManagerVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLaunchAppUUS( IntPtr thisptr, UInt32 unAppID, UInt32 uLaunchOption, string cszArgs );

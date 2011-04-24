@@ -9,7 +9,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamSubscriptionBillingInfo
 	{
-		ESteamSubscriptionBillingInfoType eBillingInfoType;
+		public ESteamSubscriptionBillingInfoType eBillingInfoType;
 	};
 	
 }

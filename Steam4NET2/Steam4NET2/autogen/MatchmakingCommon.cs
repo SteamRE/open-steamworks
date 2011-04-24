@@ -25,100 +25,124 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(502)]
 	public struct FavoritesListChanged_t
 	{
-		UInt32 m_nIP;
-		UInt32 m_nQueryPort;
-		UInt32 m_nConnPort;
-		UInt32 m_nAppID;
-		UInt32 m_nFlags;
+		public const int k_iCallback = 502;
+		public UInt32 m_nIP;
+		public UInt32 m_nQueryPort;
+		public UInt32 m_nConnPort;
+		public UInt32 m_nAppID;
+		public UInt32 m_nFlags;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bAdd;
+		public bool m_bAdd;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(503)]
 	public struct LobbyInvite_t
 	{
-		UInt64 m_ulSteamIDUser;
-		UInt64 m_ulSteamIDLobby;
+		public const int k_iCallback = 503;
+		public UInt64 m_ulSteamIDUser;
+		public UInt64 m_ulSteamIDLobby;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(504)]
 	public struct LobbyEnter_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		EChatPermission m_rgfChatPermissions;
+		public const int k_iCallback = 504;
+		public UInt64 m_ulSteamIDLobby;
+		public EChatPermission m_rgfChatPermissions;
 		[MarshalAs(UnmanagedType.I1)]
-		bool m_bLocked;
-		EChatRoomEnterResponse m_EChatRoomEnterResponse;
+		public bool m_bLocked;
+		public EChatRoomEnterResponse m_EChatRoomEnterResponse;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(505)]
 	public struct LobbyDataUpdate_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDMember;
+		public const int k_iCallback = 505;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDMember;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(506)]
 	public struct LobbyChatUpdate_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDUserChanged;
-		UInt64 m_ulSteamIDMakingChange;
-		EChatMemberStateChange m_rgfChatMemberStateChange;
+		public const int k_iCallback = 506;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDUserChanged;
+		public UInt64 m_ulSteamIDMakingChange;
+		public EChatMemberStateChange m_rgfChatMemberStateChange;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(507)]
 	public struct LobbyChatMsg_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDUser;
-		Byte m_eChatEntryType;
-		UInt32 m_iChatID;
+		public const int k_iCallback = 507;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDUser;
+		public Byte m_eChatEntryType;
+		public UInt32 m_iChatID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(508)]
 	public struct LobbyAdminChange_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDNewAdmin;
+		public const int k_iCallback = 508;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDNewAdmin;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(509)]
 	public struct LobbyGameCreated_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDGameServer;
-		UInt32 m_unIP;
-		UInt16 m_usPort;
+		public const int k_iCallback = 509;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDGameServer;
+		public UInt32 m_unIP;
+		public UInt16 m_usPort;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(510)]
 	public struct LobbyMatchList_t
 	{
-		UInt32 m_nLobbiesMatching;
+		public const int k_iCallback = 510;
+		public UInt32 m_nLobbiesMatching;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(511)]
 	public struct LobbyClosing_t
 	{
-		UInt64 m_ulSteamIDLobby;
+		public const int k_iCallback = 511;
+		public UInt64 m_ulSteamIDLobby;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(512)]
 	public struct LobbyKicked_t
 	{
-		UInt64 m_ulSteamIDLobby;
-		UInt64 m_ulSteamIDAdmin;
-		Byte m_bKickedDueToDisconnect;
+		public const int k_iCallback = 512;
+		public UInt64 m_ulSteamIDLobby;
+		public UInt64 m_ulSteamIDAdmin;
+		public Byte m_bKickedDueToDisconnect;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(513)]
 	public struct LobbyCreated_t
 	{
-		EResult m_eResult;
-		UInt64 m_ulSteamIDLobby;
+		public const int k_iCallback = 513;
+		public EResult m_eResult;
+		public UInt64 m_ulSteamIDLobby;
 	};
 	
 }

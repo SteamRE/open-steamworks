@@ -9,15 +9,15 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamAppLaunchOption
 	{
-		IntPtr szDesc;
-		UInt32 uMaxDescChars;
-		IntPtr szCmdLine;
-		UInt32 uMaxCmdLineChars;
-		UInt32 uIndex;
-		UInt32 uIconIndex;
-		Int32 bNoDesktopShortcut;
-		Int32 bNoStartMenuShortcut;
-		Int32 bIsLongRunningUnattended;
+		public IntPtr szDesc;
+		public UInt32 uMaxDescChars;
+		public IntPtr szCmdLine;
+		public UInt32 uMaxCmdLineChars;
+		public UInt32 uIndex;
+		public UInt32 uIconIndex;
+		public Int32 bNoDesktopShortcut;
+		public Int32 bNoStartMenuShortcut;
+		public Int32 bIsLongRunningUnattended;
 	};
 	
 }

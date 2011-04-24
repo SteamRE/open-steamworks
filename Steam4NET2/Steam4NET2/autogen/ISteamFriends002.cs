@@ -42,6 +42,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamFriends00230;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamFriends002")]
 	public class ISteamFriends002 : InteropHelp.NativeWrapper<ISteamFriends002VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetPersonaName( IntPtr thisptr );
@@ -68,16 +69,16 @@ namespace Steam4NET
 			this.GetFunction<NativeSetPersonaStateE>( this.Functions.SetPersonaState3 )( this.ObjectAddress, ePersonaState ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountI( IntPtr thisptr, Int32 iFriendFlags );
-		public Int32 GetFriendCount( Int32 iFriendFlags ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetFriendCountE( IntPtr thisptr, EFriendFlags iFriendFlags );
+		public Int32 GetFriendCount( EFriendFlags iFriendFlags ) 
 		{
-			return this.GetFunction<NativeGetFriendCountI>( this.Functions.GetFriendCount4 )( this.ObjectAddress, iFriendFlags ); 
+			return this.GetFunction<NativeGetFriendCountE>( this.Functions.GetFriendCount4 )( this.ObjectAddress, iFriendFlags ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetFriendByIndexII( IntPtr thisptr, ref UInt64 retarg, Int32 iFriend, Int32 iFriendFlags );
-		public CSteamID GetFriendByIndex( Int32 iFriend, Int32 iFriendFlags ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetFriendByIndexIE( IntPtr thisptr, ref UInt64 retarg, Int32 iFriend, EFriendFlags iFriendFlags );
+		public CSteamID GetFriendByIndex( Int32 iFriend, EFriendFlags iFriendFlags ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetFriendByIndexII>( this.Functions.GetFriendByIndex5 )( this.ObjectAddress, ref ret, iFriend, iFriendFlags ); return new CSteamID(ret);
+			UInt64 ret = 0; this.GetFunction<NativeGetFriendByIndexIE>( this.Functions.GetFriendByIndex5 )( this.ObjectAddress, ref ret, iFriend, iFriendFlags ); return new CSteamID(ret);
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFriendRelationship NativeGetFriendRelationshipC( IntPtr thisptr, UInt64 steamIDFriend );
@@ -137,11 +138,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeRemoveFriendC>( this.Functions.RemoveFriend14 )( this.ObjectAddress, steamIDFriend.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriendCI( IntPtr thisptr, UInt64 steamIDFriend, Int32 iFriendFlags );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasFriendCE( IntPtr thisptr, UInt64 steamIDFriend, EFriendFlags iFriendFlags );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool HasFriend( CSteamID steamIDFriend, Int32 iFriendFlags ) 
+		public bool HasFriend( CSteamID steamIDFriend, EFriendFlags iFriendFlags ) 
 		{
-			return this.GetFunction<NativeHasFriendCI>( this.Functions.HasFriend15 )( this.ObjectAddress, steamIDFriend.ConvertToUint64(), iFriendFlags ); 
+			return this.GetFunction<NativeHasFriendCE>( this.Functions.HasFriend15 )( this.ObjectAddress, steamIDFriend.ConvertToUint64(), iFriendFlags ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAddFriendByNameS( IntPtr thisptr, string pchEmailOrAccountName );

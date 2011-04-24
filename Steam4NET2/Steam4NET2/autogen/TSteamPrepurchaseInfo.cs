@@ -10,10 +10,10 @@ namespace Steam4NET
 	public struct TSteamPrepurchaseInfo
 	{
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 21)]
-		string szTypeOfProofOfPurchase;
-		UInt32 uLengthOfBinaryProofOfPurchaseToken;
+		public string szTypeOfProofOfPurchase;
+		public UInt32 uLengthOfBinaryProofOfPurchaseToken;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 201)]
-		string cBinaryProofOfPurchaseToken;
+		public string cBinaryProofOfPurchaseToken;
 	};
 	
 }

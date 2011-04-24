@@ -19,6 +19,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamUserItems0017;
 	};
 	
+	[InteropHelp.InterfaceVersion("STEAMUSERITEMS_INTERFACE_VERSION001")]
 	public class ISteamUserItems001 : InteropHelp.NativeWrapper<ISteamUserItems001VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeLoadItems( IntPtr thisptr, ref UInt64 retarg );

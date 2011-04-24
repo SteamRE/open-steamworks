@@ -15,6 +15,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientGameCoordinator3;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTGAMECOORDINATOR_INTERFACE_VERSION001")]
 	public class IClientGameCoordinator : InteropHelp.NativeWrapper<IClientGameCoordinatorVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EGCResults NativeSendMessageUUBU( IntPtr thisptr, UInt32 unAppID, UInt32 unMsgType, Byte[] pubData, UInt32 cubData );

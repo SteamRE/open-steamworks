@@ -10,9 +10,9 @@ namespace Steam4NET
 	public struct TSteamDiscountQualifier
 	{
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 255)]
-		string szName;
-		UInt32 uRequiredSubscription;
-		Int32 bIsDisqualifier;
+		public string szName;
+		public UInt32 uRequiredSubscription;
+		public Int32 bIsDisqualifier;
 	};
 	
 }

@@ -157,6 +157,7 @@ namespace Steam4NET
 		public IntPtr StartEngineEx145;
 	};
 	
+	[InteropHelp.InterfaceVersion("Steam006")]
 	public class ISteam006 : InteropHelp.NativeWrapper<ISteam006VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangePasswordSST( IntPtr thisptr, string cszCurrentPassphrase, string cszNewPassphrase, ref TSteamError pError );

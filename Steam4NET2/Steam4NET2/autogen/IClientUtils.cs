@@ -38,6 +38,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientUtils26;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTUTILS_INTERFACE_VERSION001")]
 	public class IClientUtils : InteropHelp.NativeWrapper<IClientUtilsVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetInstallPath( IntPtr thisptr );

@@ -20,6 +20,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamBilling0018;
 	};
 	
+	[InteropHelp.InterfaceVersion("SteamBilling001")]
 	public class ISteamBilling001 : InteropHelp.NativeWrapper<ISteamBilling001VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetBillingAddressSSSSSSSS( IntPtr thisptr, string pchName, string pchAddress1, string pchAddress2, string pchCity, string pchPostcode, string pchState, string pchCountry, string pchPhone );

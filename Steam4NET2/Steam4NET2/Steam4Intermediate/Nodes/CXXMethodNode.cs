@@ -267,7 +267,7 @@ namespace Steam4Intermediate.Nodes
                     {
                         native_arg_offset++;
 
-                        argname = String.Join(", ", new string[] { argname, "InterfaceVersions.GetIFace( typeof( TClass ) )" });
+                        argname = String.Join(", ", new string[] { argname, "InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) )" });
                     }
                 }
 

@@ -24,6 +24,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientContentServer12;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTCONTENTSERVER_INTERFACE_VERSION001")]
 	public class IClientContentServer : InteropHelp.NativeWrapper<IClientContentServerVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser( IntPtr thisptr );
