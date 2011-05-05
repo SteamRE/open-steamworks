@@ -24,7 +24,7 @@
 #include "GameCoordinatorCommon.h"
 
 
-class IClientGameCoordinator
+abstract_class IClientGameCoordinator
 {
 public:
 	virtual EGCResults SendMessage( AppId_t unAppID, uint32 unMsgType, const void *pubData, uint32 cubData ) = 0;

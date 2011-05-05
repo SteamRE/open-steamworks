@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: interface to user independent utility functions
 //-----------------------------------------------------------------------------
-class ISteamUtils002
+abstract_class ISteamUtils002
 {
 public:
 	// return the number of seconds since the user 

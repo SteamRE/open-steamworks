@@ -25,7 +25,7 @@
 #include "UserCommon.h"
 
 
-class UNSAFE_INTERFACE IClientMatchmaking
+abstract_class UNSAFE_INTERFACE IClientMatchmaking
 {
 public:
 	virtual int GetFavoriteGameCount() = 0;

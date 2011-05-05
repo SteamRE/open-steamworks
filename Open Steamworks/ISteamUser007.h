@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "UserCommon.h"
 
-class ISteamUser007
+abstract_class ISteamUser007
 {
 public:
 

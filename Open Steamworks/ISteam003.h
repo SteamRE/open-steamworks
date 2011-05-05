@@ -20,7 +20,7 @@
 #pragma once
 #endif
 
-class ISteam003
+abstract_class ISteam003
 {
 public:
 	virtual ~ISteam003() { };

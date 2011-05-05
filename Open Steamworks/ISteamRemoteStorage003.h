@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing, reading and writing files stored remotely 
 //			and cached locally
 //-----------------------------------------------------------------------------
-class ISteamRemoteStorage003
+abstract_class ISteamRemoteStorage003
 {
 public:
 	virtual bool FileWrite( const char *pchFile, const void *pvData, int32 cubData ) = 0;

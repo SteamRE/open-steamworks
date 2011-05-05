@@ -24,7 +24,7 @@
 #include "UtilsCommon.h"
 
 
-class UNSAFE_INTERFACE IClientUtils
+abstract_class UNSAFE_INTERFACE IClientUtils
 {
 public:
 

@@ -27,7 +27,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Functions for recording game play sessions and details thereof
 //-----------------------------------------------------------------------------
-class ISteamGameStats001
+abstract_class ISteamGameStats001
 {
 public:
 	virtual SteamAPICall_t GetNewSession( int8 nAccountType, uint64 ulAccountID, int32 nAppID, RTime32 rtTimeStarted ) = 0;

@@ -25,7 +25,7 @@
 #include "UserCommon.h"
 
 
-class UNSAFE_INTERFACE IClientContentServer
+abstract_class UNSAFE_INTERFACE IClientContentServer
 {
 	virtual HSteamUser GetHSteamUser() = 0;
 

@@ -28,7 +28,7 @@
 // Purpose: Functions for making connections and sending data between clients,
 //			traversing NAT's where possible
 //-----------------------------------------------------------------------------
-class ISteamNetworking002
+abstract_class ISteamNetworking002
 {
 public:
 	// creates a socket and listens others to connect

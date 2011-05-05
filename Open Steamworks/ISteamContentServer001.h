@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "ContentServerCommon.h"
 
-class ISteamContentServer001
+abstract_class ISteamContentServer001
 {
 public:
 	virtual bool LogOn( uint32 uContentServerID ) = 0;

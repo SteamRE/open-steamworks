@@ -45,7 +45,7 @@ struct ConnectedUserInfo_t
 	EDenyReason m_eDenyReason;
 };
 
-class UNSAFE_INTERFACE IClientGameServer
+abstract_class UNSAFE_INTERFACE IClientGameServer
 {
 public:
 	// returns the HSteamUser this interface represents

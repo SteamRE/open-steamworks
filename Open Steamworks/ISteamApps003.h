@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: interface to app data
 //-----------------------------------------------------------------------------
-class ISteamApps003
+abstract_class ISteamApps003
 {
 public:
 	virtual bool IsSubscribed() = 0;

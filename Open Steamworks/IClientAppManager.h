@@ -32,7 +32,7 @@ struct AppUpdateInfo_s
 	uint64 m_unBytesWritten;
 };
 
-class UNSAFE_INTERFACE IClientAppManager
+abstract_class UNSAFE_INTERFACE IClientAppManager
 {
 public:
 	virtual bool LaunchApp( AppId_t unAppID, uint32 uLaunchOption, const char *cszArgs ) = 0;

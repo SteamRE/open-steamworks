@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Functions for authenticating users via Steam to play on a game server
 //-----------------------------------------------------------------------------
-class ISteamGameServer002
+abstract_class ISteamGameServer002
 {
 public:
 	// connection functions

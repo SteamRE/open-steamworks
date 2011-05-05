@@ -25,7 +25,7 @@
 
 #define CLIENTCONFIGSTORE_INTERFACE_VERSION "CLIENTCONFIGSTORE_INTERFACE_VERSION001"
 
-class UNSAFE_INTERFACE IClientConfigStore
+abstract_class UNSAFE_INTERFACE IClientConfigStore
 {
 public:
 	virtual bool IsSet( EConfigStore eConfigStore, const char *keyName ) = 0;

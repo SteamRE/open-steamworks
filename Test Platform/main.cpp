@@ -1,4 +1,4 @@
-
+#define STEAMWORKS_CLIENT_INTERFACES
 #include "Steamworks.h"
 
 #include <iostream>
@@ -135,7 +135,7 @@ int main()
 
 	clientUser->SetEmail( szEmailAddress );
 
-	clientUser->LogOn( steamId );
+	clientUser->LogOn( false, steamId );
 
 	ELogonState state = clientUser->GetLogonState();
 

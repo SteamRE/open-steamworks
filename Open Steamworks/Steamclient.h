@@ -23,9 +23,29 @@
 
 #include "SteamTypes.h"
 
+#ifndef STEAMWORKS_OBSOLETE_INTERFACES
+	#ifdef _MSC_VER
+		#define OBSOLETE_INTERFACE __declspec(deprecated("This interface is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_INTERFACES to suppress this warning."))
+	#else
+		#define OBSOLETE_INTERFACE
+	#endif
+#else
+		#define OBSOLETE_INTERFACE
+#endif
+
+#ifndef STEAMWORKS_OBSOLETE_FUNCTIONS
+	#ifdef _MSC_VER
+		#define OBSOLETE_FUNCTION __declspec(deprecated("This function is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_FUNCTIONS to suppress this warning."))
+	#else
+		#define OBSOLETE_FUNCTION
+	#endif
+#else
+		#define OBSOLETE_FUNCTION
+#endif
+
 #ifndef STEAMWORKS_CLIENT_INTERFACES
 	#ifdef _MSC_VER
-		#define UNSAFE_INTERFACE __declspec(deprecated("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to supress this warning."))
+		#define UNSAFE_INTERFACE __declspec(deprecated("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to suppress this warning."))
 	#else
 		#define UNSAFE_INTERFACE
 	#endif
@@ -35,7 +55,7 @@
 
 #ifndef STEAM_API_NON_VERSIONED_INTERFACES
 	#ifdef _MSC_VER
-		#define S_API_UNSAFE extern "C" __declspec( dllexport deprecated("Steam*() interface accessing functions are unversioned and potentially unsafe. These are versioned to assume you are using the latest version of the steam_api loader, if this is not the case your code is likely to crash, read the comment above the functions to learn about the version safe accessing method that will account for newer steam_api versions, older versions are always unsupported. #define STEAM_API_NON_VERSIONED_INTERFACES to supress this warning.") )
+		#define S_API_UNSAFE extern "C" __declspec( dllexport deprecated("Steam*() interface accessing functions are unversioned and potentially unsafe. These are versioned to assume you are using the latest version of the steam_api loader, if this is not the case your code is likely to crash, read the comment above the functions to learn about the version safe accessing method that will account for newer steam_api versions, older versions are always unsupported. #define STEAM_API_NON_VERSIONED_INTERFACES to suppress this warning.") )
 	#else
 		#define S_API_UNSAFE extern "C"
 	#endif
@@ -251,7 +271,7 @@ S_API int STEAM_CALL Steam_GSGetSteamGameConnectToken( HSteamUser hUser, HSteamP
 S_API void* STEAM_CALL Steam_GetGSHandle( HSteamUser hUser, HSteamPipe hSteamPipe );
 S_API bool STEAM_CALL Steam_GSSendSteam2UserConnect( void *phSteamHandle, uint32 unUserID, const void *pvRawKey, uint32 unKeyLen, uint32 unIPPublic, uint16 usPort, const void *pvCookie, uint32 cubCookie );
 S_API bool STEAM_CALL Steam_GSSendUserDisconnect( void *phSteamHandle, uint64 ulSteamID, uint32 unUserID );
-S_API bool STEAM_CALL Steam_GSSendUserStatusResponse( void *phSteamHandle, uint64 ulSteamID, int nSecondsConnected, int nSecondsSinceLast );
+S_API OBSOLETE_FUNCTION bool STEAM_CALL Steam_GSSendUserStatusResponse( void *phSteamHandle, uint64 ulSteamID, int nSecondsConnected, int nSecondsSinceLast );
 S_API bool STEAM_CALL Steam_GSUpdateStatus( void *phSteamHandle, int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pchMapName );
 S_API bool STEAM_CALL Steam_GSRemoveUserConnect( void *phSteamHandle, uint32 unUserID );
 S_API void STEAM_CALL Steam_GSSetSpawnCount( void *phSteamHandle, uint32 ucSpawn );

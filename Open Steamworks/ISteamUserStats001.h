@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "UserStatsCommon.h"
 
-class ISteamUserStats001
+abstract_class ISteamUserStats001
 {
 public:
 	// The "schema" of a Game's UserData is really defined elsewhere, and
@@ -40,8 +40,8 @@ public:
 	// Get achievement name iAchievement in [0,GetNumAchievements)
 	virtual const char *GetAchievementName( CGameID nGameID, uint32 iAchievement ) = 0;
 
-	virtual uint32 GetNumGroupAchievements( CGameID ) = 0;
-	virtual const char *GetGroupAchievementName( CGameID, uint32 iAchievement ) = 0;
+	virtual OBSOLETE_FUNCTION uint32 GetNumGroupAchievements( CGameID ) = 0;
+	virtual OBSOLETE_FUNCTION const char *GetGroupAchievementName( CGameID, uint32 iAchievement ) = 0;
 
 	// Ask the server to send down this user's data and achievements for nGameID
 	virtual bool RequestCurrentStats( CGameID nGameID ) = 0;

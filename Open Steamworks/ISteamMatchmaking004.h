@@ -27,7 +27,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Functions for match making services for clients to get to favorites
 //-----------------------------------------------------------------------------
-class ISteamMatchmaking004
+abstract_class ISteamMatchmaking004
 {
 public:
 	// game server favorites storage
@@ -84,7 +84,7 @@ public:
 	// numerical comparison
 	virtual void AddRequestLobbyListNumericalFilter( const char *pchKeyToMatch, int nValueToMatch, int nComparisonType ) = 0;
 	// slots available filter
-	virtual void AddRequestLobbyListSlotsAvailableFilter() = 0;
+	virtual OBSOLETE_FUNCTION void AddRequestLobbyListSlotsAvailableFilter() = 0;
 
 	// returns the CSteamID of a lobby, as retrieved by a RequestLobbyList call
 	// should only be called after a LobbyMatchList_t callback is received

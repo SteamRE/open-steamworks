@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "UtilsCommon.h"
 
-class ISteamUtils003
+abstract_class ISteamUtils003
 {
 public:
 	// return the number of seconds since the user 

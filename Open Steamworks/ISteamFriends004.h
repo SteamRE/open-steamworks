@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "FriendsCommon.h"
 
-class ISteamFriends004
+abstract_class ISteamFriends004
 {
 public:
 	// returns the local players name - guaranteed to not be NULL.

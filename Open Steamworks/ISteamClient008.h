@@ -29,7 +29,7 @@
 //			connect to an existing steam instance, whether it's in a
 //			different process or is local
 //-----------------------------------------------------------------------------
-class ISteamClient008
+abstract_class ISteamClient008
 {
 public:
 

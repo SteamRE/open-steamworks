@@ -28,7 +28,7 @@
 // Purpose: Functions for making connections and sending data between clients,
 //			traversing NAT's where possible
 //-----------------------------------------------------------------------------
-class ISteamNetworking005
+abstract_class ISteamNetworking005
 {
 public:
 	////////////////////////////////////////////////////////////////////////////////////////////

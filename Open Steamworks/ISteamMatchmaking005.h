@@ -27,7 +27,7 @@
 // Purpose: Functions for match making services for clients to get to favorites
 //			and to operate on game lobbies.
 //-----------------------------------------------------------------------------
-class ISteamMatchmaking005
+abstract_class ISteamMatchmaking005
 {
 public:
 	// game server favorites storage
@@ -84,7 +84,7 @@ public:
 	// numerical comparison
 	virtual void AddRequestLobbyListNumericalFilter( const char *pchKeyToMatch, int nValueToMatch, int nComparisonType ) = 0;
 	// slots available filter
-	virtual void AddRequestLobbyListSlotsAvailableFilter() = 0;
+	virtual OBSOLETE_FUNCTION void AddRequestLobbyListSlotsAvailableFilter() = 0;
 	// returns results closest to the specified value. Multiple near filters can be added, with early filters taking precedence
 	virtual void AddRequestLobbyListNearValueFilter( const char *pchKeyToMatch, int nValueToBeCloseTo ) = 0;
 

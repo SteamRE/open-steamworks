@@ -28,7 +28,7 @@
 // Purpose: interface to accessing information about individual users,
 //			that can be a friend, in a group, on a game server or in a lobby with the local user
 //-----------------------------------------------------------------------------
-class ISteamFriends006
+abstract_class ISteamFriends006
 {
 public:
 	// returns the local players name - guaranteed to not be NULL.

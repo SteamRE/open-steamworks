@@ -25,7 +25,7 @@
 #include "ContentServerCommon.h"
 
 
-class UNSAFE_INTERFACE IClientUser
+abstract_class UNSAFE_INTERFACE IClientUser
 {
 public:
 	virtual HSteamUser GetHSteamUser() = 0;
@@ -104,8 +104,8 @@ public:
 	virtual void SetAccountCreationTime( RTime32 rtime32Time ) = 0;
 	virtual bool DoesTextContainUserPassword( const char *pchText ) = 0;
 
-	virtual uint32 obselete_GetCMIPAddress() = 0;
-	virtual uint32 obselete_GetP2PRelayIPAddress() = 0;
+	virtual OBSOLETE_FUNCTION uint32 obselete_GetCMIPAddress() = 0;
+	virtual OBSOLETE_FUNCTION uint32 obselete_GetP2PRelayIPAddress() = 0;
 
 	virtual SteamAPICall_t RequestWebAuthToken( void ) = 0;
 	virtual bool GetLanguage( char* pchLanguage, int cbLanguage ) = 0;

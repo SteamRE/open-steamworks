@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "NetworkingCommon.h"
 
-class ISteamNetworking001
+abstract_class ISteamNetworking001
 {
 public:
 	// creates a socket and listens others to connect

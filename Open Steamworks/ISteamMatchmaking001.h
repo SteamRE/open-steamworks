@@ -27,7 +27,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Functions for match making services for clients to get to favorites
 //-----------------------------------------------------------------------------
-class ISteamMatchmaking001
+abstract_class ISteamMatchmaking001
 {
 public:
 	virtual int GetFavoriteGameCount() = 0;

@@ -28,7 +28,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Functions for match making services for clients to get to game lists and details
 //-----------------------------------------------------------------------------
-class ISteamMatchmakingServers002
+abstract_class ISteamMatchmakingServers002
 {
 public:
 	// Request a new list of servers of a particular type.  These calls each correspond to one of the EMatchMakingType values.

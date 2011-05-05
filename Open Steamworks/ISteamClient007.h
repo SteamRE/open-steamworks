@@ -30,7 +30,7 @@
 //			connect to an existing steam instance, whether it's in a
 //			different process or is local
 //-----------------------------------------------------------------------------
-class ISteamClient007
+abstract_class ISteamClient007
 {
 public:
 	// Creates a communication pipe to the Steam client

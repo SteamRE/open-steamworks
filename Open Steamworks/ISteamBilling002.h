@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: interface to billing
 //-----------------------------------------------------------------------------
-class ISteamBilling002
+abstract_class OBSOLETE_INTERFACE ISteamBilling002
 {
 public:
 
@@ -47,7 +47,7 @@ public:
 
 	virtual unknown_ret GetCardList( void ) = 0;
 
-	virtual unknown_ret Obsolete_GetLicenses( void ) = 0;
+	virtual unknown_ret GetLicenses( void ) = 0;
 
 	virtual unknown_ret CancelLicense( int, int ) = 0;
 

@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: interface to app data
 //-----------------------------------------------------------------------------
-class ISteamApps001
+abstract_class ISteamApps001
 {
 public:
 	// returns 0 if the key does not exist

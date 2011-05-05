@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "UserCommon.h"
 
-class ISteamUser005
+abstract_class ISteamUser005
 {
 public:
 
@@ -58,7 +58,7 @@ public:
 
 	// steam2 stuff
 	virtual void SetSteam2Ticket( uint8 *pubTicket, int cubTicket ) = 0;
-	virtual void AddServerNetAddress( uint32 unIP, uint16 unPort ) = 0;
+	virtual OBSOLETE_FUNCTION void AddServerNetAddress( uint32 unIP, uint16 unPort ) = 0;
 
 	// email address setting
 	virtual bool SetEmail( const char *pchEmail ) = 0;

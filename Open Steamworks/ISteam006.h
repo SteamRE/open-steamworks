@@ -21,7 +21,7 @@
 #endif
 
 
-class ISteam006
+abstract_class ISteam006
 {
 public:
 	virtual ~ISteam006() { };

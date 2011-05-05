@@ -24,7 +24,7 @@
 #include "GameServerItemsCommon.h"
 
 
-class ISteamGameServerItems003
+abstract_class OBSOLETE_INTERFACE ISteamGameServerItems003
 {
 public:
 

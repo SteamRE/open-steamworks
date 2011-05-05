@@ -24,7 +24,7 @@
 #include "FriendsCommon.h"
 
 
-class UNSAFE_INTERFACE IClientFriends
+abstract_class UNSAFE_INTERFACE IClientFriends
 {
 public:
 

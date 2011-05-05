@@ -48,7 +48,7 @@ class IClientHTTP;
 class IClientGameServerStats;
 class IClientConfigStore;
 
-class UNSAFE_INTERFACE IClientEngine
+abstract_class UNSAFE_INTERFACE IClientEngine
 {
 
 public:

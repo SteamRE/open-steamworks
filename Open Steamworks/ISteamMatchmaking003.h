@@ -27,7 +27,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Functions for match making services for clients to get to favorites
 //-----------------------------------------------------------------------------
-class ISteamMatchmaking003
+abstract_class ISteamMatchmaking003
 {
 public:
 	// game server favorites storage
@@ -85,7 +85,7 @@ public:
 	// numerical comparison
 	virtual void AddRequestLobbyListNumericalFilter( const char *pchKeyToMatch, int nValueToMatch, int nComparisonType ) = 0;
 	// slots available filter
-	virtual void AddRequestLobbyListSlotsAvailableFilter() = 0;
+	virtual OBSOLETE_FUNCTION void AddRequestLobbyListSlotsAvailableFilter() = 0;
 
 	// returns the CSteamID of a lobby, as retrieved by a RequestLobbyList call
 	// should only be called after a LobbyMatchList_t callback is received
@@ -166,7 +166,7 @@ public:
 	// returns the current limit on the # of users who can join the lobby; returns 0 if no limit is defined
 	virtual int GetLobbyMemberLimit( CSteamID steamIDLobby ) = 0;
 
-	virtual unknown_ret SetLobbyVoiceEnabled( CSteamID steamIDLobby, bool bEnabled ) = 0;
+	virtual OBSOLETE_FUNCTION void SetLobbyVoiceEnabled( CSteamID steamIDLobby, bool bEnabled ) = 0;
 
 	virtual unknown_ret RequestFriendsLobbies() = 0;
 };

@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Functions for accessing stats, achievements, and leaderboard information
 //-----------------------------------------------------------------------------
-class ISteamUserStats009
+abstract_class ISteamUserStats009
 {
 public:
 	// Ask the server to send down this user's data and achievements for this game

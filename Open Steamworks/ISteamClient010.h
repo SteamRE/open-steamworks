@@ -33,7 +33,7 @@
 //			You'll only need to use these interfaces if you have a more complex versioning scheme,
 //			where you want to get different versions of the same interface in different dll's in your project.
 //-----------------------------------------------------------------------------
-class ISteamClient010
+abstract_class ISteamClient010
 {
 public:
 	// Creates a communication pipe to the Steam client

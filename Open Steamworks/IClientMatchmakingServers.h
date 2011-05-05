@@ -24,7 +24,7 @@
 #include "MatchmakingServersCommon.h"
 
 
-class IClientMatchmakingServers
+abstract_class IClientMatchmakingServers
 {
 public:
 	virtual HServerListRequest  RequestInternetServerList( AppId_t iApp, MatchMakingKeyValuePair_t **ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse *pRequestServersResponse ) = 0;

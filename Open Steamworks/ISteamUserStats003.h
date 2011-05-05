@@ -24,7 +24,7 @@
 #include "UserStatsCommon.h"
 
 
-class ISteamUserStats003
+abstract_class ISteamUserStats003
 {
 public:
 

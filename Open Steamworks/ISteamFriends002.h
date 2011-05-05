@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "FriendsCommon.h"
 
-class ISteamFriends002
+abstract_class ISteamFriends002
 {
 public:
 	// returns the local players name - guaranteed to not be NULL.
@@ -78,9 +78,9 @@ public:
 	virtual bool SendMsgToFriend( CSteamID steamIDFriend, EChatEntryType eFriendMsgType, const void *pvMsgBody, int cubMsgBody ) = 0;
 
 	// returns the chatID that a chat should be resumed from when switching chat contexts
-	virtual int GetChatIDOfChatHistoryStart( CSteamID steamIDFriend ) = 0;
+	virtual OBSOLETE_FUNCTION int GetChatIDOfChatHistoryStart( CSteamID steamIDFriend ) = 0;
 	// sets where a chat with a user should resume
-	virtual void SetChatHistoryStart( CSteamID steamIDFriend, int iChatID ) = 0;
+	virtual OBSOLETE_FUNCTION void SetChatHistoryStart( CSteamID steamIDFriend, int iChatID ) = 0;
 	// clears the chat history - should be called when a chat dialog closes
 	// the chat history can still be recovered by another context using SetChatHistoryStart() to reset the ChatIDOfChatHistoryStart
 	virtual void ClearChatHistory( CSteamID steamIDFriend ) = 0;

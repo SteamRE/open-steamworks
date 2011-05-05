@@ -52,7 +52,7 @@ typedef enum EStatusDepotVersion
 
 typedef uint32 HDEPOTBUILD;
 
-class IClientDepotBuilder
+abstract_class IClientDepotBuilder
 {
 
 public:

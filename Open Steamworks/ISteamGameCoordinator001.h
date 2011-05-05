@@ -27,7 +27,7 @@
 // Purpose: Functions for sending and receiving messages from the Game Coordinator
 //			for this application
 //-----------------------------------------------------------------------------
-class ISteamGameCoordinator001
+abstract_class ISteamGameCoordinator001
 {
 public:
 

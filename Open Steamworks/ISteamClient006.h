@@ -29,7 +29,7 @@
 //			connect to an existing steam instance, whether it's in a
 //			different process or is local
 //-----------------------------------------------------------------------------
-class ISteamClient006
+abstract_class ISteamClient006
 {
 public:
 	// Creates a communication pipe to the Steam client
@@ -58,7 +58,7 @@ public:
 
 	// retrieves the IVac interface associated with the handle
 	// there is normally only one instance of VAC running, but using this connects it to the right user/account
-	virtual IVAC *GetIVAC( HSteamUser hSteamUser ) = 0;
+	virtual OBSOLETE_FUNCTION IVAC *GetIVAC( HSteamUser hSteamUser ) = 0;
 
 	// retrieves the ISteamGameServer interface associated with the handle
 	virtual ISteamGameServer *GetISteamGameServer( HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char *pchVersion ) = 0;

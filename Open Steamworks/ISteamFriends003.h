@@ -28,7 +28,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: interface to friends
 //-----------------------------------------------------------------------------
-class ISteamFriends003
+abstract_class ISteamFriends003
 {
 public:
 	// returns the local players name - guaranteed to not be NULL.

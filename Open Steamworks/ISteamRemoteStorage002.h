@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing, reading and writing files stored remotely 
 //			and cached locally
 //-----------------------------------------------------------------------------
-class ISteamRemoteStorage002
+abstract_class ISteamRemoteStorage002
 {
 	public:
 		// NOTE

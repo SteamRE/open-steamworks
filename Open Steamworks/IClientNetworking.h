@@ -28,7 +28,7 @@
 // Purpose: Functions for making connections and sending data between clients,
 //			traversing NAT's where possible
 //-----------------------------------------------------------------------------
-class UNSAFE_INTERFACE IClientNetworking
+abstract_class UNSAFE_INTERFACE IClientNetworking
 {
 public:
 	////////////////////////////////////////////////////////////////////////////////////////////

@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "BridgeCommon.h"
 
-class ISteam2Bridge001
+abstract_class ISteam2Bridge001
 {
 public:
 	virtual unknown_ret SetSteam2Ticket( uint8 *pubTicket, int cubTicket ) = 0;

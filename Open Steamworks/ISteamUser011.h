@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing and manipulating a steam account
 //			associated with one client instance
 //-----------------------------------------------------------------------------
-class ISteamUser011
+abstract_class ISteamUser011
 {
 public:
 	// returns the HSteamUser this interface represents

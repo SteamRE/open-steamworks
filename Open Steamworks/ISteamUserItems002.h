@@ -24,7 +24,7 @@
 #include "UserItemsCommon.h"
  
 
-class ISteamUserItems002
+abstract_class OBSOLETE_INTERFACE ISteamUserItems002
 {
 public:
 	virtual SteamAPICall_t LoadItems() = 0;

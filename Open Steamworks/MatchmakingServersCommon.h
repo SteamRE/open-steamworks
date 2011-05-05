@@ -69,7 +69,7 @@ typedef enum EMatchMakingType
 // to cancel any in-progress queries so you don't get a callback into the destructed
 // object and crash.
 //-----------------------------------------------------------------------------
-class ISteamMatchmakingServerListResponse001
+abstract_class ISteamMatchmakingServerListResponse001
 {
 public:
 	// Server has responded ok with updated data
@@ -82,7 +82,7 @@ public:
 	virtual void RefreshComplete( EMatchMakingServerResponse response ) = 0; 
 };
 
-class ISteamMatchmakingServerListResponse002
+abstract_class ISteamMatchmakingServerListResponse002
 {
 public:
 	// Server has responded ok with updated data
@@ -108,7 +108,7 @@ typedef ISteamMatchmakingServerListResponse002 ISteamMatchmakingServerListRespon
 // which is in progress.  Failure to cancel in progress queries when destructing
 // a callback handler may result in a crash when a callback later occurs.
 //-----------------------------------------------------------------------------
-class ISteamMatchmakingPingResponse
+abstract_class ISteamMatchmakingPingResponse
 {
 public:
 	// Server has responded successfully and has updated data
@@ -130,7 +130,7 @@ public:
 // which is in progress.  Failure to cancel in progress queries when destructing
 // a callback handler may result in a crash when a callback later occurs.
 //-----------------------------------------------------------------------------
-class ISteamMatchmakingPlayersResponse
+abstract_class ISteamMatchmakingPlayersResponse
 {
 public:
 	// Got data on a new player on the server -- you'll get this callback once per player
@@ -157,7 +157,7 @@ public:
 // which is in progress.  Failure to cancel in progress queries when destructing
 // a callback handler may result in a crash when a callback later occurs.
 //-----------------------------------------------------------------------------
-class ISteamMatchmakingRulesResponse
+abstract_class ISteamMatchmakingRulesResponse
 {
 public:
 	// Got data on a rule on the server -- you'll get one of these per rule defined on

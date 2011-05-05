@@ -26,7 +26,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: interface to billing
 //-----------------------------------------------------------------------------
-class ISteamBilling001
+abstract_class OBSOLETE_INTERFACE ISteamBilling001
 {
 public:
 	// Sets the billing address in the ISteamBilling object for use by other ISteamBilling functions (not stored on server)

@@ -24,7 +24,7 @@
 #include "BillingCommon.h"
 
 
-class UNSAFE_INTERFACE IClientBilling
+abstract_class UNSAFE_INTERFACE IClientBilling
 {
 public:
 	virtual bool GetActivationCodeInfo( const char *pchActivationCode ) = 0;

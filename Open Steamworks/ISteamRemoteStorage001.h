@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "RemoteStorageCommon.h"
 
-class ISteamRemoteStorage001
+abstract_class ISteamRemoteStorage001
 {
 public:
 	virtual bool FileWrite( const char *filename, void  const *data, int ) = 0;
@@ -33,7 +33,7 @@ public:
 	virtual bool FileRead( const char *filename, void *buffer, int size ) = 0;
 
 	virtual bool FileExists( const char *filename ) = 0;
-	virtual bool FileDelete( const char *filename ) = 0;
+	virtual OBSOLETE_FUNCTION bool FileDelete( const char *filename ) = 0;
 
 	virtual uint32 GetFileCount() = 0;
 

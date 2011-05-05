@@ -84,7 +84,7 @@ typedef enum EHTTPStatusCode
 
 
 
-class UNSAFE_INTERFACE IClientHTTP
+abstract_class UNSAFE_INTERFACE IClientHTTP
 {
 public:
 	virtual HTTPRequestHandle CreateHTTPRequest( EHTTPMethod eHTTPRequestMethod, char *pchAbsoluteURL ) = 0;

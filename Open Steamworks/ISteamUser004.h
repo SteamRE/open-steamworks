@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing and manipulating a steam account
 //			associated with one client instance
 //-----------------------------------------------------------------------------
-class ISteamUser004
+abstract_class ISteamUser004
 {
 public:
 	// returns the HSteamUser this interface represents
@@ -64,19 +64,19 @@ public:
 	// registering/unregistration game launches functions
 	// unclear as to where these should live
 	// These are dead.
-	virtual int NClientGameIDAdd( int nGameID ) = 0;
-	virtual void RemoveClientGame( int nClientGameID )  = 0;
-	virtual void SetClientGameServer( int nClientGameID, uint32 unIPServer, uint16 usPortServer ) = 0;
+	virtual OBSOLETE_FUNCTION int NClientGameIDAdd( int nGameID ) = 0;
+	virtual OBSOLETE_FUNCTION void RemoveClientGame( int nClientGameID )  = 0;
+	virtual OBSOLETE_FUNCTION void SetClientGameServer( int nClientGameID, uint32 unIPServer, uint16 usPortServer ) = 0;
 
 	// steam2 stuff
 	virtual void SetSteam2Ticket( uint8 *pubTicket, int cubTicket ) = 0;
-	virtual void AddServerNetAddress( uint32 unIP, uint16 unPort ) = 0;
+	virtual OBSOLETE_FUNCTION void AddServerNetAddress( uint32 unIP, uint16 unPort ) = 0;
 
 	// email address setting
 	virtual bool SetEmail( const char *pchEmail ) = 0;
 
 	// logon cookie - this is obsolete
-	virtual int Obsolete_GetSteamGameConnectToken( void *pBlob, int cbMaxBlob ) = 0;
+	virtual OBSOLETE_FUNCTION int GetSteamGameConnectToken( void *pBlob, int cbMaxBlob ) = 0;
 
 	// persist per user data
 	virtual bool SetRegistryString( ERegistrySubTree eRegistrySubTree, const char *pchKey, const char *pchValue ) = 0;

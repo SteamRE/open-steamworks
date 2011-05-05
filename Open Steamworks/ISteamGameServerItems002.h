@@ -24,7 +24,7 @@
 #include "GameServerItemsCommon.h"
 
 
-class ISteamGameServerItems002
+abstract_class OBSOLETE_INTERFACE ISteamGameServerItems002
 {
 public:
 	virtual SteamAPICall_t LoadItems( CSteamID steamid ) = 0;

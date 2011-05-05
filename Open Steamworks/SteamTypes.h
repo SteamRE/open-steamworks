@@ -30,12 +30,12 @@
 	#define NULL 0
 	
 #elif _WIN32
-	#ifndef WINVER
-		#define WINVER 0x502
-	#endif
+	
 	#ifndef _CRT_SECURE_NO_WARNINGS
 		#define _CRT_SECURE_NO_WARNINGS // we don't use unsafe functions unsafely!
 	#endif
+
+	#include <sdkddkver.h>
 	#include <windows.h>
 
 	#undef SendMessage // for ISteamGameCoordinator001 to work right..
@@ -133,6 +133,12 @@ typedef unsigned int uintp;
 #endif
 
 #endif // else _WIN32
+
+#ifndef _MSC_VER
+	#define abstract_class class
+#else
+	#define abstract_class class __declspec( novtable )
+#endif
 
 // steamclient/api
 #include "EAccountType.h"

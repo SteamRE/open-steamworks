@@ -27,7 +27,7 @@
 // Purpose: Functions for match making services for clients to get to favorites
 //			and to operate on game lobbies.
 //-----------------------------------------------------------------------------
-class ISteamMatchmaking007
+abstract_class ISteamMatchmaking007
 {
 public:
 	// game server favorites storage

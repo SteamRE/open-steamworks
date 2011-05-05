@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "GameServerItemsCommon.h"
 
-class ISteamGameServerItems004
+abstract_class OBSOLETE_INTERFACE ISteamGameServerItems004
 {
 public:
 
