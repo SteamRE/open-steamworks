@@ -487,7 +487,8 @@
             log.Reciever = log.Sender;
             log.RecieverName = log.SenderName;
 
-            log.Message = Encoding.UTF8.GetString( msgData ).Substring( 0, len - 1 );
+            log.Message = Encoding.UTF8.GetString( msgData );
+            log.Message = log.Message.Substring( 0, log.Message.Length - 1 );
             log.MessageTime = DateTime.Now;
             log.MessageType = chatType;
 
@@ -519,7 +520,8 @@
             log.Reciever = reciever;
             log.RecieverName = steamFriends.GetFriendPersonaName( log.Reciever );
 
-            log.Message = Encoding.UTF8.GetString( msgData ).Substring( 0, msgLength - 1 );
+            log.Message = Encoding.UTF8.GetString( msgData );
+            log.Message = log.Message.Substring( 0, log.Message.Length - 1 );
             log.MessageTime = DateTime.Now;
             log.MessageType = type;
 
