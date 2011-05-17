@@ -33,7 +33,9 @@ struct MatchMakingKeyValuePair_t
 	MatchMakingKeyValuePair_t( const char *pchKey, const char *pchValue )
 	{
 		strncpy( m_szKey, pchKey, sizeof(m_szKey) ); // this is a public header, use basic c library string funcs only!
+		m_szKey[ sizeof( m_szKey ) - 1 ] = '\0';
 		strncpy( m_szValue, pchValue, sizeof(m_szValue) );
+		m_szValue[ sizeof( m_szValue ) - 1 ] = '\0';
 	}
 #endif
 

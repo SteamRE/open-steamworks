@@ -68,7 +68,7 @@ typedef enum EP2PSessionError
 	k_EP2PSessionErrorTimeout = 4,					// target isn't responding, perhaps not calling AcceptP2PSessionWithUser()
 	// corporate firewalls can also block this (NAT traversal is not firewall traversal)
 	// make sure that UDP ports 3478, 4379, and 4380 are open in an outbound direction
-
+	k_EP2PSessionErrorMax = 5
 } EP2PSessionError;
 
 // describes how the socket is currently connected
@@ -108,6 +108,8 @@ typedef enum ESNetSocketState
 
 
 
+#pragma pack( push, 8 )
+
 // connection state to a specified user, returned by GetP2PSessionState()
 // this is under-the-hood info about what's going on with a SendP2PPacket(), shouldn't be needed except for debuggin
 struct P2PSessionState_t
@@ -123,7 +125,6 @@ struct P2PSessionState_t
 };
 
 
-#pragma pack( push, 8 )
 // callback notification - status of a socket has changed
 struct SocketStatusCallback_t
 { 

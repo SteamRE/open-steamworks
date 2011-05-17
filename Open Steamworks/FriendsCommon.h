@@ -263,6 +263,25 @@ typedef enum EChatActionResult
 	k_EChatActionResultVoiceSlotsFull = 10,
 } EChatActionResult;
 
+//-----------------------------------------------------------------------------
+// Purpose: user restriction flags
+//-----------------------------------------------------------------------------
+typedef enum EUserRestriction
+{
+	k_nUserRestrictionNone		= 0,	// no known chat/content restriction
+	k_nUserRestrictionUnknown	= 1,	// we don't know yet (user offline)
+	k_nUserRestrictionAnyChat	= 2,	// user is not allowed to (or can't) send/recv any chat
+	k_nUserRestrictionVoiceChat	= 4,	// user is not allowed to (or can't) send/recv voice chat
+	k_nUserRestrictionGroupChat	= 8,	// user is not allowed to (or can't) send/recv group chat
+	k_nUserRestrictionRating	= 16,	// user is too young according to rating in current region
+} EUserRestriction;
+
+
+// size limits on Rich Presence data
+enum { k_cchMaxRichPresenceKeys = 20 };
+enum { k_cchMaxRichPresenceKeyLength = 64 };
+enum { k_cchMaxRichPresenceValueLength = 256 };
+
 
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
@@ -617,12 +636,36 @@ struct FriendIgnored_t
 	bool m_bIgnored;
 };
 
-struct RichPresenceJoinRequested_t
+//-----------------------------------------------------------------------------
+// Purpose: marks the return of a request officer list call
+//-----------------------------------------------------------------------------
+struct ClanOfficerListResponse_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 35 };
+	CSteamID m_steamIDClan;
+	int m_cOfficers;
+	uint8 m_bSuccess;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: callback indicating updated data about friends rich presence information
+//-----------------------------------------------------------------------------
+struct FriendRichPresenceUpdate_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 36 };
+	CSteamID m_steamIDFriend;	// friend who's rich presence has changed
+	AppId_t m_nAppID;			// the appID of the game (should always be the current game)
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: called when the user tries to join a game from their friends list
+//			rich presence will have been set with the "connect" key which is set here
+//-----------------------------------------------------------------------------
+struct GameRichPresenceJoinRequested_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 37 };
-
-	CSteamID m_ulSteamID;
-	char szUnk[512];
+	CSteamID m_steamIDFriend;		// the friend they did the join via (will be invalid if not directly via a friend)
+	char m_rgchConnect[k_cchMaxRichPresenceValueLength];
 };
 
 struct FriendProfileInfoReceived_t

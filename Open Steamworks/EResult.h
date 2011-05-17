@@ -27,7 +27,7 @@ typedef enum EResult
 	k_EResultOK	= 1,							// success
 	k_EResultFail = 2,							// generic failure 
 	k_EResultNoConnection = 3,					// no/failed network connection
-//	k_EResultNoConnectionRetry = 4,				// OBSOLETE - removed
+	//	k_EResultNoConnectionRetry = 4,				// OBSOLETE - removed
 	k_EResultInvalidPassword = 5,				// password/ticket is invalid
 	k_EResultLoggedInElsewhere = 6,				// same user logged in elsewhere
 	k_EResultInvalidProtocolVer = 7,			// protocol version is incorrect
@@ -72,13 +72,26 @@ typedef enum EResult
 	k_EResultAdministratorOK = 46,				// allowed to take this action, but only because requester is admin
 	k_EResultContentVersion = 47,				// A Version mismatch in content transmitted within the Steam protocol.
 	k_EResultTryAnotherCM = 48,					// The current CM can't service the user making a request, user should try another.
-	k_EResultPasswordRequiredToKickSession = 49,		// You are already logged in elsewhere, this cached credential login has failed.
+	k_EResultPasswordRequiredToKickSession = 49,// You are already logged in elsewhere, this cached credential login has failed.
 	k_EResultAlreadyLoggedInElsewhere = 50,		// You are already logged in elsewhere, you must wait
-	k_EResultSuspended = 51,
-	k_EResultCancelled = 52,
-	k_EResultDataCorruption = 53,
-	k_EResultDiskFull = 54,
-	k_EResultRemoteCallFailed = 55,
+	k_EResultSuspended = 51,					// Long running operation (content download) suspended/paused
+	k_EResultCancelled = 52,					// Operation canceled (typically by user: content download)
+	k_EResultDataCorruption = 53,				// Operation canceled because data is ill formed or unrecoverable
+	k_EResultDiskFull = 54,						// Operation canceled - not enough disk space.
+	k_EResultRemoteCallFailed = 55,				// an remote call or IPC call failed
+	k_EResultPasswordUnset = 56,				// Password could not be verified as it's unset server side
+	k_EResultPSNAccountUnlinked = 57,			// Attempt to logon from a PS3 failed because the PSN online id is not linked to a Steam account
+	k_EResultPSNTicketInvalid = 58,				// PSN ticket was invalid
+	k_EResultPSNAccountAlreadyLinked = 59,		// PSN account is already linked to some other account, must explicitly request to replace/delete the link first
+	k_EResultRemoteFileConflict = 60,			// The sync cannot resume due to a conflict between the local and remote files
+	k_EResultIllegalPassword = 61,				// The requested new password is not legal
+	k_EResultSameAsPreviousValue = 62,			// new value is the same as the old one ( secret question and answer )
+	k_EResultAccountLogonDenied = 63,			// account login denied due to 2nd factor authentication failure
+	k_EResultCannotUseOldPassword = 64,			// The requested new password is not legal
+	k_EResultInvalidLoginAuthCode = 65,			// account login denied due to auth code invalid
+	k_EResultAccountLogonDeniedNoMail = 66,		// account login denied due to 2nd factor auth failure - and no mail has been sent
+	k_EResultHardwareNotCapableOfIPT = 67,		// 
+	k_EResultIPTInitError = 68,					// 
 
 } EResult;
 

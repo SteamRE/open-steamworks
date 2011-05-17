@@ -67,7 +67,7 @@ public:
 	// Legacy functions
 
 	// used by only a few games to track usage events
-	virtual void TrackAppUsageEvent( CGameID gameID, EAppUsageEvent eAppUsageEvent, const char *pchExtraInfo = "" ) = 0;
+	virtual void TrackAppUsageEvent( CGameID gameID, int eAppUsageEvent, const char *pchExtraInfo = "" ) = 0;
 
 	// get the local storage folder for current Steam account to write application data, e.g. save games, configs etc.
 	// this will usually be something like "C:\Progam Files\Steam\userdata\<SteamID>\<AppID>\local"
@@ -85,7 +85,8 @@ public:
 	// This provides both the compressed and uncompressed data. Please note that the uncompressed
 	// data is not the raw feed from the microphone: data may only be available if audible 
 	// levels of speech are detected.
-	virtual EVoiceResult GetAvailableVoice(uint32 *pcbCompressed, uint32 *pcbUncompressed,uint32 nSamplesPerSec ) = 0;
+	// nUncompressedVoiceDesiredSampleRate is necessary to know the number of bytes to return in pcbUncompressed - can be set to 0 if you don't need uncompressed (the usual case)
+	virtual EVoiceResult GetAvailableVoice(uint32 *pcbCompressed, uint32 *pcbUncompressed, uint32 nUncompressedVoiceDesiredSampleRate) = 0;
 
 	// Gets the latest voice data from the microphone. Compressed data is an arbitrary format, and is meant to be handed back to 
 	// DecompressVoice() for playback later as a binary blob. Uncompressed data is 16-bit, signed integer, 11025Hz PCM format.
@@ -97,14 +98,16 @@ public:
 	// You must grab both compressed and uncompressed here at the same time, if you want both.
 	// Matching data that is not read during this call will be thrown away.
 	// GetAvailableVoice() can be used to determine how much data is actually available.
-	virtual EVoiceResult GetVoice( bool bWantCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, bool bWantUncompressed, void *pUncompressedDestBuffer, uint32 cbUncompressedDestBufferSize, uint32 *nUncompressBytesWritten, uint32 nSamplesPerSec ) = 0;
+	virtual EVoiceResult GetVoice( bool bWantCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, bool bWantUncompressed, void *pUncompressedDestBuffer, uint32 cbUncompressedDestBufferSize, uint32 *nUncompressBytesWritten, uint32 nUncompressedVoiceDesiredSampleRate ) = 0;
 
 	// Decompresses a chunk of compressed data produced by GetVoice().
 	// nBytesWritten is set to the number of bytes written to pDestBuffer unless the return value is k_EVoiceResultBufferTooSmall.
 	// In that case, nBytesWritten is set to the size of the buffer required to decompress the given
 	// data. The suggested buffer size for the destination buffer is 22 kilobytes.
-	virtual EVoiceResult DecompressVoice( void *pCompressed, uint32 cbCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, uint32 nSamplesPerSec ) = 0;
+	// The output format of the data is 16-bit signed at the requested samples per second.
+	virtual EVoiceResult DecompressVoice( const void *pCompressed, uint32 cbCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, uint32 nDesiredSampleRate ) = 0;
 
+	// This returns the frequency of the voice data as it's stored internally; calling DecompressVoice() with this size will yield the best results
 	virtual uint32 GetVoiceOptimalSampleRate() = 0;
 
 	// Retrieve ticket to be sent to the entity who wishes to authenticate you. 
@@ -125,13 +128,22 @@ public:
 	// to determine if the user owns downloadable content specified by the provided AppID.
 	virtual EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
 
+	// returns true if this users looks like they are behind a NAT device. Only valid once the user has connected to steam 
+	// (i.e a SteamServersConnected_t has been issued) and may not catch all forms of NAT.
+	virtual bool BIsBehindNAT() = 0;
 
-	virtual bool IsBehindNAT() = 0;
-	
-	virtual bool AdvertiseGame( CSteamID steamIDGameServer, uint32 unIPServer , uint16 usPortServer ) = 0;
+	// set data to be replicated to friends so that they can join your game
+	// CSteamID steamIDGameServer - the steamID of the game server, received from the game server by the client
+	// uint32 unIPServer, uint16 usPortServer - the IP address of the game server
+	virtual void AdvertiseGame( CSteamID steamIDGameServer, uint32 unIPServer, uint16 usPortServer ) = 0;
 
-	virtual SteamAPICall_t RequestEncryptedAppTicket(const void *pUserData, int cbUserData) = 0;
-	virtual bool GetEncryptedAppTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket) = 0;
+	// Requests a ticket encrypted with an app specific shared key
+	// pDataToInclude, cbDataToInclude will be encrypted into the ticket
+	// ( This is asynchronous, you must wait for the ticket to be completed by the server )
+	virtual SteamAPICall_t RequestEncryptedAppTicket( void *pDataToInclude, int cbDataToInclude ) = 0;
+
+	// retrieve a finished ticket
+	virtual bool GetEncryptedAppTicket( void *pTicket, int cbMaxTicket, uint32 *pcbTicket ) = 0;
 };
 
 #endif // ISTEAMUSER016_H

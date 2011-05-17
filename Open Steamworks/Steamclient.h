@@ -296,17 +296,17 @@ S_API bool STEAM_CALL Steam_GSBSecure( void *phSteamHandle);
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------//
-//  Steam API setup & shutdown
+//	Steam API setup & shutdown
 //
-//  These functions manage loading, initializing and shutdown of the steamclient.dll
+//	These functions manage loading, initializing and shutdown of the steamclient.dll
 //
 //----------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-// S_API void STEAM_CALL SteamAPI_Init(); (see below)
-S_API void STEAM_CALL SteamAPI_Shutdown();
+// S_API void SteamAPI_Init(); (see below)
+S_API void SteamAPI_Shutdown();
 
 // checks if a local Steam client is running 
-S_API bool STEAM_CALL SteamAPI_IsSteamRunning();
+S_API bool SteamAPI_IsSteamRunning();
 
 // Detects if your executable was launched through the Steam client, and restarts your game through 
 // the client if necessary. The Steam client will be started if it is not running.
@@ -319,17 +319,20 @@ S_API bool STEAM_CALL SteamAPI_IsSteamRunning();
 //
 // NOTE: This function should be used only if you are using CEG or not using Steam's DRM. Once applied
 //       to your executable, Steam's DRM will handle restarting through Steam if necessary.
-S_API bool STEAM_CALL SteamAPI_RestartAppIfNecessary( uint32 unOwnAppID );
-
+S_API bool SteamAPI_RestartAppIfNecessary( uint32 unOwnAppID );
 
 // crash dump recording functions
-S_API void STEAM_CALL SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, void* pvExceptionInfo, uint32 uBuildID );
-S_API void STEAM_CALL SteamAPI_SetMiniDumpComment( const char *pchMsg );
+S_API void SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, void* pvExceptionInfo, uint32 uBuildID );
+S_API void SteamAPI_SetMiniDumpComment( const char *pchMsg );
 
 // this should be called before the game initialized the steam APIs
 // pchDate should be of the format "Mmm dd yyyy" (such as from the __DATE__ macro )
 // pchTime should be of the format "hh:mm:ss" (such as from the __TIME__ macro )
-S_API void STEAM_CALL SteamAPI_UseBreakpadCrashHandler( char const *pchVersion, char const *pchDate, char const *pchTime );
+// bFullMemoryDumps (Win32 only) -- writes out a uuid-full.dmp in the client/dumps folder
+// pvContext-- can be NULL, will be the void * context passed into m_pfnPreMinidumpCallback
+// PFNPreMinidumpCallback m_pfnPreMinidumpCallback   -- optional callback which occurs just before a .dmp file is written during a crash.  Applications can hook this to allow adding additional information into the .dmp comment stream.
+S_API void SteamAPI_UseBreakpadCrashHandler( char const *pchVersion, char const *pchDate, char const *pchTime, bool bFullMemoryDumps, void *pvContext, PFNPreMinidumpCallback m_pfnPreMinidumpCallback );
+S_API void SteamAPI_SetBreakpadAppID( uint32 unAppID );
 
 // interface pointers, configured by SteamAPI_Init()
 S_API_UNSAFE ISteamClient009* STEAM_CALL SteamClient();
@@ -362,14 +365,16 @@ S_API_UNSAFE ISteamRemoteStorage002* STEAM_CALL SteamRemoteStorage();
 // sets whether or not Steam_RunCallbacks() should do a try {} catch (...) {} around calls to issuing callbacks
 S_API void STEAM_CALL SteamAPI_SetTryCatchCallbacks( bool bTryCatchCallbacks );
 
-S_API void STEAM_CALL SteamAPI_RunCallbacks();
+S_API void SteamAPI_RunCallbacks();
+
+
 
 // functions used by the utility CCallback objects to receive callbacks
-S_API void STEAM_CALL SteamAPI_RegisterCallback( class CCallbackBase *pCallback, int iCallback );
-S_API void STEAM_CALL SteamAPI_UnregisterCallback( class CCallbackBase *pCallback );
+S_API void SteamAPI_RegisterCallback( class CCallbackBase *pCallback, int iCallback );
+S_API void SteamAPI_UnregisterCallback( class CCallbackBase *pCallback );
 // functions used by the utility CCallResult objects to receive async call results
-S_API void STEAM_CALL SteamAPI_RegisterCallResult( class CCallbackBase *pCallback, SteamAPICall_t hAPICall );
-S_API void STEAM_CALL SteamAPI_UnregisterCallResult( class CCallbackBase *pCallback, SteamAPICall_t hAPICall );
+S_API void SteamAPI_RegisterCallResult( class CCallbackBase *pCallback, SteamAPICall_t hAPICall );
+S_API void SteamAPI_UnregisterCallResult( class CCallbackBase *pCallback, SteamAPICall_t hAPICall );
 //----------------------------------------------------------------------------------------------------------------------------------------------------------//
 //	steamclient.dll private wrapper functions
 //
@@ -427,5 +432,32 @@ S_API bool STEAM_CALL SteamContentServer_Init(uint32 unIP, uint16 usPort);
 
 S_API void STEAM_CALL SteamContentServer_Shutdown();
 S_API void STEAM_CALL SteamContentServer_RunCallbacks();
+
+
+// Purpose: utilities to decode/decrypt a ticket from the
+// ISteamUser::RequestEncryptedAppTicket, ISteamUser::GetEncryptedAppTicket API
+// 
+// To use: declare CSteamEncryptedAppTicket, then call BDecryptTicket
+// if BDecryptTicket returns true, other accessors are valid
+static const int k_nSteamEncryptedAppTicketSymmetricKeyLen = 32;				
+
+
+S_API bool SteamEncryptedAppTicket_BDecryptTicket( const uint8 *rgubTicketEncrypted, uint32 cubTicketEncrypted,
+												  uint8 *rgubTicketDecrypted, uint32 *pcubTicketDecrypted,
+												  const uint8 rgubKey[k_nSteamEncryptedAppTicketSymmetricKeyLen], int cubKey );
+
+S_API bool SteamEncryptedAppTicket_BIsTicketForApp( uint8 *rgubTicketDecrypted, uint32 cubTicketDecrypted, AppId_t nAppID );
+
+S_API RTime32 SteamEncryptedAppTicket_GetTicketIssueTime( uint8 *rgubTicketDecrypted, uint32 cubTicketDecrypted );
+
+S_API void SteamEncryptedAppTicket_GetTicketSteamID( uint8 *rgubTicketDecrypted, uint32 cubTicketDecrypted, CSteamID *psteamID );
+
+S_API AppId_t SteamEncryptedAppTicket_GetTicketAppID( uint8 *rgubTicketDecrypted, uint32 cubTicketDecrypted );
+
+S_API bool SteamEncryptedAppTicket_BUserOwnsAppInTicket( uint8 *rgubTicketDecrypted, uint32 cubTicketDecrypted, AppId_t nAppID );
+
+S_API bool SteamEncryptedAppTicket_BUserIsVacBanned( uint8 *rgubTicketDecrypted, uint32 cubTicketDecrypted );
+
+S_API const uint8 *SteamEncryptedAppTicket_GetUserVariableData( uint8 *rgubTicketDecrypted, uint32 cubTicketDecrypted, uint32 *pcubUserData );
 
 #endif // STEAMCLIENT_H

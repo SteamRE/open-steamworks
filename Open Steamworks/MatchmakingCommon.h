@@ -38,6 +38,7 @@
 
 
 
+// lobby search filter tools
 typedef enum ELobbyComparison
 {
 	k_ELobbyComparisonEqualToOrLessThan = -2,
@@ -48,12 +49,14 @@ typedef enum ELobbyComparison
 	k_ELobbyComparisonNotEqual = 3,
 } ELobbyComparison;
 
+
+// lobby search distance
 typedef enum ELobbyDistanceFilter
 {
-	k_ELobbyDistanceFilterClose = 0,
-	k_ELobbyDistanceFilterDefault = 1,
-	k_ELobbyDistanceFilterFar = 2,
-	k_ELobbyDistanceFilterWorldwide = 3,
+	k_ELobbyDistanceFilterClose,		// only lobbies in the same immediate region will be returned
+	k_ELobbyDistanceFilterDefault,		// only lobbies in the same region or close, but looking further if the current region has infrequent lobby activity (the default)
+	k_ELobbyDistanceFilterFar,			// for games that don't have many latency requirements, will return lobbies about half-way around the globe
+	k_ELobbyDistanceFilterWorldwide,	// no filtering, will match lobbies as far as India to NY (not recommended, expect multiple seconds of latency between the clients)
 } ELobbyDistanceFilter;
 
 

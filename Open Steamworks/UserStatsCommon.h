@@ -88,6 +88,8 @@ typedef enum EGetAchievementIcon
 	// TODO : Reverse this enum, default value seems to be 0
 } EGetAchievementIcon;
 
+#pragma pack( push, 8 )
+
 // a single entry in a leaderboard, as returned by GetDownloadedLeaderboardEntry()
 struct LeaderboardEntry001_t
 {
@@ -99,15 +101,15 @@ struct LeaderboardEntry001_t
 
 struct LeaderboardEntry002_t
 {
-	/*
-	TODO : Reverse this struct
-	*/
-	int placeholder;
+	CSteamID m_steamIDUser; // user with the entry - use SteamFriends()->GetFriendPersonaName() & SteamFriends()->GetFriendAvatar() to get more info
+	int32 m_nGlobalRank;	// [1..N], where N is the number of users with an entry in the leaderboard
+	int32 m_nScore;			// score as set in the leaderboard
+	int32 m_cDetails;		// number of int32 details available for this entry
+	UGCHandle_t m_hUGC;		// handle for UGC attached to the entry
 };
 
 typedef LeaderboardEntry002_t LeaderboardEntry_t;
 
-#pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when the latests stats and achievements have been received
 //			from the server
@@ -203,7 +205,6 @@ struct NumberOfCurrentPlayers_t
 struct UserStatsUnloaded_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 8 };
-
 	CSteamID	m_steamIDUser;	// User whose stats have been unloaded
 };
 
@@ -218,6 +219,38 @@ struct UserAchievementIconFetched_t
 	char		m_rgchAchievementName[k_cchStatNameMax];		// name of the achievement
 	bool		m_bAchieved;		// Is the icon for the achieved or not achieved version?
 	int			m_nIconHandle;		// Handle to the image, which can be used in ClientUtils()->GetImageRGBA(), 0 means no image is set for the achievement
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: Callback indicating that global achievement percentages are fetched
+//-----------------------------------------------------------------------------
+struct GlobalAchievementPercentagesReady_t
+{
+	enum { k_iCallback = k_iSteamUserStatsCallbacks + 10 };
+
+	uint64		m_nGameID;				// Game this is for
+	EResult		m_eResult;				// Result of the operation
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: call result indicating UGC has been uploaded, returned as a result of SetLeaderboardUGC()
+//-----------------------------------------------------------------------------
+struct LeaderboardUGCSet_t
+{
+	enum { k_iCallback = k_iSteamUserStatsCallbacks + 11 };
+	EResult m_eResult;				// The result of the operation
+	SteamLeaderboard_t m_hSteamLeaderboard;	// the leaderboard handle that was
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: callback indicating global stats have been received.
+//	Returned as a result of RequestGlobalStats()
+//-----------------------------------------------------------------------------
+struct GlobalStatsReceived_t
+{
+	enum { k_iCallback = k_iSteamUserStatsCallbacks + 12 };
+	uint64	m_nGameID;				// Game global stats were requested for
+	EResult	m_eResult;				// The result of the request
 };
 
 #pragma pack( pop )

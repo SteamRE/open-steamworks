@@ -70,7 +70,7 @@ public:
 	CSteamID( uint32 unAccountID, unsigned int unAccountInstance, EUniverse eUniverse, EAccountType eAccountType )
 	{
 #if defined(_SERVER) && defined(Assert)
-		Assert( ! ( ( k_EAccountTypeIndividual == eAccountType ) && ( 1 != unAccountInstance ) ) );	// enforce that for individual accounts, instance is always 1
+		Assert( ! ( ( k_EAccountTypeIndividual == eAccountType ) && ( unAccountInstance > k_unSteamUserConsoleInstance ) ) );	// enforce that for individual accounts, instance is always 1
 #endif // _SERVER
 		InstancedSet( unAccountID, unAccountInstance, eUniverse, eAccountType );
 	}
@@ -106,7 +106,8 @@ public:
 		}
 		else
 		{
-			m_steamid.m_comp.m_unAccountInstance = 1;
+			// by default we pick the desktop instance
+			m_steamid.m_comp.m_unAccountInstance = k_unSteamUserDesktopInstance;
 		}
 	}
 
@@ -132,8 +133,8 @@ public:
 	//-----------------------------------------------------------------------------
 	void FullSet( uint64 ulIdentifier, EUniverse eUniverse, EAccountType eAccountType )
 	{
-		m_steamid.m_comp.m_unAccountID = ( ulIdentifier & 0xFFFFFFFF );						// account ID is low 32 bits
-		m_steamid.m_comp.m_unAccountInstance = ( ( ulIdentifier >> 32 ) & 0xFFFFF );			// account instance is next 20 bits
+		m_steamid.m_comp.m_unAccountID = ( ulIdentifier & k_unSteamAccountIDMask );						// account ID is low 32 bits
+		m_steamid.m_comp.m_unAccountInstance = ( ( ulIdentifier >> 32 ) & k_unSteamAccountInstanceMask );			// account instance is next 20 bits
 		m_steamid.m_comp.m_EUniverse = eUniverse;
 		m_steamid.m_comp.m_EAccountType = eAccountType;
 	}
@@ -156,11 +157,11 @@ public:
 	//-----------------------------------------------------------------------------
 	void SetFromSteam2( TSteamGlobalUserID *pTSteamGlobalUserID, EUniverse eUniverse )
 	{
-		m_steamid.m_comp.m_unAccountID = pTSteamGlobalUserID->m_SteamLocalUserID.Split.Low32bits * 2 +
+		m_steamid.m_comp.m_unAccountID = pTSteamGlobalUserID->m_SteamLocalUserID.Split.Low32bits * 2 + 
 			pTSteamGlobalUserID->m_SteamLocalUserID.Split.High32bits;
 		m_steamid.m_comp.m_EUniverse = eUniverse;		// set the universe
 		m_steamid.m_comp.m_EAccountType = k_EAccountTypeIndividual; // Steam 2 accounts always map to account type of individual
-		m_steamid.m_comp.m_unAccountInstance = 1;	// individual accounts always have an account instance ID of 1
+		m_steamid.m_comp.m_unAccountInstance = k_unSteamUserDesktopInstance; // Steam2 only knew desktop instances
 	}
 
 	//-----------------------------------------------------------------------------
@@ -282,7 +283,7 @@ public:
 	//-----------------------------------------------------------------------------
 	bool BIndividualAccount() const
 	{
-		return m_steamid.m_comp.m_EAccountType == k_EAccountTypeIndividual;
+		return m_steamid.m_comp.m_EAccountType == k_EAccountTypeIndividual || m_steamid.m_comp.m_EAccountType == k_EAccountTypeConsoleUser;
 	}
 
 
@@ -302,9 +303,20 @@ public:
 		return m_steamid.m_comp.m_EAccountType == k_EAccountTypeAnonUser;
 	}
 
+	//-----------------------------------------------------------------------------
+	// Purpose: Is this a faked up Steam ID for a PSN friend account?
+	//-----------------------------------------------------------------------------
+	bool BConsoleUserAccount() const
+	{
+		return m_steamid.m_comp.m_EAccountType == k_EAccountTypeConsoleUser;
+	}
+
 
 	// simple accessors
 	void SetAccountID( uint32 unAccountID )		{ m_steamid.m_comp.m_unAccountID = unAccountID; }
+	void SetAccountInstance( uint32 unInstance ){ m_steamid.m_comp.m_unAccountInstance = unInstance; }
+	void ClearIndividualInstance()				{ if ( BIndividualAccount() ) m_steamid.m_comp.m_unAccountInstance = 0; }
+	bool HasNoIndividualInstance() const		{ return BIndividualAccount() && (m_steamid.m_comp.m_unAccountInstance==0); }
 	uint32 GetAccountID() const					{ return m_steamid.m_comp.m_unAccountID; }
 	uint32 GetUnAccountInstance() const			{ return m_steamid.m_comp.m_unAccountInstance; }
 	EAccountType GetEAccountType() const		{ return ( EAccountType ) m_steamid.m_comp.m_EAccountType; }
@@ -424,10 +436,17 @@ private:
 	{
 		struct SteamIDComponent_t
 		{
+#ifdef VALVE_BIG_ENDIAN
+			EUniverse			m_EUniverse : 8;	// universe this account belongs to
+			unsigned int		m_EAccountType : 4;			// type of account - can't show as EAccountType, due to signed / unsigned difference
+			unsigned int		m_unAccountInstance : 20;	// dynamic instance ID
 			uint32				m_unAccountID : 32;			// unique account identifier
-			unsigned int		m_unAccountInstance : 20;	// dynamic instance ID (used for multiseat type accounts only)
+#else
+			uint32				m_unAccountID : 32;			// unique account identifier
+			unsigned int		m_unAccountInstance : 20;	// dynamic instance ID
 			unsigned int		m_EAccountType : 4;			// type of account - can't show as EAccountType, due to signed / unsigned difference
 			EUniverse			m_EUniverse : 8;	// universe this account belongs to
+#endif
 		} m_comp;
 
 		uint64 m_unAll64Bits;
@@ -452,7 +471,7 @@ inline bool CSteamID::IsValid() const
 
 	if ( m_steamid.m_comp.m_EAccountType == k_EAccountTypeIndividual )
 	{
-		if ( m_steamid.m_comp.m_unAccountID == 0 || m_steamid.m_comp.m_unAccountInstance != 1 )
+		if ( m_steamid.m_comp.m_unAccountID == 0 || m_steamid.m_comp.m_unAccountInstance > k_unSteamUserConsoleInstance )
 			return false;
 	}
 
@@ -465,19 +484,19 @@ inline bool CSteamID::IsValid() const
 }
 
 // generic invalid CSteamID
-const CSteamID k_steamIDNil;
+#define k_steamIDNil CSteamID()
 
 // This steamID comes from a user game connection to an out of date GS that hasnt implemented the protocol
 // to provide its steamID
-const CSteamID k_steamIDOutofDateGS( 0, 0, k_EUniverseInvalid, k_EAccountTypeInvalid );
+#define k_steamIDOutofDateGS CSteamID( 0, 0, k_EUniverseInvalid, k_EAccountTypeInvalid )
 // This steamID comes from a user game connection to an sv_lan GS
-const CSteamID k_steamIDLanModeGS( 0, 0, k_EUniversePublic, k_EAccountTypeInvalid );
+#define k_steamIDLanModeGS CSteamID( 0, 0, k_EUniversePublic, k_EAccountTypeInvalid )
 // This steamID can come from a user game connection to a GS that has just booted but hasnt yet even initialized
 // its steam3 component and started logging on.
-const CSteamID k_steamIDNotInitYetGS( 1, 0, k_EUniverseInvalid, k_EAccountTypeInvalid );
+#define k_steamIDNotInitYetGS CSteamID( 1, 0, k_EUniverseInvalid, k_EAccountTypeInvalid )
 // This steamID can come from a user game connection to a GS that isn't using the steam authentication system but still
 // wants to support the "Join Game" option in the friends list
-const CSteamID k_steamIDNonSteamGS( 2, 0, k_EUniverseInvalid, k_EAccountTypeInvalid );
+#define k_steamIDNonSteamGS CSteamID( 2, 0, k_EUniverseInvalid, k_EAccountTypeInvalid )
 
 
 #ifdef STEAM

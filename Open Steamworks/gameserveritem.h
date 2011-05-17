@@ -79,6 +79,7 @@ inline const char* gameserveritem_t::GetName() const
 inline void gameserveritem_t::SetName( const char *pName )
 {
 	strncpy( m_szServerName, pName, sizeof( m_szServerName ) );
+	m_szServerName[ sizeof( m_szServerName ) - 1 ] = '\0';
 }
 #endif
 

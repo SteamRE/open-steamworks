@@ -55,23 +55,100 @@ typedef enum EScreenshotPrivacyState
 	k_EScreenshotPrivacyStatePublic = 8,
 } EScreenshotPrivacyState;
 
+typedef enum ERemoteStoragePlatform
+{
+	k_ERemoteStoragePlatformNone		= 0,
+	k_ERemoteStoragePlatformWindows		= (1 << 0),
+	k_ERemoteStoragePlatformOSX			= (1 << 1 ),
+	k_ERemoteStoragePlatformPS3			= (1 << 2),
+	k_ERemoteStoragePlatformReserved1	= (1 << 3),
+	k_ERemoteStoragePlatformReserved2	= (1 << 4),
+
+	k_ERemoteStoragePlatformAll = 0xffffffff
+} ERemoteStoragePlatform;
+
+// Ways to handle a synchronization conflict
+typedef enum EResolveConflict
+{
+	k_EResolveConflictKeepClient = 1,		// The local version of each file will be used to overwrite the server version
+	k_EResolveConflictKeepServer = 2,		// The server version of each file will be used to overwrite the local version
+} EResolveConflict;
+
 
 #pragma pack( push, 8 )
-struct FileShareResult_t
-{ 
-	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 7 };
 
-	int32 unk1;
-	int32 unk2;
-	int32 unk3;
-	int32 unk4;
+//-----------------------------------------------------------------------------
+// Purpose: sent when the local file cache is fully synced with the server for an app
+//          That means that an application can be started and has all latest files
+//-----------------------------------------------------------------------------
+struct RemoteStorageAppSyncedClient_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 1 };
+	AppId_t m_nAppID;
+	EResult m_eResult;
+	int m_unNumDownloads;
 };
 
-struct ScreenshotBatchResult_t
-{ 
-	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 12 };
-
+//-----------------------------------------------------------------------------
+// Purpose: sent when the server is fully synced with the local file cache for an app
+//          That means that we can shutdown Steam and our data is stored on the server
+//-----------------------------------------------------------------------------
+struct RemoteStorageAppSyncedServer_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 2 };
+	AppId_t m_nAppID;
 	EResult m_eResult;
+	int m_unNumUploads;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: Status of up and downloads during a sync session
+//       
+//-----------------------------------------------------------------------------
+struct RemoteStorageAppSyncProgress_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 3 };
+	char m_rgchCurrentFile[260];				// Current file being transferred
+	AppId_t m_nAppID;							// App this info relates to
+	uint32 m_uBytesTransferredThisChunk;		// Bytes transferred this chunk
+	double m_dAppPercentComplete;				// Percent complete that this app's transfers are
+	bool m_bUploading;							// if false, downloading
+};
+
+
+//-----------------------------------------------------------------------------
+// Purpose: Sent after a conflict resolution attempt.
+//-----------------------------------------------------------------------------
+struct RemoteStorageConflictResolution_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 6 };
+	AppId_t m_nAppID;
+	EResult m_eResult;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to FileShare()
+//-----------------------------------------------------------------------------
+struct RemoteStorageFileShareResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 7 };
+	EResult m_eResult;			// The result of the operation
+	UGCHandle_t m_hFile;		// The handle that can be shared with users and features
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to UGCDownload()
+//-----------------------------------------------------------------------------
+struct RemoteStorageDownloadUGCResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 8 };
+	EResult m_eResult;				// The result of the operation.
+	UGCHandle_t m_hFile;			// The handle to the file that was attempted to be downloaded.
+	AppId_t m_nAppID;				// ID of the app that created this file.
+	int32 m_nSizeInBytes;			// The size of the file that was downloaded, in bytes.
+	char *m_pchFileName;			// The name of the file that was downloaded. This pointer is
+	// not guaranteed to be valid indefinitely.
+	uint64 m_ulSteamIDOwner;		// Steam ID of the user who created this content.
 };
 
 #pragma pack( pop )

@@ -180,6 +180,18 @@ typedef bool (*SteamBGetCallbackFn)( int hpipe, void *pCallbackMsg );
 typedef void (*SteamFreeLastCallbackFn)( int hpipe );
 typedef bool (*SteamGetAPICallResultFn)( int hpipe, uint64 hSteamAPICall, void* pCallback, int cubCallback, int iCallbackExpected, bool* pbFailed );
 
+//-----------------------------------------------------------------------------
+// Purpose: Passed as argument to SteamAPI_UseBreakpadCrashHandler to enable optional callback
+//  just before minidump file is captured after a crash has occurred.  (Allows app to append additional comment data to the dump, etc.)
+//-----------------------------------------------------------------------------
+typedef void (*PFNPreMinidumpCallback)(void *context);
+
+//-----------------------------------------------------------------------------
+// Purpose: Used by ICrashHandler interfaces to reference particular installed crash handlers
+//-----------------------------------------------------------------------------
+typedef void *BREAKPAD_HANDLE;
+#define BREAKPAD_INVALID_HANDLE (BREAKPAD_HANDLE)0 
+
 const int k_cubDigestSize = 20;							// CryptoPP::SHA::DIGESTSIZE
 const int k_cubSaltSize   = 8;
 
@@ -405,8 +417,11 @@ typedef uint64 SteamLeaderboardEntries_t;
 typedef void (*PFNLegacyKeyRegistration)( const char *pchCDKey, const char *pchInstallPath );
 typedef bool (*PFNLegacyKeyInstalled)();
 
-const int k_unSteamAccountIDMask = 0xFFFFFFFF;
-const int k_unSteamAccountInstanceMask = 0x000FFFFF;
+const unsigned int k_unSteamAccountIDMask = 0xFFFFFFFF;
+const unsigned int k_unSteamAccountInstanceMask = 0x000FFFFF;
+// we allow 2 simultaneous user account instances right now, 1= desktop, 2 = console, 0 = all
+const unsigned int k_unSteamUserDesktopInstance = 1;	 
+const unsigned int k_unSteamUserConsoleInstance = 2;
 
 // Special flags for Chat accounts - they go in the top 8 bits
 // of the steam ID's "instance", leaving 12 for the actual instances
@@ -420,6 +435,10 @@ enum EChatSteamIDInstanceFlags
 
 	// Max of 8 flags
 };
+
+// A handle to a piece of user generated content
+typedef uint64 UGCHandle_t;
+const UGCHandle_t k_UGCHandleInvalid = 0xffffffffffffffffull;
 
 #define STEAM_USING_FILESYSTEM							(0x00000001)
 #define STEAM_USING_LOGGING								(0x00000002)

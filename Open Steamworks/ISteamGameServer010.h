@@ -29,14 +29,13 @@
 abstract_class ISteamGameServer010
 {
 public:
-
 	// connection functions
 	virtual void LogOn() = 0;
 	virtual void LogOff() = 0;
 
 	// status functions
-	virtual bool LoggedOn() = 0;
-	virtual bool Secure() = 0; 
+	virtual bool BLoggedOn() = 0;
+	virtual bool BSecure() = 0; 
 	virtual CSteamID GetSteamID() = 0;
 
 	// Handles receiving a new connection from a Steam user.  This call will ask the Steam
@@ -61,13 +60,12 @@ public:
 	// account being logged into multiple servers, showing who is currently on a server, etc.
 	virtual void SendUserDisconnect( CSteamID steamIDUser ) = 0;
 
-
 	// Update the data to be displayed in the server browser and matchmaking interfaces for a user
 	// currently connected to the server.  For regular users you must call this after you receive a
 	// GSUserValidationSuccess callback.
 	// 
 	// Return Value: true if successful, false if failure (ie, steamIDUser wasn't for an active player)
-	virtual bool UpdateUserData( CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore ) = 0;
+	virtual bool BUpdateUserData( CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore ) = 0;
 
 	// You shouldn't need to call this as it is called internally by SteamGameServer_Init() and can only be called once.
 	//
@@ -85,10 +83,13 @@ public:
 	//			
 	// bugbug jmccaskey - figure out how to remove this from the API and only expose via SteamGameServer_Init... or make this actually used,
 	// and stop calling it in SteamGameServer_Init()?
-	virtual bool SetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
+	virtual bool BSetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, 
+		uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
-	virtual void UpdateServerStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
+	virtual void UpdateServerStatus( int cPlayers, int cPlayersMax, int cBotPlayers, 
+		const char *pchServerName, const char *pSpectatorServerName, 
+		const char *pchMapName ) = 0;
 
 	// This can be called if spectator goes away or comes back (passing 0 means there is no spectator server now).
 	virtual void UpdateSpectatorPort( uint16 unSpectatorPort ) = 0;
@@ -123,11 +124,14 @@ public:
 	// to determine if the user owns downloadable content specified by the provided AppID.
 	virtual EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
 
-	// Retrieve ticket to be sent to the entity who wishes to authenticate you. 
+	// New auth system APIs - do not mix with the old auth system APIs.
+	// ----------------------------------------------------------------
+
+	// Retrieve ticket to be sent to the entity who wishes to authenticate you ( using BeginAuthSession API ). 
 	// pcbTicket retrieves the length of the actual ticket.
 	virtual HAuthTicket GetAuthSessionTicket( void *pTicket, int cbMaxTicket, uint32 *pcbTicket ) = 0;
 
-	// Authenticate ticket from entity steamID to be sure it is valid and isnt reused
+	// Authenticate ticket ( from GetAuthSessionTicket ) from entity steamID to be sure it is valid and isnt reused
 	// Registers for callbacks if the entity goes offline or cancels the ticket ( see ValidateAuthTicketResponse_t callback and EAuthSessionResponse )
 	virtual EBeginAuthSessionResult BeginAuthSession( const void *pAuthTicket, int cbAuthTicket, CSteamID steamID ) = 0;
 

@@ -233,9 +233,15 @@ private:
 
 	struct GameID_t
 	{
+#ifdef VALVE_BIG_ENDIAN
+		unsigned int m_nModID : 32;
+		unsigned int m_nType : 8;
+		unsigned int m_nAppID : 24;
+#else
 		unsigned int m_nAppID : 24;
 		unsigned int m_nType : 8;
 		unsigned int m_nModID : 32;
+#endif
 	};
 
 	union

@@ -105,6 +105,8 @@ typedef enum EVoiceResult
 	k_EVoiceResultNoData = 3,
 	k_EVoiceResultBufferTooSmall = 4,
 	k_EVoiceResultDataCorrupted = 5,
+	k_EVoiceResultRestricted = 6,
+	k_EVoiceResultUnsupportedCodec = 7,
 } EVoiceResult;
 
 //-----------------------------------------------------------------------------
@@ -575,9 +577,13 @@ struct MicroTxnAuthorizationResponse_t
 };
 
 
+//-----------------------------------------------------------------------------
+// Purpose: Result from RequestEncryptedAppTicket
+//-----------------------------------------------------------------------------
 struct EncryptedAppTicketResponse_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 54 };
+
 	EResult m_eResult;
 };
 

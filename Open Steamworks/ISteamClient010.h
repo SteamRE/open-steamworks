@@ -111,7 +111,8 @@ public:
 	// callbacks will occur directly after the API function is called that generated the warning or message
 	virtual void SetWarningMessageHook( SteamAPIWarningMessageHook_t pFunction ) = 0;
 
-	virtual bool ShutdownIfAllPipesClosed() = 0;
+	// Trigger global shutdown for the DLL
+	virtual bool BShutdownIfAllPipesClosed() = 0;
 };
 
 
