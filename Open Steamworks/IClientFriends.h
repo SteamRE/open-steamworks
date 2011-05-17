@@ -120,7 +120,7 @@ public:
 	virtual bool IsClanPublic( CSteamID steamID ) = 0;
 	virtual bool IsClanLarge( CSteamID steamID ) = 0;
 
-	virtual unknown_ret SubscribeToPersonaStateFeed( CSteamID, bool ) = 0;
+	virtual void SubscribeToPersonaStateFeed( CSteamID, bool ) = 0;
 
 	virtual bool InviteFriendToClan( CSteamID steamIDfriend, CSteamID steamIDclan ) = 0;
 	virtual bool AcknowledgeInviteToClan( CSteamID steamID, bool bAcceptOrDenyClanInvite ) = 0;
@@ -276,6 +276,8 @@ public:
 
 	virtual void SetInGameVoiceSpeaking( CSteamID steamIDuser, bool bIsSpeaking ) = 0;
 
+	virtual bool IsInGameVoiceSpeaking() = 0;
+
 	virtual void ActivateGameOverlay( const char *pchDialog ) = 0;
 	virtual void ActivateGameOverlayToUser( const char *pchDialog, CSteamID steamID ) = 0;
 	virtual void ActivateGameOverlayToWebPage( const char *pchUrl ) = 0;
@@ -318,6 +320,10 @@ public:
 	virtual bool InviteUserToGame( CSteamID steamID, const char *szUnk ) = 0;
 
 	virtual int GetOnlineConsoleFriendCount() = 0;
+
+	virtual SteamAPICall_t RequestTrade( CSteamID steamID ) = 0;
+	virtual void TradeResponse( unsigned int, bool ) = 0;
+	virtual void CancelTradeRequest( CSteamID steamID ) = 0;
 };
 
 #endif // ICLIENTFRIENDS_H

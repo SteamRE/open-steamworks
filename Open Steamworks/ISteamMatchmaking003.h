@@ -168,7 +168,7 @@ public:
 
 	virtual OBSOLETE_FUNCTION void SetLobbyVoiceEnabled( CSteamID steamIDLobby, bool bEnabled ) = 0;
 
-	virtual unknown_ret RequestFriendsLobbies() = 0;
+	virtual bool RequestFriendsLobbies() = 0;
 };
 
 #endif // ISTEAMMATCHMAKING003_H

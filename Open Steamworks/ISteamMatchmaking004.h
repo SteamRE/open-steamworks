@@ -165,7 +165,7 @@ public:
 	// returns the current limit on the # of users who can join the lobby; returns 0 if no limit is defined
 	virtual int GetLobbyMemberLimit( CSteamID steamIDLobby ) = 0;
 
-	virtual unknown_ret RequestFriendsLobbies() = 0;
+	virtual bool RequestFriendsLobbies() = 0;
 };
 
 #endif // ISTEAMMATCHMAKING004_H

@@ -75,7 +75,7 @@ public:
 	// 
 	// Return Value: Returns a SteamID for the user to be tracked with, you should call HandleUserDisconnect()
 	// when this user leaves the server just like you would for a real user.
-	virtual unknown_ret CreateUnauthenticatedUser( CSteamID *pSteamID ) = 0;
+	virtual bool CreateUnauthenticatedUser( CSteamID *pSteamID ) = 0;
 
 	// Update the data to be displayed in the server browser and matchmaking interfaces for a user
 	// currently connected to the server.  For regular users you must call this after you receive a

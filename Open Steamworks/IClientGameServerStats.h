@@ -34,14 +34,14 @@ public:
 	virtual SteamAPICall_t RequestUserStats( CSteamID steamIDUser, CGameID gameID ) = 0;
 	virtual bool GetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, int32 *pData ) = 0;
 	virtual bool GetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float *pData ) = 0;
-	virtual bool GetUserAchievement( CSteamID steamIDUser, CGameID gameID, const char *pchName, bool *pbAchieved, unknown_ret unk3 = 0 ) = 0;
+	virtual bool GetUserAchievement( CSteamID steamIDUser, CGameID gameID, const char *pchName, bool *pbAchieved, uint32* puUnk = NULL ) = 0;
 	virtual bool SetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, int32 nData ) = 0;
 	virtual bool SetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float fData ) = 0;
 	virtual bool UpdateUserAvgRateStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float flCountThisSession, double dSessionLength ) = 0;
 	virtual bool SetUserAchievement( CSteamID steamIDUser, CGameID gameID, const char *pchName ) = 0;
 	virtual bool ClearUserAchievement( CSteamID steamIDUser, CGameID gameID, const char *pchName ) = 0;
 	virtual SteamAPICall_t StoreUserStats( CSteamID steamIDUser, CGameID gameID ) = 0;
-	virtual unknown_ret SetMaxStatsLoaded( uint32 uMax ) = 0;
+	virtual void SetMaxStatsLoaded( uint32 uMax ) = 0;
 };
 
 #endif // ICLIENTGAMESERVERSTATS_H

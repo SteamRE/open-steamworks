@@ -95,6 +95,15 @@ struct DlcInstalled_t
 
 	uint32 m_nAppID;		// AppID of the DLC
 };
+
+struct OptionalDLCInstallation_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 10 };
+
+	AppId_t		m_nAppID;
+	bool		m_bUnk;
+};
+
 #pragma pack( pop )
 
 #endif // APPSCOMMON_H

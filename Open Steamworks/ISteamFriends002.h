@@ -67,7 +67,7 @@ public:
 	// adds a friend by email address or account name - value returned in callback
 	virtual HSteamCall AddFriendByName( const char *pchEmailOrAccountName ) = 0;
 
-	virtual unknown_ret InviteFriendByEmail( const char *emailAddr ) = 0;
+	virtual bool InviteFriendByEmail( const char *emailAddr ) = 0;
 
 	// chat message iteration
 	// returns the number of bytes in the message, filling pvData with as many of those bytes as possible
@@ -90,8 +90,8 @@ public:
 	virtual CSteamID GetClanByIndex( int iClan ) = 0;
 	virtual const char *GetClanName( CSteamID steamIDClan ) = 0;
 
-	virtual unknown_ret InviteFriendToClan( CSteamID steamIDfriend, CSteamID steamIDclan ) = 0;
-	virtual unknown_ret AcknowledgeInviteToClan( CSteamID steamID, bool ) = 0;
+	virtual bool InviteFriendToClan( CSteamID steamIDfriend, CSteamID steamIDclan ) = 0;
+	virtual bool AcknowledgeInviteToClan( CSteamID steamID, bool ) = 0;
 
 	virtual int GetFriendCountFromSource( CSteamID steamIDSource ) = 0;
 	virtual CSteamID GetFriendFromSourceByIndex( CSteamID steamIDSource, int iFriend ) = 0;

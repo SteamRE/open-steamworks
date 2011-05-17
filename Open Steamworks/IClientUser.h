@@ -152,6 +152,7 @@ public:
 	virtual void RequiresLegacyCDKey( uint32 ) = 0;
 	virtual bool GetLegacyCDKey( AppId_t nAppID, char* pchKeyData, int cbKeyData ) = 0;
 	virtual bool HasLegacyCDKey( AppId_t nAppID ) = 0;
+	virtual bool SetLegacyCDKey( AppId_t nAppID, const char* pchKeyData ) = 0;
 	virtual void RemoveLegacyCDKey( AppId_t nAppID ) = 0;
 
 	virtual void StartVoiceRecording() = 0;
@@ -191,7 +192,7 @@ public:
 	virtual uint32 GetAppOwnershipTicketLength( uint32 nAppID ) = 0;
 	virtual uint32 GetAppOwnershipTicketData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
 
-	virtual uint32 GetAppOwnershipTicketExtendedData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, unknown_ret*, unknown_ret*, uint32* ticket_length, uint32* signature_length ) = 0;
+	virtual uint32 GetAppOwnershipTicketExtendedData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, uint32*, uint32*, uint32* ticket_length, uint32* signature_length ) = 0;
 
 	virtual bool GetAppDecryptionKey( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
 
@@ -239,12 +240,12 @@ public:
 	virtual bool IsBehindNAT() = 0;
 
 	virtual AppId_t GetMicroTxnAppID( uint64 ) = 0;
-	virtual unknown_ret GetMicroTxnOrderID( uint64 ) = 0;
+	virtual uint64 GetMicroTxnOrderID( uint64 ) = 0;
 
 	//virtual bool BGetMicroTxnPrice( uint64, CAmount *, CAmount *, bool * ) = 0;
 	virtual bool BGetMicroTxnPrice( uint64, int *, int *, bool * ) = 0;
 
-	virtual unknown_ret GetMicroTxnLineItemCount( uint64 ) = 0;
+	virtual int32 GetMicroTxnLineItemCount( uint64 ) = 0;
 
 	//virtual bool BGetMicroTxnLineItem( uint64, uint32, CAmount *, uint32 *, char *, uint32 ) = 0;
 	virtual bool BGetMicroTxnLineItem( uint64, uint32, int *, uint32 *, char *, uint32 ) = 0;
@@ -252,36 +253,38 @@ public:
 	virtual bool BIsSandboxMicroTxn( uint64, bool* pbUnk ) = 0;
 
 	//virtual unknown_ret AuthorizeMicroTxn( uint64, EMicroTxnAuthResponse ) = 0;
-	virtual unknown_ret AuthorizeMicroTxn( uint64, int ) = 0;
+	virtual SteamAPICall_t AuthorizeMicroTxn( uint64, int ) = 0;
 
-	virtual unknown_ret NotifyAppMicroTxnAuthResponse( uint32, uint64, bool ) = 0;
+	virtual void NotifyAppMicroTxnAuthResponse( uint32, uint64, bool ) = 0;
 
 	//virtual bool BGetWalletBalance( bool *, CAmount * ) = 0;
 	virtual bool BGetWalletBalance( bool *, int * ) = 0;
 
-	virtual unknown_ret RequestMicroTxnInfo( uint64 ) = 0;
+	virtual SteamAPICall_t RequestMicroTxnInfo( uint64 ) = 0;
 
 	virtual bool BGetAppMinutesPlayed( uint32, int *, int * ) = 0;
 
 	virtual bool BGetGuideURL( uint32, char *, uint32 ) = 0;
 
-	virtual unknown_ret GetClientAppListResponse_AddApp( unsigned int, bool,bool, bool, char  const*, unsigned long long, unsigned long long, unsigned int ) = 0;
-	virtual unknown_ret GetClientAppListResponse_AddDLC( unsigned int, bool ) = 0;
-	virtual unknown_ret GetClientAppListResponse_Done( unsigned long long ) = 0;
-	virtual unknown_ret PostUIResultToClientJob( unsigned long long, EResult ) = 0;
+	virtual void GetClientAppListResponse_AddApp( unsigned int, bool,bool, bool, char  const*, unsigned long long, unsigned long long, unsigned int ) = 0;
+	virtual void GetClientAppListResponse_AddDLC( unsigned int, bool ) = 0;
+	virtual void GetClientAppListResponse_Done( unsigned long long ) = 0;
+	virtual void PostUIResultToClientJob( unsigned long long, EResult ) = 0;
 
 	virtual bool PromptToVerifyEmail() = 0;
 	virtual bool PromptToChangePassword() = 0;
 	virtual bool AccountLocked() = 0;
 	virtual bool AccountShouldShowLockUI() = 0;
 	virtual bool AccountLockedByIPT() = 0;
-	virtual unknown_ret GetCountAuthedComputers() = 0;
+	virtual int32 GetCountAuthedComputers() = 0;
 	virtual bool AccountCanUseIPT() = 0;
-	virtual unknown_ret ChangeTwoFactorAuthOptions( int iUnk1 ) = 0;
-	virtual unknown_ret Set2ndFactorAuthCode( const char* pchUnk ) = 0;
+	virtual void ChangeTwoFactorAuthOptions( uint32 uOption ) = 0;
+	virtual void Set2ndFactorAuthCode( const char* pchAuthCode ) = 0;
 
-	virtual unknown_ret GetEmailDomainFromLogonFailure( char *, int ) = 0;
-	virtual unknown_ret OptionalDLCInstallation( unsigned int, bool ) = 0;
+	virtual bool GetEmailDomainFromLogonFailure( char * pchEmailDomain, int cbEmailDomain ) = 0;
+	virtual void OptionalDLCInstallation( AppId_t, bool ) = 0;
+
+	virtual void AckSystemIM(unsigned long long) = 0;
 };
 
 #endif // ICLIENTUSER_H

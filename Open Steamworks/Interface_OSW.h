@@ -38,6 +38,7 @@
 #else
 	#define TARGET_OS_UNIX 1
 	#include <libgen.h>
+	#include <limits.h>
 	#include "POSIXLibrary.h"
 #endif
 

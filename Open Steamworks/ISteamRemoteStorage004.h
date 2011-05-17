@@ -55,11 +55,11 @@ public:
 	virtual bool IsCloudEnabledThisApp() = 0;
 	virtual bool SetCloudEnabledThisApp( bool bEnable ) = 0;
 
-	virtual unknown_ret UGCDownload( unsigned long long ) = 0;
-	virtual unknown_ret GetUGCDetails( unsigned long long, unsigned int *, char **, int *, CSteamID * ) = 0;
-	virtual unknown_ret UGCRead( unsigned long long, void *, int ) = 0;
+	virtual SteamAPICall_t UGCDownload( unsigned long long ) = 0;
+	virtual bool GetUGCDetails( unsigned long long, unsigned int *, char **, int *, CSteamID * ) = 0;
+	virtual int32 UGCRead( unsigned long long, void *, int ) = 0;
 	virtual int32 GetCachedUGCCount() = 0;
-	virtual unknown_ret GetCachedUGCHandle( int ) = 0;
+	virtual uint64 GetCachedUGCHandle( int ) = 0;
 };
 
 #endif // ISTEAMREMOTESTORAGE004_H

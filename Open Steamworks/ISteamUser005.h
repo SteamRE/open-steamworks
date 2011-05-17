@@ -94,34 +94,33 @@ public:
     // returns true if the current caller is the one that should open new chat dialogs
 	virtual bool IsPrimaryChatDestination() = 0;
 
-	virtual unknown_ret RequestLegacyCDKey( uint32 ) = 0;
+	virtual void RequestLegacyCDKey( AppId_t iAppID ) = 0;
 
-	virtual unknown_ret SendGuestPassByEmail( const char*, uint64, bool ) = 0;
-	virtual unknown_ret SendGuestPassByAccountID( uint32, uint64, bool ) = 0;
+	virtual bool SendGuestPassByEmail( const char *pchEmailAccount, GID_t gidGuestPassID, bool bResending ) = 0;
+	virtual bool SendGuestPassByAccountID( uint32 uAccountID, GID_t gidGuestPassID, bool bResending ) = 0;
 
-	virtual unknown_ret AckGuestPass( const char* ) = 0;
+	virtual bool AckGuestPass( const char *pchGuestPassCode ) = 0;
+	virtual bool RedeemGuestPass( const char *pchGuestPassCode ) = 0;
 
-	virtual unknown_ret RedeemGuestPass( const char* ) = 0;
+	virtual uint32 GetGuestPassToGiveCount() = 0;
+	virtual uint32 GetGuestPassToRedeemCount() = 0;
+	virtual uint32 GetGuestPassLastUpdateTime() = 0;
 
-	virtual unknown_ret GetGuestPassToGiveCount( void ) = 0;
-	virtual unknown_ret GetGuestPassToRedeemCount( void ) = 0;
-	virtual unknown_ret GetGuestPassLastUpdateTime( void ) = 0;
-	virtual unknown_ret GetGuestPassToGiveInfo( uint32, uint64 *, uint32 *, uint32 *, uint32 *, uint32 *, uint32 *, char *, int ) = 0;
-	virtual unknown_ret GetGuestPassToRedeemInfo( uint32, uint64 *, uint32 *, uint32 *, uint32 *, uint32 *, uint32 * ) = 0;
-	virtual unknown_ret GetGuestPassToRedeemSenderAddress( uint32, char *, int ) = 0;
-	virtual unknown_ret GetGuestPassToRedeemSenderName( uint32, char *, int ) = 0;
+	virtual bool GetGuestPassToGiveInfo( uint32 nPassIndex, GID_t *pgidGuestPassID, PackageId_t* pnPackageID, RTime32* pRTime32Created, RTime32* pRTime32Expiration, RTime32* pRTime32Sent, RTime32* pRTime32Redeemed, char * pchRecipientAddress, int cRecipientAddressSize ) = 0;
+	virtual bool GetGuestPassToRedeemInfo( uint32 nPassIndex, GID_t *pgidGuestPassID, PackageId_t* pnPackageID, RTime32* pRTime32Created, RTime32* pRTime32Expiration, RTime32* pRTime32Sent, RTime32* pRTime32Redeemed ) = 0;
+	virtual bool GetGuestPassToRedeemSenderAddress( uint32 nPassIndex, char* pchSenderAddress, int cSenderAddressSize ) = 0;
+	virtual bool GetGuestPassToRedeemSenderName( uint32 nPassIndex, char* pchSenderName, int cSenderNameSize ) = 0;
+	virtual void AcknowledgeMessageByGID( const char *pchMessageGID ) = 0;
 
-	virtual unknown_ret AcknowledgeMessageByGID( const char* ) = 0;
-
-	virtual unknown_ret SetLanguage( const char* ) = 0;
+	virtual bool SetLanguage( const char *pchLanguage ) = 0;
 
 	// used by only a few games to track usage events
 	virtual void TrackAppUsageEvent( CGameID gameID, EAppUsageEvent eAppUsageEvent, const char *pchExtraInfo = "" ) = 0;
 
-	virtual unknown_ret SetAccountName( const char* ) = 0;
-	virtual unknown_ret SetPassword( const char* ) = 0;
+	virtual void SetAccountName( const char* pchAccountName ) = 0;
+	virtual void SetPassword( const char* pchPassword ) = 0;
 
-	virtual unknown_ret SetAccountCreationTime( uint32 ) = 0;
+	virtual void SetAccountCreationTime( RTime32 rtime32Time ) = 0;
 };
 
 

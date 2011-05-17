@@ -58,7 +58,7 @@ abstract_class IClientDepotBuilder
 public:
 	virtual HDEPOTBUILD InitializeDepotBuildForConfigFile( const char *pchConfigFile ) = 0;
 	
-	virtual unknown_ret StartBuild( HDEPOTBUILD, bool, bool ) = 0;
+	virtual bool StartBuild( HDEPOTBUILD, bool, bool ) = 0;
 
 	virtual bool GetDepotBuildStatus( HDEPOTBUILD hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
 	virtual bool CloseDepotBuildHandle( HDEPOTBUILD hDepotBuild ) = 0;

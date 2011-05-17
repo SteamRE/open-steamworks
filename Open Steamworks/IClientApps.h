@@ -37,7 +37,7 @@ public:
 	virtual void RequestAppCallbacks( bool bOnlyMultiplayerApps ) = 0;
 	virtual void SendUserSpecificAppData( AppId_t unAppID, void* pvData, int cbData ) = 0;
 
-	virtual int GetAppDataSection( AppId_t unAppID, int eSection, uint8 *pchBuffer, int cbBufferMax ) = 0;
+	virtual int GetAppDataSection( AppId_t unAppID, int eSection, uint8 *pchBuffer, int cbBufferMax, bool bUseSymbolsAsKeys ) = 0;
 	virtual bool RequestAppInfoUpdate( const AppId_t *pAppIDs, int nNumAppIDs, bool bForceUpdate ) = 0;
 
 	virtual void NotifyAppEventTriggered( AppId_t unAppID, EAppEvent eAppEvent ) = 0;

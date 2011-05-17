@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ICLIENTHTTP_H
-#define ICLIENTHTTP_H
+#ifndef ISTEAMHTTP001_H
+#define ISTEAMHTTP001_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -23,7 +23,7 @@
 #include "SteamTypes.h"
 #include "HTTPCommon.h"
 
-abstract_class UNSAFE_INTERFACE IClientHTTP
+abstract_class ISteamHTTP001
 {
 public:
 	virtual HTTPRequestHandle CreateHTTPRequest( EHTTPMethod eHTTPRequestMethod, char *pchAbsoluteURL ) = 0;
@@ -46,4 +46,4 @@ public:
 	virtual bool GetHTTPDownloadProgressPct( HTTPRequestHandle hRequest, float * pflProgress ) = 0;
 };
 
-#endif // ICLIENTHTTP_H
+#endif // ISTEAMHTTP001_H

@@ -178,7 +178,7 @@ public:
 	// returns the current limit on the # of users who can join the lobby; returns 0 if no limit is defined
 	virtual int GetLobbyMemberLimit( CSteamID steamIDLobby ) = 0;
 
-	virtual unknown_ret RequestFriendsLobbies() = 0;
+	virtual bool RequestFriendsLobbies() = 0;
 
 	// updates which type of lobby it is
 	// only lobbies that are k_ELobbyTypePublic will be returned by RequestLobbyList() calls
@@ -190,7 +190,7 @@ public:
 	// it is possible (bur rare) to join a lobby just as the owner is leaving, thus entering a lobby with self as the owner
 	virtual CSteamID GetLobbyOwner( CSteamID steamIDLobby ) = 0;
 
-	virtual unknown_ret GetLobbyDistance( CSteamID steamIDLobby ) = 0;
+	virtual OBSOLETE_FUNCTION double GetLobbyDistance( CSteamID steamIDLobby ) = 0;
 };
 
 #endif // ISTEAMMATCHMAKING005_H

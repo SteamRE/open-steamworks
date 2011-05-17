@@ -43,7 +43,7 @@ public:
 	virtual uint32 GetLicenseFlags( uint32 nLicenseIndex ) = 0;
 	virtual const char *GetLicensePurchaseCountryCode( uint32 nLicenseIndex ) = 0;
 	virtual int GetLicenseTerritoryCode( uint32 nLicenseIndex ) = 0;
-	virtual unknown_ret GetLicenseInfo( uint32 nLicenseIndex, uint32 *, uint32 *, int *, int *, EPaymentMethod *, uint32 *, int *, char * ) = 0;
+	virtual bool GetLicenseInfo( uint32 nLicenseIndex, uint32 *, uint32 *, int *, int *, EPaymentMethod *, uint32 *, int *, char * ) = 0;
 
 	virtual PackageId_t GetReceiptPackageID( uint32 nReceiptIndex ) = 0;
 	virtual EPurchaseStatus GetReceiptStatus( uint32 nReceiptIndex ) = 0;
@@ -62,6 +62,8 @@ public:
 	virtual const char *GetReceiptErrorString( uint32 nReceiptIndex ) = 0;
 	virtual const char *GetReceiptErrorLinkText( uint32 nReceiptIndex ) = 0;
 	virtual const char *GetReceiptErrorLinkURL( uint32 nReceiptIndex ) = 0;
+
+	virtual AppId_t GetReceiptErrorAppID( uint32 nReceiptIndex ) = 0;
 
 	virtual uint32 GetNumLicenses() = 0;
 	virtual uint32 GetNumReceipts() = 0;
