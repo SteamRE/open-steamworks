@@ -134,10 +134,12 @@ typedef unsigned int uintp;
 
 #endif // else _WIN32
 
-#ifndef _MSC_VER
-	#define abstract_class class
-#else
-	#define abstract_class class __declspec( novtable )
+#ifndef abstract_class
+	#ifndef _MSC_VER
+		#define abstract_class class
+	#else
+		#define abstract_class class __declspec( novtable )
+	#endif
 #endif
 
 // steamclient/api

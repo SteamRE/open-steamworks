@@ -27,7 +27,11 @@
 	#ifdef _MSC_VER
 		#define OBSOLETE_INTERFACE __declspec(deprecated("This interface is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_INTERFACES to suppress this warning."))
 	#elif defined(__GNUC__)
-		#define OBSOLETE_INTERFACE __attribute__((__deprecated__("This interface is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_INTERFACES to suppress this warning.")))
+		#if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5))
+			#define OBSOLETE_INTERFACE __attribute__((__deprecated__("This interface is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_INTERFACES to suppress this warning.")))
+		#else
+			#define OBSOLETE_INTERFACE __attribute__((__deprecated__))
+		#endif
 	#else
 		#define OBSOLETE_INTERFACE
 	#endif
@@ -39,7 +43,11 @@
 	#ifdef _MSC_VER
 		#define OBSOLETE_FUNCTION __declspec(deprecated("This function is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_FUNCTIONS to suppress this warning."))
 	#elif defined(__GNUC__)
-		#define OBSOLETE_FUNCTION __attribute__((__deprecated__("This function is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_FUNCTIONS to suppress this warning.")))
+		#if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5))
+			#define OBSOLETE_FUNCTION __attribute__((__deprecated__("This function is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_FUNCTIONS to suppress this warning.")))
+		#else
+			#define OBSOLETE_FUNCTION __attribute__((__deprecated__))
+		#endif
 	#else
 		#define OBSOLETE_FUNCTION
 	#endif
@@ -51,7 +59,11 @@
 	#ifdef _MSC_VER
 		#define UNSAFE_INTERFACE __declspec(deprecated("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to suppress this warning."))
 	#elif defined(__GNUC__)
-		#define UNSAFE_INTERFACE __attribute__((__deprecated__("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to suppress this warning.")))
+		#if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5))
+			#define UNSAFE_INTERFACE __attribute__((__deprecated__("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to suppress this warning.")))
+		#else
+			#define UNSAFE_INTERFACE __attribute__((__deprecated__))
+		#endif
 	#else
 		#define UNSAFE_INTERFACE
 	#endif
@@ -63,7 +75,11 @@
 	#ifdef _MSC_VER
 		#define S_API_UNSAFE extern "C" __declspec( dllexport deprecated("Steam*() interface accessing functions are unversioned and potentially unsafe. These are versioned to assume you are using the latest version of the steam_api loader, if this is not the case your code is likely to crash, read the comment above the functions to learn about the version safe accessing method that will account for newer steam_api versions, older versions are always unsupported. #define STEAM_API_NON_VERSIONED_INTERFACES to suppress this warning.") )
 	#elif defined(__GNUC__)
-		#define S_API_UNSAFE extern "C" __attribute__((__deprecated__("Steam*() interface accessing functions are unversioned and potentially unsafe. These are versioned to assume you are using the latest version of the steam_api loader, if this is not the case your code is likely to crash, read the comment above the functions to learn about the version safe accessing method that will account for newer steam_api versions, older versions are always unsupported. #define STEAM_API_NON_VERSIONED_INTERFACES to suppress this warning.")))
+		#if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5))
+			#define S_API_UNSAFE extern "C" __attribute__((__deprecated__("Steam*() interface accessing functions are unversioned and potentially unsafe. These are versioned to assume you are using the latest version of the steam_api loader, if this is not the case your code is likely to crash, read the comment above the functions to learn about the version safe accessing method that will account for newer steam_api versions, older versions are always unsupported. #define STEAM_API_NON_VERSIONED_INTERFACES to suppress this warning.")))
+		#else
+			#define S_API_UNSAFE extern "C" __attribute__((__deprecated__))
+		#endif
 	#else
 		#define S_API_UNSAFE extern "C"
 	#endif
