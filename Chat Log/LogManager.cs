@@ -461,6 +461,17 @@
         {
         }
 
+        int Clamp( int value, int min, int max )
+        {
+            if ( value < min )
+                return min;
+
+            if ( value > max )
+                return max;
+
+            return value;
+        }
+
         void ChatRoomMsg( ChatRoomMsg_t chatMsg )
         {
             if ( !groupChatEnabled || !sets.GroupChatEnabled )
@@ -472,8 +483,7 @@
 
             int len = getChatMsg( clientFriends.Interface, chatMsg.m_ulSteamIDChat, ( int )chatMsg.m_iChatID, ref chatter, msgData, msgData.Length, ref chatType );
 
-            if ( len <= 0 )
-                len = 1;
+            len = Clamp( len, 1, msgData.Length );
 
             LogMessage log = new LogMessage();
 
@@ -487,8 +497,7 @@
             log.Reciever = log.Sender;
             log.RecieverName = log.SenderName;
 
-            log.Message = Encoding.UTF8.GetString( msgData );
-            log.Message = log.Message.Substring( 0, log.Message.Length - 1 );
+            log.Message = Encoding.UTF8.GetString( msgData, 0, len );
             log.MessageTime = DateTime.Now;
             log.MessageType = chatType;
 
@@ -509,8 +518,7 @@
             if ( type == EChatEntryType.k_EChatEntryTypeTyping )
                 return;
 
-            if ( msgLength <= 0 )
-                msgLength = 1; // JUST IN CASE!!
+            msgLength = Clamp( msgLength, 1, msgData.Length );
 
             LogMessage log = new LogMessage();
 
@@ -520,8 +528,8 @@
             log.Reciever = reciever;
             log.RecieverName = steamFriends.GetFriendPersonaName( log.Reciever );
 
-            log.Message = Encoding.UTF8.GetString( msgData );
-            log.Message = log.Message.Substring( 0, log.Message.Length - 1 );
+            log.Message = Encoding.UTF8.GetString( msgData, 0, msgLength );
+            //log.Message = log.Message.Substring( 0, log.Message.Length - 1 );
             log.MessageTime = DateTime.Now;
             log.MessageType = type;
 
