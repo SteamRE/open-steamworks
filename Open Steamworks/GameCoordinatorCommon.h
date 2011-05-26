@@ -51,10 +51,8 @@ typedef enum EGCResults
 } EGCResults;
 
 /**
- * This enum has been updated to match the TF2 Beta's messages.
- * In addition to now not matching main TF2, Valve moved a lot of messages 
- * over to the protobuf format. This means that the structs below should no
- * longer be trusted to be correct.
+ * Valve moved a lot of messages to the protobuf format.
+ * This means that the structs below should no longer be trusted to be correct.
  * A protobuf message can be detected with:
  *  (uMsgType & 0x80000000) == 0x80000000
  */
@@ -97,13 +95,15 @@ typedef enum EGCMessages
 	k_EGCMsgPostAlert,
 	k_EGCMsgGetLicenses,
 	k_EGCMsgGetUserStats,
-	k_EGCMsgAddFreeLicense = 80,
+	k_EGCMsgGetCommands,
+	k_EGCMsgGetCommandsResponse,
+	k_EGCMsgAddFreeLicense,
 	k_EGCMsgAddFreeLicenseResponse,
-	
+
 	k_EGCMsgWebAPIRegisterInterfaces = 101,
 	k_EGCMsgWebAPIJobRequest,
 	k_EGCMsgWebAPIRegistrationRequested,
-	
+
 	k_EGCMsgMemCachedGet = 200,
 	k_EGCMsgMemCachedGetResponse,
 	k_EGCMsgMemCachedSet,
@@ -158,6 +158,7 @@ typedef enum EGCMessages
 	k_EMsgGCStartupCheck,
 	k_EMsgGCStartupCheckResponse,
 	k_EMsgGCUpdateItemSchema,
+	k_EMsgGCRequestInventoryRefresh,
 
 	k_EMsgGCTrading_InitiateTradeRequest = 1501,
 	k_EMsgGCTrading_InitiateTradeResponse,
@@ -178,8 +179,8 @@ typedef enum EGCMessages
 
 	k_EMsgGCDev_NewItemRequest = 2001,
 	k_EMsgGCDev_NewItemRequestResponse,
-	
-	k_EMsgGCStoreGetUserData = 3000,
+
+	k_EMsgGCStoreGetUserData = 2500,
 	k_EMsgGCStoreGetUserDataResponse,
 	k_EMsgGCStorePurchaseInit,
 	k_EMsgGCStorePurchaseInitResponse,
@@ -189,9 +190,11 @@ typedef enum EGCMessages
 	k_EMsgGCStorePurchaseCancelResponse,
 	k_EMsgGCStorePurchaseQueryTxn,
 	k_EMsgGCStorePurchaseQueryTxnResponse,
-	
+
+	k_EMsgGCSystemMessage = 3001,
+
 	k_EMsgGCReportWarKill = 5001,
-	
+
 	k_EMsgGCVoteKickBanPlayer = 5018,
 	k_EMsgGCVoteKickBanPlayerResult,
 	k_EMsgGCKickPlayer,
@@ -200,7 +203,9 @@ typedef enum EGCMessages
 	k_EMsgGCRequestTF2Friends,
 	k_EMsgGCRequestTF2FriendsResponse,
 	k_EMsgGCReplay_UploadedToYouTube,
-	
+	k_EMsgGCReplay_SubmitContestEntry,
+	k_EMsgGCReplay_SubmitContestEntryResponse,
+
 	k_EMsgGCCoaching_AddToCoaches = 5200,
 	k_EMsgGCCoaching_AddToCoachesResponse,
 	k_EMsgGCCoaching_RemoveFromCoaches,
@@ -215,18 +220,19 @@ typedef enum EGCMessages
 	k_EMsgGCCoaching_LikeCurrentCoach,
 	k_EMsgGCCoaching_RemoveCurrentCoach,
 	k_EMsgGCCoaching_AlreadyRatedCoach,
-	
+
 	k_EMsgGC_Duel_Request = 5500,
 	k_EMsgGC_Duel_Response,
 	k_EMsgGC_Duel_Results,
 	k_EMsgGC_Duel_Status,
-	
+
 	k_EMsgGC_Halloween_ReservedItem = 5600,
 	k_EMsgGC_Halloween_GrantItem,
+
 	k_EMsgGC_Halloween_GrantItemResponse = 5604,
 	k_EMsgGC_Halloween_Cheat_QueryResponse,
 	k_EMsgGC_Halloween_ItemClaimed,
-	
+
 	k_EMsgGC_GameServer_LevelInfo = 5700,
 	k_EMsgGC_GameServer_AuthChallenge,
 	k_EMsgGC_GameServer_AuthChallengeResponse,
@@ -235,12 +241,17 @@ typedef enum EGCMessages
 	k_EMsgGC_GameServer_List,
 	k_EMsgGC_GameServer_ListResponse,
 	k_EMsgGC_GameServer_AuthResult,
-	
+	k_EMsgGC_GameServer_ResetIdentity,
+	k_EMsgGC_GameServer_ResetIdentityResponse,
+
 	k_EMsgGC_QP_ScoreServers = 5800,
 	k_EMsgGC_QP_ScoreServersResponse,
-	
+
 	k_EMsgGC_PickupItemEligibility_Query = 6000,
-	k_EMsgGCDev_GrantWarKill
+	k_EMsgGCDev_GrantWarKill,
+
+	k_EMsgGC_IncrementKillCountAttribute = 6100,
+	k_EMsgGC_IncrementKillCountResponse
 	
 } EGCMessages;
 
