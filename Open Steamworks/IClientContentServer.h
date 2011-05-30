@@ -34,9 +34,9 @@ abstract_class UNSAFE_INTERFACE IClientContentServer
 	virtual void LogOn( uint32 uContentServerID ) = 0;
 	virtual void LogOff() = 0;
 
-	virtual bool LoggedOn() = 0;
+	virtual bool BLoggedOn() = 0;
 	virtual ELogonState GetLogonState() = 0;
-	virtual bool Connected() = 0;
+	virtual bool BConnected() = 0;
 
 	virtual int RaiseConnectionPriority( EConnectionPriority eConnectionPriority ) = 0;
 	virtual void ResetConnectionPriority( int hRaiseConnectionPriorityPrev ) = 0;
@@ -44,7 +44,7 @@ abstract_class UNSAFE_INTERFACE IClientContentServer
 	virtual void SetCellID( CellID_t cellID ) = 0;
 
 	virtual bool SendClientContentAuthRequest( CSteamID steamID, uint32 unContentID, bool bUseToken, uint64 ulSessionToken, bool bTokenPresent ) = 0;
-	virtual bool CheckTicket( CSteamID steamID, uint32 uContentID, const void *pvTicketData, uint32 cubTicketLength ) = 0;
+	virtual bool BCheckTicket( CSteamID steamID, uint32 uContentID, const void *pvTicketData, uint32 cubTicketLength ) = 0;
 };
 
 #endif // ICLIENTCONTENTSERVER_H

@@ -36,7 +36,7 @@ public:
 	virtual HSteamPipe CreateSteamPipe() = 0;
 
 	// Releases a previously created communications pipe
-	virtual bool ReleaseSteamPipe( HSteamPipe hSteamPipe ) = 0;
+	virtual bool BReleaseSteamPipe( HSteamPipe hSteamPipe ) = 0;
 
 	// creates a global instance of a steam user, so that other processes can share it
 	// used by the steam UI, to share it's account info/connection with any games it launches

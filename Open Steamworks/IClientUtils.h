@@ -80,7 +80,7 @@ public:
 
 	virtual CellID_t GetCellID() = 0;
 
-	virtual bool IsGlobalInstance() = 0;
+	virtual bool BIsGlobalInstance() = 0;
 
 	// Asynchronous call to check if file is signed, result is returned in CheckFileSignature_t
 	virtual SteamAPICall_t CheckFileSignature( const char *szFileName ) = 0;

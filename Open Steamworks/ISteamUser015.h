@@ -126,7 +126,7 @@ public:
 	virtual EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
 
 
-	virtual bool IsBehindNAT() = 0;
+	virtual bool BIsBehindNAT() = 0;
 	
 	virtual bool AdvertiseGame( CSteamID steamIDGameServer, uint32 unIPServer , uint16 usPortServer ) = 0;
 

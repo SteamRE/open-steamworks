@@ -169,7 +169,7 @@ public:
 	virtual bool GetChatRoomPermissions( CSteamID steamIDchat, uint32 *prgfChatRoomPermissions ) = 0;
 
 	virtual bool SetChatRoomModerated( CSteamID steamIDchat, bool bModerated ) = 0;
-	virtual bool ChatRoomModerated( CSteamID steamIDChat ) = 0;
+	virtual bool BChatRoomModerated( CSteamID steamIDChat ) = 0;
 
 	virtual bool NotifyChatRoomDlgsOfUIChange( CSteamID steamIDchat, bool bShowAvatars, bool bBeepOnNewMsg, bool bShowSteamIDs, bool bShowTimestampOnNewMsg ) = 0;
 
@@ -180,7 +180,7 @@ public:
 
 	virtual const char *GetChatRoomName( CSteamID steamIDchat ) = 0;
 
-	virtual bool GetChatRoomMemberDetails( CSteamID steamIDchat, CSteamID steamIDuser, uint32* pChatMemberDetails, uint32* pChatMemberDetailsLocal ) = 0;
+	virtual bool BGetChatRoomMemberDetails( CSteamID steamIDchat, CSteamID steamIDuser, uint32* pChatMemberDetails, uint32* pChatMemberDetailsLocal ) = 0;
 
 	virtual void CreateChatRoom( EChatRoomType eType, uint64 ulGameID, const char *pchName, ELobbyType eLobbyType, CSteamID steamIDClan, CSteamID steamIDFriendChat, CSteamID steamIDInvited, uint32 chatPermissionOfficer, uint32 chatPermissionMember, uint32 chatPermissionAll ) = 0;
 
@@ -200,8 +200,8 @@ public:
 	virtual void VoiceAnswer( HVoiceCall hVoiceCall ) = 0;
 
 	virtual void VoicePutOnHold( HVoiceCall HVoiceCall, bool bOnLocalHold ) = 0;
-	virtual bool VoiceIsLocalOnHold( HVoiceCall hVoiceCall ) = 0;
-	virtual bool VoiceIsRemoteOnHold( HVoiceCall hVoiceCall ) = 0;
+	virtual bool BVoiceIsLocalOnHold( HVoiceCall hVoiceCall ) = 0;
+	virtual bool BVoiceIsRemoteOnHold( HVoiceCall hVoiceCall ) = 0;
 
 	virtual void SetDoNotDisturb( bool bDoNotDisturb ) = 0;
 
@@ -241,8 +241,8 @@ public:
 	virtual float TimeSinceLastVoiceDataReceived( HVoiceCall hVoiceCall ) = 0;
 	virtual float TimeSinceLastVoiceDataSend( HVoiceCall hVoiceCall ) = 0;
 
-	virtual bool CanSend( HVoiceCall hVoiceCall ) = 0;
-	virtual bool CanReceive( HVoiceCall hVoiceCall ) = 0;
+	virtual bool BCanSend( HVoiceCall hVoiceCall ) = 0;
+	virtual bool BCanReceive( HVoiceCall hVoiceCall ) = 0;
 
 	virtual float GetEstimatedBitsPerSecond( HVoiceCall hVoiceCall, bool bIncoming ) = 0;
 	virtual float GetPeakSample( HVoiceCall hVoiceCall, bool bIncoming ) = 0;
@@ -262,9 +262,9 @@ public:
 	virtual CSteamID GetChatRoomVoiceUsedSlot( CSteamID steamID, int iSlot ) = 0;
 	virtual EChatRoomVoiceStatus GetChatRoomVoiceStatus( CSteamID steamIDchat, CSteamID steamIDuser ) = 0;
 
-	virtual bool ChatRoomHasAvailableVoiceSlots( CSteamID steamID ) = 0;
+	virtual bool BChatRoomHasAvailableVoiceSlots( CSteamID steamID ) = 0;
 
-	virtual bool IsChatRoomVoiceSpeaking( CSteamID steamIDchat, CSteamID steamIDuser ) = 0;
+	virtual bool BIsChatRoomVoiceSpeaking( CSteamID steamIDchat, CSteamID steamIDuser ) = 0;
 
 	virtual float GetChatRoomPeakSample( CSteamID steamIDchat, CSteamID steamIDuser, bool bIncoming ) = 0;
 

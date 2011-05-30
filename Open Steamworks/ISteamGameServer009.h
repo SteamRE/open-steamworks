@@ -34,8 +34,8 @@ public:
 	virtual void LogOff() = 0;
 	
 	// status functions
-	virtual bool LoggedOn() = 0;
-	virtual bool Secure() = 0; 
+	virtual bool BLoggedOn() = 0;
+	virtual bool BSecure() = 0; 
 	virtual CSteamID GetSteamID() = 0;
 
 	// Handles receiving a new connection from a Steam user.  This call will ask the Steam
@@ -65,7 +65,7 @@ public:
 	// GSUserValidationSuccess callback.
 	// 
 	// Return Value: true if successful, false if failure (ie, steamIDUser wasn't for an active player)
-	virtual bool UpdateUserData( CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore ) = 0;
+	virtual bool BUpdateUserData( CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore ) = 0;
 
 	// You shouldn't need to call this as it is called internally by SteamGameServer_Init() and can only be called once.
 	//
@@ -83,7 +83,7 @@ public:
 	//			
 	// bugbug jmccaskey - figure out how to remove this from the API and only expose via SteamGameServer_Init... or make this actually used,
 	// and stop calling it in SteamGameServer_Init()?
-	virtual bool SetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
+	virtual bool BSetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
 	virtual void UpdateServerStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
@@ -96,7 +96,7 @@ public:
 	virtual void SetGameType( const char *pchGameType ) = 0; 
 
 	// Ask if a user has a specific achievement for this game, will get a callback on reply
-	virtual bool GetUserAchievementStatus( CSteamID steamID, const char *pchAchievementName ) = 0;
+	virtual bool BGetUserAchievementStatus( CSteamID steamID, const char *pchAchievementName ) = 0;
 
 	// Ask for the gameplay stats for the server. Results returned in a callback
 	virtual void GetGameplayStats( ) = 0;

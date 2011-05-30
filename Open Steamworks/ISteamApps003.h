@@ -29,18 +29,18 @@
 abstract_class ISteamApps003
 {
 public:
-	virtual bool IsSubscribed() = 0;
-	virtual bool IsLowViolence() = 0;
-	virtual bool IsCybercafe() = 0;
-	virtual bool IsVACBanned() = 0;
+	virtual bool BIsSubscribed() = 0;
+	virtual bool BIsLowViolence() = 0;
+	virtual bool BIsCybercafe() = 0;
+	virtual bool BIsVACBanned() = 0;
 	virtual const char *GetCurrentGameLanguage() = 0;
 	virtual const char *GetAvailableGameLanguages() = 0;
 
 	// only use this member if you need to check ownership of another game related to yours, a demo for example
-	virtual bool IsSubscribedApp( AppId_t appID ) = 0;
+	virtual bool BIsSubscribedApp( AppId_t appID ) = 0;
 
 	// Takes AppID of DLC and checks if the user owns the DLC & if the DLC is installed
-	virtual bool IsDlcInstalled( AppId_t appID ) = 0;
+	virtual bool BIsDlcInstalled( AppId_t appID ) = 0;
 };
 
 

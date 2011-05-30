@@ -29,11 +29,11 @@ public:
 	virtual bool LogOn( uint32 uContentServerID ) = 0;
 	virtual bool LogOff() = 0;
 
-	virtual bool LoggedOn() = 0;
+	virtual bool BLoggedOn() = 0;
 
 	virtual void SendClientContentAuthRequest( CSteamID steamId, uint32 unContentID, uint64 ulSessionToken, bool bTokenPresent ) = 0;
 
-	virtual bool CheckTicket( CSteamID steamId, uint32 uContentID, const void *pvTicketData, uint32 cubTicketLength ) = 0;
+	virtual bool BCheckTicket( CSteamID steamId, uint32 uContentID, const void *pvTicketData, uint32 cubTicketLength ) = 0;
 };
 
 

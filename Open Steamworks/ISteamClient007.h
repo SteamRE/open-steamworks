@@ -37,7 +37,7 @@ public:
 	virtual HSteamPipe CreateSteamPipe() = 0;
 
 	// Releases a previously created communications pipe
-	virtual bool ReleaseSteamPipe( HSteamPipe hSteamPipe ) = 0;
+	virtual bool BReleaseSteamPipe( HSteamPipe hSteamPipe ) = 0;
 
 	// connects to an existing global user, failing if none exists
 	// used by the game to coordinate with the steamUI

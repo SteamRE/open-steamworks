@@ -32,9 +32,9 @@ public:
 	// connection functions
 	virtual void LogOn() = 0;
 	virtual void LogOff() = 0;
-	virtual bool LoggedOn() = 0;
+	virtual bool BLoggedOn() = 0;
 
-	virtual bool Secure() = 0;
+	virtual bool BSecure() = 0;
 	virtual CSteamID GetSteamID() = 0;
 
 	virtual bool SendUserConnectAndAuthenticate( CSteamID steamIDUser, uint32, void *, uint32 ) = 0;
@@ -55,7 +55,7 @@ public:
 	// GSUserValidationSuccess callback.
 	// 
 	// Return Value: true if successful, false if failure (ie, steamIDUser wasn't for an active player)
-	virtual bool UpdateUserData( CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore ) = 0;
+	virtual bool BUpdateUserData( CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore ) = 0;
 
 	// You shouldn't need to call this as it is called internally by SteamGameServer_Init() and can only be called once.
 	//
@@ -73,7 +73,7 @@ public:
 	//			
 	// bugbug jmccaskey - figure out how to remove this from the API and only expose via SteamGameServer_Init... or make this actually used,
 	// and stop calling it in SteamGameServer_Init()?
-	virtual bool SetServerType( int32 nGameAppId, uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 usSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
+	virtual bool BSetServerType( int32 nGameAppId, uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 usSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 
 	virtual bool UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
@@ -85,7 +85,7 @@ public:
 	virtual void SetGameType( const char *pchGameType ) = 0; 
 
 	// Ask if a user has a specific achievement for this game, will get a callback on reply
-	virtual bool GetUserAchievementStatus( CSteamID steamID, const char *pchAchievementName ) = 0;
+	virtual bool BGetUserAchievementStatus( CSteamID steamID, const char *pchAchievementName ) = 0;
 };
 
 #endif // ISTEAMGAMESERVER004_H

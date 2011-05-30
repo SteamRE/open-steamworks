@@ -56,7 +56,7 @@ public:
 
 	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int cbBuffer ) = 0;
 
-	virtual bool IsAppUpToDate( AppId_t unAppID ) = 0;
+	virtual bool BIsAppUpToDate( AppId_t unAppID ) = 0;
 };
 
 #endif // ICLIENTAPPMANAGER_H

@@ -32,9 +32,9 @@ public:
 	// connection functions
 	virtual void LogOn() = 0;
 	virtual void LogOff() = 0;
-	virtual bool LoggedOn() = 0;
+	virtual bool BLoggedOn() = 0;
 
-	virtual bool Secure() = 0;
+	virtual bool BSecure() = 0;
 	virtual CSteamID GetSteamID() = 0;
 
 	virtual bool GetSteam2GetEncryptionKeyToSendToNewClient( void *pvEncryptionKey, uint32 *pcbEncryptionKey, uint32 cbMaxEncryptionKey ) = 0;

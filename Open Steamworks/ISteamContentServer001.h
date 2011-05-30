@@ -29,7 +29,7 @@ public:
 	virtual bool LogOn( uint32 uContentServerID ) = 0;
 	virtual bool LogOff() = 0;
 
-	virtual bool LoggedOn() = 0;
+	virtual bool BLoggedOn() = 0;
 
 	virtual void SendClientContentAuthRequest( CSteamID steamId, uint32 unContentID ) = 0;
 };

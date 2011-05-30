@@ -56,11 +56,11 @@ public:
 	// steam account management functions
 	virtual void LogOn() = 0;
 	virtual void LogOff() = 0;
-	virtual bool LoggedOn() = 0;
+	virtual bool BLoggedOn() = 0;
 
-	virtual bool Secure() = 0;
+	virtual bool BSecure() = 0;
 	virtual ELogonState GetLogonState() = 0;
-	virtual bool Connected() = 0;
+	virtual bool BConnected() = 0;
 
 	virtual int RaiseConnectionPriority( EConnectionPriority eConnectionPriority ) = 0;
 	virtual void ResetConnectionPriority( int hRaiseConnectionPriorityPrev ) = 0;
@@ -107,7 +107,7 @@ public:
 	//			
 	// bugbug jmccaskey - figure out how to remove this from the API and only expose via SteamGameServer_Init... or make this actually used,
 	// and stop calling it in SteamGameServer_Init()?
-	virtual bool SetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
+	virtual bool BSetServerType( uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 
 
 	// Update the data to be displayed in the server browser and matchmaking interfaces for a user
@@ -115,7 +115,7 @@ public:
 	// GSUserValidationSuccess callback.
 	// 
 	// Return Value: true if successful, false if failure (ie, steamIDUser wasn't for an active player)
-	virtual bool UpdateUserData( CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore ) = 0;
+	virtual bool BUpdateUserData( CSteamID steamIDUser, const char *pchPlayerName, uint32 uScore ) = 0;
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
 	virtual void UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;

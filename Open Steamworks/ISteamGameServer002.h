@@ -32,7 +32,7 @@ public:
 	// connection functions
 	virtual void LogOn() = 0;
 	virtual void LogOff() = 0;
-	virtual bool LoggedOn() = 0;
+	virtual bool BLoggedOn() = 0;
 
 	// user authentication functions
 	virtual void SetSpawnCount( uint32 ucSpawn ) = 0;
@@ -62,7 +62,7 @@ public:
 	// Updates server status values which shows up in the server browser and matchmaking APIs
 	virtual bool UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pchMapName ) = 0;
 
-	virtual bool Secure() = 0; 
+	virtual bool BSecure() = 0; 
 	virtual CSteamID GetSteamID() = 0;
 
 	// You shouldn't need to call this as it is called internally by SteamGameServer_Init() and can only be called once.

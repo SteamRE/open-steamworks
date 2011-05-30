@@ -53,7 +53,7 @@ abstract_class UNSAFE_INTERFACE IClientEngine
 
 public:
 	virtual HSteamPipe CreateSteamPipe() = 0; 
-	virtual bool ReleaseSteamPipe( HSteamPipe hSteamPipe ) = 0;
+	virtual bool BReleaseSteamPipe( HSteamPipe hSteamPipe ) = 0;
 
 	virtual HSteamUser CreateGlobalUser( HSteamPipe* phSteamPipe ) = 0;
 	virtual HSteamUser ConnectToGlobalUser( HSteamPipe hSteamPipe ) = 0;
@@ -104,12 +104,12 @@ public:
 	virtual IClientAppManager* GetIClientAppManager( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientConfigStore *GetIClientConfigStore( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	
-	virtual bool OverlayNeedsPresent() = 0;
+	virtual bool BOverlayNeedsPresent() = 0;
 
 	virtual IClientGameStats* GetIClientGameStats( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientHTTP *GetIClientHTTP( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
-	virtual bool ShutdownIfAllPipesClosed() = 0;
+	virtual bool BShutdownIfAllPipesClosed() = 0;
 
 	virtual void *GetIPCServerMap() = 0;
 

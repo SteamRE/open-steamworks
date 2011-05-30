@@ -38,7 +38,7 @@ public:
 	// returns true if the Steam client current has a live connection to the Steam servers. 
 	// If false, it means there is no active connection due to either a networking issue on the local machine, or the Steam server is down/busy.
 	// The Steam client will automatically be trying to recreate the connection as often as possible.
-	virtual bool LoggedOn() = 0;
+	virtual bool BLoggedOn() = 0;
 
 	// returns the CSteamID of the account currently logged into the Steam client
 	// a CSteamID is a unique identifier for an account, and used to differentiate users in all parts of the Steamworks API

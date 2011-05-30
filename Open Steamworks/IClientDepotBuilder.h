@@ -60,12 +60,12 @@ public:
 	
 	virtual bool StartBuild( HDEPOTBUILD, bool, bool ) = 0;
 
-	virtual bool GetDepotBuildStatus( HDEPOTBUILD hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
+	virtual bool BGetDepotBuildStatus( HDEPOTBUILD hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
 	virtual bool CloseDepotBuildHandle( HDEPOTBUILD hDepotBuild ) = 0;
 
 	virtual HDEPOTBUILD ReconstructDepotFromManifestAndChunks( const char *pchLocalManifestPath, const char *pchLocalChunkPath, const char *pchRestorePath ) = 0;
 
-	virtual bool GetChunkCounts( HDEPOTBUILD hDepotBuild, uint32 *unTotalChunksInNewBuild, uint32 *unChunksAlsoInOldBuild ) = 0;
+	virtual bool BGetChunkCounts( HDEPOTBUILD hDepotBuild, uint32 *unTotalChunksInNewBuild, uint32 *unChunksAlsoInOldBuild ) = 0;
 
 	virtual bool GetManifestGIDs( HDEPOTBUILD hDepotBuild, uint64 *, uint64 *) = 0;
 };

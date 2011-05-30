@@ -34,10 +34,10 @@ public:
 	virtual void LogOnWithPassword( bool bUnk1, const char * pchLogin, const char * pchPassword ) = 0;
 	virtual void LogOnAndCreateNewSteamAccountIfNeeded( bool bUnk1 ) = 0;
 	virtual void LogOff() = 0;
-	virtual bool LoggedOn() = 0;
+	virtual bool BLoggedOn() = 0;
 	virtual ELogonState GetLogonState() = 0;
-	virtual bool Connected() = 0;
-	virtual bool TryingToLogin() = 0;
+	virtual bool BConnected() = 0;
+	virtual bool BTryingToLogin() = 0;
 
 	virtual CSteamID GetSteamID() = 0;
 	virtual CSteamID GetConsoleSteamID() = 0;
@@ -130,12 +130,12 @@ public:
 
 	virtual void SetComputerInUse() = 0;
 
-	virtual bool IsGameRunning( CGameID gameID ) = 0;
+	virtual bool BIsGameRunning( CGameID gameID ) = 0;
 
 
 	virtual uint64 GetCurrentSessionToken() = 0;
 
-	virtual bool UpdateAppOwnershipTicket( AppId_t nAppID, bool bOnlyUpdateIfStale, bool unk ) = 0;
+	virtual bool BUpdateAppOwnershipTicket( AppId_t nAppID, bool bOnlyUpdateIfStale, bool unk ) = 0;
 
 	virtual bool RequestCustomBinary( const char *pszAbsolutePath, AppId_t nAppID, bool bForceUpdate, bool bAppLaunchRequest ) = 0;
 	virtual bool GetCustomBinariesState( AppId_t unAppID, uint32 *punProgress ) = 0;
@@ -166,7 +166,7 @@ public:
 	virtual EVoiceResult DecompressVoice( void *pCompressed, uint32 cbCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32* nBytesWritten, uint32 nSamplesPerSec ) = 0;
 	virtual uint32 GetVoiceOptimalSampleRate() = 0;
 
-	virtual bool IsAnyGameRunning() = 0;
+	virtual bool BIsAnyGameRunning() = 0;
 
 	virtual void ChangePassword( const char *pchOldPassword, const char *pchNewPassword ) = 0;
 	virtual void ChangeEmail( const char *, const char *pchEmail ) = 0;
@@ -214,10 +214,10 @@ public:
 	virtual bool GetEncryptedAppTicket( void *pTicket, int cbMaxTicket, uint32 *pcbTicket ) = 0;
 
 	virtual void SetAccountLimited( bool bAccountLimited ) = 0;
-	virtual bool IsAccountLimited() = 0;
+	virtual bool BIsAccountLimited() = 0;
 
 	virtual void SendValidationEmail() = 0;
-	virtual bool GameConnectTokensAvailable() = 0;
+	virtual bool BGameConnectTokensAvailable() = 0;
 
 	virtual int NumGamesRunning() = 0;
 	virtual CGameID GetRunningGameID( int iGame ) = 0;
@@ -233,11 +233,11 @@ public:
 
 	virtual void VerifyPassword( const char *pchPassword ) = 0;
 
-	virtual bool SupportUser() = 0;
+	virtual bool BSupportUser() = 0;
 
-	virtual bool IsAppOverlayEnabled( uint32 ) = 0;
+	virtual bool BIsAppOverlayEnabled( uint32 ) = 0;
 
-	virtual bool IsBehindNAT() = 0;
+	virtual bool BIsBehindNAT() = 0;
 
 	virtual AppId_t GetMicroTxnAppID( uint64 ) = 0;
 	virtual uint64 GetMicroTxnOrderID( uint64 ) = 0;
@@ -271,13 +271,13 @@ public:
 	virtual void GetClientAppListResponse_Done( unsigned long long ) = 0;
 	virtual void PostUIResultToClientJob( unsigned long long, EResult ) = 0;
 
-	virtual bool PromptToVerifyEmail() = 0;
-	virtual bool PromptToChangePassword() = 0;
-	virtual bool AccountLocked() = 0;
-	virtual bool AccountShouldShowLockUI() = 0;
-	virtual bool AccountLockedByIPT() = 0;
+	virtual bool BPromptToVerifyEmail() = 0;
+	virtual bool BPromptToChangePassword() = 0;
+	virtual bool BAccountLocked() = 0;
+	virtual bool BAccountShouldShowLockUI() = 0;
+	virtual bool BAccountLockedByIPT() = 0;
 	virtual int32 GetCountAuthedComputers() = 0;
-	virtual bool AccountCanUseIPT() = 0;
+	virtual bool BAccountCanUseIPT() = 0;
 	virtual void ChangeTwoFactorAuthOptions( uint32 uOption ) = 0;
 	virtual void Set2ndFactorAuthCode( const char* pchAuthCode ) = 0;
 
