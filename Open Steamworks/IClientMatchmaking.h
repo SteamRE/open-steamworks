@@ -83,6 +83,12 @@ public:
 
 	virtual int GetGMSServerCount() = 0;
 	virtual bool GetGMSServerAddress( int iServer, uint32 *unServerIP, uint16 *usServerPort ) = 0;
+
+	// TODO : Check this when at least one GMS will be online.
+	virtual SteamAPICall_t BeginGMSQuery( AppId_t nAppId, int32 iRegionCode, const char* szFilterText ) = 0;
+	virtual int32 PollGMSQuery( SteamAPICall_t ) = 0;
+	virtual int32 GetGMSQueryResults( SteamAPICall_t, GMSQueryResult_t *, int32 iResultIndex ) = 0;
+	virtual void ReleaseGMSQuery( SteamAPICall_t ) = 0;
 };
 
 

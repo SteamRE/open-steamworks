@@ -39,7 +39,7 @@ class ISteamNetworking;
 class ISteamRemoteStorage;
 class ISteamGameServerItems;
 class ISteamGameServerStats;
-
+class ISteamHTTP;
 
 
 #define CLIENTENGINE_INTERFACE_VERSION "CLIENTENGINE_INTERFACE_VERSION001"

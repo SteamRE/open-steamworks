@@ -237,6 +237,15 @@ struct LobbyCreated_t
 
 	CSteamID m_ulSteamIDLobby;		// chat room, zero if failed
 };
+
+
+struct GMSQueryResult_t
+{
+	uint32 uServerIP;
+	uint32 uServerPort;
+	uint32 uAuthPlayers;
+};
+
 #pragma pack( pop )
 
 
