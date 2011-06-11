@@ -172,7 +172,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Steam4NET\Steam4NET.csproj">
+    <ProjectReference Include="..\..\Steam4NET\Steam4NET.csproj">
       <Project>{1A204257-FE82-4BBE-9ED4-40694821C31F}</Project>
       <Name>Steam4NET</Name>
     </ProjectReference>
