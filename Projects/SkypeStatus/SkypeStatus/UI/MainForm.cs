@@ -48,7 +48,7 @@ namespace SkypeStatus
                 return;
             }
 
-            SetSkypeMood( "Now Playing: ", name );
+            SetSkypeMood( "Now Playing: {0}", name );
 
 
         }
@@ -109,7 +109,7 @@ namespace SkypeStatus
                 return;
             }
 
-            SetSkypeMood( "Now Playing: ", name );
+            SetSkypeMood( "Now Playing: {0}", name );
         }
 
         private void SetSkypeMood( string steamGame, params object[] args )
