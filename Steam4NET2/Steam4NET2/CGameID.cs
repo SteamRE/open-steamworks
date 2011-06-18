@@ -27,6 +27,16 @@ namespace Steam4NET
         {
         }
 
+        public static implicit operator UInt64( CGameID gid )
+        {
+            return gid.gameid.Data;
+        }
+
+        public static implicit operator CGameID( UInt64 id )
+        {
+            return new CGameID( id );
+        }
+
         public UInt32 AppID
         {
             get

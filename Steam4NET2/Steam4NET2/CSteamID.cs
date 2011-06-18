@@ -28,6 +28,16 @@ namespace Steam4NET
             this.steamid = new InteropHelp.BitVector64( id );
         }
 
+        public static implicit operator UInt64( CSteamID sid )
+        {
+            return sid.steamid.Data;
+        }
+
+        public static implicit operator CSteamID( UInt64 id )
+        {
+            return new CSteamID( id );
+        }
+
         public void Set( UInt32 unAccountID, EUniverse eUniverse, EAccountType eAccountType )
         {
             this.AccountID = unAccountID;
