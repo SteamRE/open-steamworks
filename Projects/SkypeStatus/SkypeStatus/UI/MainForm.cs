@@ -134,7 +134,6 @@ namespace SkypeStatus
 
                 SteamContext.Init();
 
-                steamAttached = true;
                 lblSteam.Text = "Steam Status: Ready";
                 btnSteamAttach.Enabled = false;
 
@@ -144,7 +143,6 @@ namespace SkypeStatus
             catch ( SteamException ex )
             {
 
-                steamAttached = false;
                 lblSteam.Text = string.Format( "Steam Status: Error: {0}", ex.Message );
                 btnSteamAttach.Enabled = true;
 
@@ -176,7 +174,6 @@ namespace SkypeStatus
         {
             this.Invoke( new MethodInvoker( () =>
             {
-                skypeAttached = true;
                 lblSkype.Text = "Skype Status: Ready";
                 btnSkypeAttach.Enabled = false;
 
@@ -188,7 +185,6 @@ namespace SkypeStatus
         {
             this.Invoke( new MethodInvoker( () =>
             {
-                skypeAttached = false;
                 lblSkype.Text = "Skype Status: Access Denied!";
                 btnSkypeAttach.Enabled = true;
 
