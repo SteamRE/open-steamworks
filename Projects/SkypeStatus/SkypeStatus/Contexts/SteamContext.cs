@@ -28,6 +28,7 @@ namespace SkypeStatus
         public static ISteamApps001 SteamApps { get; private set; }
 
         public static Callback<PersonaStateChange_t> PersonaStateChange = new Callback<PersonaStateChange_t>();
+        public static Callback<AppDataChanged_t> AppDataChanged = new Callback<AppDataChanged_t>();
 
         public static void Init()
         {

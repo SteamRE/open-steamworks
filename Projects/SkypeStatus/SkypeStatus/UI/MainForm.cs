@@ -12,7 +12,7 @@ namespace SkypeStatus
 {
     public partial class MainForm : Form
     {
-        bool steamAttached, skypeAttached;
+        uint delayAppId;
 
 
         public MainForm()
@@ -21,11 +21,36 @@ namespace SkypeStatus
             SkypeContext.Ready += SkypeContext_Ready;
 
             SteamContext.PersonaStateChange.OnRun += PersonaStateChange_OnRun;
+            SteamContext.AppDataChanged.OnRun += AppDataChanged_OnRun;
 
             InitializeComponent();
 
             AttachSteam();
             AttachSkype();
+        }
+
+        void AppDataChanged_OnRun( AppDataChanged_t param )
+        {
+            if ( param.m_nAppID != delayAppId )
+            {
+                // only interested in delayed info for the game we launched!
+                return;
+            }
+
+            StringBuilder sb = new StringBuilder( 256 );
+            int len = SteamContext.SteamApps.GetAppData( param.m_nAppID, "name", sb );
+
+            string name = sb.ToString();
+
+            if ( string.IsNullOrWhiteSpace( name ) || len == 0 )
+            {
+                Log( "Warning: Was unable to get delayed game info for AppID: {0}", param.m_nAppID );
+                return;
+            }
+
+            SetSkypeMood( "Now Playing: ", name );
+
+
         }
 
         void PersonaStateChange_OnRun( PersonaStateChange_t param )
@@ -71,13 +96,16 @@ namespace SkypeStatus
             }
 
             StringBuilder sb = new StringBuilder( 256 );
-            SteamContext.SteamApps.GetAppData( gameId.AppID, "name", sb );
+            int len = SteamContext.SteamApps.GetAppData( gameId.AppID, "name", sb );
 
             string name = sb.ToString();
 
-            if ( string.IsNullOrEmpty( name ) )
+            if ( string.IsNullOrWhiteSpace( name ) || len == 0 )
             {
-                Log( "Warning: Detect game launch, but wasn't able to get the name! AppID: {0}, GameID: {1}", gameId.AppID, gameId.ConvertToUint64() );
+                Log( "Info: Detect game launch, but wasn't able to get the name! AppID: {0}, GameID: {1}", gameId.AppID, gameId.ConvertToUint64() );
+                Log( "Will try to pick up a delayed game update!" );
+
+                delayAppId = gameId.AppID;
                 return;
             }
 
