@@ -13,6 +13,7 @@ namespace SkypeStatus
     public partial class MainForm : Form
     {
         uint delayAppId;
+        bool closing;
 
 
         public MainForm()
@@ -49,7 +50,7 @@ namespace SkypeStatus
             }
 
             SetSkypeMood( "Now Playing: {0}", name );
-
+            Log( "Now playing: {0}", name );
 
         }
 
@@ -110,6 +111,7 @@ namespace SkypeStatus
             }
 
             SetSkypeMood( "Now Playing: {0}", name );
+            Log( "Now playing: {0}", name );
         }
 
         private void SetSkypeMood( string steamGame, params object[] args )
@@ -204,8 +206,45 @@ namespace SkypeStatus
 
         private void MainForm_FormClosing( object sender, FormClosingEventArgs e )
         {
-            SteamContext.Shutdown();
+            if ( closing )
+            {
+                SteamContext.Shutdown();
+                return;
+            }
+
+            e.Cancel = true;
+            this.Hide();
         }
 
+        private void contextMenuStrip1_Opening( object sender, CancelEventArgs e )
+        {
+            showToolStripMenuItem.Text = this.Visible ? "Hide" : "Show";
+        }
+
+        private void exitToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            closing = true;
+            this.Close();
+        }
+
+        private void showToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            if ( this.Visible )
+            {
+                this.Hide();
+            }
+            else
+            {
+                this.Show();
+            }
+        }
+
+        private void notifyIcon_MouseDoubleClick( object sender, MouseEventArgs e )
+        {
+            if ( !this.Visible )
+            {
+                this.Show();
+            }
+        }
     }
 }

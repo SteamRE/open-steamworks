@@ -28,15 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSkypeAttach = new System.Windows.Forms.Button();
             this.lblSteam = new System.Windows.Forms.Label();
             this.lblSkype = new System.Windows.Forms.Label();
             this.btnSteamAttach = new System.Windows.Forms.Button();
-            this.btnSkypeAttach = new System.Windows.Forms.Button();
             this.txtLog = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon( this.components );
+            this.notifyStrip = new System.Windows.Forms.ContextMenuStrip( this.components );
+            this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.notifyStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -60,16 +68,18 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size( 429, 275 );
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // panel1
+            // btnSkypeAttach
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add( this.tableLayoutPanel1 );
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point( 0, 0 );
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding( 3 );
-            this.panel1.Size = new System.Drawing.Size( 437, 283 );
-            this.panel1.TabIndex = 1;
+            this.btnSkypeAttach.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
+                        | System.Windows.Forms.AnchorStyles.Left )
+                        | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.btnSkypeAttach.Location = new System.Drawing.Point( 218, 72 );
+            this.btnSkypeAttach.Name = "btnSkypeAttach";
+            this.btnSkypeAttach.Size = new System.Drawing.Size( 207, 61 );
+            this.btnSkypeAttach.TabIndex = 3;
+            this.btnSkypeAttach.Text = "Attach";
+            this.btnSkypeAttach.UseVisualStyleBackColor = true;
+            this.btnSkypeAttach.Click += new System.EventHandler( this.btnSkypeAttach_Click );
             // 
             // lblSteam
             // 
@@ -108,18 +118,7 @@
             this.btnSteamAttach.TabIndex = 2;
             this.btnSteamAttach.Text = "Attach";
             this.btnSteamAttach.UseVisualStyleBackColor = true;
-            // 
-            // btnSkypeAttach
-            // 
-            this.btnSkypeAttach.Anchor = ( ( System.Windows.Forms.AnchorStyles )( ( ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom )
-                        | System.Windows.Forms.AnchorStyles.Left )
-                        | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.btnSkypeAttach.Location = new System.Drawing.Point( 218, 72 );
-            this.btnSkypeAttach.Name = "btnSkypeAttach";
-            this.btnSkypeAttach.Size = new System.Drawing.Size( 207, 61 );
-            this.btnSkypeAttach.TabIndex = 3;
-            this.btnSkypeAttach.Text = "Attach";
-            this.btnSkypeAttach.UseVisualStyleBackColor = true;
+            this.btnSteamAttach.Click += new System.EventHandler( this.btnSteamAttach_Click );
             // 
             // txtLog
             // 
@@ -133,17 +132,69 @@
             this.txtLog.Size = new System.Drawing.Size( 421, 131 );
             this.txtLog.TabIndex = 4;
             // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add( this.tableLayoutPanel1 );
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point( 0, 0 );
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding( 3 );
+            this.panel1.Size = new System.Drawing.Size( 437, 283 );
+            this.panel1.TabIndex = 1;
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.ContextMenuStrip = this.notifyStrip;
+            this.notifyIcon.Icon = ( ( System.Drawing.Icon )( resources.GetObject( "notifyIcon.Icon" ) ) );
+            this.notifyIcon.Text = "Skype Status";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler( this.notifyIcon_MouseDoubleClick );
+            // 
+            // notifyStrip
+            // 
+            this.notifyStrip.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.showToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exitToolStripMenuItem} );
+            this.notifyStrip.Name = "contextMenuStrip1";
+            this.notifyStrip.Size = new System.Drawing.Size( 134, 54 );
+            this.notifyStrip.Opening += new System.ComponentModel.CancelEventHandler( this.contextMenuStrip1_Opening );
+            // 
+            // showToolStripMenuItem
+            // 
+            this.showToolStripMenuItem.Name = "showToolStripMenuItem";
+            this.showToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.showToolStripMenuItem.Text = "Show/Hide";
+            this.showToolStripMenuItem.Click += new System.EventHandler( this.showToolStripMenuItem_Click );
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size( 149, 6 );
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Image = ( ( System.Drawing.Image )( resources.GetObject( "exitToolStripMenuItem.Image" ) ) );
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size( 133, 22 );
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler( this.exitToolStripMenuItem_Click );
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size( 437, 283 );
             this.Controls.Add( this.panel1 );
+            this.Icon = ( ( System.Drawing.Icon )( resources.GetObject( "$this.Icon" ) ) );
             this.Name = "MainForm";
             this.Text = "Skype Status";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler( this.MainForm_FormClosing );
             this.tableLayoutPanel1.ResumeLayout( false );
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout( false );
+            this.notifyStrip.ResumeLayout( false );
             this.ResumeLayout( false );
 
         }
@@ -157,6 +208,11 @@
         private System.Windows.Forms.Label lblSkype;
         private System.Windows.Forms.Button btnSteamAttach;
         private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip notifyStrip;
+        private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 
