@@ -47,6 +47,7 @@ typedef enum ELicenseFlags
 	k_ELicenseFlagExpired = 0x08,			// Regular expiration (no renewal attempted)
 	k_ELicenseFlagCancelledByUser = 0x10,	// Cancelled by the user
 	k_ELicenseFlagCancelledByAdmin = 0x20,	// Cancelled by customer support
+	k_ELicenseFlagLowViolence = 0x40,
 } ELicenseFlags;
 
 // Payment methods for purchases - BIT FLAGS so can be used to indicate
