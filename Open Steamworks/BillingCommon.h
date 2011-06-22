@@ -41,6 +41,7 @@ typedef enum ECurrencyCode
 // Flags for licenses - BITS
 typedef enum ELicenseFlags
 {
+	k_ELicenseFlagNone = 0,
 	k_ELicenseFlagRenew = 0x01,				// Renew this license next period
 	k_ELicenseFlagRenewalFailed = 0x02,		// Auto-renew failed
 	k_ELicenseFlagPending = 0x04,			// Purchase or renewal is pending
@@ -48,6 +49,7 @@ typedef enum ELicenseFlags
 	k_ELicenseFlagCancelledByUser = 0x10,	// Cancelled by the user
 	k_ELicenseFlagCancelledByAdmin = 0x20,	// Cancelled by customer support
 	k_ELicenseFlagLowViolence = 0x40,
+	k_ELicenseFlagImportedFromSteam2 = 0x80,
 } ELicenseFlags;
 
 // Payment methods for purchases - BIT FLAGS so can be used to indicate
