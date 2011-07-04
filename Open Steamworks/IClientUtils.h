@@ -85,7 +85,7 @@ public:
 	// Asynchronous call to check if file is signed, result is returned in CheckFileSignature_t
 	virtual SteamAPICall_t CheckFileSignature( const char *szFileName ) = 0;
 
-	virtual uint32 GetBuildID() = 0;
+	virtual uint64 GetBuildID() = 0;
 };
 
 #endif // ICLIENTUTILS_H
