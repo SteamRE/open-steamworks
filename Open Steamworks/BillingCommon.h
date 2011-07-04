@@ -131,6 +131,16 @@ typedef enum ECreditCardType
 	k_ECreditCardTypeJCB = 6,
 } ECreditCardType;
 
+enum ELicenseType
+{
+	k_ENoLicense = 0,
+	k_ESinglePurchase = 1,
+	k_ESinglePurchaseLimitedUse = 2,
+	k_ERecurringCharge = 3,
+	k_ERecurringChargeLimitedUse = 4,
+	k_ERecurringChargeLimitedUseWithOverages = 5,
+};
+
 
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
