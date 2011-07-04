@@ -33,7 +33,9 @@ struct AppUpdateInfo_s
 };
 
 struct DownloadStats_s;
-enum EAppDownloadPriority;
+enum EAppDownloadPriority
+{
+};
 
 abstract_class UNSAFE_INTERFACE IClientAppManager
 {

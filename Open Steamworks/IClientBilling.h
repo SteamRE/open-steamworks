@@ -24,7 +24,9 @@
 #include "BillingCommon.h"
 
 
-enum EPackageStatus;
+enum EPackageStatus
+{
+};
 
 
 abstract_class UNSAFE_INTERFACE IClientBilling

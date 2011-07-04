@@ -21,13 +21,13 @@
 #endif
 
 
+#include "RemoteStorageCommon.h"
+
+
 // versions
 #define CLIENTSCREENSHOTS_INTERFACE_VERSION "CLIENTSCREENSHOTS_INTERFACE_VERSION001"
 #define STEAMSCREENSHOTS_INTERFACE_VERSION_001 "STEAMSCREENSHOTS_INTERFACE_VERSION001"
 
-
-// enums
-enum EScreenshotPrivacyState;
 
 
 // callbacks
