@@ -250,6 +250,7 @@
 #include "IClientMatchmakingServers.h"
 #include "IClientNetworking.h"
 #include "IClientRemoteStorage.h"
+#include "IClientScreenshots.h"
 #include "IClientUser.h"
 #include "IClientUserStats.h"
 #include "IClientUtils.h"

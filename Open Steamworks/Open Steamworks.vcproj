@@ -239,6 +239,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\IClientScreenshots.h"
+					>
+				</File>
+				<File
 					RelativePath=".\IClientUser.h"
 					>
 				</File>
