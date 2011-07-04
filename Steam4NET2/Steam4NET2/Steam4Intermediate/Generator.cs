@@ -102,7 +102,7 @@ namespace Steam4Intermediate
 
         public void FlushToFile( string file )
         {
-            File.WriteAllText( "../../../../autogen/" + file + ".cs", buffer.ToString() );
+            File.WriteAllText( "../../../autogen/" + file + ".cs", buffer.ToString() );
             buffer = new StringBuilder();
         }
 
