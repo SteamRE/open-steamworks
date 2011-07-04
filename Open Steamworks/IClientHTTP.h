@@ -44,6 +44,8 @@ public:
 	
 	virtual bool ReleaseHTTPRequest( HTTPRequestHandle hRequest ) = 0;
 	virtual bool GetHTTPDownloadProgressPct( HTTPRequestHandle hRequest, float * pflProgress ) = 0;
+
+	virtual bool SetHTTPRequestRawPostBody( HTTPRequestHandle, const char *, uint8 *, uint32 ) = 0;
 };
 
 #endif // ICLIENTHTTP_H
