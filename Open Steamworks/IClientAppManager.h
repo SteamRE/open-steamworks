@@ -32,6 +32,9 @@ struct AppUpdateInfo_s
 	uint64 m_unBytesWritten;
 };
 
+struct DownloadStats_s;
+enum EAppDownloadPriority;
+
 abstract_class UNSAFE_INTERFACE IClientAppManager
 {
 public:
@@ -41,22 +44,34 @@ public:
 	virtual EAppState GetAppState( AppId_t unAppID ) = 0;
 
 	virtual bool InstallApp( AppId_t unAppID, const char *phBuffer, int cbBuffer ) = 0;
+	virtual uint64 GetAppSize( AppId_t unAppID ) = 0;
 	virtual uint32 GetAppDir( AppId_t unAppID, char *szBuffer, uint32 cubBuffer ) = 0;
 	virtual bool UninstallApp( AppId_t unAppID, bool bComplete ) = 0;
 
 	virtual uint32 GetUpdateInfo( AppId_t unAppID, AppUpdateInfo_s *pUpdateInfo ) = 0;
 
-	virtual bool StartDownloadingUpdates( AppId_t unAppID ) = 0;
-	virtual bool StopDownloadingUpdates( AppId_t unAppID, bool bLockContent ) = 0;
-	virtual bool ApplyUpdate( AppId_t unAppID ) = 0;
+	virtual bool SetContentLocked( AppId_t unAppID, bool bContentLocked ) = 0;
 
-	virtual bool VerifyApp( AppId_t unAppID ) = 0;
+	virtual bool StartValidatingApp( AppId_t unAppID ) = 0;
 
-	virtual bool GetFileInfo( AppId_t unAppID, const char *pchFileName, uint64 *punFileSize, DepotId_t *puDepotId ) = 0;
-
-	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int cbBuffer ) = 0;
+	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int cbBuffer, bool bUnknown ) = 0;
 
 	virtual bool BIsAppUpToDate( AppId_t unAppID ) = 0;
+
+	virtual bool SetDownloadingEnabled( bool bEnabled ) = 0;
+	virtual bool BIsDownloadingEnabled() = 0;
+
+	virtual bool GetDownloadStats( DownloadStats_s *pStats ) = 0;
+
+	virtual AppId_t GetDownloadingAppID() = 0;
+	virtual bool ChangeAppPriority( AppId_t unAppID, EAppDownloadPriority eDownloadPriority ) = 0;
+
+	virtual bool AddSteam2Update( AppId_t unAppID ) = 0;
+	virtual bool RemoveSteam2Update( AppId_t unAppID ) = 0;
+	virtual bool StalledSteam2Update( AppId_t unAppID ) = 0;
+
+	virtual bool IsUsingLocalContentServer() = 0;
+
 };
 
 #endif // ICLIENTAPPMANAGER_H
