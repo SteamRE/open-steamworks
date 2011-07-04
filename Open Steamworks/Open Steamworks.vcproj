@@ -806,6 +806,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="ISteamScreenshots"
+					>
+					<File
+						RelativePath=".\ISteamScreenshots001.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ScreenshotsCommon.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

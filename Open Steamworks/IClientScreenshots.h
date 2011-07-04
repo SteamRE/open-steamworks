@@ -21,13 +21,7 @@
 #endif
 
 #include "SteamTypes.h"
-//#include "ScreenshotsCommon.h"
-
-
-enum EScreenshotPrivacyState;
-
-
-#define CLIENTSCREENSHOTS_INTERFACE_VERSION "CLIENTSCREENSHOTS_INTERFACE_VERSION001"
+#include "ScreenshotsCommon.h"
 
 
 abstract_class UNSAFE_INTERFACE IClientScreenshots
