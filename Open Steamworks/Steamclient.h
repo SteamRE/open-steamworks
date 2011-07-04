@@ -236,6 +236,7 @@
 
 #include "IClientAppManager.h"
 #include "IClientApps.h"
+#include "IClientAudio.h"
 #include "IClientBilling.h"
 #include "IClientContentServer.h"
 #include "IClientDepotBuilder.h"
