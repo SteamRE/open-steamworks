@@ -23,7 +23,12 @@
 #include "SteamTypes.h"
 //#include "AudioCommon.h"
 
+
 typedef uint32 HAudio;
+
+
+#define CLIENTAUDIO_INTERFACE_VERSION "CLIENTAUDIO_INTERFACE_VERSION001"
+
 
 abstract_class UNSAFE_INTERFACE IClientAudio
 {

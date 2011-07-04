@@ -27,6 +27,9 @@
 enum EScreenshotPrivacyState;
 
 
+#define CLIENTSCREENSHOTS_INTERFACE_VERSION "CLIENTSCREENSHOTS_INTERFACE_VERSION001"
+
+
 abstract_class UNSAFE_INTERFACE IClientScreenshots
 {
 public:
