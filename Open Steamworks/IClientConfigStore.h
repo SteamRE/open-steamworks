@@ -23,7 +23,9 @@
 #include "SteamTypes.h"
 #include "UtilsCommon.h"
 
+
 #define CLIENTCONFIGSTORE_INTERFACE_VERSION "CLIENTCONFIGSTORE_INTERFACE_VERSION001"
+
 
 abstract_class UNSAFE_INTERFACE IClientConfigStore
 {
@@ -48,6 +50,8 @@ public:
 
 	virtual void RemoveKey( EConfigStore eConfigStore, const char *keyName ) = 0;
 	virtual bool GetKeySerialized( EConfigStore eConfigStore, const char *keyName, uint8 *pBuffer, int iSize ) = 0;
+
+	virtual bool FlushToDisk( bool ) = 0;
 };
 
 #endif // ICLIENTCONFIGSTORE_H
