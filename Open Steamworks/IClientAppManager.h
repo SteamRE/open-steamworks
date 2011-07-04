@@ -32,7 +32,12 @@ struct AppUpdateInfo_s
 	uint64 m_unBytesWritten;
 };
 
-struct DownloadStats_s;
+struct DownloadStats_s
+{
+#ifdef CLANG
+	uint8 hack; // this is required to get S4N2's Steam4Intermediate to display this POD, this field doesn't actually exist
+#endif
+};
 enum EAppDownloadPriority
 {
 };
