@@ -88,7 +88,7 @@ public:
 	virtual int GetUserType(unsigned int* puArg1, TSteamError* pError) = 0;
 	virtual int GetAppStats(TSteamAppStats* pAppStats, TSteamError* pError) = 0;
 	virtual SteamCallHandle_t IsAccountNameInUse(const char* cszArg1, int* piArg2, TSteamError* pError) = 0;
-	virtual int GetAppIds(unsigned int* puIds, unsigned int uMaxIds, TSteamError* pError) = 0;
+	virtual int GetAppIds(unsigned int puIds[], unsigned int uMaxIds, TSteamError* pError) = 0;
 	virtual int GetSubscriptionStats(TSteamSubscriptionStats* pSubscriptionStats, TSteamError* pError) = 0;
 	virtual SteamCallHandle_t RefreshAccountInfo(int arg1, TSteamError* pError) = 0;
 	virtual SteamCallHandle_t Subscribe(unsigned int uSubscriptionId, const TSteamSubscriptionBillingInfo* pSubscriptionBillingInfo, TSteamError* pError) = 0;
@@ -100,7 +100,7 @@ public:
 	virtual SteamCallHandle_t Login(const char* cszUser, const char* cszPassphrase, int bIsSecureComputer, TSteamError* pError) = 0;
 	virtual SteamCallHandle_t AckSubscriptionReceipt(unsigned int uArg1, TSteamError* pError) = 0;
 	virtual int IsAppSubscribed(unsigned int uAppId, int* pbIsAppSubscribed, int* pReserved, TSteamError* pError) = 0;
-	virtual int GetSubscriptionIds(unsigned int* puIds, unsigned int uMaxIds, TSteamError* pError) = 0;
+	virtual int GetSubscriptionIds(unsigned int puIds[], unsigned int uMaxIds, TSteamError* pError) = 0;
 	virtual int EnumerateSubscription(unsigned int uSubscriptionId, TSteamSubscription* pSubscription, TSteamError* pError) = 0;
 	virtual int EnumerateSubscriptionDiscount(unsigned int uSubscriptionId, unsigned int uDiscountIdx, TSteamSubscriptionDiscount* pSteamSubscriptionDiscount, TSteamError* pError) = 0;
 	virtual int EnumerateSubscriptionDiscountQualifier(unsigned int uSubscriptionId, unsigned int uDiscountIdx, unsigned int uQualifierIdx, TSteamDiscountQualifier* pSteamDiscountQualifier, TSteamError* pError) = 0;
@@ -116,7 +116,7 @@ public:
 	virtual int InsertAppDependency(unsigned int uAppId, unsigned int uFileSystemIndex, TSteamAppDependencyInfo* pDependencyInfo, TSteamError* pError) = 0;
 	virtual int RemoveAppDependency(unsigned int uAppId, unsigned int uFileSystemIndex, TSteamError* pError) = 0;
 	virtual int FindApp(const char* cszArg1, unsigned int* puArg2, TSteamError* pError) = 0;
-	virtual int GetAppDependencies(unsigned int uAppId, unsigned int* puDependecies, unsigned int uBufferLength, TSteamError* pError) = 0;
+	virtual int GetAppDependencies(unsigned int uAppId, unsigned int puDependecies[], unsigned int uBufferLength, TSteamError* pError) = 0;
 	virtual int IsSubscribed(unsigned int uSubscriptionId, int* pbIsSubscribed, int* pReserved, TSteamError* pError) = 0;
 	virtual int GetAppUserDefinedInfo(unsigned int uAppId, const char* cszPropertyName, char* szPropertyValue, unsigned int uBufSize, unsigned int* puPropertyValueLength, TSteamError* pError) = 0;
 	virtual SteamCallHandle_t WaitForAppReadyToLaunch(unsigned int uAppId, TSteamError* pError) = 0;
