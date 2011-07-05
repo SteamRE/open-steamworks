@@ -17,12 +17,15 @@ namespace Steam4NET
 	
 	public enum ELicenseFlags : int
 	{
+		k_ELicenseFlagNone = 0,
 		k_ELicenseFlagRenew = 1,
 		k_ELicenseFlagRenewalFailed = 2,
 		k_ELicenseFlagPending = 4,
 		k_ELicenseFlagExpired = 8,
 		k_ELicenseFlagCancelledByUser = 16,
 		k_ELicenseFlagCancelledByAdmin = 32,
+		k_ELicenseFlagLowViolence = 64,
+		k_ELicenseFlagImportedFromSteam2 = 128,
 	};
 	
 	public enum EPaymentMethod : int
@@ -97,6 +100,16 @@ namespace Steam4NET
 		k_ECreditCardTypeDiscover = 4,
 		k_ECreditCardTypeDinersClub = 5,
 		k_ECreditCardTypeJCB = 6,
+	};
+	
+	public enum ELicenseType : int
+	{
+		k_ENoLicense = 0,
+		k_ESinglePurchase = 1,
+		k_ESinglePurchaseLimitedUse = 2,
+		k_ERecurringCharge = 3,
+		k_ERecurringChargeLimitedUse = 4,
+		k_ERecurringChargeLimitedUseWithOverages = 5,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

@@ -13,14 +13,14 @@ namespace Steam4NET
 		public IntPtr GetSteamID1;
 		public IntPtr LogOn2;
 		public IntPtr LogOff3;
-		public IntPtr LoggedOn4;
+		public IntPtr BLoggedOn4;
 		public IntPtr GetLogonState5;
-		public IntPtr Connected6;
+		public IntPtr BConnected6;
 		public IntPtr RaiseConnectionPriority7;
 		public IntPtr ResetConnectionPriority8;
 		public IntPtr SetCellID9;
 		public IntPtr SendClientContentAuthRequest10;
-		public IntPtr CheckTicket11;
+		public IntPtr BCheckTicket11;
 		private IntPtr DTorIClientContentServer12;
 	};
 	
@@ -51,11 +51,11 @@ namespace Steam4NET
 			this.GetFunction<NativeLogOff>( this.Functions.LogOff3 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LoggedOn(  ) 
+		public bool BLoggedOn(  ) 
 		{
-			return this.GetFunction<NativeLoggedOn>( this.Functions.LoggedOn4 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn4 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ELogonState NativeGetLogonState( IntPtr thisptr );
@@ -64,11 +64,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLogonState>( this.Functions.GetLogonState5 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeConnected( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBConnected( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool Connected(  ) 
+		public bool BConnected(  ) 
 		{
-			return this.GetFunction<NativeConnected>( this.Functions.Connected6 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBConnected>( this.Functions.BConnected6 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRaiseConnectionPriorityE( IntPtr thisptr, EConnectionPriority eConnectionPriority );
@@ -96,11 +96,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeSendClientContentAuthRequestCUBUB>( this.Functions.SendClientContentAuthRequest10 )( this.ObjectAddress, steamID.ConvertToUint64(), unContentID, bUseToken, ulSessionToken, bTokenPresent ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCheckTicketCUBU( IntPtr thisptr, UInt64 steamID, UInt32 uContentID, Byte[] pvTicketData, UInt32 cubTicketLength );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBCheckTicketCUBU( IntPtr thisptr, UInt64 steamID, UInt32 uContentID, Byte[] pvTicketData, UInt32 cubTicketLength );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool CheckTicket( CSteamID steamID, UInt32 uContentID, Byte[] pvTicketData ) 
+		public bool BCheckTicket( CSteamID steamID, UInt32 uContentID, Byte[] pvTicketData ) 
 		{
-			return this.GetFunction<NativeCheckTicketCUBU>( this.Functions.CheckTicket11 )( this.ObjectAddress, steamID.ConvertToUint64(), uContentID, pvTicketData, (UInt32) pvTicketData.Length ); 
+			return this.GetFunction<NativeBCheckTicketCUBU>( this.Functions.BCheckTicket11 )( this.ObjectAddress, steamID.ConvertToUint64(), uContentID, pvTicketData, (UInt32) pvTicketData.Length ); 
 		}
 		
 	};

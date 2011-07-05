@@ -11,7 +11,7 @@ namespace Steam4NET
 	{
 		public IntPtr LogOn0;
 		public IntPtr LogOff1;
-		public IntPtr LoggedOn2;
+		public IntPtr BLoggedOn2;
 		public IntPtr SendClientContentAuthRequest3;
 		private IntPtr DTorISteamContentServer0014;
 	};
@@ -19,11 +19,11 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("SteamContentServer001")]
 	public class ISteamContentServer001 : InteropHelp.NativeWrapper<ISteamContentServer001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLogOnU( IntPtr thisptr, UInt32 a );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLogOnU( IntPtr thisptr, UInt32 uContentServerID );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LogOn( UInt32 a ) 
+		public bool LogOn( UInt32 uContentServerID ) 
 		{
-			return this.GetFunction<NativeLogOnU>( this.Functions.LogOn0 )( this.ObjectAddress, a ); 
+			return this.GetFunction<NativeLogOnU>( this.Functions.LogOn0 )( this.ObjectAddress, uContentServerID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLogOff( IntPtr thisptr );
@@ -33,17 +33,17 @@ namespace Steam4NET
 			return this.GetFunction<NativeLogOff>( this.Functions.LogOff1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LoggedOn(  ) 
+		public bool BLoggedOn(  ) 
 		{
-			return this.GetFunction<NativeLoggedOn>( this.Functions.LoggedOn2 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequestCU( IntPtr thisptr, UInt64 steamId, UInt32 a );
-		public void SendClientContentAuthRequest( CSteamID steamId, UInt32 a ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequestCU( IntPtr thisptr, UInt64 steamId, UInt32 unContentID );
+		public void SendClientContentAuthRequest( CSteamID steamId, UInt32 unContentID ) 
 		{
-			this.GetFunction<NativeSendClientContentAuthRequestCU>( this.Functions.SendClientContentAuthRequest3 )( this.ObjectAddress, steamId.ConvertToUint64(), a ); 
+			this.GetFunction<NativeSendClientContentAuthRequestCU>( this.Functions.SendClientContentAuthRequest3 )( this.ObjectAddress, steamId.ConvertToUint64(), unContentID ); 
 		}
 		
 	};

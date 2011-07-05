@@ -220,11 +220,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLargeFriendAvatarC>( this.Functions.GetLargeFriendAvatar27 )( this.ObjectAddress, steamIDFriend.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserInformationCB( IntPtr thisptr, UInt64 steamID, Byte unk1 );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserInformationCB( IntPtr thisptr, UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool bUnk1 );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool RequestUserInformation( CSteamID steamID, Byte unk1 ) 
+		public bool RequestUserInformation( CSteamID steamID, bool bUnk1 ) 
 		{
-			return this.GetFunction<NativeRequestUserInformationCB>( this.Functions.RequestUserInformation28 )( this.ObjectAddress, steamID.ConvertToUint64(), unk1 ); 
+			return this.GetFunction<NativeRequestUserInformationCB>( this.Functions.RequestUserInformation28 )( this.ObjectAddress, steamID.ConvertToUint64(), bUnk1 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestClanOfficerListC( IntPtr thisptr, ref UInt64 retarg, UInt64 clanId );

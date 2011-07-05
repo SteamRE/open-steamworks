@@ -46,11 +46,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetUserStatCCSF>( this.Functions.GetUserStat2 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName, ref pData ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementCCSBI( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName, ref bool pbAchieved, Int32 unk3 );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementCCSBU( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName, ref bool pbAchieved, ref UInt32 puUnk );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetUserAchievement( CSteamID steamIDUser, CGameID gameID, string pchName, ref bool pbAchieved, Int32 unk3 ) 
+		public bool GetUserAchievement( CSteamID steamIDUser, CGameID gameID, string pchName, ref bool pbAchieved, ref UInt32 puUnk ) 
 		{
-			return this.GetFunction<NativeGetUserAchievementCCSBI>( this.Functions.GetUserAchievement3 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName, ref pbAchieved, unk3 ); 
+			return this.GetFunction<NativeGetUserAchievementCCSBU>( this.Functions.GetUserAchievement3 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64(), pchName, ref pbAchieved, ref puUnk ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUserStatCCSI( IntPtr thisptr, UInt64 steamIDUser, UInt64 gameID, string pchName, Int32 nData );
@@ -94,10 +94,10 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeStoreUserStatsCC>( this.Functions.StoreUserStats9 )( this.ObjectAddress, ref ret, steamIDUser.ConvertToUint64(), gameID.ConvertToUint64() ); return (UInt64)ret;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetMaxStatsLoadedU( IntPtr thisptr, UInt32 uMax );
-		public Int32 SetMaxStatsLoaded( UInt32 uMax ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetMaxStatsLoadedU( IntPtr thisptr, UInt32 uMax );
+		public void SetMaxStatsLoaded( UInt32 uMax ) 
 		{
-			return this.GetFunction<NativeSetMaxStatsLoadedU>( this.Functions.SetMaxStatsLoaded10 )( this.ObjectAddress, uMax ); 
+			this.GetFunction<NativeSetMaxStatsLoadedU>( this.Functions.SetMaxStatsLoaded10 )( this.ObjectAddress, uMax ); 
 		}
 		
 	};

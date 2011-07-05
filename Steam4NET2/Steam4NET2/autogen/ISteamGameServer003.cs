@@ -11,8 +11,8 @@ namespace Steam4NET
 	{
 		public IntPtr LogOn0;
 		public IntPtr LogOff1;
-		public IntPtr LoggedOn2;
-		public IntPtr Secure3;
+		public IntPtr BLoggedOn2;
+		public IntPtr BSecure3;
 		public IntPtr GetSteamID4;
 		public IntPtr GetSteam2GetEncryptionKeyToSendToNewClient5;
 		public IntPtr SendUserConnect6;
@@ -44,18 +44,18 @@ namespace Steam4NET
 			this.GetFunction<NativeLogOff>( this.Functions.LogOff1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LoggedOn(  ) 
+		public bool BLoggedOn(  ) 
 		{
-			return this.GetFunction<NativeLoggedOn>( this.Functions.LoggedOn2 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSecure( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool Secure(  ) 
+		public bool BSecure(  ) 
 		{
-			return this.GetFunction<NativeSecure>( this.Functions.Secure3 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBSecure>( this.Functions.BSecure3 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetSteamID( IntPtr thisptr, ref UInt64 retarg );
@@ -112,8 +112,9 @@ namespace Steam4NET
 			return this.GetFunction<NativeUpdateStatusIIISSS>( this.Functions.UpdateStatus11 )( this.ObjectAddress, cPlayers, cPlayersMax, cBotPlayers, pchServerName, pSpectatorServerName, pchMapName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateUnauthenticatedUserC( IntPtr thisptr, ref UInt64 pSteamID );
-		public Int32 CreateUnauthenticatedUser( ref CSteamID pSteamID ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCreateUnauthenticatedUserC( IntPtr thisptr, ref UInt64 pSteamID );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool CreateUnauthenticatedUser( ref CSteamID pSteamID ) 
 		{
 			UInt64 s0 = 0; var result = this.GetFunction<NativeCreateUnauthenticatedUserC>( this.Functions.CreateUnauthenticatedUser12 )( this.ObjectAddress, ref s0 ); pSteamID = new CSteamID(s0); return result;
 		}

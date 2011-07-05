@@ -17,7 +17,9 @@ namespace Steam4NET
 		public IntPtr RequestAppInfoUpdate5;
 		public IntPtr NotifyAppEventTriggered6;
 		public IntPtr NotifyDlcInstalled7;
-		private IntPtr DTorIClientApps8;
+		public IntPtr GetDLCCount8;
+		public IntPtr BGetDLCDataByIndex9;
+		private IntPtr DTorIClientApps10;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTAPPS_INTERFACE_VERSION001")]
@@ -47,10 +49,10 @@ namespace Steam4NET
 			this.GetFunction<NativeSendUserSpecificAppDataUBI>( this.Functions.SendUserSpecificAppData3 )( this.ObjectAddress, unAppID, pvData, (Int32) pvData.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDataSectionUIBI( IntPtr thisptr, UInt32 unAppID, Int32 eSection, Byte[] pchBuffer, Int32 cbBufferMax );
-		public Int32 GetAppDataSection( UInt32 unAppID, Int32 eSection, Byte[] pchBuffer ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDataSectionUIBIB( IntPtr thisptr, UInt32 unAppID, Int32 eSection, Byte[] pchBuffer, Int32 cbBufferMax, [MarshalAs(UnmanagedType.I1)] bool bUseSymbolsAsKeys );
+		public Int32 GetAppDataSection( UInt32 unAppID, Int32 eSection, Byte[] pchBuffer, bool bUseSymbolsAsKeys ) 
 		{
-			return this.GetFunction<NativeGetAppDataSectionUIBI>( this.Functions.GetAppDataSection4 )( this.ObjectAddress, unAppID, eSection, pchBuffer, (Int32) pchBuffer.Length ); 
+			return this.GetFunction<NativeGetAppDataSectionUIBIB>( this.Functions.GetAppDataSection4 )( this.ObjectAddress, unAppID, eSection, pchBuffer, (Int32) pchBuffer.Length, bUseSymbolsAsKeys ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestAppInfoUpdateUIB( IntPtr thisptr, ref UInt32 pAppIDs, Int32 nNumAppIDs, [MarshalAs(UnmanagedType.I1)] bool bForceUpdate );
@@ -70,6 +72,19 @@ namespace Steam4NET
 		public void NotifyDlcInstalled( UInt32 unAppID ) 
 		{
 			this.GetFunction<NativeNotifyDlcInstalledU>( this.Functions.NotifyDlcInstalled7 )( this.ObjectAddress, unAppID ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetDLCCountU( IntPtr thisptr, UInt32 unAppID );
+		public Int32 GetDLCCount( UInt32 unAppID ) 
+		{
+			return this.GetFunction<NativeGetDLCCountU>( this.Functions.GetDLCCount8 )( this.ObjectAddress, unAppID ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetDLCDataByIndexUIUBSI( IntPtr thisptr, UInt32 unAppID, Int32 iIndex, ref UInt32 unDLCAppID, ref bool arg3, StringBuilder arg4, Int32 arg5 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool BGetDLCDataByIndex( UInt32 unAppID, Int32 iIndex, ref UInt32 unDLCAppID, ref bool arg3, StringBuilder arg4, Int32 arg5 ) 
+		{
+			return this.GetFunction<NativeBGetDLCDataByIndexUIUBSI>( this.Functions.BGetDLCDataByIndex9 )( this.ObjectAddress, unAppID, iIndex, ref unDLCAppID, ref arg3, arg4, arg5 ); 
 		}
 		
 	};

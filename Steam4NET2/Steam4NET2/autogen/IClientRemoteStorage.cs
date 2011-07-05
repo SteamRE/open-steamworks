@@ -179,22 +179,23 @@ namespace Steam4NET
 			return this.GetFunction<NativeSetCloudEnabledForAppUB>( this.Functions.SetCloudEnabledForApp16 )( this.ObjectAddress, nAppId, bEnable ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCDownloadII( IntPtr thisptr, Int32 unk1, Int32 unk2 );
-		public Int32 UGCDownload( Int32 unk1, Int32 unk2 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadU( IntPtr thisptr, ref UInt64 retarg, UInt64 arg0 );
+		public UInt64 UGCDownload( UInt64 arg0 ) 
 		{
-			return this.GetFunction<NativeUGCDownloadII>( this.Functions.UGCDownload17 )( this.ObjectAddress, unk1, unk2 ); 
+			UInt64 ret = 0; this.GetFunction<NativeUGCDownloadU>( this.Functions.UGCDownload17 )( this.ObjectAddress, ref ret, arg0 ); return (UInt64)ret;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUGCDetailsIIIIII( IntPtr thisptr, Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4, Int32 unk5, Int32 unk6 );
-		public Int32 GetUGCDetails( Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4, Int32 unk5, Int32 unk6 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUGCDetailsUUSIC( IntPtr thisptr, UInt64 arg0, ref UInt32 arg1, StringBuilder arg2, ref Int32 arg3, ref UInt64 arg4 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool GetUGCDetails( UInt64 arg0, ref UInt32 arg1, StringBuilder arg2, ref Int32 arg3, ref CSteamID arg4 ) 
 		{
-			return this.GetFunction<NativeGetUGCDetailsIIIIII>( this.Functions.GetUGCDetails18 )( this.ObjectAddress, unk1, unk2, unk3, unk4, unk5, unk6 ); 
+			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails18 )( this.ObjectAddress, arg0, ref arg1, arg2, ref arg3, ref s0 );  arg4 = new CSteamID(s0); return result;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadIIII( IntPtr thisptr, Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4 );
-		public Int32 UGCRead( Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBI( IntPtr thisptr, UInt64 arg0, Byte[] arg1, Int32 arg2 );
+		public Int32 UGCRead( UInt64 arg0, Byte[] arg1, Int32 arg2 ) 
 		{
-			return this.GetFunction<NativeUGCReadIIII>( this.Functions.UGCRead19 )( this.ObjectAddress, unk1, unk2, unk3, unk4 ); 
+			return this.GetFunction<NativeUGCReadUBI>( this.Functions.UGCRead19 )( this.ObjectAddress, arg0, arg1, arg2 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCCount( IntPtr thisptr );
@@ -203,10 +204,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetCachedUGCCount>( this.Functions.GetCachedUGCCount20 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCHandle( IntPtr thisptr );
-		public Int32 GetCachedUGCHandle(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetCachedUGCHandleI( IntPtr thisptr, ref UInt64 retarg, Int32 arg0 );
+		public UInt64 GetCachedUGCHandle( Int32 arg0 ) 
 		{
-			return this.GetFunction<NativeGetCachedUGCHandle>( this.Functions.GetCachedUGCHandle21 )( this.ObjectAddress ); 
+			UInt64 ret = 0; this.GetFunction<NativeGetCachedUGCHandleI>( this.Functions.GetCachedUGCHandle21 )( this.ObjectAddress, ref ret, arg0 ); return (UInt64)ret;
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetShortcutDisplayNameC( IntPtr thisptr, UInt64 GameID );
@@ -259,9 +260,9 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLocalScreenshotCountC>( this.Functions.GetLocalScreenshotCount29 )( this.ObjectAddress, GameID.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLocalScreenshotCUSUUUUEUSU( IntPtr thisptr, UInt64 GameID, UInt32 uIndex, StringBuilder pchFilename, UInt32 cubFilename, ref UInt32 puWidth, ref UInt32 puHeight, ref UInt32 puTimestamp, ref EScreenshotPrivacy pePrivacy, ref UInt64 pulUnk, StringBuilder pchCaption, UInt32 cubCaption );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLocalScreenshotCUSUUUUEUSU( IntPtr thisptr, UInt64 GameID, UInt32 uIndex, StringBuilder pchFilename, UInt32 cubFilename, ref UInt32 puWidth, ref UInt32 puHeight, ref UInt32 puTimestamp, ref EScreenshotPrivacyState pePrivacy, ref UInt64 pulUnk, StringBuilder pchCaption, UInt32 cubCaption );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetLocalScreenshot( CGameID GameID, UInt32 uIndex, StringBuilder pchFilename, ref UInt32 puWidth, ref UInt32 puHeight, ref UInt32 puTimestamp, ref EScreenshotPrivacy pePrivacy, ref UInt64 pulUnk, StringBuilder pchCaption ) 
+		public bool GetLocalScreenshot( CGameID GameID, UInt32 uIndex, StringBuilder pchFilename, ref UInt32 puWidth, ref UInt32 puHeight, ref UInt32 puTimestamp, ref EScreenshotPrivacyState pePrivacy, ref UInt64 pulUnk, StringBuilder pchCaption ) 
 		{
 			return this.GetFunction<NativeGetLocalScreenshotCUSUUUUEUSU>( this.Functions.GetLocalScreenshot30 )( this.ObjectAddress, GameID.ConvertToUint64(), uIndex, pchFilename, (UInt32) pchFilename.Capacity, ref puWidth, ref puHeight, ref puTimestamp, ref pePrivacy, ref pulUnk, pchCaption, (UInt32) pchCaption.Capacity ); 
 		}
@@ -273,9 +274,9 @@ namespace Steam4NET
 			return this.GetFunction<NativeSetLocalScreenshotCaptionCSS>( this.Functions.SetLocalScreenshotCaption31 )( this.ObjectAddress, GameID.ConvertToUint64(), szFilename, szCaption ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLocalScreenshotPrivacyCSE( IntPtr thisptr, UInt64 GameID, string szFilename, EScreenshotPrivacy ePrivacy );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLocalScreenshotPrivacyCSE( IntPtr thisptr, UInt64 GameID, string szFilename, EScreenshotPrivacyState ePrivacy );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetLocalScreenshotPrivacy( CGameID GameID, string szFilename, EScreenshotPrivacy ePrivacy ) 
+		public bool SetLocalScreenshotPrivacy( CGameID GameID, string szFilename, EScreenshotPrivacyState ePrivacy ) 
 		{
 			return this.GetFunction<NativeSetLocalScreenshotPrivacyCSE>( this.Functions.SetLocalScreenshotPrivacy32 )( this.ObjectAddress, GameID.ConvertToUint64(), szFilename, ePrivacy ); 
 		}
@@ -294,8 +295,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeScreenshotAddToBatchS>( this.Functions.ScreenshotAddToBatch34 )( this.ObjectAddress, szFilename ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeScreenshotUploadBatchE( IntPtr thisptr, ref UInt64 retarg, EScreenshotPrivacy ePrivacy );
-		public UInt64 ScreenshotUploadBatch( EScreenshotPrivacy ePrivacy ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeScreenshotUploadBatchE( IntPtr thisptr, ref UInt64 retarg, EScreenshotPrivacyState ePrivacy );
+		public UInt64 ScreenshotUploadBatch( EScreenshotPrivacyState ePrivacy ) 
 		{
 			UInt64 ret = 0; this.GetFunction<NativeScreenshotUploadBatchE>( this.Functions.ScreenshotUploadBatch35 )( this.ObjectAddress, ref ret, ePrivacy ); return (UInt64)ret;
 		}
@@ -319,14 +320,15 @@ namespace Steam4NET
 			this.GetFunction<NativeRecoverOldScreenshots>( this.Functions.RecoverOldScreenshots38 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFilePersistUES( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile );
-		public Int32 FilePersist( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFilePersistUES( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile );
+		public UInt32 FilePersist( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile ) 
 		{
 			return this.GetFunction<NativeFilePersistUES>( this.Functions.FilePersist39 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResolvePathUESSU( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string arg2, StringBuilder arg3, UInt32 arg4 );
-		public Int32 ResolvePath( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string arg2, StringBuilder arg3, UInt32 arg4 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeResolvePathUESSU( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string arg2, StringBuilder arg3, UInt32 arg4 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool ResolvePath( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string arg2, StringBuilder arg3, UInt32 arg4 ) 
 		{
 			return this.GetFunction<NativeResolvePathUESSU>( this.Functions.ResolvePath40 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, arg2, arg3, arg4 ); 
 		}
@@ -338,16 +340,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeSetCloudEnabledForAccountB>( this.Functions.SetCloudEnabledForAccount41 )( this.ObjectAddress, bEnable ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLoadLocalFileInfoCacheU( IntPtr thisptr, UInt32 nAppId );
-		public Int32 LoadLocalFileInfoCache( UInt32 nAppId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLoadLocalFileInfoCacheU( IntPtr thisptr, UInt32 nAppId );
+		public void LoadLocalFileInfoCache( UInt32 nAppId ) 
 		{
-			return this.GetFunction<NativeLoadLocalFileInfoCacheU>( this.Functions.LoadLocalFileInfoCache42 )( this.ObjectAddress, nAppId ); 
+			this.GetFunction<NativeLoadLocalFileInfoCacheU>( this.Functions.LoadLocalFileInfoCache42 )( this.ObjectAddress, nAppId ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEvaluateRemoteStorageSyncStateU( IntPtr thisptr, UInt32 nAppId );
-		public Int32 EvaluateRemoteStorageSyncState( UInt32 nAppId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEvaluateRemoteStorageSyncStateU( IntPtr thisptr, UInt32 nAppId );
+		public void EvaluateRemoteStorageSyncState( UInt32 nAppId ) 
 		{
-			return this.GetFunction<NativeEvaluateRemoteStorageSyncStateU>( this.Functions.EvaluateRemoteStorageSyncState43 )( this.ObjectAddress, nAppId ); 
+			this.GetFunction<NativeEvaluateRemoteStorageSyncStateU>( this.Functions.EvaluateRemoteStorageSyncState43 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ERemoteStorageSyncState NativeGetRemoteStorageSyncStateU( IntPtr thisptr, UInt32 nAppId );
@@ -363,14 +365,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeHaveLatestFilesLocallyU>( this.Functions.HaveLatestFilesLocally45 )( this.ObjectAddress, nAppId ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetConflictingFileTimestampsUUU( IntPtr thisptr, UInt32 nAppId, ref UInt32 arg1, ref UInt32 arg2 );
-		public Int32 GetConflictingFileTimestamps( UInt32 nAppId, ref UInt32 arg1, ref UInt32 arg2 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetConflictingFileTimestampsUUU( IntPtr thisptr, UInt32 nAppId, ref UInt32 puTimestamp1, ref UInt32 puTimestamp2 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool GetConflictingFileTimestamps( UInt32 nAppId, ref UInt32 puTimestamp1, ref UInt32 puTimestamp2 ) 
 		{
-			return this.GetFunction<NativeGetConflictingFileTimestampsUUU>( this.Functions.GetConflictingFileTimestamps46 )( this.ObjectAddress, nAppId, ref arg1, ref arg2 ); 
+			return this.GetFunction<NativeGetConflictingFileTimestampsUUU>( this.Functions.GetConflictingFileTimestamps46 )( this.ObjectAddress, nAppId, ref puTimestamp1, ref puTimestamp2 ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeResolveSyncConflictUB( IntPtr thisptr, UInt32 nAppId, [MarshalAs(UnmanagedType.I1)] bool arg1 );
-		public Int32 ResolveSyncConflict( UInt32 nAppId, bool arg1 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeResolveSyncConflictUB( IntPtr thisptr, UInt32 nAppId, [MarshalAs(UnmanagedType.I1)] bool arg1 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool ResolveSyncConflict( UInt32 nAppId, bool arg1 ) 
 		{
 			return this.GetFunction<NativeResolveSyncConflictUB>( this.Functions.ResolveSyncConflict47 )( this.ObjectAddress, nAppId, arg1 ); 
 		}

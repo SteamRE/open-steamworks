@@ -151,8 +151,9 @@ namespace Steam4NET
 			return this.GetFunction<NativeAddFriendByNameS>( this.Functions.AddFriendByName16 )( this.ObjectAddress, pchEmailOrAccountName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInviteFriendByEmailS( IntPtr thisptr, string emailAddr );
-		public Int32 InviteFriendByEmail( string emailAddr ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteFriendByEmailS( IntPtr thisptr, string emailAddr );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool InviteFriendByEmail( string emailAddr ) 
 		{
 			return this.GetFunction<NativeInviteFriendByEmailS>( this.Functions.InviteFriendByEmail17 )( this.ObjectAddress, emailAddr ); 
 		}
@@ -206,14 +207,16 @@ namespace Steam4NET
 			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetClanNameC>( this.Functions.GetClanName25 )( this.ObjectAddress, steamIDClan.ConvertToUint64() ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInviteFriendToClanCC( IntPtr thisptr, UInt64 steamIDfriend, UInt64 steamIDclan );
-		public Int32 InviteFriendToClan( CSteamID steamIDfriend, CSteamID steamIDclan ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteFriendToClanCC( IntPtr thisptr, UInt64 steamIDfriend, UInt64 steamIDclan );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool InviteFriendToClan( CSteamID steamIDfriend, CSteamID steamIDclan ) 
 		{
 			return this.GetFunction<NativeInviteFriendToClanCC>( this.Functions.InviteFriendToClan26 )( this.ObjectAddress, steamIDfriend.ConvertToUint64(), steamIDclan.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAcknowledgeInviteToClanCB( IntPtr thisptr, UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool arg1 );
-		public Int32 AcknowledgeInviteToClan( CSteamID steamID, bool arg1 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAcknowledgeInviteToClanCB( IntPtr thisptr, UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool arg1 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool AcknowledgeInviteToClan( CSteamID steamID, bool arg1 ) 
 		{
 			return this.GetFunction<NativeAcknowledgeInviteToClanCB>( this.Functions.AcknowledgeInviteToClan27 )( this.ObjectAddress, steamID.ConvertToUint64(), arg1 ); 
 		}

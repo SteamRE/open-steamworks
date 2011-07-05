@@ -26,7 +26,8 @@ namespace Steam4NET
 		public IntPtr EndAuthSession14;
 		public IntPtr CancelAuthTicket15;
 		public IntPtr UserHasLicenseForApp16;
-		private IntPtr DTorISteamUser01317;
+		public IntPtr BIsBehindNAT17;
+		private IntPtr DTorISteamUser01318;
 	};
 	
 	[InteropHelp.InterfaceVersion("SteamUser013")]
@@ -134,6 +135,13 @@ namespace Steam4NET
 		public EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, UInt32 appID ) 
 		{
 			return this.GetFunction<NativeUserHasLicenseForAppCU>( this.Functions.UserHasLicenseForApp16 )( this.ObjectAddress, steamID.ConvertToUint64(), appID ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsBehindNAT( IntPtr thisptr );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool BIsBehindNAT(  ) 
+		{
+			return this.GetFunction<NativeBIsBehindNAT>( this.Functions.BIsBehindNAT17 )( this.ObjectAddress ); 
 		}
 		
 	};

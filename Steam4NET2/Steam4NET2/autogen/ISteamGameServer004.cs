@@ -11,18 +11,18 @@ namespace Steam4NET
 	{
 		public IntPtr LogOn0;
 		public IntPtr LogOff1;
-		public IntPtr LoggedOn2;
-		public IntPtr Secure3;
+		public IntPtr BLoggedOn2;
+		public IntPtr BSecure3;
 		public IntPtr GetSteamID4;
 		public IntPtr SendUserConnectAndAuthenticate5;
 		public IntPtr CreateUnauthenticatedUserConnection6;
 		public IntPtr SendUserDisconnect7;
-		public IntPtr UpdateUserData8;
-		public IntPtr SetServerType9;
+		public IntPtr BUpdateUserData8;
+		public IntPtr BSetServerType9;
 		public IntPtr UpdateStatus10;
 		public IntPtr UpdateSpectatorPort11;
 		public IntPtr SetGameType12;
-		public IntPtr GetUserAchievementStatus13;
+		public IntPtr BGetUserAchievementStatus13;
 		private IntPtr DTorISteamGameServer00414;
 	};
 	
@@ -41,18 +41,18 @@ namespace Steam4NET
 			this.GetFunction<NativeLogOff>( this.Functions.LogOff1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LoggedOn(  ) 
+		public bool BLoggedOn(  ) 
 		{
-			return this.GetFunction<NativeLoggedOn>( this.Functions.LoggedOn2 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSecure( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool Secure(  ) 
+		public bool BSecure(  ) 
 		{
-			return this.GetFunction<NativeSecure>( this.Functions.Secure3 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBSecure>( this.Functions.BSecure3 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetSteamID( IntPtr thisptr, ref UInt64 retarg );
@@ -80,18 +80,18 @@ namespace Steam4NET
 			this.GetFunction<NativeSendUserDisconnectC>( this.Functions.SendUserDisconnect7 )( this.ObjectAddress, steamIDUser.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateUserDataCSU( IntPtr thisptr, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBUpdateUserDataCSU( IntPtr thisptr, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool UpdateUserData( CSteamID steamIDUser, string pchPlayerName, UInt32 uScore ) 
+		public bool BUpdateUserData( CSteamID steamIDUser, string pchPlayerName, UInt32 uScore ) 
 		{
-			return this.GetFunction<NativeUpdateUserDataCSU>( this.Functions.UpdateUserData8 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), pchPlayerName, uScore ); 
+			return this.GetFunction<NativeBUpdateUserDataCSU>( this.Functions.BUpdateUserData8 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), pchPlayerName, uScore ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetServerTypeIUUUUUSSB( IntPtr thisptr, Int32 nGameAppId, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 usSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSetServerTypeIUUUUUSSB( IntPtr thisptr, Int32 nGameAppId, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 usSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetServerType( Int32 nGameAppId, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 usSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, bool bLANMode ) 
+		public bool BSetServerType( Int32 nGameAppId, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 usSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, bool bLANMode ) 
 		{
-			return this.GetFunction<NativeSetServerTypeIUUUUUSSB>( this.Functions.SetServerType9 )( this.ObjectAddress, nGameAppId, unServerFlags, unGameIP, unGamePort, usSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode ); 
+			return this.GetFunction<NativeBSetServerTypeIUUUUUSSB>( this.Functions.BSetServerType9 )( this.ObjectAddress, nGameAppId, unServerFlags, unGameIP, unGamePort, usSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateStatusIIISSS( IntPtr thisptr, Int32 cPlayers, Int32 cPlayersMax, Int32 cBotPlayers, string pchServerName, string pSpectatorServerName, string pchMapName );
@@ -113,11 +113,11 @@ namespace Steam4NET
 			this.GetFunction<NativeSetGameTypeS>( this.Functions.SetGameType12 )( this.ObjectAddress, pchGameType ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementStatusCS( IntPtr thisptr, UInt64 steamID, string pchAchievementName );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetUserAchievementStatusCS( IntPtr thisptr, UInt64 steamID, string pchAchievementName );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetUserAchievementStatus( CSteamID steamID, string pchAchievementName ) 
+		public bool BGetUserAchievementStatus( CSteamID steamID, string pchAchievementName ) 
 		{
-			return this.GetFunction<NativeGetUserAchievementStatusCS>( this.Functions.GetUserAchievementStatus13 )( this.ObjectAddress, steamID.ConvertToUint64(), pchAchievementName ); 
+			return this.GetFunction<NativeBGetUserAchievementStatusCS>( this.Functions.BGetUserAchievementStatus13 )( this.ObjectAddress, steamID.ConvertToUint64(), pchAchievementName ); 
 		}
 		
 	};

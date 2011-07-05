@@ -45,6 +45,10 @@ namespace Steam4NET
 		k_ELeaderboardSortMethodDescending = 2,
 	};
 	
+	public enum EGetAchievementIcon : int
+	{
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct LeaderboardEntry001_t
 	{
@@ -57,7 +61,11 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct LeaderboardEntry002_t
 	{
-		public Int32 placeholder;
+		public UInt64 m_steamIDUser;
+		public Int32 m_nGlobalRank;
+		public Int32 m_nScore;
+		public Int32 m_cDetails;
+		public UInt64 m_hUGC;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -153,6 +161,33 @@ namespace Steam4NET
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bAchieved;
 		public Int32 m_nIconHandle;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1110)]
+	public struct GlobalAchievementPercentagesReady_t
+	{
+		public const int k_iCallback = 1110;
+		public UInt64 m_nGameID;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1111)]
+	public struct LeaderboardUGCSet_t
+	{
+		public const int k_iCallback = 1111;
+		public EResult m_eResult;
+		public UInt64 m_hSteamLeaderboard;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1112)]
+	public struct GlobalStatsReceived_t
+	{
+		public const int k_iCallback = 1112;
+		public UInt64 m_nGameID;
+		public EResult m_eResult;
 	};
 	
 }

@@ -10,7 +10,7 @@ namespace Steam4NET
 	public class IClientEngineVTable
 	{
 		public IntPtr CreateSteamPipe0;
-		public IntPtr ReleaseSteamPipe1;
+		public IntPtr BReleaseSteamPipe1;
 		public IntPtr CreateGlobalUser2;
 		public IntPtr ConnectToGlobalUser3;
 		public IntPtr CreateLocalUser4;
@@ -34,21 +34,24 @@ namespace Steam4NET
 		public IntPtr GetIClientGameServerStats22;
 		public IntPtr GetIClientNetworking23;
 		public IntPtr GetIClientRemoteStorage24;
-		public IntPtr SetWarningMessageHook25;
-		public IntPtr GetIClientGameCoordinator26;
-		public IntPtr SetOverlayNotificationPosition27;
-		public IntPtr IsOverlayEnabled28;
-		public IntPtr GetAPICallResult29;
-		public IntPtr GetIClientDepotBuilder30;
-		public IntPtr ConCommandInit31;
-		public IntPtr GetIClientAppManager32;
-		public IntPtr GetIClientConfigStore33;
-		public IntPtr OverlayNeedsPresent34;
-		public IntPtr GetIClientGameStats35;
-		public IntPtr GetIClientHTTP36;
-		public IntPtr GetIPCServerMap37;
-		public IntPtr OnDebugTextArrived38;
-		private IntPtr DTorIClientEngine39;
+		public IntPtr GetIClientScreenshots25;
+		public IntPtr SetWarningMessageHook26;
+		public IntPtr GetIClientGameCoordinator27;
+		public IntPtr SetOverlayNotificationPosition28;
+		public IntPtr IsOverlayEnabled29;
+		public IntPtr GetAPICallResult30;
+		public IntPtr GetIClientDepotBuilder31;
+		public IntPtr ConCommandInit32;
+		public IntPtr GetIClientAppManager33;
+		public IntPtr GetIClientConfigStore34;
+		public IntPtr BOverlayNeedsPresent35;
+		public IntPtr GetIClientGameStats36;
+		public IntPtr GetIClientHTTP37;
+		public IntPtr BShutdownIfAllPipesClosed38;
+		public IntPtr GetIClientAudio39;
+		public IntPtr GetIPCServerMap40;
+		public IntPtr OnDebugTextArrived41;
+		private IntPtr DTorIClientEngine42;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTENGINE_INTERFACE_VERSION001")]
@@ -60,11 +63,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeCreateSteamPipe>( this.Functions.CreateSteamPipe0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeReleaseSteamPipeI( IntPtr thisptr, Int32 hSteamPipe );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBReleaseSteamPipeI( IntPtr thisptr, Int32 hSteamPipe );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool ReleaseSteamPipe( Int32 hSteamPipe ) 
+		public bool BReleaseSteamPipe( Int32 hSteamPipe ) 
 		{
-			return this.GetFunction<NativeReleaseSteamPipeI>( this.Functions.ReleaseSteamPipe1 )( this.ObjectAddress, hSteamPipe ); 
+			return this.GetFunction<NativeBReleaseSteamPipeI>( this.Functions.BReleaseSteamPipe1 )( this.ObjectAddress, hSteamPipe ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateGlobalUserI( IntPtr thisptr, ref Int32 phSteamPipe );
@@ -206,91 +209,110 @@ namespace Steam4NET
 			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientRemoteStorageIIS>( this.Functions.GetIClientRemoteStorage24 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientScreenshotsIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
+		public TClass GetIClientScreenshots<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
+		{
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientScreenshotsIIS>( this.Functions.GetIClientScreenshots25 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+		}
+		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetWarningMessageHookI( IntPtr thisptr, ref IntPtr pFunction );
 		public void SetWarningMessageHook( ref IntPtr pFunction ) 
 		{
-			this.GetFunction<NativeSetWarningMessageHookI>( this.Functions.SetWarningMessageHook25 )( this.ObjectAddress, ref pFunction ); 
+			this.GetFunction<NativeSetWarningMessageHookI>( this.Functions.SetWarningMessageHook26 )( this.ObjectAddress, ref pFunction ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientGameCoordinatorIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetIClientGameCoordinator<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientGameCoordinatorIIS>( this.Functions.GetIClientGameCoordinator26 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientGameCoordinatorIIS>( this.Functions.GetIClientGameCoordinator27 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetOverlayNotificationPositionE( IntPtr thisptr, ENotificationPosition eNotificationPosition );
 		public void SetOverlayNotificationPosition( ENotificationPosition eNotificationPosition ) 
 		{
-			this.GetFunction<NativeSetOverlayNotificationPositionE>( this.Functions.SetOverlayNotificationPosition27 )( this.ObjectAddress, eNotificationPosition ); 
+			this.GetFunction<NativeSetOverlayNotificationPositionE>( this.Functions.SetOverlayNotificationPosition28 )( this.ObjectAddress, eNotificationPosition ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsOverlayEnabled( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool IsOverlayEnabled(  ) 
 		{
-			return this.GetFunction<NativeIsOverlayEnabled>( this.Functions.IsOverlayEnabled28 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeIsOverlayEnabled>( this.Functions.IsOverlayEnabled29 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAPICallResultIUBIIB( IntPtr thisptr, Int32 hSteamPipe, UInt64 hSteamAPICall, Byte[] pCallback, Int32 cubCallback, Int32 iCallbackExpected, ref bool pbFailed );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetAPICallResult( Int32 hSteamPipe, UInt64 hSteamAPICall, Byte[] pCallback, Int32 iCallbackExpected, ref bool pbFailed ) 
 		{
-			return this.GetFunction<NativeGetAPICallResultIUBIIB>( this.Functions.GetAPICallResult29 )( this.ObjectAddress, hSteamPipe, hSteamAPICall, pCallback, (Int32) pCallback.Length, iCallbackExpected, ref pbFailed ); 
+			return this.GetFunction<NativeGetAPICallResultIUBIIB>( this.Functions.GetAPICallResult30 )( this.ObjectAddress, hSteamPipe, hSteamAPICall, pCallback, (Int32) pCallback.Length, iCallbackExpected, ref pbFailed ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientDepotBuilderIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetIClientDepotBuilder<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientDepotBuilderIIS>( this.Functions.GetIClientDepotBuilder30 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientDepotBuilderIIS>( this.Functions.GetIClientDepotBuilder31 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeConCommandInitI( IntPtr thisptr, ref IntPtr pAccessor );
 		public void ConCommandInit( ref IntPtr pAccessor ) 
 		{
-			this.GetFunction<NativeConCommandInitI>( this.Functions.ConCommandInit31 )( this.ObjectAddress, ref pAccessor ); 
+			this.GetFunction<NativeConCommandInitI>( this.Functions.ConCommandInit32 )( this.ObjectAddress, ref pAccessor ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientAppManagerIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetIClientAppManager<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientAppManagerIIS>( this.Functions.GetIClientAppManager32 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientAppManagerIIS>( this.Functions.GetIClientAppManager33 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientConfigStoreIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetIClientConfigStore<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientConfigStoreIIS>( this.Functions.GetIClientConfigStore33 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientConfigStoreIIS>( this.Functions.GetIClientConfigStore34 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeOverlayNeedsPresent( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBOverlayNeedsPresent( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool OverlayNeedsPresent(  ) 
+		public bool BOverlayNeedsPresent(  ) 
 		{
-			return this.GetFunction<NativeOverlayNeedsPresent>( this.Functions.OverlayNeedsPresent34 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBOverlayNeedsPresent>( this.Functions.BOverlayNeedsPresent35 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientGameStatsIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetIClientGameStats<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientGameStatsIIS>( this.Functions.GetIClientGameStats35 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientGameStatsIIS>( this.Functions.GetIClientGameStats36 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientHTTPIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
 		public TClass GetIClientHTTP<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientHTTPIIS>( this.Functions.GetIClientHTTP36 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientHTTPIIS>( this.Functions.GetIClientHTTP37 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBShutdownIfAllPipesClosed( IntPtr thisptr );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool BShutdownIfAllPipesClosed(  ) 
+		{
+			return this.GetFunction<NativeBShutdownIfAllPipesClosed>( this.Functions.BShutdownIfAllPipesClosed38 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientAudioIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
+		public TClass GetIClientAudio<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
+		{
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientAudioIIS>( this.Functions.GetIClientAudio39 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIPCServerMap( IntPtr thisptr );
 		public TClass GetIPCServerMap<TClass>(  ) where TClass : InteropHelp.INativeWrapper, new()
 		{
-			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIPCServerMap>( this.Functions.GetIPCServerMap37 )( this.ObjectAddress ) ); 
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIPCServerMap>( this.Functions.GetIPCServerMap40 )( this.ObjectAddress ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeOnDebugTextArrivedS( IntPtr thisptr, string pchDebugText );
 		public Int32 OnDebugTextArrived( string pchDebugText ) 
 		{
-			return this.GetFunction<NativeOnDebugTextArrivedS>( this.Functions.OnDebugTextArrived38 )( this.ObjectAddress, pchDebugText ); 
+			return this.GetFunction<NativeOnDebugTextArrivedS>( this.Functions.OnDebugTextArrived41 )( this.ObjectAddress, pchDebugText ); 
 		}
 		
 	};

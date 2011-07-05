@@ -207,14 +207,15 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLobbyMemberLimitC>( this.Functions.GetLobbyMemberLimit25 )( this.ObjectAddress, steamIDLobby.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetLobbyVoiceEnabledCB( IntPtr thisptr, UInt64 steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bEnabled );
-		public Int32 SetLobbyVoiceEnabled( CSteamID steamIDLobby, bool bEnabled ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyVoiceEnabledCB( IntPtr thisptr, UInt64 steamIDLobby, [MarshalAs(UnmanagedType.I1)] bool bEnabled );
+		public void SetLobbyVoiceEnabled( CSteamID steamIDLobby, bool bEnabled ) 
 		{
-			return this.GetFunction<NativeSetLobbyVoiceEnabledCB>( this.Functions.SetLobbyVoiceEnabled26 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), bEnabled ); 
+			this.GetFunction<NativeSetLobbyVoiceEnabledCB>( this.Functions.SetLobbyVoiceEnabled26 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), bEnabled ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestFriendsLobbies( IntPtr thisptr );
-		public Int32 RequestFriendsLobbies(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestFriendsLobbies( IntPtr thisptr );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool RequestFriendsLobbies(  ) 
 		{
 			return this.GetFunction<NativeRequestFriendsLobbies>( this.Functions.RequestFriendsLobbies27 )( this.ObjectAddress ); 
 		}

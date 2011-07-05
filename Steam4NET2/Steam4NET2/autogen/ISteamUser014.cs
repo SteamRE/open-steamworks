@@ -26,7 +26,7 @@ namespace Steam4NET
 		public IntPtr EndAuthSession14;
 		public IntPtr CancelAuthTicket15;
 		public IntPtr UserHasLicenseForApp16;
-		public IntPtr IsBehindNAT17;
+		public IntPtr BIsBehindNAT17;
 		public IntPtr AdvertiseGame18;
 		public IntPtr RequestEncryptedAppTicket19;
 		public IntPtr GetEncryptedAppTicket20;
@@ -140,11 +140,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeUserHasLicenseForAppCU>( this.Functions.UserHasLicenseForApp16 )( this.ObjectAddress, steamID.ConvertToUint64(), appID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsBehindNAT( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsBehindNAT( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsBehindNAT(  ) 
+		public bool BIsBehindNAT(  ) 
 		{
-			return this.GetFunction<NativeIsBehindNAT>( this.Functions.IsBehindNAT17 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsBehindNAT>( this.Functions.BIsBehindNAT17 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAdvertiseGameCUU( IntPtr thisptr, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer );

@@ -17,7 +17,7 @@ namespace Steam4NET
 		k_EAccountTypeContentServer = 6,
 		k_EAccountTypeClan = 7,
 		k_EAccountTypeChat = 8,
-		k_EAccountTypeP2PSuperSeeder = 9,
+		k_EAccountTypeConsoleUser = 9,
 		k_EAccountTypeAnonUser = 10,
 		k_EAccountTypeMax = 11,
 	};

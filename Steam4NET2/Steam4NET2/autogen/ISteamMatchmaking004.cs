@@ -206,8 +206,9 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLobbyMemberLimitC>( this.Functions.GetLobbyMemberLimit25 )( this.ObjectAddress, steamIDLobby.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestFriendsLobbies( IntPtr thisptr );
-		public Int32 RequestFriendsLobbies(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestFriendsLobbies( IntPtr thisptr );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool RequestFriendsLobbies(  ) 
 		{
 			return this.GetFunction<NativeRequestFriendsLobbies>( this.Functions.RequestFriendsLobbies26 )( this.ObjectAddress ); 
 		}

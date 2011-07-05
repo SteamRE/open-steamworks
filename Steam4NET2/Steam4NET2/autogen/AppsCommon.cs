@@ -67,4 +67,14 @@ namespace Steam4NET
 		public UInt32 m_nAppID;
 	};
 	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1010)]
+	public struct OptionalDLCInstallation_t
+	{
+		public const int k_iCallback = 1010;
+		public UInt32 m_nAppID;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bUnk;
+	};
+	
 }

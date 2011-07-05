@@ -23,30 +23,93 @@ namespace Steam4NET
 		k_ERemoteSyncStatePendingChangesInCloudAndLocally = 5,
 	};
 	
-	public enum EScreenshotPrivacy : int
+	public enum EScreenshotPrivacyState : int
 	{
-		k_EScreenshotPrivacyPrivate = 2,
-		k_EScreenshotPrivacyFriendsOnly = 4,
-		k_EScreenshotPrivacyPublic = 8,
+		k_EScreenshotPrivacyStatePrivate = 2,
+		k_EScreenshotPrivacyStateFriendsOnly = 4,
+		k_EScreenshotPrivacyStatePublic = 8,
+	};
+	
+	public enum ERemoteStoragePlatform : int
+	{
+		k_ERemoteStoragePlatformNone = 0,
+		k_ERemoteStoragePlatformWindows = 1,
+		k_ERemoteStoragePlatformOSX = 2,
+		k_ERemoteStoragePlatformPS3 = 4,
+		k_ERemoteStoragePlatformReserved1 = 8,
+		k_ERemoteStoragePlatformReserved2 = 16,
+		k_ERemoteStoragePlatformAll = -1,
+	};
+	
+	public enum EResolveConflict : int
+	{
+		k_EResolveConflictKeepClient = 1,
+		k_EResolveConflictKeepServer = 2,
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1301)]
+	public struct RemoteStorageAppSyncedClient_t
+	{
+		public const int k_iCallback = 1301;
+		public UInt32 m_nAppID;
+		public EResult m_eResult;
+		public Int32 m_unNumDownloads;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1302)]
+	public struct RemoteStorageAppSyncedServer_t
+	{
+		public const int k_iCallback = 1302;
+		public UInt32 m_nAppID;
+		public EResult m_eResult;
+		public Int32 m_unNumUploads;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1303)]
+	public struct RemoteStorageAppSyncProgress_t
+	{
+		public const int k_iCallback = 1303;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+		public string m_rgchCurrentFile;
+		public UInt32 m_nAppID;
+		public UInt32 m_uBytesTransferredThisChunk;
+		public double m_dAppPercentComplete;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bUploading;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1306)]
+	public struct RemoteStorageConflictResolution_t
+	{
+		public const int k_iCallback = 1306;
+		public UInt32 m_nAppID;
+		public EResult m_eResult;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(1307)]
-	public struct FileShareResult_t
+	public struct RemoteStorageFileShareResult_t
 	{
 		public const int k_iCallback = 1307;
-		public Int32 unk1;
-		public Int32 unk2;
-		public Int32 unk3;
-		public Int32 unk4;
+		public EResult m_eResult;
+		public UInt64 m_hFile;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(1312)]
-	public struct ScreenshotBatchResult_t
+	[InteropHelp.CallbackIdentity(1308)]
+	public struct RemoteStorageDownloadUGCResult_t
 	{
-		public const int k_iCallback = 1312;
+		public const int k_iCallback = 1308;
 		public EResult m_eResult;
+		public UInt64 m_hFile;
+		public UInt32 m_nAppID;
+		public Int32 m_nSizeInBytes;
+		public IntPtr m_pchFileName;
+		public UInt64 m_ulSteamIDOwner;
 	};
 	
 }

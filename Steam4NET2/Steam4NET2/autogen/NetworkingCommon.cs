@@ -21,6 +21,7 @@ namespace Steam4NET
 		k_EP2PSessionErrorNoRightsToApp = 2,
 		k_EP2PSessionErrorDestinationNotLoggedIn = 3,
 		k_EP2PSessionErrorTimeout = 4,
+		k_EP2PSessionErrorMax = 5,
 	};
 	
 	public enum ESNetSocketConnectionType : int

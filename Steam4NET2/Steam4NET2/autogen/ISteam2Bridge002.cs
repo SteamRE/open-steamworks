@@ -29,20 +29,21 @@ namespace Steam4NET
 		public IntPtr GetCurrentSessionToken17;
 		public IntPtr SetCellID18;
 		public IntPtr SetSteam2FullASTicket19;
-		public IntPtr UpdateAppOwnershipTicket20;
+		public IntPtr BUpdateAppOwnershipTicket20;
 		public IntPtr GetAppOwnershipTicketLength21;
 		public IntPtr GetAppOwnershipTicketData22;
 		public IntPtr GetAppDecryptionKey23;
-		private IntPtr DTorISteam2Bridge00224;
+		public IntPtr GetPlatformName24;
+		private IntPtr DTorISteam2Bridge00225;
 	};
 	
 	[InteropHelp.InterfaceVersion("STEAM2BRIDGE_INTERFACE_VERSION002")]
 	public class ISteam2Bridge002 : InteropHelp.NativeWrapper<ISteam2Bridge002VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetSteam2TicketBI( IntPtr thisptr, Byte[] pubTicket, Int32 cubTicket );
-		public Int32 SetSteam2Ticket( Byte[] pubTicket ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetSteam2TicketBI( IntPtr thisptr, Byte[] pubTicket, Int32 cubTicket );
+		public void SetSteam2Ticket( Byte[] pubTicket ) 
 		{
-			return this.GetFunction<NativeSetSteam2TicketBI>( this.Functions.SetSteam2Ticket0 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
+			this.GetFunction<NativeSetSteam2TicketBI>( this.Functions.SetSteam2Ticket0 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountNameS( IntPtr thisptr, string szName );
@@ -102,8 +103,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLicenseTimeCreatedU>( this.Functions.GetLicenseTimeCreated9 )( this.ObjectAddress, licenseId ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLicenseTimeNextProcessU( IntPtr thisptr, UInt32 licenseId );
-		public Int32 GetLicenseTimeNextProcess( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseTimeNextProcessU( IntPtr thisptr, UInt32 licenseId );
+		public UInt32 GetLicenseTimeNextProcess( UInt32 licenseId ) 
 		{
 			return this.GetFunction<NativeGetLicenseTimeNextProcessU>( this.Functions.GetLicenseTimeNextProcess10 )( this.ObjectAddress, licenseId ); 
 		}
@@ -145,29 +146,29 @@ namespace Steam4NET
 			return this.GetFunction<NativeSetOfflineModeB>( this.Functions.SetOfflineMode16 )( this.ObjectAddress, offlineMode ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentSessionToken( IntPtr thisptr );
-		public Int32 GetCurrentSessionToken(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetCurrentSessionToken( IntPtr thisptr, ref UInt64 retarg );
+		public UInt64 GetCurrentSessionToken(  ) 
 		{
-			return this.GetFunction<NativeGetCurrentSessionToken>( this.Functions.GetCurrentSessionToken17 )( this.ObjectAddress ); 
+			UInt64 ret = 0; this.GetFunction<NativeGetCurrentSessionToken>( this.Functions.GetCurrentSessionToken17 )( this.ObjectAddress, ref ret ); return (UInt64)ret;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetCellIDU( IntPtr thisptr, UInt32 cellId );
-		public Int32 SetCellID( UInt32 cellId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetCellIDU( IntPtr thisptr, UInt32 cellId );
+		public void SetCellID( UInt32 cellId ) 
 		{
-			return this.GetFunction<NativeSetCellIDU>( this.Functions.SetCellID18 )( this.ObjectAddress, cellId ); 
+			this.GetFunction<NativeSetCellIDU>( this.Functions.SetCellID18 )( this.ObjectAddress, cellId ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetSteam2FullASTicketBI( IntPtr thisptr, Byte[] pubTicket, Int32 cubTicket );
-		public Int32 SetSteam2FullASTicket( Byte[] pubTicket ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetSteam2FullASTicketBI( IntPtr thisptr, Byte[] pubTicket, Int32 cubTicket );
+		public void SetSteam2FullASTicket( Byte[] pubTicket ) 
 		{
-			return this.GetFunction<NativeSetSteam2FullASTicketBI>( this.Functions.SetSteam2FullASTicket19 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
+			this.GetFunction<NativeSetSteam2FullASTicketBI>( this.Functions.SetSteam2FullASTicket19 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateAppOwnershipTicketUB( IntPtr thisptr, UInt32 appId, [MarshalAs(UnmanagedType.I1)] bool arg1 );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBUpdateAppOwnershipTicketUB( IntPtr thisptr, UInt32 appId, [MarshalAs(UnmanagedType.I1)] bool arg1 );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool UpdateAppOwnershipTicket( UInt32 appId, bool arg1 ) 
+		public bool BUpdateAppOwnershipTicket( UInt32 appId, bool arg1 ) 
 		{
-			return this.GetFunction<NativeUpdateAppOwnershipTicketUB>( this.Functions.UpdateAppOwnershipTicket20 )( this.ObjectAddress, appId, arg1 ); 
+			return this.GetFunction<NativeBUpdateAppOwnershipTicketUB>( this.Functions.BUpdateAppOwnershipTicket20 )( this.ObjectAddress, appId, arg1 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppOwnershipTicketLengthU( IntPtr thisptr, UInt32 appId );
@@ -182,10 +183,17 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAppOwnershipTicketDataUBU>( this.Functions.GetAppOwnershipTicketData22 )( this.ObjectAddress, appId, lpTicketData, (UInt32) lpTicketData.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDecryptionKeyUBU( IntPtr thisptr, UInt32 appId, Byte[] lpDecryptionKey, UInt32 cubDecryptionKey );
-		public Int32 GetAppDecryptionKey( UInt32 appId, Byte[] lpDecryptionKey ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAppDecryptionKeyUBU( IntPtr thisptr, UInt32 appId, Byte[] lpDecryptionKey, UInt32 cubDecryptionKey );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool GetAppDecryptionKey( UInt32 appId, Byte[] lpDecryptionKey ) 
 		{
 			return this.GetFunction<NativeGetAppDecryptionKeyUBU>( this.Functions.GetAppDecryptionKey23 )( this.ObjectAddress, appId, lpDecryptionKey, (UInt32) lpDecryptionKey.Length ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetPlatformNameB( IntPtr thisptr, ref bool arg0 );
+		public string GetPlatformName( ref bool arg0 ) 
+		{
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetPlatformNameB>( this.Functions.GetPlatformName24 )( this.ObjectAddress, ref arg0 ) ); 
 		}
 		
 	};

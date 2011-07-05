@@ -62,6 +62,19 @@ namespace Steam4NET
 		k_EResultDataCorruption = 53,
 		k_EResultDiskFull = 54,
 		k_EResultRemoteCallFailed = 55,
+		k_EResultPasswordUnset = 56,
+		k_EResultPSNAccountUnlinked = 57,
+		k_EResultPSNTicketInvalid = 58,
+		k_EResultPSNAccountAlreadyLinked = 59,
+		k_EResultRemoteFileConflict = 60,
+		k_EResultIllegalPassword = 61,
+		k_EResultSameAsPreviousValue = 62,
+		k_EResultAccountLogonDenied = 63,
+		k_EResultCannotUseOldPassword = 64,
+		k_EResultInvalidLoginAuthCode = 65,
+		k_EResultAccountLogonDeniedNoMail = 66,
+		k_EResultHardwareNotCapableOfIPT = 67,
+		k_EResultIPTInitError = 68,
 	};
 	
 }

@@ -206,6 +206,16 @@ namespace Steam4NET
 		k_EChatActionResultVoiceSlotsFull = 10,
 	};
 	
+	public enum EUserRestriction : int
+	{
+		k_nUserRestrictionNone = 0,
+		k_nUserRestrictionUnknown = 1,
+		k_nUserRestrictionAnyChat = 2,
+		k_nUserRestrictionVoiceChat = 4,
+		k_nUserRestrictionGroupChat = 8,
+		k_nUserRestrictionRating = 16,
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(301)]
 	public struct FriendAdded_t
@@ -546,13 +556,32 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(335)]
+	public struct ClanOfficerListResponse_t
+	{
+		public const int k_iCallback = 335;
+		public UInt64 m_steamIDClan;
+		public Int32 m_cOfficers;
+		public Byte m_bSuccess;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(336)]
+	public struct FriendRichPresenceUpdate_t
+	{
+		public const int k_iCallback = 336;
+		public UInt64 m_steamIDFriend;
+		public UInt32 m_nAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(337)]
-	public struct RichPresenceJoinRequested_t
+	public struct GameRichPresenceJoinRequested_t
 	{
 		public const int k_iCallback = 337;
-		public UInt64 m_ulSteamID;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 512)]
-		public string szUnk;
+		public UInt64 m_steamIDFriend;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+		public string m_rgchConnect;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

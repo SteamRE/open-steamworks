@@ -11,7 +11,7 @@ namespace Steam4NET
 	{
 		public IntPtr LogOn0;
 		public IntPtr LogOff1;
-		public IntPtr LoggedOn2;
+		public IntPtr BLoggedOn2;
 		public IntPtr SetSpawnCount3;
 		public IntPtr GetSteam2GetEncryptionKeyToSendToNewClient4;
 		public IntPtr SendSteam2UserConnect5;
@@ -21,7 +21,7 @@ namespace Steam4NET
 		public IntPtr SendUserStatusResponse9;
 		public IntPtr Obsolete_GSSetStatus10;
 		public IntPtr UpdateStatus11;
-		public IntPtr Secure12;
+		public IntPtr BSecure12;
 		public IntPtr GetSteamID13;
 		public IntPtr SetServerType14;
 		public IntPtr SetServerType215;
@@ -48,11 +48,11 @@ namespace Steam4NET
 			this.GetFunction<NativeLogOff>( this.Functions.LogOff1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LoggedOn(  ) 
+		public bool BLoggedOn(  ) 
 		{
-			return this.GetFunction<NativeLoggedOn>( this.Functions.LoggedOn2 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn2 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetSpawnCountU( IntPtr thisptr, UInt32 ucSpawn );
@@ -117,11 +117,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeUpdateStatusIIISS>( this.Functions.UpdateStatus11 )( this.ObjectAddress, cPlayers, cPlayersMax, cBotPlayers, pchServerName, pchMapName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSecure( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSecure( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool Secure(  ) 
+		public bool BSecure(  ) 
 		{
-			return this.GetFunction<NativeSecure>( this.Functions.Secure12 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBSecure>( this.Functions.BSecure12 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetSteamID( IntPtr thisptr, ref UInt64 retarg );
@@ -151,8 +151,9 @@ namespace Steam4NET
 			return this.GetFunction<NativeUpdateStatus2IIISSS>( this.Functions.UpdateStatus216 )( this.ObjectAddress, cPlayers, cPlayersMax, cBotPlayers, pchServerName, pSpectatorServerName, pchMapName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateUnauthenticatedUserC( IntPtr thisptr, ref UInt64 pSteamID );
-		public Int32 CreateUnauthenticatedUser( ref CSteamID pSteamID ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCreateUnauthenticatedUserC( IntPtr thisptr, ref UInt64 pSteamID );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool CreateUnauthenticatedUser( ref CSteamID pSteamID ) 
 		{
 			UInt64 s0 = 0; var result = this.GetFunction<NativeCreateUnauthenticatedUserC>( this.Functions.CreateUnauthenticatedUser17 )( this.ObjectAddress, ref s0 ); pSteamID = new CSteamID(s0); return result;
 		}

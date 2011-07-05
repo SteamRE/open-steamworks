@@ -12,9 +12,9 @@ namespace Steam4NET
 		public IntPtr GetHSteamUser0;
 		public IntPtr LogOn1;
 		public IntPtr LogOff2;
-		public IntPtr LoggedOn3;
+		public IntPtr BLoggedOn3;
 		public IntPtr GetLogonState4;
-		public IntPtr Connected5;
+		public IntPtr BConnected5;
 		public IntPtr GetSteamID6;
 		public IntPtr IsVACBanned7;
 		public IntPtr RequireShowVACBannedMessage8;
@@ -25,7 +25,7 @@ namespace Steam4NET
 		public IntPtr SetSteam2Ticket13;
 		public IntPtr AddServerNetAddress14;
 		public IntPtr SetEmail15;
-		public IntPtr Obsolete_GetSteamGameConnectToken16;
+		public IntPtr GetSteamGameConnectToken16;
 		public IntPtr SetRegistryString17;
 		public IntPtr GetRegistryString18;
 		public IntPtr SetRegistryInt19;
@@ -59,11 +59,11 @@ namespace Steam4NET
 			this.GetFunction<NativeLogOff>( this.Functions.LogOff2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LoggedOn(  ) 
+		public bool BLoggedOn(  ) 
 		{
-			return this.GetFunction<NativeLoggedOn>( this.Functions.LoggedOn3 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn3 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ELogonState NativeGetLogonState( IntPtr thisptr );
@@ -72,11 +72,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLogonState>( this.Functions.GetLogonState4 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeConnected( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBConnected( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool Connected(  ) 
+		public bool BConnected(  ) 
 		{
-			return this.GetFunction<NativeConnected>( this.Functions.Connected5 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBConnected>( this.Functions.BConnected5 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetSteamID( IntPtr thisptr, ref UInt64 retarg );
@@ -142,10 +142,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeSetEmailS>( this.Functions.SetEmail15 )( this.ObjectAddress, pchEmail ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeObsolete_GetSteamGameConnectTokenBI( IntPtr thisptr, Byte[] pBlob, Int32 cbMaxBlob );
-		public Int32 Obsolete_GetSteamGameConnectToken( Byte[] pBlob ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSteamGameConnectTokenBI( IntPtr thisptr, Byte[] pBlob, Int32 cbMaxBlob );
+		public Int32 GetSteamGameConnectToken( Byte[] pBlob ) 
 		{
-			return this.GetFunction<NativeObsolete_GetSteamGameConnectTokenBI>( this.Functions.Obsolete_GetSteamGameConnectToken16 )( this.ObjectAddress, pBlob, (Int32) pBlob.Length ); 
+			return this.GetFunction<NativeGetSteamGameConnectTokenBI>( this.Functions.GetSteamGameConnectToken16 )( this.ObjectAddress, pBlob, (Int32) pBlob.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetRegistryStringESS( IntPtr thisptr, ERegistrySubTree eRegistrySubTree, string pchKey, string pchValue );
@@ -201,10 +201,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeIsPrimaryChatDestination>( this.Functions.IsPrimaryChatDestination24 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestLegacyCDKeyU( IntPtr thisptr, UInt32 i );
-		public Int32 RequestLegacyCDKey( UInt32 i ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestLegacyCDKeyU( IntPtr thisptr, UInt32 iAppID );
+		public void RequestLegacyCDKey( UInt32 iAppID ) 
 		{
-			return this.GetFunction<NativeRequestLegacyCDKeyU>( this.Functions.RequestLegacyCDKey25 )( this.ObjectAddress, i ); 
+			this.GetFunction<NativeRequestLegacyCDKeyU>( this.Functions.RequestLegacyCDKey25 )( this.ObjectAddress, iAppID ); 
 		}
 		
 	};

@@ -10,7 +10,7 @@ namespace Steam4NET
 	public class ISteamClient008VTable
 	{
 		public IntPtr CreateSteamPipe0;
-		public IntPtr ReleaseSteamPipe1;
+		public IntPtr BReleaseSteamPipe1;
 		public IntPtr ConnectToGlobalUser2;
 		public IntPtr CreateLocalUser3;
 		public IntPtr ReleaseUser4;
@@ -42,11 +42,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeCreateSteamPipe>( this.Functions.CreateSteamPipe0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeReleaseSteamPipeI( IntPtr thisptr, Int32 hSteamPipe );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBReleaseSteamPipeI( IntPtr thisptr, Int32 hSteamPipe );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool ReleaseSteamPipe( Int32 hSteamPipe ) 
+		public bool BReleaseSteamPipe( Int32 hSteamPipe ) 
 		{
-			return this.GetFunction<NativeReleaseSteamPipeI>( this.Functions.ReleaseSteamPipe1 )( this.ObjectAddress, hSteamPipe ); 
+			return this.GetFunction<NativeBReleaseSteamPipeI>( this.Functions.BReleaseSteamPipe1 )( this.ObjectAddress, hSteamPipe ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeConnectToGlobalUserI( IntPtr thisptr, Int32 hSteamPipe );

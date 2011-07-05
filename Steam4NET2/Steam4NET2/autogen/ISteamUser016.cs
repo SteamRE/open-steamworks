@@ -7,7 +7,7 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
-	public class ISteamUser015VTable
+	public class ISteamUser016VTable
 	{
 		public IntPtr GetHSteamUser0;
 		public IntPtr BLoggedOn1;
@@ -31,11 +31,11 @@ namespace Steam4NET
 		public IntPtr AdvertiseGame19;
 		public IntPtr RequestEncryptedAppTicket20;
 		public IntPtr GetEncryptedAppTicket21;
-		private IntPtr DTorISteamUser01522;
+		private IntPtr DTorISteamUser01622;
 	};
 	
-	[InteropHelp.InterfaceVersion("SteamUser015")]
-	public class ISteamUser015 : InteropHelp.NativeWrapper<ISteamUser015VTable>
+	[InteropHelp.InterfaceVersion("SteamUser016")]
+	public class ISteamUser016 : InteropHelp.NativeWrapper<ISteamUser016VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetHSteamUser( IntPtr thisptr );
 		public Int32 GetHSteamUser(  ) 
@@ -68,10 +68,10 @@ namespace Steam4NET
 			this.GetFunction<NativeTerminateGameConnectionUU>( this.Functions.TerminateGameConnection4 )( this.ObjectAddress, unIPServer, usPortServer ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTrackAppUsageEventCES( IntPtr thisptr, UInt64 gameID, EAppUsageEvent eAppUsageEvent, string pchExtraInfo );
-		public void TrackAppUsageEvent( CGameID gameID, EAppUsageEvent eAppUsageEvent, string pchExtraInfo ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTrackAppUsageEventCIS( IntPtr thisptr, UInt64 gameID, Int32 eAppUsageEvent, string pchExtraInfo );
+		public void TrackAppUsageEvent( CGameID gameID, Int32 eAppUsageEvent, string pchExtraInfo ) 
 		{
-			this.GetFunction<NativeTrackAppUsageEventCES>( this.Functions.TrackAppUsageEvent5 )( this.ObjectAddress, gameID.ConvertToUint64(), eAppUsageEvent, pchExtraInfo ); 
+			this.GetFunction<NativeTrackAppUsageEventCIS>( this.Functions.TrackAppUsageEvent5 )( this.ObjectAddress, gameID.ConvertToUint64(), eAppUsageEvent, pchExtraInfo ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserDataFolderSI( IntPtr thisptr, StringBuilder pchBuffer, Int32 cubBuffer );
@@ -93,22 +93,22 @@ namespace Steam4NET
 			this.GetFunction<NativeStopVoiceRecording>( this.Functions.StopVoiceRecording8 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EVoiceResult NativeGetAvailableVoiceUU( IntPtr thisptr, ref UInt32 pcbCompressed, ref UInt32 pcbUncompressed );
-		public EVoiceResult GetAvailableVoice( ref UInt32 pcbCompressed, ref UInt32 pcbUncompressed ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EVoiceResult NativeGetAvailableVoiceUUU( IntPtr thisptr, ref UInt32 pcbCompressed, ref UInt32 pcbUncompressed, UInt32 nUncompressedVoiceDesiredSampleRate );
+		public EVoiceResult GetAvailableVoice( ref UInt32 pcbCompressed, ref UInt32 pcbUncompressed, UInt32 nUncompressedVoiceDesiredSampleRate ) 
 		{
-			return this.GetFunction<NativeGetAvailableVoiceUU>( this.Functions.GetAvailableVoice9 )( this.ObjectAddress, ref pcbCompressed, ref pcbUncompressed ); 
+			return this.GetFunction<NativeGetAvailableVoiceUUU>( this.Functions.GetAvailableVoice9 )( this.ObjectAddress, ref pcbCompressed, ref pcbUncompressed, nUncompressedVoiceDesiredSampleRate ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EVoiceResult NativeGetVoiceBBUUBBUU( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bWantCompressed, Byte[] pDestBuffer, UInt32 cbDestBufferSize, ref UInt32 nBytesWritten, [MarshalAs(UnmanagedType.I1)] bool bWantUncompressed, Byte[] pUncompressedDestBuffer, UInt32 cbUncompressedDestBufferSize, ref UInt32 nUncompressBytesWritten );
-		public EVoiceResult GetVoice( bool bWantCompressed, Byte[] pDestBuffer, ref UInt32 nBytesWritten, bool bWantUncompressed, Byte[] pUncompressedDestBuffer, ref UInt32 nUncompressBytesWritten ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EVoiceResult NativeGetVoiceBBUUBBUUU( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bWantCompressed, Byte[] pDestBuffer, UInt32 cbDestBufferSize, ref UInt32 nBytesWritten, [MarshalAs(UnmanagedType.I1)] bool bWantUncompressed, Byte[] pUncompressedDestBuffer, UInt32 cbUncompressedDestBufferSize, ref UInt32 nUncompressBytesWritten, UInt32 nUncompressedVoiceDesiredSampleRate );
+		public EVoiceResult GetVoice( bool bWantCompressed, Byte[] pDestBuffer, ref UInt32 nBytesWritten, bool bWantUncompressed, Byte[] pUncompressedDestBuffer, ref UInt32 nUncompressBytesWritten, UInt32 nUncompressedVoiceDesiredSampleRate ) 
 		{
-			return this.GetFunction<NativeGetVoiceBBUUBBUU>( this.Functions.GetVoice10 )( this.ObjectAddress, bWantCompressed, pDestBuffer, (UInt32) pDestBuffer.Length, ref nBytesWritten, bWantUncompressed, pUncompressedDestBuffer, (UInt32) pUncompressedDestBuffer.Length, ref nUncompressBytesWritten ); 
+			return this.GetFunction<NativeGetVoiceBBUUBBUUU>( this.Functions.GetVoice10 )( this.ObjectAddress, bWantCompressed, pDestBuffer, (UInt32) pDestBuffer.Length, ref nBytesWritten, bWantUncompressed, pUncompressedDestBuffer, (UInt32) pUncompressedDestBuffer.Length, ref nUncompressBytesWritten, nUncompressedVoiceDesiredSampleRate ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EVoiceResult NativeDecompressVoiceBUBUUU( IntPtr thisptr, Byte[] pCompressed, UInt32 cbCompressed, Byte[] pDestBuffer, UInt32 cbDestBufferSize, ref UInt32 nBytesWritten, UInt32 nSamplesPerSec );
-		public EVoiceResult DecompressVoice( Byte[] pCompressed, Byte[] pDestBuffer, ref UInt32 nBytesWritten, UInt32 nSamplesPerSec ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EVoiceResult NativeDecompressVoiceBUBUUU( IntPtr thisptr, Byte[] pCompressed, UInt32 cbCompressed, Byte[] pDestBuffer, UInt32 cbDestBufferSize, ref UInt32 nBytesWritten, UInt32 nDesiredSampleRate );
+		public EVoiceResult DecompressVoice( Byte[] pCompressed, Byte[] pDestBuffer, ref UInt32 nBytesWritten, UInt32 nDesiredSampleRate ) 
 		{
-			return this.GetFunction<NativeDecompressVoiceBUBUUU>( this.Functions.DecompressVoice11 )( this.ObjectAddress, pCompressed, (UInt32) pCompressed.Length, pDestBuffer, (UInt32) pDestBuffer.Length, ref nBytesWritten, nSamplesPerSec ); 
+			return this.GetFunction<NativeDecompressVoiceBUBUUU>( this.Functions.DecompressVoice11 )( this.ObjectAddress, pCompressed, (UInt32) pCompressed.Length, pDestBuffer, (UInt32) pDestBuffer.Length, ref nBytesWritten, nDesiredSampleRate ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetVoiceOptimalSampleRate( IntPtr thisptr );
@@ -154,17 +154,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeBIsBehindNAT>( this.Functions.BIsBehindNAT18 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAdvertiseGameCUU( IntPtr thisptr, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer );
-		[return: MarshalAs(UnmanagedType.I1)]
-		public bool AdvertiseGame( CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeAdvertiseGameCUU( IntPtr thisptr, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer );
+		public void AdvertiseGame( CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer ) 
 		{
-			return this.GetFunction<NativeAdvertiseGameCUU>( this.Functions.AdvertiseGame19 )( this.ObjectAddress, steamIDGameServer.ConvertToUint64(), unIPServer, usPortServer ); 
+			this.GetFunction<NativeAdvertiseGameCUU>( this.Functions.AdvertiseGame19 )( this.ObjectAddress, steamIDGameServer.ConvertToUint64(), unIPServer, usPortServer ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestEncryptedAppTicketBI( IntPtr thisptr, ref UInt64 retarg, Byte[] pUserData, Int32 cbUserData );
-		public UInt64 RequestEncryptedAppTicket( Byte[] pUserData ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestEncryptedAppTicketBI( IntPtr thisptr, ref UInt64 retarg, Byte[] pDataToInclude, Int32 cbDataToInclude );
+		public UInt64 RequestEncryptedAppTicket( Byte[] pDataToInclude ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeRequestEncryptedAppTicketBI>( this.Functions.RequestEncryptedAppTicket20 )( this.ObjectAddress, ref ret, pUserData, (Int32) pUserData.Length ); return (UInt64)ret;
+			UInt64 ret = 0; this.GetFunction<NativeRequestEncryptedAppTicketBI>( this.Functions.RequestEncryptedAppTicket20 )( this.ObjectAddress, ref ret, pDataToInclude, (Int32) pDataToInclude.Length ); return (UInt64)ret;
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetEncryptedAppTicketBIU( IntPtr thisptr, Byte[] pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket );

@@ -32,7 +32,7 @@ namespace Steam4NET
 		public IntPtr GetAPICallResult20;
 		public IntPtr SignalAppsToShutDown21;
 		public IntPtr GetCellID22;
-		public IntPtr IsGlobalInstance23;
+		public IntPtr BIsGlobalInstance23;
 		public IntPtr CheckFileSignature24;
 		public IntPtr GetBuildID25;
 		private IntPtr DTorIClientUtils26;
@@ -186,11 +186,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetCellID>( this.Functions.GetCellID22 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsGlobalInstance( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsGlobalInstance( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsGlobalInstance(  ) 
+		public bool BIsGlobalInstance(  ) 
 		{
-			return this.GetFunction<NativeIsGlobalInstance>( this.Functions.IsGlobalInstance23 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsGlobalInstance>( this.Functions.BIsGlobalInstance23 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCheckFileSignatureS( IntPtr thisptr, ref UInt64 retarg, string szFileName );
@@ -199,10 +199,10 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeCheckFileSignatureS>( this.Functions.CheckFileSignature24 )( this.ObjectAddress, ref ret, szFileName ); return (UInt64)ret;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetBuildID( IntPtr thisptr );
-		public UInt32 GetBuildID(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetBuildID( IntPtr thisptr, ref UInt64 retarg );
+		public UInt64 GetBuildID(  ) 
 		{
-			return this.GetFunction<NativeGetBuildID>( this.Functions.GetBuildID25 )( this.ObjectAddress ); 
+			UInt64 ret = 0; this.GetFunction<NativeGetBuildID>( this.Functions.GetBuildID25 )( this.ObjectAddress, ref ret ); return (UInt64)ret;
 		}
 		
 	};

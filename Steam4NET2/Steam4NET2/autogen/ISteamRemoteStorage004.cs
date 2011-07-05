@@ -24,8 +24,8 @@ namespace Steam4NET
 		public IntPtr GetFileNameAndSize12;
 		public IntPtr GetQuota13;
 		public IntPtr IsCloudEnabledForAccount14;
-		public IntPtr IsCloudEnabledThisApp15;
-		public IntPtr SetCloudEnabledThisApp16;
+		public IntPtr IsCloudEnabledForApp15;
+		public IntPtr SetCloudEnabledForApp16;
 		public IntPtr UGCDownload17;
 		public IntPtr GetUGCDetails18;
 		public IntPtr UGCRead19;
@@ -70,11 +70,11 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeFileShareS>( this.Functions.FileShare4 )( this.ObjectAddress, ref ret, pchFile ); return (UInt64)ret;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetSyncPlatformsSI( IntPtr thisptr, string pchFile, Int32 iUnk );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetSyncPlatformsSE( IntPtr thisptr, string pchFile, ERemoteStoragePlatform eRemoteStoragePlatform );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetSyncPlatforms( string pchFile, Int32 iUnk ) 
+		public bool SetSyncPlatforms( string pchFile, ERemoteStoragePlatform eRemoteStoragePlatform ) 
 		{
-			return this.GetFunction<NativeSetSyncPlatformsSI>( this.Functions.SetSyncPlatforms5 )( this.ObjectAddress, pchFile, iUnk ); 
+			return this.GetFunction<NativeSetSyncPlatformsSE>( this.Functions.SetSyncPlatforms5 )( this.ObjectAddress, pchFile, eRemoteStoragePlatform ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileExistsS( IntPtr thisptr, string pchFile );
@@ -103,8 +103,8 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeGetFileTimestampS>( this.Functions.GetFileTimestamp9 )( this.ObjectAddress, ref ret, pchFile ); return (Int64)ret;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSyncPlatformsS( IntPtr thisptr, string pchFile );
-		public Int32 GetSyncPlatforms( string pchFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ERemoteStoragePlatform NativeGetSyncPlatformsS( IntPtr thisptr, string pchFile );
+		public ERemoteStoragePlatform GetSyncPlatforms( string pchFile ) 
 		{
 			return this.GetFunction<NativeGetSyncPlatformsS>( this.Functions.GetSyncPlatforms10 )( this.ObjectAddress, pchFile ); 
 		}
@@ -135,36 +135,36 @@ namespace Steam4NET
 			return this.GetFunction<NativeIsCloudEnabledForAccount>( this.Functions.IsCloudEnabledForAccount14 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsCloudEnabledThisApp( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsCloudEnabledForApp( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsCloudEnabledThisApp(  ) 
+		public bool IsCloudEnabledForApp(  ) 
 		{
-			return this.GetFunction<NativeIsCloudEnabledThisApp>( this.Functions.IsCloudEnabledThisApp15 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeIsCloudEnabledForApp>( this.Functions.IsCloudEnabledForApp15 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetCloudEnabledThisAppB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bEnable );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetCloudEnabledForAppB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bEnabled );
+		public void SetCloudEnabledForApp( bool bEnabled ) 
+		{
+			this.GetFunction<NativeSetCloudEnabledForAppB>( this.Functions.SetCloudEnabledForApp16 )( this.ObjectAddress, bEnabled ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadU( IntPtr thisptr, ref UInt64 retarg, UInt64 hContent );
+		public UInt64 UGCDownload( UInt64 hContent ) 
+		{
+			UInt64 ret = 0; this.GetFunction<NativeUGCDownloadU>( this.Functions.UGCDownload17 )( this.ObjectAddress, ref ret, hContent ); return (UInt64)ret;
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUGCDetailsUUSIC( IntPtr thisptr, UInt64 hContent, ref UInt32 pnAppID, StringBuilder ppchName, ref Int32 pnFileSizeInBytes, ref UInt64 pSteamIDOwner );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetCloudEnabledThisApp( bool bEnable ) 
+		public bool GetUGCDetails( UInt64 hContent, ref UInt32 pnAppID, StringBuilder ppchName, ref Int32 pnFileSizeInBytes, ref CSteamID pSteamIDOwner ) 
 		{
-			return this.GetFunction<NativeSetCloudEnabledThisAppB>( this.Functions.SetCloudEnabledThisApp16 )( this.ObjectAddress, bEnable ); 
+			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails18 )( this.ObjectAddress, hContent, ref pnAppID, ppchName, ref pnFileSizeInBytes, ref s0 ); pSteamIDOwner = new CSteamID(s0); return result;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCDownloadII( IntPtr thisptr, Int32 unk1, Int32 unk2 );
-		public Int32 UGCDownload( Int32 unk1, Int32 unk2 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBI( IntPtr thisptr, UInt64 hContent, Byte[] pvData, Int32 cubDataToRead );
+		public Int32 UGCRead( UInt64 hContent, Byte[] pvData ) 
 		{
-			return this.GetFunction<NativeUGCDownloadII>( this.Functions.UGCDownload17 )( this.ObjectAddress, unk1, unk2 ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUGCDetailsIIIIII( IntPtr thisptr, Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4, Int32 unk5, Int32 unk6 );
-		public Int32 GetUGCDetails( Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4, Int32 unk5, Int32 unk6 ) 
-		{
-			return this.GetFunction<NativeGetUGCDetailsIIIIII>( this.Functions.GetUGCDetails18 )( this.ObjectAddress, unk1, unk2, unk3, unk4, unk5, unk6 ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadIIII( IntPtr thisptr, Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4 );
-		public Int32 UGCRead( Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4 ) 
-		{
-			return this.GetFunction<NativeUGCReadIIII>( this.Functions.UGCRead19 )( this.ObjectAddress, unk1, unk2, unk3, unk4 ); 
+			return this.GetFunction<NativeUGCReadUBI>( this.Functions.UGCRead19 )( this.ObjectAddress, hContent, pvData, (Int32) pvData.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCCount( IntPtr thisptr );
@@ -173,10 +173,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetCachedUGCCount>( this.Functions.GetCachedUGCCount20 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCHandle( IntPtr thisptr );
-		public Int32 GetCachedUGCHandle(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetCachedUGCHandleI( IntPtr thisptr, ref UInt64 retarg, Int32 iCachedContent );
+		public UInt64 GetCachedUGCHandle( Int32 iCachedContent ) 
 		{
-			return this.GetFunction<NativeGetCachedUGCHandle>( this.Functions.GetCachedUGCHandle21 )( this.ObjectAddress ); 
+			UInt64 ret = 0; this.GetFunction<NativeGetCachedUGCHandleI>( this.Functions.GetCachedUGCHandle21 )( this.ObjectAddress, ref ret, iCachedContent ); return (UInt64)ret;
 		}
 		
 	};

@@ -9,46 +9,46 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
 	public class ISteamApps003VTable
 	{
-		public IntPtr IsSubscribed0;
-		public IntPtr IsLowViolence1;
-		public IntPtr IsCybercafe2;
-		public IntPtr IsVACBanned3;
+		public IntPtr BIsSubscribed0;
+		public IntPtr BIsLowViolence1;
+		public IntPtr BIsCybercafe2;
+		public IntPtr BIsVACBanned3;
 		public IntPtr GetCurrentGameLanguage4;
 		public IntPtr GetAvailableGameLanguages5;
-		public IntPtr IsSubscribedApp6;
-		public IntPtr IsDlcInstalled7;
+		public IntPtr BIsSubscribedApp6;
+		public IntPtr BIsDlcInstalled7;
 		private IntPtr DTorISteamApps0038;
 	};
 	
 	[InteropHelp.InterfaceVersion("STEAMAPPS_INTERFACE_VERSION003")]
 	public class ISteamApps003 : InteropHelp.NativeWrapper<ISteamApps003VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsSubscribed( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribed( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsSubscribed(  ) 
+		public bool BIsSubscribed(  ) 
 		{
-			return this.GetFunction<NativeIsSubscribed>( this.Functions.IsSubscribed0 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsSubscribed>( this.Functions.BIsSubscribed0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsLowViolence( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsLowViolence( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsLowViolence(  ) 
+		public bool BIsLowViolence(  ) 
 		{
-			return this.GetFunction<NativeIsLowViolence>( this.Functions.IsLowViolence1 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsLowViolence>( this.Functions.BIsLowViolence1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsCybercafe( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsCybercafe( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsCybercafe(  ) 
+		public bool BIsCybercafe(  ) 
 		{
-			return this.GetFunction<NativeIsCybercafe>( this.Functions.IsCybercafe2 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsCybercafe>( this.Functions.BIsCybercafe2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsVACBanned( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsVACBanned( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsVACBanned(  ) 
+		public bool BIsVACBanned(  ) 
 		{
-			return this.GetFunction<NativeIsVACBanned>( this.Functions.IsVACBanned3 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsVACBanned>( this.Functions.BIsVACBanned3 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetCurrentGameLanguage( IntPtr thisptr );
@@ -63,18 +63,18 @@ namespace Steam4NET
 			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetAvailableGameLanguages>( this.Functions.GetAvailableGameLanguages5 )( this.ObjectAddress ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsSubscribedAppU( IntPtr thisptr, UInt32 appID );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribedAppU( IntPtr thisptr, UInt32 appID );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsSubscribedApp( UInt32 appID ) 
+		public bool BIsSubscribedApp( UInt32 appID ) 
 		{
-			return this.GetFunction<NativeIsSubscribedAppU>( this.Functions.IsSubscribedApp6 )( this.ObjectAddress, appID ); 
+			return this.GetFunction<NativeBIsSubscribedAppU>( this.Functions.BIsSubscribedApp6 )( this.ObjectAddress, appID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsDlcInstalledU( IntPtr thisptr, UInt32 appID );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsDlcInstalledU( IntPtr thisptr, UInt32 appID );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsDlcInstalled( UInt32 appID ) 
+		public bool BIsDlcInstalled( UInt32 appID ) 
 		{
-			return this.GetFunction<NativeIsDlcInstalledU>( this.Functions.IsDlcInstalled7 )( this.ObjectAddress, appID ); 
+			return this.GetFunction<NativeBIsDlcInstalledU>( this.Functions.BIsDlcInstalled7 )( this.ObjectAddress, appID ); 
 		}
 		
 	};

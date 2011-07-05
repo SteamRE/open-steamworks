@@ -9,17 +9,17 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
 	public class ISteamAppTicket001VTable
 	{
-		public IntPtr GetAppOwnershipTicketExtendedData0;
+		public IntPtr GetAppOwnershipTicketData0;
 		private IntPtr DTorISteamAppTicket0011;
 	};
 	
 	[InteropHelp.InterfaceVersion("STEAMAPPTICKET_INTERFACE_VERSION001")]
 	public class ISteamAppTicket001 : InteropHelp.NativeWrapper<ISteamAppTicket001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppOwnershipTicketExtendedDataUBUIIUU( IntPtr thisptr, UInt32 nAppID, Byte[] pvBuffer, UInt32 cbBufferLength, ref Int32 arg3, ref Int32 arg4, ref UInt32 ticket_length, ref UInt32 signature_length );
-		public UInt32 GetAppOwnershipTicketExtendedData( UInt32 nAppID, Byte[] pvBuffer, ref Int32 arg3, ref Int32 arg4, ref UInt32 ticket_length, ref UInt32 signature_length ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppOwnershipTicketDataUBUUUUU( IntPtr thisptr, UInt32 nAppID, Byte[] pvBuffer, UInt32 cbBufferLength, ref UInt32 piAppId, ref UInt32 piSteamId, ref UInt32 piSignature, ref UInt32 pcbSignature );
+		public UInt32 GetAppOwnershipTicketData( UInt32 nAppID, Byte[] pvBuffer, ref UInt32 piAppId, ref UInt32 piSteamId, ref UInt32 piSignature, ref UInt32 pcbSignature ) 
 		{
-			return this.GetFunction<NativeGetAppOwnershipTicketExtendedDataUBUIIUU>( this.Functions.GetAppOwnershipTicketExtendedData0 )( this.ObjectAddress, nAppID, pvBuffer, (UInt32) pvBuffer.Length, ref arg3, ref arg4, ref ticket_length, ref signature_length ); 
+			return this.GetFunction<NativeGetAppOwnershipTicketDataUBUUUUU>( this.Functions.GetAppOwnershipTicketData0 )( this.ObjectAddress, nAppID, pvBuffer, (UInt32) pvBuffer.Length, ref piAppId, ref piSteamId, ref piSignature, ref pcbSignature ); 
 		}
 		
 	};

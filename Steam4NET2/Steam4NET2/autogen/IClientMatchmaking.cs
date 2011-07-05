@@ -49,7 +49,11 @@ namespace Steam4NET
 		public IntPtr SetLobbyOwner37;
 		public IntPtr GetGMSServerCount38;
 		public IntPtr GetGMSServerAddress39;
-		private IntPtr DTorIClientMatchmaking40;
+		public IntPtr BeginGMSQuery40;
+		public IntPtr PollGMSQuery41;
+		public IntPtr GetGMSQueryResults42;
+		public IntPtr ReleaseGMSQuery43;
+		private IntPtr DTorIClientMatchmaking44;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTMATCHMAKING_INTERFACE_VERSION001")]
@@ -308,6 +312,30 @@ namespace Steam4NET
 		public bool GetGMSServerAddress( Int32 iServer, ref UInt32 unServerIP, ref UInt16 usServerPort ) 
 		{
 			return this.GetFunction<NativeGetGMSServerAddressIUU>( this.Functions.GetGMSServerAddress39 )( this.ObjectAddress, iServer, ref unServerIP, ref usServerPort ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeBeginGMSQueryUIS( IntPtr thisptr, ref UInt64 retarg, UInt32 nAppId, Int32 iRegionCode, string szFilterText );
+		public UInt64 BeginGMSQuery( UInt32 nAppId, Int32 iRegionCode, string szFilterText ) 
+		{
+			UInt64 ret = 0; this.GetFunction<NativeBeginGMSQueryUIS>( this.Functions.BeginGMSQuery40 )( this.ObjectAddress, ref ret, nAppId, iRegionCode, szFilterText ); return (UInt64)ret;
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePollGMSQueryU( IntPtr thisptr, UInt64 arg0 );
+		public Int32 PollGMSQuery( UInt64 arg0 ) 
+		{
+			return this.GetFunction<NativePollGMSQueryU>( this.Functions.PollGMSQuery41 )( this.ObjectAddress, arg0 ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetGMSQueryResultsUGI( IntPtr thisptr, UInt64 arg0, ref GMSQueryResult_t arg1, Int32 iResultIndex );
+		public Int32 GetGMSQueryResults( UInt64 arg0, ref GMSQueryResult_t arg1, Int32 iResultIndex ) 
+		{
+			return this.GetFunction<NativeGetGMSQueryResultsUGI>( this.Functions.GetGMSQueryResults42 )( this.ObjectAddress, arg0, ref arg1, iResultIndex ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeReleaseGMSQueryU( IntPtr thisptr, UInt64 arg0 );
+		public void ReleaseGMSQuery( UInt64 arg0 ) 
+		{
+			this.GetFunction<NativeReleaseGMSQueryU>( this.Functions.ReleaseGMSQuery43 )( this.ObjectAddress, arg0 ); 
 		}
 		
 	};

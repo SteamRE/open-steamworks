@@ -32,10 +32,10 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("STEAM2BRIDGE_INTERFACE_VERSION001")]
 	public class ISteam2Bridge001 : InteropHelp.NativeWrapper<ISteam2Bridge001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSetSteam2TicketBI( IntPtr thisptr, Byte[] pubTicket, Int32 cubTicket );
-		public Int32 SetSteam2Ticket( Byte[] pubTicket ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetSteam2TicketBI( IntPtr thisptr, Byte[] pubTicket, Int32 cubTicket );
+		public void SetSteam2Ticket( Byte[] pubTicket ) 
 		{
-			return this.GetFunction<NativeSetSteam2TicketBI>( this.Functions.SetSteam2Ticket0 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
+			this.GetFunction<NativeSetSteam2TicketBI>( this.Functions.SetSteam2Ticket0 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountNameS( IntPtr thisptr, string szName );
@@ -95,8 +95,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLicenseTimeCreatedU>( this.Functions.GetLicenseTimeCreated9 )( this.ObjectAddress, licenseId ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLicenseTimeNextProcessU( IntPtr thisptr, UInt32 licenseId );
-		public Int32 GetLicenseTimeNextProcess( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseTimeNextProcessU( IntPtr thisptr, UInt32 licenseId );
+		public UInt32 GetLicenseTimeNextProcess( UInt32 licenseId ) 
 		{
 			return this.GetFunction<NativeGetLicenseTimeNextProcessU>( this.Functions.GetLicenseTimeNextProcess10 )( this.ObjectAddress, licenseId ); 
 		}

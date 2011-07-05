@@ -134,22 +134,23 @@ namespace Steam4NET
 			return this.GetFunction<NativeSetCloudEnabledThisAppB>( this.Functions.SetCloudEnabledThisApp14 )( this.ObjectAddress, bEnable ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCDownloadII( IntPtr thisptr, Int32 unk1, Int32 unk2 );
-		public Int32 UGCDownload( Int32 unk1, Int32 unk2 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadU( IntPtr thisptr, ref UInt64 retarg, UInt64 arg0 );
+		public UInt64 UGCDownload( UInt64 arg0 ) 
 		{
-			return this.GetFunction<NativeUGCDownloadII>( this.Functions.UGCDownload15 )( this.ObjectAddress, unk1, unk2 ); 
+			UInt64 ret = 0; this.GetFunction<NativeUGCDownloadU>( this.Functions.UGCDownload15 )( this.ObjectAddress, ref ret, arg0 ); return (UInt64)ret;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUGCDetailsIIIIII( IntPtr thisptr, Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4, Int32 unk5, Int32 unk6 );
-		public Int32 GetUGCDetails( Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4, Int32 unk5, Int32 unk6 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUGCDetailsUUSIC( IntPtr thisptr, UInt64 arg0, ref UInt32 arg1, StringBuilder arg2, ref Int32 arg3, ref UInt64 arg4 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool GetUGCDetails( UInt64 arg0, ref UInt32 arg1, StringBuilder arg2, ref Int32 arg3, ref CSteamID arg4 ) 
 		{
-			return this.GetFunction<NativeGetUGCDetailsIIIIII>( this.Functions.GetUGCDetails16 )( this.ObjectAddress, unk1, unk2, unk3, unk4, unk5, unk6 ); 
+			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails16 )( this.ObjectAddress, arg0, ref arg1, arg2, ref arg3, ref s0 ); arg4 = new CSteamID(s0); return result;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadIIII( IntPtr thisptr, Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4 );
-		public Int32 UGCRead( Int32 unk1, Int32 unk2, Int32 unk3, Int32 unk4 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBI( IntPtr thisptr, UInt64 arg0, Byte[] arg1, Int32 arg2 );
+		public Int32 UGCRead( UInt64 arg0, Byte[] arg1, Int32 arg2 ) 
 		{
-			return this.GetFunction<NativeUGCReadIIII>( this.Functions.UGCRead17 )( this.ObjectAddress, unk1, unk2, unk3, unk4 ); 
+			return this.GetFunction<NativeUGCReadUBI>( this.Functions.UGCRead17 )( this.ObjectAddress, arg0, arg1, arg2 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCCount( IntPtr thisptr );
@@ -158,10 +159,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetCachedUGCCount>( this.Functions.GetCachedUGCCount18 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCHandle( IntPtr thisptr );
-		public Int32 GetCachedUGCHandle(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetCachedUGCHandleI( IntPtr thisptr, ref UInt64 retarg, Int32 arg0 );
+		public UInt64 GetCachedUGCHandle( Int32 arg0 ) 
 		{
-			return this.GetFunction<NativeGetCachedUGCHandle>( this.Functions.GetCachedUGCHandle19 )( this.ObjectAddress ); 
+			UInt64 ret = 0; this.GetFunction<NativeGetCachedUGCHandleI>( this.Functions.GetCachedUGCHandle19 )( this.ObjectAddress, ref ret, arg0 ); return (UInt64)ret;
 		}
 		
 	};

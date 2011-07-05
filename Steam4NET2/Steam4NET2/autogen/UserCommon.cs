@@ -69,6 +69,8 @@ namespace Steam4NET
 		k_EVoiceResultNoData = 3,
 		k_EVoiceResultBufferTooSmall = 4,
 		k_EVoiceResultDataCorrupted = 5,
+		k_EVoiceResultRestricted = 6,
+		k_EVoiceResultUnsupportedCodec = 7,
 	};
 	
 	public enum EVACBan : int

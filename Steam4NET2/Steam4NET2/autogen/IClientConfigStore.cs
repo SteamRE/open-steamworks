@@ -26,7 +26,8 @@ namespace Steam4NET
 		public IntPtr SetBinaryWatermarked14;
 		public IntPtr RemoveKey15;
 		public IntPtr GetKeySerialized16;
-		private IntPtr DTorIClientConfigStore17;
+		public IntPtr FlushToDisk17;
+		private IntPtr DTorIClientConfigStore18;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTCONFIGSTORE_INTERFACE_VERSION001")]
@@ -137,6 +138,13 @@ namespace Steam4NET
 		public bool GetKeySerialized( EConfigStore eConfigStore, string keyName, Byte[] pBuffer ) 
 		{
 			return this.GetFunction<NativeGetKeySerializedESBI>( this.Functions.GetKeySerialized16 )( this.ObjectAddress, eConfigStore, keyName, pBuffer, (Int32) pBuffer.Length ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFlushToDiskB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool arg0 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool FlushToDisk( bool arg0 ) 
+		{
+			return this.GetFunction<NativeFlushToDiskB>( this.Functions.FlushToDisk17 )( this.ObjectAddress, arg0 ); 
 		}
 		
 	};

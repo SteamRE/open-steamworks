@@ -216,8 +216,9 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLobbyMemberLimitC>( this.Functions.GetLobbyMemberLimit26 )( this.ObjectAddress, steamIDLobby.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRequestFriendsLobbies( IntPtr thisptr );
-		public Int32 RequestFriendsLobbies(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestFriendsLobbies( IntPtr thisptr );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool RequestFriendsLobbies(  ) 
 		{
 			return this.GetFunction<NativeRequestFriendsLobbies>( this.Functions.RequestFriendsLobbies27 )( this.ObjectAddress ); 
 		}
@@ -235,8 +236,8 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeGetLobbyOwnerC>( this.Functions.GetLobbyOwner29 )( this.ObjectAddress, ref ret, steamIDLobby.ConvertToUint64() ); return new CSteamID(ret);
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLobbyDistanceC( IntPtr thisptr, UInt64 steamIDLobby );
-		public Int32 GetLobbyDistance( CSteamID steamIDLobby ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate double NativeGetLobbyDistanceC( IntPtr thisptr, UInt64 steamIDLobby );
+		public double GetLobbyDistance( CSteamID steamIDLobby ) 
 		{
 			return this.GetFunction<NativeGetLobbyDistanceC>( this.Functions.GetLobbyDistance30 )( this.ObjectAddress, steamIDLobby.ConvertToUint64() ); 
 		}

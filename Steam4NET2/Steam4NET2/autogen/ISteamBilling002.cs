@@ -19,7 +19,7 @@ namespace Steam4NET
 		public IntPtr UpdateCardInfo7;
 		public IntPtr DeleteCard8;
 		public IntPtr GetCardList9;
-		public IntPtr Obsolete_GetLicenses10;
+		public IntPtr GetLicenses10;
 		public IntPtr CancelLicense11;
 		public IntPtr GetPurchaseReceipts12;
 		public IntPtr AcknowledgePurchaseReceipt13;
@@ -120,10 +120,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetCardList>( this.Functions.GetCardList9 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeObsolete_GetLicenses( IntPtr thisptr );
-		public Int32 Obsolete_GetLicenses(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLicenses( IntPtr thisptr );
+		public Int32 GetLicenses(  ) 
 		{
-			return this.GetFunction<NativeObsolete_GetLicenses>( this.Functions.Obsolete_GetLicenses10 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetLicenses>( this.Functions.GetLicenses10 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCancelLicenseII( IntPtr thisptr, Int32 arg0, Int32 arg1 );

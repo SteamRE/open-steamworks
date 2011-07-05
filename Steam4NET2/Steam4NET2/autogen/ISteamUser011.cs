@@ -10,7 +10,7 @@ namespace Steam4NET
 	public class ISteamUser011VTable
 	{
 		public IntPtr GetHSteamUser0;
-		public IntPtr LoggedOn1;
+		public IntPtr BLoggedOn1;
 		public IntPtr GetSteamID2;
 		public IntPtr InitiateGameConnection3;
 		public IntPtr TerminateGameConnection4;
@@ -32,11 +32,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetHSteamUser>( this.Functions.GetHSteamUser0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoggedOn( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LoggedOn(  ) 
+		public bool BLoggedOn(  ) 
 		{
-			return this.GetFunction<NativeLoggedOn>( this.Functions.LoggedOn1 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn1 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetSteamID( IntPtr thisptr, ref UInt64 retarg );

@@ -145,4 +145,12 @@ namespace Steam4NET
 		public UInt64 m_ulSteamIDLobby;
 	};
 	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct GMSQueryResult_t
+	{
+		public UInt32 uServerIP;
+		public UInt32 uServerPort;
+		public UInt32 uAuthPlayers;
+	};
+	
 }
