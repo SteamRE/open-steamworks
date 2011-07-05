@@ -18,12 +18,9 @@ namespace CloudEditor
 
             DebugLog.AppendText( "Getting ISteam interface: ISteamRemoteStorage002..." );
 
-            RemoteStorage = Steamworks.CastInterface<ISteamRemoteStorage002>(
-                SteamContext.SteamClient.GetISteamRemoteStorage(
-                    SteamContext.HSteamUser,
-                    SteamContext.HSteamPipe,
-                    "STEAMREMOTESTORAGE_INTERFACE_VERSION002"
-                )
+            RemoteStorage = SteamContext.SteamClient.GetISteamRemoteStorage<ISteamRemoteStorage002>(
+                SteamContext.HSteamUser,
+                SteamContext.HSteamPipe
             );
 
             DebugLog.AppendText( string.Format( "ISteamRemoteStorage002 = 0x{0:8X}", RemoteStorage.Interface ) );
@@ -31,12 +28,9 @@ namespace CloudEditor
 
             DebugLog.AppendText( "Getting ISteam interface: ISteamRemoteStorage001..." );
 
-            RemoteStorageOld = Steamworks.CastInterface<ISteamRemoteStorage001>(
-                SteamContext.SteamClient.GetISteamRemoteStorage(
-                    SteamContext.HSteamUser,
-                    SteamContext.HSteamPipe,
-                    "STEAMREMOTESTORAGE_INTERFACE_VERSION001"
-                )
+            RemoteStorageOld = SteamContext.SteamClient.GetISteamRemoteStorage<ISteamRemoteStorage001>(
+                SteamContext.HSteamUser,
+                SteamContext.HSteamPipe
             );
 
             DebugLog.AppendText( string.Format( "ISteamRemoteStorage001 = 0x{0:8X}{1}", RemoteStorageOld.Interface, Environment.NewLine ) );

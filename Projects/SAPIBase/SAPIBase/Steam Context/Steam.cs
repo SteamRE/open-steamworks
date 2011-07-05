@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Steam4NET;
+using System.Runtime.InteropServices;
 
 namespace SAPIBase
 {
@@ -20,7 +21,7 @@ namespace SAPIBase
         public static string GetAppData( uint appId, string key )
         {
             StringBuilder sb = new StringBuilder( 255 );
-            SteamContext.ClientApps.GetAppData( appId, key, sb, sb.Capacity );
+            SteamContext.ClientApps.GetAppData( appId, key, sb );
 
             return sb.ToString();
         }
@@ -35,10 +36,10 @@ namespace SAPIBase
                 uMaxLatestVersionLabelChars = 255,
                 uMaxInstallDirNameChars = 255,
 
-                szName = new string( '\x0', 255 ),
-                szCurrentVersionLabel = new string( '\x0', 255 ),
-                szLatestVersionLabel = new string( '\x0', 255 ),
-                szInstallDirName = new string( '\x0', 255 ),
+                szName = new string( '\0', 255 ),
+                szCurrentVersionLabel = new string( '\0', 255 ),
+                szLatestVersionLabel = new string( '\0', 255 ),
+                szInstallDirName = new string( '\0', 255 ),
             };
 
             if ( SteamContext.Steam.EnumerateApp( appId, ref app, ref error ) == 0 )

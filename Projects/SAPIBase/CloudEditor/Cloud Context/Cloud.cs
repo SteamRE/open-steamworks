@@ -71,7 +71,7 @@ namespace CloudEditor
 
             byte[] data = new byte[ fileSize ];
 
-            int iRet = CloudContext.RemoteStorage.FileRead( fileName, data, fileSize );
+            int iRet = CloudContext.RemoteStorage.FileRead( fileName, data );
 
             DebugLog.AppendText( "ISteamRemoteStorage::FileRead( \"{0}\", {1} ) = {2}", fileName, fileSize, iRet );
 
@@ -80,7 +80,7 @@ namespace CloudEditor
 
         public static bool WriteFile( string fileName, byte[] data )
         {
-            bool bRet = CloudContext.RemoteStorage.FileWrite( fileName, data, data.Length );
+            bool bRet = CloudContext.RemoteStorage.FileWrite( fileName, data );
 
             DebugLog.AppendText( "ISteamRemoteStorage::FileWrite( \"{0}\", {1} ) = {2}", fileName, data.Length, bRet );
 

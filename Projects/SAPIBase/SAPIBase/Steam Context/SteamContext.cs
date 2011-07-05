@@ -51,7 +51,7 @@ namespace SAPIBase
 
             DebugLog.AppendText( "Getting Steam2 interface: ISteam006... " );
 
-            Steam = Steamworks.CreateSteamInterface<ISteam006>( "Steam006" );
+            Steam = Steamworks.CreateSteamInterface<ISteam006>();
             DebugLog.AppendText( string.Format( "ISteam006 = 0x{0:8X}", Steam.Interface ) );
 
 
@@ -72,7 +72,7 @@ namespace SAPIBase
             DebugLog.AppendText( "Getting account name..." );
             StringBuilder accName = new StringBuilder( 255 );
 
-            if ( !ClientUser.GetAccountName( accName, ( uint )accName.Capacity ) )
+            if ( !ClientUser.GetAccountName( accName ) )
                 throw new InvalidOperationException( "Unable to startup steam interface." );
 
             DebugLog.AppendText( "Account = \"{0}\"", accName.ToString() );
@@ -103,11 +103,11 @@ namespace SAPIBase
                 throw new InvalidOperationException( "Unable to load steamclient.dll" );
 
             DebugLog.AppendText( "Getting Steam3 interface: ISteamClient009..." );
-            SteamClient = Steamworks.CreateInterface<ISteamClient009>( "SteamClient009" );
+            SteamClient = Steamworks.CreateInterface<ISteamClient009>();
             DebugLog.AppendText( string.Format( "ISteamClient009 = 0x{0:8X}", SteamClient.Interface ) );
 
             DebugLog.AppendText( "Getting Steam3 interface: IClientEngine..." );
-            ClientEngine = Steamworks.CreateInterface<IClientEngine>( "CLIENTENGINE_INTERFACE_VERSION001" );
+            ClientEngine = Steamworks.CreateInterface<IClientEngine>();
             DebugLog.AppendText( string.Format( "IClientEngine = 0x{0:8X}{1}", ClientEngine.Interface, Environment.NewLine ) );
 
             if ( SteamClient == null || ClientEngine == null )
@@ -125,12 +125,12 @@ namespace SAPIBase
             if ( HSteamUser == 0 || HSteamPipe == 0 )
                 throw new InvalidOperationException( "Unable to connect to global user." );
 
-
             DebugLog.AppendText( "Getting IClient interface: IClientApps..." );
-            ClientApps = Steamworks.CastInterface<IClientApps>( ClientEngine.GetIClientApps( HSteamUser, HSteamPipe, "CLIENTAPPS_INTERFACE_VERSION001" ) );
+            ClientApps = ClientEngine.GetIClientApps<IClientApps>( HSteamUser, HSteamPipe );
             DebugLog.AppendText( string.Format( "IClientApps = 0x{0:8X}", ClientApps.Interface ) );
+
             DebugLog.AppendText( "Getting IClient interface: IClientUser..." );
-            ClientUser = Steamworks.CastInterface<IClientUser>( ClientEngine.GetIClientUser( HSteamUser, HSteamPipe, "CLIENTUSER_INTERFACE_VERSION001" ) );
+            ClientUser = ClientEngine.GetIClientUser<IClientUser>( HSteamUser, HSteamPipe );
             DebugLog.AppendText( string.Format( "IClientUser = 0x{0:8X}", ClientUser.Interface ) );
 
             if ( ClientApps == null || ClientUser == null )
@@ -164,7 +164,7 @@ namespace SAPIBase
                 if ( HSteamPipe != 0 )
                 {
                     DebugLog.AppendText( string.Format( "Releasing steam pipe: {0}", HSteamPipe ) );
-                    SteamClient.ReleaseSteamPipe( HSteamPipe );
+                    SteamClient.BReleaseSteamPipe( HSteamPipe );
                 }
 
                 SteamClient = null;

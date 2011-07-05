@@ -18,9 +18,9 @@ namespace LBEditor
         public static void Initialize( int appID )
         {
 
-            FindResult = new APICallCallback<LeaderboardFindResult_t>( LeaderboardFindResult_t.k_iCallback );
-            ScoresDownloaded = new APICallCallback<LeaderboardScoresDownloaded_t>( LeaderboardScoresDownloaded_t.k_iCallback );
-            ScoreUploaded = new APICallCallback<LeaderboardScoreUploaded_t>( LeaderboardScoreUploaded_t.k_iCallback );
+            FindResult = new APICallCallback<LeaderboardFindResult_t>();
+            ScoresDownloaded = new APICallCallback<LeaderboardScoresDownloaded_t>();
+            ScoreUploaded = new APICallCallback<LeaderboardScoreUploaded_t>();
 
             Environment.SetEnvironmentVariable( "SteamAppId", appID.ToString() );
 
@@ -28,33 +28,27 @@ namespace LBEditor
 
             DebugLog.AppendText( "Getting ISteam interface: ISteamFriends008..." );
 
-            Friends = Steamworks.CastInterface<ISteamFriends008>(
-                SteamContext.SteamClient.GetISteamFriends(
-                    SteamContext.HSteamPipe,
-                    SteamContext.HSteamUser,
-                    "SteamFriends008"
-                )
+            Friends = SteamContext.SteamClient.GetISteamFriends<ISteamFriends008>(
+                SteamContext.HSteamPipe,
+                SteamContext.HSteamUser
             );
 
             DebugLog.AppendText( string.Format( "ISteamFriends008 = 0x{0:8x}", Friends ) );
 
             DebugLog.AppendText( "Getting ISteam interface: ISteamUserStats007..." );
 
-            UserStats = Steamworks.CastInterface<ISteamUserStats007>(
-                SteamContext.SteamClient.GetISteamUserStats(
-                    SteamContext.HSteamUser,
-                    SteamContext.HSteamPipe,
-                    "STEAMUSERSTATS_INTERFACE_VERSION007"
-                )
+            UserStats = SteamContext.SteamClient.GetISteamUserStats<ISteamUserStats007>(
+                SteamContext.HSteamUser,
+                SteamContext.HSteamPipe
             );
 
             DebugLog.AppendText( string.Format( "ISteamUserStats007 = 0x{0:8X}{1}", UserStats, Environment.NewLine ) );
 
         }
 
-        public static LeaderboardEntry_t GetLBEntry( ulong hEntry, int index )
+        public static LeaderboardEntry001_t GetLBEntry( ulong hEntry, int index )
         {
-            LeaderboardEntry_t entry = new LeaderboardEntry_t();
+            LeaderboardEntry001_t entry = new LeaderboardEntry001_t();
             int ignored = 0;
 
             UserStats.GetDownloadedLeaderboardEntry( hEntry, index, ref entry, ref ignored, 0 );

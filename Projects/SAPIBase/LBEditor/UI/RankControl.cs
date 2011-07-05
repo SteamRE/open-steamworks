@@ -12,7 +12,7 @@ namespace LBEditor
 {
     public partial class RankControl : UserControl
     {
-        public RankControl( LeaderboardEntry_t entry )
+        public RankControl( LeaderboardEntry001_t entry )
         {
             InitializeComponent();
 

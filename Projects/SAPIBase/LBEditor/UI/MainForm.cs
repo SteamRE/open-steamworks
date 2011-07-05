@@ -56,7 +56,7 @@ namespace LBEditor
 
                     this.Invoke( new MethodInvoker( () =>
                         {
-                            LeaderboardEntry_t entry = LBContext.GetLBEntry( param.m_hSteamLeaderboardEntries, 0 );
+                            LeaderboardEntry001_t entry = LBContext.GetLBEntry( param.m_hSteamLeaderboardEntries, 0 );
 
                             rankLabel.Text = string.Format( "#{0}", entry.m_nGlobalRank );
                             rankBox.Text = entry.m_nScore.ToString();
