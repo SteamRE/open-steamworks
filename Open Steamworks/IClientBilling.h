@@ -87,10 +87,10 @@ public:
 
 	virtual bool ActivateOEMTicket( const char *pchOEMLicenseFile ) = 0;
 
-	virtual bool GetLicenseForAppID( uint32, uint32 *) = 0;
-	virtual bool GetPackageInfo( uint32, uint32 *, int32 *, ELicenseType *, EPackageStatus *, int32 *, int32 *, int32 * ) = 0;
-	virtual uint32 GetAppsInPackage( PackageId_t unPackageID, uint32 *, int32 ) = 0;
-	virtual uint32 GetPackageExtendedInfo( PackageId_t unPackageID, const char *, char *, int32 ) = 0;
+	virtual bool GetLicenseForAppID( AppId_t unAppId, PackageId_t * punPackageID ) = 0;
+	virtual bool GetPackageInfo( PackageId_t unPackageID, uint32 *, int32 *, ELicenseType *, EPackageStatus *, int32 *, int32 *, int32 * ) = 0;
+	virtual uint32 GetAppsInPackage( PackageId_t unPackageID, AppId_t* puIds, int32 uMaxIds ) = 0;
+	virtual uint32 GetPackageExtendedInfo( PackageId_t unPackageID, const char *cszKey, char *szValue, int32 cubValue ) = 0;
 };
 
 #endif // ICLIENTBILLING_H

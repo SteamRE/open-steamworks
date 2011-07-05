@@ -25,7 +25,7 @@
 
 
 typedef uint32 HAudio;
-
+typedef uint32 HFileSource;
 
 #define CLIENTAUDIO_INTERFACE_VERSION "CLIENTAUDIO_INTERFACE_VERSION001"
 
@@ -72,7 +72,7 @@ public:
 	virtual uint32 GetVoiceOptimalSampleRate() = 0;
 
 
-	virtual bool PlayAudio( uint32 ) = 0;
+	virtual bool PlayAudio( HAudio hAudio ) = 0;
 	virtual void StopAudio() = 0;
 	virtual void PauseAudio() = 0;
 	virtual void UnPauseAudio() = 0;
@@ -81,7 +81,7 @@ public:
 	virtual void ShufflePlayList() = 0;
 	virtual IClientAudio::EPlayMode GetPlayMode() = 0;
 
-	virtual HAudio GetAudioHandle( const char * ) = 0;
+	virtual HAudio GetAudioHandle( const char *cszFilePath ) = 0;
 	virtual bool GetAudioDetails( HAudio hAudio, char *, int32, char *, int32, char *, int32 ) = 0;
 	virtual bool GetAudioArtSize( HAudio hAudio, uint32 *punWidth, uint32 *punHeight ) = 0;
 	virtual bool GetAudioArtImage( HAudio hAudio, uint8 *pubBuffer, int32 cubBuffer ) = 0;
@@ -90,15 +90,15 @@ public:
 	virtual bool AddSongToPlaylist( HAudio hAudio ) = 0;
 	virtual bool RemoveSongFromPlaylist( HAudio hAudio ) = 0;
 
-	virtual bool SaveCurrentPlaylistToFile( const char * ) = 0;
-	virtual bool LoadPlaylistFromFile( const char * ) = 0;
+	virtual bool SaveCurrentPlaylistToFile( const char *cszFilePath ) = 0;
+	virtual bool LoadPlaylistFromFile( const char *cszFilePath ) = 0;
 
 	virtual uint32 GetFileSourceCount() = 0;
 
-	virtual uint32 AddLocalFileSource( const char * ) = 0;
-	virtual uint32 AddSMBFileSource( const char * ) = 0;
-	virtual uint32 AddITunesFileSource( const char * ) = 0;
-	virtual bool RemoveFileSource( HAudio hAudio ) = 0;
+	virtual HFileSource AddLocalFileSource( const char *cszFileSource ) = 0;
+	virtual HFileSource AddSMBFileSource( const char *cszFileSource ) = 0;
+	virtual HFileSource AddITunesFileSource( const char *cszFileSource ) = 0;
+	virtual bool RemoveFileSource( HFileSource hFileSource ) = 0;
 
 };
 

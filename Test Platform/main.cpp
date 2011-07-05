@@ -4,8 +4,8 @@
 #include <iostream>
 #include <iomanip>
 
-#pragma comment( lib, "../steamclient" )
-#pragma comment( lib, "../steam" )
+#pragma comment( lib, "../Resources/steamclient" )
+#pragma comment( lib, "../Resources/steam" )
 
 
 void ShowError( TSteamError *err )

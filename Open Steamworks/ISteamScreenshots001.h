@@ -29,14 +29,14 @@ abstract_class ISteamScreenshots001
 {
 
 public:
-	virtual uint32 WriteScreenshot( void *, uint32, int32, int32 ) = 0;
-	virtual uint32 AddScreenshotToLibrary( const char *, const char *, int32, int32 ) = 0;
+	virtual HScreenshot WriteScreenshot( const uint8 *pubRGBData, uint32 uRGBDataSize, int32 iWidth, int32 iHeight ) = 0;
+	virtual HScreenshot AddScreenshotToLibrary( const char* cszScreenshotPath, const char* cszThumbnailPath, int32 iWidth, int32 iHeight ) = 0;
 
 	virtual void TriggerScreenshot() = 0;
 	virtual void HookScreenshots( bool ) = 0;
 
-	virtual bool SetLocation( uint32, const char * ) = 0;
-	virtual bool TagUser( uint32, CSteamID steamIDUser ) = 0;
+	virtual bool SetLocation( HScreenshot hScreenshot, const char * cszLocation ) = 0;
+	virtual bool TagUser( HScreenshot hScreenshot, CSteamID steamIDUser ) = 0;
 
 };
 

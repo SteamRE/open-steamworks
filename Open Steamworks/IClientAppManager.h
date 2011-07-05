@@ -61,7 +61,7 @@ public:
 
 	virtual bool StartValidatingApp( AppId_t unAppID ) = 0;
 
-	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int cbBuffer, bool bUnknown ) = 0;
+	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int cbBuffer, bool bUseSymbolsAsKeys ) = 0;
 
 	virtual bool BIsAppUpToDate( AppId_t unAppID ) = 0;
 
