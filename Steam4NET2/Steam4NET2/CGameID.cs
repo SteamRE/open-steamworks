@@ -15,7 +15,7 @@ namespace Steam4NET
         private InteropHelp.BitVector64 gameid;
 
         public CGameID()
-            : this( 0 )
+            : this( ( ulong )0 )
         {
         }
         public CGameID( UInt64 id )
