@@ -9,9 +9,9 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamAppLaunchOption
 	{
-		public IntPtr szDesc;
+		public string szDesc;
 		public UInt32 uMaxDescChars;
-		public IntPtr szCmdLine;
+		public string szCmdLine;
 		public UInt32 uMaxCmdLineChars;
 		public UInt32 uIndex;
 		public UInt32 uIconIndex;

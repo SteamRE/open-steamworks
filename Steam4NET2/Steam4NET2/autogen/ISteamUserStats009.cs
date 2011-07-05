@@ -229,7 +229,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDownloadLeaderboardEntriesForUsersUCI( IntPtr thisptr, ref UInt64 retarg, UInt64 hSteamLeaderboard, ref UInt64 arg1, Int32 arg2 );
 		public UInt64 DownloadLeaderboardEntriesForUsers( UInt64 hSteamLeaderboard, ref CSteamID arg1, Int32 arg2 ) 
 		{
-			UInt64 s0 = 0; UInt64 ret = 0; this.GetFunction<NativeDownloadLeaderboardEntriesForUsersUCI>( this.Functions.DownloadLeaderboardEntriesForUsers27 )( this.ObjectAddress, ref ret, hSteamLeaderboard, ref s0, arg2 );  ret = new CSteamID(s0); return (UInt64)ret;
+			UInt64 s0 = 0; UInt64 ret = 0; this.GetFunction<NativeDownloadLeaderboardEntriesForUsersUCI>( this.Functions.DownloadLeaderboardEntriesForUsers27 )( this.ObjectAddress, ref ret, hSteamLeaderboard, ref s0, arg2 );  arg1 = new CSteamID(s0); return (UInt64)ret;
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetDownloadedLeaderboardEntryUILII( IntPtr thisptr, UInt64 hSteamLeaderboardEntries, Int32 index, ref LeaderboardEntry002_t pLeaderboardEntry, ref Int32 pDetails, Int32 cDetailsMax );

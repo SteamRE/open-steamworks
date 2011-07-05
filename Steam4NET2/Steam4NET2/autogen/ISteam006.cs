@@ -532,10 +532,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeIsAccountNameInUseSIT>( this.Functions.IsAccountNameInUse62 )( this.ObjectAddress, cszUser, ref pbInUse, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIdsUUT( IntPtr thisptr, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError );
-		public Int32 GetAppIds( ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIdsUUT( IntPtr thisptr, UInt32[] puIds, UInt32 uMaxIds, ref TSteamError pError );
+		public Int32 GetAppIds( UInt32[] puIds, UInt32 uMaxIds, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetAppIdsUUT>( this.Functions.GetAppIds63 )( this.ObjectAddress, ref puIds, uMaxIds, ref pError ); 
+			return this.GetFunction<NativeGetAppIdsUUT>( this.Functions.GetAppIds63 )( this.ObjectAddress, puIds, uMaxIds, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionStatsTT( IntPtr thisptr, ref TSteamSubscriptionStats pSubscriptionStats, ref TSteamError pError );
@@ -700,10 +700,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeFindAppSUT>( this.Functions.FindApp90 )( this.ObjectAddress, cszArg1, ref arg1, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependenciesUUUT( IntPtr thisptr, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError );
-		public Int32 GetAppDependencies( UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependenciesUUUT( IntPtr thisptr, UInt32 uAppId, UInt32[] puDependecies, UInt32 uBufferLength, ref TSteamError pError );
+		public Int32 GetAppDependencies( UInt32 uAppId, UInt32[] puDependecies, UInt32 uBufferLength, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetAppDependenciesUUUT>( this.Functions.GetAppDependencies91 )( this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError ); 
+			return this.GetFunction<NativeGetAppDependenciesUUUT>( this.Functions.GetAppDependencies91 )( this.ObjectAddress, uAppId, puDependecies, uBufferLength, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribedUIIT( IntPtr thisptr, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError );

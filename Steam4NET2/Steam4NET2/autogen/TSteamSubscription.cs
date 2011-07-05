@@ -22,7 +22,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamSubscription
 	{
-		public IntPtr szName;
+		public string szName;
 		public UInt32 uMaxNameChars;
 		public IntPtr puAppIds;
 		public UInt32 uMaxAppIds;

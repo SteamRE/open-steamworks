@@ -189,7 +189,7 @@ namespace Steam4NET
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetUGCDetails( UInt64 arg0, ref UInt32 arg1, StringBuilder arg2, ref Int32 arg3, ref CSteamID arg4 ) 
 		{
-			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails18 )( this.ObjectAddress, arg0, ref arg1, arg2, ref arg3, ref s0 );  arg4 = new CSteamID(s0); return result;
+			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails18 )( this.ObjectAddress, arg0, ref arg1, arg2, ref arg3, ref s0 ); arg4 = new CSteamID(s0); return result;
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBI( IntPtr thisptr, UInt64 arg0, Byte[] arg1, Int32 arg2 );

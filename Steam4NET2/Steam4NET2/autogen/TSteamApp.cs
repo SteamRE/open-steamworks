@@ -9,13 +9,13 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamApp
 	{
-		public IntPtr szName;
+		public string szName;
 		public UInt32 uMaxNameChars;
-		public IntPtr szLatestVersionLabel;
+		public string szLatestVersionLabel;
 		public UInt32 uMaxLatestVersionLabelChars;
-		public IntPtr szCurrentVersionLabel;
+		public string szCurrentVersionLabel;
 		public UInt32 uMaxCurrentVersionLabelChars;
-		public IntPtr szInstallDirName;
+		public string szInstallDirName;
 		public UInt32 uMaxInstallDirNameChars;
 		public UInt32 uId;
 		public UInt32 uLatestVersionId;
@@ -26,7 +26,7 @@ namespace Steam4NET
 		public UInt32 uNumIcons;
 		public UInt32 uNumVersions;
 		public UInt32 uNumDependencies;
-		public IntPtr szUnkString;
+		public string szUnkString;
 	};
 	
 }

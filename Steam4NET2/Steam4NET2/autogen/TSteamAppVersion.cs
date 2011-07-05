@@ -9,7 +9,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct TSteamAppVersion
 	{
-		public IntPtr szLabel;
+		public string szLabel;
 		public UInt32 uMaxLabelChars;
 		public UInt32 uVersionId;
 		public Int32 bIsNotAvailable;

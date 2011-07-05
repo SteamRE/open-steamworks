@@ -19,7 +19,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct DownloadStats_s
 	{
-		public Byte padding;
+		public Byte hack;
 	};
 	
 	public enum EAppDownloadPriority : int

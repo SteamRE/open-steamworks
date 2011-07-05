@@ -108,7 +108,7 @@ namespace Steam4NET
 		public UInt64 m_hFile;
 		public UInt32 m_nAppID;
 		public Int32 m_nSizeInBytes;
-		public IntPtr m_pchFileName;
+		public string m_pchFileName;
 		public UInt64 m_ulSteamIDOwner;
 	};
 	
