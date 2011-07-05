@@ -151,7 +151,7 @@ namespace Steam4Intermediate.Nodes
                         }
                         else
                         {
-                            types = "IntPtr";
+                            types = "string";
                         }
                     }
                     else if ( types == "Byte[]" )
