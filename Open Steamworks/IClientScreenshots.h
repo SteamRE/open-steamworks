@@ -60,7 +60,7 @@ public:
 
 	virtual void RecoverOldScreenshots() = 0;
 	virtual int32 GetTaggedUserCount( CGameID gameID, HScreenshot hScreenshot ) = 0;
-	virtual void GetTaggedUser( CGameID gameID, HScreenshot hScreenshot, int32 iUserIndex ) = 0;
+	virtual CSteamID GetTaggedUser( CGameID gameID, HScreenshot hScreenshot, int32 iUserIndex ) = 0;
 	virtual bool GetLocation( CGameID gameID, HScreenshot hScreenshot, char *pchLocation, uint32 cubLocation ) = 0;
 };
 

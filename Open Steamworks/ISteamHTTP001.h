@@ -93,6 +93,8 @@ public:
 	// received which included a content-length field.  For responses that contain no content-length it will report
 	// zero for the duration of the request as the size is unknown until the connection closes.
 	virtual bool GetHTTPDownloadProgressPct( HTTPRequestHandle hRequest, float *pflPercentOut ) = 0;
+	
+	virtual bool SetHTTPRequestRawPostBody( HTTPRequestHandle hRequest, const char *pchContentType, uint8 *pubBodyData, uint32 cubBodyData ) = 0;
 };
 
 #endif // ISTEAMHTTP001_H

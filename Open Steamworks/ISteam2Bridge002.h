@@ -64,6 +64,8 @@ public:
 	virtual bool GetAppDecryptionKey( AppId_t appId, void *lpDecryptionKey, uint32 cubDecryptionKey ) = 0;
 
 	virtual const char* GetPlatformName( bool* ) = 0;
+	
+	virtual uint32 GetSteam2FullASTicket( uint8* pubTicket, int32 cubTicket ) = 0;
 };
 
 #endif // ISTEAM2BRIDGE002_H

@@ -50,7 +50,7 @@ public:
 
 	virtual EAppState GetAppState( AppId_t unAppID ) = 0;
 
-	virtual bool InstallApp( AppId_t unAppID, const char *phBuffer, int cbBuffer ) = 0;
+	virtual bool InstallApp( AppId_t unAppID ) = 0;
 	virtual uint64 GetAppSize( AppId_t unAppID ) = 0;
 	virtual uint32 GetAppDir( AppId_t unAppID, char *szBuffer, uint32 cubBuffer ) = 0;
 	virtual bool UninstallApp( AppId_t unAppID, bool bComplete ) = 0;

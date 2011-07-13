@@ -80,7 +80,7 @@ public:
 	virtual bool GetReceiptBillingAddress( uint32 nReceiptIndex, char* pchFirstName, char* pchLastName, char* pchAddress1, char* pchAddress2, char* pchCity, char* pchPostcode, char* pchState, char* pchCountry, char* pchPhone ) = 0;
 
 	virtual uint32 GetReceiptLineItemCount( uint32 nReceiptIndex ) = 0;
-	virtual bool GetReceiptLineItemInfo( uint32 nReceiptIndex, uint32 nLineItemIndex, PackageId_t *nPackageID, uint32 *nBaseCost, uint32 *nDiscount, uint32 *nTax, uint32 *nShipping, ECurrencyCode *eCurrencyCode ) = 0;
+	virtual bool GetReceiptLineItemInfo( uint32 nReceiptIndex, uint32 nLineItemIndex, PackageId_t *nPackageID, uint32 *nBaseCost, uint32 *nDiscount, uint32 *nTax, uint32 *nShipping, ECurrencyCode *eCurrencyCode, AppId_t *punAppId, char *pchDescription ) = 0;
 
 	virtual void EnableTestLicense( PackageId_t unPackageID ) = 0;
 	virtual void DisableTestLicense( PackageId_t unPackageID ) = 0;

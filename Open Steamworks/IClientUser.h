@@ -47,6 +47,8 @@ public:
 	virtual void AcknowledgeVACBanning( AppId_t nAppID ) = 0;
 
 	virtual void SetSteam2Ticket( uint8* pubTicket, int cubTicket ) = 0;
+	
+	virtual bool BExistsSteam2Ticket() = 0;
 
 	virtual bool SetEmail( const char *pchEmail ) = 0;
 
@@ -98,7 +100,7 @@ public:
 	virtual void SetAccountNameFromSteam2( const char *pchAccountName ) = 0;
 	virtual void SetPasswordFromSteam2( const char *pchPassword ) = 0;
 
-	virtual void SetAccountNameForCachedCredentialLogin( const char *pchAccountName, bool bRememberPassword ) = 0;
+	virtual void SetAccountNameForCachedCredentialLogin( const char *pchAccountName, bool bRememberPassword, bool bUnk ) = 0;
 	virtual void SetLoginInformation( const char *pchAccountName, const char *pchPassword, bool bRememberPassword ) = 0;
 
 	virtual void SetAccountCreationTime( RTime32 rtime32Time ) = 0;
@@ -113,7 +115,6 @@ public:
 
 	virtual void CreateAccount( const char *pchAccountName, const char *pchNewPassword, const char *pchNewEmail, int iQuestion, const char *pchNewQuestion, const char *pchNewAnswer ) = 0;
 
-	virtual void CheckPassword( const char *pchAccountName, const char *pchPassword, bool bAttemptRecovery ) = 0;
 	virtual void ResetPassword( const char *pchAccountName, const char *pchOldPassword, const char *pchNewPassword, const char *pchValidationCode, const char *pchAnswer ) = 0;
 
 
@@ -155,17 +156,6 @@ public:
 	virtual bool SetLegacyCDKey( AppId_t nAppID, const char* pchKeyData ) = 0;
 	virtual void RemoveLegacyCDKey( AppId_t nAppID ) = 0;
 
-	virtual void StartVoiceRecording() = 0;
-	virtual void StopVoiceRecording() = 0;
-	virtual void ResetVoiceRecording() = 0;
-
-	virtual EVoiceResult GetAvailableVoice( uint32 *pcbCompressed, uint32 *pcbRaw, uint32 nSamplesPerSec ) = 0;
-	virtual EVoiceResult GetVoice( bool bWantCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, bool bWantRaw, void *pRawDestBuffer, uint32 cbRawDestBufferSize, uint32 *nRawBytesWritten, uint32 nSamplesPerSec ) = 0;
-
-	virtual EVoiceResult GetCompressedVoice( void *pDestBuffer, uint32 cbDestBufferSize, uint32* nBytesWritten ) = 0;
-	virtual EVoiceResult DecompressVoice( void *pCompressed, uint32 cbCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32* nBytesWritten, uint32 nSamplesPerSec ) = 0;
-	virtual uint32 GetVoiceOptimalSampleRate() = 0;
-
 	virtual bool BIsAnyGameRunning() = 0;
 
 	virtual void ChangePassword( const char *pchOldPassword, const char *pchNewPassword ) = 0;
@@ -173,10 +163,16 @@ public:
 	virtual void ChangeSecretQuestionAndAnswer( const char *, int iQuestion, const char *pchNewQuestion, const char *pchNewAnswer ) = 0;
 
 	virtual void SetSteam2FullASTicket( uint8* pubTicket, int cubTicket ) = 0;
+	virtual uint32 GetSteam2FullASTicket( uint8* pubTicket, int32 cubTicket ) = 0;
 
 	virtual bool GetEmail( char* pchEmail, int cchEmail, bool* pbUnk ) = 0;
 
 	virtual void RequestForgottenPasswordEmail( const char *pchAccountName, const char *pchTriedPassword ) = 0;
+	
+	virtual void FindAccountsByEmailAddress( const char *pchEmailAddress ) = 0; // UI Callback 161
+	virtual void FindAccountsByCdKey( const char *pchCdKey ) = 0; // ???
+	virtual void GetNumAccountsWithEmailAddress( const char * pchEmailAddress ) = 0; // UI Callback 159
+	virtual void IsAccountNameInUse( const char * pchAccountName ) = 0; // UI Callback 160
 
 	virtual void Test_FakeConnectionTimeout() = 0;
 
@@ -280,8 +276,13 @@ public:
 	virtual bool BAccountCanUseIPT() = 0;
 	virtual void ChangeTwoFactorAuthOptions( uint32 uOption ) = 0;
 	virtual void Set2ndFactorAuthCode( const char* pchAuthCode ) = 0;
+	virtual bool BAccountHasIPTConfig() = 0;
 
 	virtual bool GetEmailDomainFromLogonFailure( char * pchEmailDomain, int cbEmailDomain ) = 0;
+	
+	virtual bool BIsSubscribedApp( AppId_t nAppId ) = 0;
+	virtual SteamAPICall_t RegisterActivationCode( const char * pchActivationCode ) = 0;
+	
 	virtual void OptionalDLCInstallation( AppId_t, bool ) = 0;
 
 	virtual void AckSystemIM(unsigned long long) = 0;

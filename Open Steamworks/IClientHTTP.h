@@ -36,6 +36,7 @@ public:
 	virtual bool SendHTTPRequest( HTTPRequestHandle hRequest, SteamAPICall_t *pCallHandle ) = 0;
 	virtual bool DeferHTTPRequest( HTTPRequestHandle hRequest ) = 0;
 	virtual bool PrioritizeHTTPRequest( HTTPRequestHandle hRequest ) = 0;
+	virtual bool CancelHTTPRequest( HTTPRequestHandle hRequest ) = 0;
 	
 	virtual bool GetHTTPResponseHeaderSize( HTTPRequestHandle hRequest, char *pchHeaderName, uint32 *unResponseHeaderSize ) = 0;
 	virtual bool GetHTTPResponseHeaderValue( HTTPRequestHandle hRequest, char *pchHeaderName, uint8 *pHeaderValueBuffer, uint32 uBufferSize ) = 0;
@@ -45,7 +46,7 @@ public:
 	virtual bool ReleaseHTTPRequest( HTTPRequestHandle hRequest ) = 0;
 	virtual bool GetHTTPDownloadProgressPct( HTTPRequestHandle hRequest, float * pflProgress ) = 0;
 
-	virtual bool SetHTTPRequestRawPostBody( HTTPRequestHandle, const char *, uint8 *, uint32 ) = 0;
+	virtual bool SetHTTPRequestRawPostBody( HTTPRequestHandle hRequest, const char *pchContentType, uint8 *pubBodyData, uint32 cubBodyData ) = 0;
 };
 
 #endif // ICLIENTHTTP_H
