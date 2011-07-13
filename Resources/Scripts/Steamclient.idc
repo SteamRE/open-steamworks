@@ -45,7 +45,7 @@ static FindFunctionNames()
 	auto IPC_ID;
 	auto DoneOnce;
 	
-	if( ( ea = FindBinary( 0, SEARCH_DOWN+SEARCH_NOSHOW, "81 ec ? ? ? ? 83 3d ? ? ? ? ? 0f 84 ? ? ? ? 57 ff 15 ? ? ? ? 80 3d ? ? ? ? ? a3 ? ? ? ? 0f 84 ? ? ? ? 53 55 56 68 ? ? ? ? 8d bc 24 ? ? ? ? 8b c7 68 ? ? ? ? 50 ff 15 ? ? ? ? 8b 2d ? ? ? ? 83 c4 0c 32 db" ) ) != BADADDR)
+	if( ( ea = FindBinary( 0, SEARCH_DOWN+SEARCH_NOSHOW, "55 8b ec 81 ec ? ? ? ? 83 3d ? ? ? ? ? 0f 84 ? ? ? ? ff 15 ? ? ? ? 80 3d ? ? ? ? ? a3 ? ? ? ? 0f 84 ? ? ? ? 53 56 57 68 ? ? ? ? 8d bd ? ? ? ? 8b c7 68 ? ? ? ? 50 ff 15 ? ? ? ? 8b 1d ? ? ? ? 83 c4 0c c6 45 ? ? eb ?" ) ) != BADADDR)
 	{
 		for ( xref = RfirstB( ea ); xref != BADADDR; xref = RnextB( ea, xref ) )
 		{
@@ -77,6 +77,10 @@ static FindFunctionNames()
 			SetArrayString(iArray, long(IPC_ID), InterfaceName + "::" + FunctionName);
 		}
 	}
+	else
+	{
+		Message("Unable to find PipeDebugStart\n");
+	}
 }
 
 static FindFunctions()
@@ -87,7 +91,7 @@ static FindFunctions()
 	auto start;
 	auto i;
 	
-	if( ( ea = FindBinary( 0, SEARCH_DOWN+SEARCH_NOSHOW, "81 ec ? ? ? ? 53 55 8b ac 24 ? ? ? ? 56 57 8b bc 24 ? ? ? ? 8d 75 ? 89 74 24 ? ff 15 ? ? ? ? 8b c8 8b 06 33 db 3b c8 74 ? 8b d1 8b fe 33 c0 f0 0f b1 17 85 c0 75 ? 8b bc 24 ? ? ? ?" ) ) != BADADDR )
+	if( ( ea = FindBinary( 0, SEARCH_DOWN+SEARCH_NOSHOW, "55 8b ec 81 ec ? ? ? ? 53 56 57 8b f9 8d 5f ? 8b cb 89 5d ? ff 15 ? ? ? ? 8b 45 ? 83 47 ? ? 3b 47 ? 7d ? 85 c0 7c ? 8b 57 ? 8d 0c 40 03 c9 03 c9 03 d1 39 42 ? 75 ? 39 42 ? 74 ?" ) ) != BADADDR )
 	{
 		for ( xref = RfirstB( ea ); xref != BADADDR; xref = RnextB( ea, xref ) )
 		{
@@ -95,7 +99,7 @@ static FindFunctions()
 
 			for ( i = xref; i >= start; i-- )
 			{
-				if( GetMnem( i ) == "mov" && GetOpType( i, 0 ) == 1 && (GetOperandValue( i, 0 ) == 6 || GetOperandValue( i, 0 ) == 7) && GetOpType( i, 1 ) == 5 )
+				if( GetMnem( i ) == "mov" && GetOpType( i, 0 ) == 4 && GetOpType( i, 1 ) == 5 )
 				{
 					for ( xref2 = DfirstB( start ); xref2 != BADADDR; xref2 = DnextB( start, xref2 ) )
 					{
@@ -106,5 +110,9 @@ static FindFunctions()
 				}
 			}
 		}
+	}
+	else
+	{
+		Message("Unable to find SendSerializedFunction\n");
 	}
 }
