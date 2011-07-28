@@ -42,13 +42,13 @@ public:
 	virtual PackageId_t GetLicensePackageID( uint32 nLicenseIndex ) = 0;
 	virtual RTime32 GetLicenseTimeCreated( uint32 nLicenseIndex ) = 0;
 	virtual RTime32 GetLicenseTimeNextProcess( uint32 nLicenseIndex ) = 0;
-	virtual int GetLicenseMinuteLimit( uint32 nLicenseIndex ) = 0;
-	virtual int GetLicenseMinutesUsed( uint32 nLicenseIndex ) = 0;
+	virtual int32 GetLicenseMinuteLimit( uint32 nLicenseIndex ) = 0;
+	virtual int32 GetLicenseMinutesUsed( uint32 nLicenseIndex ) = 0;
 	virtual EPaymentMethod GetLicensePaymentMethod( uint32 nLicenseIndex ) = 0;
 	virtual uint32 GetLicenseFlags( uint32 nLicenseIndex ) = 0;
 	virtual const char *GetLicensePurchaseCountryCode( uint32 nLicenseIndex ) = 0;
-	virtual int GetLicenseTerritoryCode( uint32 nLicenseIndex ) = 0;
-	virtual bool GetLicenseInfo( uint32 nLicenseIndex, uint32 *, uint32 *, int *, int *, EPaymentMethod *, uint32 *, int *, char * ) = 0;
+	virtual int32 GetLicenseTerritoryCode( uint32 nLicenseIndex ) = 0;
+	virtual bool GetLicenseInfo( uint32 nLicenseIndex, uint32 * puTimeCreated, uint32 * puTimeNextProcess, int32 * piMinuteLimit, int32 * piMinutesUsed, EPaymentMethod * pePaymentMethod, uint32 * puFlags, int32 * piTerritoryCode, char * pchPurchaseCountryCode /* Use a 3 bytes buffer */) = 0;
 
 	virtual PackageId_t GetReceiptPackageID( uint32 nReceiptIndex ) = 0;
 	virtual EPurchaseStatus GetReceiptStatus( uint32 nReceiptIndex ) = 0;
@@ -88,8 +88,8 @@ public:
 	virtual bool ActivateOEMTicket( const char *pchOEMLicenseFile ) = 0;
 
 	virtual bool GetLicenseForAppID( AppId_t unAppId, PackageId_t * punPackageID ) = 0;
-	virtual bool GetPackageInfo( PackageId_t unPackageID, uint32 *, int32 *, ELicenseType *, EPackageStatus *, int32 *, int32 *, int32 * ) = 0;
-	virtual uint32 GetAppsInPackage( PackageId_t unPackageID, AppId_t* puIds, int32 uMaxIds ) = 0;
+	virtual bool GetPackageInfo( PackageId_t unPackageID, uint32 * puNumAppIds, uint32 * puNumDepotIDs, EBillingType * peBillingType, ELicenseType * peLicenseType, EPackageStatus * pePackageStatus, int32 * piCodeClass, int32 * piGameCode, int32 * piTerritoryCode ) = 0;
+	virtual uint32 GetAppsInPackage( PackageId_t unPackageID, AppId_t* puIds, uint32 uMaxIds, bool bExcludeDepots ) = 0;
 	virtual uint32 GetPackageExtendedInfo( PackageId_t unPackageID, const char *cszKey, char *szValue, int32 cubValue ) = 0;
 };
 
