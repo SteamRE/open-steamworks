@@ -47,12 +47,12 @@ public:
 	virtual bool RequestCurrentStats( CGameID nGameID ) = 0;
 
 	// Data accessors
-	virtual bool GetStat( CGameID nGameID, const char *pchName, float *pData ) = 0;
 	virtual bool GetStat( CGameID nGameID, const char *pchName, int32 *pData ) = 0;
+	virtual bool GetStat( CGameID nGameID, const char *pchName, float *pData ) = 0;
 
 	// Set / update data
-	virtual bool SetStat( CGameID nGameID, const char *pchName, float fData ) = 0;
 	virtual bool SetStat( CGameID nGameID, const char *pchName, int32 nData ) = 0;
+	virtual bool SetStat( CGameID nGameID, const char *pchName, float fData ) = 0;
 
 	virtual bool UpdateAvgRateStat( CGameID nGameID, const char *pchName, float, double dSessionLength ) = 0;
 
