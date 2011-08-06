@@ -10,10 +10,10 @@ namespace Steam4NET
 	public class ISteamUserStats009VTable
 	{
 		public IntPtr RequestCurrentStats0;
-		public IntPtr GetStat1;
 		public IntPtr GetStat2;
-		public IntPtr SetStat3;
+		public IntPtr GetStat1;
 		public IntPtr SetStat4;
+		public IntPtr SetStat3;
 		public IntPtr UpdateAvgRateStat5;
 		public IntPtr GetAchievement6;
 		public IntPtr SetAchievement7;

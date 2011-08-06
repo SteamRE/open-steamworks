@@ -5711,10 +5711,10 @@ namespace Steam4NET
 		public IntPtr GetNumAchievements;
 		public IntPtr GetAchievementName;
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr SetAchievement;
@@ -5787,10 +5787,10 @@ namespace Steam4NET
 	public class ISteamUserStats003VTable
 	{
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr SetAchievement;
@@ -6696,10 +6696,10 @@ namespace Steam4NET
 	public class ISteamUserStats006VTable
 	{
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr SetAchievement;
@@ -7428,10 +7428,10 @@ namespace Steam4NET
 		public IntPtr GetNumAchievements;
 		public IntPtr GetAchievementName;
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr SetAchievement;
@@ -11465,10 +11465,10 @@ namespace Steam4NET
 		public IntPtr GetNumGroupAchievements;
 		public IntPtr GetGroupAchievementName;
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr GetGroupAchievement;
@@ -11555,10 +11555,10 @@ namespace Steam4NET
 	public class ISteamUserStats004VTable
 	{
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr SetAchievement;
@@ -11636,10 +11636,10 @@ namespace Steam4NET
 	public class ISteamUserStats005VTable
 	{
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr SetAchievement;
@@ -11753,10 +11753,10 @@ namespace Steam4NET
 	public class ISteamUserStats007VTable
 	{
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr SetAchievement;
@@ -11882,10 +11882,10 @@ namespace Steam4NET
 	public class ISteamUserStats008VTable
 	{
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr SetAchievement;
@@ -12015,10 +12015,10 @@ namespace Steam4NET
 	public class ISteamUserStats009VTable
 	{
 		public IntPtr RequestCurrentStats;
-		public IntPtr GetStat;
 		public IntPtr GetStat1;
-		public IntPtr SetStat;
+		public IntPtr GetStat;
 		public IntPtr SetStat1;
+		public IntPtr SetStat;
 		public IntPtr UpdateAvgRateStat;
 		public IntPtr GetAchievement;
 		public IntPtr SetAchievement;

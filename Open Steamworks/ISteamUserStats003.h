@@ -32,12 +32,12 @@ public:
 	virtual bool RequestCurrentStats( ) = 0;
 
 	// Data accessors
-	virtual bool GetStat( const char *pchName, int32 *pData ) = 0;
 	virtual bool GetStat( const char *pchName, float *pData ) = 0;
+	virtual bool GetStat( const char *pchName, int32 *pData ) = 0;
 
 	// Set / update data
-	virtual bool SetStat( const char *pchName, int32 nData ) = 0;
 	virtual bool SetStat( const char *pchName, float fData ) = 0;
+	virtual bool SetStat( const char *pchName, int32 nData ) = 0;
 	virtual bool UpdateAvgRateStat( const char *pchName, float, double dSessionLength ) = 0;
 
 

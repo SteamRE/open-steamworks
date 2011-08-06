@@ -15,10 +15,10 @@ namespace Steam4NET
 		public IntPtr GetNumAchievements3;
 		public IntPtr GetAchievementName4;
 		public IntPtr RequestCurrentStats5;
-		public IntPtr GetStat6;
 		public IntPtr GetStat7;
-		public IntPtr SetStat8;
+		public IntPtr GetStat6;
 		public IntPtr SetStat9;
+		public IntPtr SetStat8;
 		public IntPtr UpdateAvgRateStat10;
 		public IntPtr GetAchievement11;
 		public IntPtr SetAchievement12;
