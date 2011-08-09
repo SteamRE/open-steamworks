@@ -416,7 +416,7 @@
             {
                 try
                 {
-                    File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine );
+                    File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine, Encoding.UTF8 );
                     return;
                 }
                 catch ( Exception ex )
@@ -434,13 +434,13 @@
 
                     if ( ( DateTime.Now - lastMsg ) > TimeSpan.FromMinutes( sets.MinsBetweenSessions ) )
                     {
-                        File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine );
+                        File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine, Encoding.UTF8 );
                         sessionInfo[ senderId ] = DateTime.Now;
                     }
                 }
                 else
                 {
-                    File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine );
+                    File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine, Encoding.UTF8 );
 
                     sessionInfo.Add( senderId, DateTime.Now );
                 }
@@ -448,7 +448,7 @@
 
             try
             {
-                File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine );
+                File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine, Encoding.UTF8 );
             }
             catch ( Exception ex )
             {
