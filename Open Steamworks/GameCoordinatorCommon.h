@@ -67,6 +67,8 @@ typedef enum EGCMessages
 	k_ESOMsg_CacheSubscribed,
 	k_ESOMsg_CacheUnsubscribed,
 	k_ESOMsg_UpdateMultiple,
+	k_ESOMsg_CacheSubscriptionCheck,
+	k_ESOMsg_CacheSubscriptionRefresh,
 
 	k_EGCMsgAchievementAwarded = 51,
 	k_EGCMsgConCommand,
@@ -155,10 +157,17 @@ typedef enum EGCMessages
 	k_EMsgGCLookupAccountResponse,
 	k_EMsgGCLookupAccountName,
 	k_EMsgGCLookupAccountNameResponse,
-	k_EMsgGCStartupCheck,
-	k_EMsgGCStartupCheckResponse,
-	k_EMsgGCUpdateItemSchema,
+	k_EMsgGCUpdateItemSchema = 1049,
 	k_EMsgGCRequestInventoryRefresh,
+	k_EMsgGCRemoveCustomTexture,
+	k_EMsgGCRemoveCustomTextureResponse,
+	k_EMsgGCRemoveMakersMark,
+	k_EMsgGCRemoveMakersMarkResponse,
+	k_EMsgGCRemoveUniqueCraftIndex,
+	k_EMsgGCRemoveUniqueCraftIndexResponse,
+	k_EMsgGCSaxxyBroadcast,
+	k_EMsgGCBackpackSortFinished,
+	k_EMsgGCRequestItemSchemaData = 1060,
 
 	k_EMsgGCTrading_InitiateTradeRequest = 1501,
 	k_EMsgGCTrading_InitiateTradeResponse,
@@ -191,10 +200,11 @@ typedef enum EGCMessages
 	k_EMsgGCStorePurchaseQueryTxn,
 	k_EMsgGCStorePurchaseQueryTxnResponse,
 
-	k_EMsgGCSystemMessage = 3001,
+	k_EMsgGCSystemMessage = 4001,
+	k_EMsgGCReplicateConVars,
+	k_EMsgGCConVarUpdated,
 
 	k_EMsgGCReportWarKill = 5001,
-
 	k_EMsgGCVoteKickBanPlayer = 5018,
 	k_EMsgGCVoteKickBanPlayerResult,
 	k_EMsgGCKickPlayer,
@@ -228,7 +238,6 @@ typedef enum EGCMessages
 
 	k_EMsgGC_Halloween_ReservedItem = 5600,
 	k_EMsgGC_Halloween_GrantItem,
-
 	k_EMsgGC_Halloween_GrantItemResponse = 5604,
 	k_EMsgGC_Halloween_Cheat_QueryResponse,
 	k_EMsgGC_Halloween_ItemClaimed,
