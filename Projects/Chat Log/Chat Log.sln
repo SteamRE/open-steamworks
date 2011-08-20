@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat Log", "Chat Log.csproj", "{AD738C92-B479-45C4-96B7-AF778AD4B749}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Steam4NET", "..\..\Steam4NET\Steam4NET.csproj", "{1A204257-FE82-4BBE-9ED4-40694821C31F}"

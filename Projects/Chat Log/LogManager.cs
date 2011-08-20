@@ -120,80 +120,13 @@
             if ( clientFriends == null )
                 return false;
 
-            VTScan vtScan = new VTScan( clientFriends.Interface );
+            VTable vTable = new VTable( clientFriends.Interface );
 
-            if ( vtScan.Init() )
-            {
+            getChatMsg = vTable.GetFunc<NativeGetChatRoomEntry>( 99 );
+            getChatName = vTable.GetFunc<NativeGetChatRoomName>( 117 );
 
-                /*
-                .text:3809F73D 6A 00                                   push    0
-                .text:3809F73F 68 62 D4 46 38                          push    offset unk_3846D462
-                .text:3809F744 68 95 03 00 00                          push    394h
-                .text:3809F749 68 40 E7 3C 38                          push    offset aEBuild_slav_20 ; "e:\\build_slave\\steam_rel_client_win32\\b"...
-                .text:3809F74E 6A 00                                   push    0
-                .text:3809F750 68 90 E7 3C 38                          push    offset asc_383CE790 ; "Assertion Failed: bufRet.GetUint8() == "...
-                .text:3809F755 FF 15 44 E5 37 38                       call    ds:AssertMsgImplementation
-                */
-                var results = vtScan.DoScan<NativeGetChatRoomEntry>(
-                    "\x6A\x00\x68\x62\xD4\x46\x38\x68\x83\x03\x00\x00\x68\x40\xE7\x3C\x38\x6A\x00\x68\x90\xE7\x3C\x38\xFF\x15\x44\xE5\x37\x38",
-                    "xxx????xxxxxx????xxx????xx????"
-                );
-
-                bool foundFirst = false;
-
-                if ( results.Count == 0 )
-                {
-                    groupStatusMsg = "Error: Unable to scan for GetChatRoomEntry";
-                }
-                else
-                {
-                    if ( results.Count > 1 )
-                    {
-                        groupStatusMsg = "Error: Scan for GetChatRoomEntry gave multiple results!";
-                    }
-                    else
-                    {
-                        getChatMsg = results[ 0 ].Delegate;
-                        foundFirst = true;
-                    }
-                }
-
-                /*
-                .text:380A06A4 6A 00                                   push    0
-                .text:380A06A6 68 69 D4 46 38                          push    offset unk_3846D469
-                .text:380A06AB 68 AB 03 00 00                          push    3AAh
-                .text:380A06B0 68 40 E7 3C 38                          push    offset aEBuild_slav_20 ; "e:\\build_slave\\steam_rel_client_win32\\b"...
-                .text:380A06B5 6A 00                                   push    0
-                .text:380A06B7 68 90 E7 3C 38                          push    offset asc_383CE790 ; "Assertion Failed: bufRet.GetUint8() == "...
-                .text:380A06BC FF 15 44 E5 37 38                       call    ds:AssertMsgImplementation
-                */
-
-                var results2 = vtScan.DoScan<NativeGetChatRoomName>(
-                    "\x6A\x00\x68\x69\xD4\x46\x38\x68\x99\x03\x00\x00\x68\x40\xE7\x3C\x38\x6A\x00\x68\x90\xE7\x3C\x38\xFF\x15\x44\xE5\x37\x38",
-                    "xxx????xxxxxx????xxx????xx????"
-                );
-
-                if ( results2.Count == 0 )
-                {
-                    groupStatusMsg = "Error: Unable to scan for GetChatRoomName";
-                }
-                else
-                {
-                    if ( results2.Count > 1 )
-                    {
-                        groupStatusMsg = "Error: Scan for GetChatRoomName gave multiple results!";
-                    }
-                    else
-                    {
-                        getChatName = results2[ 0 ].Delegate;
-                        groupChatEnabled = foundFirst && true;
-                    }
-                }
-            }
-            else
-            {
-                groupStatusMsg = "Error: Unable to initialize scan!";
-            }
+            groupChatEnabled = true;
+            groupStatusMsg = "Enabled with vtable offsets. (Dangerous)";
 
             CallbackDispatcher.SpawnDispatchThread( pipe );
 
@@ -416,7 +349,7 @@
             {
                 try
                 {
-                    File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine, Encoding.UTF8 );
+                    File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine );
                     return;
                 }
                 catch ( Exception ex )
@@ -434,13 +367,13 @@
 
                     if ( ( DateTime.Now - lastMsg ) > TimeSpan.FromMinutes( sets.MinsBetweenSessions ) )
                     {
-                        File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine, Encoding.UTF8 );
+                        File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine );
                         sessionInfo[ senderId ] = DateTime.Now;
                     }
                 }
                 else
                 {
-                    File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine, Encoding.UTF8 );
+                    File.AppendAllText( Path.Combine( directoryName, fileName ), Environment.NewLine + Environment.NewLine + "New session started on " + dateStr + " at " + timeStr + Environment.NewLine );
 
                     sessionInfo.Add( senderId, DateTime.Now );
                 }
@@ -448,7 +381,7 @@
 
             try
             {
-                File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine, Encoding.UTF8 );
+                File.AppendAllText( Path.Combine( directoryName, fileName ), logMessage + Environment.NewLine );
             }
             catch ( Exception ex )
             {
