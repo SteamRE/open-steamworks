@@ -157,26 +157,17 @@ namespace ChatLog
         List<IntPtr> vtFuncs = new List<IntPtr>();
 
 
-        public unsafe VTScan( IntPtr vtObject )
+        public VTScan( IntPtr vtObject )
         {
             this.vtObject = vtObject;
-
-            int* vtable = ( int* )*( ( int* )vtObject.ToInt32() );
-            for ( int i = 0 ; vtable[ i ] != 0 ; ++i )
-            {
-                vtFuncs.Add( new IntPtr( vtable[ i ] ) );
-            }
         }
 
 
-        public bool Init()
+        public unsafe bool Init( IntPtr address )
         {
-            if ( vtFuncs.Count == 0 )
-                return false;
-
             Native.MEMORY_BASIC_INFORMATION memInfo = new Native.MEMORY_BASIC_INFORMATION();
 
-            if ( Native.VirtualQuery( vtFuncs[ 0 ], ref memInfo, ( uint )Marshal.SizeOf( memInfo ) ) == 0 )
+            if ( Native.VirtualQuery( address, ref memInfo, ( uint )Marshal.SizeOf( memInfo ) ) == 0 )
                 return false;
 
             baseAddr = ( uint )memInfo.AllocationBase.ToInt32();
@@ -192,6 +183,25 @@ namespace ChatLog
                 return false;
 
             baseLen = pe.OptionalHeader.SizeOfImage;
+
+            try
+            {
+                int* vtable = ( int* )*( ( int* )vtObject.ToInt32() );
+                for ( int i = 0 ; ; ++i )
+                {
+                    if ( vtable[ i ] < baseAddr || vtable[ i ] > ( baseAddr + baseLen ) )
+                        break;
+
+                    if ( vtable[ i ] == 0 )
+                        break;
+
+                    vtFuncs.Add( new IntPtr( vtable[ i ] ) );
+                }
+            }
+            catch
+            {
+                return false;
+            }
 
             return true;
         }
