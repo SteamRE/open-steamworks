@@ -37,7 +37,7 @@ namespace FriendManager
 
             try
             {
-                ClientEngine = Steamworks.CreateInterface<IClientEngine>( "CLIENTENGINE_INTERFACE_VERSION001" );
+                ClientEngine = Steamworks.CreateInterface<IClientEngine>( "CLIENTENGINE_INTERFACE_VERSION002" );
             }
             catch ( Exception ex )
             {

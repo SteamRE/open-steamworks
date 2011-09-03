@@ -67,7 +67,7 @@
                 return false;
 
             steamClient = Steamworks.CreateInterface<ISteamClient008>( "SteamClient008" );
-            clientEngine = Steamworks.CreateInterface<IClientEngine>( "CLIENTENGINE_INTERFACE_VERSION001" );
+            clientEngine = Steamworks.CreateInterface<IClientEngine>( "CLIENTENGINE_INTERFACE_VERSION002" );
 
             if ( steamClient == null )
                 return false;
