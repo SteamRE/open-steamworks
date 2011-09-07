@@ -48,13 +48,13 @@ public:
 	virtual CGameID GetGameWithLocalScreenshots( int32 iGameIndex ) = 0;
 
 	virtual int32 GetLocalScreenshotCount( CGameID gameID ) = 0;
-	virtual bool GetLocalScreenshot( CGameID gameID, int32 iScreenshotIndex, HScreenshot* phScreenshot, int32 *piWidth, int32 *piHeight, uint32 *puTimestamp, EScreenshotPrivacyState *pePrivacy, uint64* pullFileID, char *pchCaption, uint32 cubCaption ) = 0;
+	virtual bool GetLocalScreenshot( CGameID gameID, int32 iScreenshotIndex, HScreenshot* phScreenshot, int32 *piWidth, int32 *piHeight, uint32 *puTimestamp, EUCMFilePrivacyState *pePrivacy, uint64* pullFileID, char *pchCaption, uint32 cubCaption ) = 0;
 	virtual bool SetLocalScreenshotCaption( CGameID gameID, HScreenshot hScreenshot, const char *cszCaption ) = 0;
-	virtual bool SetLocalScreenshotPrivacy( CGameID gameID, HScreenshot hScreenshot, EScreenshotPrivacyState ePrivacy ) = 0;
+	virtual bool SetLocalScreenshotPrivacy( CGameID gameID, HScreenshot hScreenshot, EUCMFilePrivacyState ePrivacy ) = 0;
 
 	virtual bool StartBatch( CGameID gameID ) = 0;
 	virtual bool AddToBatch( HScreenshot hScreenshot ) = 0;
-	virtual SteamAPICall_t UploadBatch( EScreenshotPrivacyState ePrivacy ) = 0;
+	virtual SteamAPICall_t UploadBatch( EUCMFilePrivacyState ePrivacy ) = 0;
 	virtual SteamAPICall_t DeleteBatch( bool bDeleteFromCloud ) = 0;
 	virtual bool CancelBatch() = 0;
 

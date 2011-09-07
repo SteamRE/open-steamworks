@@ -78,7 +78,6 @@ public:
 	virtual IClientMatchmaking *GetIClientMatchmaking( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientApps *GetIClientApps( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientContentServer *GetIClientContentServer( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
-	virtual IClientMasterServerUpdater *GetIClientMasterServerUpdater( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientMatchmakingServers *GetIClientMatchmakingServers( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
 	virtual void RunFrame() = 0;

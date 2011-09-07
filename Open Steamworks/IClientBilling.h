@@ -32,7 +32,6 @@ enum EPackageStatus
 abstract_class UNSAFE_INTERFACE IClientBilling
 {
 public:
-	virtual bool GetActivationCodeInfo( const char *pchActivationCode ) = 0;
 	virtual bool PurchaseWithActivationCode( const char *pchActivationCode ) = 0;
 
 	virtual bool CancelLicense( PackageId_t packageID, int32 nCancelReason ) = 0;

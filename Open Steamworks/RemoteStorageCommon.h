@@ -48,12 +48,12 @@ typedef enum ERemoteStorageSyncState
 	k_ERemoteSyncStatePendingChangesInCloudAndLocally = 5,
 } ERemoteStorageSyncState;
 
-typedef enum EScreenshotPrivacyState
+typedef enum EUCMFilePrivacyState
 {
-	k_EScreenshotPrivacyStatePrivate = 2,
-	k_EScreenshotPrivacyStateFriendsOnly = 4,
-	k_EScreenshotPrivacyStatePublic = 8,
-} EScreenshotPrivacyState;
+	k_EUCMFilePrivacyStatePrivate = 2,
+	k_EUCMFilePrivacyStateFriendsOnly = 4,
+	k_EUCMFilePrivacyStatePublic = 8,
+} EUCMFilePrivacyState;
 
 typedef enum ERemoteStoragePlatform
 {

@@ -41,6 +41,7 @@ public:
 	virtual void AddRequestLobbyListFilterSlotsAvailable( int nSlotsAvailable ) = 0;
 	virtual void AddRequestLobbyListDistanceFilter( ELobbyDistanceFilter filter ) = 0;
 	virtual void AddRequestLobbyListResultCountFilter( int cMaxResults ) = 0;
+	virtual void AddRequestLobbyListCompatibleMembersFilter( CSteamID steamID ) = 0;
 
 	virtual CSteamID GetLobbyByIndex( int iLobby ) = 0;
 

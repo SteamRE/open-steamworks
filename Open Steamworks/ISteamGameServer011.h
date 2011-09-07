@@ -14,43 +14,21 @@
 //
 //=============================================================================
 
-#ifndef ICLIENTGAMESERVER_H
-#define ICLIENTGAMESERVER_H
+#ifndef ISTEAMGAMESERVER011_H
+#define ISTEAMGAMESERVER011_H
 #ifdef _WIN32
 #pragma once
 #endif
 
 #include "SteamTypes.h"
 #include "GameServerCommon.h"
-#include "UserCommon.h"
 
-
-typedef enum EGameConnectSteamResponse
-{
-	k_EGameConnectSteamResponse_WaitingForResponse = 0,
-	k_EGameConnectSteamResponse_AuthorizedToPlay = 1,
-	k_EGameConnectSteamResponse_Denied = 2,
-	k_EGameConnectSteamResponse_ExceededReasonableTime_StillWaiting = 3,
-} EGameConnectSteamResponse;
-
-struct ConnectedUserInfo_t
-{
-	int m_cubConnectedUserInfo;
-	int m_nCountOfGuestUsers;
-	CSteamID m_SteamID;
-	uint32 m_unIPPublic;
-	uint32 m_nFrags;
-	double m_flConnectTime;
-	EGameConnectSteamResponse m_eGameConnectSteamResponse;
-	EDenyReason m_eDenyReason;
-};
-
-abstract_class UNSAFE_INTERFACE IClientGameServer
+//-----------------------------------------------------------------------------
+// Purpose: Functions for authenticating users via Steam to play on a game server
+//-----------------------------------------------------------------------------
+abstract_class ISteamGameServer011
 {
 public:
-	// returns the HSteamUser this interface represents
-	virtual HSteamUser GetHSteamUser() = 0;
-
 	virtual bool InitGameServer( uint32 unGameIP, uint16 unGamePort, uint16 usQueryPort, uint32 unServerFlags, AppId_t nAppID, const char *pchVersion ) = 0;
 	virtual void SetProduct( const char *pchProductName ) = 0;
 	virtual void SetGameDescription( const char *pchGameDescription ) = 0;
@@ -60,11 +38,10 @@ public:
 	virtual void LogOnAnonymous() = 0;
 	virtual void LogOff() = 0;
 
-	virtual CSteamID GetSteamID() = 0;
-
+	// status functions
 	virtual bool BLoggedOn() = 0;
-
-	virtual bool BSecure() = 0;
+	virtual bool BSecure() = 0; 
+	virtual CSteamID GetSteamID() = 0;
 
 	// Returns true if the master server has requested a restart.
 	// Only returns true once per request.
@@ -147,7 +124,7 @@ public:
 
 	// After receiving a user's authentication data, and passing it to SendUserConnectAndAuthenticate, use this function
 	// to determine if the user owns downloadable content specified by the provided AppID.
-	virtual EUserHasLicenseForAppResult IsUserSubscribedAppInTicket( CSteamID steamID, AppId_t appID ) = 0;
+	virtual EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
 
 	// Ask if a user in in the specified group, results returns async by GSUserGroupStatus_t
 	// returns false if we're not connected to the steam servers and thus cannot ask
@@ -193,47 +170,6 @@ public:
 
 	// Force it to request a heartbeat from the master servers.
 	virtual void ForceHeartbeat() = 0;
-
-
-	virtual ELogonState GetLogonState() = 0;
-	virtual bool BConnected() = 0;
-
-	virtual int RaiseConnectionPriority( EConnectionPriority eConnectionPriority ) = 0;
-	virtual void ResetConnectionPriority( int hRaiseConnectionPriorityPrev ) = 0;
-
-	virtual void SetCellID( CellID_t cellID ) = 0;
-
-	virtual void TrackSteamUsageEvent( ESteamUsageEvent eSteamUsageEvent, const uint8 *pubKV, uint32 cubKV ) = 0;
-
-	virtual void SetCountOfSimultaneousGuestUsersPerSteamAccount( int nCount ) = 0;
-
-	virtual bool EnumerateConnectedUsers( int iterator, ConnectedUserInfo_t *pConnectedUserInfo ) = 0;
-
-	virtual SteamAPICall_t AssociateWithClan( CSteamID clanID ) = 0;
-	virtual SteamAPICall_t ComputeNewPlayerCompatibility( CSteamID steamID ) = 0;
-
-	// Ask if a user has a specific achievement for this game, will get a callback on reply
-	virtual bool _BGetUserAchievementStatus( CSteamID steamID, const char *pchAchievementName ) = 0;
-
-	virtual void _GSSetSpawnCount( uint32 ucSpawn ) = 0;
-	virtual bool _GSGetSteam2GetEncryptionKeyToSendToNewClient( void *pvEncryptionKey, uint32 *pcbEncryptionKey, uint32 cbMaxEncryptionKey ) = 0;
-
-	virtual bool _GSSendSteam2UserConnect( uint32 unUserID, const void *pvRawKey, uint32 unKeyLen, uint32 unIPPublic, uint16 usPort, const void *pvCookie, uint32 cubCookie ) = 0;
-	virtual bool _GSSendSteam3UserConnect( CSteamID steamID, uint32 unIPPublic, const void *pvCookie, uint32 cubCookie ) = 0;
-
-	virtual bool _GSSendUserConnect( uint32 unUserID, uint32 unIPPublic, uint16 usPort, const void *pvCookie, uint32 cubCookie ) = 0;
-	virtual bool _GSRemoveUserConnect( uint32 unUserID ) = 0;
-
-	// Updates server status values which shows up in the server browser and matchmaking APIs
-	virtual bool _GSUpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
-
-	virtual bool _GSCreateUnauthenticatedUser( CSteamID *pSteamID ) = 0;
-
-	virtual bool _GSSetServerType( int iAppID, uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
-	virtual void _SetBasicServerData( unsigned short nProtocolVersion, bool bDedicatedServer, const char *pRegionName, const char *pProductName, unsigned short nMaxReportedClients, bool bPasswordProtected, const char *pGameDescription ) = 0;
-
-	virtual bool _GSSendUserDisconnect( CSteamID, uint32 unUserID ) = 0;
 };
 
-
-#endif // ICLIENTGAMESERVER_H
+#endif // ISTEAMGAMESERVER011_H

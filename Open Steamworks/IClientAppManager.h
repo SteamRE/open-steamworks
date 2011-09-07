@@ -50,7 +50,7 @@ public:
 
 	virtual EAppState GetAppState( AppId_t unAppID ) = 0;
 
-	virtual bool InstallApp( AppId_t unAppID ) = 0;
+	virtual bool InstallApp( AppId_t unAppID, bool ) = 0;
 	virtual uint64 GetAppSize( AppId_t unAppID ) = 0;
 	virtual uint32 GetAppDir( AppId_t unAppID, char *szBuffer, uint32 cubBuffer ) = 0;
 	virtual bool UninstallApp( AppId_t unAppID, bool bComplete ) = 0;
@@ -79,6 +79,11 @@ public:
 
 	virtual bool IsUsingLocalContentServer() = 0;
 
+	virtual bool BackupApp( AppId_t unAppID, uint64 ullMaxFileSize, const char *cszBackupPath ) = 0;
+	virtual bool RestoreApp( AppId_t unAppID, char const* cszBackupPath ) = 0;
+	virtual bool BNeedsFile( AppId_t unAppID, char const* cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;
+	virtual bool BAddFileOnDisk( AppId_t unAppID, char const* cszFilePath, uint64 ullFileSize, uint32 uUnk, uint8 ubSha1[5] ) = 0;
+	virtual uint64 FinishAddingFiles( AppId_t unAppID ) = 0;
 };
 
 #endif // ICLIENTAPPMANAGER_H

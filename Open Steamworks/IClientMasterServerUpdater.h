@@ -27,7 +27,7 @@
 // Purpose: Game engines use this to tell the Steam master servers
 // about their games so their games can show up in the server browser.
 //-----------------------------------------------------------------------------
-abstract_class IClientMasterServerUpdater
+abstract_class OBSOLETE_INTERFACE IClientMasterServerUpdater
 {
 public:
 

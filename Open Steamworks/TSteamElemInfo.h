@@ -31,4 +31,15 @@ typedef struct TSteamElemInfo
 	long lCreationTime;				/* Seconds since 1/1/1970 (like time_t) when element was created */
 } TSteamElemInfo;
 
+typedef struct TSteamElemInfo64
+{
+	int bIsDir;							/* If non-zero, element is a directory; if zero, element is a file */
+	unsigned long long ullSizeOrCount;	/* If element is a file, this contains size of file in bytes */
+	int bIsLocal;						/* If non-zero, reported item is a standalone element on local filesystem */
+	char cszName[STEAM_MAX_PATH];		/* Base element name (no path) */
+	long long llLastAccessTime;			/* Seconds since 1/1/1970 (like time_t) when element was last accessed */
+	long long llLastModificationTime;	/* Seconds since 1/1/1970 (like time_t) when element was last modified */
+	long long llCreationTime;			/* Seconds since 1/1/1970 (like time_t) when element was created */
+} TSteamElemInfo64;
+
 #endif // TSTEAMELEMINFO_H

@@ -44,6 +44,12 @@ public:
 
 	virtual EResult AddSessionAttributeInt64( uint64 ulSessionID, const char *pstrName, int64 llData ) = 0;
 	virtual EResult AddRowAttributeInt64( uint64 ulRowID, const char *pstrName, int64 llData ) = 0;
+
+	virtual EResult ReportString( uint64 ulSessionID, int32 iSeverity, const char *cszFormat, ... ) = 0;
+	virtual EResult _ReportString( uint64 ulSessionID, int, char const*, int, unsigned char const* ) = 0;
+	virtual EResult ReportStringAccumulated( uint64 ulSessionID, int32 iSeverity, const char *cszFormat, ... ) = 0;
+	virtual EResult _ReportStringAccumulated( uint64 ulSessionID, int, char const*, int, unsigned char const* ) = 0;
+	virtual EResult ReportBugScreenshot( uint64 ulSessionID, char const* szBugText, int32 cubScreenshot, const uint8* pubScreenshot ) = 0;
 };
 
 

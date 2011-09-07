@@ -55,11 +55,13 @@ typedef uint32 HDEPOTBUILD;
 
 abstract_class IClientDepotBuilder
 {
-
 public:
+	virtual uint32 RegisterAppBuild( AppId_t nAppID, const char *cszDescription ) = 0;
+	virtual uint32 GetRegisteredBuildID( uint32 ) = 0;
+
 	virtual HDEPOTBUILD InitializeDepotBuildForConfigFile( const char *pchConfigFile ) = 0;
 	
-	virtual bool StartBuild( HDEPOTBUILD hDepotBuild, bool, bool, const char * pchBetaKey ) = 0;
+	virtual bool StartBuild( HDEPOTBUILD hDepotBuild, bool, bool, const char * pchBetaKey, unsigned int ) = 0;
 
 	virtual bool BGetDepotBuildStatus( HDEPOTBUILD hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
 	virtual bool CloseDepotBuildHandle( HDEPOTBUILD hDepotBuild ) = 0;
@@ -71,6 +73,8 @@ public:
 	virtual bool GetManifestGIDs( HDEPOTBUILD hDepotBuild, uint64 *, uint64 * ) = 0;
 
 	virtual uint32 RebaseAndBuildDepot( uint64, uint64 ) = 0;
+
+	virtual uint32 SetAppBuildLive( uint32 /*uBuildID ?*/, uint32 /*nAppID ?*/, const char *pchBetaKey ) = 0;
 };
 
 #endif // ICLIENTDEPOTBUILDER_H

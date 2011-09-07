@@ -341,6 +341,14 @@
 						RelativePath=".\ISteamClient010.h"
 						>
 					</File>
+					<File
+						RelativePath=".\ISteamClient011.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamClient012.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="ISteamContentServer"
@@ -401,6 +409,10 @@
 						RelativePath=".\ISteamFriends009.h"
 						>
 					</File>
+					<File
+						RelativePath=".\ISteamFriends010.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="ISteamGameServer"
@@ -443,6 +455,10 @@
 					</File>
 					<File
 						RelativePath=".\ISteamGameServer010.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamGameServer011.h"
 						>
 					</File>
 				</Filter>

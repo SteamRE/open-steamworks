@@ -99,6 +99,8 @@
 #include "ISteamClient008.h"
 #include "ISteamClient009.h"
 #include "ISteamClient010.h"
+#include "ISteamClient011.h"
+#include "ISteamClient012.h"
 
 // friends
 #include "ISteamFriends001.h"
@@ -110,6 +112,7 @@
 #include "ISteamFriends007.h"
 #include "ISteamFriends008.h"
 #include "ISteamFriends009.h"
+#include "ISteamFriends010.h"
 
 // screenshots
 #include "ISteamScreenshots001.h"
@@ -170,6 +173,7 @@
 #include "ISteamGameServer008.h"
 #include "ISteamGameServer009.h"
 #include "ISteamGameServer010.h"
+#include "ISteamGameServer011.h"
 
 // master server updater
 #include "ISteamMasterServerUpdater001.h"
