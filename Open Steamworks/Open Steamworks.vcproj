@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Open Steamworks"
 	ProjectGUID="{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}"
 	RootNamespace="SteamclientAPI"
@@ -530,6 +530,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamMatchmaking009.h"
+						>
+					</File>
+					<File
 						RelativePath=".\MatchmakingCommon.h"
 						>
 					</File>
@@ -595,6 +599,10 @@
 					</File>
 					<File
 						RelativePath=".\ISteamRemoteStorage004.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamRemoteStorage005.h"
 						>
 					</File>
 					<File

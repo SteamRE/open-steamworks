@@ -262,8 +262,8 @@ public:
 
 	virtual bool BGetGuideURL( uint32, char *, uint32 ) = 0;
 
-	virtual void GetClientAppListResponse_AddApp( unsigned int, bool,bool, bool, char  const*, unsigned long long, unsigned long long, unsigned int ) = 0;
-	virtual void GetClientAppListResponse_AddDLC( unsigned int, bool ) = 0;
+	virtual void GetClientAppListResponse_AddApp( AppId_t nAppId, bool bFavorite, bool bInstalled, bool bAutoUpdate, const char *cszCategory, const char *cszAppType, uint64 ullBytesDownloaded, uint64 ullBytesNeeded, uint32 uBytesDownloadRate ) = 0;
+	virtual void GetClientAppListResponse_AddDLC( AppId_t nAppId, bool bInstalled ) = 0;
 	virtual void GetClientAppListResponse_Done( unsigned long long ) = 0;
 	virtual void PostUIResultToClientJob( unsigned long long, EResult ) = 0;
 

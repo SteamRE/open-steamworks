@@ -170,6 +170,9 @@ public:
 
 	// Force it to request a heartbeat from the master servers.
 	virtual void ForceHeartbeat() = 0;
+
+	virtual SteamAPICall_t AssociateWithClan( CSteamID clanID ) = 0;
+	virtual SteamAPICall_t ComputeNewPlayerCompatibility( CSteamID steamID ) = 0;
 };
 
 #endif // ISTEAMGAMESERVER011_H

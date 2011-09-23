@@ -92,6 +92,10 @@ typedef enum EResult
 	k_EResultAccountLogonDeniedNoMail = 66,		// account login denied due to 2nd factor auth failure - and no mail has been sent
 	k_EResultHardwareNotCapableOfIPT = 67,		// 
 	k_EResultIPTInitError = 68,					// 
+	k_EResultParentalControlRestrictions = 69,	// Operation failed due to parental control restrictions for current user
+	k_EResultFacebookQueryError = 70,			// Facebook query returned an error
+	k_EResultExpiredLoginAuthCode = 71,			// Expired Login Auth Code
+	k_EResultIPLoginRestrictionFailed = 72,		// IP Login Restriction Failed
 
 } EResult;
 

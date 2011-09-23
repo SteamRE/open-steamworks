@@ -41,11 +41,11 @@ public:
 	virtual bool FilePersisted( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 	virtual int64 GetFileTimestamp( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
-	virtual bool SetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, int iUnk ) = 0;
+	virtual bool SetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, ERemoteStoragePlatform eRemoteStoragePlatform ) = 0;
 	virtual int GetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
 	virtual int32 GetFileCount( AppId_t nAppId, bool bUnk1 ) = 0;
-	virtual const char *GetFileNameAndSize( AppId_t nAppId, int iFile, int *pnFileSizeInBytes, int iUnk2 ,bool bUnk1 ) = 0;
+	virtual const char *GetFileNameAndSize( AppId_t nAppId, int iFile, ERemoteStorageFileRoot *peRemoteStorageFileRoot, int *pnFileSizeInBytes, bool bUnk1 ) = 0;
 
 	virtual bool GetQuota( AppId_t nAppId, int32 *pnTotalBytes, int32 *pnAvailableBytes ) = 0;
 	
@@ -53,19 +53,30 @@ public:
 	virtual bool IsCloudEnabledForApp( AppId_t nAppId );
 	virtual bool SetCloudEnabledForApp( AppId_t nAppId, bool bEnable );
 
-	virtual SteamAPICall_t UGCDownload( unsigned long long ) = 0;
-	virtual bool GetUGCDetails( unsigned long long,unsigned int *,char **,int *,CSteamID * ) = 0;
-	virtual int32 UGCRead( unsigned long long,void *,int ) = 0;
+	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent, bool bUseNewCallback ) = 0; // Old callback id = 1308, new callback id = 1317
+	virtual bool GetUGCDetails( UGCHandle_t hContent, AppId_t *pnAppID, char **ppchName, int32 *pnFileSizeInBytes, CSteamID *pSteamIDOwner ) = 0;
+	virtual int32 UGCRead( UGCHandle_t hContent, void *pubDest, int32 nDestBufferSize ) = 0;
 	virtual int32 GetCachedUGCCount() = 0;
-	virtual uint64 GetCachedUGCHandle( int32 ) = 0;
+	virtual UGCHandle_t GetCachedUGCHandle( int32 iCachedContent ) = 0;
+
+	virtual SteamAPICall_t PublishFile( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId , const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, bool bOverwrite, SteamParamStringArray_t *pTags, bool bWorkshopFile ) = 0;
+	virtual SteamAPICall_t UpdatePublishedFile( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, RemoteStorageUpdatePublishedFileRequest_t remoteStorageUpdatePublishedFileRequest ) = 0;
+	virtual SteamAPICall_t GetPublishedFileDetails( uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t DeletePublishedFile( uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t EnumerateUserPublishedFiles( AppId_t nAppId, uint32 uStartIndex ) = 0;
+	virtual SteamAPICall_t SubscribePublishedFile( AppId_t nAppId, uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t EnumerateUserSubscribedFiles( AppId_t nAppId, uint32 uStartIndex ) = 0;
+	virtual SteamAPICall_t UnsubscribePublishedFile( AppId_t nAppId, uint64 ullPublishedFile ) = 0;
 	
-	virtual uint32 FilePersist( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+	virtual EResult FilePersist( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
 	virtual bool FileFetch( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
 	virtual bool ResolvePath( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *, char *, uint32 ) = 0;
 
-	virtual bool SetCloudEnabledForAccount( bool bEnable);
+	virtual EResult FileTouch( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, bool ) = 0;
+
+	virtual bool SetCloudEnabledForAccount( bool bEnable );
 
 	virtual void LoadLocalFileInfoCache( AppId_t nAppId ) = 0;
 
@@ -80,7 +91,7 @@ public:
 	virtual void SynchronizeApp( AppId_t nAppId, bool bSyncClient, bool bSyncServer ) = 0;
 	virtual bool IsAppSyncInProgress( AppId_t nAppId ) = 0;
 
-	virtual ERemoteStorageFileRoot ERemoteStorageFileRootFromName( const char * ) = 0;
+	virtual ERemoteStorageFileRoot ERemoteStorageFileRootFromName( const char *cszName ) = 0;
 	virtual const char* PchNameFromERemoteStorageFileRoot( ERemoteStorageFileRoot eRemoteStorageFileRoot ) = 0;
 	
 	virtual bool ResetFileRequestState( AppId_t nAppId ) = 0;

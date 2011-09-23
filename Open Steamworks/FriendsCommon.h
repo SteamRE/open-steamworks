@@ -96,6 +96,7 @@ typedef enum EFriendRelationship
 	k_EFriendRelationshipRequestInitiator = 4,
 	k_EFriendRelationshipIgnored = 5,
 	k_EFriendRelationshipIgnoredFriend = 6,
+	k_EFriendRelationshipSuggestedFriend = 7,
 } EFriendRelationship;
 
 typedef enum EChatRoomType
@@ -178,6 +179,8 @@ typedef enum EPersonaState
 	k_EPersonaStateBusy = 2,			// user is on, but busy
 	k_EPersonaStateAway = 3,			// auto-away feature
 	k_EPersonaStateSnooze = 4,			// auto-away for a long time
+	k_EPersonaStateLookingToTrade = 5,	// Looking to Trade
+	k_EPersonaStateLookingToPlay = 6,	// Looking to Play
 	k_EPersonaStateMax,
 } EPersonaState;
 

@@ -187,6 +187,7 @@
 #include "ISteamMatchmaking006.h"
 #include "ISteamMatchmaking007.h"
 #include "ISteamMatchmaking008.h"
+#include "ISteamMatchmaking009.h"
 
 // matchmaking servers
 #include "ISteamMatchmakingServers001.h"
@@ -206,8 +207,9 @@
 // remote storage
 #include "ISteamRemoteStorage001.h"
 #include "ISteamRemoteStorage002.h"
-#include "ISteamRemoteStorage004.h"
 #include "ISteamRemoteStorage003.h"
+#include "ISteamRemoteStorage004.h"
+#include "ISteamRemoteStorage005.h"
 
 // content server
 #include "ISteamContentServer001.h"

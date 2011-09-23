@@ -42,6 +42,15 @@ enum EAppDownloadPriority
 {
 };
 
+struct SHADigestWrapper_t
+{
+	uint32 A;
+	uint32 B;
+	uint32 C;
+	uint32 D;
+	uint32 E;
+};
+
 abstract_class UNSAFE_INTERFACE IClientAppManager
 {
 public:
@@ -80,9 +89,10 @@ public:
 	virtual bool IsUsingLocalContentServer() = 0;
 
 	virtual bool BackupApp( AppId_t unAppID, uint64 ullMaxFileSize, const char *cszBackupPath ) = 0;
+	virtual bool CancelBackup( AppId_t unAppID ) = 0;
 	virtual bool RestoreApp( AppId_t unAppID, char const* cszBackupPath ) = 0;
 	virtual bool BNeedsFile( AppId_t unAppID, char const* cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;
-	virtual bool BAddFileOnDisk( AppId_t unAppID, char const* cszFilePath, uint64 ullFileSize, uint32 uUnk, uint8 ubSha1[5] ) = 0;
+	virtual bool BAddFileOnDisk( AppId_t unAppID, char const* cszFilePath, uint64 ullFileSize, uint32 uUnk, SHADigestWrapper_t ubSha1 ) = 0;
 	virtual uint64 FinishAddingFiles( AppId_t unAppID ) = 0;
 };
 

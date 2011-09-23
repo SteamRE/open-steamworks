@@ -33,22 +33,27 @@
 
 typedef enum EAppState
 {
-	k_EAppStateInvalid = 0,
-	k_EAppStateUninstalled = 1,
-	k_EAppStateUpdateRequired = 2,
-	k_EAppStateFullyInstalled = 4,
-	k_EAppStateDataEncrypted = 8,
-	k_EAppStateDataLocked = 16,
-	k_EAppStateDataCorrupt = 32,
-	k_EAppStateAppRunning = 64,
-	k_EAppStateUpdateRunning = 256,
-	k_EAppStateUpdatePaused = 512,
-	k_EAppStateUpdateSuspended = 1024,
-	k_EAppStateUninstalling = 2048,
-	k_EAppStateReconfiguring = 4096,
-	k_EAppStateDownloading = 8192,
-	k_EAppStateStaging = 16384,
-	k_EAppStateCommitting = 32768,
+	k_EAppStateInvalid			= 0,
+	k_EAppStateUninstalled		= 1,
+	k_EAppStateUpdateRequired	= 2,
+	k_EAppStateFullyInstalled	= 4,
+	k_EAppStateDataEncrypted	= 8,
+	k_EAppStateDataLocked		= 16,
+	k_EAppStateFilesMissing		= 32,
+	k_EAppStateFilesCorrupt		= 128,
+	k_EAppStateAppRunning		= 64,
+	k_EAppStateUpdateRunning	= 256,
+	k_EAppStateUpdateStopping	= 524288,
+	k_EAppStateUpdatePaused		= 512,
+	k_EAppStateUpdateStarted	= 1024,
+	k_EAppStateReconfiguring	= 4096,
+	k_EAppStateAddingFiles		= 16384,
+	k_EAppStateDownloading		= 65536,
+	k_EAppStateStaging			= 131072,
+	k_EAppStateCommitting		= 262144,
+	k_EAppStateUninstalling		= 2048,
+	k_EAppStatePreallocating	= 32768,
+	k_EAppStateValidating		= 8192,
 } EAppState;
 
 typedef enum EAppEvent
@@ -56,7 +61,24 @@ typedef enum EAppEvent
 	k_EAppEventDownloadComplete = 2,
 } EAppEvent;
 
-
+typedef enum EAppInfoSection
+{
+	k_EAppInfoSectionUnknown = 0,
+	k_EAppInfoSectionAll,
+	k_EAppInfoSectionCommon,
+	k_EAppInfoSectionExtended,
+	k_EAppInfoSectionConfig,
+	k_EAppInfoSectionStats,
+	k_EAppInfoSectionInstall,
+	k_EAppInfoSectionDepots,
+	k_EAppInfoSectionVac,
+	k_EAppInfoSectionDrm,
+	k_EAppInfoSectionUfs,
+	k_EAppInfoSectionOgg,
+	k_EAppInfoSectionItems,
+	k_EAppInfoSectionPolicies,
+	k_EAppInfoSectionSysreqs,
+} EAppInfoSection;
 
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------

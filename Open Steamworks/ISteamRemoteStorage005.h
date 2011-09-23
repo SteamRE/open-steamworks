@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMREMOTESTORAGE004_H
-#define ISTEAMREMOTESTORAGE004_H
+#ifndef ISTEAMREMOTESTORAGE005_H
+#define ISTEAMREMOTESTORAGE005_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing, reading and writing files stored remotely 
 //			and cached locally
 //-----------------------------------------------------------------------------
-abstract_class ISteamRemoteStorage004
+abstract_class ISteamRemoteStorage005
 {
 public:
 	// NOTE
@@ -63,13 +63,23 @@ public:
 	virtual void SetCloudEnabledForApp( bool bEnabled ) = 0;
 
 	// user generated content
-	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent ) = 0; // Returns a Deprecated_RemoteStorageDownloadUGCResult_t callback
+	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent ) = 0; // Returns a RemoteStorageDownloadUGCResult_t callback
 	virtual bool	GetUGCDetails( UGCHandle_t hContent, AppId_t *pnAppID, char **ppchName, int32 *pnFileSizeInBytes, CSteamID *pSteamIDOwner ) = 0;
 	virtual int32	UGCRead( UGCHandle_t hContent, void *pvData, int32 cubDataToRead ) = 0;
 
 	// user generated content iteration
 	virtual int32	GetCachedUGCCount() = 0;
 	virtual	UGCHandle_t GetCachedUGCHandle( int32 iCachedContent ) = 0;
+
+	virtual SteamAPICall_t PublishFile( const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t PublishWorkshopFile( const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, bool bOverwrite, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t UpdatePublishedFile( RemoteStorageUpdatePublishedFileRequest_t remoteStorageUpdatePublishedFileRequest ) = 0;
+	virtual SteamAPICall_t GetPublishedFileDetails( uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t DeletePublishedFile( uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t EnumerateUserPublishedFiles( uint32 uStartIndex ) = 0;
+	virtual SteamAPICall_t SubscribePublishedFile( uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t EnumerateUserSubscribedFiles( uint32 uStartIndex ) = 0;
+	virtual SteamAPICall_t UnsubscribePublishedFile( uint64 ullPublishedFile ) = 0;
 };
 
-#endif // ISTEAMREMOTESTORAGE004_H
+#endif // ISTEAMREMOTESTORAGE005_H
