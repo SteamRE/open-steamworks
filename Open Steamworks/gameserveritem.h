@@ -20,6 +20,11 @@
 #pragma once
 #endif
 
+#ifdef _WIN32
+	#pragma warning(push) 
+	#pragma warning(disable: 4996) 
+#endif
+
 //-----------------------------------------------------------------------------
 // Purpose: Data describing a single server
 //-----------------------------------------------------------------------------
@@ -81,6 +86,10 @@ inline void gameserveritem_t::SetName( const char *pName )
 	strncpy( m_szServerName, pName, sizeof( m_szServerName ) );
 	m_szServerName[ sizeof( m_szServerName ) - 1 ] = '\0';
 }
+#endif
+
+#ifdef _WIN32
+	#pragma warning(pop) 
 #endif
 
 #endif // GAMESERVERITEM_H

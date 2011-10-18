@@ -18,7 +18,14 @@
 #define SERVERNETADR_H
 #ifdef _WIN32
 #pragma once
-#define snprintf _snprintf //Fix for discrepancy
+#endif
+
+#ifdef _WIN32
+	#pragma warning(push) 
+	#pragma warning(disable: 4996) 
+	#ifndef snprintf
+		#define snprintf _snprintf
+	#endif
 #endif
 
 // servernetadr_t is all the addressing info the serverbrowser needs to know about a game server,
@@ -127,6 +134,7 @@ inline const char *servernetadr_t::ToString( uint32 unIP, uint16 usPort ) const
 	static int nBuf = 0;
 	unsigned char *ipByte = (unsigned char *)&unIP;
 	snprintf (s[nBuf], sizeof( s[nBuf] ), "%u.%u.%u.%u:%i", (int)(ipByte[3]), (int)(ipByte[2]), (int)(ipByte[1]), (int)(ipByte[0]), usPort );
+	s[nBuf][sizeof(s[nBuf]) - 1] = '\0';
 	const char *pchRet = s[nBuf];
 	++nBuf;
 	nBuf %= ( (sizeof(s)/sizeof(s[0])) );
@@ -147,6 +155,10 @@ inline bool servernetadr_t::operator<(const servernetadr_t &netadr) const
 {
 	return ( m_unIP < netadr.m_unIP ) || ( m_unIP == netadr.m_unIP && m_usQueryPort < netadr.m_usQueryPort );
 }
+#endif
+
+#ifdef _WIN32
+	#pragma warning(pop) 
 #endif
 
 #endif // SERVERNETADR_H

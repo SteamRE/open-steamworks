@@ -63,7 +63,7 @@ public:
 	virtual SteamAPICall_t UpdatePublishedFile( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, RemoteStorageUpdatePublishedFileRequest_t remoteStorageUpdatePublishedFileRequest ) = 0;
 	virtual SteamAPICall_t GetPublishedFileDetails( uint64 ullPublishedFile ) = 0;
 	virtual SteamAPICall_t DeletePublishedFile( uint64 ullPublishedFile ) = 0;
-	virtual SteamAPICall_t EnumerateUserPublishedFiles( AppId_t nAppId, uint32 uStartIndex ) = 0;
+	virtual SteamAPICall_t EnumerateUserPublishedFiles( AppId_t nAppId, uint32 uStartIndex, ERemoteStoragePublishedFileSortOrder eOrder ) = 0;
 	virtual SteamAPICall_t SubscribePublishedFile( AppId_t nAppId, uint64 ullPublishedFile ) = 0;
 	virtual SteamAPICall_t EnumerateUserSubscribedFiles( AppId_t nAppId, uint32 uStartIndex ) = 0;
 	virtual SteamAPICall_t UnsubscribePublishedFile( AppId_t nAppId, uint64 ullPublishedFile ) = 0;

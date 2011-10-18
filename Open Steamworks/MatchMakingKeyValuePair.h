@@ -25,6 +25,11 @@
 #include <string.h>
 #endif
 
+#ifdef _WIN32
+	#pragma warning(push) 
+	#pragma warning(disable: 4996) 
+#endif
+
 struct MatchMakingKeyValuePair_t
 {
 	MatchMakingKeyValuePair_t() { m_szKey[0] = m_szValue[0] = 0; }
@@ -42,5 +47,9 @@ struct MatchMakingKeyValuePair_t
 	char m_szKey[ 256 ];
 	char m_szValue[ 256 ];
 };
+
+#ifdef _WIN32
+	#pragma warning(pop) 
+#endif
 
 #endif // MATCHMAKINGKEYVALUEPAIR_H

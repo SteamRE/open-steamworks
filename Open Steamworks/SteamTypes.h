@@ -31,10 +31,6 @@
 	
 #elif _WIN32
 	
-	#ifndef _CRT_SECURE_NO_WARNINGS
-		#define _CRT_SECURE_NO_WARNINGS // we don't use unsafe functions unsafely!
-	#endif
-
 	#include <sdkddkver.h>
 	#include <windows.h>
 

@@ -98,9 +98,9 @@ public:
 	virtual void ResetConnectionPriority( int hRaiseConnectionPriorityPrev ) = 0;
 
 	virtual void SetAccountNameFromSteam2( const char *pchAccountName ) = 0;
-	virtual void SetPasswordFromSteam2( const char *pchPassword ) = 0;
+	virtual bool SetPasswordFromSteam2( const char *pchPassword ) = 0;
 
-	virtual void SetAccountNameForCachedCredentialLogin( const char *pchAccountName, bool bRememberPassword, bool bUnk ) = 0;
+	virtual bool SetAccountNameForCachedCredentialLogin( const char *pchAccountName, bool bRememberPassword, bool bUnk ) = 0;
 	virtual void SetLoginInformation( const char *pchAccountName, const char *pchPassword, bool bRememberPassword ) = 0;
 
 	virtual void SetAccountCreationTime( RTime32 rtime32Time ) = 0;

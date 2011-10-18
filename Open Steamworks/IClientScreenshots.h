@@ -34,14 +34,14 @@ public:
 	virtual HScreenshot AddScreenshotToLibrary( CGameID, const char *cszScreenshotPath, const char *cszThumbnailPath, int32 iWidth, int32 iHeight ) = 0;
 
 	virtual void TriggerScreenshot( CGameID gameID ) = 0;
-	virtual void HookScreenshots( AppId_t nAppId, bool ) = 0;
 	virtual void RequestScreenshotFromGame( AppId_t nAppId ) = 0;
 
 	virtual bool SetLocation( CGameID gameID, HScreenshot hScreenshot, const char *cszLocation ) = 0;
 	virtual bool TagUser( CGameID gameID, HScreenshot hScreenshot, CSteamID userID ) = 0;
 
 	virtual bool ResolvePath( CGameID gameID, HScreenshot hScreenshot, bool bUnk, char *szResolvedPath, uint32 cubResolvedPath ) = 0;
-	virtual uint32 GetFileSize( CGameID gameID, HScreenshot hScreenshot ) = 0;
+	virtual uint32 GetSizeOnDisk( CGameID gameID, HScreenshot hScreenshot ) = 0;
+	virtual uint32 GetSizeInCloud( CGameID gameID, HScreenshot hScreenshot ) = 0;
 	virtual bool IsPersisted( CGameID gameID, HScreenshot hScreenshot ) = 0;
 
 	virtual int32 GetNumGamesWithLocalScreenshots() = 0;

@@ -85,7 +85,8 @@ typedef enum EResolveConflict
 
 
 struct RemoteStorageUpdatePublishedFileRequest_t;
-enum ERemoteStoragePublishedFileVisibility;
+enum ERemoteStoragePublishedFileVisibility{};
+enum ERemoteStoragePublishedFileSortOrder{};
 struct SteamParamStringArray_t;
 
 #pragma pack( push, 8 )
