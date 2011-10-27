@@ -166,13 +166,13 @@ struct PurchaseMsg_t
 };
 
 // Sent in response to PurchaseWithActivationCode
-struct PurchaseResult_t
+struct PurchaseResponse_t
 {
 		enum { k_iCallback = k_iSteamBillingCallbacks + 4 };
 		
 		int32 m_EPurchaseStatus;
 		int32 m_EPurchaseResultDetail;
-		int32 m_nFailureCount; //Possibly
+		int32 m_iReceiptIndex;
 }
 #pragma pack( pop )
 
