@@ -173,7 +173,7 @@ struct PurchaseResponse_t
 		int32 m_EPurchaseStatus;
 		int32 m_EPurchaseResultDetail;
 		int32 m_iReceiptIndex;
-}
+};
 #pragma pack( pop )
 
 
