@@ -24,6 +24,8 @@
 #include "UserCommon.h"
 #include "ContentServerCommon.h"
 
+// Protobuf'ed class
+class ClientAppInfo;
 
 abstract_class UNSAFE_INTERFACE IClientUser
 {
@@ -139,7 +141,8 @@ public:
 	virtual bool BUpdateAppOwnershipTicket( AppId_t nAppID, bool bOnlyUpdateIfStale, bool unk ) = 0;
 
 	virtual bool RequestCustomBinary( const char *pszAbsolutePath, AppId_t nAppID, bool bForceUpdate, bool bAppLaunchRequest ) = 0;
-	virtual bool GetCustomBinariesState( AppId_t unAppID, uint32 *punProgress ) = 0;
+	virtual uint32 GetCustomBinariesState( AppId_t unAppID, uint32 *punProgress ) = 0;
+	virtual EResult RequestCustomBinaries( AppId_t unAppID, bool, bool, uint32 * ) = 0;
 
 	virtual void SetCellID( CellID_t cellID ) = 0;
 
@@ -150,7 +153,7 @@ public:
 
 	virtual bool GetAccountName( char* pchAccountName, uint32 cb ) = 0;
 
-	virtual void RequiresLegacyCDKey( uint32 ) = 0;
+	virtual bool RequiresLegacyCDKey( AppId_t nAppID ) = 0;
 	virtual bool GetLegacyCDKey( AppId_t nAppID, char* pchKeyData, int cbKeyData ) = 0;
 	virtual bool HasLegacyCDKey( AppId_t nAppID ) = 0;
 	virtual bool SetLegacyCDKey( AppId_t nAppID, const char* pchKeyData ) = 0;
@@ -182,9 +185,9 @@ public:
 
 	virtual bool GetInstallScriptString( AppId_t nAppID, const char *pchInstallPath, const char *pchLanguage, const char *pchKeyname, const char *pchKeyvalue, char* pchValue, int cchValue ) = 0;
 	virtual bool GetInstallScriptState( char* pchDescription, uint32 cchDescription, uint32* punNumSteps, uint32* punCurrStep ) = 0;
-//TODO
-	virtual bool SpawnProcess( void *lpVACBlob, uint32 cbBlobSize, const char *lpApplicationName, const char *lpCommandLine, uint32 dwCreationFlags, const char *lpCurrentDirectory, AppId_t nAppID, const char *pchGameName, bool bAlwaysUseShellExec ) = 0;
-	
+
+	virtual bool SpawnProcess( void *lpVACBlob, uint32 cbBlobSize, const char *lpApplicationName, const char *lpCommandLine, uint32 dwCreationFlags, const char *lpCurrentDirectory, CGameID gameID, AppId_t nAppID, const char *pchGameName, bool bAlwaysUseShellExec ) = 0;
+
 	virtual uint32 GetAppOwnershipTicketLength( uint32 nAppID ) = 0;
 	virtual uint32 GetAppOwnershipTicketData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
 
@@ -258,11 +261,11 @@ public:
 
 	virtual SteamAPICall_t RequestMicroTxnInfo( uint64 ) = 0;
 
-	virtual bool BGetAppMinutesPlayed( uint32, int *, int * ) = 0;
+	virtual bool BGetAppMinutesPlayed( AppId_t nAppId, int * piForever, int * piLastTwoWeeks ) = 0;
 
-	virtual bool BGetGuideURL( uint32, char *, uint32 ) = 0;
+	virtual bool BGetGuideURL( AppId_t nAppId, char * pchGuideURL, uint32 cbGuideURL ) = 0;
 
-	virtual void GetClientAppListResponse_AddApp( AppId_t nAppId, bool bFavorite, bool bInstalled, bool bAutoUpdate, const char *cszCategory, const char *cszAppType, uint64 ullBytesDownloaded, uint64 ullBytesNeeded, uint32 uBytesDownloadRate ) = 0;
+	virtual void GetClientAppListResponse_AddApp( const ClientAppInfo * pClientAppInfo ) = 0;
 	virtual void GetClientAppListResponse_AddDLC( AppId_t nAppId, bool bInstalled ) = 0;
 	virtual void GetClientAppListResponse_Done( unsigned long long ) = 0;
 	virtual void PostUIResultToClientJob( unsigned long long, EResult ) = 0;
@@ -278,7 +281,7 @@ public:
 	virtual void Set2ndFactorAuthCode( const char* pchAuthCode ) = 0;
 	virtual bool BAccountHasIPTConfig() = 0;
 
-	virtual bool GetEmailDomainFromLogonFailure( char * pchEmailDomain, int cbEmailDomain ) = 0;
+	virtual bool GetEmailDomainFromLogonFailure( char * pchEmailDomain, int32 cbEmailDomain ) = 0;
 	
 	virtual bool BIsSubscribedApp( AppId_t nAppId ) = 0;
 	virtual SteamAPICall_t RegisterActivationCode( const char * pchActivationCode ) = 0;
@@ -286,6 +289,11 @@ public:
 	virtual void OptionalDLCInstallation( AppId_t, bool ) = 0;
 
 	virtual void AckSystemIM(unsigned long long) = 0;
+	
+	// Result returned by RequestSpecialSurveyResult_t callback
+	virtual SteamAPICall_t RequestSpecialSurvey( uint32 uSurveyId ) = 0;
+	// Result returned by SendSpecialSurveyResponseResult_t callback
+	virtual SteamAPICall_t SendSpecialSurveyResponse( uint32 uSurveyId, const uint8 * pubData, uint32 cubData ) = 0;
 };
 
 #endif // ICLIENTUSER_H

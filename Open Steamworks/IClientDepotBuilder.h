@@ -61,7 +61,7 @@ public:
 
 	virtual HDEPOTBUILD InitializeDepotBuildForConfigFile( const char *pchConfigFile ) = 0;
 	
-	virtual bool StartBuild( HDEPOTBUILD hDepotBuild, bool, bool, const char * pchBetaKey, unsigned int ) = 0;
+	virtual bool StartBuild( HDEPOTBUILD hDepotBuild, uint32 uFlags, const char *cszBetaKey, const char *cszChunksPath, uint32 ) = 0;
 
 	virtual bool BGetDepotBuildStatus( HDEPOTBUILD hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
 	virtual bool CloseDepotBuildHandle( HDEPOTBUILD hDepotBuild ) = 0;

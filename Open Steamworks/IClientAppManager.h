@@ -86,10 +86,11 @@ public:
 	virtual bool RemoveSteam2Update( AppId_t unAppID ) = 0;
 	virtual bool StalledSteam2Update( AppId_t unAppID ) = 0;
 
-	virtual bool IsUsingLocalContentServer() = 0;
+	virtual bool BHasLocalContentServer() = 0;
 
-	virtual bool BackupApp( AppId_t unAppID, uint64 ullMaxFileSize, const char *cszBackupPath ) = 0;
-	virtual bool CancelBackup( AppId_t unAppID ) = 0;
+	virtual bool BuildBackup( AppId_t unAppID, uint64 ullMaxFileSize, const char *cszBackupPath ) = 0;
+	virtual bool BuildInstaller( const char *cszProjectFile, const char *cszBackupPath ) = 0;
+	virtual bool CancelBackup() = 0;
 	virtual bool RestoreApp( AppId_t unAppID, char const* cszBackupPath ) = 0;
 	virtual bool BNeedsFile( AppId_t unAppID, char const* cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;
 	virtual bool BAddFileOnDisk( AppId_t unAppID, char const* cszFilePath, uint64 ullFileSize, uint32 uUnk, SHADigestWrapper_t ubSha1 ) = 0;

@@ -556,12 +556,12 @@ struct ValidateAuthTicketResponse_t
 	EAuthSessionResponse m_eAuthSessionResponse;
 };
 
-struct MsgWebAuthToken_t
+struct WebAuthRequestCallback_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 48 };
 	
 	bool m_bValid;
-	char m_Token[ 512 ];
+	char m_szToken[512];
 };
 
 //-----------------------------------------------------------------------------
@@ -585,6 +585,28 @@ struct EncryptedAppTicketResponse_t
 	enum { k_iCallback = k_iSteamUserCallbacks + 54 };
 
 	EResult m_eResult;
+};
+
+struct RequestSpecialSurveyResult_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 63 };
+
+	int32 m_iSurveyID;
+	EResult m_eResult;
+	/*ESurveyState*/int32 m_eState; // 1 = denied, 4 = already complete
+	char m_szName[256];
+	char m_szCustomURL[512];
+	bool m_bIncludeSoftware; 
+	uint8 m_ubToken[16];
+};
+
+struct SendSpecialSurveyResponseResult_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 64 };
+
+	int32 m_iSurveyID;
+	EResult m_eResult;
+	uint8 m_ubToken[16];
 };
 
 #pragma pack( pop )

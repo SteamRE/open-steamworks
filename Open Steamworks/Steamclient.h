@@ -113,6 +113,7 @@
 #include "ISteamFriends008.h"
 #include "ISteamFriends009.h"
 #include "ISteamFriends010.h"
+#include "ISteamFriends011.h"
 
 // screenshots
 #include "ISteamScreenshots001.h"

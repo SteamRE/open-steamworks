@@ -78,6 +78,7 @@ typedef enum EAppInfoSection
 	k_EAppInfoSectionItems,
 	k_EAppInfoSectionPolicies,
 	k_EAppInfoSectionSysreqs,
+	k_EAppInfoSectionCommunity
 } EAppInfoSection;
 
 #pragma pack( push, 8 )

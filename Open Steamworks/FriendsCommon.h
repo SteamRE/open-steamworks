@@ -34,6 +34,7 @@
 #define STEAMFRIENDS_INTERFACE_VERSION_008 "SteamFriends008"
 #define STEAMFRIENDS_INTERFACE_VERSION_009 "SteamFriends009"
 #define STEAMFRIENDS_INTERFACE_VERSION_010 "SteamFriends010"
+#define STEAMFRIENDS_INTERFACE_VERSION_011 "SteamFriends011"
 
 //-----------------------------------------------------------------------------
 // Purpose: avatar sizes, used in ISteamFriends::GetFriendAvatar()
@@ -67,22 +68,6 @@ typedef enum EChatEntryType
 	k_EChatEntryTypeLeftConversation = 6, // user has left the conversation ( closed chat window )
 	// Above are previous FriendMsgType entries, now merged into more generic chat entry types
 } EChatEntryType;
-
-// Type of system IM.  The client can use this to do special UI handling in specific circumstances
-typedef enum ESystemIMType
-{
-	k_ESystemIMRawText = 0,
-	k_ESystemIMInvalidCard = 1,
-	k_ESystemIMRecurringPurchaseFailed = 2,
-	k_ESystemIMCardWillExpire = 3,
-	k_ESystemIMSubscriptionExpired = 4,
-
-	k_ESystemIMGuestPassReceived = 5,
-	k_ESystemIMGuestPassGranted = 6,
-	k_ESystemIMGiftRevoked = 7,
-
-	k_ESystemIMTypeMax
-} ESystemIMType;
 
 //-----------------------------------------------------------------------------
 // Purpose: set of relationships to other users
@@ -288,44 +273,12 @@ enum { k_cchMaxRichPresenceValueLength = 256 };
 
 
 #pragma pack( push, 8 )
-//-----------------------------------------------------------------------------
-// Purpose: called after a friend has been successfully added
-//-----------------------------------------------------------------------------
-struct FriendAdded_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 1 };
 
-	EResult m_eResult;
-	CSteamID m_ulSteamID;	// steamID of the friend who was just added
-};
 
-//-----------------------------------------------------------------------------
-// Purpose: called when a user is requesting friendship
-//			the persona details of this user are guaranteed to be available locally
-//			at the point this callback occurs
-//-----------------------------------------------------------------------------
-struct UserRequestingFriendship_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 2 };
 
-	CSteamID m_ulSteamID;		// steamID of the friend who just added us
-};
+// k_iSteamFriendsCallbacks callbacks
 
-//-----------------------------------------------------------------------------
-// Purpose: called when a friends' status changes, seems to not be used anymore
-//-----------------------------------------------------------------------------
-struct PersonaStateChangeOld_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 3 };
 
-	CSteamID m_ulSteamID;					// steamID of the friend who changed
-
-	// previous state of the user, so comparisons can be done of exactly what changed
-	int32 m_ePersonaStatePrevious;
-	int32 m_nGameIDPrevious;
-	uint32 m_unGameServerIPPrevious;
-	uint16 m_usGameServerPortPrevious;
-};
 
 //-----------------------------------------------------------------------------
 // Purpose: called when a friends' status changes
@@ -338,262 +291,6 @@ struct PersonaStateChange_t
 	EPersonaChange m_nChangeFlags;		// what's changed
 };
 
-//-----------------------------------------------------------------------------
-// Purpose: used to send a system IM from the service to a user
-//-----------------------------------------------------------------------------
-struct SystemIM_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 5 };
-
-	ESystemIMType m_ESystemIMType;					// type of system IM
-	char m_rgchMsgBody[ k_cchSystemIMTextMax ];		// text associated with message (if any)
-};
-
-//-----------------------------------------------------------------------------
-// Purpose: called when this client has received a chat/invite/etc. message from a friend
-//-----------------------------------------------------------------------------
-struct FriendChatMsg_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 6 };
-	
-	CSteamID m_ulReceiver;			// other participant in the msg
-	CSteamID m_ulSender;			// steamID of the friend who has sent this message
-	uint16 m_eChatEntryType;
-	uint8 m_bLimitedAccount;
-	uint32 m_iChatID;				// chat id
-};
-
-struct FriendInvited_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 7 };
-
-	EResult m_eResult;
-};
-
-struct ChatRoomInvite_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 8 };
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDPatron;
-	CSteamID m_ulSteamIDFriendChat;
-
-	EChatRoomType m_EChatRoomType;
-
-	char m_rgchChatRoomName[ 128 ];
-};
-
-struct ChatRoomEnter_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 9 };
-
-	CSteamID m_ulSteamIDChat;
-
-	EChatRoomType m_EChatRoomType;
-
-	CSteamID m_ulSteamIDOwner;
-	CSteamID m_ulSteamIDClan;
-	CSteamID m_ulSteamIDFriendChat;
-
-	bool m_bLocked;
-	uint8 m_rgfChatPermissions;
-	EChatRoomEnterResponse m_EChatRoomEnterResponse;
-
-	char m_rgchChatRoomName[ 128 ];
-};
-
-// 82 FF 0A 00 00 00 88 01 | 0A D7 44 01 01 00 10 01 | 02 00 00 00 | 82 FF 0A 00 | 0A D7 44 01 01 00 10 01 // leaving
-// 82 FF 0A 00 00 00 88 01 | 0A D7 44 01 01 00 10 01 | 01 00 00 00 | 40 DD B4 05 | 0A D7 44 01 01 00 10 01 // joining
-// 82 FF 0A 00 00 00 88 01 | 0A D7 44 01 01 00 10 01 | 08 00 00 00 | 82 FF 0A 00 | 22 23 E2 03 01 00 10 01 // kicking
-struct ChatMemberStateChange_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 10 };
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDUserChanged;
-	EChatMemberStateChange m_rgfChatMemberStateChange;
-	CSteamID m_ulSteamIDMakingChange;
-};
-
-// 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 04 00 00 00
-// 05 F4 25 33 EA 03 80 01 | AC 15 89 00 01 00 10 01 | 01 E2 EB 06 | 20 00 00 00
-// 05 F4 25 33 EA 03 80 01 | 4F 70 A4 01 01 00 10 01 | 01 00 00 00 | 21 00 00 00
-struct ChatRoomMsg_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 11 };
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDUser;
-	uint8 m_eChatEntryType;
-	uint32 m_iChatID;
-};
-
-struct ChatRoomDlgClose_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 12 };
-
-	CSteamID m_SteamID;
-};
-
-
-struct ChatRoomClosing_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 13 };
-
-	CSteamID m_ulSteamIDChat;
-};
-
-struct ChatRoomKicking_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 14 };
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDAdmin;
-};
-
-struct ChatRoomBanning_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 15 };
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDAdmin;
-};
-
-struct ChatRoomCreate_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 16 };
-
-	EResult m_eResult;
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDFriendChat;
-};
-
-struct ChatRoomMetadataUpdate_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 17 };
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDMember;
-};
-
-struct OpenChatDialog_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 18 };
-
-	CSteamID m_ulSteamID;
-};
-
-struct ChatRoomActionResult_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 19 };
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDUserActedOn;
-	EChatAction m_EChatAction;
-	EChatActionResult m_EChatActionResult;
-};
-
-struct ChatRoomDlgSerialized_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 20 };
-
-	CSteamID m_ulSteamID;
-};
-
-
-// 321 - 16 bytes
-// -------------------------------
-// 7d 74 08 00 00 00 70 01 | 00 01 00 00 e0 c6 74 04
-// 76 18 00 00 00 00 70 01 | 00 00 00 00 00 00 00 00
-// 1B BB 17 00 00 00 70 01 | 00 00 00 00 00 00 00 00
-// 82 FF 0A 00 00 00 70 01 | 00 00 00 00 00 00 00 00
-struct ClanInfoChanged_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 21 };
-
-	CSteamID m_GroupID;
-
-	bool m_bNameChanged;
-	bool m_bAvatarChanged;
-	bool m_bAccountInfoChanged;
-};
-
-
-struct ChatMemberInfoChanged_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 22 };
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDUser;
-	uint32  m_rgfChatMemberPermissions;
-};
-
-struct ChatRoomInfoChanged_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 23 };
-
-	CSteamID m_ulSteamIDChat;
-	uint32 m_rgfChatRoomDetails;
-	CSteamID m_ulSteamIDMakingChange;
-};
-
-struct ChatRoomSpeakChanged_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 25 };
-
-	CSteamID m_ulSteamIDChat;
-	CSteamID m_ulSteamIDUser;
-	bool m_bSpeaking;
-};
-
-struct NotifyIncomingCall_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 26 };
-
-	HVoiceCall m_Handle;
-
-	CSteamID m_ulSteamID;
-	CSteamID m_ulSteamIDChat;
-
-	bool m_bIncoming;
-};
-
-struct NotifyHangup_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 27 };
-
-	HVoiceCall m_Handle;
-};
-
-struct NotifyRequestResume_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 28 };
-
-	HVoiceCall m_Handle;
-};
-
-// 329 - 16 bytes
-// -------------------------------
-// 82 FF 0A 00 00 00 88 01 | 0A D7 44 01 01 00 10 01
-struct NotifyChatRoomVoiceStateChanged_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 29 };
-
-	CSteamID m_steamChatRoom;
-	CSteamID m_steamUser;
-};
-
-struct ChatRoomDlgUIChange_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 30 };
-
-	CSteamID m_SteamIDChat;
-	bool m_bShowAvatars;
-	bool m_bBeepOnNewMsg;
-	bool m_bShowSteamIDs;
-	bool m_bShowTimestampOnNewMsg;
-};
 
 //-----------------------------------------------------------------------------
 // Purpose: posted when game overlay activates or deactivates
@@ -602,6 +299,7 @@ struct ChatRoomDlgUIChange_t
 struct GameOverlayActivated_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 31 };
+
 	uint8 m_bActive;	// true if it's just been activated, false otherwise
 };
 
@@ -613,6 +311,7 @@ struct GameOverlayActivated_t
 struct GameServerChangeRequested_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 32 };
+
 	char m_rgchServer[64];		// server address ("127.0.0.1:27015", "tf2.valvesoftware.com")
 	char m_rgchPassword[64];	// server password, if any
 };
@@ -630,15 +329,6 @@ struct GameLobbyJoinRequested_t
 	CSteamID m_steamIDFriend;		// the friend they did the join via (will be invalid if not directly via a friend)
 };
 
-struct FriendIgnored_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 34 };
-
-	EResult m_eResult;
-	CSteamID m_ulSteamID;
-	CSteamID m_ulSteamFriendID;
-	bool m_bIgnored;
-};
 
 //-----------------------------------------------------------------------------
 // Purpose: marks the return of a request officer list call
@@ -646,6 +336,7 @@ struct FriendIgnored_t
 struct ClanOfficerListResponse_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 35 };
+
 	CSteamID m_steamIDClan;
 	int m_cOfficers;
 	uint8 m_bSuccess;
@@ -657,6 +348,7 @@ struct ClanOfficerListResponse_t
 struct FriendRichPresenceUpdate_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 36 };
+
 	CSteamID m_steamIDFriend;	// friend who's rich presence has changed
 	AppId_t m_nAppID;			// the appID of the game (should always be the current game)
 };
@@ -668,15 +360,288 @@ struct FriendRichPresenceUpdate_t
 struct GameRichPresenceJoinRequested_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 37 };
+
 	CSteamID m_steamIDFriend;		// the friend they did the join via (will be invalid if not directly via a friend)
 	char m_rgchConnect[k_cchMaxRichPresenceValueLength];
 };
 
-struct FriendProfileInfoReceived_t
+
+
+
+// k_iClientFriendsCallbacks callbacks
+
+
+
+//-----------------------------------------------------------------------------
+// Purpose: called after a friend has been successfully added
+//-----------------------------------------------------------------------------
+struct FriendAdded_t
 {
-	enum { k_iCallback = k_iClientFriendsCallbacks + 38 };
+	enum { k_iCallback = k_iClientFriendsCallbacks + 3 };
+
+	EResult m_eResult;
+	uint64 m_ulSteamID;	// steamID of the friend who was just added
+};
+
+
+//-----------------------------------------------------------------------------
+// Purpose: called when a user is requesting friendship
+//			the persona details of this user are guaranteed to be available locally
+//			at the point this callback occurs
+//-----------------------------------------------------------------------------
+struct UserRequestingFriendship_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 4 };
+
+	CSteamID m_ulSteamID;		// steamID of the friend who just added us
+};
+
+
+//-----------------------------------------------------------------------------
+// Purpose: called when this client has received a chat/invite/etc. message from a friend
+//-----------------------------------------------------------------------------
+struct FriendChatMsg_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 5 };
+	
+	CSteamID m_ulReceiver;			// other participant in the msg
+	CSteamID m_ulSender;			// steamID of the friend who has sent this message
+	uint16 m_eChatEntryType;
+	uint8 m_bLimitedAccount;
+	uint32 m_iChatID;				// chat id
+};
+
+struct FriendInvited_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 6 };
+
+	EResult m_eResult;
+};
+
+struct ChatRoomInvite_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 7 };
+
+	CSteamID m_ulSteamIDChat;
+	CSteamID m_ulSteamIDPatron;
+	CSteamID m_ulSteamIDFriendChat;
+
+	EChatRoomType m_EChatRoomType;
+
+	char m_rgchChatRoomName[ 128 ];
+};
+
+struct ChatRoomEnter_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 8 };
+
+	CSteamID m_ulSteamIDChat;
+
+	EChatRoomType m_EChatRoomType;
+
+	uint64 m_ulSteamIDOwner; // Cannot use CSteamID here due to padding issues.
+	CSteamID m_ulSteamIDClan;
+	CSteamID m_ulSteamIDFriendChat;
+
+	bool m_bLocked;
+	uint32 m_rgfChatPermissions;
+	EChatRoomEnterResponse m_EChatRoomEnterResponse;
+
+	char m_rgchChatRoomName[ 128 ];
+};
+
+struct ChatMemberStateChange_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 9 };
+
+	CSteamID m_ulSteamIDChat;
+	CSteamID m_ulSteamIDUserChanged;
+	EChatMemberStateChange m_rgfChatMemberStateChange;
+	uint64 m_ulSteamIDMakingChange; // Cannot use CSteamID here due to padding issues.
+};
+
+struct ChatRoomMsg_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 10 };
+
+	CSteamID m_ulSteamIDChat;
+	CSteamID m_ulSteamIDUser;
+	uint8 m_eChatEntryType;
+	uint32 m_iChatID;
+};
+
+struct ChatRoomDlgClose_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 11 };
+
+	CSteamID m_SteamID;
+};
+
+struct ChatRoomClosing_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 12 };
+
+	CSteamID m_ulSteamIDChat;
+};
+
+struct ChatRoomKicking_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 13 };
+
+	CSteamID m_ulSteamIDChat;
+	CSteamID m_ulSteamIDAdmin;
+};
+
+struct ChatRoomBanning_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 14 };
+
+	CSteamID m_ulSteamIDChat;
+	CSteamID m_ulSteamIDAdmin;
+};
+
+struct ChatRoomCreate_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 15 };
+
+	EResult m_eResult;
+
+	uint64 m_ulSteamIDChat; // Cannot use CSteamID here due to padding issues.
+	CSteamID m_ulSteamIDFriendChat;
+};
+
+struct OpenChatDialog_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 16 };
 
 	CSteamID m_ulSteamID;
+};
+
+struct ChatRoomActionResult_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 17 };
+
+	CSteamID m_ulSteamIDChat;
+	CSteamID m_ulSteamIDUserActedOn;
+	EChatAction m_EChatAction;
+	EChatActionResult m_EChatActionResult;
+};
+
+struct ChatRoomDlgSerialized_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 18 };
+
+	CSteamID m_ulSteamID;
+};
+
+struct ClanInfoChanged_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 19 };
+
+	CSteamID m_GroupID;
+
+	bool m_bNameChanged;
+	bool m_bAvatarChanged;
+	bool m_bAccountInfoChanged;
+};
+
+struct ChatMemberInfoChanged_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 20 };
+
+	CSteamID m_ulSteamIDChat;
+	CSteamID m_ulSteamIDUser;
+	uint32  m_rgfChatMemberPermissions;
+};
+
+struct ChatRoomInfoChanged_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 21 };
+
+	CSteamID m_ulSteamIDChat;
+	uint32 m_rgfChatRoomDetails;
+	uint64 m_ulSteamIDMakingChange; // Cannot use CSteamID here due to padding issues.
+};
+
+struct ChatRoomSpeakChanged_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 23 };
+
+	CSteamID m_ulSteamIDChat;
+	CSteamID m_ulSteamIDUser;
+	bool m_bSpeaking;
+};
+
+struct NotifyIncomingCall_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 24 };
+
+	HVoiceCall m_Handle;
+
+	uint64 m_ulSteamID; // Cannot use CSteamID here due to padding issues.
+	CSteamID m_ulSteamIDChat;
+
+	bool m_bIncoming;
+};
+
+struct NotifyHangup_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 25 };
+
+	HVoiceCall m_Handle;
+};
+
+struct NotifyRequestResume_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 26 };
+
+	HVoiceCall m_Handle;
+};
+
+struct NotifyChatRoomVoiceStateChanged_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 27 };
+
+	CSteamID m_steamChatRoom;
+	CSteamID m_steamUser;
+};
+
+struct ChatRoomDlgUIChange_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 28 };
+
+	CSteamID m_SteamIDChat;
+	bool m_bShowAvatars;
+	bool m_bBeepOnNewMsg;
+	bool m_bShowSteamIDs;
+	bool m_bShowTimestampOnNewMsg;
+};
+
+struct FriendIgnored_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 30 };
+
+	EResult m_eResult;
+	uint64 m_ulSteamID; // Cannot use CSteamID here due to padding issues.
+	CSteamID m_ulSteamIDFriend;
+	bool m_bIgnored;
+};
+
+struct FriendProfileInfoReceived_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 34 };
+
+	CSteamID m_ulSteamID;
+};
+
+struct FriendsMenuChange_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 36 };
+
+	bool m_bShowAvatars;
+	bool m_bSortByName;
+	bool m_bShowOnlineOnly;
+	bool m_bShowUntaggedFriends;
 };
 
 #pragma pack( pop )
