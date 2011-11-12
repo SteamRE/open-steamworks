@@ -1429,7 +1429,7 @@ namespace Steam4NET
 		public bool m_bAvatarChanged;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bAccountInfoChanged;
-		public const int k_iCallback = 321;
+		public const int k_iCallback = 819;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=1312)]
@@ -1446,7 +1446,7 @@ namespace Steam4NET
 		public EChatRoomEnterResponse m_EChatRoomEnterResponse;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
 		public SByte[] m_rgchChatRoomName;
-		public const int k_iCallback = 309;
+		public const int k_iCallback = 808;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=160)]
@@ -1471,7 +1471,7 @@ namespace Steam4NET
 	public struct OpenChatDialog_t
 	{
 		public UInt64 m_ulSteamID;
-		public const int k_iCallback = 318;
+		public const int k_iCallback = 816;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=208)]
@@ -1616,7 +1616,7 @@ namespace Steam4NET
 		public UInt64 m_ulSteamIDChat;
 		public UInt64 m_ulSteamIDUser;
 		public UInt32 m_rgfChatMemberPermissions;
-		public const int k_iCallback = 322;
+		public const int k_iCallback = 820;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=32)]
@@ -1661,7 +1661,7 @@ namespace Steam4NET
 		public UInt64 m_ulSteamFriendID;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bIgnored;
-		public const int k_iCallback = 334;
+		public const int k_iCallback = 830;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=128)]
@@ -1679,14 +1679,14 @@ namespace Steam4NET
 		public UInt64 m_ulSteamIDUserActedOn;
 		public EChatAction m_EChatAction;
 		public EChatActionResult m_EChatActionResult;
-		public const int k_iCallback = 319;
+		public const int k_iCallback = 817;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=8)]
 	public struct FriendInvited_t
 	{
 		public EResult m_eResult;
-		public const int k_iCallback = 307;
+		public const int k_iCallback = 806;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=1024)]
@@ -1746,7 +1746,7 @@ namespace Steam4NET
 	public struct ChatRoomDlgClose_t
 	{
 		public UInt64 m_SteamID;
-		public const int k_iCallback = 312;
+		public const int k_iCallback = 811;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=1224)]
@@ -1758,14 +1758,14 @@ namespace Steam4NET
 		public EChatRoomType m_EChatRoomType;
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
 		public SByte[] m_rgchChatRoomName;
-		public const int k_iCallback = 308;
+		public const int k_iCallback = 807;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=32)]
 	public struct NotifyHangup_t
 	{
 		public Int32 m_Handle;
-		public const int k_iCallback = 327;
+		public const int k_iCallback = 825;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=240)]
@@ -1827,7 +1827,7 @@ namespace Steam4NET
 		public UInt64 m_ulSteamIDChat;
 		public UInt32 m_rgfChatRoomDetails;
 		public UInt64 m_ulSteamIDMakingChange;
-		public const int k_iCallback = 323;
+		public const int k_iCallback = 821;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=200)]
@@ -1891,7 +1891,7 @@ namespace Steam4NET
 	public struct FriendProfileInfoReceived_t
 	{
 		public UInt64 m_ulSteamID;
-		public const int k_iCallback = 838;
+		public const int k_iCallback = 834;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=304)]
@@ -1909,7 +1909,7 @@ namespace Steam4NET
 	{
 		public UInt64 m_ulSteamIDChat;
 		public UInt64 m_ulSteamIDAdmin;
-		public const int k_iCallback = 314;
+		public const int k_iCallback = 813;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=72)]
@@ -1943,7 +1943,7 @@ namespace Steam4NET
 		public EResult m_eResult;
 		public UInt64 m_ulSteamIDChat;
 		public UInt64 m_ulSteamIDFriendChat;
-		public const int k_iCallback = 316;
+		public const int k_iCallback = 815;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=8)]
@@ -1990,7 +1990,7 @@ namespace Steam4NET
 		public UInt64 m_ulSteamIDUser;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bSpeaking;
-		public const int k_iCallback = 325;
+		public const int k_iCallback = 823;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=128)]
@@ -2023,7 +2023,7 @@ namespace Steam4NET
 		public bool m_bShowSteamIDs;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bShowTimestampOnNewMsg;
-		public const int k_iCallback = 330;
+		public const int k_iCallback = 828;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=8)]
@@ -2044,7 +2044,7 @@ namespace Steam4NET
 	public struct ChatRoomClosing_t
 	{
 		public UInt64 m_ulSteamIDChat;
-		public const int k_iCallback = 313;
+		public const int k_iCallback = 812;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=192)]
@@ -2063,7 +2063,7 @@ namespace Steam4NET
 		public UInt64 m_ulSteamIDUserChanged;
 		public EChatMemberStateChange m_rgfChatMemberStateChange;
 		public UInt64 m_ulSteamIDMakingChange;
-		public const int k_iCallback = 310;
+		public const int k_iCallback = 809;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=64)]
@@ -2200,14 +2200,14 @@ namespace Steam4NET
 	{
 		public UInt64 m_steamChatRoom;
 		public UInt64 m_steamUser;
-		public const int k_iCallback = 329;
+		public const int k_iCallback = 827;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=64)]
 	public struct ChatRoomDlgSerialized_t
 	{
 		public UInt64 m_ulSteamID;
-		public const int k_iCallback = 320;
+		public const int k_iCallback = 818;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=192)]
@@ -2218,7 +2218,7 @@ namespace Steam4NET
 		public UInt64 m_ulSteamIDChat;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bIncoming;
-		public const int k_iCallback = 326;
+		public const int k_iCallback = 824;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=8)]
@@ -2309,7 +2309,7 @@ namespace Steam4NET
 	public struct UserRequestingFriendship_t
 	{
 		public UInt64 m_ulSteamID;
-		public const int k_iCallback = 302;
+		public const int k_iCallback = 804;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=192)]
@@ -2555,7 +2555,7 @@ namespace Steam4NET
 		public UInt16 m_eChatEntryType;
 		public Byte m_bLimitedAccount;
 		public UInt32 m_iChatID;
-		public const int k_iCallback = 306;
+		public const int k_iCallback = 805;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=176)]
@@ -2613,7 +2613,7 @@ namespace Steam4NET
 	{
 		public UInt64 m_ulSteamIDChat;
 		public UInt64 m_ulSteamIDAdmin;
-		public const int k_iCallback = 315;
+		public const int k_iCallback = 814;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=72)]
@@ -2631,7 +2631,7 @@ namespace Steam4NET
 		public UInt64 m_ulSteamIDUser;
 		public Byte m_eChatEntryType;
 		public UInt32 m_iChatID;
-		public const int k_iCallback = 311;
+		public const int k_iCallback = 810;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=8)]
@@ -2682,7 +2682,7 @@ namespace Steam4NET
 	public struct NotifyRequestResume_t
 	{
 		public Int32 m_Handle;
-		public const int k_iCallback = 328;
+		public const int k_iCallback = 826;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=1360)]
@@ -2915,7 +2915,7 @@ namespace Steam4NET
 	{
 		public EResult m_eResult;
 		public UInt64 m_ulSteamID;
-		public const int k_iCallback = 301;
+		public const int k_iCallback = 803;
 	}
 	
 	[StructLayout(LayoutKind.Sequential,CharSet=CharSet.Ansi,Pack=8,Size=320)]
