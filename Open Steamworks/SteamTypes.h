@@ -139,14 +139,67 @@ typedef unsigned int uintp;
 #endif
 
 // steamclient/api
-#include "EAccountType.h"
-#include "EChatMemberStateChange.h"
-#include "ELobbyType.h"
-#include "ENotificationPosition.h"
-#include "EPersonalQuestion.h"
+
 #include "EResult.h"
-#include "EUniverse.h"
-#include "EServerMode.h"
+
+
+// lobby type description
+enum ELobbyType
+{
+	k_ELobbyTypeFriendsOnly = 1,	// shows for friends or invitees, but not in lobby list
+	k_ELobbyTypePublic = 2,			// visible for friends and in lobby list
+	k_ELobbyTypeInvisible = 3,		// returned by search, but not visible to other friends 
+	//    useful if you want a user in two lobbies, for example matching groups together
+	//	  a user can be in only one regular lobby, and up to two invisible lobbies
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: Possible positions to tell the overlay to show notifications in
+//-----------------------------------------------------------------------------
+enum ENotificationPosition
+{
+	k_EPositionTopLeft = 0,
+	k_EPositionTopRight = 1,
+	k_EPositionBottomLeft = 2,
+	k_EPositionBottomRight = 3,
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: Used in ChatInfo messages - fields specific to a chat member - must fit in a uint32
+//-----------------------------------------------------------------------------
+enum EChatMemberStateChange
+{
+	// Specific to joining / leaving the chatroom
+	k_EChatMemberStateChangeEntered			= 0x0001,		// This user has joined or is joining the chat room
+	k_EChatMemberStateChangeLeft			= 0x0002,		// This user has left or is leaving the chat room
+	k_EChatMemberStateChangeDisconnected	= 0x0004,		// User disconnected without leaving the chat first
+	k_EChatMemberStateChangeKicked			= 0x0008,		// User kicked
+	k_EChatMemberStateChangeBanned			= 0x0010,		// User kicked and banned
+};
+
+
+enum EServerMode
+{
+	eServerModeInvalid = 0, // DO NOT USE		
+	eServerModeNoAuthentication = 1, // Don't authenticate user logins and don't list on the server list
+	eServerModeAuthentication = 2, // Authenticate users, list on the server list, don't run VAC on clients that connect
+	eServerModeAuthenticationAndSecure = 3, // Authenticate users, list on the server list and VAC protect clients
+};
+
+// Steam universes.  Each universe is a self-contained Steam instance.
+enum EUniverse
+{
+	k_EUniverseInvalid = 0,
+	k_EUniversePublic = 1,
+	k_EUniverseBeta = 2,
+	k_EUniverseInternal = 3,
+	k_EUniverseDev = 4,
+	k_EUniverseRC = 5,
+
+	k_EUniverseMax
+};
+
+
 
 // these is outside NO_STEAM because external things use it
 #include "ESteamError.h"
@@ -546,7 +599,10 @@ enum ECallbackType
 	k_iSteamGameServerStatsCallbacks = 1800,
 	k_iSteam2AsyncCallbacks = 1900,
 	k_iSteamGameStatsCallbacks = 2000,
-	k_iClientHTTPCallbacks = 2100
+	k_iClientHTTPCallbacks = 2100,
+	k_iClientScreenshotsCallbacks = 2200,
+	k_iSteamScreenshotsCallbacks = 2300,
+	k_iClientAudioCallbacks = 2400,
 };
 
 
@@ -596,6 +652,8 @@ struct CallbackMsg_t
 	uint8 *m_pubParam;
 	int m_cubParam;
 };
+
+
 
 #endif // STEAMTYPES_H
 

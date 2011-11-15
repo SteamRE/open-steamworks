@@ -116,6 +116,7 @@ public:
 	// Trigger global shutdown for the DLL
 	virtual bool BShutdownIfAllPipesClosed() = 0;
 
+	// Expose HTTP interface
 	virtual ISteamHTTP* GetISteamHTTP( HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char *pchVersion ) = 0;
 };
 

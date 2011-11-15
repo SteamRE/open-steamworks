@@ -32,7 +32,7 @@
 
 // SendP2PPacket() send types
 // Typically k_EP2PSendUnreliable is what you want for UDP-like packets, k_EP2PSendReliable for TCP-like packets
-typedef enum EP2PSend
+enum EP2PSend
 {
 	// Basic UDP send. Packets can't be bigger than 1200 bytes (your typical MTU size). Can be lost, or arrive out of order (rare).
 	// The sending API does have some knowledge of the underlying connection, so if there is no NAT-traversal accomplished or
@@ -55,11 +55,11 @@ typedef enum EP2PSend
 	// do a normal k_EP2PSendReliable to force all the buffered data to be sent.
 	k_EP2PSendReliableWithBuffering = 3,
 
-} EP2PSend;
+};
 
 // list of possible errors returned by SendP2PPacket() API
 // these will be posted in the P2PSessionConnectFail_t callback
-typedef enum EP2PSessionError
+enum EP2PSessionError
 {
 	k_EP2PSessionErrorNone = 0,
 	k_EP2PSessionErrorNotRunningApp = 1,			// target is not running the same game
@@ -69,18 +69,18 @@ typedef enum EP2PSessionError
 	// corporate firewalls can also block this (NAT traversal is not firewall traversal)
 	// make sure that UDP ports 3478, 4379, and 4380 are open in an outbound direction
 	k_EP2PSessionErrorMax = 5
-} EP2PSessionError;
+};
 
 // describes how the socket is currently connected
-typedef enum ESNetSocketConnectionType
+enum ESNetSocketConnectionType
 {
 	k_ESNetSocketConnectionTypeNotConnected = 0,
 	k_ESNetSocketConnectionTypeUDP = 1,
 	k_ESNetSocketConnectionTypeUDPRelay = 2,
-} ESNetSocketConnectionType;
+};
 
 // connection progress indicators
-typedef enum ESNetSocketState
+enum ESNetSocketState
 {
 	k_ESNetSocketStateInvalid = 0,						
 
@@ -104,7 +104,7 @@ typedef enum ESNetSocketState
 	k_ESNetSocketStateRemoteEndDisconnected = 24,	// the remote end has disconnected from us
 	k_ESNetSocketStateConnectionBroken = 25,		// connection has been broken; either the other end has disappeared or our local network connection has broke
 
-} ESNetSocketState;
+};
 
 
 
@@ -126,6 +126,7 @@ struct P2PSessionState_t
 
 
 // callback notification - status of a socket has changed
+// used as part of the CreateListenSocket() / CreateP2PConnectionSocket() 
 struct SocketStatusCallback_t
 { 
 	enum { k_iCallback = k_iSteamNetworkingCallbacks + 1 };

@@ -31,7 +31,7 @@
 #define STEAMAPPS_INTERFACE_VERSION_004 "STEAMAPPS_INTERFACE_VERSION004"
 
 
-typedef enum EAppState
+enum EAppState
 {
 	k_EAppStateInvalid			= 0,
 	k_EAppStateUninstalled		= 1,
@@ -54,14 +54,14 @@ typedef enum EAppState
 	k_EAppStateUninstalling		= 2048,
 	k_EAppStatePreallocating	= 32768,
 	k_EAppStateValidating		= 8192,
-} EAppState;
+};
 
-typedef enum EAppEvent
+enum EAppEvent
 {
 	k_EAppEventDownloadComplete = 2,
-} EAppEvent;
+};
 
-typedef enum EAppInfoSection
+enum EAppInfoSection
 {
 	k_EAppInfoSectionUnknown = 0,
 	k_EAppInfoSectionAll,
@@ -79,7 +79,8 @@ typedef enum EAppInfoSection
 	k_EAppInfoSectionPolicies,
 	k_EAppInfoSectionSysreqs,
 	k_EAppInfoSectionCommunity
-} EAppInfoSection;
+};
+
 
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
@@ -89,11 +90,12 @@ struct AppDataChanged_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 1 };
 
-	uint32 m_nAppID;
+	AppId_t m_nAppID;
 
 	bool m_bBySteamUI;
 	bool m_bCDDBUpdate;
 };
+
 
 struct RequestAppCallbacksComplete_t
 {
@@ -116,7 +118,7 @@ struct DlcInstalled_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 5 };
 
-	uint32 m_nAppID;		// AppID of the DLC
+	AppId_t m_nAppID;		// AppID of the DLC
 };
 
 struct OptionalDLCInstallation_t

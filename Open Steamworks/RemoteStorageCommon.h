@@ -32,7 +32,7 @@
 
 
 
-typedef enum ERemoteStorageFileRoot
+enum ERemoteStorageFileRoot
 {
 	k_ERemoteStorageFileRootInvalid = 0,
 	k_ERemoteStorageFileRootDefault,
@@ -45,9 +45,9 @@ typedef enum ERemoteStorageFileRoot
 	k_ERemoteStorageFileRootMacAppSupport,
 	k_ERemoteStorageFileRootMacDocuments,
 	k_ERemoteStorageFileRootMax
-} ERemoteStorageFileRoot;
+};
 
-typedef enum ERemoteStorageSyncState
+enum ERemoteStorageSyncState
 {
 	k_ERemoteSyncStateUnknown = 0,
 	k_ERemoteSyncStateSynchronized = 1,
@@ -55,16 +55,16 @@ typedef enum ERemoteStorageSyncState
 	k_ERemoteSyncStatePendingChangesInCloud = 3,
 	k_ERemoteSyncStatePendingChangesLocally = 4,
 	k_ERemoteSyncStatePendingChangesInCloudAndLocally = 5,
-} ERemoteStorageSyncState;
+};
 
-typedef enum EUCMFilePrivacyState
+enum EUCMFilePrivacyState
 {
 	k_EUCMFilePrivacyStatePrivate = 2,
 	k_EUCMFilePrivacyStateFriendsOnly = 4,
 	k_EUCMFilePrivacyStatePublic = 8,
-} EUCMFilePrivacyState;
+};
 
-typedef enum ERemoteStoragePlatform
+enum ERemoteStoragePlatform
 {
 	k_ERemoteStoragePlatformNone		= 0,
 	k_ERemoteStoragePlatformWindows		= (1 << 0),
@@ -74,14 +74,14 @@ typedef enum ERemoteStoragePlatform
 	k_ERemoteStoragePlatformReserved2	= (1 << 4),
 
 	k_ERemoteStoragePlatformAll = 0xffffffff
-} ERemoteStoragePlatform;
+};
 
 // Ways to handle a synchronization conflict
-typedef enum EResolveConflict
+enum EResolveConflict
 {
 	k_EResolveConflictKeepClient = 1,		// The local version of each file will be used to overwrite the server version
 	k_EResolveConflictKeepServer = 2,		// The server version of each file will be used to overwrite the local version
-} EResolveConflict;
+};
 
 
 struct RemoteStorageUpdatePublishedFileRequest_t;
@@ -128,6 +128,18 @@ struct RemoteStorageAppSyncProgress_t
 	double m_dAppPercentComplete;				// Percent complete that this app's transfers are
 	bool m_bUploading;							// if false, downloading
 };
+
+//-----------------------------------------------------------------------------
+// Purpose: Sent after we've determined the list of files that are out of sync
+//          with the server.
+//-----------------------------------------------------------------------------
+struct RemoteStorageAppSyncStatusCheck_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 5 };
+	AppId_t m_nAppID;
+	EResult m_eResult;
+};
+
 
 
 //-----------------------------------------------------------------------------

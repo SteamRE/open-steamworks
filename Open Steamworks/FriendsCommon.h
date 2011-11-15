@@ -39,25 +39,25 @@
 //-----------------------------------------------------------------------------
 // Purpose: avatar sizes, used in ISteamFriends::GetFriendAvatar()
 //-----------------------------------------------------------------------------
-typedef enum EAvatarSize
+enum EAvatarSize
 {
 	k_EAvatarSize32x32 = 0,
 	k_EAvatarSize64x64 = 1,
-} EAvatarSize;
+};
 
-typedef enum ECallState
+enum ECallState
 {
 	k_ECallStateUnknown = 0,
 	k_ECallStateWaiting = 1,
 	k_ECallStateDialing = 2,
 	k_ECallStateRinging = 3,
 	k_ECallStateInCall = 4,
-} ECallState;
+};
 
 //-----------------------------------------------------------------------------
 // Purpose: Chat Entry Types (previously was only friend-to-friend message types)
 //-----------------------------------------------------------------------------
-typedef enum EChatEntryType
+enum EChatEntryType
 {
 	k_EChatEntryTypeInvalid = 0, 
 	k_EChatEntryTypeChatMsg = 1,		// Normal text message from another user
@@ -67,12 +67,12 @@ typedef enum EChatEntryType
 	k_EChatEntryTypeLobbyGameStart = 5,	// lobby game is starting
 	k_EChatEntryTypeLeftConversation = 6, // user has left the conversation ( closed chat window )
 	// Above are previous FriendMsgType entries, now merged into more generic chat entry types
-} EChatEntryType;
+};
 
 //-----------------------------------------------------------------------------
 // Purpose: set of relationships to other users
 //-----------------------------------------------------------------------------
-typedef enum EFriendRelationship
+enum EFriendRelationship
 {
 	k_EFriendRelationshipNone = 0,
 	k_EFriendRelationshipBlocked = 1,
@@ -81,17 +81,17 @@ typedef enum EFriendRelationship
 	k_EFriendRelationshipRequestInitiator = 4,
 	k_EFriendRelationshipIgnored = 5,
 	k_EFriendRelationshipIgnoredFriend = 6,
-	k_EFriendRelationshipSuggestedFriend = 7,
-} EFriendRelationship;
+	k_EFriendRelationshipSuggested = 7,
+};
 
-typedef enum EChatRoomType
+enum EChatRoomType
 {
 	k_EChatRoomTypeFriend = 1,
 	k_EChatRoomTypeMUC = 2,
 	k_EChatRoomTypeLobby = 3,
-} EChatRoomType;
+};
 
-typedef enum EChatRoomVoiceStatus
+enum EChatRoomVoiceStatus
 {
 	eChatRoomVoiceStatusBad = 0,
 	eChatRoomVoiceStatusUnknownRoom = 1,
@@ -104,27 +104,27 @@ typedef enum EChatRoomVoiceStatus
 	eChatRoomVoiceStatusUnreachable = 8,
 	eChatRoomVoiceStatusDisconnected = 9,
 	eChatRoomVoiceStatusCount = 10,
-} EChatRoomVoiceStatus;
+};
 
-typedef enum EClanRank
+enum EClanRank
 {
 	k_EClanRankNone = 0,
 	k_EClanRankOwner = 1,
 	k_EClanRankOfficer = 2,
 	k_EClanRankMember = 3,
-} EClanRank;
+};
 
-typedef enum EClanRelationship
+enum EClanRelationship
 {
 	eClanRelationshipNone = 0,
 	eClanRelationshipBlocked = 1,
 	eClanRelationshipInvited = 2,
 	eClanRelationshipMember = 3,
 	eClanRelationshipKicked = 4,
-} EClanRelationship;
+};
 
 // for enumerating friends list
-typedef enum EFriendFlags
+enum EFriendFlags
 {
 	k_EFriendFlagNone			= 0x00,
 	k_EFriendFlagBlocked		= 0x01,
@@ -138,26 +138,18 @@ typedef enum EFriendFlags
 	k_EFriendFlagRequestingInfo = 0x100,
 	k_EFriendFlagIgnored		= 0x200,
 	k_EFriendFlagIgnoredFriend	= 0x400,
+	k_EFriendFlagSuggested		= 0x800,
 	k_EFriendFlagAll			= 0xFFFF,
-} EFriendFlags;
+};
+
 // for backwards compat
 typedef EFriendFlags k_EFriendFlags;
 
-//-----------------------------------------------------------------------------
-// Purpose: friend-to-friend message types
-//-----------------------------------------------------------------------------
-typedef enum EFriendMsgType
-{
-	k_EFriendMsgTypeChat = 1,			// chat test message
-	k_EFriendMsgTypeTyping = 2,			// lets the friend know the other user has starting typing a chat message
-	k_EFriendMsgTypeInvite = 3,			// invites the friend into the users current game
-	k_EFriendMsgTypeChatSent = 4,		// chat that the user has sent to a friend
-} EFriendMsgType;
 
 //-----------------------------------------------------------------------------
 // Purpose: list of states a friend can be in
 //-----------------------------------------------------------------------------
-typedef enum EPersonaState
+enum EPersonaState
 {
 	k_EPersonaStateOffline = 0,			// friend is not currently logged on
 	k_EPersonaStateOnline = 1,			// friend is logged on
@@ -167,11 +159,11 @@ typedef enum EPersonaState
 	k_EPersonaStateLookingToTrade = 5,	// Looking to Trade
 	k_EPersonaStateLookingToPlay = 6,	// Looking to Play
 	k_EPersonaStateMax,
-} EPersonaState;
+};
 
 // used in PersonaStateChange_t::m_nChangeFlags to describe what's changed about a user
 // these flags describe what the client has learned has changed recently, so on startup you'll see a name, avatar & relationship change for every friend
-typedef enum EPersonaChange
+enum EPersonaChange
 {
 	k_EPersonaChangeName		= 0x001,
 	k_EPersonaChangeStatus		= 0x002,
@@ -184,9 +176,10 @@ typedef enum EPersonaChange
 	k_EPersonaChangeLeftSource	= 0x100,
 	k_EPersonaChangeRelationshipChanged = 0x200,
 	k_EPersonaChangeNameFirstSet = 0x400,
-} EPersonaChange;
+	k_EPersonaChangeFacebookInfo = 0x800,
+};
 
-typedef enum EChatPermission
+enum EChatPermission
 {
 	k_EChatPermissionClose = 1,
 	k_EChatPermissionInvite = 2,
@@ -203,12 +196,12 @@ typedef enum EChatPermission
 	k_EChatPermissionOfficerDefault = 282,
 	k_EChatPermissionOwnerDefault = 891,
 	k_EChatPermissionMask = 1019,
-} EChatPermission;
+};
 
 //-----------------------------------------------------------------------------
 // Purpose: Chat Room Enter Responses
 //-----------------------------------------------------------------------------
-typedef enum EChatRoomEnterResponse
+enum EChatRoomEnterResponse
 {
 	k_EChatRoomEnterResponseSuccess = 1,		// Success
 	k_EChatRoomEnterResponseDoesntExist = 2,	// Chat doesn't exist (probably closed)
@@ -216,9 +209,9 @@ typedef enum EChatRoomEnterResponse
 	k_EChatRoomEnterResponseFull = 4,			// Chat room has reached its maximum size
 	k_EChatRoomEnterResponseError = 5,			// Unexpected Error
 	k_EChatRoomEnterResponseBanned = 6,			// You are banned from this chat room and may not join
-} EChatRoomEnterResponse;
+};
 
-typedef enum EChatAction
+enum EChatAction
 {
 	k_EChatActionInviteChat = 1,
 	k_EChatActionKick = 2,
@@ -236,9 +229,9 @@ typedef enum EChatAction
 	k_EChatActionSetVisibleToFriends = 14,
 	k_EChatActionSetModerated = 15,
 	k_EChatActionSetUnmoderated = 16,
-} EChatAction;
+};
 
-typedef enum EChatActionResult
+enum EChatActionResult
 {
 	k_EChatActionResultSuccess = 1,
 	k_EChatActionResultError = 2,
@@ -250,12 +243,12 @@ typedef enum EChatActionResult
 	k_EChatActionResultChatDoesntExist = 8,
 	k_EChatActionResultChatFull = 9,
 	k_EChatActionResultVoiceSlotsFull = 10,
-} EChatActionResult;
+};
 
 //-----------------------------------------------------------------------------
 // Purpose: user restriction flags
 //-----------------------------------------------------------------------------
-typedef enum EUserRestriction
+enum EUserRestriction
 {
 	k_nUserRestrictionNone		= 0,	// no known chat/content restriction
 	k_nUserRestrictionUnknown	= 1,	// we don't know yet (user offline)
@@ -263,7 +256,7 @@ typedef enum EUserRestriction
 	k_nUserRestrictionVoiceChat	= 4,	// user is not allowed to (or can't) send/recv voice chat
 	k_nUserRestrictionGroupChat	= 8,	// user is not allowed to (or can't) send/recv group chat
 	k_nUserRestrictionRating	= 16,	// user is too young according to rating in current region
-} EUserRestriction;
+};
 
 
 // size limits on Rich Presence data
@@ -272,8 +265,15 @@ enum { k_cchMaxRichPresenceKeyLength = 64 };
 enum { k_cchMaxRichPresenceValueLength = 256 };
 
 
-#pragma pack( push, 8 )
+// maximum length of friend group name (not including terminating nul!)
+const int k_cchMaxFriendGroupName = 64;
 
+// maximum number of groups a single user is allowed
+const int k_cFriendGroupLimit = 100;
+
+
+
+#pragma pack( push, 8 )
 
 
 // k_iSteamFriendsCallbacks callbacks
@@ -331,6 +331,21 @@ struct GameLobbyJoinRequested_t
 
 
 //-----------------------------------------------------------------------------
+// Purpose: called when an avatar is loaded in from a previous GetLargeFriendAvatar() call
+//			if the image wasn't already available
+//-----------------------------------------------------------------------------
+struct AvatarImageLoaded_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 34 };
+
+	CSteamID m_steamID; // steamid the avatar has been loaded for
+	int m_iImage; // the image index of the now loaded image
+	int m_iWide; // width of the loaded image
+	int m_iTall; // height of the loaded image
+};
+
+
+//-----------------------------------------------------------------------------
 // Purpose: marks the return of a request officer list call
 //-----------------------------------------------------------------------------
 struct ClanOfficerListResponse_t
@@ -365,6 +380,16 @@ struct GameRichPresenceJoinRequested_t
 	char m_rgchConnect[k_cchMaxRichPresenceValueLength];
 };
 
+
+//-----------------------------------------------------------------------------
+// Purpose: called when the user requests the history of player names on a given account
+//-----------------------------------------------------------------------------
+struct NameHistoryResponse_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 38 };
+	int m_cSuccessfulLookups;		// number of lookups that were successful
+	int m_cFailedLookups;			// number of lookups that failed for one reason or another
+};
 
 
 

@@ -94,7 +94,10 @@ public:
 	// zero for the duration of the request as the size is unknown until the connection closes.
 	virtual bool GetHTTPDownloadProgressPct( HTTPRequestHandle hRequest, float *pflPercentOut ) = 0;
 	
-	virtual bool SetHTTPRequestRawPostBody( HTTPRequestHandle hRequest, const char *pchContentType, uint8 *pubBodyData, uint32 cubBodyData ) = 0;
+	// Sets the body for an HTTP Post request.  Will fail and return false on a GET request, and will fail if POST params
+	// have already been set for the request.  Setting this raw body makes it the only contents for the post, the pchContentType
+	// parameter will set the content-type header for the request so the server may know how to interpret the body.
+	virtual bool SetHTTPRequestRawPostBody( HTTPRequestHandle hRequest, const char *pchContentType, uint8 *pubBody, uint32 unBodyLen ) = 0;
 };
 
 #endif // ISTEAMHTTP001_H

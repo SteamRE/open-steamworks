@@ -31,12 +31,12 @@
 //-----------------------------------------------------------------------------
 // Purpose: nAccountType for GetNewSession
 //-----------------------------------------------------------------------------
-typedef enum EGameStatsAccountType
+enum EGameStatsAccountType
 {
 	k_EGameStatsAccountType_Steam = 1,				// ullAccountID is a 64-bit SteamID for a player
 	k_EGameStatsAccountType_Xbox = 2,				// ullAccountID is a 64-bit XUID
 	k_EGameStatsAccountType_SteamGameServer = 3,	// ullAccountID is a 64-bit SteamID for a game server
-} EGameStatsAccountType;
+};
 
 
 

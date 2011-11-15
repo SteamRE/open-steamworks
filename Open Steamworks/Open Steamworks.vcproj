@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="Open Steamworks"
 	ProjectGUID="{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}"
 	RootNamespace="SteamclientAPI"
@@ -107,6 +107,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\EResult.h"
+					>
+				</File>
+				<File
 					RelativePath=".\FriendGameInfo.h"
 					>
 				</File>
@@ -122,42 +126,6 @@
 					RelativePath=".\servernetadr.h"
 					>
 				</File>
-				<Filter
-					Name="Enums"
-					>
-					<File
-						RelativePath=".\EAccountType.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EChatMemberStateChange.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ELobbyType.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ENotificationPosition.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EPersonalQuestion.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EResult.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EServerMode.h"
-						>
-					</File>
-					<File
-						RelativePath=".\EUniverse.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Client Interfaces"
@@ -467,26 +435,6 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="ISteamGameServerItems"
-					>
-					<File
-						RelativePath=".\GameServerItemsCommon.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ISteamGameServerItems002.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ISteamGameServerItems003.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ISteamGameServerItems004.h"
-						>
-					</File>
-				</Filter>
-				<Filter
 					Name="ISteamMasterServerUpdater"
 					>
 					<File
@@ -671,30 +619,6 @@
 					</File>
 					<File
 						RelativePath=".\UserCommon.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="ISteamUserItems"
-					>
-					<File
-						RelativePath=".\ISteamUserItems001.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ISteamUserItems002.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ISteamUserItems003.h"
-						>
-					</File>
-					<File
-						RelativePath=".\ISteamUserItems004.h"
-						>
-					</File>
-					<File
-						RelativePath=".\UserItemsCommon.h"
 						>
 					</File>
 				</Filter>
@@ -1024,24 +948,28 @@
 				</File>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath=".\Interface_OSW.h"
+		<Filter
+			Name="Loader"
 			>
-		</File>
-		<File
-			RelativePath=".\POSIXLibrary.h"
-			>
-		</File>
+			<File
+				RelativePath=".\Interface_OSW.h"
+				>
+			</File>
+			<File
+				RelativePath=".\POSIXLibrary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Win32Library.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\SteamTypes.h"
 			>
 		</File>
 		<File
 			RelativePath=".\Steamworks.h"
-			>
-		</File>
-		<File
-			RelativePath=".\Win32Library.h"
 			>
 		</File>
 	</Files>

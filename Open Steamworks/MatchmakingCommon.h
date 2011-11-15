@@ -39,7 +39,7 @@
 
 
 // lobby search filter tools
-typedef enum ELobbyComparison
+enum ELobbyComparison
 {
 	k_ELobbyComparisonEqualToOrLessThan = -2,
 	k_ELobbyComparisonLessThan = -1,
@@ -47,18 +47,20 @@ typedef enum ELobbyComparison
 	k_ELobbyComparisonGreaterThan = 1,
 	k_ELobbyComparisonEqualToOrGreaterThan = 2,
 	k_ELobbyComparisonNotEqual = 3,
-} ELobbyComparison;
+};
 
 
 // lobby search distance
-typedef enum ELobbyDistanceFilter
+enum ELobbyDistanceFilter
 {
 	k_ELobbyDistanceFilterClose,		// only lobbies in the same immediate region will be returned
 	k_ELobbyDistanceFilterDefault,		// only lobbies in the same region or close, but looking further if the current region has infrequent lobby activity (the default)
 	k_ELobbyDistanceFilterFar,			// for games that don't have many latency requirements, will return lobbies about half-way around the globe
 	k_ELobbyDistanceFilterWorldwide,	// no filtering, will match lobbies as far as India to NY (not recommended, expect multiple seconds of latency between the clients)
-} ELobbyDistanceFilter;
+};
 
+// maximum number of characters a lobby metadata key can be
+#define k_nMaxLobbyKeyLength 255
 
 
 #pragma pack( push, 8 )

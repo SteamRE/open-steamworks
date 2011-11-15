@@ -30,7 +30,7 @@ typedef uint32 HTTPRequestHandle;
 
 
 // This enum is used in client API methods, do not re-number existing values.
-typedef enum EHTTPMethod
+enum EHTTPMethod
 {
 	k_EHTTPMethodInvalid = 0,
 	k_EHTTPMethodGET,
@@ -45,7 +45,7 @@ typedef enum EHTTPMethod
 	// k_EHTTPMethodDELETE,
 	// k_EHTTPMethodTRACE,
 	// k_EHTTPMethodCONNECT
-} EHTTPMethod;
+};
 
 
 // HTTP Status codes that the server can send in response to a request, see rfc2616 section 10.3 for descriptions

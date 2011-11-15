@@ -28,7 +28,7 @@
 
 
 
-typedef enum EGCMsgResponse
+enum EGCMsgResponse
 {
 	k_EGCMsgResponseOK,
 	k_EGCMsgResponseDenied,
@@ -38,17 +38,17 @@ typedef enum EGCMsgResponse
 	k_EGCMsgResponseNoMatch,
 	k_EGCMsgResponseUnknownError,
 	k_EGCMsgResponseNotLoggedOn,
-} EGCMsgResponse;
+};
 
 // list of possible return values from the ISteamGameCoordinator API
-typedef enum EGCResults
+enum EGCResults
 {
 	k_EGCResultOK = 0,
 	k_EGCResultNoMessage = 1,			// There is no message in the queue
 	k_EGCResultBufferTooSmall = 2,		// The buffer is too small for the requested message
 	k_EGCResultNotLoggedOn = 3,			// The client is not logged onto Steam
 	k_EGCResultInvalidMessage = 4,		// Something was wrong with the message being sent with SendMessage
-} EGCResults;
+};
 
 /**
  * Valve moved a lot of messages to the protobuf format.

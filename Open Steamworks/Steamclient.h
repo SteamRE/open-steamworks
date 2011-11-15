@@ -133,12 +133,6 @@
 #include "ISteamUser015.h"
 #include "ISteamUser016.h"
 
-// user items
-#include "ISteamUserItems001.h"
-#include "ISteamUserItems002.h"
-#include "ISteamUserItems003.h"
-#include "ISteamUserItems004.h"
-
 // apps
 #include "ISteamApps001.h"
 #include "ISteamApps002.h"
@@ -219,11 +213,6 @@
 // steam 2 bridge
 #include "ISteam2Bridge001.h"
 #include "ISteam2Bridge002.h"
-
-// game server items
-#include "ISteamGameServerItems002.h"
-#include "ISteamGameServerItems003.h"
-#include "ISteamGameServerItems004.h"
 
 // game coordinator
 #include "ISteamGameCoordinator001.h"

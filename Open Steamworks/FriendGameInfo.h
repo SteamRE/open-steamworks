@@ -20,6 +20,7 @@
 #pragma once
 #endif
 
+#pragma pack( push, 8 )
 
 // friend game played information
 struct FriendGameInfo_t
@@ -30,6 +31,8 @@ struct FriendGameInfo_t
 	uint16 m_usQueryPort;
 	CSteamID m_steamIDLobby;
 };
+
+#pragma pack( pop )
 
 
 #endif // FRIENDGAMEINFO_H

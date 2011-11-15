@@ -35,7 +35,7 @@
 
 
 // Result codes to GSHandleClientDeny/Kick
-typedef enum EDenyReason
+enum EDenyReason
 {
 	k_EDenyInvalidVersion = 1,
 	k_EDenyGeneric = 2,
@@ -52,7 +52,7 @@ typedef enum EDenyReason
 	k_EDenySteamResponseTimedOut = 13,
 	k_EDenySteamValidationStalled = 14,
 	k_EDenySteamOwnerLeftGuestUser = 15,
-} EDenyReason;
+};
 
 
 #pragma pack( push, 8 )
