@@ -64,15 +64,15 @@
 			Name="Link Libraries"
 			>
 			<File
-				RelativePath="..\steam.lib"
+				RelativePath="..\Resources\steam.lib"
 				>
 			</File>
 			<File
-				RelativePath="..\steam_api.lib"
+				RelativePath="..\Resources\steam_api.lib"
 				>
 			</File>
 			<File
-				RelativePath="..\steamclient.lib"
+				RelativePath="..\Resources\steamclient.lib"
 				>
 			</File>
 		</Filter>
