@@ -41,7 +41,7 @@ public:
 	// sets the status, communicates to server, tells all friends
 	virtual void SetPersonaState( EPersonaState ePersonaState ) = 0;
 
-	virtual bool NotifyUIOfMenuChange( bool bShowAvatars, bool bSortByName, bool bShowOnlineOnly, bool bShowTaggedFriends ) = 0;
+	virtual bool NotifyUIOfMenuChange( bool bShowAvatars, bool bSortByName, bool bShowOnlineOnly, bool bShowUntaggedFriends ) = 0;
 
 	// friend iteration
 	virtual int GetFriendCount( EFriendFlags iFriendFlags ) = 0;
@@ -143,7 +143,7 @@ public:
 	virtual bool IsClanPublic( CSteamID steamID ) = 0;
 	virtual bool IsClanLarge( CSteamID steamID ) = 0;
 
-	virtual void SubscribeToPersonaStateFeed( CSteamID, bool ) = 0;
+	virtual void SubscribeToPersonaStateFeed( CSteamID, bool bSubscribe ) = 0;
 
 	virtual SteamAPICall_t JoinClanChatRoom( CSteamID groupID ) = 0;
 	virtual bool LeaveClanChatRoom( CSteamID groupID ) = 0;

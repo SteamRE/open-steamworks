@@ -558,6 +558,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamRemoteStorage006.h"
+						>
+					</File>
+					<File
 						RelativePath=".\RemoteStorageCommon.h"
 						>
 					</File>

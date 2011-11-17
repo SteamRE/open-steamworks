@@ -276,7 +276,10 @@ const int k_cFriendGroupLimit = 100;
 #pragma pack( push, 8 )
 
 
+
+
 // k_iSteamFriendsCallbacks callbacks
+
 
 
 
@@ -378,17 +381,6 @@ struct GameRichPresenceJoinRequested_t
 
 	CSteamID m_steamIDFriend;		// the friend they did the join via (will be invalid if not directly via a friend)
 	char m_rgchConnect[k_cchMaxRichPresenceValueLength];
-};
-
-
-//-----------------------------------------------------------------------------
-// Purpose: called when the user requests the history of player names on a given account
-//-----------------------------------------------------------------------------
-struct NameHistoryResponse_t
-{
-	enum { k_iCallback = k_iSteamFriendsCallbacks + 38 };
-	int m_cSuccessfulLookups;		// number of lookups that were successful
-	int m_cFailedLookups;			// number of lookups that failed for one reason or another
 };
 
 
@@ -667,6 +659,16 @@ struct FriendsMenuChange_t
 	bool m_bSortByName;
 	bool m_bShowOnlineOnly;
 	bool m_bShowUntaggedFriends;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: called when the user requests the history of player names on a given account
+//-----------------------------------------------------------------------------
+struct NameHistoryResponse_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 47 };
+	int m_cSuccessfulLookups;		// number of lookups that were successful
+	int m_cFailedLookups;			// number of lookups that failed for one reason or another
 };
 
 #pragma pack( pop )

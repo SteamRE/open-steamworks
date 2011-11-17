@@ -205,6 +205,7 @@
 #include "ISteamRemoteStorage003.h"
 #include "ISteamRemoteStorage004.h"
 #include "ISteamRemoteStorage005.h"
+#include "ISteamRemoteStorage006.h"
 
 // content server
 #include "ISteamContentServer001.h"

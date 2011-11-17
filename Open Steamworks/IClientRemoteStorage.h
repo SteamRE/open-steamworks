@@ -54,6 +54,7 @@ public:
 	virtual bool SetCloudEnabledForApp( AppId_t nAppId, bool bEnable );
 
 	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent, bool bUseNewCallback ) = 0; // Old callback id = 1308, new callback id = 1317
+	virtual bool GetUGCDownloadProgress( UGCHandle_t hContent, uint32 *puDownloadedBytes, uint32 *puTotalBytes );
 	virtual bool GetUGCDetails( UGCHandle_t hContent, AppId_t *pnAppID, char **ppchName, int32 *pnFileSizeInBytes, CSteamID *pSteamIDOwner ) = 0;
 	virtual int32 UGCRead( UGCHandle_t hContent, void *pubDest, int32 nDestBufferSize ) = 0;
 	virtual int32 GetCachedUGCCount() = 0;

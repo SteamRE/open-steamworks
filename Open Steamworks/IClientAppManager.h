@@ -54,15 +54,17 @@ struct SHADigestWrapper_t
 abstract_class UNSAFE_INTERFACE IClientAppManager
 {
 public:
+	virtual bool InstallApp( AppId_t unAppID, bool ) = 0;
+	virtual bool ConvertFromSteam2( AppId_t unAppID, const char *cszPath ) = 0;
+	virtual bool UninstallApp( AppId_t unAppID, bool bComplete ) = 0;
+
 	virtual bool LaunchApp( AppId_t unAppID, uint32 uLaunchOption, const char *cszArgs ) = 0;
 	virtual bool ShutdownApp( AppId_t unAppID, bool bForce ) = 0;
 
 	virtual EAppState GetAppState( AppId_t unAppID ) = 0;
 
-	virtual bool InstallApp( AppId_t unAppID, bool ) = 0;
 	virtual uint64 GetAppSize( AppId_t unAppID ) = 0;
 	virtual uint32 GetAppDir( AppId_t unAppID, char *szBuffer, uint32 cubBuffer ) = 0;
-	virtual bool UninstallApp( AppId_t unAppID, bool bComplete ) = 0;
 
 	virtual uint32 GetUpdateInfo( AppId_t unAppID, AppUpdateInfo_s *pUpdateInfo ) = 0;
 
