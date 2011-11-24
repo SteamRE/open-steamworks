@@ -31,7 +31,17 @@
 	
 #elif _WIN32
 	
-	#include <sdkddkver.h>
+	#if defined(_MSC_VER) && _MSC_VER > 1400
+		#include <sdkddkver.h>
+	#else
+		#if !defined(_WIN32_WINNT)
+			#define _WIN32_WINNT 0x0502
+		#endif
+		#if !defined(WINVER)
+			#define WINVER _WIN32_WINNT
+		#endif
+	#endif
+		
 	#include <windows.h>
 
 	#undef SendMessage // for ISteamGameCoordinator001 to work right..
