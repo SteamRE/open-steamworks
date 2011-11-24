@@ -39,7 +39,6 @@ typedef struct TSteamApp
 	unsigned int uNumIcons;
 	unsigned int uNumVersions;
 	unsigned int uNumDependencies;
-	char *szUnkString;
 } TSteamApp;
 
 #endif // TSTEAMAPP_H
