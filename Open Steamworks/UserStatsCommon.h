@@ -57,6 +57,7 @@ enum ELeaderboardDataRequest
 	k_ELeaderboardDataRequestGlobal = 0,
 	k_ELeaderboardDataRequestGlobalAroundUser = 1,
 	k_ELeaderboardDataRequestFriends = 2,
+	k_ELeaderboardDataRequestUsers = 3,
 };
 
 // the display type (used by the Steam Community web site) for a leaderboard
@@ -85,7 +86,9 @@ enum ELeaderboardSortMethod
 
 enum EGetAchievementIcon
 {
-	// TODO : Reverse this enum, default value seems to be 0
+	k_EGetAchievementIconUser = 0,
+	k_EGetAchievementIconAchieved = 1,
+	k_EGetAchievementIconUnachieved = 2,
 };
 
 #pragma pack( push, 8 )

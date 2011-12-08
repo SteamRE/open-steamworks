@@ -61,6 +61,72 @@ struct ScreenshotRequested_t
 	enum { k_iCallback = k_iSteamScreenshotsCallbacks + 2 };
 };
 
+
+
+// k_iClientScreenshotsCallbacks callbacks
+
+
+
+struct ScreenshotUploadProgress_t
+{
+	enum { k_iCallback = k_iClientScreenshotsCallbacks + 1 };
+
+	double m_dPercentScreenshot;
+	double m_dPercentBatch;
+	int32 m_nFailed;
+};
+
+struct ScreenshotWritten_t
+{
+	enum { k_iCallback = k_iClientScreenshotsCallbacks + 2 };
+
+	ScreenshotHandle m_hLocal;
+	CGameID m_gameID;
+	RTime32 m_timeCreated;
+	uint32 m_nWidth;
+	uint32 m_nHeight;
+};
+
+struct ScreenshotUploaded_t
+{
+	enum { k_iCallback = k_iClientScreenshotsCallbacks + 3 };
+
+	ScreenshotHandle m_hLocal;
+	CGameID m_gameID;
+	UGCHandle_t m_hFile;
+	RTime32 m_timeCreated;
+	uint32 m_nWidth;
+	uint32 m_nHeight;
+	EUCMFilePrivacyState m_ePrivacy;
+	char m_pchCaption[540];
+	uint8 pubUnknownData[28];
+};
+
+struct ScreenshotBatchComplete_t
+{
+	enum { k_iCallback = k_iClientScreenshotsCallbacks + 4 };
+
+	int m_nAttempted;
+	int m_nResultsOK;
+};
+
+struct ScreenshotDeleted_t
+{
+	enum { k_iCallback = k_iClientScreenshotsCallbacks + 5 };
+
+	enum EResult m_eResult;
+	ScreenshotHandle m_hLocal;
+	class CGameID m_gameID;
+};
+
+struct ScreenshotTriggered_t
+{
+	enum { k_iCallback = k_iClientScreenshotsCallbacks + 6 };
+
+	CGameID m_gameID;
+};
+
+
 #pragma pack( pop )
 
 

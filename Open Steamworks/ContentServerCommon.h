@@ -37,5 +37,23 @@ typedef enum EConnectionPriority
 } EConnectionPriority;
 
 
+#pragma pack( push, 8 )
+struct CSClientApprove_t
+{
+	enum { k_iCallback = k_iSteamContentServerCallbacks + 1 };
+	
+	CSteamID m_SteamID;
+	uint32 m_uContentID;
+};
+
+struct CSClientDeny_t
+{
+	enum { k_iCallback = k_iSteamContentServerCallbacks + 2 };
+
+	CSteamID m_SteamID;
+	uint32 m_uContentID;
+	EDenyReason m_eDenyReason;
+};
+#pragma pack( pop )
 
 #endif // CONTENTSERVERCOMMON_H

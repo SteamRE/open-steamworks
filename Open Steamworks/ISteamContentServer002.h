@@ -31,9 +31,9 @@ public:
 
 	virtual bool BLoggedOn() = 0;
 
-	virtual void SendClientContentAuthRequest( CSteamID steamId, uint32 unContentID, uint64 ulSessionToken, bool bTokenPresent ) = 0;
+	virtual void SendClientContentAuthRequest( CSteamID steamID, uint32 uContentID, uint64 ulSessionToken, bool bTokenPresent ) = 0;
 
-	virtual bool BCheckTicket( CSteamID steamId, uint32 uContentID, const void *pvTicketData, uint32 cubTicketLength ) = 0;
+	virtual bool BCheckTicket( CSteamID steamID, uint32 uContentID, const void *pvTicketData, uint32 cubTicketLength ) = 0;
 };
 
 

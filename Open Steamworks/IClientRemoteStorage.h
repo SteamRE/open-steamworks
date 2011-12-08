@@ -44,8 +44,8 @@ public:
 	virtual bool SetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, ERemoteStoragePlatform eRemoteStoragePlatform ) = 0;
 	virtual int GetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
-	virtual int32 GetFileCount( AppId_t nAppId, bool bUnk1 ) = 0;
-	virtual const char *GetFileNameAndSize( AppId_t nAppId, int iFile, ERemoteStorageFileRoot *peRemoteStorageFileRoot, int *pnFileSizeInBytes, bool bUnk1 ) = 0;
+	virtual int32 GetFileCount( AppId_t nAppId, bool bFromExternalAPI ) = 0;
+	virtual const char *GetFileNameAndSize( AppId_t nAppId, int iFile, ERemoteStorageFileRoot *peRemoteStorageFileRoot, int *pnFileSizeInBytes, bool bFromExternalAPI ) = 0;
 
 	virtual bool GetQuota( AppId_t nAppId, int32 *pnTotalBytes, int32 *pnAvailableBytes ) = 0;
 	
@@ -73,11 +73,11 @@ public:
 
 	virtual bool FileFetch( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
-	virtual bool ResolvePath( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *, char *, uint32 ) = 0;
+	virtual bool ResolvePath( AppId_t nAppID, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchRelPath, char *pchDest, uint32 cchDest ) = 0;
 
 	virtual EResult FileTouch( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, bool ) = 0;
 
-	virtual bool SetCloudEnabledForAccount( bool bEnable );
+	virtual bool SetCloudEnabledForAccount( bool bEnabled );
 
 	virtual void LoadLocalFileInfoCache( AppId_t nAppId ) = 0;
 
@@ -86,13 +86,13 @@ public:
 
 	virtual bool HaveLatestFilesLocally( AppId_t nAppId ) = 0;
 
-	virtual bool GetConflictingFileTimestamps( AppId_t nAppId, RTime32 * puTimestamp1, RTime32 * puTimestamp2 ) = 0;
-	virtual bool ResolveSyncConflict( AppId_t nAppId, bool ) = 0;
+	virtual bool GetConflictingFileTimestamps( AppId_t nAppId, RTime32* pnTimestampLocal, RTime32* pnTimestampRemote ) = 0;
+	virtual bool ResolveSyncConflict( AppId_t nAppId, bool bAcceptLocalFiles ) = 0;
 
 	virtual void SynchronizeApp( AppId_t nAppId, bool bSyncClient, bool bSyncServer ) = 0;
 	virtual bool IsAppSyncInProgress( AppId_t nAppId ) = 0;
 
-	virtual ERemoteStorageFileRoot ERemoteStorageFileRootFromName( const char *cszName ) = 0;
+	virtual ERemoteStorageFileRoot ERemoteStorageFileRootFromName( const char *pchName ) = 0;
 	virtual const char* PchNameFromERemoteStorageFileRoot( ERemoteStorageFileRoot eRemoteStorageFileRoot ) = 0;
 	
 	virtual bool ResetFileRequestState( AppId_t nAppId ) = 0;

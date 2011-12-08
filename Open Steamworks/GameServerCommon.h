@@ -37,6 +37,7 @@
 // Result codes to GSHandleClientDeny/Kick
 enum EDenyReason
 {
+	k_EDenyInvalid = 0,
 	k_EDenyInvalidVersion = 1,
 	k_EDenyGeneric = 2,
 	k_EDenyNotLoggedOn = 3,
@@ -105,7 +106,7 @@ struct GSClientSteam2Accept_t
 	enum { k_iCallback = k_iSteamGameServerCallbacks + 5 };
 
 	uint32 m_UserID;
-	CSteamID m_SteamID;
+	uint64 m_SteamID;
 };
 
 // client achievement info
@@ -164,6 +165,9 @@ struct GSReputation_t
 	uint64	m_ulBannedGameID;	// The game ID the banned server is serving
 	uint32	m_unBanExpires;		// Time the ban expires, expressed in the Unix epoch (seconds since 1/1/1970)
 };
+
+// TODO : Add callback 210
+// TODO : Add callback 211
 
 
 // received when the game server requests to be displayed as secure (VAC protected)

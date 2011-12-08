@@ -43,6 +43,8 @@ enum EAvatarSize
 {
 	k_EAvatarSize32x32 = 0,
 	k_EAvatarSize64x64 = 1,
+	k_EAvatarSize184x184 = 2,
+	k_EAvatarSizeMAX = 3,
 };
 
 enum ECallState
@@ -93,17 +95,18 @@ enum EChatRoomType
 
 enum EChatRoomVoiceStatus
 {
-	eChatRoomVoiceStatusBad = 0,
-	eChatRoomVoiceStatusUnknownRoom = 1,
-	eChatRoomVoiceStatusUnknownUser = 2,
-	eChatRoomVoiceStatusNotSpeaking = 3,
-	eChatRoomVoiceStatusConnectedSpeaking = 4,
-	eChatRoomVoiceStatusConnectedSpeakingData = 5,
-	eChatRoomVoiceStatusNotConnectedSpeaking = 6,
-	eChatRoomVoiceStatusConnecting = 7,
-	eChatRoomVoiceStatusUnreachable = 8,
-	eChatRoomVoiceStatusDisconnected = 9,
-	eChatRoomVoiceStatusCount = 10,
+	eChatRoomVoiceStatus_Invalid = -1,
+	eChatRoomVoiceStatus_Bad = 0,
+	eChatRoomVoiceStatus_UnknownRoom = 1,
+	eChatRoomVoiceStatus_UnknownUser = 2,
+	eChatRoomVoiceStatus_NotSpeaking = 3,
+	eChatRoomVoiceStatus_Connected_Speaking = 4,
+	eChatRoomVoiceStatus_Connected_SpeakingData = 5,
+	eChatRoomVoiceStatus_NotConnected_Speaking = 6,
+	eChatRoomVoiceStatus_Connecting = 7,
+	eChatRoomVoiceStatus_Unreachable = 8,
+	eChatRoomVoiceStatus_Disconnected = 9,
+	eChatRoomVoiceStatus_Count = 10,
 };
 
 enum EClanRank
@@ -161,6 +164,12 @@ enum EPersonaState
 	k_EPersonaStateMax,
 };
 
+enum EPersonaStateFlag
+{
+	k_EPersonaStateFlagHasRichPresence = 1,
+	k_EPersonaStateFlagInJoinableGame = 2,
+};
+
 // used in PersonaStateChange_t::m_nChangeFlags to describe what's changed about a user
 // these flags describe what the client has learned has changed recently, so on startup you'll see a name, avatar & relationship change for every friend
 enum EPersonaChange
@@ -209,6 +218,9 @@ enum EChatRoomEnterResponse
 	k_EChatRoomEnterResponseFull = 4,			// Chat room has reached its maximum size
 	k_EChatRoomEnterResponseError = 5,			// Unexpected Error
 	k_EChatRoomEnterResponseBanned = 6,			// You are banned from this chat room and may not join
+	k_EChatRoomEnterResponseLimited = 7,
+	k_EChatRoomEnterResponseClanDisabled = 8,
+	k_EChatRoomEnterResponseCommunityBan = 9,
 };
 
 enum EChatAction
@@ -271,7 +283,10 @@ const int k_cchMaxFriendGroupName = 64;
 // maximum number of groups a single user is allowed
 const int k_cFriendGroupLimit = 100;
 
+const int k_nMaxFriends = 250;
+const int k_nMaxPendingInvitations = 48;
 
+enum EVoiceResult;
 
 #pragma pack( push, 8 )
 
@@ -383,11 +398,34 @@ struct GameRichPresenceJoinRequested_t
 	char m_rgchConnect[k_cchMaxRichPresenceValueLength];
 };
 
+// TODO : Add callbacks 338 to 343
+
 
 
 // k_iClientFriendsCallbacks callbacks
 
 
+
+struct GameOverlayActivateRequested_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 1 };
+
+	char m_rgchDialog[256];
+	CSteamID m_steamIDTarget;
+	AppId_t m_nAppID;
+	bool m_bWebPage;
+};
+
+struct ClanEventReceived_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 2 };
+
+	uint64 m_gidEvent;
+	uint64 m_ulSteamIDClan;
+	char m_rgchTitle[256];
+	uint32 m_nStartTime;
+	CGameID m_GameID;
+};
 
 //-----------------------------------------------------------------------------
 // Purpose: called after a friend has been successfully added
@@ -421,9 +459,9 @@ struct FriendChatMsg_t
 {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 5 };
 	
-	CSteamID m_ulReceiver;			// other participant in the msg
-	CSteamID m_ulSender;			// steamID of the friend who has sent this message
-	uint16 m_eChatEntryType;
+	CSteamID m_ulFriendID;			// other participant in the msg
+	CSteamID m_ulSenderID;			// steamID of the friend who has sent this message
+	uint8 m_eChatEntryType;
 	uint8 m_bLimitedAccount;
 	uint32 m_iChatID;				// chat id
 };
@@ -491,7 +529,7 @@ struct ChatRoomDlgClose_t
 {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 11 };
 
-	CSteamID m_SteamID;
+	CSteamID m_ulSteamIDChat;
 };
 
 struct ChatRoomClosing_t
@@ -555,7 +593,7 @@ struct ClanInfoChanged_t
 {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 19 };
 
-	CSteamID m_GroupID;
+	CSteamID m_ulSteamID;
 
 	bool m_bNameChanged;
 	bool m_bAvatarChanged;
@@ -578,6 +616,13 @@ struct ChatRoomInfoChanged_t
 	CSteamID m_ulSteamIDChat;
 	uint32 m_rgfChatRoomDetails;
 	uint64 m_ulSteamIDMakingChange; // Cannot use CSteamID here due to padding issues.
+};
+
+struct OBSOLETE_CALLBACK SteamRackBouncing_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 22 };
+
+	// TODO : Reverse this callback
 };
 
 struct ChatRoomSpeakChanged_t
@@ -606,6 +651,7 @@ struct NotifyHangup_t
 	enum { k_iCallback = k_iClientFriendsCallbacks + 25 };
 
 	HVoiceCall m_Handle;
+	EVoiceResult m_eVoiceResult;
 };
 
 struct NotifyRequestResume_t
@@ -634,6 +680,15 @@ struct ChatRoomDlgUIChange_t
 	bool m_bShowTimestampOnNewMsg;
 };
 
+struct VoiceCallInitiated_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 29 };
+
+	uint64 m_ulSteamIDUser;
+	uint64 m_ulSteamIDFriend;
+	HVoiceCall m_hVoiceCall;
+};
+
 struct FriendIgnored_t
 {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 30 };
@@ -644,11 +699,40 @@ struct FriendIgnored_t
 	bool m_bIgnored;
 };
 
-struct FriendProfileInfoReceived_t
+struct VoiceInputDeviceChanged_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 31 };
+};
+
+struct VoiceEnabledStateChanged_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 32 };
+
+	bool m_bVoiceEnabled;
+};
+
+struct FriendsWhoPlayGameUpdate_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 33 };
+
+	CGameID m_gameID;
+};
+
+struct FriendProfileInfoResponse_t
 {
 	enum { k_iCallback = k_iClientFriendsCallbacks + 34 };
 
-	CSteamID m_ulSteamID;
+	CSteamID m_steamIDFriend;
+	EResult m_eResult;
+};
+
+struct RichInviteReceived_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 35 };
+
+	CSteamID m_steamIDFriend;
+	AppId_t m_nAppID;
+	char m_rgchConnect[256];
 };
 
 struct FriendsMenuChange_t
@@ -657,8 +741,80 @@ struct FriendsMenuChange_t
 
 	bool m_bShowAvatars;
 	bool m_bSortByName;
-	bool m_bShowOnlineOnly;
+	bool m_bShowOnlineFriendsOnly;
 	bool m_bShowUntaggedFriends;
+};
+
+struct TradeInviteReceived_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 37 };
+
+	CSteamID m_steamIDPartner;
+	uint32 m_unTradeRequestID;
+};
+
+struct TradeInviteResponse_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 38 };
+
+	CSteamID m_steamIDPartner;
+	uint32 m_eResponse;
+};
+
+struct TradeStartSession_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 39 };
+
+	CSteamID m_steamIDPartner;
+};
+
+struct TradeInviteCanceled_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 40 };
+
+	// TODO : Reverse this callback
+};
+
+struct GameUsingVoice_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 41 };
+
+	// TODO : Reverse this callback
+};
+
+struct FriendsGroupCreated_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 42 };
+
+	// TODO : Reverse this callback
+};
+
+struct FriendsGroupDeleted_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 43 };
+
+	// TODO : Reverse this callback
+};
+
+struct FriendsGroupRenamed_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 44 };
+
+	// TODO : Reverse this callback
+};
+
+struct FriendsGroupMemberAdded_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 45 };
+
+	// TODO : Reverse this callback
+};
+
+struct FriendsGroupMemberRemoved_t
+{
+	enum { k_iCallback = k_iClientFriendsCallbacks + 46 };
+
+	// TODO : Reverse this callback
 };
 
 //-----------------------------------------------------------------------------

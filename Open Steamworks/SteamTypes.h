@@ -317,7 +317,7 @@ const AppId_t k_nGameIDNotepad = 65535;
 const AppId_t k_nGameIDCSSTestApp = 65534;
 const AppId_t k_nGameIDDRMTestApp_Static = 6710;
 const AppId_t k_nGameIDDRMTestApp_Blob = 6711;
-const AppId_t k_nGameIDDRMTestApp_Secrets = 6712;
+const AppId_t k_nGameIDDRMTestApp_Dynamic = 6712;
 const AppId_t k_nGameIDDRMTestApp_SDK = 6713;
 const AppId_t k_nGameIDWinUI = 7;
 const AppId_t k_nGameIDWinUI2 = 8;
@@ -330,12 +330,16 @@ const AppId_t k_nGameIDRicochet = 60;
 const AppId_t k_nGameIDHL1 = 70;
 const AppId_t k_nGameIDCZero = 80;
 const AppId_t k_nGameIDCSBeta = 150;
+const AppId_t k_nGameIDMacVAC = 160;
+const AppId_t k_nGameIDWinVAC = 202;
+const AppId_t k_nGameIDScreenshots = 760;
+const AppId_t k_nGameDRMTest = 199;
 const AppId_t k_nGameIDBaseSourceSDK = 215;
 const AppId_t k_nGameIDHL2 = 220;
-const AppId_t k_nGameIDCSS = 240;
 const AppId_t k_nDepotHL2Buka = 235;
+const AppId_t k_nGameIDCSS = 240;
+const AppId_t k_nGameIDCSSBeta = 260;
 const AppId_t k_nGameHL1SRC = 280;
-const AppId_t k_nGameDRMTest = 199;
 const AppId_t k_nGameIDDODSRC = 300;
 const AppId_t k_nGameIDHL2DM = 320;
 const AppId_t k_nGameIDPortal = 400;
@@ -344,6 +348,13 @@ const AppId_t k_nGameIDTF2 = 440;
 const AppId_t k_nGameIDL4D = 500;
 const AppId_t k_nGameIDL4DDemo = 530;
 const AppId_t k_nGameIDL4D2 = 550;
+const AppId_t k_nGameIDASW = 630;
+const AppId_t k_nGameIDTF2Staging = 810;
+const AppId_t k_nGameIDPortal2Main = 852;
+const AppId_t k_nGameIDPortal2 = 620;
+const AppId_t k_nGameIDASWMain = 877;
+const AppId_t k_nGameIDDOTA = 882;
+const AppId_t k_nGameIDASWStaging = 886;
 const AppId_t k_nGameIDRedOrchestra = 1200;
 const AppId_t k_nGameIDRedOrchestraBeta = 1210;
 const AppId_t k_nGameIDKillingFloor = 1250;
@@ -362,6 +373,12 @@ const AppId_t k_nGameIDLostPlanet = 6510;
 const AppId_t k_nGameIDNBA2K9 = 7740;
 const AppId_t k_nGameIDCallofDuty4 = 7940;
 const AppId_t k_nMLBFrontOfficeManager = 7780;
+const AppId_t k_nGameIDMW2SP = 10180;
+const AppId_t k_nGameIDMW2MP = 10190;
+const AppId_t k_nGameIDIW5SP = 42680;
+const AppId_t k_nGameIDIW5MP = 42690;
+const AppId_t k_nGameIDCODBLOPSSP = 42700;
+const AppId_t k_nGameIDCODBLOPSMP = 42710;
 const AppId_t k_nGameIDEmpireTotalWar = 10500;
 const AppId_t k_nGameCSSOnline = 11600;
 const AppId_t k_nGameIDFirstSource = 200;
@@ -372,6 +389,10 @@ const AppId_t k_nGameIDFirstNonSource = 1000;
 const AppId_t k_nGameIDMax = 2147483647;
 const AppId_t k_nGameIDStress = 30020;
 const AppId_t k_nGameIDGCTest = 30100;
+const AppId_t k_nAppATIDriver_Vista7_32 = 61800;
+const AppId_t k_nAppATIDriver_Vista7_64 = 61810;
+const AppId_t k_nAppATIDriver_XP_32 = 61820;
+const AppId_t k_nAppATIDriver_XP_64 = 61830;
 
 typedef enum ShareType_t
 {
@@ -443,8 +464,8 @@ const uint32 k_unFavoriteFlagHistory		= 0x02; // this game favorite entry is for
 typedef uint32 SNetSocket_t;
 typedef uint32 SNetListenSocket_t;
 
-// 32KB max size on chat messages
-const uint32 k_cchFriendChatMsgMax = 32 * 1024;
+// max size on chat messages
+const uint32 k_cchFriendChatMsgMax = 0x3000;
 
 // maximum number of characters in a user's name. Two flavors; one for UTF-8 and one for UTF-16.
 // The UTF-8 version has to be very generous to accomodate characters that get large when encoded

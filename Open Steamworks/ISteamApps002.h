@@ -38,7 +38,7 @@ public:
 	virtual const char *GetAvailableGameLanguages() = 0;
 
 	// only use this member if you need to check ownership of another game related to yours, a demo for example
-	virtual bool BIsSubscribedApp( AppId_t appID ) = 0;
+	virtual bool BIsSubscribedApp( AppId_t nAppID ) = 0;
 };
 
 

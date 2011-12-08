@@ -55,6 +55,22 @@
 		#define OBSOLETE_FUNCTION
 #endif
 
+#ifndef STEAMWORKS_OBSOLETE_CALLBACKS
+	#ifdef _MSC_VER
+		#define OBSOLETE_CALLBACK __declspec(deprecated("This callback is obsolete and will not be triggered in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_CALLBACKS to suppress this warning."))
+	#elif defined(__GNUC__)
+		#if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5))
+			#define OBSOLETE_CALLBACK __attribute__((__deprecated__("This callback is obsolete and is not triggered in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_CALLBACKS to suppress this warning.")))
+		#else
+			#define OBSOLETE_CALLBACK __attribute__((__deprecated__))
+		#endif
+	#else
+		#define OBSOLETE_CALLBACK
+	#endif
+#else
+		#define OBSOLETE_CALLBACK
+#endif
+
 #ifndef STEAMWORKS_CLIENT_INTERFACES
 	#ifdef _MSC_VER
 		#define UNSAFE_INTERFACE __declspec(deprecated("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to suppress this warning."))

@@ -27,19 +27,6 @@
 #define STEAMGAMECOORDINATOR_INTERFACE_VERSION_001 "SteamGameCoordinator001"
 
 
-
-enum EGCMsgResponse
-{
-	k_EGCMsgResponseOK,
-	k_EGCMsgResponseDenied,
-	k_EGCMsgResponseServerError,
-	k_EGCMsgResponseTimeout,
-	k_EGCMsgResponseInvalid,
-	k_EGCMsgResponseNoMatch,
-	k_EGCMsgResponseUnknownError,
-	k_EGCMsgResponseNotLoggedOn,
-};
-
 // list of possible return values from the ISteamGameCoordinator API
 enum EGCResults
 {

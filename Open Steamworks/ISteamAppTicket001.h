@@ -32,7 +32,7 @@
 abstract_class ISteamAppTicket001
 {
 public:
-    virtual uint32 GetAppOwnershipTicketData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, uint32 *piAppId, uint32 *piSteamId, uint32 *piSignature, uint32 *pcbSignature ) = 0;
+	virtual uint32 GetAppOwnershipTicketData( AppId_t nAppId, void *pvSignedTicket, uint32 cbSignedTicket, uint32 *piAppId, uint32 *piSteamId, uint32 *piSignature, uint32 *pcbSignature ) = 0;
 };
 
 #endif // ISTEAMAPPTICKET001_H

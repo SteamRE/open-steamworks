@@ -35,7 +35,7 @@
 
 enum ERemoteStorageFileRoot
 {
-	k_ERemoteStorageFileRootInvalid = 0,
+	k_ERemoteStorageFileRootInvalid = -1,
 	k_ERemoteStorageFileRootDefault,
 	k_ERemoteStorageFileRootGameInstall,
 	k_ERemoteStorageFileRootWinMyDocuments,
@@ -50,19 +50,27 @@ enum ERemoteStorageFileRoot
 
 enum ERemoteStorageSyncState
 {
-	k_ERemoteSyncStateUnknown = 0,
-	k_ERemoteSyncStateSynchronized = 1,
-	k_ERemoteSyncStateSyncInProgress = 2,
-	k_ERemoteSyncStatePendingChangesInCloud = 3,
-	k_ERemoteSyncStatePendingChangesLocally = 4,
-	k_ERemoteSyncStatePendingChangesInCloudAndLocally = 5,
+	k_ERemoteSyncStateDisabled = 0,
+	k_ERemoteSyncStateUnknown = 1,
+	k_ERemoteSyncStateSynchronized = 2,
+	k_ERemoteSyncStateSyncInProgress = 3,
+	k_ERemoteSyncStatePendingChangesInCloud = 4,
+	k_ERemoteSyncStatePendingChangesLocally = 5,
+	k_ERemoteSyncStatePendingChangesInCloudAndLocally = 6,
+	k_ERemoteSyncStateConflictingChanges = 7,
 };
 
 enum EUCMFilePrivacyState
 {
+	k_EUCMFilePrivacyStateInvalid = -1,
+
+	k_EUCMFilePrivacyStateUnpublished = 0,
+	k_EUCMFilePrivacyStatePublished = 1,
+
 	k_EUCMFilePrivacyStatePrivate = 2,
 	k_EUCMFilePrivacyStateFriendsOnly = 4,
 	k_EUCMFilePrivacyStatePublic = 8,
+	k_EUCMFilePrivacyStateAll = 14,
 };
 
 enum ERemoteStoragePlatform
@@ -130,6 +138,14 @@ struct RemoteStorageAppSyncProgress_t
 	bool m_bUploading;							// if false, downloading
 };
 
+struct RemoteStorageAppInfoLoaded_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 4 };
+
+	AppId_t m_nAppID;
+	EResult m_eResult;
+};
+
 //-----------------------------------------------------------------------------
 // Purpose: Sent after we've determined the list of files that are out of sync
 //          with the server.
@@ -140,8 +156,6 @@ struct RemoteStorageAppSyncStatusCheck_t
 	AppId_t m_nAppID;
 	EResult m_eResult;
 };
-
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Sent after a conflict resolution attempt.
@@ -174,9 +188,13 @@ struct Deprecated_RemoteStorageDownloadUGCResult_t
 	AppId_t m_nAppID;				// ID of the app that created this file.
 	int32 m_nSizeInBytes;			// The size of the file that was downloaded, in bytes.
 	char *m_pchFileName;			// The name of the file that was downloaded. This pointer is
-	// not guaranteed to be valid indefinitely.
+									// not guaranteed to be valid indefinitely.
 	uint64 m_ulSteamIDOwner;		// Steam ID of the user who created this content.
 };
+
+
+// TODO : Add callbacks 1309 to 1316
+
 
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to UGCDownload()

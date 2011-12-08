@@ -28,27 +28,27 @@ abstract_class ISteam2Bridge001
 public:
 	virtual void SetSteam2Ticket( uint8 *pubTicket, int cubTicket ) = 0;
 
-	virtual bool SetAccountName( const char *szName ) = 0;
-	virtual bool SetPassword( const char *szPassword ) = 0;
-	virtual bool SetAccountCreationTime( RTime32 creationTime ) = 0;
+	virtual bool SetAccountName( const char *pchAccountName ) = 0;
+	virtual bool SetPassword( const char *pchPassword ) = 0;
+	virtual bool SetAccountCreationTime( RTime32 rt ) = 0;
 
-	virtual unknown_ret CreateProcess( void *lpVACBlob, uint32 cbBlobSize, char const *, char *, uint32 , void *, char *, uint32 ) = 0;
+	virtual bool CreateProcess( void *lpVACBlob, uint32 cbBlobSize, char const *lpApplicationName, char *lpCommandLine, uint32 dwCreationFlags, void *lpEnvironment, char *lpCurrentDirectory, uint32 nGameID ) = 0;
 
 	virtual EUniverse GetConnectedUniverse() = 0;
 	virtual const char *GetIPCountry() = 0;
 
 	virtual uint32 GetNumLicenses() = 0;
 
-	virtual uint32 GetLicensePackageID( uint32 licenseId ) = 0;
-	virtual RTime32 GetLicenseTimeCreated( uint32 licenseId ) = 0;
-	virtual RTime32 GetLicenseTimeNextProcess( uint32 licenseId ) = 0;
-	virtual uint32 GetLicenseMinuteLimit( uint32 licenseId ) = 0;
-	virtual uint32 GetLicenseMinutesUsed( uint32 licenseId ) = 0;
-	virtual EPaymentMethod GetLicensePaymentMethod( uint32 licenseId ) = 0;
-	virtual ELicenseFlags GetLicenseFlags( uint32 licenseId ) = 0;
-	virtual const char *GetLicensePurchaseCountryCode( uint32 licenseId ) = 0;
+	virtual int32 GetLicensePackageID( uint32 nLicenseIndex ) = 0;
+	virtual RTime32 GetLicenseTimeCreated( uint32 nLicenseIndex ) = 0;
+	virtual RTime32 GetLicenseTimeNextProcess( uint32 nLicenseIndex ) = 0;
+	virtual int32 GetLicenseMinuteLimit( uint32 nLicenseIndex ) = 0;
+	virtual int32 GetLicenseMinutesUsed( uint32 nLicenseIndex ) = 0;
+	virtual EPaymentMethod GetLicensePaymentMethod( uint32 nLicenseIndex ) = 0;
+	virtual ELicenseFlags GetLicenseFlags( uint32 nLicenseIndex ) = 0;
+	virtual const char *GetLicensePurchaseCountryCode( uint32 nLicenseIndex ) = 0;
 
-	virtual bool SetOfflineMode( bool offlineMode ) = 0;
+	virtual bool SetOfflineMode( bool bOffline ) = 0;
 };
 
 #endif // ISTEAM2BRIDGE001_H

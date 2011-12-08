@@ -161,7 +161,7 @@ public:
 	// if current user is chat restricted, he can't send or receive any text/voice chat messages.
 	// the user can't see custom avatars. But the user can be online and send/recv game invites.
 	// a chat restricted user can't add friends or join any groups.
-	virtual uint32 GetUserRestrictions() = 0;
+	virtual EUserRestriction GetUserRestrictions() = 0;
 
 	// Rich Presence data is automatically shared between friends who are in the same game
 	// Each user has a set of Key/Value pairs

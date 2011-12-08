@@ -105,6 +105,7 @@ public:
 	// data. The suggested buffer size for the destination buffer is 22 kilobytes.
 	virtual EVoiceResult DecompressVoice( void *pCompressed, uint32 cbCompressed, void *pDestBuffer, uint32 cbDestBufferSize, uint32 *nBytesWritten, uint32 nSamplesPerSec ) = 0;
 
+	// This returns the frequency of the voice data as it's stored internally; calling DecompressVoice() with this size will yield the best results
 	virtual uint32 GetVoiceOptimalSampleRate() = 0;
 
 	// Retrieve ticket to be sent to the entity who wishes to authenticate you. 
@@ -125,13 +126,22 @@ public:
 	// to determine if the user owns downloadable content specified by the provided AppID.
 	virtual EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
 
-
+	// returns true if this users looks like they are behind a NAT device. Only valid once the user has connected to steam 
+	// (i.e a SteamServersConnected_t has been issued) and may not catch all forms of NAT.
 	virtual bool BIsBehindNAT() = 0;
-	
-	virtual bool AdvertiseGame( CSteamID steamIDGameServer, uint32 unIPServer , uint16 usPortServer ) = 0;
 
-	virtual SteamAPICall_t RequestEncryptedAppTicket(const void *pUserData, int cbUserData) = 0;
-	virtual bool GetEncryptedAppTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket) = 0;
+	// set data to be replicated to friends so that they can join your game
+	// CSteamID steamIDGameServer - the steamID of the game server, received from the game server by the client
+	// uint32 unIPServer, uint16 usPortServer - the IP address of the game server
+	virtual void AdvertiseGame( CSteamID steamIDGameServer, uint32 unIPServer, uint16 usPortServer ) = 0;
+
+	// Requests a ticket encrypted with an app specific shared key
+	// pDataToInclude, cbDataToInclude will be encrypted into the ticket
+	// ( This is asynchronous, you must wait for the ticket to be completed by the server )
+	virtual SteamAPICall_t RequestEncryptedAppTicket( void *pDataToInclude, int cbDataToInclude ) = 0;
+
+	// retrieve a finished ticket
+	virtual bool GetEncryptedAppTicket( void *pTicket, int cbMaxTicket, uint32 *pcbTicket ) = 0;
 };
 
 #endif // ISTEAMUSER015_H

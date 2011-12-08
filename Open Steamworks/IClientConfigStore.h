@@ -30,28 +30,28 @@
 abstract_class UNSAFE_INTERFACE IClientConfigStore
 {
 public:
-	virtual bool IsSet( EConfigStore eConfigStore, const char *keyName ) = 0;
+	virtual bool IsSet( EConfigStore eConfigStore, const char *pszKeyNameIn ) = 0;
 
-	virtual bool GetBool( EConfigStore eConfigStore, const char *keyName, bool defaultValue ) = 0;
-	virtual int GetInt( EConfigStore eConfigStore, const char *keyName, int defaultValue ) = 0;
-	virtual uint64 GetUint64( EConfigStore eConfigStore, const char *keyName, uint64 defaultValue ) = 0;
-	virtual float GetFloat( EConfigStore eConfigStore, const char *keyName, float defaultValue ) = 0;
-	virtual const char* GetString( EConfigStore eConfigStore, const char *keyName, const char *defaultValue ) = 0;
-	virtual bool GetBinary( EConfigStore eConfigStore, const char *keyName, uint8 *pBuffer, uint32 uSize ) = 0;
-	virtual bool GetBinaryWatermarked( EConfigStore eConfigStore, const char *keyName, uint8 *pBuffer, uint32 uSize ) = 0;
+	virtual bool GetBool( EConfigStore eConfigStore, const char *pszKeyNameIn, bool defaultValue ) = 0;
+	virtual int32 GetInt( EConfigStore eConfigStore, const char *pszKeyName, int defaultValue ) = 0;
+	virtual uint64 GetUint64( EConfigStore eConfigStore, const char *pszKeyName, uint64 defaultValue ) = 0;
+	virtual float GetFloat( EConfigStore eConfigStore, const char *pszKeyName, float defaultValue ) = 0;
+	virtual const char* GetString( EConfigStore eConfigStore, const char *pszKeyName, const char *defaultValue ) = 0;
+	virtual uint32 GetBinary( EConfigStore eConfigStore, const char *pszKeyName, uint8 *pubBuf, uint32 cubBuf ) = 0;
+	virtual uint32 GetBinaryWatermarked( EConfigStore eConfigStore, const char *pszKeyName, uint8 *pubBuf, uint32 cubBuf ) = 0;
 
-	virtual void SetBool( EConfigStore eConfigStore, const char *keyName, bool value ) = 0;
-	virtual void SetInt( EConfigStore eConfigStore, const char *keyName, int value ) = 0;
-	virtual void SetUint64( EConfigStore eConfigStore, const char *keyName, uint64 value ) = 0;
-	virtual void SetFloat( EConfigStore eConfigStore, const char *keyName, float value ) = 0;
-	virtual void SetString( EConfigStore eConfigStore, const char *keyName, const char *value ) = 0;
-	virtual void SetBinary( EConfigStore eConfigStore, const char *keyName, const uint8 *pBuffer, uint32 uSize ) = 0;
-	virtual void SetBinaryWatermarked( EConfigStore eConfigStore, const char *keyName, const uint8 *pBuffer, uint32 uSize ) = 0;
+	virtual bool SetBool( EConfigStore eConfigStore, const char *pszKeyNameIn, bool value ) = 0;
+	virtual bool SetInt( EConfigStore eConfigStore, const char *pszKeyNameIn, int32 nValue ) = 0;
+	virtual bool SetUint64( EConfigStore eConfigStore, const char *pszKeyNameIn, uint64 unValue ) = 0;
+	virtual bool SetFloat( EConfigStore eConfigStore, const char *pszKeyNameIn, float flValue ) = 0;
+	virtual bool SetString( EConfigStore eConfigStore, const char *pszKeyNameIn, const char *pszValue ) = 0;
+	virtual bool SetBinary( EConfigStore eConfigStore, const char *pszKeyName, const uint8 *pubData, uint32 cubData ) = 0;
+	virtual bool SetBinaryWatermarked( EConfigStore eConfigStore, const char *pszKeyName, const uint8 *pubData, uint32 cubData ) = 0;
 
-	virtual void RemoveKey( EConfigStore eConfigStore, const char *keyName ) = 0;
-	virtual bool GetKeySerialized( EConfigStore eConfigStore, const char *keyName, uint8 *pBuffer, int iSize ) = 0;
+	virtual bool RemoveKey( EConfigStore eConfigStore, const char *pszKeyName ) = 0;
+	virtual int32 GetKeySerialized( EConfigStore eConfigStore, const char *pszKeyNameIn, uint8 *pchBuffer, int cbBufferMax ) = 0;
 
-	virtual bool FlushToDisk( bool ) = 0;
+	virtual bool FlushToDisk( bool bIsShuttingDown ) = 0;
 };
 
 #endif // ICLIENTCONFIGSTORE_H

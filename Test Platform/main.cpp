@@ -108,7 +108,7 @@ int main()
 		{
 			switch (callBack.m_iCallback)
 			{
-			case LogonSuccess_t::k_iCallback:
+			case SteamServersConnected_t::k_iCallback:
 				{
 					printf("Successfully logged on!\n");
 
@@ -132,10 +132,10 @@ int main()
 					break;
 				}
 
-			case LogonFailure_t::k_iCallback:
+			case SteamServerConnectFailure_t::k_iCallback:
 				{
-					LogonFailure_t *pLoginFailureInfo = (LogonFailure_t *)callBack.m_pubParam;
-					fprintf(stderr, "Logon failed with eResult %u !\n", pLoginFailureInfo->m_eResult);
+					SteamServerConnectFailure_t *pConnectFailureInfo = (SteamServerConnectFailure_t *)callBack.m_pubParam;
+					fprintf(stderr, "Logon failed with eResult %u !\n", pConnectFailureInfo->m_eResult);
 
 					pClientEngine->ReleaseUser(hPipe, hUser);
 					pClientEngine->BReleaseSteamPipe(hPipe);
@@ -146,7 +146,7 @@ int main()
 			case FriendChatMsg_t::k_iCallback:
 				{
 					FriendChatMsg_t *pFriendMessageInfo = (FriendChatMsg_t *)callBack.m_pubParam;
-					if (pFriendMessageInfo->m_ulSender == adminID)
+					if (pFriendMessageInfo->m_ulSenderID == adminID)
 					{
 						EChatEntryType eMsgType;
 						CSteamID chatter;
@@ -154,11 +154,11 @@ int main()
 						char szData[k_cchFriendChatMsgMax];  
 						memset(szData, 0, k_cchFriendChatMsgMax);  
 
-						int iLength = pClientFriends->GetChatMessage(pFriendMessageInfo->m_ulSender, pFriendMessageInfo->m_iChatID, szData, sizeof(szData), &eMsgType, &chatter);  
+						int iLength = pClientFriends->GetChatMessage(pFriendMessageInfo->m_ulSenderID, pFriendMessageInfo->m_iChatID, szData, sizeof(szData), &eMsgType, &chatter);  
 
 						if (eMsgType == k_EChatEntryTypeChatMsg || eMsgType == k_EChatEntryTypeEmote)  
 						{
-							printf("Message from %s: %s\n", pFriendMessageInfo->m_ulSender.Render(), szData);
+							printf("Message from %s: %s\n", pFriendMessageInfo->m_ulSenderID.Render(), szData);
 
 							if (strcmp(szData, "quit") == 0)
 							{
@@ -178,7 +178,7 @@ int main()
 								return 0;
 							}
 
-							pClientFriends->SendMsgToFriend(pFriendMessageInfo->m_ulSender, eMsgType, szData, iLength);
+							pClientFriends->SendMsgToFriend(pFriendMessageInfo->m_ulSenderID, eMsgType, szData, iLength);
 						}
 					}
 					break;

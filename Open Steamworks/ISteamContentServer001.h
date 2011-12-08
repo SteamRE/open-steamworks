@@ -31,7 +31,7 @@ public:
 
 	virtual bool BLoggedOn() = 0;
 
-	virtual void SendClientContentAuthRequest( CSteamID steamId, uint32 unContentID ) = 0;
+	virtual void SendClientContentAuthRequest( CSteamID steamID, uint32 unContentID ) = 0;
 };
 
 

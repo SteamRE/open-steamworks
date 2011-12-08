@@ -30,76 +30,76 @@ abstract_class OBSOLETE_INTERFACE ISteamBilling002
 {
 public:
 
-	virtual unknown_ret InitCreditCardPurchase( int, uint32, bool ) = 0;
-	virtual unknown_ret InitPayPalPurchase( int ) = 0;
+	virtual bool InitCreditCardPurchase( PackageId_t nPackageID, uint32 nCardIndex, bool bStoreCardInfo ) = 0;
+	virtual bool InitPayPalPurchase( PackageId_t nPackageID ) = 0;
 
-	virtual unknown_ret GetActivationCodeInfo( const char* ) = 0;
-	virtual unknown_ret PurchaseWithActivationCode( const char* ) = 0;
+	virtual bool GetActivationCodeInfo( const char *pchActivationCode ) = 0;
+	virtual bool PurchaseWithActivationCode( const char *pchActivationCode ) = 0;
 
-	virtual unknown_ret GetFinalPrice( void ) = 0;
+	virtual bool GetFinalPrice() = 0;
 
-	virtual unknown_ret CancelPurchase( void ) = 0;
-	virtual unknown_ret CompletePurchase( void ) = 0;
+	virtual bool CancelPurchase() = 0;
+	virtual bool CompletePurchase() = 0;
 
-	virtual unknown_ret UpdateCardInfo( uint32 ) = 0;
+	virtual bool UpdateCardInfo( uint32 nCardIndex ) = 0;
 
-	virtual unknown_ret DeleteCard( uint32 ) = 0;
+	virtual bool DeleteCard( uint32 ) = 0;
 
-	virtual unknown_ret GetCardList( void ) = 0;
+	virtual bool GetCardList() = 0;
 
-	virtual unknown_ret GetLicenses( void ) = 0;
+	virtual bool Obsolete_GetLicenses() = 0;
 
-	virtual unknown_ret CancelLicense( int, int ) = 0;
+	virtual bool CancelLicense( PackageId_t nPackageID, int32 nCancelReason ) = 0;
 
-	virtual unknown_ret GetPurchaseReceipts( bool ) = 0;
-	virtual unknown_ret AcknowledgePurchaseReceipt( uint32 ) = 0;
-
-	// Sets the billing address in the ISteamBilling object for use by other ISteamBilling functions (not stored on server)
-	virtual bool SetBillingAddress( uint32, const char *pchName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone) = 0;
-
-	// Gets any previous set billing address in the ISteamBilling object (not stored on server)
-	virtual bool GetBillingAddress( uint32, char *pchName, char *pchAddress1, char *pchAddress2, char *pchCity, char *pchPostcode, char *pchState, char *pchCountry, char *pchPhone) = 0;
+	virtual bool GetPurchaseReceipts( bool bUnacknowledgedOnly ) = 0;
+	virtual bool AcknowledgePurchaseReceipt( uint32 nReceiptIndex ) = 0;
 
 	// Sets the billing address in the ISteamBilling object for use by other ISteamBilling functions (not stored on server)
-	virtual bool SetShippingAddress( const char *pchName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone, const char *) = 0;
+	virtual bool SetBillingAddress( uint32 nCardIndex, const char *pchFirstName, const char *pchLastName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone ) = 0;
+
 	// Gets any previous set billing address in the ISteamBilling object (not stored on server)
-	virtual bool GetShippingAddress( char *pchName, char *pchAddress1, char *pchAddress2, char *pchCity, char *pchPostcode, char *pchState, char *pchCountry, char *pchPhone) = 0;
+	virtual bool GetBillingAddress( uint32 nCardIndex, char *pchFirstName, char *pchLastName, char *pchAddress1, char *pchAddress2, char *pchCity, char *pchPostcode, char *pchState, char *pchCountry, char *pchPhone ) = 0;
+
+	// Sets the billing address in the ISteamBilling object for use by other ISteamBilling functions (not stored on server)
+	virtual bool SetShippingAddress( const char *pchFirstName, const char *pchLastName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone ) = 0;
+	// Gets any previous set billing address in the ISteamBilling object (not stored on server)
+	virtual bool GetShippingAddress( char *pchFirstName, char *pchLastName, char *pchAddress1, char *pchAddress2, char *pchCity, char *pchPostcode, char *pchState, char *pchCountry, char *pchPhone ) = 0;
 
 	// Sets the credit card info in the ISteamBilling object for use by other ISteamBilling functions  (may eventually also be stored on server)
-	virtual bool SetCardInfo( uint32, ECreditCardType eCreditCardType, const char *pchCardNumber, const char *pchCardHolderName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2, const char *) = 0;
+	virtual bool SetCardInfo( uint32 nCardIndex, ECreditCardType eCreditCardType, const char *pchCardNumber, const char *pchCardHolderFirstName, const char *pchCardHolderLastName, const char *pchCardExpYear, const char *pchCardExpMonth, const char *pchCardCVV2 ) = 0;
 	// Gets any credit card info in the ISteamBilling object (not stored on server)
-	virtual bool GetCardInfo( uint32, ECreditCardType *eCreditCardType, char *pchCardNumber, char *pchCardHolderName, char *pchCardExpYear, char *pchCardExpMonth, char *pchCardCVV2, char *) = 0;
+	virtual bool GetCardInfo( uint32 nCardIndex, ECreditCardType *eCreditCardType, char *pchCardNumber, char *pchCardHolderFirstName, char *pchCardHolderLastName, char *pchCardExpYear, char *pchCardExpMonth, char *pchCardCVV2 ) = 0;
 
-	virtual uint32 GetLicensePackageID( uint32 licenseId ) = 0;
-	virtual RTime32 GetLicenseTimeCreated( uint32 licenseId ) = 0;
-	virtual unknown_ret GetLicenseTimeNextProcess( uint32 licenseId ) = 0;
-	virtual uint32 GetLicenseMinuteLimit( uint32 licenseId ) = 0;
-	virtual uint32 GetLicenseMinutesUsed( uint32 licenseId ) = 0;
-	virtual EPaymentMethod GetLicensePaymentMethod( uint32 licenseId ) = 0;
-	virtual ELicenseFlags GetLicenseFlags( uint32 licenseId ) = 0;
-	virtual const char *GetLicensePurchaseCountryCode( uint32 licenseId ) = 0;
+	virtual PackageId_t GetLicensePackageID( uint32 nLicenseIndex ) = 0;
+	virtual RTime32 GetLicenseTimeCreated( uint32 nLicenseIndex ) = 0;
+	virtual RTime32 GetLicenseTimeNextProcess( uint32 nLicenseIndex ) = 0;
+	virtual int32 GetLicenseMinuteLimit( uint32 nLicenseIndex ) = 0;
+	virtual int32 GetLicenseMinutesUsed( uint32 nLicenseIndex ) = 0;
+	virtual EPaymentMethod GetLicensePaymentMethod( uint32 nLicenseIndex ) = 0;
+	virtual ELicenseFlags GetLicenseFlags( uint32 nLicenseIndex ) = 0;
+	virtual const char *GetLicensePurchaseCountryCode( uint32 nLicenseIndex ) = 0;
 
-	virtual unknown_ret GetReceiptPackageID( uint32 ) = 0;
-	virtual unknown_ret GetReceiptStatus( uint32 ) = 0;
-	virtual unknown_ret GetReceiptResultDetail( uint32 ) = 0;
-	virtual RTime32 GetReceiptTransTime( uint32 ) = 0;
-	virtual unknown_ret GetReceiptTransID( uint32 ) = 0;
-	virtual bool GetReceiptAcknowledged( uint32 ) = 0;
-	virtual EPaymentMethod GetReceiptPaymentMethod( uint32 ) = 0;
-	virtual uint32 GetReceiptBaseCost( uint32 ) = 0;
-	virtual uint32 GetReceiptTotalDiscount( uint32 ) = 0;
-	virtual uint32 GetReceiptTax( uint32 ) = 0;
-	virtual uint32 GetReceiptShipping( uint32 ) = 0;
-	virtual const char *GetReceiptCountryCode( uint32 ) = 0;
+	virtual PackageId_t GetReceiptPackageID( uint32 nReceiptIndex ) = 0;
+	virtual EPurchaseStatus GetReceiptStatus( uint32 nReceiptIndex ) = 0;
+	virtual EPurchaseResultDetail GetReceiptResultDetail( uint32 nReceiptIndex ) = 0;
+	virtual RTime32 GetReceiptTransTime( uint32 nReceiptIndex ) = 0;
+	virtual uint64 GetReceiptTransID( uint32 nReceiptIndex ) = 0;
+	virtual bool GetReceiptAcknowledged( uint32 nReceiptIndex ) = 0;
+	virtual EPaymentMethod GetReceiptPaymentMethod( uint32 nReceiptIndex ) = 0;
+	virtual uint32 GetReceiptBaseCost( uint32 nReceiptIndex ) = 0;
+	virtual uint32 GetReceiptTotalDiscount( uint32 nReceiptIndex ) = 0;
+	virtual uint32 GetReceiptTax( uint32 nReceiptIndex ) = 0;
+	virtual uint32 GetReceiptShipping( uint32 nReceiptIndex ) = 0;
+	virtual const char *GetReceiptCountryCode( uint32 nReceiptIndex ) = 0;
 
-	virtual uint32 GetNumLicenses( void ) = 0;
-	virtual uint32 GetNumReceipts( void ) = 0;
+	virtual uint32 GetNumLicenses() = 0;
+	virtual uint32 GetNumReceipts() = 0;
 
-	virtual unknown_ret PurchaseWithMachineID( int, const char* ) = 0;
+	virtual bool PurchaseWithMachineID( PackageId_t nPackageID, const char *pchCustomData ) = 0;
 
-	virtual unknown_ret InitClickAndBuyPurchase( int, int64, const char*, const char* ) = 0;
+	virtual bool InitClickAndBuyPurchase( PackageId_t nPackageID, int64 nAccountNum, const char *pchState, const char *pchCountryCode ) = 0;
 
-	virtual unknown_ret GetPreviousClickAndBuyAccount( int64 *, char *, char * ) = 0;
+	virtual bool GetPreviousClickAndBuyAccount( int64 *pnAccountNum, char *pchState, char *pchCountryCode ) = 0;
 
 };
 

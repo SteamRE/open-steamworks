@@ -30,12 +30,13 @@
 
 typedef enum EDepotBuildStatus
 {
-	k_EDepotBuildStatusInvalid = -1,
-	k_EDepotBuildStatusFailed = 0,
+	k_EDepotBuildStatusInvalid = 0,
 	k_EDepotBuildStatusProcessingConfig = 1,
-	k_EDepotBuildStatusProcessingData = 2,
-	k_EDepotBuildStatusUploadingData = 3,
-	k_EDepotBuildStatusCompleted = 4,
+	k_EDepotBuildStatusBuildingFileList = 2,
+	k_EDepotBuildStatusProcessingData = 3,
+	k_EDepotBuildStatusUploadingData = 4,
+	k_EDepotBuildStatusCompleted = 5,
+	k_EDepotBuildStatusFailed = 6,
 }  EDepotBuildStatus;
 
 //-----------------------------------------------------------------------------
@@ -70,7 +71,7 @@ public:
 
 	virtual bool BGetChunkCounts( HDEPOTBUILD hDepotBuild, uint32 *unTotalChunksInNewBuild, uint32 *unChunksAlsoInOldBuild ) = 0;
 
-	virtual bool GetManifestGIDs( HDEPOTBUILD hDepotBuild, uint64 *, uint64 * ) = 0;
+	virtual bool GetManifestGIDs( HDEPOTBUILD hDepotBuild, GID_t* pBaselineGID, GID_t* pNewGID ) = 0;
 
 	virtual uint32 RebaseAndBuildDepot( uint64, uint64 ) = 0;
 

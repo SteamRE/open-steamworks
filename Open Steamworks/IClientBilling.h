@@ -44,10 +44,10 @@ public:
 	virtual int32 GetLicenseMinuteLimit( uint32 nLicenseIndex ) = 0;
 	virtual int32 GetLicenseMinutesUsed( uint32 nLicenseIndex ) = 0;
 	virtual EPaymentMethod GetLicensePaymentMethod( uint32 nLicenseIndex ) = 0;
-	virtual uint32 GetLicenseFlags( uint32 nLicenseIndex ) = 0;
+	virtual ELicenseFlags GetLicenseFlags( uint32 nLicenseIndex ) = 0;
 	virtual const char *GetLicensePurchaseCountryCode( uint32 nLicenseIndex ) = 0;
 	virtual int32 GetLicenseTerritoryCode( uint32 nLicenseIndex ) = 0;
-	virtual bool GetLicenseInfo( uint32 nLicenseIndex, uint32 * puTimeCreated, uint32 * puTimeNextProcess, int32 * piMinuteLimit, int32 * piMinutesUsed, EPaymentMethod * pePaymentMethod, uint32 * puFlags, int32 * piTerritoryCode, char * pchPurchaseCountryCode /* Use a 3 bytes buffer */) = 0;
+	virtual bool GetLicenseInfo( uint32 nLicenseIndex, RTime32* pRTime32Created, RTime32* pRTime32NextProcess, int32* pnMinuteLimit, int32 * pnMinutesUsed, EPaymentMethod* pePaymentMethod, uint32* punFlags, int32 * pnTerritoryCode, char * prgchPurchaseCountryCode /* Use a 3 bytes buffer */) = 0;
 
 	virtual PackageId_t GetReceiptPackageID( uint32 nReceiptIndex ) = 0;
 	virtual EPurchaseStatus GetReceiptStatus( uint32 nReceiptIndex ) = 0;
@@ -72,7 +72,7 @@ public:
 	virtual uint32 GetNumLicenses() = 0;
 	virtual uint32 GetNumReceipts() = 0;
 
-	virtual bool PurchaseWithMachineID( PackageId_t packageId, const char *pchCustomData ) = 0;
+	virtual bool PurchaseWithMachineID( PackageId_t nPackageID, const char *pchCustomData ) = 0;
 
 	virtual bool GetReceiptCardInfo( uint32 nReceiptIndex, ECreditCardType* eCreditCardType, char* pchCardLast4Digits, char* pchCardHolderFirstName, char* pchCardHolderLastName, char* pchCardExpYear, char* pchCardExpMonth ) = 0;
 

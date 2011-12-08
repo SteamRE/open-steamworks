@@ -119,19 +119,43 @@ public:
 	// You can also use ActivateGameOverlay( "LobbyInvite" ) to allow the user to create invitations for their current public lobby.
 	virtual void ActivateGameOverlayInviteDialog( CSteamID steamIDLobby ) = 0;
 
-	// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+	// gets the small (32x32) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
 	virtual int GetSmallFriendAvatar( CSteamID steamIDFriend ) = 0;
+
+	// gets the medium (64x64) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
 	virtual int GetMediumFriendAvatar( CSteamID steamIDFriend ) = 0;
+
+	// gets the large (184x184) avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
+	// returns -1 if this image has yet to be loaded, in this case wait for a AvatarImageLoaded_t callback and then call this again
 	virtual int GetLargeFriendAvatar( CSteamID steamIDFriend ) = 0;
 
-	virtual bool RequestUserInformation( CSteamID steamID, bool bUnk1 ) = 0;
+	// requests information about a user - persona name & avatar
+	// if bRequireNameOnly is set, then the avatar of a user isn't downloaded 
+	// - it's a lot slower to download avatars and churns the local cache, so if you don't need avatars, don't request them
+	// if returns true, it means that data is being requested, and a PersonaStateChanged_t callback will be posted when it's retrieved
+	// if returns false, it means that we already have all the details about that user, and functions can be called immediately
+	virtual bool RequestUserInformation( CSteamID steamIDUser, bool bRequireNameOnly ) = 0;
 
-	virtual SteamAPICall_t RequestClanOfficerList( CSteamID clanId ) = 0;
-	virtual CSteamID GetClanOwner( CSteamID clanId ) = 0;
-	virtual int GetClanOfficerCount( CSteamID clanId ) = 0;
-	virtual CSteamID GetClanOfficerByIndex( CSteamID clanId, int iIndex ) = 0;
+	// requests information about a clan officer list
+	// when complete, data is returned in ClanOfficerListResponse_t call result
+	// this makes available the calls below
+	// you can only ask about clans that a user is a member of
+	// note that this won't download avatars automatically; if you get an officer,
+	// and no avatar image is available, call RequestUserInformation( steamID, false ) to download the avatar
+	virtual SteamAPICall_t RequestClanOfficerList( CSteamID steamIDClan ) = 0;
 
-	virtual unknown_ret GetUserRestrictions() = 0;
+	// iteration of clan officers - can only be done when a RequestClanOfficerList() call has completed
+
+	// returns the steamID of the clan owner
+	virtual CSteamID GetClanOwner( CSteamID steamIDClan ) = 0;
+	// returns the number of officers in a clan (including the owner)
+	virtual int GetClanOfficerCount( CSteamID steamIDClan ) = 0;
+	// returns the steamID of a clan officer, by index, of range [0,GetClanOfficerCount)
+	virtual CSteamID GetClanOfficerByIndex( CSteamID steamIDClan, int iOfficer ) = 0;
+	// if current user is chat restricted, he can't send or receive any text/voice chat messages.
+	// the user can't see custom avatars. But the user can be online and send/recv game invites.
+	// a chat restricted user can't add friends or join any groups.
+	virtual EUserRestriction GetUserRestrictions() = 0;
 };
 
 

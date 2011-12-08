@@ -35,7 +35,9 @@ typedef enum ECurrencyCode
 	k_ECurrencyCodeUSD = 1,
 	k_ECurrencyCodeGBP = 2,
 	k_ECurrencyCodeEUR = 3,
-	k_ECurrencyCodeMax = 4,
+	k_ECurrencyCodeCHF = 4,
+	k_ECurrencyCodeRUB = 5,
+	k_ECurrencyCodeMax = 6,
 } ECurrencyCode;
 
 // Flags for licenses - BITS
@@ -52,22 +54,26 @@ typedef enum ELicenseFlags
 	k_ELicenseFlagImportedFromSteam2 = 0x80,
 } ELicenseFlags;
 
-// Payment methods for purchases - BIT FLAGS so can be used to indicate
-// acceptable payment methods for packages
+// Payment methods for purchases
 typedef enum EPaymentMethod
 {
-	k_EPaymentMethodNone = 0x00,
-	k_EPaymentMethodCDKey = 0x01,		
-	k_EPaymentMethodCreditCard = 0x02,
-	k_EPaymentMethodPayPal = 0x04,		
-	k_EPaymentMethodManual = 0x08,		// Purchase was added by Steam support
+	k_EPaymentMethodNone = 0,
+	k_EPaymentMethodActivationCode = 1,		
+	k_EPaymentMethodCreditCard = 2,
+	k_EPaymentMethodGiropay = 3,
+	k_EPaymentMethodPayPal = 4,
+	k_EPaymentMethodIdeal = 5,
+	k_EPaymentMethodPaySafeCard = 6,
+	k_EPaymentMethodSofort = 7,
 	k_EPaymentMethodGuestPass = 8,
+	k_EPaymentMethodWebMoney = 9,
 	k_EPaymentMethodHardwarePromo = 16,
 	k_EPaymentMethodClickAndBuy = 32,
 	k_EPaymentMethodAutoGrant = 64,
 	k_EPaymentMethodWallet = 128,
 	k_EPaymentMethodOEMTicket = 256,
 	k_EPaymentMethodSplit = 512,
+	k_EPaymentMethodComplimentary = 1024,
 } EPaymentMethod;
 
 typedef enum EPurchaseResultDetail
@@ -106,6 +112,13 @@ typedef enum EPurchaseResultDetail
 	k_EPurchaseResultFailedCyberCafe = 28,
 	k_EPurchaseResultNeedsPreApproval = 29,
 	k_EPurchaseResultPreApprovalDenied = 30,
+	k_EPurchaseResultWalletCurrencyMismatch = 31,
+	k_EPurchaseResultEmailNotValidated = 32,
+	k_EPurchaseResultExpiredCard = 33,
+	k_EPurchaseResultTransactionExpired = 34,
+	k_EPurchaseResultWouldExceedMaxWallet = 35,
+	k_EPurchaseResultMustLoginPS3AppForPurchase = 36,
+	k_EPurchaseResultCannotShipToPOBox = 37,
 } EPurchaseResultDetail;
 
 typedef enum EPurchaseStatus
@@ -118,6 +131,8 @@ typedef enum EPurchaseStatus
 	k_EPurchaseChargedback = 5,
 	k_EPurchaseRevoked = 6,
 	k_EPurchaseInDispute = 7,
+	k_EPurchasePartialRefund = 8,
+	k_EPurchaseRefundToWallet = 9,
 } EPurchaseStatus;
 
 typedef enum ECreditCardType
@@ -129,6 +144,11 @@ typedef enum ECreditCardType
 	k_ECreditCardTypeDiscover = 4,
 	k_ECreditCardTypeDinersClub = 5,
 	k_ECreditCardTypeJCB = 6,
+	k_ECreditCardTypeCarteBleue = 7,
+	k_ECreditCardTypeDankort = 8,
+	k_ECreditCardTypeMaestro = 9,
+	k_ECreditCardTypeSolo = 10,
+	k_ECreditCardTypeLaser = 11,
 } ECreditCardType;
 
 enum ELicenseType
@@ -146,7 +166,7 @@ enum ELicenseType
 //-----------------------------------------------------------------------------
 // Purpose: called when this client has received a finalprice message from a Billing
 //-----------------------------------------------------------------------------
-struct FinalPriceMsg_t
+struct OBSOLETE_CALLBACK FinalPriceMsg_t
 {
 		enum { k_iCallback = k_iSteamBillingCallbacks + 1 };
 
@@ -157,7 +177,7 @@ struct FinalPriceMsg_t
 		uint32 m_nShippingCost;
 };
 
-struct PurchaseMsg_t
+struct OBSOLETE_CALLBACK PurchaseMsg_t
 {
 		enum { k_iCallback = k_iSteamBillingCallbacks + 2 };
 
@@ -168,11 +188,31 @@ struct PurchaseMsg_t
 // Sent in response to PurchaseWithActivationCode
 struct PurchaseResponse_t
 {
-		enum { k_iCallback = k_iSteamBillingCallbacks + 4 };
-		
-		int32 m_EPurchaseStatus;
-		int32 m_EPurchaseResultDetail;
-		int32 m_iReceiptIndex;
+	enum { k_iCallback = k_iSteamBillingCallbacks + 4 };
+	
+	EResult m_EResult;
+	int32 m_EPurchaseResultDetail;
+	int32 m_iReceiptIndex;
+};
+
+struct CancelLicenseMsg_t
+{
+	enum { k_iCallback = k_iSteamBillingCallbacks + 9 };
+
+	enum EResult m_EResult;
+};
+
+// TODO: Add callback 411
+// TODO: Add callback 412
+
+struct OEMTicketActivationResponse_t
+{
+	enum { k_iCallback = k_iSteamBillingCallbacks + 14 };
+
+	EResult m_EResult;
+	EPurchaseResultDetail m_EPurchaseResultDetail;
+	PackageId_t m_nPackageID;
+	int m_iReceiptIndex;
 };
 #pragma pack( pop )
 

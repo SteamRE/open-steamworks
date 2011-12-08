@@ -67,6 +67,14 @@ enum ELobbyDistanceFilter
 //-----------------------------------------------------------------------------
 // Purpose: a server was added/removed from the favorites list, you should refresh now
 //-----------------------------------------------------------------------------
+struct FavoritesListChangedOld_t
+{
+	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 1 };
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: a server was added/removed from the favorites list, you should refresh now
+//-----------------------------------------------------------------------------
 struct FavoritesListChanged_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 2 };
@@ -123,6 +131,7 @@ struct LobbyDataUpdate_t
 
 	CSteamID m_ulSteamIDLobby;		// steamID of the Lobby
 	CSteamID m_ulSteamIDMember;		// steamID of the member whose data changed, or the room itself
+	uint8 m_bSuccess;
 };
 
 //-----------------------------------------------------------------------------
@@ -158,7 +167,7 @@ struct LobbyChatMsg_t
 //-----------------------------------------------------------------------------
 // Purpose: There's a change of Admin in this Lobby
 //-----------------------------------------------------------------------------
-struct LobbyAdminChange_t
+struct OBSOLETE_CALLBACK LobbyAdminChange_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 8 };
 
@@ -237,7 +246,17 @@ struct LobbyCreated_t
 							// k_EResultAccessDenied - your game isn't set to allow lobbies, or your client does haven't rights to play the game
 							// k_EResultLimitExceeded - your game client has created too many lobbies
 
-	CSteamID m_ulSteamIDLobby;		// chat room, zero if failed
+	uint64 m_ulSteamIDLobby;		// chat room, zero if failed
+};
+
+struct RequestFriendsLobbiesResponse_t
+{
+	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 14 };
+
+	uint64 m_ulSteamIDFriend;
+	uint64 m_ulSteamIDLobby;
+	int m_cResultIndex;
+	int m_cResultsTotal;
 };
 
 

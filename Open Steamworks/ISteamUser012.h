@@ -106,8 +106,7 @@ public:
 
 	// After receiving a user's authentication data, and passing it to BeginAuthSession, use this function
 	// to determine if the user owns downloadable content specified by the provided AppID.
-	//virtual EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
-	virtual uint32 UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
+	virtual EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
 };
 
 #endif // ISTEAMUSER012_H

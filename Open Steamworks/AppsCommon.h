@@ -81,6 +81,68 @@ enum EAppInfoSection
 	k_EAppInfoSectionCommunity
 };
 
+struct AppUpdateInfo_s
+{
+	RTime32 m_timeUpdateStart;
+	uint64 m_unBytesToDownload;
+	uint64 m_unBytesDownloaded;
+	uint64 m_unBytesToProcess;
+	uint64 m_unBytesProcessed;
+};
+
+struct DownloadStats_s
+{
+	uint32 m_uIsDownloadEnabled;
+	uint32 m_unCurrentConnections;
+	uint32 m_unCurrentBytesPerSec;
+	uint64 m_unTotalBytesDownload;
+	CellID_t m_unCurrentCell;
+};
+
+enum EAppDownloadPriority
+{
+	k_EAppDownloadPriorityNone = 0,
+	k_EAppDownloadPriorityTop = 1,
+	k_EAppDownloadPriorityUp = 2,
+	k_EAppDownloadPriorityDown = 3,
+
+};
+
+enum EAppUpdateError
+{
+	k_EAppErrorNone = 0,
+	k_EAppErrorUnspecified = 1,
+	k_EAppErrorUnknownApp = 2,
+	k_EAppErrorCanceled = 3,
+	k_EAppErrorSuspended = 4,
+	k_EAppErrorNoSubscription = 5,
+	k_EAppErrorNoConnection = 6,
+	k_EAppErrorTimeout = 7,
+	k_EAppErrorMissingKey = 8,
+	k_EAppErrorMissingConfig = 9,
+	k_EAppErrorMissingContent = 10,
+	k_EAppErrorDiskFailed = 11,
+	k_EAppErrorNotEnoughDiskSpace = 12,
+	k_EAppErrorCryptoFailed = 13,
+	k_EAppErrorCorruptContent = 14,
+};
+
+enum ERegisterActivactionCodeResult
+{
+	k_ERegisterActivactionCodeResultOK = 0,
+	k_ERegisterActivactionCodeResultFail = 1,
+	k_ERegisterActivactionCodeResultAlreadyRegistered = 2,
+	k_ERegisterActivactionCodeResultTimeout = 3,
+};
+
+struct SHADigestWrapper_t
+{
+	uint32 A;
+	uint32 B;
+	uint32 C;
+	uint32 D;
+	uint32 E;
+};
 
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
@@ -96,7 +158,6 @@ struct AppDataChanged_t
 	bool m_bCDDBUpdate;
 };
 
-
 struct RequestAppCallbacksComplete_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 2 };
@@ -110,6 +171,13 @@ struct AppInfoUpdateComplete_t
 	uint32 m_cAppsUpdated;
 };
 
+struct AppEventTriggered_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 4 };
+
+	AppId_t m_nAppID;
+	EAppEvent m_eAppEvent;
+};
 
 //-----------------------------------------------------------------------------
 // Purpose: posted after the user gains ownership of DLC & that DLC is installed
@@ -121,14 +189,60 @@ struct DlcInstalled_t
 	AppId_t m_nAppID;		// AppID of the DLC
 };
 
-struct OptionalDLCInstallation_t
+struct AppEventStateChange_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 6 };
+
+	AppId_t m_nAppID;
+	uint32 m_eOldState;
+	uint32 m_eNewState;
+	EAppUpdateError m_eAppError;
+};
+
+struct AppValidationComplete_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 7 };
+
+	AppId_t m_nAppID;
+	EResult m_eResult;
+
+	uint64 m_TotalBytesValidated;
+	uint64 m_TotalBytesFailed;
+	uint32 m_TotalFilesValidated;
+	uint32 m_TotalFilesFailed;
+};
+
+struct RegisterActivationCodeResponse_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 8 };
+
+	ERegisterActivactionCodeResult m_eResult;
+	uint32 m_unPackageRegistered;
+};
+
+struct DownloadScheduleChanged_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 9 };
+
+	bool m_bDownloadEnabled;
+	uint32 m_nTotalAppsScheduled;
+	unsigned int m_rgunAppSchedule[32];
+};
+
+struct DlcInstallRequest_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 10 };
 
-	AppId_t		m_nAppID;
-	bool		m_bUnk;
+	AppId_t m_nAppID;
+	bool m_bInstall;
 };
 
+struct AppBackupStatus_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 12 };
+
+	// TODO : Reverse this callback
+};
 #pragma pack( pop )
 
 #endif // APPSCOMMON_H

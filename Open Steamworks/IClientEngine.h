@@ -117,7 +117,7 @@ public:
 
 	virtual void *GetIPCServerMap() = 0;
 
-	virtual unknown_ret OnDebugTextArrived( const char *pchDebugText ) = 0;
+	virtual void OnDebugTextArrived( const char *pchDebugText ) = 0;
 };
 
 #endif // ICLIENTENGINE_H
