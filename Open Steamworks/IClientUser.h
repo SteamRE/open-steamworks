@@ -291,6 +291,8 @@ public:
 	virtual SteamAPICall_t RequestSpecialSurvey( uint32 uSurveyId ) = 0;
 	// Result returned by SendSpecialSurveyResponseResult_t callback
 	virtual SteamAPICall_t SendSpecialSurveyResponse( uint32 uSurveyId, const uint8 * pubData, uint32 cubData ) = 0;
+	
+	virtual void RequestItemAnnouncements() = 0;
 };
 
 #endif // ICLIENTUSER_H
