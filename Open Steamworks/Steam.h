@@ -350,4 +350,6 @@ S_API int STEAM_CALL SteamForceCellId( unsigned int uCellId, TSteamError* pError
 
 S_API int SteamWasBlobRegistryDeleted( int *pbWasDeleted, TSteamError *pError );
 
+S_API int SteamGetDepotParent( unsigned int uDepotId, unsigned int* puParentId, TSteamError* pError );
+
 #endif // STEAM_H

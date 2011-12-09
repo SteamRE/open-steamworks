@@ -274,45 +274,6 @@ struct OBSOLETE_CALLBACK BeginLogonRetry_t
 };
 
 //-----------------------------------------------------------------------------
-// Purpose: called when the steam2 ticket has been set
-//-----------------------------------------------------------------------------
-struct OBSOLETE_CALLBACK Steam2TicketChanged_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 6 };
-};
-
-//-----------------------------------------------------------------------------
-// Purpose: called when app news update is recieved
-//-----------------------------------------------------------------------------
-struct ClientAppNewsItemUpdate_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 10 };
-
-	uint8 m_eNewsUpdateType;	// one of ENewsUpdateType
-	uint32 m_uNewsID;			// unique news post ID
-	uint32 m_uAppID;			// app ID this update applies to if it is of type k_EAppNews
-};
-
-
-//-----------------------------------------------------------------------------
-// Purpose: steam news update
-//-----------------------------------------------------------------------------
-struct ClientSteamNewsItemUpdate_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 12 };
-
-	uint8 m_eNewsUpdateType;	// one of ENewsUpdateType
-
-	uint32 m_uNewsID;			// unique news post ID
-	uint32 m_uHaveSubID;		// conditions to control if we display this update for type k_ESteamNews
-	uint32 m_uNotHaveSubID;
-	uint32 m_uHaveAppID;
-	uint32 m_uNotHaveAppID;
-	uint32 m_uHaveAppIDInstalled;
-	uint32 m_uHavePlayedAppID;
-};
-
-//-----------------------------------------------------------------------------
 // Purpose: Sent by the Steam server to the client telling it to disconnect from the specified game server,
 //			which it may be in the process of or already connected to.
 //			The game client should immediately disconnect upon receiving this message.
@@ -341,19 +302,6 @@ struct OBSOLETE_CALLBACK PrimaryChatDestinationSetOld_t
 // See GSPolicyResponse_t in GameServerCommon.h for callback 115
 
 //-----------------------------------------------------------------------------
-// Purpose: steam cddb/bootstrapper update
-//-----------------------------------------------------------------------------
-struct ClientSteamNewsClientUpdate_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 16 };
-
-	uint8 m_eNewsUpdateType;	// one of ENewsUpdateType
-	uint8 m_bReloadCDDB; // if true there is a new CDDB available
-	uint32 m_unCurrentBootstrapperVersion;
-	uint32 m_unCurrentClientVersion;
-};
-
-//-----------------------------------------------------------------------------
 // Purpose: called when the callback system for this client is in an error state (and has flushed pending callbacks)
 //			When getting this message the client should disconnect from Steam, reset any stored Steam state and reconnect.
 //			This usually occurs in the rare event the Steam client has some kind of fatal error.
@@ -369,95 +317,9 @@ struct IPCFailure_t
 	uint8 m_eFailureType;
 };
 
-struct LegacyCDKeyRegistered_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 18 };
-
-	EResult m_eResult;
-	AppId_t m_iAppID;
-	char m_rgchCDKey[ 64 ];
-};
-
-struct AccountInformationUpdated_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 19 };
-
-	bool m_bEmailValidationAction;
-};
-
-struct GuestPassSent_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 20 };
-
-	EResult m_eResult;
-};
-
-struct GuestPassAcked_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 21 };
-
-	EResult m_eResult;
-
-	PackageId_t m_unPackageID;
-
-	GID_t m_gidGuestPassID;
-	uint64 m_ulGuestPassKey;
-};
-
-struct GuestPassRedeemed_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 22 };
-
-	EResult m_eResult;
-	uint32 m_unPackageID;
-};
-
-struct UpdateGuestPasses_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 23 };
-
-	EResult m_eResult;
-
-	uint32 m_cGuestPassesToGive;
-	uint32 m_cGuestPassesToRedeem;
-};
-
-struct LogOnCredentialsChanged_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 24 };
-};
-
 struct LicensesUpdated_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 25 };
-};
-
-struct CheckPasswordResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 26 };
-
-	EResult m_EResult;
-};
-
-struct ResetPasswordResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 27 };
-
-	EResult m_EResult;
-};
-
-struct OBSOLETE_CALLBACK DRMDataResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 28 };
-
-	// TODO : Reverse this callback
-};
-
-struct OBSOLETE_CALLBACK DRMFailureResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 29 };
-
-	// TODO : Reverse this callback
 };
 
 struct AppLifetimeNotice_t
@@ -469,91 +331,11 @@ struct AppLifetimeNotice_t
 	bool m_bExiting;
 };
 
-struct AppOwnershipTicketReceived_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 31 };
-
-	AppId_t m_nAppID;
-};
-
-struct PasswordChangeResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 32 };
-
-	EResult m_EResult;
-};
-
-struct EmailChangeResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 33 };
-
-	EResult m_EResult;
-	bool m_bFinal;
-};
-
-struct SecretQAChangeResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 34 };
-
-	EResult m_EResult;
-};
-
-struct CreateAccountResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 35 };
-
-	EResult m_EResult;
-};
-
-struct DRMDataRequest_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 36 };
-
-	uint32 m_EResult;
-	uint32 m_unAppID;
-	bool m_bRestartApp;
-};
-
-struct SendForgottonPasswordEmailResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 37 };
-
-	EResult m_EResult;
-};
-
-struct ResetForgottonPasswordResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 38 };
-
-	EResult m_EResult;
-};
-
-struct CreateAccountInformSteam3Response_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 39 };
-
-	uint32 m_EResult;
-};
-
-struct DownloadFromDFSResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 40 };
-
-	EResult m_EResult;
-
-	char m_rgchURL[ 128 ];
-};
-
 struct OBSOLETE_CALLBACK DRMSDKFileTransferResult_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 41 };
 
 	EResult m_EResult;
-};
-
-struct ClientMarketingMessageUpdate_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 42 };
 };
 
 //-----------------------------------------------------------------------------
@@ -564,66 +346,6 @@ struct ValidateAuthTicketResponse_t
 	enum { k_iCallback = k_iSteamUserCallbacks + 43 };
 	CSteamID m_SteamID;
 	EAuthSessionResponse m_eAuthSessionResponse;
-};
-
-struct ValidateEmailResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 44 };
-
-	uint32 m_EResult;
-};
-
-struct RequestChangeEmailResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 45 };
-
-	uint32 m_EResult;
-};
-
-struct VerifyPasswordResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 46 };
-
-	uint32 m_EResult;
-};
-
-struct Steam2LoginResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 47 };
-
-	bool m_bSuccessful;
-	uint32 m_steam2Error;
-};
-
-struct WebAuthRequestCallback_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 48 };
-	
-	bool m_bSuccessful;
-	char m_rgchToken[512];
-};
-
-struct MicroTxnAuthRequestCallback_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 49 };
-
-	GID_t m_gidTransID;
-	AppId_t m_unAppID;
-};
-
-struct MicroTxnAuthResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 50 };
-
-	EMicroTxnAuthResult m_eAuthResult;
-};
-
-
-struct AppMinutesPlayedDataNotice_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 51 };
-
-	int32 m_nAppID;
 };
 
 //-----------------------------------------------------------------------------
@@ -638,14 +360,6 @@ struct MicroTxnAuthorizationResponse_t
 	uint8 m_bAuthorized;		// if user authorized transaction
 };
 
-struct MicroTxnInfoUpdated_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 53 };
-
-	EResult m_eResult;
-	GID_t m_gidTransID;
-};
-
 //-----------------------------------------------------------------------------
 // Purpose: Result from RequestEncryptedAppTicket
 //-----------------------------------------------------------------------------
@@ -654,83 +368,6 @@ struct EncryptedAppTicketResponse_t
 	enum { k_iCallback = k_iSteamUserCallbacks + 54 };
 
 	EResult m_eResult;
-};
-
-struct WalletBalanceUpdated_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 55 };
-};
-
-struct EnableMachineLockingResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 56 };
-
-	uint32 m_EResult;
-};
-
-struct MachineLockProgressResponse_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 57 };
-
-	uint32 m_EResult;
-};
-
-struct Steam3ExtraLoginProgress_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 58 }; // Note sure
-
-	uint32 m_EResult;
-	int32 m_eState;
-};
-
-struct GetNumAccountsWithEmailAddressResult_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 59 };
-
-	// TODO : Reverse this callback
-};
-
-struct IsAccountNameInUseResult_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 60 };
-
-	// TODO : Reverse this callback
-};
-
-struct FindAccountsByEmailAddressResult_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 61 };
-
-	// TODO : Reverse this callback
-};
-
-struct LoginInformationChanged_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 62 };
-
-	// TODO : Reverse this callback
-};
-
-struct RequestSpecialSurveyResult_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 63 };
-
-	int32 m_iSurveyID;
-	EResult m_eResult;
-	/*ESurveyState*/int32 m_eState; // 1 = denied, 4 = already complete
-	char m_szName[256];
-	char m_szCustomURL[512];
-	bool m_bIncludeSoftware; 
-	uint8 m_ubToken[16];
-};
-
-struct SendSpecialSurveyResponseResult_t
-{
-	enum { k_iCallback = k_iSteamUserCallbacks + 64 };
-
-	int32 m_iSurveyID;
-	EResult m_eResult;
-	uint8 m_ubToken[16];
 };
 
 
@@ -809,6 +446,368 @@ struct UninstallClientApp_t
 	uint64 m_ulJobIDToPostResultTo;
 	AppId_t m_nAppID;
 };
+
+//-----------------------------------------------------------------------------
+// Purpose: called when the steam2 ticket has been set
+//-----------------------------------------------------------------------------
+struct OBSOLETE_CALLBACK Steam2TicketChanged_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 10 };
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: called when app news update is recieved
+//-----------------------------------------------------------------------------
+struct ClientAppNewsItemUpdate_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 11 };
+
+	uint8 m_eNewsUpdateType;	// one of ENewsUpdateType
+	uint32 m_uNewsID;			// unique news post ID
+	uint32 m_uAppID;			// app ID this update applies to if it is of type k_EAppNews
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: steam news update
+//-----------------------------------------------------------------------------
+struct ClientSteamNewsItemUpdate_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 12 };
+
+	uint8 m_eNewsUpdateType;	// one of ENewsUpdateType
+
+	uint32 m_uNewsID;			// unique news post ID
+	uint32 m_uHaveSubID;		// conditions to control if we display this update for type k_ESteamNews
+	uint32 m_uNotHaveSubID;
+	uint32 m_uHaveAppID;
+	uint32 m_uNotHaveAppID;
+	uint32 m_uHaveAppIDInstalled;
+	uint32 m_uHavePlayedAppID;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: steam cddb/bootstrapper update
+//-----------------------------------------------------------------------------
+struct ClientSteamNewsClientUpdate_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 13 };
+
+	uint8 m_eNewsUpdateType;	// one of ENewsUpdateType
+	uint8 m_bReloadCDDB;		// if true there is a new CDDB available
+	uint32 m_unCurrentBootstrapperVersion;
+	uint32 m_unCurrentClientVersion;
+};
+
+struct LegacyCDKeyRegistered_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 14 };
+
+	EResult m_eResult;
+	AppId_t m_iAppID;
+	char m_rgchCDKey[ 64 ];
+};
+
+struct AccountInformationUpdated_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 15 };
+
+	bool m_bEmailValidationAction;
+};
+
+struct GuestPassSent_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 16 };
+
+	EResult m_eResult;
+};
+
+struct GuestPassAcked_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 17 };
+
+	EResult m_eResult;
+
+	PackageId_t m_unPackageID;
+
+	GID_t m_gidGuestPassID;
+	uint64 m_ulGuestPassKey;
+};
+
+struct GuestPassRedeemed_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 18 };
+
+	EResult m_eResult;
+	uint32 m_unPackageID;
+};
+
+struct UpdateGuestPasses_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 19 };
+
+	EResult m_eResult;
+
+	uint32 m_cGuestPassesToGive;
+	uint32 m_cGuestPassesToRedeem;
+};
+
+struct LogOnCredentialsChanged_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 20 };
+};
+
+struct CheckPasswordResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 22 };
+
+	EResult m_EResult;
+};
+
+struct ResetPasswordResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 23 };
+
+	EResult m_EResult;
+};
+
+struct DRMDataRequest_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 24 };
+
+	uint32 m_EResult;
+	uint32 m_unAppID;
+	bool m_bRestartApp;
+};
+
+struct DRMDataResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 25 };
+
+	// TODO : Reverse this callback
+};
+
+struct DRMFailureResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 26 };
+
+	// TODO : Reverse this callback
+};
+
+struct AppOwnershipTicketReceived_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 28 };
+
+	AppId_t m_nAppID;
+};
+
+struct PasswordChangeResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 29 };
+
+	EResult m_EResult;
+};
+
+struct EmailChangeResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 30 };
+
+	EResult m_EResult;
+	bool m_bFinal;
+};
+
+struct SecretQAChangeResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 31 };
+
+	EResult m_EResult;
+};
+
+struct CreateAccountResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 32 };
+
+	EResult m_EResult;
+};
+
+struct SendForgottonPasswordEmailResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 33 };
+
+	EResult m_EResult;
+};
+
+struct ResetForgottonPasswordResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 34 };
+
+	EResult m_EResult;
+};
+
+struct CreateAccountInformSteam3Response_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 35 };
+
+	uint32 m_EResult;
+};
+
+struct DownloadFromDFSResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 36 };
+
+	EResult m_EResult;
+
+	char m_rgchURL[ 128 ];
+};
+
+struct ClientMarketingMessageUpdate_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 37 };
+};
+
+struct ValidateEmailResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 38 };
+
+	uint32 m_EResult;
+};
+
+struct RequestChangeEmailResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 39 };
+
+	uint32 m_EResult;
+};
+
+struct VerifyPasswordResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 40 };
+
+	uint32 m_EResult;
+};
+
+struct Steam2LoginResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 41 };
+
+	bool m_bSuccessful;
+	uint32 m_steam2Error;
+};
+
+struct WebAuthRequestCallback_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 42 };
+	
+	bool m_bSuccessful;
+	char m_rgchToken[512];
+};
+
+struct MicroTxnAuthRequestCallback_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 44 };
+
+	GID_t m_gidTransID;
+	AppId_t m_unAppID;
+};
+
+struct MicroTxnAuthResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 45 };
+
+	EMicroTxnAuthResult m_eAuthResult;
+};
+
+struct AppMinutesPlayedDataNotice_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 46 };
+
+	int32 m_nAppID;
+};
+
+struct MicroTxnInfoUpdated_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 47 };
+
+	EResult m_eResult;
+	GID_t m_gidTransID;
+};
+
+struct WalletBalanceUpdated_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 48 };
+};
+
+struct EnableMachineLockingResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 49 };
+
+	uint32 m_EResult;
+};
+
+struct MachineLockProgressResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 50 };
+
+	uint32 m_EResult;
+};
+
+struct Steam3ExtraLoginProgress_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 51 }; // Note sure
+
+	uint32 m_EResult;
+	int32 m_eState;
+};
+
+struct RequestAccountDataResult_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 52 };
+
+	// TODO : Reverse this callback
+};
+
+struct IsAccountNameInUseResult_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 53 };
+
+	// TODO : Reverse this callback
+};
+
+struct LoginInformationChanged_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 55 };
+
+	// TODO : Reverse this callback
+};
+
+struct RequestSpecialSurveyResult_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 56 };
+
+	int32 m_iSurveyID;
+	EResult m_eResult;
+	/*ESurveyState*/int32 m_eState; // 1 = denied, 4 = already complete
+	char m_szName[256];
+	char m_szCustomURL[512];
+	bool m_bIncludeSoftware; 
+	uint8 m_ubToken[16];
+};
+
+struct SendSpecialSurveyResponseResult_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 57 };
+
+	int32 m_iSurveyID;
+	EResult m_eResult;
+	uint8 m_ubToken[16];
+};
+
+struct UpdateItemAnnouncement_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 58 };
+
+	// TODO : Reverse this callback
+};
+
 #pragma pack( pop )
 
 

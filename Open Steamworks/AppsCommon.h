@@ -29,6 +29,7 @@
 #define STEAMAPPS_INTERFACE_VERSION_002 "STEAMAPPS_INTERFACE_VERSION002"
 #define STEAMAPPS_INTERFACE_VERSION_003 "STEAMAPPS_INTERFACE_VERSION003"
 #define STEAMAPPS_INTERFACE_VERSION_004 "STEAMAPPS_INTERFACE_VERSION004"
+#define STEAMAPPS_INTERFACE_VERSION_005 "STEAMAPPS_INTERFACE_VERSION005"
 
 
 enum EAppState
@@ -242,6 +243,15 @@ struct AppBackupStatus_t
 	enum { k_iCallback = k_iSteamAppsCallbacks + 12 };
 
 	// TODO : Reverse this callback
+};
+
+struct RequestAppProofOfPurchaseKeyResponse_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 13 };
+
+	EResult m_eResult;
+	AppId_t m_nAppID;
+	char m_szCDKey[64];	
 };
 #pragma pack( pop )
 

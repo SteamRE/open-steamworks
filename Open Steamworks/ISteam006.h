@@ -178,6 +178,7 @@ public:
 	virtual int GetAppDLCStatus( unsigned int nAppID, unsigned int nDlcId, int* pbOwned, TSteamError* pError ) = 0;
 	virtual int StartEngineEx( TSteamError* pError, bool bOffline, bool bRefreshServerCache ) = 0;
 	virtual int IsUsingSdkContentServer( int* pbIsUsingSdkContentServer, TSteamError* pError ) = 0;
+	virtual int GetDepotParent( unsigned int uDepotId, unsigned int* puParentId, TSteamError* pError ) = 0;
 	virtual SteamCallHandle_t SetUser2( const char* cszUser, TSteamError* pError ) = 0;
 };
 
