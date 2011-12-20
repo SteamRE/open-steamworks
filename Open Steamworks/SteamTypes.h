@@ -674,6 +674,8 @@ enum ECallbackType
 #include "servernetadr.h"
 #include "gameserveritem.h"
 #include "FriendGameInfo.h"
+#include "EVoiceResult.h"
+#include "ECurrencyCode.h"
 
 // structure that contains client callback data
 struct CallbackMsg_t

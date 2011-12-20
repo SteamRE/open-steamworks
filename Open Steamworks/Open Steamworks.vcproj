@@ -107,7 +107,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\ECurrencyCode.h"
+					>
+				</File>
+				<File
 					RelativePath=".\EResult.h"
+					>
+				</File>
+				<File
+					RelativePath=".\EVoiceResult.h"
 					>
 				</File>
 				<File

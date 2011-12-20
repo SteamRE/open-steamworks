@@ -96,19 +96,6 @@ typedef enum ELogonState
 	k_ELogonStateLoggedOn = 3
 } ELogonState;
 
-// Error codes for use with the voice functions
-typedef enum EVoiceResult
-{
-	k_EVoiceResultOK = 0,
-	k_EVoiceResultNotInitialized = 1,
-	k_EVoiceResultNotRecording = 2,
-	k_EVoiceResultNoData = 3,
-	k_EVoiceResultBufferTooSmall = 4,
-	k_EVoiceResultDataCorrupted = 5,
-	k_EVoiceResultRestricted = 6,
-	k_EVoiceResultUnsupportedCodec = 7,
-} EVoiceResult;
-
 //-----------------------------------------------------------------------------
 // Purpose: types of VAC bans
 //-----------------------------------------------------------------------------
@@ -205,8 +192,6 @@ public:
 	bool m_bMultiUserChat : 1;
 	bool m_bRelay : 1;
 };
-
-enum ECurrencyCode;
 
 class CAmount
 {

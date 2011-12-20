@@ -29,17 +29,6 @@
 
 
 
-typedef enum ECurrencyCode
-{
-	k_ECurrencyCodeInvalid = 0,
-	k_ECurrencyCodeUSD = 1,
-	k_ECurrencyCodeGBP = 2,
-	k_ECurrencyCodeEUR = 3,
-	k_ECurrencyCodeCHF = 4,
-	k_ECurrencyCodeRUB = 5,
-	k_ECurrencyCodeMax = 6,
-} ECurrencyCode;
-
 // Flags for licenses - BITS
 typedef enum ELicenseFlags
 {

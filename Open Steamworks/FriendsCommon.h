@@ -286,7 +286,7 @@ const int k_cFriendGroupLimit = 100;
 const int k_nMaxFriends = 250;
 const int k_nMaxPendingInvitations = 48;
 
-enum EVoiceResult;
+
 
 #pragma pack( push, 8 )
 
