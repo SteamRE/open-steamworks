@@ -114,10 +114,6 @@ public:
 	virtual bool BShutdownIfAllPipesClosed() = 0;
 
 	virtual IClientAudio *GetIClientAudio( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
-
-	virtual void *GetIPCServerMap() = 0;
-
-	virtual void OnDebugTextArrived( const char *pchDebugText ) = 0;
 };
 
 #endif // ICLIENTENGINE_H
