@@ -34,7 +34,7 @@ public:
 	virtual SteamAPICall_t RequestUserStats( CSteamID steamIDUser, CGameID gameID ) = 0;
 	virtual bool GetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, int32 *pData ) = 0;
 	virtual bool GetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float *pData ) = 0;
-	virtual bool GetUserAchievement( CSteamID steamIDUser, CGameID gameID, const char *pchName, bool *pbAchieved, uint32* puUnk = NULL ) = 0;
+	virtual bool GetUserAchievement( CSteamID steamIDUser, CGameID gameID, const char *pchName, bool *pbAchieved, RTime32 *prtTime ) = 0;
 	virtual bool SetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, int32 nData ) = 0;
 	virtual bool SetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float fData ) = 0;
 	virtual bool UpdateUserAvgRateStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float flCountThisSession, double dSessionLength ) = 0;

@@ -54,7 +54,7 @@ public:
 	virtual bool UpdateAvgRateStat( CGameID nGameID, const char *pchName, float flCountThisSession, double dSessionLength ) = 0;
 
 	// Achievement flag accessors
-	virtual bool GetAchievement( CGameID nGameID, const char *pchName, bool *pbAchieved, uint32 * ) = 0;
+	virtual bool GetAchievement( CGameID nGameID, const char *pchName, bool *pbAchieved, uint32 *punUnlockTime ) = 0;
 	virtual bool SetAchievement( CGameID nGameID, const char *pchName ) = 0;
 	virtual bool ClearAchievement( CGameID nGameID, const char *pchName ) = 0;
 
@@ -65,7 +65,7 @@ public:
 	// Gets the icon of the achievement, which is a handle to be used in IClientUtils::GetImageRGBA( ), or 0 if none set
 	virtual int GetAchievementIcon( CGameID nGameID, const char *pchName, EGetAchievementIcon ) = 0;
 	// Get general attributes ( display name / text, etc) for an Achievement
-	virtual const char * GetAchievementDisplayAttribute( CGameID nGameID, const char *pchName, const char *pchKey, bool ) = 0;
+	virtual const char * GetAchievementDisplayAttribute( CGameID nGameID, const char *pchName, const char *pchKey, bool bUseGameLanguage ) = 0;
 
 	// Achievement progress - triggers an AchievementProgress callback, that is all.
 	// Calling this w/ N out of N progress will NOT set the achievement, the game must still do that.
@@ -82,7 +82,7 @@ public:
 	// requests stat information for a user, usable after a successful call to RequestUserStats( )
 	virtual bool GetUserStat( CSteamID steamIDUser, CGameID nGameID, const char *pchName, int *pData ) = 0;
 	virtual bool GetUserStat( CSteamID steamIDUser, CGameID nGameID, const char *pchName, float *pData ) = 0;
-	virtual bool GetUserAchievement( CSteamID steamIDUser, CGameID nGameID, const char  *pchName, bool *pbAchieved, uint32 * ) = 0;
+	virtual bool GetUserAchievement( CSteamID steamIDUser, CGameID nGameID, const char  *pchName, bool *pbAchieved, uint32 *punUnlockTime ) = 0;
 
 	// Reset stats
 	virtual bool ResetAllStats( CGameID nGameID, bool bAchievementsToo ) = 0;
@@ -117,8 +117,10 @@ public:
 	// k_ELeaderboardDataRequestFriends requests all the rows for friends of the current user 
 	virtual SteamAPICall_t DownloadLeaderboardEntries( SteamLeaderboard_t hSteamLeaderboard, ELeaderboardDataRequest eLeaderboardDataRequest, int nRangeStart, int nRangeEnd ) = 0;
 
-	virtual SteamAPICall_t DownloadLeaderboardEntriesForUsers( SteamLeaderboard_t hSteamLeaderboard, CSteamID *, int ) = 0;
-
+	// as above, but downloads leaderboard entries for an arbitrary set of users - ELeaderboardDataRequest is k_ELeaderboardDataRequestUsers
+	// if a user doesn't have a leaderboard entry, they won't be included in the result
+	// a max of 100 users can be downloaded at a time, with only one outstanding call at a time
+	virtual SteamAPICall_t DownloadLeaderboardEntriesForUsers( SteamLeaderboard_t hSteamLeaderboard, CSteamID *prgUsers, int cUsers ) = 0;
 
 	// Returns data about a single leaderboard entry
 	// use a for loop from 0 to LeaderboardScoresDownloaded_t::m_cEntryCount to get all the downloaded entries
@@ -136,9 +138,10 @@ public:
 	// once you've accessed all the entries, the data will be free'd, and the SteamLeaderboardEntries_t handle will become invalid
 	virtual bool GetDownloadedLeaderboardEntry( SteamLeaderboardEntries_t hSteamLeaderboardEntries, int index, LeaderboardEntry_t *pLeaderboardEntry, int *pDetails, int cDetailsMax ) = 0;
 
-
-	virtual SteamAPICall_t AttachLeaderboardUGC( SteamLeaderboard_t hSteamLeaderboard, uint64 Unk1 ) = 0;
-
+	// Attaches a piece of user generated content the user's entry on a leaderboard.
+	// hContent is a handle to a piece of user generated content that was shared using ISteamUserRemoteStorage::FileShare().
+	// This call is asynchronous, with the result returned in LeaderboardUGCSet_t.
+	virtual SteamAPICall_t AttachLeaderboardUGC( SteamLeaderboard_t hSteamLeaderboard, UGCHandle_t hUGC ) = 0;
 
 	// Uploads a user score to the Steam back-end.
 	// This call is asynchronous, with the result returned in LeaderboardScoreUploaded_t
@@ -149,20 +152,45 @@ public:
 
 	// Retrieves the number of players currently playing your game ( online + offline)
 	// This call is asynchronous, with the result returned in NumberOfCurrentPlayers_t
-	virtual SteamAPICall_t GetNumberOfCurrentPlayers(  ) = 0;
+	virtual SteamAPICall_t GetNumberOfCurrentPlayers() = 0;
 
 	virtual uint32 GetNumAchievedAchievements( CGameID nGameID ) = 0;
 	virtual uint32 GetLastAchievementUnlocked( CGameID nGameID ) = 0;
-	virtual SteamAPICall_t RequestGlobalAchievementPercentages( CGameID nGameID ) = 0;
-	virtual uint32 GetMostAchievedAchievementInfo( CGameID nGameID, char *a, uint32 b, float *c, bool *d ) = 0;
-	virtual uint32 GetNextMostAchievedAchievementInfo( CGameID nGameID, int a, char *b, uint32 c, float *d, bool *f ) = 0;
-	virtual bool GetAchievementAchievedPercent( CGameID nGameID, char  const*, float * ) = 0;
 
-	virtual SteamAPICall_t RequestGlobalStats( CGameID nGameID, int ) = 0;
-	virtual bool GetGlobalStat( CGameID nGameID, char const* pchName, long long * ) = 0;
-	virtual bool GetGlobalStat( CGameID nGameID, char const* pchName, double * ) = 0;
-	virtual uint32 GetGlobalStatHistory( CGameID nGameID, char const* pchName, long long *, unsigned int ) = 0;
-	virtual uint32 GetGlobalStatHistory( CGameID nGameID, char const* pchName, double *, unsigned int ) = 0;
+	// Requests that Steam fetch data on the percentage of players who have received each achievement
+	// for the game globally.
+	// This call is asynchronous, with the result returned in GlobalAchievementPercentagesReady_t.
+	virtual SteamAPICall_t RequestGlobalAchievementPercentages( CGameID nGameID ) = 0;
+
+	// Get the info on the most achieved achievement for the game, returns an iterator index you can use to fetch
+	// the next most achieved afterwards.  Will return -1 if there is no data on achievement 
+	// percentages (ie, you haven't called RequestGlobalAchievementPercentages and waited on the callback).
+	virtual int GetMostAchievedAchievementInfo( CGameID nGameID, char *pchName, uint32 unNameBufLen, float *pflPercent, bool *pbAchieved ) = 0;
+
+	// Get the info on the next most achieved achievement for the game. Call this after GetMostAchievedAchievementInfo or another
+	// GetNextMostAchievedAchievementInfo call passing the iterator from the previous call. Returns -1 after the last
+	// achievement has been iterated.
+	virtual int GetNextMostAchievedAchievementInfo( CGameID nGameID, int iIteratorPrevious, char *pchName, uint32 unNameBufLen, float *pflPercent, bool *pbAchieved ) = 0;
+	
+	// Returns the percentage of users who have achieved the specified achievement.
+	virtual bool GetAchievementAchievedPercent( CGameID nGameID, const char *pchName, float *pflPercent ) = 0;
+
+	// Requests global stats data, which is available for stats marked as "aggregated".
+	// This call is asynchronous, with the results returned in GlobalStatsReceived_t.
+	// nHistoryDays specifies how many days of day-by-day history to retrieve in addition
+	// to the overall totals. The limit is 60.
+	virtual SteamAPICall_t RequestGlobalStats( CGameID nGameID, int nHistoryDays ) = 0;
+	
+	// Gets the lifetime totals for an aggregated stat
+	virtual bool GetGlobalStat( CGameID nGameID, char const* pchName, int64 *pData ) = 0;
+	virtual bool GetGlobalStat( CGameID nGameID, char const* pchName, double *pData ) = 0;
+	
+	// Gets history for an aggregated stat. pData will be filled with daily values, starting with today.
+	// So when called, pData[0] will be today, pData[1] will be yesterday, and pData[2] will be two days ago, 
+	// etc. cubData is the size in bytes of the pubData buffer. Returns the number of 
+	// elements actually set.
+	virtual int32 GetGlobalStatHistory( CGameID nGameID, char const* pchName, int64 *pData, uint32 cubData ) = 0;
+	virtual int32 GetGlobalStatHistory( CGameID nGameID, char const* pchName, double *pData, uint32 cubData ) = 0;
 };
 
 #endif // ICLIENTUSERSTATS_H

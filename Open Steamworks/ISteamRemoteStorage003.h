@@ -30,6 +30,7 @@
 abstract_class ISteamRemoteStorage003
 {
 public:
+	// file operations
 	virtual bool FileWrite( const char *pchFile, const void *pvData, int32 cubData ) = 0;
 	virtual int32 FileRead( const char *pchFile, void *pvData, int32 cubDataToRead ) = 0;
 
@@ -37,25 +38,30 @@ public:
 	virtual bool FileDelete( const char *pchFile ) = 0;
 	virtual SteamAPICall_t FileShare( const char *pchFile ) = 0;
 
+	// file information
 	virtual bool FileExists( const char *pchFile ) = 0;
 	virtual bool FilePersisted( const char *pchFile ) = 0;
 	virtual int32 GetFileSize( const char *pchFile ) = 0;
 	virtual int64 GetFileTimestamp( const char *pchFile ) = 0;
 
+	// iteration
 	virtual int32 GetFileCount() = 0;
 	virtual const char *GetFileNameAndSize( int iFile, int32 *pnFileSizeInBytes ) = 0;
 
+	// configuration management
 	virtual bool GetQuota( int32 *pnTotalBytes, int32 *puAvailableBytes ) = 0;
-
 	virtual bool IsCloudEnabledForAccount() = 0;
 	virtual bool IsCloudEnabledThisApp() = 0;
 	virtual bool SetCloudEnabledThisApp( bool bEnable ) = 0;
 
-	virtual SteamAPICall_t UGCDownload( unsigned long long ) = 0;
-	virtual bool GetUGCDetails( unsigned long long, unsigned int *, char **, int *, CSteamID * ) = 0;
-	virtual int32 UGCRead( unsigned long long, void *, int ) = 0;
-	virtual int32 GetCachedUGCCount() = 0;
-	virtual uint64 GetCachedUGCHandle( int ) = 0;
+	// user generated content
+	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent ) = 0; // Returns a Deprecated_RemoteStorageDownloadUGCResult_t callback
+	virtual bool	GetUGCDetails( UGCHandle_t hContent, AppId_t *pnAppID, char **ppchName, int32 *pnFileSizeInBytes, CSteamID *pSteamIDOwner ) = 0;
+	virtual int32	UGCRead( UGCHandle_t hContent, void *pvData, int32 cubDataToRead ) = 0;
+
+	// user generated content iteration
+	virtual int32	GetCachedUGCCount() = 0;
+	virtual	UGCHandle_t GetCachedUGCHandle( int32 iCachedContent ) = 0;
 };
 
 #endif // ISTEAMREMOTESTORAGE003_H

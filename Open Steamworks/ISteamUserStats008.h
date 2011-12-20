@@ -137,7 +137,7 @@ public:
 	// pScoreDetails points to an array of int32's, cScoreDetailsCount is the number of int32's in the list
 	virtual SteamAPICall_t UploadLeaderboardScore( SteamLeaderboard_t hSteamLeaderboard, ELeaderboardUploadScoreMethod eLeaderboardUploadScoreMethod, int32 nScore, int32 *pScoreDetails, int cScoreDetailsCount ) = 0;
 
-	virtual SteamAPICall_t AttachLeaderboardUGC( SteamLeaderboard_t hSteamLeaderboard, uint64 Unk1 ) = 0;
+	virtual SteamAPICall_t AttachLeaderboardUGC( SteamLeaderboard_t hSteamLeaderboard, UGCHandle_t hUGC ) = 0;
 
 	// Retrieves the number of players currently playing your game (online + offline)
 	// This call is asynchronous, with the result returned in NumberOfCurrentPlayers_t
