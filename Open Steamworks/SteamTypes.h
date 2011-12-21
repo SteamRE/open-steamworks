@@ -563,9 +563,11 @@ typedef void * SteamUserIDTicketValidationHandle_t;
 typedef unsigned int SteamCallHandle_t;
 
 #if defined(_MSC_VER)
-typedef unsigned __int64	SteamUnsigned64_t;
+	typedef __int64				SteamSigned64_t;
+	typedef unsigned __int64	SteamUnsigned64_t;
 #else
-typedef unsigned long long	SteamUnsigned64_t;
+	typedef long long			SteamSigned64_t;
+	typedef unsigned long long	SteamUnsigned64_t;
 #endif
 
 
@@ -594,10 +596,10 @@ const unsigned int										STEAM_USE_LATEST_VERSION = 0xFFFFFFFF;
 
 typedef	unsigned short		SteamInstanceID_t;		// MUST be 16 bits
 
-#if defined ( WIN32 ) && !defined(CLANG)
-typedef	unsigned __int64	SteamLocalUserID_t;		// MUST be 64 bits
+#if defined (_MSC_VER)
+	typedef	unsigned __int64	SteamLocalUserID_t;	// MUST be 64 bits
 #else
-typedef	unsigned long long	SteamLocalUserID_t;		// MUST be 64 bits
+	typedef	unsigned long long	SteamLocalUserID_t;	// MUST be 64 bits
 #endif
 
 

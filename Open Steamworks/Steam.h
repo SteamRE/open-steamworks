@@ -35,11 +35,11 @@
 */
 
 S_API int STEAM_CALL SteamStartEngine( TSteamError *pError );
-S_API int STEAM_CALL SteamStartEngineEx( TSteamError *pError, bool bOffline, bool bRefreshServerCache );
-S_API int STEAM_CALL SteamStartup( uint32 uUsingMask, TSteamError *pError );
+S_API int STEAM_CALL SteamStartEngineEx( TSteamError *pError, bool bStartOffline, bool bDetectOnlineOfflineState );
+S_API int STEAM_CALL SteamStartup( unsigned int uUsingMask, TSteamError *pError );
 
-S_API int STEAM_CALL SteamGetVersion( char *szVersion, uint32 uVersionBufSize );
-S_API int STEAM_CALL SteamGetLocalClientVersion( unsigned int* puBootStrapperVersionNum, unsigned int* puClientAppVersionNum, TSteamError *pError );
+S_API int STEAM_CALL SteamGetVersion( char *szVersion, unsigned int uVersionBufSize );
+S_API int STEAM_CALL SteamGetLocalClientVersion( unsigned int* puBootstrapperVersion, unsigned int* puClientVersion, TSteamError *pError );
 
 S_API int STEAM_CALL SteamCleanup( TSteamError *pError );
 S_API int STEAM_CALL SteamShutdownEngine( TSteamError *pError );
@@ -65,10 +65,10 @@ S_API int STEAM_CALL SteamUnmountAppFilesystem( TSteamError *pError );
 S_API SteamHandle_t STEAM_CALL SteamMountFilesystem( unsigned int uAppId, const char *szMountPath, TSteamError *pError );
 S_API int STEAM_CALL SteamUnmountFilesystem( SteamHandle_t hFile, TSteamError *pError );
 
-S_API SteamHandle_t STEAM_CALL SteamOpenFile2( const char* cszFileName, const char* cszMode, int iArg3, unsigned int* puSize, int* piArg5, TSteamError* pError );
-S_API SteamHandle_t STEAM_CALL SteamOpenFileEx( const char *cszFileName, const char *cszMode, unsigned int *puSize, TSteamError *pError );
-S_API SteamHandle_t STEAM_CALL SteamOpenFile64( const char *cszName, const char *cszMode, unsigned long long *pullSize, TSteamError *pError );
-S_API SteamHandle_t STEAM_CALL SteamOpenFile( const char *cszName, const char *cszMode, TSteamError *pError );
+S_API SteamHandle_t STEAM_CALL SteamOpenFile2( const char* cszPath, const char* cszMode, int nFlags, unsigned int* puFileSize, int* pbLocal, TSteamError* pError );
+S_API SteamHandle_t STEAM_CALL SteamOpenFileEx( const char *cszPath, const char *cszMode, unsigned int *puFileSize, TSteamError *pError );
+S_API SteamHandle_t STEAM_CALL SteamOpenFile64( const char *cszPath, const char *cszMode, SteamUnsigned64_t *pu64FileSize, TSteamError *pError );
+S_API SteamHandle_t STEAM_CALL SteamOpenFile( const char *cszPath, const char *cszMode, TSteamError *pError );
 S_API SteamHandle_t STEAM_CALL SteamOpenTmpFile( TSteamError *pError );
 
 S_API int STEAM_CALL SteamFlushFile( SteamHandle_t hFile, TSteamError *pError );
@@ -82,11 +82,11 @@ S_API int STEAM_CALL SteamPrintFile( SteamHandle_t hFile, TSteamError *pError, c
 S_API unsigned int STEAM_CALL SteamReadFile( void *pBuf, unsigned int uSize, unsigned int uCount, SteamHandle_t hFile, TSteamError *pError );
 S_API unsigned int STEAM_CALL SteamWriteFile( const void *pBuf, unsigned int uSize, unsigned int uCount, SteamHandle_t hFile, TSteamError *pError );
 
-S_API int STEAM_CALL SteamSeekFile64( SteamHandle_t hFile, long long llOffset, ESteamSeekMethod, TSteamError *pError );
-S_API int STEAM_CALL SteamSeekFile( SteamHandle_t hFile, long lOffset, ESteamSeekMethod, TSteamError *pError );
-S_API long long STEAM_CALL SteamSizeFile64( SteamHandle_t hFile, TSteamError *pError );
+S_API int STEAM_CALL SteamSeekFile64( SteamHandle_t hFile, SteamSigned64_t s64Offset, ESteamSeekMethod eMethod, TSteamError *pError );
+S_API int STEAM_CALL SteamSeekFile( SteamHandle_t hFile, long int lOffset, ESteamSeekMethod eMethod, TSteamError *pError );
+S_API SteamSigned64_t STEAM_CALL SteamSizeFile64( SteamHandle_t hFile, TSteamError *pError );
 S_API long STEAM_CALL SteamSizeFile( SteamHandle_t hFile, TSteamError *pError );
-S_API long long STEAM_CALL SteamTellFile64( SteamHandle_t hFile, TSteamError *pError );
+S_API SteamSigned64_t STEAM_CALL SteamTellFile64( SteamHandle_t hFile, TSteamError *pError );
 S_API long STEAM_CALL SteamTellFile( SteamHandle_t hFile, TSteamError *pError );
 
 S_API int STEAM_CALL SteamStat64( const char *cszName, TSteamElemInfo64 *pInfo, TSteamError *pError );
@@ -94,15 +94,15 @@ S_API int STEAM_CALL SteamStat( const char *cszName, TSteamElemInfo *pInfo, TSte
 
 S_API SteamHandle_t STEAM_CALL SteamFindFirst64( const char *cszPattern, ESteamFindFilter eFilter, TSteamElemInfo64 *pFindInfo, TSteamError *pError );
 S_API SteamHandle_t STEAM_CALL SteamFindFirst( const char *cszPattern, ESteamFindFilter eFilter, TSteamElemInfo *pFindInfo, TSteamError *pError );
-S_API int STEAM_CALL SteamFindNext64 ( SteamHandle_t hDirectory, TSteamElemInfo64 *pFindInfo, TSteamError *pError );
+S_API int STEAM_CALL SteamFindNext64( SteamHandle_t hDirectory, TSteamElemInfo64 *pFindInfo, TSteamError *pError );
 S_API int STEAM_CALL SteamFindNext( SteamHandle_t hDirectory, TSteamElemInfo *pFindInfo, TSteamError *pError );
 S_API int STEAM_CALL SteamFindClose( SteamHandle_t hDirectory, TSteamError *pError );
 
-S_API int STEAM_CALL SteamGetLocalFileCopy( const char *cszName, TSteamError *pError );
+S_API int STEAM_CALL SteamGetLocalFileCopy( const char *cszPath, TSteamError *pError );
 
 S_API int STEAM_CALL SteamIsFileImmediatelyAvailable( const char *cszName, TSteamError *pError );
 
-S_API int STEAM_CALL SteamHintResourceNeed( const char* cszHintList, int bForgetEverything, TSteamError* pError );
+S_API int STEAM_CALL SteamHintResourceNeed( const char* cszMasterList, int bForgetEverything, TSteamError* pError );
 S_API int STEAM_CALL SteamForgetAllHints( TSteamError *pError );
 
 S_API int STEAM_CALL SteamPauseCachePreloading( TSteamError *pError );
@@ -111,23 +111,23 @@ S_API int STEAM_CALL SteamResumeCachePreloading( TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamWaitForResources( const char *cszMasterList, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamFlushCache( unsigned int uAppId, TSteamError *pError );
 
-S_API int STEAM_CALL SteamGetCacheDecryptionKey( unsigned int uAppId, char* szCacheDecryptionKey, unsigned int uBufferLength, unsigned int* puRecievedLength, TSteamError *pError );
+S_API int STEAM_CALL SteamGetCacheDecryptionKey( unsigned int uCacheId, char* pchKeyBuffer, unsigned int cubBuff, unsigned int* pcubKey, TSteamError *pError );
 S_API int STEAM_CALL SteamGetCacheDefaultDirectory( char *szPath, TSteamError *pError );
 S_API int STEAM_CALL SteamSetCacheDefaultDirectory( const char *szPath, TSteamError *pError );
-S_API int STEAM_CALL SteamGetCacheFilePath( unsigned int uAppId,  char* szFilePath, unsigned int uBufferLength, unsigned int* puRecievedLength, TSteamError *pError );
+S_API int STEAM_CALL SteamGetCacheFilePath( unsigned int uCacheId,  char* szPathBuf, unsigned int uBufSize, unsigned int* puPathChars, TSteamError *pError );
 
-S_API int STEAM_CALL SteamIsFileNeededByCache( unsigned int uCacheId, const char* cszFileName, unsigned long long ullFileSize, TSteamError* pError );
+S_API int STEAM_CALL SteamIsFileNeededByCache( unsigned int uCacheId, const char* pchFileName, SteamUnsigned64_t u64FileSize, TSteamError* pError );
 
-S_API int STEAM_CALL SteamIsFileNeededByApp( unsigned int uAppId, const char* cszFileName, unsigned long long ullFileSize, unsigned int* puCacheId, TSteamError* pError );
+S_API int STEAM_CALL SteamIsFileNeededByApp( unsigned int uAppId, const char* pchFileName, SteamUnsigned64_t u64FileSize, unsigned int* puCacheId, TSteamError* pError );
 
-S_API int STEAM_CALL SteamRepairOrDecryptCaches( unsigned int uAppId, int iArg2, TSteamError *pError );
+S_API int STEAM_CALL SteamRepairOrDecryptCaches( unsigned int uAppId, int bForceValidation, TSteamError *pError );
 
 S_API int STEAM_CALL SteamCreateCachePreloaders( TSteamError *pError );
 S_API int STEAM_CALL SteamIsCacheLoadingEnabled( unsigned int uAppId, int *pbIsLoading, TSteamError *pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamLoadCacheFromDir( unsigned int uAppId, const char *szPath, TSteamError *pError );
-S_API int STEAM_CALL SteamLoadFileToApp( unsigned int uArg1, const char* cszArg2, const void* pcvArg3, unsigned int uArg4, unsigned long long ullArg5, TSteamError *pError );
-S_API int STEAM_CALL SteamLoadFileToCache( unsigned int uArg1, const char* cszArg2, const void* pcvArg3, unsigned int uArg4, unsigned int uArg5, TSteamError *pError );
+S_API int STEAM_CALL SteamLoadFileToApp( unsigned int uAppId, const char* pchFileName, const void* pubDataChunk, unsigned int cubDataChunk, SteamUnsigned64_t cubDataOffset, TSteamError *pError );
+S_API int STEAM_CALL SteamLoadFileToCache( unsigned int uCacheId, const char* pchFileName, const void* pubDataChunk, unsigned int cubDataChunk, SteamUnsigned64_t cubDataOffset, TSteamError *pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamStartLoadingCache( unsigned int uAppId, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamStopLoadingCache( unsigned int uAppId, TSteamError *pError );
@@ -136,12 +136,12 @@ S_API int STEAM_CALL SteamGetFileAttributeFlags( const char* cszName, int* puFla
 
 S_API int STEAM_CALL SteamReleaseCacheFiles( unsigned int uAppId, TSteamError *pError );
 
-S_API int STEAM_CALL SteamRefreshMinimumFootprintFiles( unsigned int uArg1, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamRefreshMinimumFootprintFiles( unsigned int uAppId, TSteamError *pError );
 
-S_API int STEAM_CALL SteamDefragCaches( unsigned int uAppId, TSteamError* pError );
-S_API int STEAM_CALL SteamWaitForAppResources( unsigned int uAppId, const char* cszMasterList, TSteamError* pError );
+S_API SteamCallHandle_t STEAM_CALL SteamDefragCaches( unsigned int uAppId, TSteamError* pError );
+S_API SteamCallHandle_t STEAM_CALL SteamWaitForAppResources( unsigned int uAppId, const char* cszMasterList, TSteamError* pError );
 
-S_API int STEAM_CALL SteamGetCachePercentFragmentation( unsigned int uAppId, unsigned int* puPercentFragmented, TSteamError* pError );
+S_API SteamCallHandle_t STEAM_CALL SteamGetCachePercentFragmentation( unsigned int uAppId, unsigned int* puPctFragmentation, TSteamError* pError );
 
 /*
 ** Logging
@@ -156,18 +156,18 @@ S_API void STEAM_CALL SteamLogResourceLoadFinished( const char *cszMsg );
 ** Account
 */
 
-S_API SteamCallHandle_t STEAM_CALL SteamCreateAccount( const char *cszUser, const char *cszPassphrase, const char *cszCreationKey, const char *cszPersonalQuestion, const char *cszAnswerToQuestion, const char* cszArg6, int *pbCreated, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamCreateAccount( const char *cszUser, const char *cszEmailAddress, const char *cszPassphrase, const char *cszCreationKey, const char *cszPersonalQuestion, const char *cszAnswerToQuestion, int *pbCreated, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamDeleteAccount( TSteamError *pError );
 
-S_API int STEAM_CALL SteamChangeAccountName( const char* cszCurrentAccountName, const char* cszNewAccountName, TSteamError* pError );
+S_API SteamCallHandle_t STEAM_CALL SteamChangeAccountName( const char* cszCurrentPassphrase, const char* cszNewAccountName, TSteamError* pError );
 S_API SteamCallHandle_t STEAM_CALL SteamChangeEmailAddress( const char *cszNewEmailAddress, TSteamError *pError );
-S_API int STEAM_CALL SteamChangeForgottenPassword( const char* cszArg1, const char* cszArg2, const char* cszArg3, const char* cszArg4, int* piArg5, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamChangeForgottenPassword( const char* cszUser, const char* cszAnswerToQuestion, const char* cszEmailVerificationKey, const char* cszNewPassphrase, int* pbChanged, TSteamError *pError );
 
-S_API SteamCallHandle_t STEAM_CALL SteamChangePassword( const char *cszCurrentPassphrase, const char *cszNewPassphrase, int *pbChanged, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamChangePassword( const char *cszCurrentPassphrase, const char *cszNewPassphrase, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamChangePersonalQA( const char *cszCurrentPassphrase, const char *cszNewPersonalQuestion, const char *cszNewAnswerToQuestion, TSteamError *pError );
 
 S_API int STEAM_CALL SteamEnumerateApp( unsigned int uAppId, TSteamApp *pApp, TSteamError *pError );
-S_API int STEAM_CALL SteamEnumerateAppDependency( unsigned int uAppId, unsigned int uDependency, TSteamAppDependencyInfo *pDependencyInfo, TSteamError *pError);
+S_API int STEAM_CALL SteamEnumerateAppDependency( unsigned int uAppId, unsigned int uIndex, TSteamAppDependencyInfo *pDependencyInfo, TSteamError *pError);
 S_API int STEAM_CALL SteamEnumerateAppIcon( unsigned int uAppId, unsigned int uIconIndex, unsigned char *pIconData, unsigned int uIconDataBufSize, unsigned int *puSizeOfIconData, TSteamError *pError );
 S_API int STEAM_CALL SteamEnumerateAppLaunchOption( unsigned int uAppId, unsigned int uLaunchOptionIndex, TSteamAppLaunchOption *pLaunchOption, TSteamError *pError );
 S_API int STEAM_CALL SteamEnumerateAppVersion( unsigned int uAppId, unsigned int uVersionIndex, TSteamAppVersion *pAppVersion, TSteamError *pError );
@@ -175,48 +175,47 @@ S_API int STEAM_CALL SteamEnumerateSubscription( unsigned int uSubscriptionId, T
 
 S_API int STEAM_CALL SteamEnumerateSubscriptionDiscount( unsigned int uSubscriptionId, unsigned int uDiscountIndex, TSteamSubscriptionDiscount* pSubscriptionDiscount, TSteamError *pError );
 S_API int STEAM_CALL SteamEnumerateSubscriptionDiscountQualifier( unsigned int uSubscriptionId, unsigned int uDiscountIndex, unsigned int uQualifierIndex, TSteamDiscountQualifier* pDiscountQualifier, TSteamError *pError );
-S_API int STEAM_CALL SteamGenerateSuggestedAccountNames( const char* cszArg1, const char* cszArg2, char* szArg3, unsigned int uArg4, unsigned int* puArg5, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamGenerateSuggestedAccountNames( const char* cszAccountNameToSelectMasterAS, const char* cszGenerateNamesLikeAccountName, char* pSuggestedNamesBuf, unsigned int uBufSize, unsigned int* puNumSuggestedChars, TSteamError *pError );
 
-S_API int STEAM_CALL SteamGetAccountStatus( unsigned int* puAccountStatus, TSteamError *pError );
+S_API int STEAM_CALL SteamGetAccountStatus( unsigned int* puAccountStatusFlags, TSteamError *pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamGetAppCacheSize( unsigned int uAppId, unsigned int *pCacheSizeInMb, TSteamError *pError );
-S_API int STEAM_CALL SteamGetAppDependencies( unsigned int uAppId, unsigned int puDependecies[], unsigned int uBufferLength, TSteamError *pError );
+S_API int STEAM_CALL SteamGetAppDependencies( unsigned int uAppId, unsigned int puCacheIds[], unsigned int uMaxIds, TSteamError *pError );
 S_API int STEAM_CALL SteamGetAppDir( unsigned int uAppId, char* szAppDir, TSteamError *pError );
-S_API int STEAM_CALL SteamGetAppCacheDir( unsigned int uAppId, char *szPath, TSteamError *pError );
 S_API int STEAM_CALL SteamGetAppIds( unsigned int puIds[], unsigned int uMaxIds, TSteamError *pError );
-S_API int STEAM_CALL SteamGetAppPurchaseCountry( unsigned int uAppID, char* szCountryCode, unsigned int uBufferLength, unsigned int* pPurchaseTime, TSteamError* pError );
+S_API int STEAM_CALL SteamGetAppPurchaseCountry( unsigned int uAppId, char* szCountryBuf, unsigned int uBufSize, unsigned int* pPurchaseTime, TSteamError* pError );
 S_API int STEAM_CALL SteamGetAppStats( TSteamAppStats *pAppStats, TSteamError *pError );
-S_API int STEAM_CALL SteamGetAppUpdateStats( unsigned int uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, TSteamUpdateStats* pUpdateStats, TSteamError* pError );
+S_API int STEAM_CALL SteamGetAppUpdateStats( unsigned int uAppId, ESteamAppUpdateStatsQueryType eQueryType, TSteamUpdateStats* pUpdateStats, TSteamError* pError );
 S_API int STEAM_CALL SteamGetAppUserDefinedInfo( unsigned int uAppId, const char *cszPropertyName, char *szPropertyValue, unsigned int uBufSize, unsigned int *puPropertyValueLength, TSteamError *pError );
 S_API int STEAM_CALL SteamGetAppUserDefinedRecord(unsigned int uAppId, KeyValueIteratorCallback_t AddEntryToKeyValueFunc, void* pvCKeyValue, TSteamError *pError);
 
 S_API int STEAM_CALL SteamGetCurrentEmailAddress( char *szEmailaddress, unsigned int uBufSize, unsigned int *puEmailaddressChars, TSteamError *pError );
 
-S_API int STEAM_CALL SteamGetNumAccountsWithEmailAddress( const char *cszEmailAddress, unsigned int *puNumAccounts, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamGetNumAccountsWithEmailAddress( const char *cszEmailAddress, unsigned int *puNumAccounts, TSteamError *pError );
 
 S_API int STEAM_CALL SteamGetSponsorUrl( unsigned int uAppId, char *szUrl, unsigned int uBufSize, unsigned int *pUrlChars, TSteamError *pError );
 
-S_API int STEAM_CALL SteamGetSubscriptionExtendedInfo(unsigned int uSubscriptionId, const char* cszKeyName, char* szKeyValue, unsigned int uBufferLength, unsigned int* puRecievedLength, TSteamError *pError);
+S_API int STEAM_CALL SteamGetSubscriptionExtendedInfo( unsigned int uSubscriptionId, const char* cszKeyName, char* szKeyValue, unsigned int uBufferLength, unsigned int* puRecievedLength, TSteamError *pError );
 S_API int STEAM_CALL SteamGetSubscriptionIds( unsigned int puIds[], unsigned int uMaxIds, TSteamError *pError );
-S_API int STEAM_CALL SteamGetSubscriptionPurchaseCountry( unsigned int uSubscriptionId, char* szCountry, unsigned int uBufferLength , int* piRecievedLength, TSteamError *pError );
+S_API int STEAM_CALL SteamGetSubscriptionPurchaseCountry( unsigned int uSubscriptionId, char* szCountryBuf, unsigned int uBufSize , int* pPurchaseTime, TSteamError *pError );
 S_API int STEAM_CALL SteamGetSubscriptionReceipt( unsigned int uSubscriptionId , TSteamSubscriptionReceipt* pSteamSubscriptionReceipt, TSteamError *pError );
 S_API int STEAM_CALL SteamGetSubscriptionStats( TSteamSubscriptionStats *pSubscriptionStats, TSteamError *pError );
 
 S_API int STEAM_CALL SteamGetTotalUpdateStats( TSteamUpdateStats *pUpdateStats, TSteamError *pError );
 
-S_API int STEAM_CALL SteamGetUser( char *szUser, unsigned int uBufSize, unsigned int *puUserChars, TSteamGlobalUserID* pSteamGlobalUserID, TSteamError *pError );
+S_API int STEAM_CALL SteamGetUser( char *szUser, unsigned int uBufSize, unsigned int *puUserChars, TSteamGlobalUserID* pOptionalReceiveUserID, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamSetUser( const char *cszUser, int *pbUserSet, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamSetUser2( const char *cszUser, TSteamError *pError );
 
-S_API int STEAM_CALL SteamGetUserType( unsigned int* puUserType, TSteamError* pError );
+S_API int STEAM_CALL SteamGetUserType( unsigned int* puUserTypeFlags, TSteamError* pError );
 
-S_API int STEAM_CALL SteamIsAccountNameInUse( const char* cszUser, int* pbInUse, TSteamError *pError );
+S_API int STEAM_CALL SteamIsAccountNameInUse( const char* cszAccountName, int* pbIsUsed, TSteamError *pError );
 
-S_API int STEAM_CALL SteamIsAppSubscribed( unsigned int uAppId, int *pbIsAppSubscribed, int *pReserved, TSteamError *pError );
-S_API int STEAM_CALL SteamIsSubscribed( unsigned int uSubscriptionId, int *pbIsSubscribed, int *pReserved, TSteamError *pError );
+S_API int STEAM_CALL SteamIsAppSubscribed( unsigned int uAppId, int *pbIsAppSubscribed, int *pbIsSubscriptionPending, TSteamError *pError );
+S_API int STEAM_CALL SteamIsSubscribed( unsigned int uSubscriptionId, int *pbIsSubscribed, int *pbIsSubscriptionPending, TSteamError *pError );
 
 S_API int STEAM_CALL SteamIsLoggedIn( int *pbIsLoggedIn, TSteamError *pError );
-S_API int STEAM_CALL SteamIsSecureComputer( int *pbIsSecure, TSteamError *pError );
+S_API int STEAM_CALL SteamIsSecureComputer( int *pbIsSecureComputer, TSteamError *pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamLaunchApp( unsigned int uAppId, unsigned int uLaunchOption, const char *cszArgs, TSteamError *pError );
 
@@ -225,16 +224,16 @@ S_API SteamCallHandle_t STEAM_CALL SteamLogout( TSteamError *pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamMoveApp( unsigned int uAppId, const char *szPath, TSteamError *pError );
 
-S_API int STEAM_CALL SteamRefreshAccountInfo( TSteamError *pError );
-S_API int STEAM_CALL SteamRefreshAccountInfoEx( int bUseCachedInfo, TSteamError* pError );
-S_API int STEAM_CALL SteamRefreshAccountInfo2( int bFromServer, int bUnk, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamRefreshAccountInfo( TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamRefreshAccountInfoEx( int bContentDescriptionOnly, TSteamError* pError );
+S_API SteamCallHandle_t STEAM_CALL SteamRefreshAccountInfo2( int bRefreshAccount, int bRefreshCDDB, TSteamError *pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamRefreshLogin( const char *cszPassphrase, int bIsSecureComputer, TSteamError *pError );
 
-S_API SteamCallHandle_t  STEAM_CALL SteamRequestAccountsByCdKeyEmail( const char* cszArg1, TSteamError *pError );
-S_API SteamCallHandle_t STEAM_CALL SteamRequestAccountsByEmailAddressEmail( const char* cszArg1, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamRequestAccountsByCdKeyEmail( const char* cszCdKey, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamRequestAccountsByEmailAddressEmail( const char* cszEmailAddress, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamRequestEmailAddressVerificationEmail( TSteamError* pError );
-S_API SteamCallHandle_t STEAM_CALL SteamRequestForgottenPasswordEmail( const char* cszArg1, char* szArg2, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamRequestForgottenPasswordEmail( const char* cszUser, char* ReceivePersonalQuestion, TSteamError *pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamSubscribe( unsigned int uSubscriptionId, const TSteamSubscriptionBillingInfo *pSubscriptionBillingInfo, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamUnsubscribe( unsigned int uSubscriptionId, TSteamError *pError );
@@ -242,28 +241,22 @@ S_API SteamCallHandle_t STEAM_CALL SteamUnsubscribe( unsigned int uSubscriptionI
 S_API SteamCallHandle_t STEAM_CALL SteamUpdateAccountBillingInfo( const TSteamPaymentCardInfo *pPaymentCardInfo, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamUpdateSubscriptionBillingInfo( unsigned int uSubscriptionId, const TSteamSubscriptionBillingInfo *pSubscriptionBillingInfo, TSteamError *pError );
 
-S_API int STEAM_CALL SteamVerifyEmailAddress( const char* cszEmailAddress, TSteamError* pError );
-S_API int STEAM_CALL SteamVerifyPassword( const char* cszPasswordToVerify, int* pbIsCorrectPassword, TSteamError* pError );
+S_API SteamCallHandle_t STEAM_CALL SteamVerifyEmailAddress( const char* cszEmailVerificationKey, TSteamError* pError );
+S_API int STEAM_CALL SteamVerifyPassword( const char* cszPassword, int* pbCorrect, TSteamError* pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamWaitForAppReadyToLaunch( unsigned int uAppId, TSteamError *pError );
 
-S_API int STEAM_CALL SteamAckSubscriptionReceipt( unsigned int uArg1, TSteamError *pError );
-S_API int STEAM_CALL SteamRemoveAppDependency( unsigned int uAppId, unsigned int uFileSystemIndex, TSteamError *pError );
-S_API int STEAM_CALL SteamInsertAppDependency( unsigned int uAppId, unsigned int uFileSystemIndex, TSteamAppDependencyInfo *pDependencyInfo, TSteamError *pError );
+S_API SteamCallHandle_t STEAM_CALL SteamAckSubscriptionReceipt( unsigned int uSubscriptionId, TSteamError *pError );
+S_API int STEAM_CALL SteamRemoveAppDependency( unsigned int uAppId, unsigned int uIndex, TSteamError *pError );
+S_API int STEAM_CALL SteamInsertAppDependency( unsigned int uAppId, unsigned int uIndex, TSteamAppDependencyInfo *pDependencyInfo, TSteamError *pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamSetAppCacheSize( unsigned int uAppId, unsigned int nCacheSizeInMb, TSteamError *pError );
 S_API SteamCallHandle_t STEAM_CALL SteamSetAppVersion( unsigned int uAppId, unsigned int uAppVersionId, TSteamError *pError );
 
-S_API int STEAM_CALL SteamNumAppsRunning( TSteamError *pError );
+S_API unsigned int STEAM_CALL SteamNumAppsRunning( TSteamError *pError );
 S_API int STEAM_CALL SteamFindApp( const char* cszAppName, unsigned int* puAppId, TSteamError *pError );
 
-S_API SteamCallHandle_t STEAM_CALL SteamSetNewPassword( const char *cszUser, const char *cszAnswerToQuestion, const SteamSalt_t *cpSaltForAnswer, const char *cszNewPassphrase, int *pbChanged, TSteamError *pError );
-S_API SteamCallHandle_t STEAM_CALL SteamGetPersonalQuestion( const char *cszUser, SteamPersonalQuestion_t PersonalQuestion, SteamSalt_t *pSaltForAnswer, TSteamError *pError );
-
-S_API SteamCallHandle_t STEAM_CALL SteamEmailVerified( const char *cszEmailVerificationKey, int *pbVerified, TSteamError *pError );
-S_API SteamCallHandle_t STEAM_CALL SteamSendVerificationEmail( int *pbSent, TSteamError *pError );
-
-S_API int STEAM_CALL SteamCheckAppOwnership( unsigned int uAppId, int* pbOwned, TSteamGlobalUserID* pSteamGlobalUserID, TSteamError* pError );
+S_API int STEAM_CALL SteamCheckAppOwnership( unsigned int uAppId, int* pbOwned, TSteamGlobalUserID* pSteamID, TSteamError* pError );
 
 /*
 ** Minidump
@@ -304,16 +297,16 @@ S_API ESteamError STEAM_CALL SteamOptionalCleanUpAfterClientHasDisconnected( uns
 
 S_API void STEAM_CALL SteamClearError( TSteamError *pError );
 
-S_API int STEAM_CALL InternalSteamNumClientsConnectedToEngine( TSteamError *pError );
-S_API int STEAM_CALL InternalSteamShouldShutdownEngine2();
+S_API unsigned int STEAM_CALL InternalSteamNumClientsConnectedToEngine( TSteamError *pError );
+S_API int STEAM_CALL InternalSteamShouldShutdownEngine2( TSteamError *pError );
 
 S_API int STEAM_CALL SteamChangeOfflineStatus( TSteamOfflineStatus* pSteamOfflineStatus, TSteamError* pError );
 S_API int STEAM_CALL SteamGetOfflineStatus( TSteamOfflineStatus* pSteamOfflineStatus, TSteamError* pError );
 
 S_API SteamCallHandle_t STEAM_CALL SteamUninstall( TSteamError *pError );
 
-S_API int STEAM_CALL SteamWeakVerifyNewValveCDKey();
-S_API int STEAM_CALL SteamGetEncryptedNewValveCDKey( const char *cszValveCDkey, int *pnGameCode, uint32 *puTerritoryCode, void *pUniqueSerialNumber );
+S_API int STEAM_CALL SteamWeakVerifyNewValveCDKey( const char *pszCDKeyFormattedForCDLabel, unsigned int *pReceiveGameCode, unsigned int *pReceiveSalesTerritoryCode, unsigned int *pReceiveUniqueSerialNumber );
+S_API int STEAM_CALL SteamGetEncryptedNewValveCDKey( const char *pszCDKeyFormattedForCDLabel, unsigned int ClientLocalIPAddr, const void * pEncryptionKeyReceivedFromAppServer, unsigned int uEncryptionKeyLength, void* pOutputBuffer, unsigned int uSizeOfOutputBuffer, unsigned int* pReceiveSizeOfEncryptedNewValveCDKey );
 
 // Encrypts machine-specific data from the machine that is executing.
 S_API ESteamError STEAM_CALL SteamDecryptDataForThisMachine
@@ -338,17 +331,17 @@ S_API const char* STEAM_CALL SteamFindServersGetErrorString();
 S_API int STEAM_CALL SteamFindServersIterateServer(ESteamServerType eSteamServerType, unsigned int uIndex, char *szServerAddress, int iServerAddressChars);
 S_API int STEAM_CALL SteamFindServersNumServers( ESteamServerType eSteamServerType );
 
-S_API int STEAM_CALL SteamGetContentServerInfo( unsigned int uArg1, unsigned int* puArg2, unsigned int* puArg3, TSteamError *pError );
+S_API int STEAM_CALL SteamGetContentServerInfo( unsigned int uAppId, unsigned int* pServerId, unsigned int* pServerIpAddress, TSteamError *pError );
 
 S_API int STEAM_CALL SteamSetNotificationCallback( SteamNotificationCallback_t pCallbackFunction, TSteamError *pError );
 
-S_API int STEAM_CALL SteamGetAppDLCStatus( unsigned int nAppID, unsigned int nDlcId, int *pbOwned, TSteamError *pError );
+S_API int STEAM_CALL SteamGetAppDLCStatus( unsigned int uAppId, unsigned int uDLCCacheId, int *pbDownloaded, TSteamError *pError );
 
-S_API int STEAM_CALL SteamIsUsingSdkContentServer( int *pbIsUsingSdkContentServer, TSteamError *pError );
+S_API int STEAM_CALL SteamIsUsingSdkContentServer( int *pbUsingSdkCS, TSteamError *pError );
 
 S_API int STEAM_CALL SteamForceCellId( unsigned int uCellId, TSteamError* pError );
 
-S_API int SteamWasBlobRegistryDeleted( int *pbWasDeleted, TSteamError *pError );
+S_API int SteamWasBlobRegistryDeleted( int *puWasDeleted, TSteamError *pError );
 
 S_API int SteamGetDepotParent( unsigned int uDepotId, unsigned int* puParentId, TSteamError* pError );
 
