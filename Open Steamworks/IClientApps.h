@@ -46,6 +46,8 @@ public:
 	virtual bool BGetDLCDataByIndex( AppId_t unAppID, int iDLC, AppId_t* pDlcAppID, bool *pbAvailable, char *pchName, int cchNameBufferSize ) = 0;
 
 	virtual bool BReloadLocalAppInfoOverrides() = 0;
+	
+	virtual bool BIsDlcInstalled( AppId_t unDlcAppID, AppId_t unGameAppID ) = 0;
 };
 
 #endif // ICLIENTAPPS_H

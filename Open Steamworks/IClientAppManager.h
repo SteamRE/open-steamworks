@@ -49,6 +49,8 @@ public:
 	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int cbBuffer, bool bSharedKVSymbols ) = 0;
 
 	virtual bool BIsAppUpToDate( AppId_t unAppID ) = 0;
+	
+	virtual bool BCheckBetaPassword( AppId_t unAppID, const char *cszBetaKey, const char *cszBetaPassword ) = 0;
 
 	virtual bool SetDownloadingEnabled( bool bState ) = 0;
 	virtual bool BIsDownloadingEnabled() = 0;
