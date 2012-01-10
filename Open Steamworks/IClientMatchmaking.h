@@ -84,13 +84,12 @@ public:
 	virtual bool SetLinkedLobby( CSteamID steamIDLobby, CSteamID steamIDLobby2 ) = 0;
 
 	virtual int GetGMSServerCount() = 0;
-	virtual bool GetGMSServerAddress( int iServer, uint32 *unServerIP, uint16 *usServerPort ) = 0;
+	virtual bool GetGMSServerAddress( int iServer, uint32 *punServerIP, uint16 *pusServerPort ) = 0;
 
-	// TODO : Check this when at least one GMS will be online.
-	virtual SteamAPICall_t BeginGMSQuery( AppId_t nAppId, int32 iRegionCode, const char* szFilterText ) = 0;
-	virtual int32 PollGMSQuery( SteamAPICall_t hGMSQuery ) = 0;
-	virtual int32 GetGMSQueryResults( SteamAPICall_t hGMSQuery, GMSQueryResult_t *pGMSQueryResult, int32 iResultIndex ) = 0;
-	virtual void ReleaseGMSQuery( SteamAPICall_t hGMSQuery ) = 0;
+	virtual uint64 BeginGMSQuery( AppId_t nAppId, int32 iRegionCode, const char* szFilterText ) = 0;
+	virtual int32 PollGMSQuery( uint64 ullGMSQuery ) = 0;
+	virtual int32 GetGMSQueryResults( uint64 ullGMSQuery, GMSQueryResult_t *pGMSQueryResults, int32 nResultBufSizeInBytes ) = 0;
+	virtual void ReleaseGMSQuery( uint64 ullGMSQuery ) = 0;
 };
 
 

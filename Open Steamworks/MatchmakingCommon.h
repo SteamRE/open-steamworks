@@ -264,7 +264,7 @@ struct GMSQueryResult_t
 {
 	uint32 uServerIP;
 	uint32 uServerPort;
-	uint32 uAuthPlayers;
+	int32 nAuthPlayers;
 };
 
 #pragma pack( pop )
