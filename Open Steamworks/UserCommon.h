@@ -216,6 +216,14 @@ enum EMicroTxnAuthResult
 	k_EMicroTxnAuthResultInsufficientFunds = 3,
 };
 
+enum ERequestAccountDataAction
+{
+	k_ERequestAccountDataActionFindAccountsByEmailAddress = 1,
+	k_ERequestAccountDataActionFindAccountsByCdKey = 2,
+	k_ERequestAccountDataActionGetNumAccountsWithEmailAddress = 3,
+	//k_ERequestAccountDataActionIsAccountNameInUse = 4, // Only used internally
+};
+
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when a connections to the Steam back-end has been established
@@ -747,14 +755,17 @@ struct RequestAccountDataResult_t
 {
 	enum { k_iCallback = k_iClientUserCallbacks + 52 };
 
-	// TODO : Reverse this callback
+	EResult m_EResult;
+	uint32 m_cMatches;
+	ERequestAccountDataAction m_eAction;
 };
 
 struct IsAccountNameInUseResult_t
 {
 	enum { k_iCallback = k_iClientUserCallbacks + 53 };
 
-	// TODO : Reverse this callback
+	EResult m_EResult;
+	char m_szAccountNameSuggestions[3][64];
 };
 
 struct LoginInformationChanged_t
