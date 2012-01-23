@@ -16,10 +16,10 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("STEAMAPPTICKET_INTERFACE_VERSION001")]
 	public class ISteamAppTicket001 : InteropHelp.NativeWrapper<ISteamAppTicket001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppOwnershipTicketDataUBUUUUU( IntPtr thisptr, UInt32 nAppID, Byte[] pvBuffer, UInt32 cbBufferLength, ref UInt32 piAppId, ref UInt32 piSteamId, ref UInt32 piSignature, ref UInt32 pcbSignature );
-		public UInt32 GetAppOwnershipTicketData( UInt32 nAppID, Byte[] pvBuffer, ref UInt32 piAppId, ref UInt32 piSteamId, ref UInt32 piSignature, ref UInt32 pcbSignature ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppOwnershipTicketDataUBUUUUU( IntPtr thisptr, UInt32 nAppId, Byte[] pvSignedTicket, UInt32 cbSignedTicket, ref UInt32 piAppId, ref UInt32 piSteamId, ref UInt32 piSignature, ref UInt32 pcbSignature );
+		public UInt32 GetAppOwnershipTicketData( UInt32 nAppId, Byte[] pvSignedTicket, ref UInt32 piAppId, ref UInt32 piSteamId, ref UInt32 piSignature, ref UInt32 pcbSignature ) 
 		{
-			return this.GetFunction<NativeGetAppOwnershipTicketDataUBUUUUU>( this.Functions.GetAppOwnershipTicketData0 )( this.ObjectAddress, nAppID, pvBuffer, (UInt32) pvBuffer.Length, ref piAppId, ref piSteamId, ref piSignature, ref pcbSignature ); 
+			return this.GetFunction<NativeGetAppOwnershipTicketDataUBUUUUU>( this.Functions.GetAppOwnershipTicketData0 )( this.ObjectAddress, nAppId, pvSignedTicket, (UInt32) pvSignedTicket.Length, ref piAppId, ref piSteamId, ref piSignature, ref pcbSignature ); 
 		}
 		
 	};

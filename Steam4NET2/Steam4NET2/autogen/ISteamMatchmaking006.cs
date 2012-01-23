@@ -69,10 +69,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeRemoveFavoriteGameUUUUU>( this.Functions.RemoveFavoriteGame3 )( this.ObjectAddress, nAppID, nIP, nConnPort, nQueryPort, unFlags ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestLobbyList( IntPtr thisptr, ref UInt64 retarg );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestLobbyList( IntPtr thisptr );
 		public UInt64 RequestLobbyList(  ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeRequestLobbyList>( this.Functions.RequestLobbyList4 )( this.ObjectAddress, ref ret ); return (UInt64)ret;
+			return this.GetFunction<NativeRequestLobbyList>( this.Functions.RequestLobbyList4 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeAddRequestLobbyListFilterSS( IntPtr thisptr, string pchKeyToMatch, string pchValueToMatch );
@@ -99,16 +99,16 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeGetLobbyByIndexI>( this.Functions.GetLobbyByIndex8 )( this.ObjectAddress, ref ret, iLobby ); return new CSteamID(ret);
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateLobbyE( IntPtr thisptr, ref UInt64 retarg, ELobbyType eLobbyType );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreateLobbyE( IntPtr thisptr, ELobbyType eLobbyType );
 		public UInt64 CreateLobby( ELobbyType eLobbyType ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeCreateLobbyE>( this.Functions.CreateLobby9 )( this.ObjectAddress, ref ret, eLobbyType ); return (UInt64)ret;
+			return this.GetFunction<NativeCreateLobbyE>( this.Functions.CreateLobby9 )( this.ObjectAddress, eLobbyType ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeJoinLobbyC( IntPtr thisptr, ref UInt64 retarg, UInt64 steamIDLobby );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeJoinLobbyC( IntPtr thisptr, UInt64 steamIDLobby );
 		public UInt64 JoinLobby( CSteamID steamIDLobby ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeJoinLobbyC>( this.Functions.JoinLobby10 )( this.ObjectAddress, ref ret, steamIDLobby.ConvertToUint64() ); return (UInt64)ret;
+			return this.GetFunction<NativeJoinLobbyC>( this.Functions.JoinLobby10 )( this.ObjectAddress, steamIDLobby.ConvertToUint64() ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLeaveLobbyC( IntPtr thisptr, UInt64 steamIDLobby );

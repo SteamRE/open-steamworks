@@ -6,6 +6,49 @@ using System.Runtime.InteropServices;
 namespace Steam4NET
 {
 
+	public enum ELobbyType : int
+	{
+		k_ELobbyTypeFriendsOnly = 1,
+		k_ELobbyTypePublic = 2,
+		k_ELobbyTypeInvisible = 3,
+	};
+	
+	public enum ENotificationPosition : int
+	{
+		k_EPositionTopLeft = 0,
+		k_EPositionTopRight = 1,
+		k_EPositionBottomLeft = 2,
+		k_EPositionBottomRight = 3,
+	};
+	
+	public enum EChatMemberStateChange : int
+	{
+		k_EChatMemberStateChangeEntered = 1,
+		k_EChatMemberStateChangeLeft = 2,
+		k_EChatMemberStateChangeDisconnected = 4,
+		k_EChatMemberStateChangeKicked = 8,
+		k_EChatMemberStateChangeBanned = 16,
+	};
+	
+	public enum EServerMode : int
+	{
+		eServerModeInvalid = 0,
+		eServerModeNoAuthentication = 1,
+		eServerModeAuthentication = 2,
+		eServerModeAuthenticationAndSecure = 3,
+	};
+	
+	public enum EUniverse : int
+	{
+		k_EUniverseInvalid = 0,
+		k_EUniversePublic = 1,
+		k_EUniverseBeta = 2,
+		k_EUniverseInternal = 3,
+		k_EUniverseDev = 4,
+		k_EUniverseRC = 5,
+		k_EUniverseMax = 6,
+	};
+	
 	public enum ShareType_t : int
 	{
 		SHARE_STOPIMMEDIATELY = 0,
@@ -44,6 +87,9 @@ namespace Steam4NET
 		k_iSteam2AsyncCallbacks = 1900,
 		k_iSteamGameStatsCallbacks = 2000,
 		k_iClientHTTPCallbacks = 2100,
+		k_iClientScreenshotsCallbacks = 2200,
+		k_iSteamScreenshotsCallbacks = 2300,
+		k_iClientAudioCallbacks = 2400,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

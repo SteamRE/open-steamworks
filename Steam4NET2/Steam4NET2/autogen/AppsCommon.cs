@@ -14,21 +14,111 @@ namespace Steam4NET
 		k_EAppStateFullyInstalled = 4,
 		k_EAppStateDataEncrypted = 8,
 		k_EAppStateDataLocked = 16,
-		k_EAppStateDataCorrupt = 32,
+		k_EAppStateFilesMissing = 32,
+		k_EAppStateFilesCorrupt = 128,
 		k_EAppStateAppRunning = 64,
 		k_EAppStateUpdateRunning = 256,
+		k_EAppStateUpdateStopping = 524288,
 		k_EAppStateUpdatePaused = 512,
-		k_EAppStateUpdateSuspended = 1024,
-		k_EAppStateUninstalling = 2048,
+		k_EAppStateUpdateStarted = 1024,
 		k_EAppStateReconfiguring = 4096,
-		k_EAppStateDownloading = 8192,
-		k_EAppStateStaging = 16384,
-		k_EAppStateCommitting = 32768,
+		k_EAppStateAddingFiles = 16384,
+		k_EAppStateDownloading = 65536,
+		k_EAppStateStaging = 131072,
+		k_EAppStateCommitting = 262144,
+		k_EAppStateUninstalling = 2048,
+		k_EAppStatePreallocating = 32768,
+		k_EAppStateValidating = 8192,
 	};
 	
 	public enum EAppEvent : int
 	{
 		k_EAppEventDownloadComplete = 2,
+	};
+	
+	public enum EAppInfoSection : int
+	{
+		k_EAppInfoSectionUnknown = 0,
+		k_EAppInfoSectionAll = 1,
+		k_EAppInfoSectionCommon = 2,
+		k_EAppInfoSectionExtended = 3,
+		k_EAppInfoSectionConfig = 4,
+		k_EAppInfoSectionStats = 5,
+		k_EAppInfoSectionInstall = 6,
+		k_EAppInfoSectionDepots = 7,
+		k_EAppInfoSectionVac = 8,
+		k_EAppInfoSectionDrm = 9,
+		k_EAppInfoSectionUfs = 10,
+		k_EAppInfoSectionOgg = 11,
+		k_EAppInfoSectionItems = 12,
+		k_EAppInfoSectionPolicies = 13,
+		k_EAppInfoSectionSysreqs = 14,
+		k_EAppInfoSectionCommunity = 15,
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct AppUpdateInfo_s
+	{
+		public UInt32 m_timeUpdateStart;
+		public UInt64 m_unBytesToDownload;
+		public UInt64 m_unBytesDownloaded;
+		public UInt64 m_unBytesToProcess;
+		public UInt64 m_unBytesProcessed;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct DownloadStats_s
+	{
+		public UInt32 m_uIsDownloadEnabled;
+		public UInt32 m_unCurrentConnections;
+		public UInt32 m_unCurrentBytesPerSec;
+		public UInt64 m_unTotalBytesDownload;
+		public UInt32 m_unCurrentCell;
+	};
+	
+	public enum EAppDownloadPriority : int
+	{
+		k_EAppDownloadPriorityNone = 0,
+		k_EAppDownloadPriorityTop = 1,
+		k_EAppDownloadPriorityUp = 2,
+		k_EAppDownloadPriorityDown = 3,
+	};
+	
+	public enum EAppUpdateError : int
+	{
+		k_EAppErrorNone = 0,
+		k_EAppErrorUnspecified = 1,
+		k_EAppErrorUnknownApp = 2,
+		k_EAppErrorCanceled = 3,
+		k_EAppErrorSuspended = 4,
+		k_EAppErrorNoSubscription = 5,
+		k_EAppErrorNoConnection = 6,
+		k_EAppErrorTimeout = 7,
+		k_EAppErrorMissingKey = 8,
+		k_EAppErrorMissingConfig = 9,
+		k_EAppErrorMissingContent = 10,
+		k_EAppErrorDiskFailed = 11,
+		k_EAppErrorNotEnoughDiskSpace = 12,
+		k_EAppErrorCryptoFailed = 13,
+		k_EAppErrorCorruptContent = 14,
+	};
+	
+	public enum ERegisterActivactionCodeResult : int
+	{
+		k_ERegisterActivactionCodeResultOK = 0,
+		k_ERegisterActivactionCodeResultFail = 1,
+		k_ERegisterActivactionCodeResultAlreadyRegistered = 2,
+		k_ERegisterActivactionCodeResultTimeout = 3,
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct SHADigestWrapper_t
+	{
+		public UInt32 A;
+		public UInt32 B;
+		public UInt32 C;
+		public UInt32 D;
+		public UInt32 E;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -60,6 +150,15 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1004)]
+	public struct AppEventTriggered_t
+	{
+		public const int k_iCallback = 1004;
+		public UInt32 m_nAppID;
+		public EAppEvent m_eAppEvent;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(1005)]
 	public struct DlcInstalled_t
 	{
@@ -68,13 +167,75 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1006)]
+	public struct AppEventStateChange_t
+	{
+		public const int k_iCallback = 1006;
+		public UInt32 m_nAppID;
+		public UInt32 m_eOldState;
+		public UInt32 m_eNewState;
+		public EAppUpdateError m_eAppError;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1007)]
+	public struct AppValidationComplete_t
+	{
+		public const int k_iCallback = 1007;
+		public UInt32 m_nAppID;
+		public EResult m_eResult;
+		public UInt64 m_TotalBytesValidated;
+		public UInt64 m_TotalBytesFailed;
+		public UInt32 m_TotalFilesValidated;
+		public UInt32 m_TotalFilesFailed;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1008)]
+	public struct RegisterActivationCodeResponse_t
+	{
+		public const int k_iCallback = 1008;
+		public ERegisterActivactionCodeResult m_eResult;
+		public UInt32 m_unPackageRegistered;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1009)]
+	public struct DownloadScheduleChanged_t
+	{
+		public const int k_iCallback = 1009;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bDownloadEnabled;
+		public UInt32 m_nTotalAppsScheduled;
+		public IntPtr m_rgunAppSchedule;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(1010)]
-	public struct OptionalDLCInstallation_t
+	public struct DlcInstallRequest_t
 	{
 		public const int k_iCallback = 1010;
 		public UInt32 m_nAppID;
 		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bUnk;
+		public bool m_bInstall;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1012)]
+	public struct AppBackupStatus_t
+	{
+		public const int k_iCallback = 1012;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1013)]
+	public struct RequestAppProofOfPurchaseKeyResponse_t
+	{
+		public const int k_iCallback = 1013;
+		public EResult m_eResult;
+		public UInt32 m_nAppID;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+		public string m_szCDKey;
 	};
 	
 }

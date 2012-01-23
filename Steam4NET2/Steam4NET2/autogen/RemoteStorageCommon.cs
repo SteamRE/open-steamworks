@@ -8,26 +8,40 @@ namespace Steam4NET
 
 	public enum ERemoteStorageFileRoot : int
 	{
-		k_ERemoteStorageFileRootInvalid = 0,
-		k_ERemoteStorageFileRootDefault = 1,
-		k_ERemoteStorageFileRootMax = 2,
+		k_ERemoteStorageFileRootInvalid = -1,
+		k_ERemoteStorageFileRootDefault = 0,
+		k_ERemoteStorageFileRootGameInstall = 1,
+		k_ERemoteStorageFileRootWinMyDocuments = 2,
+		k_ERemoteStorageFileRootWinAppDataLocal = 3,
+		k_ERemoteStorageFileRootWinAppDataRoaming = 4,
+		k_ERemoteStorageFileRootSteamUserBaseStorage = 5,
+		k_ERemoteStorageFileRootMacHome = 6,
+		k_ERemoteStorageFileRootMacAppSupport = 7,
+		k_ERemoteStorageFileRootMacDocuments = 8,
+		k_ERemoteStorageFileRootMax = 9,
 	};
 	
 	public enum ERemoteStorageSyncState : int
 	{
-		k_ERemoteSyncStateUnknown = 0,
-		k_ERemoteSyncStateSynchronized = 1,
-		k_ERemoteSyncStateSyncInProgress = 2,
-		k_ERemoteSyncStatePendingChangesInCloud = 3,
-		k_ERemoteSyncStatePendingChangesLocally = 4,
-		k_ERemoteSyncStatePendingChangesInCloudAndLocally = 5,
+		k_ERemoteSyncStateDisabled = 0,
+		k_ERemoteSyncStateUnknown = 1,
+		k_ERemoteSyncStateSynchronized = 2,
+		k_ERemoteSyncStateSyncInProgress = 3,
+		k_ERemoteSyncStatePendingChangesInCloud = 4,
+		k_ERemoteSyncStatePendingChangesLocally = 5,
+		k_ERemoteSyncStatePendingChangesInCloudAndLocally = 6,
+		k_ERemoteSyncStateConflictingChanges = 7,
 	};
 	
-	public enum EScreenshotPrivacyState : int
+	public enum EUCMFilePrivacyState : int
 	{
-		k_EScreenshotPrivacyStatePrivate = 2,
-		k_EScreenshotPrivacyStateFriendsOnly = 4,
-		k_EScreenshotPrivacyStatePublic = 8,
+		k_EUCMFilePrivacyStateInvalid = -1,
+		k_EUCMFilePrivacyStateUnpublished = 0,
+		k_EUCMFilePrivacyStatePublished = 1,
+		k_EUCMFilePrivacyStatePrivate = 2,
+		k_EUCMFilePrivacyStateFriendsOnly = 4,
+		k_EUCMFilePrivacyStatePublic = 8,
+		k_EUCMFilePrivacyStateAll = 14,
 	};
 	
 	public enum ERemoteStoragePlatform : int
@@ -45,6 +59,26 @@ namespace Steam4NET
 	{
 		k_EResolveConflictKeepClient = 1,
 		k_EResolveConflictKeepServer = 2,
+	};
+	
+	public enum ERemoteStoragePublishedFileVisibility : int
+	{
+	};
+	
+	public enum ERemoteStoragePublishedFileSortOrder : int
+	{
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct SteamParamStringArray_t
+	{
+		public Int32 iPadding;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct RemoteStorageUpdatePublishedFileRequest_t
+	{
+		public Int32 iPadding;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -82,6 +116,24 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1304)]
+	public struct RemoteStorageAppInfoLoaded_t
+	{
+		public const int k_iCallback = 1304;
+		public UInt32 m_nAppID;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1305)]
+	public struct RemoteStorageAppSyncStatusCheck_t
+	{
+		public const int k_iCallback = 1305;
+		public UInt32 m_nAppID;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(1306)]
 	public struct RemoteStorageConflictResolution_t
 	{
@@ -101,13 +153,27 @@ namespace Steam4NET
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(1308)]
-	public struct RemoteStorageDownloadUGCResult_t
+	public struct Deprecated_RemoteStorageDownloadUGCResult_t
 	{
 		public const int k_iCallback = 1308;
 		public EResult m_eResult;
 		public UInt64 m_hFile;
 		public UInt32 m_nAppID;
 		public Int32 m_nSizeInBytes;
+		public string m_pchFileName;
+		public UInt64 m_ulSteamIDOwner;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1317)]
+	public struct RemoteStorageDownloadUGCResult_t
+	{
+		public const int k_iCallback = 1317;
+		public EResult m_eResult;
+		public UInt64 m_hFile;
+		public UInt32 m_nAppID;
+		public Int32 m_nSizeInBytes;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
 		public string m_pchFileName;
 		public UInt64 m_ulSteamIDOwner;
 	};

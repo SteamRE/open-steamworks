@@ -38,31 +38,32 @@ namespace Steam4NET
 			this.GetFunction<NativeSetSteam2TicketBI>( this.Functions.SetSteam2Ticket0 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountNameS( IntPtr thisptr, string szName );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountNameS( IntPtr thisptr, string pchAccountName );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetAccountName( string szName ) 
+		public bool SetAccountName( string pchAccountName ) 
 		{
-			return this.GetFunction<NativeSetAccountNameS>( this.Functions.SetAccountName1 )( this.ObjectAddress, szName ); 
+			return this.GetFunction<NativeSetAccountNameS>( this.Functions.SetAccountName1 )( this.ObjectAddress, pchAccountName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetPasswordS( IntPtr thisptr, string szPassword );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetPasswordS( IntPtr thisptr, string pchPassword );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetPassword( string szPassword ) 
+		public bool SetPassword( string pchPassword ) 
 		{
-			return this.GetFunction<NativeSetPasswordS>( this.Functions.SetPassword2 )( this.ObjectAddress, szPassword ); 
+			return this.GetFunction<NativeSetPasswordS>( this.Functions.SetPassword2 )( this.ObjectAddress, pchPassword ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountCreationTimeU( IntPtr thisptr, UInt32 creationTime );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountCreationTimeU( IntPtr thisptr, UInt32 rt );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetAccountCreationTime( UInt32 creationTime ) 
+		public bool SetAccountCreationTime( UInt32 rt ) 
 		{
-			return this.GetFunction<NativeSetAccountCreationTimeU>( this.Functions.SetAccountCreationTime3 )( this.ObjectAddress, creationTime ); 
+			return this.GetFunction<NativeSetAccountCreationTimeU>( this.Functions.SetAccountCreationTime3 )( this.ObjectAddress, rt ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCreateProcessBUSSUBSU( IntPtr thisptr, Byte[] lpVACBlob, UInt32 cbBlobSize, string arg2, StringBuilder arg3, UInt32 arg4, Byte[] arg5, StringBuilder arg6, UInt32 arg7 );
-		public Int32 CreateProcess( Byte[] lpVACBlob, string arg2, StringBuilder arg3, UInt32 arg4, Byte[] arg5, StringBuilder arg6, UInt32 arg7 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCreateProcessBUSSUBSU( IntPtr thisptr, Byte[] lpVACBlob, UInt32 cbBlobSize, string lpApplicationName, StringBuilder lpCommandLine, UInt32 dwCreationFlags, Byte[] lpEnvironment, StringBuilder lpCurrentDirectory, UInt32 nGameID );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool CreateProcess( Byte[] lpVACBlob, string lpApplicationName, StringBuilder lpCommandLine, UInt32 dwCreationFlags, Byte[] lpEnvironment, StringBuilder lpCurrentDirectory, UInt32 nGameID ) 
 		{
-			return this.GetFunction<NativeCreateProcessBUSSUBSU>( this.Functions.CreateProcess4 )( this.ObjectAddress, lpVACBlob, (UInt32) lpVACBlob.Length, arg2, arg3, arg4, arg5, arg6, arg7 ); 
+			return this.GetFunction<NativeCreateProcessBUSSUBSU>( this.Functions.CreateProcess4 )( this.ObjectAddress, lpVACBlob, (UInt32) lpVACBlob.Length, lpApplicationName, lpCommandLine, dwCreationFlags, lpEnvironment, lpCurrentDirectory, nGameID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EUniverse NativeGetConnectedUniverse( IntPtr thisptr );
@@ -83,59 +84,59 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetNumLicenses>( this.Functions.GetNumLicenses7 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicensePackageIDU( IntPtr thisptr, UInt32 licenseId );
-		public UInt32 GetLicensePackageID( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLicensePackageIDU( IntPtr thisptr, UInt32 nLicenseIndex );
+		public Int32 GetLicensePackageID( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicensePackageIDU>( this.Functions.GetLicensePackageID8 )( this.ObjectAddress, licenseId ); 
+			return this.GetFunction<NativeGetLicensePackageIDU>( this.Functions.GetLicensePackageID8 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseTimeCreatedU( IntPtr thisptr, UInt32 licenseId );
-		public UInt32 GetLicenseTimeCreated( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseTimeCreatedU( IntPtr thisptr, UInt32 nLicenseIndex );
+		public UInt32 GetLicenseTimeCreated( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseTimeCreatedU>( this.Functions.GetLicenseTimeCreated9 )( this.ObjectAddress, licenseId ); 
+			return this.GetFunction<NativeGetLicenseTimeCreatedU>( this.Functions.GetLicenseTimeCreated9 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseTimeNextProcessU( IntPtr thisptr, UInt32 licenseId );
-		public UInt32 GetLicenseTimeNextProcess( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseTimeNextProcessU( IntPtr thisptr, UInt32 nLicenseIndex );
+		public UInt32 GetLicenseTimeNextProcess( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseTimeNextProcessU>( this.Functions.GetLicenseTimeNextProcess10 )( this.ObjectAddress, licenseId ); 
+			return this.GetFunction<NativeGetLicenseTimeNextProcessU>( this.Functions.GetLicenseTimeNextProcess10 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseMinuteLimitU( IntPtr thisptr, UInt32 licenseId );
-		public UInt32 GetLicenseMinuteLimit( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLicenseMinuteLimitU( IntPtr thisptr, UInt32 nLicenseIndex );
+		public Int32 GetLicenseMinuteLimit( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseMinuteLimitU>( this.Functions.GetLicenseMinuteLimit11 )( this.ObjectAddress, licenseId ); 
+			return this.GetFunction<NativeGetLicenseMinuteLimitU>( this.Functions.GetLicenseMinuteLimit11 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseMinutesUsedU( IntPtr thisptr, UInt32 licenseId );
-		public UInt32 GetLicenseMinutesUsed( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLicenseMinutesUsedU( IntPtr thisptr, UInt32 nLicenseIndex );
+		public Int32 GetLicenseMinutesUsed( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseMinutesUsedU>( this.Functions.GetLicenseMinutesUsed12 )( this.ObjectAddress, licenseId ); 
+			return this.GetFunction<NativeGetLicenseMinutesUsedU>( this.Functions.GetLicenseMinutesUsed12 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPaymentMethod NativeGetLicensePaymentMethodU( IntPtr thisptr, UInt32 licenseId );
-		public EPaymentMethod GetLicensePaymentMethod( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPaymentMethod NativeGetLicensePaymentMethodU( IntPtr thisptr, UInt32 nLicenseIndex );
+		public EPaymentMethod GetLicensePaymentMethod( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicensePaymentMethodU>( this.Functions.GetLicensePaymentMethod13 )( this.ObjectAddress, licenseId ); 
+			return this.GetFunction<NativeGetLicensePaymentMethodU>( this.Functions.GetLicensePaymentMethod13 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ELicenseFlags NativeGetLicenseFlagsU( IntPtr thisptr, UInt32 licenseId );
-		public ELicenseFlags GetLicenseFlags( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ELicenseFlags NativeGetLicenseFlagsU( IntPtr thisptr, UInt32 nLicenseIndex );
+		public ELicenseFlags GetLicenseFlags( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseFlagsU>( this.Functions.GetLicenseFlags14 )( this.ObjectAddress, licenseId ); 
+			return this.GetFunction<NativeGetLicenseFlagsU>( this.Functions.GetLicenseFlags14 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLicensePurchaseCountryCodeU( IntPtr thisptr, UInt32 licenseId );
-		public string GetLicensePurchaseCountryCode( UInt32 licenseId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLicensePurchaseCountryCodeU( IntPtr thisptr, UInt32 nLicenseIndex );
+		public string GetLicensePurchaseCountryCode( UInt32 nLicenseIndex ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode15 )( this.ObjectAddress, licenseId ) ); 
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode15 )( this.ObjectAddress, nLicenseIndex ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetOfflineModeB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool offlineMode );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetOfflineModeB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bOffline );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetOfflineMode( bool offlineMode ) 
+		public bool SetOfflineMode( bool bOffline ) 
 		{
-			return this.GetFunction<NativeSetOfflineModeB>( this.Functions.SetOfflineMode16 )( this.ObjectAddress, offlineMode ); 
+			return this.GetFunction<NativeSetOfflineModeB>( this.Functions.SetOfflineMode16 )( this.ObjectAddress, bOffline ); 
 		}
 		
 	};

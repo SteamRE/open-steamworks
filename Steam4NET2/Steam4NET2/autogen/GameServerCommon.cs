@@ -8,6 +8,7 @@ namespace Steam4NET
 
 	public enum EDenyReason : int
 	{
+		k_EDenyInvalid = 0,
 		k_EDenyInvalidVersion = 1,
 		k_EDenyGeneric = 2,
 		k_EDenyNotLoggedOn = 3,
@@ -30,7 +31,7 @@ namespace Steam4NET
 	public struct GSClientApprove_t
 	{
 		public const int k_iCallback = 201;
-		public UInt64 m_SteamID;
+		public SteamID_t m_SteamID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -38,7 +39,7 @@ namespace Steam4NET
 	public struct GSClientDeny_t
 	{
 		public const int k_iCallback = 202;
-		public UInt64 m_SteamID;
+		public SteamID_t m_SteamID;
 		public EDenyReason m_eDenyReason;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
 		public string m_pchOptionalText;
@@ -49,7 +50,7 @@ namespace Steam4NET
 	public struct GSClientKick_t
 	{
 		public const int k_iCallback = 203;
-		public UInt64 m_SteamID;
+		public SteamID_t m_SteamID;
 		public EDenyReason m_eDenyReason;
 	};
 	
@@ -76,7 +77,7 @@ namespace Steam4NET
 	public struct GSClientAchievementStatus_t
 	{
 		public const int k_iCallback = 206;
-		public UInt64 m_SteamID;
+		public SteamID_t m_SteamID;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
 		public string m_pchAchievement;
 		[MarshalAs(UnmanagedType.I1)]
@@ -99,8 +100,8 @@ namespace Steam4NET
 	public struct GSClientGroupStatus_t
 	{
 		public const int k_iCallback = 208;
-		public UInt64 m_SteamIDUser;
-		public UInt64 m_SteamIDGroup;
+		public SteamID_t m_SteamIDUser;
+		public SteamID_t m_SteamIDGroup;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bMember;
 		[MarshalAs(UnmanagedType.I1)]

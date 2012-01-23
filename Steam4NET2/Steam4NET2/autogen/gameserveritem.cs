@@ -35,7 +35,7 @@ namespace Steam4NET
 		public string m_szServerName;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
 		public string m_szGameTags;
-		public UInt64 m_steamID;
+		public SteamID_t m_steamID;
 	};
 	
 }

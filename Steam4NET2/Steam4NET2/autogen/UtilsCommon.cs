@@ -24,6 +24,15 @@ namespace Steam4NET
 		k_EConfigStoreMax = 4,
 	};
 	
+	public enum ECheckFileSignature : int
+	{
+		k_ECheckFileSignatureInvalidSignature = 0,
+		k_ECheckFileSignatureValidSignature = 1,
+		k_ECheckFileSignatureFileNotFound = 2,
+		k_ECheckFileSignatureNoSignaturesFoundForThisApp = 3,
+		k_ECheckFileSignatureNoSignaturesFoundForThisFile = 4,
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(701)]
 	public struct IPCountry_t
@@ -55,30 +64,29 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(711)]
-	public struct SteamConfigStoreChanged_t
-	{
-		public const int k_iCallback = 711;
-		public EConfigStore m_eConfigStore;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-		public string m_szRootOfChanges;
-	};
-	
-	public enum ECheckFileSignature : int
-	{
-		k_ECheckFileSignatureInvalidSignature = 0,
-		k_ECheckFileSignatureValidSignature = 1,
-		k_ECheckFileSignatureFileNotFound = 2,
-		k_ECheckFileSignatureNoSignaturesFoundForThisApp = 3,
-		k_ECheckFileSignatureNoSignaturesFoundForThisFile = 4,
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(705)]
 	public struct CheckFileSignature_t
 	{
 		public const int k_iCallback = 705;
 		public ECheckFileSignature m_eCheckFileSignature;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(711)]
+	public struct SteamConfigStoreChanged_t
+	{
+		public const int k_iCallback = 711;
+		public EConfigStore m_eConfigStore;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 255)]
+		public string m_szRootOfChanges;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1603)]
+	public struct CellIDChanged_t
+	{
+		public const int k_iCallback = 1603;
+		public UInt32 m_nCellID;
 	};
 	
 }

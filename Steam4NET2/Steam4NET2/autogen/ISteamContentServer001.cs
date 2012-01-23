@@ -40,10 +40,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequestCU( IntPtr thisptr, UInt64 steamId, UInt32 unContentID );
-		public void SendClientContentAuthRequest( CSteamID steamId, UInt32 unContentID ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequestCU( IntPtr thisptr, UInt64 steamID, UInt32 unContentID );
+		public void SendClientContentAuthRequest( CSteamID steamID, UInt32 unContentID ) 
 		{
-			this.GetFunction<NativeSendClientContentAuthRequestCU>( this.Functions.SendClientContentAuthRequest3 )( this.ObjectAddress, steamId.ConvertToUint64(), unContentID ); 
+			this.GetFunction<NativeSendClientContentAuthRequestCU>( this.Functions.SendClientContentAuthRequest3 )( this.ObjectAddress, steamID.ConvertToUint64(), unContentID ); 
 		}
 		
 	};

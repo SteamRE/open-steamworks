@@ -21,6 +21,7 @@ namespace Steam4NET
 		k_ELeaderboardDataRequestGlobal = 0,
 		k_ELeaderboardDataRequestGlobalAroundUser = 1,
 		k_ELeaderboardDataRequestFriends = 2,
+		k_ELeaderboardDataRequestUsers = 3,
 	};
 	
 	public enum ELeaderboardDisplayType : int
@@ -47,12 +48,15 @@ namespace Steam4NET
 	
 	public enum EGetAchievementIcon : int
 	{
+		k_EGetAchievementIconUser = 0,
+		k_EGetAchievementIconAchieved = 1,
+		k_EGetAchievementIconUnachieved = 2,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct LeaderboardEntry001_t
 	{
-		public UInt64 m_steamIDUser;
+		public SteamID_t m_steamIDUser;
 		public Int32 m_nGlobalRank;
 		public Int32 m_nScore;
 		public Int32 m_cDetails;
@@ -61,7 +65,7 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct LeaderboardEntry002_t
 	{
-		public UInt64 m_steamIDUser;
+		public SteamID_t m_steamIDUser;
 		public Int32 m_nGlobalRank;
 		public Int32 m_nScore;
 		public Int32 m_cDetails;
@@ -75,7 +79,7 @@ namespace Steam4NET
 		public const int k_iCallback = 1101;
 		public UInt64 m_nGameID;
 		public EResult m_eResult;
-		public UInt64 m_steamIDUser;
+		public SteamID_t m_steamIDUser;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -147,7 +151,7 @@ namespace Steam4NET
 	public struct UserStatsUnloaded_t
 	{
 		public const int k_iCallback = 1108;
-		public UInt64 m_steamIDUser;
+		public SteamID_t m_steamIDUser;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -155,7 +159,7 @@ namespace Steam4NET
 	public struct UserAchievementIconFetched_t
 	{
 		public const int k_iCallback = 1109;
-		public UInt64 m_nGameID;
+		public GameID_t m_nGameID;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
 		public string m_rgchAchievementName;
 		[MarshalAs(UnmanagedType.I1)]

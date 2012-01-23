@@ -127,10 +127,10 @@ namespace Steam4NET
 			this.GetFunction<NativeGetGameplayStats>( this.Functions.GetGameplayStats13 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetServerReputation( IntPtr thisptr, ref UInt64 retarg );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetServerReputation( IntPtr thisptr );
 		public UInt64 GetServerReputation(  ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetServerReputation>( this.Functions.GetServerReputation14 )( this.ObjectAddress, ref ret ); return (UInt64)ret;
+			return this.GetFunction<NativeGetServerReputation>( this.Functions.GetServerReputation14 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatusCC( IntPtr thisptr, UInt64 steamIDUser, UInt64 steamIDGroup );

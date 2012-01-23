@@ -66,7 +66,7 @@ namespace Steam4NET
 		public const int k_iCallback = 1201;
 		public UInt32 m_hSocket;
 		public UInt32 m_hListenSocket;
-		public UInt64 m_steamIDRemote;
+		public SteamID_t m_steamIDRemote;
 		public Int32 m_eSNetSocketState;
 	};
 	
@@ -75,7 +75,7 @@ namespace Steam4NET
 	public struct P2PSessionRequest_t
 	{
 		public const int k_iCallback = 1202;
-		public UInt64 m_steamIDRemote;
+		public SteamID_t m_steamIDRemote;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -83,7 +83,7 @@ namespace Steam4NET
 	public struct P2PSessionConnectFail_t
 	{
 		public const int k_iCallback = 1203;
-		public UInt64 m_steamIDRemote;
+		public SteamID_t m_steamIDRemote;
 		public Byte m_eP2PSessionError;
 	};
 	

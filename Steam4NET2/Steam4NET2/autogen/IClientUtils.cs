@@ -135,10 +135,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetOfflineMode>( this.Functions.GetOfflineMode14 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppIDForCurrentPipeUB( IntPtr thisptr, UInt32 appId, [MarshalAs(UnmanagedType.I1)] bool bForce );
-		public UInt32 SetAppIDForCurrentPipe( UInt32 appId, bool bForce ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppIDForCurrentPipeUB( IntPtr thisptr, UInt32 nAppID, [MarshalAs(UnmanagedType.I1)] bool bTrackProcess );
+		public UInt32 SetAppIDForCurrentPipe( UInt32 nAppID, bool bTrackProcess ) 
 		{
-			return this.GetFunction<NativeSetAppIDForCurrentPipeUB>( this.Functions.SetAppIDForCurrentPipe15 )( this.ObjectAddress, appId, bForce ); 
+			return this.GetFunction<NativeSetAppIDForCurrentPipeUB>( this.Functions.SetAppIDForCurrentPipe15 )( this.ObjectAddress, nAppID, bTrackProcess ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppID( IntPtr thisptr );
@@ -193,16 +193,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeBIsGlobalInstance>( this.Functions.BIsGlobalInstance23 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCheckFileSignatureS( IntPtr thisptr, ref UInt64 retarg, string szFileName );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCheckFileSignatureS( IntPtr thisptr, string szFileName );
 		public UInt64 CheckFileSignature( string szFileName ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeCheckFileSignatureS>( this.Functions.CheckFileSignature24 )( this.ObjectAddress, ref ret, szFileName ); return (UInt64)ret;
+			return this.GetFunction<NativeCheckFileSignatureS>( this.Functions.CheckFileSignature24 )( this.ObjectAddress, szFileName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetBuildID( IntPtr thisptr, ref UInt64 retarg );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetBuildID( IntPtr thisptr );
 		public UInt64 GetBuildID(  ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetBuildID>( this.Functions.GetBuildID25 )( this.ObjectAddress, ref ret ); return (UInt64)ret;
+			return this.GetFunction<NativeGetBuildID>( this.Functions.GetBuildID25 )( this.ObjectAddress ); 
 		}
 		
 	};

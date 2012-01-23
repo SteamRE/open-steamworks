@@ -26,7 +26,6 @@ namespace Steam4NET
 		public UInt32 uNumIcons;
 		public UInt32 uNumVersions;
 		public UInt32 uNumDependencies;
-		public string szUnkString;
 	};
 	
 }

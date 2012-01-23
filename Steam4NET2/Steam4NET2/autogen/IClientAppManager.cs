@@ -6,196 +6,247 @@ using System.Runtime.InteropServices;
 namespace Steam4NET
 {
 
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	public struct AppUpdateInfo_s
-	{
-		public UInt32 m_timeUpdateStart;
-		public UInt64 m_unBytesToDownload;
-		public UInt64 m_unBytesDownloaded;
-		public UInt64 m_unBytesToWrite;
-		public UInt64 m_unBytesWritten;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	public struct DownloadStats_s
-	{
-		public Byte hack;
-	};
-	
-	public enum EAppDownloadPriority : int
-	{
-	};
-	
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
 	public class IClientAppManagerVTable
 	{
-		public IntPtr LaunchApp0;
-		public IntPtr ShutdownApp1;
-		public IntPtr GetAppState2;
-		public IntPtr InstallApp3;
-		public IntPtr GetAppSize4;
-		public IntPtr GetAppDir5;
-		public IntPtr UninstallApp6;
-		public IntPtr GetUpdateInfo7;
-		public IntPtr SetContentLocked8;
-		public IntPtr StartValidatingApp9;
-		public IntPtr SetAppConfig10;
-		public IntPtr BIsAppUpToDate11;
-		public IntPtr SetDownloadingEnabled12;
-		public IntPtr BIsDownloadingEnabled13;
-		public IntPtr GetDownloadStats14;
-		public IntPtr GetDownloadingAppID15;
-		public IntPtr ChangeAppPriority16;
-		public IntPtr AddSteam2Update17;
-		public IntPtr RemoveSteam2Update18;
-		public IntPtr StalledSteam2Update19;
-		public IntPtr IsUsingLocalContentServer20;
-		private IntPtr DTorIClientAppManager21;
+		public IntPtr InstallApp0;
+		public IntPtr ConvertFromSteam21;
+		public IntPtr UninstallApp2;
+		public IntPtr LaunchApp3;
+		public IntPtr ShutdownApp4;
+		public IntPtr GetAppState5;
+		public IntPtr GetAppSize6;
+		public IntPtr GetAppDir7;
+		public IntPtr GetUpdateInfo8;
+		public IntPtr SetContentLocked9;
+		public IntPtr StartValidatingApp10;
+		public IntPtr SetAppConfig11;
+		public IntPtr BIsAppUpToDate12;
+		public IntPtr BCheckBetaPassword13;
+		public IntPtr SetDownloadingEnabled14;
+		public IntPtr BIsDownloadingEnabled15;
+		public IntPtr GetDownloadStats16;
+		public IntPtr GetDownloadingAppID17;
+		public IntPtr ChangeAppPriority18;
+		public IntPtr AddSteam2Update19;
+		public IntPtr RemoveSteam2Update20;
+		public IntPtr StalledSteam2Update21;
+		public IntPtr BHasLocalContentServer22;
+		public IntPtr BuildBackup23;
+		public IntPtr BuildInstaller24;
+		public IntPtr CancelBackup25;
+		public IntPtr RestoreApp26;
+		public IntPtr BNeedsFile27;
+		public IntPtr BAddFileOnDisk28;
+		public IntPtr FinishAddingFiles29;
+		private IntPtr DTorIClientAppManager30;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTAPPMANAGER_INTERFACE_VERSION001")]
 	public class IClientAppManager : InteropHelp.NativeWrapper<IClientAppManagerVTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLaunchAppUUS( IntPtr thisptr, UInt32 unAppID, UInt32 uLaunchOption, string cszArgs );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInstallAppUB( IntPtr thisptr, UInt32 unAppID, [MarshalAs(UnmanagedType.I1)] bool arg1 );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LaunchApp( UInt32 unAppID, UInt32 uLaunchOption, string cszArgs ) 
+		public bool InstallApp( UInt32 unAppID, bool arg1 ) 
 		{
-			return this.GetFunction<NativeLaunchAppUUS>( this.Functions.LaunchApp0 )( this.ObjectAddress, unAppID, uLaunchOption, cszArgs ); 
+			return this.GetFunction<NativeInstallAppUB>( this.Functions.InstallApp0 )( this.ObjectAddress, unAppID, arg1 ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeShutdownAppUB( IntPtr thisptr, UInt32 unAppID, [MarshalAs(UnmanagedType.I1)] bool bForce );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeConvertFromSteam2US( IntPtr thisptr, UInt32 unAppID, string cszPath );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool ShutdownApp( UInt32 unAppID, bool bForce ) 
+		public bool ConvertFromSteam2( UInt32 unAppID, string cszPath ) 
 		{
-			return this.GetFunction<NativeShutdownAppUB>( this.Functions.ShutdownApp1 )( this.ObjectAddress, unAppID, bForce ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EAppState NativeGetAppStateU( IntPtr thisptr, UInt32 unAppID );
-		public EAppState GetAppState( UInt32 unAppID ) 
-		{
-			return this.GetFunction<NativeGetAppStateU>( this.Functions.GetAppState2 )( this.ObjectAddress, unAppID ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInstallAppUSI( IntPtr thisptr, UInt32 unAppID, string phBuffer, Int32 cbBuffer );
-		[return: MarshalAs(UnmanagedType.I1)]
-		public bool InstallApp( UInt32 unAppID, string phBuffer, Int32 cbBuffer ) 
-		{
-			return this.GetFunction<NativeInstallAppUSI>( this.Functions.InstallApp3 )( this.ObjectAddress, unAppID, phBuffer, cbBuffer ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetAppSizeU( IntPtr thisptr, ref UInt64 retarg, UInt32 unAppID );
-		public UInt64 GetAppSize( UInt32 unAppID ) 
-		{
-			UInt64 ret = 0; this.GetFunction<NativeGetAppSizeU>( this.Functions.GetAppSize4 )( this.ObjectAddress, ref ret, unAppID ); return (UInt64)ret;
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppDirUSU( IntPtr thisptr, UInt32 unAppID, StringBuilder szBuffer, UInt32 cubBuffer );
-		public UInt32 GetAppDir( UInt32 unAppID, StringBuilder szBuffer ) 
-		{
-			return this.GetFunction<NativeGetAppDirUSU>( this.Functions.GetAppDir5 )( this.ObjectAddress, unAppID, szBuffer, (UInt32) szBuffer.Capacity ); 
+			return this.GetFunction<NativeConvertFromSteam2US>( this.Functions.ConvertFromSteam21 )( this.ObjectAddress, unAppID, cszPath ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUninstallAppUB( IntPtr thisptr, UInt32 unAppID, [MarshalAs(UnmanagedType.I1)] bool bComplete );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool UninstallApp( UInt32 unAppID, bool bComplete ) 
 		{
-			return this.GetFunction<NativeUninstallAppUB>( this.Functions.UninstallApp6 )( this.ObjectAddress, unAppID, bComplete ); 
+			return this.GetFunction<NativeUninstallAppUB>( this.Functions.UninstallApp2 )( this.ObjectAddress, unAppID, bComplete ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLaunchAppUUS( IntPtr thisptr, UInt32 unAppID, UInt32 uLaunchOption, string pszUserArgs );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool LaunchApp( UInt32 unAppID, UInt32 uLaunchOption, string pszUserArgs ) 
+		{
+			return this.GetFunction<NativeLaunchAppUUS>( this.Functions.LaunchApp3 )( this.ObjectAddress, unAppID, uLaunchOption, pszUserArgs ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeShutdownAppUB( IntPtr thisptr, UInt32 unAppID, [MarshalAs(UnmanagedType.I1)] bool bForce );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool ShutdownApp( UInt32 unAppID, bool bForce ) 
+		{
+			return this.GetFunction<NativeShutdownAppUB>( this.Functions.ShutdownApp4 )( this.ObjectAddress, unAppID, bForce ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EAppState NativeGetAppStateU( IntPtr thisptr, UInt32 unAppID );
+		public EAppState GetAppState( UInt32 unAppID ) 
+		{
+			return this.GetFunction<NativeGetAppStateU>( this.Functions.GetAppState5 )( this.ObjectAddress, unAppID ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetAppSizeU( IntPtr thisptr, UInt32 unAppID );
+		public UInt64 GetAppSize( UInt32 unAppID ) 
+		{
+			return this.GetFunction<NativeGetAppSizeU>( this.Functions.GetAppSize6 )( this.ObjectAddress, unAppID ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppDirUSU( IntPtr thisptr, UInt32 unAppID, StringBuilder pchPath, UInt32 cbPath );
+		public UInt32 GetAppDir( UInt32 unAppID, StringBuilder pchPath ) 
+		{
+			return this.GetFunction<NativeGetAppDirUSU>( this.Functions.GetAppDir7 )( this.ObjectAddress, unAppID, pchPath, (UInt32) pchPath.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetUpdateInfoUA( IntPtr thisptr, UInt32 unAppID, ref AppUpdateInfo_s pUpdateInfo );
 		public UInt32 GetUpdateInfo( UInt32 unAppID, ref AppUpdateInfo_s pUpdateInfo ) 
 		{
-			return this.GetFunction<NativeGetUpdateInfoUA>( this.Functions.GetUpdateInfo7 )( this.ObjectAddress, unAppID, ref pUpdateInfo ); 
+			return this.GetFunction<NativeGetUpdateInfoUA>( this.Functions.GetUpdateInfo8 )( this.ObjectAddress, unAppID, ref pUpdateInfo ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetContentLockedUB( IntPtr thisptr, UInt32 unAppID, [MarshalAs(UnmanagedType.I1)] bool bContentLocked );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetContentLockedUB( IntPtr thisptr, UInt32 unAppID, [MarshalAs(UnmanagedType.I1)] bool bLockContent );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetContentLocked( UInt32 unAppID, bool bContentLocked ) 
+		public bool SetContentLocked( UInt32 unAppID, bool bLockContent ) 
 		{
-			return this.GetFunction<NativeSetContentLockedUB>( this.Functions.SetContentLocked8 )( this.ObjectAddress, unAppID, bContentLocked ); 
+			return this.GetFunction<NativeSetContentLockedUB>( this.Functions.SetContentLocked9 )( this.ObjectAddress, unAppID, bLockContent ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeStartValidatingAppU( IntPtr thisptr, UInt32 unAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool StartValidatingApp( UInt32 unAppID ) 
 		{
-			return this.GetFunction<NativeStartValidatingAppU>( this.Functions.StartValidatingApp9 )( this.ObjectAddress, unAppID ); 
+			return this.GetFunction<NativeStartValidatingAppU>( this.Functions.StartValidatingApp10 )( this.ObjectAddress, unAppID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAppConfigUBIB( IntPtr thisptr, UInt32 unAppID, Byte[] pchBuffer, Int32 cbBuffer, [MarshalAs(UnmanagedType.I1)] bool bUnknown );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAppConfigUBIB( IntPtr thisptr, UInt32 unAppID, Byte[] pchBuffer, Int32 cbBuffer, [MarshalAs(UnmanagedType.I1)] bool bSharedKVSymbols );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetAppConfig( UInt32 unAppID, Byte[] pchBuffer, bool bUnknown ) 
+		public bool SetAppConfig( UInt32 unAppID, Byte[] pchBuffer, bool bSharedKVSymbols ) 
 		{
-			return this.GetFunction<NativeSetAppConfigUBIB>( this.Functions.SetAppConfig10 )( this.ObjectAddress, unAppID, pchBuffer, (Int32) pchBuffer.Length, bUnknown ); 
+			return this.GetFunction<NativeSetAppConfigUBIB>( this.Functions.SetAppConfig11 )( this.ObjectAddress, unAppID, pchBuffer, (Int32) pchBuffer.Length, bSharedKVSymbols ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsAppUpToDateU( IntPtr thisptr, UInt32 unAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BIsAppUpToDate( UInt32 unAppID ) 
 		{
-			return this.GetFunction<NativeBIsAppUpToDateU>( this.Functions.BIsAppUpToDate11 )( this.ObjectAddress, unAppID ); 
+			return this.GetFunction<NativeBIsAppUpToDateU>( this.Functions.BIsAppUpToDate12 )( this.ObjectAddress, unAppID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetDownloadingEnabledB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bEnabled );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBCheckBetaPasswordUSS( IntPtr thisptr, UInt32 unAppID, string cszBetaKey, string cszBetaPassword );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetDownloadingEnabled( bool bEnabled ) 
+		public bool BCheckBetaPassword( UInt32 unAppID, string cszBetaKey, string cszBetaPassword ) 
 		{
-			return this.GetFunction<NativeSetDownloadingEnabledB>( this.Functions.SetDownloadingEnabled12 )( this.ObjectAddress, bEnabled ); 
+			return this.GetFunction<NativeBCheckBetaPasswordUSS>( this.Functions.BCheckBetaPassword13 )( this.ObjectAddress, unAppID, cszBetaKey, cszBetaPassword ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetDownloadingEnabledB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bState );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool SetDownloadingEnabled( bool bState ) 
+		{
+			return this.GetFunction<NativeSetDownloadingEnabledB>( this.Functions.SetDownloadingEnabled14 )( this.ObjectAddress, bState ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsDownloadingEnabled( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BIsDownloadingEnabled(  ) 
 		{
-			return this.GetFunction<NativeBIsDownloadingEnabled>( this.Functions.BIsDownloadingEnabled13 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsDownloadingEnabled>( this.Functions.BIsDownloadingEnabled15 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetDownloadStatsD( IntPtr thisptr, ref DownloadStats_s pStats );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetDownloadStatsD( IntPtr thisptr, ref DownloadStats_s pDownloadStats );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetDownloadStats( ref DownloadStats_s pStats ) 
+		public bool GetDownloadStats( ref DownloadStats_s pDownloadStats ) 
 		{
-			return this.GetFunction<NativeGetDownloadStatsD>( this.Functions.GetDownloadStats14 )( this.ObjectAddress, ref pStats ); 
+			return this.GetFunction<NativeGetDownloadStatsD>( this.Functions.GetDownloadStats16 )( this.ObjectAddress, ref pDownloadStats ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetDownloadingAppID( IntPtr thisptr );
 		public UInt32 GetDownloadingAppID(  ) 
 		{
-			return this.GetFunction<NativeGetDownloadingAppID>( this.Functions.GetDownloadingAppID15 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetDownloadingAppID>( this.Functions.GetDownloadingAppID17 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeChangeAppPriorityUE( IntPtr thisptr, UInt32 unAppID, EAppDownloadPriority eDownloadPriority );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeChangeAppPriorityUE( IntPtr thisptr, UInt32 unAppID, EAppDownloadPriority ePriority );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool ChangeAppPriority( UInt32 unAppID, EAppDownloadPriority eDownloadPriority ) 
+		public bool ChangeAppPriority( UInt32 unAppID, EAppDownloadPriority ePriority ) 
 		{
-			return this.GetFunction<NativeChangeAppPriorityUE>( this.Functions.ChangeAppPriority16 )( this.ObjectAddress, unAppID, eDownloadPriority ); 
+			return this.GetFunction<NativeChangeAppPriorityUE>( this.Functions.ChangeAppPriority18 )( this.ObjectAddress, unAppID, ePriority ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddSteam2UpdateU( IntPtr thisptr, UInt32 unAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool AddSteam2Update( UInt32 unAppID ) 
 		{
-			return this.GetFunction<NativeAddSteam2UpdateU>( this.Functions.AddSteam2Update17 )( this.ObjectAddress, unAppID ); 
+			return this.GetFunction<NativeAddSteam2UpdateU>( this.Functions.AddSteam2Update19 )( this.ObjectAddress, unAppID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveSteam2UpdateU( IntPtr thisptr, UInt32 unAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool RemoveSteam2Update( UInt32 unAppID ) 
 		{
-			return this.GetFunction<NativeRemoveSteam2UpdateU>( this.Functions.RemoveSteam2Update18 )( this.ObjectAddress, unAppID ); 
+			return this.GetFunction<NativeRemoveSteam2UpdateU>( this.Functions.RemoveSteam2Update20 )( this.ObjectAddress, unAppID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeStalledSteam2UpdateU( IntPtr thisptr, UInt32 unAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool StalledSteam2Update( UInt32 unAppID ) 
 		{
-			return this.GetFunction<NativeStalledSteam2UpdateU>( this.Functions.StalledSteam2Update19 )( this.ObjectAddress, unAppID ); 
+			return this.GetFunction<NativeStalledSteam2UpdateU>( this.Functions.StalledSteam2Update21 )( this.ObjectAddress, unAppID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsUsingLocalContentServer( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBHasLocalContentServer( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool IsUsingLocalContentServer(  ) 
+		public bool BHasLocalContentServer(  ) 
 		{
-			return this.GetFunction<NativeIsUsingLocalContentServer>( this.Functions.IsUsingLocalContentServer20 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBHasLocalContentServer>( this.Functions.BHasLocalContentServer22 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBuildBackupUUS( IntPtr thisptr, UInt32 unAppID, UInt64 ullMaxFileSize, string cszBackupPath );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool BuildBackup( UInt32 unAppID, UInt64 ullMaxFileSize, string cszBackupPath ) 
+		{
+			return this.GetFunction<NativeBuildBackupUUS>( this.Functions.BuildBackup23 )( this.ObjectAddress, unAppID, ullMaxFileSize, cszBackupPath ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBuildInstallerSS( IntPtr thisptr, string cszProjectFile, string cszBackupPath );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool BuildInstaller( string cszProjectFile, string cszBackupPath ) 
+		{
+			return this.GetFunction<NativeBuildInstallerSS>( this.Functions.BuildInstaller24 )( this.ObjectAddress, cszProjectFile, cszBackupPath ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCancelBackup( IntPtr thisptr );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool CancelBackup(  ) 
+		{
+			return this.GetFunction<NativeCancelBackup>( this.Functions.CancelBackup25 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRestoreAppUS( IntPtr thisptr, UInt32 unAppID, string cszBackupPath );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool RestoreApp( UInt32 unAppID, string cszBackupPath ) 
+		{
+			return this.GetFunction<NativeRestoreAppUS>( this.Functions.RestoreApp26 )( this.ObjectAddress, unAppID, cszBackupPath ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBNeedsFileUSUU( IntPtr thisptr, UInt32 unAppID, string cszFilePath, UInt64 ullFileSize, UInt32 uUnk );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool BNeedsFile( UInt32 unAppID, string cszFilePath, UInt64 ullFileSize, UInt32 uUnk ) 
+		{
+			return this.GetFunction<NativeBNeedsFileUSUU>( this.Functions.BNeedsFile27 )( this.ObjectAddress, unAppID, cszFilePath, ullFileSize, uUnk ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBAddFileOnDiskUSUUS( IntPtr thisptr, UInt32 unAppID, string cszFilePath, UInt64 ullFileSize, UInt32 uUnk, SHADigestWrapper_t ubSha1 );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool BAddFileOnDisk( UInt32 unAppID, string cszFilePath, UInt64 ullFileSize, UInt32 uUnk, SHADigestWrapper_t ubSha1 ) 
+		{
+			return this.GetFunction<NativeBAddFileOnDiskUSUUS>( this.Functions.BAddFileOnDisk28 )( this.ObjectAddress, unAppID, cszFilePath, ullFileSize, uUnk, ubSha1 ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeFinishAddingFilesU( IntPtr thisptr, UInt32 unAppID );
+		public UInt64 FinishAddingFiles( UInt32 unAppID ) 
+		{
+			return this.GetFunction<NativeFinishAddingFilesU>( this.Functions.FinishAddingFiles29 )( this.ObjectAddress, unAppID ); 
 		}
 		
 	};

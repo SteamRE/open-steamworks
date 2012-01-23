@@ -6,15 +6,6 @@ using System.Runtime.InteropServices;
 namespace Steam4NET
 {
 
-	public enum ECurrencyCode : int
-	{
-		k_ECurrencyCodeInvalid = 0,
-		k_ECurrencyCodeUSD = 1,
-		k_ECurrencyCodeGBP = 2,
-		k_ECurrencyCodeEUR = 3,
-		k_ECurrencyCodeMax = 4,
-	};
-	
 	public enum ELicenseFlags : int
 	{
 		k_ELicenseFlagNone = 0,
@@ -31,17 +22,22 @@ namespace Steam4NET
 	public enum EPaymentMethod : int
 	{
 		k_EPaymentMethodNone = 0,
-		k_EPaymentMethodCDKey = 1,
+		k_EPaymentMethodActivationCode = 1,
 		k_EPaymentMethodCreditCard = 2,
+		k_EPaymentMethodGiropay = 3,
 		k_EPaymentMethodPayPal = 4,
-		k_EPaymentMethodManual = 8,
+		k_EPaymentMethodIdeal = 5,
+		k_EPaymentMethodPaySafeCard = 6,
+		k_EPaymentMethodSofort = 7,
 		k_EPaymentMethodGuestPass = 8,
+		k_EPaymentMethodWebMoney = 9,
 		k_EPaymentMethodHardwarePromo = 16,
 		k_EPaymentMethodClickAndBuy = 32,
 		k_EPaymentMethodAutoGrant = 64,
 		k_EPaymentMethodWallet = 128,
 		k_EPaymentMethodOEMTicket = 256,
 		k_EPaymentMethodSplit = 512,
+		k_EPaymentMethodComplimentary = 1024,
 	};
 	
 	public enum EPurchaseResultDetail : int
@@ -77,6 +73,13 @@ namespace Steam4NET
 		k_EPurchaseResultFailedCyberCafe = 28,
 		k_EPurchaseResultNeedsPreApproval = 29,
 		k_EPurchaseResultPreApprovalDenied = 30,
+		k_EPurchaseResultWalletCurrencyMismatch = 31,
+		k_EPurchaseResultEmailNotValidated = 32,
+		k_EPurchaseResultExpiredCard = 33,
+		k_EPurchaseResultTransactionExpired = 34,
+		k_EPurchaseResultWouldExceedMaxWallet = 35,
+		k_EPurchaseResultMustLoginPS3AppForPurchase = 36,
+		k_EPurchaseResultCannotShipToPOBox = 37,
 	};
 	
 	public enum EPurchaseStatus : int
@@ -89,6 +92,8 @@ namespace Steam4NET
 		k_EPurchaseChargedback = 5,
 		k_EPurchaseRevoked = 6,
 		k_EPurchaseInDispute = 7,
+		k_EPurchasePartialRefund = 8,
+		k_EPurchaseRefundToWallet = 9,
 	};
 	
 	public enum ECreditCardType : int
@@ -100,6 +105,11 @@ namespace Steam4NET
 		k_ECreditCardTypeDiscover = 4,
 		k_ECreditCardTypeDinersClub = 5,
 		k_ECreditCardTypeJCB = 6,
+		k_ECreditCardTypeCarteBleue = 7,
+		k_ECreditCardTypeDankort = 8,
+		k_ECreditCardTypeMaestro = 9,
+		k_ECreditCardTypeSolo = 10,
+		k_ECreditCardTypeLaser = 11,
 	};
 	
 	public enum ELicenseType : int
@@ -131,6 +141,35 @@ namespace Steam4NET
 		public const int k_iCallback = 402;
 		public UInt32 m_bSuccess;
 		public Int32 m_EPurchaseResultDetail;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(404)]
+	public struct PurchaseResponse_t
+	{
+		public const int k_iCallback = 404;
+		public EResult m_EResult;
+		public Int32 m_EPurchaseResultDetail;
+		public Int32 m_iReceiptIndex;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(409)]
+	public struct CancelLicenseMsg_t
+	{
+		public const int k_iCallback = 409;
+		public EResult m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(414)]
+	public struct OEMTicketActivationResponse_t
+	{
+		public const int k_iCallback = 414;
+		public EResult m_EResult;
+		public EPurchaseResultDetail m_EPurchaseResultDetail;
+		public UInt32 m_nPackageID;
+		public Int32 m_iReceiptIndex;
 	};
 	
 }

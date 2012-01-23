@@ -28,16 +28,16 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("SteamGameStats001")]
 	public class ISteamGameStats001 : InteropHelp.NativeWrapper<ISteamGameStats001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetNewSessionSUIU( IntPtr thisptr, ref UInt64 retarg, SByte nAccountType, UInt64 ulAccountID, Int32 nAppID, UInt32 rtTimeStarted );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetNewSessionSUIU( IntPtr thisptr, SByte nAccountType, UInt64 ulAccountID, Int32 nAppID, UInt32 rtTimeStarted );
 		public UInt64 GetNewSession( SByte nAccountType, UInt64 ulAccountID, Int32 nAppID, UInt32 rtTimeStarted ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetNewSessionSUIU>( this.Functions.GetNewSession0 )( this.ObjectAddress, ref ret, nAccountType, ulAccountID, nAppID, rtTimeStarted ); return (UInt64)ret;
+			return this.GetFunction<NativeGetNewSessionSUIU>( this.Functions.GetNewSession0 )( this.ObjectAddress, nAccountType, ulAccountID, nAppID, rtTimeStarted ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEndSessionUUI( IntPtr thisptr, ref UInt64 retarg, UInt64 ulSessionID, UInt32 rtTimeEnded, Int32 nReasonCode );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEndSessionUUI( IntPtr thisptr, UInt64 ulSessionID, UInt32 rtTimeEnded, Int32 nReasonCode );
 		public UInt64 EndSession( UInt64 ulSessionID, UInt32 rtTimeEnded, Int32 nReasonCode ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeEndSessionUUI>( this.Functions.EndSession1 )( this.ObjectAddress, ref ret, ulSessionID, rtTimeEnded, nReasonCode ); return (UInt64)ret;
+			return this.GetFunction<NativeEndSessionUUI>( this.Functions.EndSession1 )( this.ObjectAddress, ulSessionID, rtTimeEnded, nReasonCode ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeAddSessionAttributeIntUSI( IntPtr thisptr, UInt64 ulSessionID, string pstrName, Int32 nData );

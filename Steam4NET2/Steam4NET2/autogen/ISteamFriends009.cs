@@ -237,10 +237,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeRequestUserInformationCB>( this.Functions.RequestUserInformation28 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), bRequireNameOnly ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestClanOfficerListC( IntPtr thisptr, ref UInt64 retarg, UInt64 steamIDClan );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestClanOfficerListC( IntPtr thisptr, UInt64 steamIDClan );
 		public UInt64 RequestClanOfficerList( CSteamID steamIDClan ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeRequestClanOfficerListC>( this.Functions.RequestClanOfficerList29 )( this.ObjectAddress, ref ret, steamIDClan.ConvertToUint64() ); return (UInt64)ret;
+			return this.GetFunction<NativeRequestClanOfficerListC>( this.Functions.RequestClanOfficerList29 )( this.ObjectAddress, steamIDClan.ConvertToUint64() ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetClanOwnerC( IntPtr thisptr, ref UInt64 retarg, UInt64 steamIDClan );
@@ -261,8 +261,8 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeGetClanOfficerByIndexCI>( this.Functions.GetClanOfficerByIndex32 )( this.ObjectAddress, ref ret, steamIDClan.ConvertToUint64(), iOfficer ); return new CSteamID(ret);
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetUserRestrictions( IntPtr thisptr );
-		public UInt32 GetUserRestrictions(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EUserRestriction NativeGetUserRestrictions( IntPtr thisptr );
+		public EUserRestriction GetUserRestrictions(  ) 
 		{
 			return this.GetFunction<NativeGetUserRestrictions>( this.Functions.GetUserRestrictions33 )( this.ObjectAddress ); 
 		}

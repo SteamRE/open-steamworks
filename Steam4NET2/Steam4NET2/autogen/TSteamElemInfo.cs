@@ -19,4 +19,17 @@ namespace Steam4NET
 		public Int32 lCreationTime;
 	};
 	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct TSteamElemInfo64
+	{
+		public Int32 bIsDir;
+		public UInt64 ullSizeOrCount;
+		public Int32 bIsLocal;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 255)]
+		public string cszName;
+		public Int64 llLastAccessTime;
+		public Int64 llLastModificationTime;
+		public Int64 llCreationTime;
+	};
+	
 }

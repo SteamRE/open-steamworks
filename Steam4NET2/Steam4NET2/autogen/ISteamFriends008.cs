@@ -220,39 +220,39 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLargeFriendAvatarC>( this.Functions.GetLargeFriendAvatar27 )( this.ObjectAddress, steamIDFriend.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserInformationCB( IntPtr thisptr, UInt64 steamID, [MarshalAs(UnmanagedType.I1)] bool bUnk1 );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserInformationCB( IntPtr thisptr, UInt64 steamIDUser, [MarshalAs(UnmanagedType.I1)] bool bRequireNameOnly );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool RequestUserInformation( CSteamID steamID, bool bUnk1 ) 
+		public bool RequestUserInformation( CSteamID steamIDUser, bool bRequireNameOnly ) 
 		{
-			return this.GetFunction<NativeRequestUserInformationCB>( this.Functions.RequestUserInformation28 )( this.ObjectAddress, steamID.ConvertToUint64(), bUnk1 ); 
+			return this.GetFunction<NativeRequestUserInformationCB>( this.Functions.RequestUserInformation28 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), bRequireNameOnly ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestClanOfficerListC( IntPtr thisptr, ref UInt64 retarg, UInt64 clanId );
-		public UInt64 RequestClanOfficerList( CSteamID clanId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestClanOfficerListC( IntPtr thisptr, UInt64 steamIDClan );
+		public UInt64 RequestClanOfficerList( CSteamID steamIDClan ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeRequestClanOfficerListC>( this.Functions.RequestClanOfficerList29 )( this.ObjectAddress, ref ret, clanId.ConvertToUint64() ); return (UInt64)ret;
+			return this.GetFunction<NativeRequestClanOfficerListC>( this.Functions.RequestClanOfficerList29 )( this.ObjectAddress, steamIDClan.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetClanOwnerC( IntPtr thisptr, ref UInt64 retarg, UInt64 clanId );
-		public CSteamID GetClanOwner( CSteamID clanId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetClanOwnerC( IntPtr thisptr, ref UInt64 retarg, UInt64 steamIDClan );
+		public CSteamID GetClanOwner( CSteamID steamIDClan ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetClanOwnerC>( this.Functions.GetClanOwner30 )( this.ObjectAddress, ref ret, clanId.ConvertToUint64() ); return new CSteamID(ret);
+			UInt64 ret = 0; this.GetFunction<NativeGetClanOwnerC>( this.Functions.GetClanOwner30 )( this.ObjectAddress, ref ret, steamIDClan.ConvertToUint64() ); return new CSteamID(ret);
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetClanOfficerCountC( IntPtr thisptr, UInt64 clanId );
-		public Int32 GetClanOfficerCount( CSteamID clanId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetClanOfficerCountC( IntPtr thisptr, UInt64 steamIDClan );
+		public Int32 GetClanOfficerCount( CSteamID steamIDClan ) 
 		{
-			return this.GetFunction<NativeGetClanOfficerCountC>( this.Functions.GetClanOfficerCount31 )( this.ObjectAddress, clanId.ConvertToUint64() ); 
+			return this.GetFunction<NativeGetClanOfficerCountC>( this.Functions.GetClanOfficerCount31 )( this.ObjectAddress, steamIDClan.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetClanOfficerByIndexCI( IntPtr thisptr, ref UInt64 retarg, UInt64 clanId, Int32 iIndex );
-		public CSteamID GetClanOfficerByIndex( CSteamID clanId, Int32 iIndex ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetClanOfficerByIndexCI( IntPtr thisptr, ref UInt64 retarg, UInt64 steamIDClan, Int32 iOfficer );
+		public CSteamID GetClanOfficerByIndex( CSteamID steamIDClan, Int32 iOfficer ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetClanOfficerByIndexCI>( this.Functions.GetClanOfficerByIndex32 )( this.ObjectAddress, ref ret, clanId.ConvertToUint64(), iIndex ); return new CSteamID(ret);
+			UInt64 ret = 0; this.GetFunction<NativeGetClanOfficerByIndexCI>( this.Functions.GetClanOfficerByIndex32 )( this.ObjectAddress, ref ret, steamIDClan.ConvertToUint64(), iOfficer ); return new CSteamID(ret);
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserRestrictions( IntPtr thisptr );
-		public Int32 GetUserRestrictions(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EUserRestriction NativeGetUserRestrictions( IntPtr thisptr );
+		public EUserRestriction GetUserRestrictions(  ) 
 		{
 			return this.GetFunction<NativeGetUserRestrictions>( this.Functions.GetUserRestrictions33 )( this.ObjectAddress ); 
 		}

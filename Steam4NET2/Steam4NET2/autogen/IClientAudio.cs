@@ -92,11 +92,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetVoiceOptimalSampleRate>( this.Functions.GetVoiceOptimalSampleRate7 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePlayAudioU( IntPtr thisptr, UInt32 arg0 );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePlayAudioU( IntPtr thisptr, UInt32 hAudio );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool PlayAudio( UInt32 arg0 ) 
+		public bool PlayAudio( UInt32 hAudio ) 
 		{
-			return this.GetFunction<NativePlayAudioU>( this.Functions.PlayAudio8 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativePlayAudioU>( this.Functions.PlayAudio8 )( this.ObjectAddress, hAudio ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeStopAudio( IntPtr thisptr );
@@ -135,10 +135,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetPlayMode>( this.Functions.GetPlayMode14 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAudioHandleS( IntPtr thisptr, string arg0 );
-		public UInt32 GetAudioHandle( string arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAudioHandleS( IntPtr thisptr, string cszFilePath );
+		public UInt32 GetAudioHandle( string cszFilePath ) 
 		{
-			return this.GetFunction<NativeGetAudioHandleS>( this.Functions.GetAudioHandle15 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeGetAudioHandleS>( this.Functions.GetAudioHandle15 )( this.ObjectAddress, cszFilePath ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAudioDetailsUSISISI( IntPtr thisptr, UInt32 hAudio, StringBuilder arg1, Int32 arg2, StringBuilder arg3, Int32 arg4, StringBuilder arg5, Int32 arg6 );
@@ -182,18 +182,18 @@ namespace Steam4NET
 			return this.GetFunction<NativeRemoveSongFromPlaylistU>( this.Functions.RemoveSongFromPlaylist21 )( this.ObjectAddress, hAudio ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSaveCurrentPlaylistToFileS( IntPtr thisptr, string arg0 );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSaveCurrentPlaylistToFileS( IntPtr thisptr, string cszFilePath );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SaveCurrentPlaylistToFile( string arg0 ) 
+		public bool SaveCurrentPlaylistToFile( string cszFilePath ) 
 		{
-			return this.GetFunction<NativeSaveCurrentPlaylistToFileS>( this.Functions.SaveCurrentPlaylistToFile22 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeSaveCurrentPlaylistToFileS>( this.Functions.SaveCurrentPlaylistToFile22 )( this.ObjectAddress, cszFilePath ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoadPlaylistFromFileS( IntPtr thisptr, string arg0 );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoadPlaylistFromFileS( IntPtr thisptr, string cszFilePath );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool LoadPlaylistFromFile( string arg0 ) 
+		public bool LoadPlaylistFromFile( string cszFilePath ) 
 		{
-			return this.GetFunction<NativeLoadPlaylistFromFileS>( this.Functions.LoadPlaylistFromFile23 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeLoadPlaylistFromFileS>( this.Functions.LoadPlaylistFromFile23 )( this.ObjectAddress, cszFilePath ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetFileSourceCount( IntPtr thisptr );
@@ -202,29 +202,29 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetFileSourceCount>( this.Functions.GetFileSourceCount24 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAddLocalFileSourceS( IntPtr thisptr, string arg0 );
-		public UInt32 AddLocalFileSource( string arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAddLocalFileSourceS( IntPtr thisptr, string cszFileSource );
+		public UInt32 AddLocalFileSource( string cszFileSource ) 
 		{
-			return this.GetFunction<NativeAddLocalFileSourceS>( this.Functions.AddLocalFileSource25 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeAddLocalFileSourceS>( this.Functions.AddLocalFileSource25 )( this.ObjectAddress, cszFileSource ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAddSMBFileSourceS( IntPtr thisptr, string arg0 );
-		public UInt32 AddSMBFileSource( string arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAddSMBFileSourceS( IntPtr thisptr, string cszFileSource );
+		public UInt32 AddSMBFileSource( string cszFileSource ) 
 		{
-			return this.GetFunction<NativeAddSMBFileSourceS>( this.Functions.AddSMBFileSource26 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeAddSMBFileSourceS>( this.Functions.AddSMBFileSource26 )( this.ObjectAddress, cszFileSource ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAddITunesFileSourceS( IntPtr thisptr, string arg0 );
-		public UInt32 AddITunesFileSource( string arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAddITunesFileSourceS( IntPtr thisptr, string cszFileSource );
+		public UInt32 AddITunesFileSource( string cszFileSource ) 
 		{
-			return this.GetFunction<NativeAddITunesFileSourceS>( this.Functions.AddITunesFileSource27 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeAddITunesFileSourceS>( this.Functions.AddITunesFileSource27 )( this.ObjectAddress, cszFileSource ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFileSourceU( IntPtr thisptr, UInt32 hAudio );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFileSourceU( IntPtr thisptr, UInt32 hFileSource );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool RemoveFileSource( UInt32 hAudio ) 
+		public bool RemoveFileSource( UInt32 hFileSource ) 
 		{
-			return this.GetFunction<NativeRemoveFileSourceU>( this.Functions.RemoveFileSource28 )( this.ObjectAddress, hAudio ); 
+			return this.GetFunction<NativeRemoveFileSourceU>( this.Functions.RemoveFileSource28 )( this.ObjectAddress, hFileSource ); 
 		}
 		
 	};

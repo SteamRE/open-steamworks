@@ -156,10 +156,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeBOverlayNeedsPresent>( this.Functions.BOverlayNeedsPresent18 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCheckFileSignatureS( IntPtr thisptr, ref UInt64 retarg, string szFileName );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCheckFileSignatureS( IntPtr thisptr, string szFileName );
 		public UInt64 CheckFileSignature( string szFileName ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeCheckFileSignatureS>( this.Functions.CheckFileSignature19 )( this.ObjectAddress, ref ret, szFileName ); return (UInt64)ret;
+			return this.GetFunction<NativeCheckFileSignatureS>( this.Functions.CheckFileSignature19 )( this.ObjectAddress, szFileName ); 
 		}
 		
 	};

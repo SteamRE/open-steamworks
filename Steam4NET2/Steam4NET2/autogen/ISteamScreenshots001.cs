@@ -21,16 +21,16 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("STEAMSCREENSHOTS_INTERFACE_VERSION001")]
 	public class ISteamScreenshots001 : InteropHelp.NativeWrapper<ISteamScreenshots001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteScreenshotBUII( IntPtr thisptr, Byte[] arg0, UInt32 arg1, Int32 arg2, Int32 arg3 );
-		public UInt32 WriteScreenshot( Byte[] arg0, UInt32 arg1, Int32 arg2, Int32 arg3 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeWriteScreenshotBUII( IntPtr thisptr, Byte[] pubRGB, UInt32 cubRGB, Int32 nWidth, Int32 nHeight );
+		public UInt32 WriteScreenshot( Byte[] pubRGB, Int32 nWidth, Int32 nHeight ) 
 		{
-			return this.GetFunction<NativeWriteScreenshotBUII>( this.Functions.WriteScreenshot0 )( this.ObjectAddress, arg0, arg1, arg2, arg3 ); 
+			return this.GetFunction<NativeWriteScreenshotBUII>( this.Functions.WriteScreenshot0 )( this.ObjectAddress, pubRGB, (UInt32) pubRGB.Length, nWidth, nHeight ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAddScreenshotToLibrarySSII( IntPtr thisptr, string arg0, string arg1, Int32 arg2, Int32 arg3 );
-		public UInt32 AddScreenshotToLibrary( string arg0, string arg1, Int32 arg2, Int32 arg3 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAddScreenshotToLibrarySSII( IntPtr thisptr, string pchJpegOrTGAFilename, string pchJpegOrTGAThumbFilename, Int32 nWidth, Int32 nHeight );
+		public UInt32 AddScreenshotToLibrary( string pchJpegOrTGAFilename, string pchJpegOrTGAThumbFilename, Int32 nWidth, Int32 nHeight ) 
 		{
-			return this.GetFunction<NativeAddScreenshotToLibrarySSII>( this.Functions.AddScreenshotToLibrary1 )( this.ObjectAddress, arg0, arg1, arg2, arg3 ); 
+			return this.GetFunction<NativeAddScreenshotToLibrarySSII>( this.Functions.AddScreenshotToLibrary1 )( this.ObjectAddress, pchJpegOrTGAFilename, pchJpegOrTGAThumbFilename, nWidth, nHeight ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTriggerScreenshot( IntPtr thisptr );
@@ -39,24 +39,24 @@ namespace Steam4NET
 			this.GetFunction<NativeTriggerScreenshot>( this.Functions.TriggerScreenshot2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeHookScreenshotsB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool arg0 );
-		public void HookScreenshots( bool arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeHookScreenshotsB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bHook );
+		public void HookScreenshots( bool bHook ) 
 		{
-			this.GetFunction<NativeHookScreenshotsB>( this.Functions.HookScreenshots3 )( this.ObjectAddress, arg0 ); 
+			this.GetFunction<NativeHookScreenshotsB>( this.Functions.HookScreenshots3 )( this.ObjectAddress, bHook ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLocationUS( IntPtr thisptr, UInt32 arg0, string arg1 );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLocationUS( IntPtr thisptr, UInt32 hScreenshot, string pchLocation );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetLocation( UInt32 arg0, string arg1 ) 
+		public bool SetLocation( UInt32 hScreenshot, string pchLocation ) 
 		{
-			return this.GetFunction<NativeSetLocationUS>( this.Functions.SetLocation4 )( this.ObjectAddress, arg0, arg1 ); 
+			return this.GetFunction<NativeSetLocationUS>( this.Functions.SetLocation4 )( this.ObjectAddress, hScreenshot, pchLocation ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeTagUserUC( IntPtr thisptr, UInt32 arg0, UInt64 steamIDUser );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeTagUserUC( IntPtr thisptr, UInt32 hScreenshot, UInt64 steamID );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool TagUser( UInt32 arg0, CSteamID steamIDUser ) 
+		public bool TagUser( UInt32 hScreenshot, CSteamID steamID ) 
 		{
-			return this.GetFunction<NativeTagUserUC>( this.Functions.TagUser5 )( this.ObjectAddress, arg0, steamIDUser.ConvertToUint64() ); 
+			return this.GetFunction<NativeTagUserUC>( this.Functions.TagUser5 )( this.ObjectAddress, hScreenshot, steamID.ConvertToUint64() ); 
 		}
 		
 	};

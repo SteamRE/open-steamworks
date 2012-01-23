@@ -41,17 +41,17 @@ namespace Steam4NET
 			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequestCUUB( IntPtr thisptr, UInt64 steamId, UInt32 unContentID, UInt64 ulSessionToken, [MarshalAs(UnmanagedType.I1)] bool bTokenPresent );
-		public void SendClientContentAuthRequest( CSteamID steamId, UInt32 unContentID, UInt64 ulSessionToken, bool bTokenPresent ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendClientContentAuthRequestCUUB( IntPtr thisptr, UInt64 steamID, UInt32 uContentID, UInt64 ulSessionToken, [MarshalAs(UnmanagedType.I1)] bool bTokenPresent );
+		public void SendClientContentAuthRequest( CSteamID steamID, UInt32 uContentID, UInt64 ulSessionToken, bool bTokenPresent ) 
 		{
-			this.GetFunction<NativeSendClientContentAuthRequestCUUB>( this.Functions.SendClientContentAuthRequest3 )( this.ObjectAddress, steamId.ConvertToUint64(), unContentID, ulSessionToken, bTokenPresent ); 
+			this.GetFunction<NativeSendClientContentAuthRequestCUUB>( this.Functions.SendClientContentAuthRequest3 )( this.ObjectAddress, steamID.ConvertToUint64(), uContentID, ulSessionToken, bTokenPresent ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBCheckTicketCUBU( IntPtr thisptr, UInt64 steamId, UInt32 uContentID, Byte[] pvTicketData, UInt32 cubTicketLength );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBCheckTicketCUBU( IntPtr thisptr, UInt64 steamID, UInt32 uContentID, Byte[] pvTicketData, UInt32 cubTicketLength );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool BCheckTicket( CSteamID steamId, UInt32 uContentID, Byte[] pvTicketData ) 
+		public bool BCheckTicket( CSteamID steamID, UInt32 uContentID, Byte[] pvTicketData ) 
 		{
-			return this.GetFunction<NativeBCheckTicketCUBU>( this.Functions.BCheckTicket4 )( this.ObjectAddress, steamId.ConvertToUint64(), uContentID, pvTicketData, (UInt32) pvTicketData.Length ); 
+			return this.GetFunction<NativeBCheckTicketCUBU>( this.Functions.BCheckTicket4 )( this.ObjectAddress, steamID.ConvertToUint64(), uContentID, pvTicketData, (UInt32) pvTicketData.Length ); 
 		}
 		
 	};

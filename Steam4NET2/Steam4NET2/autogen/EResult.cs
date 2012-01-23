@@ -75,6 +75,10 @@ namespace Steam4NET
 		k_EResultAccountLogonDeniedNoMail = 66,
 		k_EResultHardwareNotCapableOfIPT = 67,
 		k_EResultIPTInitError = 68,
+		k_EResultParentalControlRestrictions = 69,
+		k_EResultFacebookQueryError = 70,
+		k_EResultExpiredLoginAuthCode = 71,
+		k_EResultIPLoginRestrictionFailed = 72,
 	};
 	
 }

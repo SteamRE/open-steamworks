@@ -147,17 +147,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeBIsBehindNAT>( this.Functions.BIsBehindNAT17 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAdvertiseGameCUU( IntPtr thisptr, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer );
-		[return: MarshalAs(UnmanagedType.I1)]
-		public bool AdvertiseGame( CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeAdvertiseGameCUU( IntPtr thisptr, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer );
+		public void AdvertiseGame( CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer ) 
 		{
-			return this.GetFunction<NativeAdvertiseGameCUU>( this.Functions.AdvertiseGame18 )( this.ObjectAddress, steamIDGameServer.ConvertToUint64(), unIPServer, usPortServer ); 
+			this.GetFunction<NativeAdvertiseGameCUU>( this.Functions.AdvertiseGame18 )( this.ObjectAddress, steamIDGameServer.ConvertToUint64(), unIPServer, usPortServer ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestEncryptedAppTicketBI( IntPtr thisptr, ref UInt64 retarg, Byte[] pUserData, Int32 cbUserData );
-		public UInt64 RequestEncryptedAppTicket( Byte[] pUserData ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestEncryptedAppTicketBI( IntPtr thisptr, Byte[] pDataToInclude, Int32 cbDataToInclude );
+		public UInt64 RequestEncryptedAppTicket( Byte[] pDataToInclude ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeRequestEncryptedAppTicketBI>( this.Functions.RequestEncryptedAppTicket19 )( this.ObjectAddress, ref ret, pUserData, (Int32) pUserData.Length ); return (UInt64)ret;
+			return this.GetFunction<NativeRequestEncryptedAppTicketBI>( this.Functions.RequestEncryptedAppTicket19 )( this.ObjectAddress, pDataToInclude, (Int32) pDataToInclude.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetEncryptedAppTicketBIU( IntPtr thisptr, Byte[] pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket );

@@ -123,8 +123,8 @@ namespace Steam4NET
 			this.GetFunction<NativeCancelAuthTicketU>( this.Functions.CancelAuthTicket14 )( this.ObjectAddress, hAuthTicket ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUserHasLicenseForAppCU( IntPtr thisptr, UInt64 steamID, UInt32 appID );
-		public UInt32 UserHasLicenseForApp( CSteamID steamID, UInt32 appID ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EUserHasLicenseForAppResult NativeUserHasLicenseForAppCU( IntPtr thisptr, UInt64 steamID, UInt32 appID );
+		public EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, UInt32 appID ) 
 		{
 			return this.GetFunction<NativeUserHasLicenseForAppCU>( this.Functions.UserHasLicenseForApp15 )( this.ObjectAddress, steamID.ConvertToUint64(), appID ); 
 		}

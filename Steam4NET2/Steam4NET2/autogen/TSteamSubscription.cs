@@ -16,7 +16,9 @@ namespace Steam4NET
 		eHardwarePromo = 5,
 		eGift = 6,
 		eAutoGrant = 7,
-		eNumBillingTypes = 8,
+		OEMTicket = 8,
+		eRecurringOption = 9,
+		eNumBillingTypes = 10,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

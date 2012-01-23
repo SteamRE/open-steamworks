@@ -22,22 +22,27 @@ namespace Steam4NET
 		public IntPtr AddRowAttributeFloat10;
 		public IntPtr AddSessionAttributeInt6411;
 		public IntPtr AddRowAttributeInt6412;
-		private IntPtr DTorIClientGameStats13;
+		public IntPtr ReportString13;
+		public IntPtr _ReportString14;
+		public IntPtr ReportStringAccumulated15;
+		public IntPtr _ReportStringAccumulated16;
+		public IntPtr ReportBugScreenshot17;
+		private IntPtr DTorIClientGameStats18;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTGAMESTATS_INTERFACE_VERSION001")]
 	public class IClientGameStats : InteropHelp.NativeWrapper<IClientGameStatsVTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetNewSessionSUUU( IntPtr thisptr, ref UInt64 retarg, SByte nAccountType, UInt64 ullAccountID, UInt32 nAppID, UInt32 rtTimeStarted );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetNewSessionSUUU( IntPtr thisptr, SByte nAccountType, UInt64 ullAccountID, UInt32 nAppID, UInt32 rtTimeStarted );
 		public UInt64 GetNewSession( SByte nAccountType, UInt64 ullAccountID, UInt32 nAppID, UInt32 rtTimeStarted ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetNewSessionSUUU>( this.Functions.GetNewSession0 )( this.ObjectAddress, ref ret, nAccountType, ullAccountID, nAppID, rtTimeStarted ); return (UInt64)ret;
+			return this.GetFunction<NativeGetNewSessionSUUU>( this.Functions.GetNewSession0 )( this.ObjectAddress, nAccountType, ullAccountID, nAppID, rtTimeStarted ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEndSessionUUI( IntPtr thisptr, ref UInt64 retarg, UInt64 ulSessionID, UInt32 rtTimeEnded, Int16 nReasonCode );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEndSessionUUI( IntPtr thisptr, UInt64 ulSessionID, UInt32 rtTimeEnded, Int16 nReasonCode );
 		public UInt64 EndSession( UInt64 ulSessionID, UInt32 rtTimeEnded, Int16 nReasonCode ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeEndSessionUUI>( this.Functions.EndSession1 )( this.ObjectAddress, ref ret, ulSessionID, rtTimeEnded, nReasonCode ); return (UInt64)ret;
+			return this.GetFunction<NativeEndSessionUUI>( this.Functions.EndSession1 )( this.ObjectAddress, ulSessionID, rtTimeEnded, nReasonCode ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeAddSessionAttributeIntUSI( IntPtr thisptr, UInt64 ulSessionID, string pstrName, Int32 nData );
@@ -104,6 +109,36 @@ namespace Steam4NET
 		public EResult AddRowAttributeInt64( UInt64 ulRowID, string pstrName, Int64 llData ) 
 		{
 			return this.GetFunction<NativeAddRowAttributeInt64USI>( this.Functions.AddRowAttributeInt6412 )( this.ObjectAddress, ulRowID, pstrName, llData ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeReportStringUIS( IntPtr thisptr, UInt64 ulSessionID, Int32 iSeverity, string cszFormat );
+		public EResult ReportString( UInt64 ulSessionID, Int32 iSeverity, string cszFormat ) 
+		{
+			return this.GetFunction<NativeReportStringUIS>( this.Functions.ReportString13 )( this.ObjectAddress, ulSessionID, iSeverity, cszFormat ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult Native_ReportStringUISIB( IntPtr thisptr, UInt64 ulSessionID, Int32 arg1, string arg2, Int32 arg3, Byte[] arg4 );
+		public EResult _ReportString( UInt64 ulSessionID, Int32 arg1, string arg2, Int32 arg3, Byte[] arg4 ) 
+		{
+			return this.GetFunction<Native_ReportStringUISIB>( this.Functions._ReportString14 )( this.ObjectAddress, ulSessionID, arg1, arg2, arg3, arg4 ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeReportStringAccumulatedUIS( IntPtr thisptr, UInt64 ulSessionID, Int32 iSeverity, string cszFormat );
+		public EResult ReportStringAccumulated( UInt64 ulSessionID, Int32 iSeverity, string cszFormat ) 
+		{
+			return this.GetFunction<NativeReportStringAccumulatedUIS>( this.Functions.ReportStringAccumulated15 )( this.ObjectAddress, ulSessionID, iSeverity, cszFormat ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult Native_ReportStringAccumulatedUISIB( IntPtr thisptr, UInt64 ulSessionID, Int32 arg1, string arg2, Int32 arg3, Byte[] arg4 );
+		public EResult _ReportStringAccumulated( UInt64 ulSessionID, Int32 arg1, string arg2, Int32 arg3, Byte[] arg4 ) 
+		{
+			return this.GetFunction<Native_ReportStringAccumulatedUISIB>( this.Functions._ReportStringAccumulated16 )( this.ObjectAddress, ulSessionID, arg1, arg2, arg3, arg4 ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeReportBugScreenshotUSIB( IntPtr thisptr, UInt64 ulSessionID, string szBugText, Int32 cubScreenshot, Byte[] pubScreenshot );
+		public EResult ReportBugScreenshot( UInt64 ulSessionID, string szBugText, Int32 cubScreenshot, Byte[] pubScreenshot ) 
+		{
+			return this.GetFunction<NativeReportBugScreenshotUSIB>( this.Functions.ReportBugScreenshot17 )( this.ObjectAddress, ulSessionID, szBugText, cubScreenshot, pubScreenshot ); 
 		}
 		
 	};

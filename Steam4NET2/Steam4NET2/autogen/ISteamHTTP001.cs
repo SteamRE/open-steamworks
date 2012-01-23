@@ -23,7 +23,8 @@ namespace Steam4NET
 		public IntPtr GetHTTPResponseBodyData11;
 		public IntPtr ReleaseHTTPRequest12;
 		public IntPtr GetHTTPDownloadProgressPct13;
-		private IntPtr DTorISteamHTTP00114;
+		public IntPtr SetHTTPRequestRawPostBody14;
+		private IntPtr DTorISteamHTTP00115;
 	};
 	
 	[InteropHelp.InterfaceVersion("STEAMHTTP_INTERFACE_VERSION001")]
@@ -124,6 +125,13 @@ namespace Steam4NET
 		public bool GetHTTPDownloadProgressPct( UInt32 hRequest, ref float pflPercentOut ) 
 		{
 			return this.GetFunction<NativeGetHTTPDownloadProgressPctUF>( this.Functions.GetHTTPDownloadProgressPct13 )( this.ObjectAddress, hRequest, ref pflPercentOut ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetHTTPRequestRawPostBodyUSBU( IntPtr thisptr, UInt32 hRequest, string pchContentType, Byte[] pubBody, UInt32 unBodyLen );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool SetHTTPRequestRawPostBody( UInt32 hRequest, string pchContentType, Byte[] pubBody ) 
+		{
+			return this.GetFunction<NativeSetHTTPRequestRawPostBodyUSBU>( this.Functions.SetHTTPRequestRawPostBody14 )( this.ObjectAddress, hRequest, pchContentType, pubBody, (UInt32) pubBody.Length ); 
 		}
 		
 	};

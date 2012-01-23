@@ -68,10 +68,10 @@ namespace Steam4NET
 			this.GetFunction<NativeTerminateGameConnectionUU>( this.Functions.TerminateGameConnection4 )( this.ObjectAddress, unIPServer, usPortServer ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTrackAppUsageEventCIS( IntPtr thisptr, UInt64 gameID, Int32 eAppUsageEvent, string pchExtraInfo );
-		public void TrackAppUsageEvent( CGameID gameID, Int32 eAppUsageEvent, string pchExtraInfo ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTrackAppUsageEventCES( IntPtr thisptr, UInt64 gameID, EAppUsageEvent eAppUsageEvent, string pchExtraInfo );
+		public void TrackAppUsageEvent( CGameID gameID, EAppUsageEvent eAppUsageEvent, string pchExtraInfo ) 
 		{
-			this.GetFunction<NativeTrackAppUsageEventCIS>( this.Functions.TrackAppUsageEvent5 )( this.ObjectAddress, gameID.ConvertToUint64(), eAppUsageEvent, pchExtraInfo ); 
+			this.GetFunction<NativeTrackAppUsageEventCES>( this.Functions.TrackAppUsageEvent5 )( this.ObjectAddress, gameID.ConvertToUint64(), eAppUsageEvent, pchExtraInfo ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserDataFolderSI( IntPtr thisptr, StringBuilder pchBuffer, Int32 cubBuffer );
@@ -160,10 +160,10 @@ namespace Steam4NET
 			this.GetFunction<NativeAdvertiseGameCUU>( this.Functions.AdvertiseGame19 )( this.ObjectAddress, steamIDGameServer.ConvertToUint64(), unIPServer, usPortServer ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestEncryptedAppTicketBI( IntPtr thisptr, ref UInt64 retarg, Byte[] pDataToInclude, Int32 cbDataToInclude );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestEncryptedAppTicketBI( IntPtr thisptr, Byte[] pDataToInclude, Int32 cbDataToInclude );
 		public UInt64 RequestEncryptedAppTicket( Byte[] pDataToInclude ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeRequestEncryptedAppTicketBI>( this.Functions.RequestEncryptedAppTicket20 )( this.ObjectAddress, ref ret, pDataToInclude, (Int32) pDataToInclude.Length ); return (UInt64)ret;
+			return this.GetFunction<NativeRequestEncryptedAppTicketBI>( this.Functions.RequestEncryptedAppTicket20 )( this.ObjectAddress, pDataToInclude, (Int32) pDataToInclude.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetEncryptedAppTicketBIU( IntPtr thisptr, Byte[] pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket );

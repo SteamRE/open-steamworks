@@ -185,10 +185,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeRequestEmailAddressVerificationEmailT>( this.Functions.RequestEmailAddressVerificationEmail6 )( this.ObjectAddress, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountNameSST( IntPtr thisptr, string cszCurrentAccountName, string cszNewAccountName, ref TSteamError pError );
-		public UInt32 ChangeAccountName( string cszCurrentAccountName, string cszNewAccountName, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeAccountNameSST( IntPtr thisptr, string cszCurrentPassphrase, string cszNewAccountName, ref TSteamError pError );
+		public UInt32 ChangeAccountName( string cszCurrentPassphrase, string cszNewAccountName, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeChangeAccountNameSST>( this.Functions.ChangeAccountName7 )( this.ObjectAddress, cszCurrentAccountName, cszNewAccountName, ref pError ); 
+			return this.GetFunction<NativeChangeAccountNameSST>( this.Functions.ChangeAccountName7 )( this.ObjectAddress, cszCurrentPassphrase, cszNewAccountName, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountAppFilesystemT( IntPtr thisptr, ref TSteamError pError );
@@ -203,16 +203,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeUnmountAppFilesystemT>( this.Functions.UnmountAppFilesystem9 )( this.ObjectAddress, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeMountFilesystemUST( IntPtr thisptr, UInt32 uAppId, string szMountPath, ref TSteamError pError );
-		public Int32 MountFilesystem( UInt32 uAppId, string szMountPath, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeMountFilesystemUST( IntPtr thisptr, UInt32 uAppId, string szMountPath, ref TSteamError pError );
+		public UInt32 MountFilesystem( UInt32 uAppId, string szMountPath, ref TSteamError pError ) 
 		{
 			return this.GetFunction<NativeMountFilesystemUST>( this.Functions.MountFilesystem10 )( this.ObjectAddress, uAppId, szMountPath, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystemUT( IntPtr thisptr, UInt32 uAppId, ref TSteamError pError );
-		public Int32 UnmountFilesystem( UInt32 uAppId, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUnmountFilesystemUT( IntPtr thisptr, UInt32 hFile, ref TSteamError pError );
+		public Int32 UnmountFilesystem( UInt32 hFile, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeUnmountFilesystemUT>( this.Functions.UnmountFilesystem11 )( this.ObjectAddress, uAppId, ref pError ); 
+			return this.GetFunction<NativeUnmountFilesystemUT>( this.Functions.UnmountFilesystem11 )( this.ObjectAddress, hFile, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeStatSTT( IntPtr thisptr, string cszName, ref TSteamElemInfo pInfo, ref TSteamError pError );
@@ -239,10 +239,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeOpenFileSST>( this.Functions.OpenFile15 )( this.ObjectAddress, cszName, cszMode, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileExSSUT( IntPtr thisptr, string cszFileName, string cszMode, ref UInt32 puSize, ref TSteamError pError );
-		public UInt32 OpenFileEx( string cszFileName, string cszMode, ref UInt32 puSize, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenFileExSSUT( IntPtr thisptr, string cszFileName, string cszMode, ref UInt32 puFileSize, ref TSteamError pError );
+		public UInt32 OpenFileEx( string cszFileName, string cszMode, ref UInt32 puFileSize, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeOpenFileExSSUT>( this.Functions.OpenFileEx16 )( this.ObjectAddress, cszFileName, cszMode, ref puSize, ref pError ); 
+			return this.GetFunction<NativeOpenFileExSSUT>( this.Functions.OpenFileEx16 )( this.ObjectAddress, cszFileName, cszMode, ref puFileSize, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeOpenTmpFileT( IntPtr thisptr, ref TSteamError pError );
@@ -329,10 +329,10 @@ namespace Steam4NET
 			return this.GetFunction<NativePutcIUT>( this.Functions.Putc30 )( this.ObjectAddress, cChar, hFile, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFileUIET( IntPtr thisptr, UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError );
-		public Int32 SeekFile( UInt32 hFile, Int32 lOffset, ESteamSeekMethod sm, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeSeekFileUIET( IntPtr thisptr, UInt32 hFile, Int32 lOffset, ESteamSeekMethod eMethod, ref TSteamError pError );
+		public Int32 SeekFile( UInt32 hFile, Int32 lOffset, ESteamSeekMethod eMethod, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeSeekFileUIET>( this.Functions.SeekFile31 )( this.ObjectAddress, hFile, lOffset, sm, ref pError ); 
+			return this.GetFunction<NativeSeekFileUIET>( this.Functions.SeekFile31 )( this.ObjectAddress, hFile, lOffset, eMethod, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeTellFileUT( IntPtr thisptr, UInt32 hFile, ref TSteamError pError );
@@ -377,10 +377,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeIsFileImmediatelyAvailableST>( this.Functions.IsFileImmediatelyAvailable38 )( this.ObjectAddress, cszName, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeedSIT( IntPtr thisptr, string cszHintList, Int32 bForgetEverything, ref TSteamError pError );
-		public Int32 HintResourceNeed( string cszHintList, Int32 bForgetEverything, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeHintResourceNeedSIT( IntPtr thisptr, string cszMasterList, Int32 bForgetEverything, ref TSteamError pError );
+		public Int32 HintResourceNeed( string cszMasterList, Int32 bForgetEverything, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeHintResourceNeedSIT>( this.Functions.HintResourceNeed39 )( this.ObjectAddress, cszHintList, bForgetEverything, ref pError ); 
+			return this.GetFunction<NativeHintResourceNeedSIT>( this.Functions.HintResourceNeed39 )( this.ObjectAddress, cszMasterList, bForgetEverything, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForgetAllHintsT( IntPtr thisptr, ref TSteamError pError );
@@ -431,22 +431,22 @@ namespace Steam4NET
 			return this.GetFunction<NativeCleanupT>( this.Functions.Cleanup47 )( this.ObjectAddress, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeNumAppsRunningT( IntPtr thisptr, ref TSteamError pError );
-		public Int32 NumAppsRunning( ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeNumAppsRunningT( IntPtr thisptr, ref TSteamError pError );
+		public UInt32 NumAppsRunning( ref TSteamError pError ) 
 		{
 			return this.GetFunction<NativeNumAppsRunningT>( this.Functions.NumAppsRunning48 )( this.ObjectAddress, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccountSSSSSSIT( IntPtr thisptr, string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSteamError pError );
-		public UInt32 CreateAccount( string cszUser, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, string cszArg6, ref Int32 pbCreated, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateAccountSSSSSSIT( IntPtr thisptr, string cszUser, string cszEmailAddress, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, ref Int32 pbCreated, ref TSteamError pError );
+		public UInt32 CreateAccount( string cszUser, string cszEmailAddress, string cszPassphrase, string cszCreationKey, string cszPersonalQuestion, string cszAnswerToQuestion, ref Int32 pbCreated, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeCreateAccountSSSSSSIT>( this.Functions.CreateAccount49 )( this.ObjectAddress, cszUser, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, cszArg6, ref pbCreated, ref pError ); 
+			return this.GetFunction<NativeCreateAccountSSSSSSIT>( this.Functions.CreateAccount49 )( this.ObjectAddress, cszUser, cszEmailAddress, cszPassphrase, cszCreationKey, cszPersonalQuestion, cszAnswerToQuestion, ref pbCreated, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNamesSSSUUT( IntPtr thisptr, string cszArg1, string cszArg2, StringBuilder szArg3, UInt32 uArg4, ref UInt32 puArg5, ref TSteamError pError );
-		public UInt32 GenerateSuggestedAccountNames( string cszArg1, string cszArg2, StringBuilder szArg3, ref UInt32 puArg5, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGenerateSuggestedAccountNamesSSSUUT( IntPtr thisptr, string cszAccountNameToSelectMasterAS, string cszGenerateNamesLikeAccountName, StringBuilder pSuggestedNamesBuf, UInt32 uBufSize, ref UInt32 puNumSuggestedChars, ref TSteamError pError );
+		public UInt32 GenerateSuggestedAccountNames( string cszAccountNameToSelectMasterAS, string cszGenerateNamesLikeAccountName, StringBuilder pSuggestedNamesBuf, ref UInt32 puNumSuggestedChars, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGenerateSuggestedAccountNamesSSSUUT>( this.Functions.GenerateSuggestedAccountNames50 )( this.ObjectAddress, cszArg1, cszArg2, szArg3, (UInt32) szArg3.Capacity, ref puArg5, ref pError ); 
+			return this.GetFunction<NativeGenerateSuggestedAccountNamesSSSUUT>( this.Functions.GenerateSuggestedAccountNames50 )( this.ObjectAddress, cszAccountNameToSelectMasterAS, cszGenerateNamesLikeAccountName, pSuggestedNamesBuf, (UInt32) pSuggestedNamesBuf.Capacity, ref puNumSuggestedChars, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsLoggedInIT( IntPtr thisptr, ref Int32 pbIsLoggedIn, ref TSteamError pError );
@@ -461,10 +461,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeLogoutT>( this.Functions.Logout52 )( this.ObjectAddress, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputerIT( IntPtr thisptr, ref Int32 pbIsSecure, ref TSteamError pError );
-		public Int32 IsSecureComputer( ref Int32 pbIsSecure, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSecureComputerIT( IntPtr thisptr, ref Int32 pbIsSecureComputer, ref TSteamError pError );
+		public Int32 IsSecureComputer( ref Int32 pbIsSecureComputer, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeIsSecureComputerIT>( this.Functions.IsSecureComputer53 )( this.ObjectAddress, ref pbIsSecure, ref pError ); 
+			return this.GetFunction<NativeIsSecureComputerIT>( this.Functions.IsSecureComputer53 )( this.ObjectAddress, ref pbIsSecureComputer, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateLogContextS( IntPtr thisptr, string cszName );
@@ -497,16 +497,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeRefreshLoginSIT>( this.Functions.RefreshLogin58 )( this.ObjectAddress, cszPassphrase, bIsSecureComputer, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPasswordSIT( IntPtr thisptr, string cszArg1, ref Int32 piArg2, ref TSteamError pError );
-		public Int32 VerifyPassword( string cszArg1, ref Int32 piArg2, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeVerifyPasswordSIT( IntPtr thisptr, string cszPassphrase, ref Int32 pbCorrect, ref TSteamError pError );
+		public Int32 VerifyPassword( string cszPassphrase, ref Int32 pbCorrect, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeVerifyPasswordSIT>( this.Functions.VerifyPassword59 )( this.ObjectAddress, cszArg1, ref piArg2, ref pError ); 
+			return this.GetFunction<NativeVerifyPasswordSIT>( this.Functions.VerifyPassword59 )( this.ObjectAddress, cszPassphrase, ref pbCorrect, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserTypeUT( IntPtr thisptr, ref UInt32 puArg1, ref TSteamError pError );
-		public Int32 GetUserType( ref UInt32 puArg1, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserTypeUT( IntPtr thisptr, ref UInt32 puUserTypeFlags, ref TSteamError pError );
+		public Int32 GetUserType( ref UInt32 puUserTypeFlags, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetUserTypeUT>( this.Functions.GetUserType60 )( this.ObjectAddress, ref puArg1, ref pError ); 
+			return this.GetFunction<NativeGetUserTypeUT>( this.Functions.GetUserType60 )( this.ObjectAddress, ref puUserTypeFlags, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppStatsTT( IntPtr thisptr, ref TSteamAppStats pAppStats, ref TSteamError pError );
@@ -515,10 +515,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAppStatsTT>( this.Functions.GetAppStats61 )( this.ObjectAddress, ref pAppStats, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUseSIT( IntPtr thisptr, string cszArg1, ref Int32 piArg2, ref TSteamError pError );
-		public UInt32 IsAccountNameInUse( string cszArg1, ref Int32 piArg2, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsAccountNameInUseSIT( IntPtr thisptr, string cszAccountName, ref Int32 pbIsUsed, ref TSteamError pError );
+		public UInt32 IsAccountNameInUse( string cszAccountName, ref Int32 pbIsUsed, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeIsAccountNameInUseSIT>( this.Functions.IsAccountNameInUse62 )( this.ObjectAddress, cszArg1, ref piArg2, ref pError ); 
+			return this.GetFunction<NativeIsAccountNameInUseSIT>( this.Functions.IsAccountNameInUse62 )( this.ObjectAddress, cszAccountName, ref pbIsUsed, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppIdsUUT( IntPtr thisptr, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError );
@@ -533,10 +533,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetSubscriptionStatsTT>( this.Functions.GetSubscriptionStats64 )( this.ObjectAddress, ref pSubscriptionStats, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfoIT( IntPtr thisptr, Int32 arg1, ref TSteamError pError );
-		public UInt32 RefreshAccountInfo( Int32 arg1, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRefreshAccountInfoIT( IntPtr thisptr, Int32 bContentDescriptionOnly, ref TSteamError pError );
+		public UInt32 RefreshAccountInfo( Int32 bContentDescriptionOnly, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeRefreshAccountInfoIT>( this.Functions.RefreshAccountInfo65 )( this.ObjectAddress, arg1, ref pError ); 
+			return this.GetFunction<NativeRefreshAccountInfoIT>( this.Functions.RefreshAccountInfo65 )( this.ObjectAddress, bContentDescriptionOnly, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSubscribeUTT( IntPtr thisptr, UInt32 uSubscriptionId, ref TSteamSubscriptionBillingInfo pSubscriptionBillingInfo, ref TSteamError pError );
@@ -557,10 +557,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetSubscriptionReceiptUTT>( this.Functions.GetSubscriptionReceipt68 )( this.ObjectAddress, uSubscriptionId, ref pSteamSubscriptionReceipt, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatusUT( IntPtr thisptr, ref UInt32 puArg1, ref TSteamError pError );
-		public Int32 GetAccountStatus( ref UInt32 puArg1, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAccountStatusUT( IntPtr thisptr, ref UInt32 puAccountStatusFlags, ref TSteamError pError );
+		public Int32 GetAccountStatus( ref UInt32 puAccountStatusFlags, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetAccountStatusUT>( this.Functions.GetAccountStatus69 )( this.ObjectAddress, ref puArg1, ref pError ); 
+			return this.GetFunction<NativeGetAccountStatusUT>( this.Functions.GetAccountStatus69 )( this.ObjectAddress, ref puAccountStatusFlags, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUserSIT( IntPtr thisptr, string cszUser, ref Int32 pbUserSet, ref TSteamError pError );
@@ -569,10 +569,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeSetUserSIT>( this.Functions.SetUser70 )( this.ObjectAddress, cszUser, ref pbUserSet, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserSUUTT( IntPtr thisptr, StringBuilder szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError );
-		public Int32 GetUser( StringBuilder szUser, ref UInt32 puUserChars, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetUserSUUTT( IntPtr thisptr, StringBuilder szUser, UInt32 uBufSize, ref UInt32 puUserChars, ref TSteamGlobalUserID pOptionalReceiveUserID, ref TSteamError pError );
+		public Int32 GetUser( StringBuilder szUser, ref UInt32 puUserChars, ref TSteamGlobalUserID pOptionalReceiveUserID, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetUserSUUTT>( this.Functions.GetUser71 )( this.ObjectAddress, szUser, (UInt32) szUser.Capacity, ref puUserChars, ref pSteamGlobalUserID, ref pError ); 
+			return this.GetFunction<NativeGetUserSUUTT>( this.Functions.GetUser71 )( this.ObjectAddress, szUser, (UInt32) szUser.Capacity, ref puUserChars, ref pOptionalReceiveUserID, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoginSSIT( IntPtr thisptr, string cszUser, string cszPassphrase, Int32 bIsSecureComputer, ref TSteamError pError );
@@ -581,16 +581,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeLoginSSIT>( this.Functions.Login72 )( this.ObjectAddress, cszUser, cszPassphrase, bIsSecureComputer, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceiptUT( IntPtr thisptr, UInt32 uArg1, ref TSteamError pError );
-		public UInt32 AckSubscriptionReceipt( UInt32 uArg1, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeAckSubscriptionReceiptUT( IntPtr thisptr, UInt32 uSubscriptionId, ref TSteamError pError );
+		public UInt32 AckSubscriptionReceipt( UInt32 uSubscriptionId, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeAckSubscriptionReceiptUT>( this.Functions.AckSubscriptionReceipt73 )( this.ObjectAddress, uArg1, ref pError ); 
+			return this.GetFunction<NativeAckSubscriptionReceiptUT>( this.Functions.AckSubscriptionReceipt73 )( this.ObjectAddress, uSubscriptionId, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribedUIIT( IntPtr thisptr, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError );
-		public Int32 IsAppSubscribed( UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pReserved, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsAppSubscribedUIIT( IntPtr thisptr, UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pbIsSubscriptionPending, ref TSteamError pError );
+		public Int32 IsAppSubscribed( UInt32 uAppId, ref Int32 pbIsAppSubscribed, ref Int32 pbIsSubscriptionPending, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeIsAppSubscribedUIIT>( this.Functions.IsAppSubscribed74 )( this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pReserved, ref pError ); 
+			return this.GetFunction<NativeIsAppSubscribedUIIT>( this.Functions.IsAppSubscribed74 )( this.ObjectAddress, uAppId, ref pbIsAppSubscribed, ref pbIsSubscriptionPending, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionIdsUUT( IntPtr thisptr, ref UInt32 puIds, UInt32 uMaxIds, ref TSteamError pError );
@@ -605,16 +605,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeEnumerateSubscriptionUTT>( this.Functions.EnumerateSubscription76 )( this.ObjectAddress, uSubscriptionId, ref pSubscription, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountUUTT( IntPtr thisptr, UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError );
-		public Int32 EnumerateSubscriptionDiscount( UInt32 uSubscriptionId, UInt32 uDiscountIdx, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountUUTT( IntPtr thisptr, UInt32 uSubscriptionId, UInt32 uDiscountIndex, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError );
+		public Int32 EnumerateSubscriptionDiscount( UInt32 uSubscriptionId, UInt32 uDiscountIndex, ref TSteamSubscriptionDiscount pSteamSubscriptionDiscount, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeEnumerateSubscriptionDiscountUUTT>( this.Functions.EnumerateSubscriptionDiscount77 )( this.ObjectAddress, uSubscriptionId, uDiscountIdx, ref pSteamSubscriptionDiscount, ref pError ); 
+			return this.GetFunction<NativeEnumerateSubscriptionDiscountUUTT>( this.Functions.EnumerateSubscriptionDiscount77 )( this.ObjectAddress, uSubscriptionId, uDiscountIndex, ref pSteamSubscriptionDiscount, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifierUUUTT( IntPtr thisptr, UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError );
-		public Int32 EnumerateSubscriptionDiscountQualifier( UInt32 uSubscriptionId, UInt32 uDiscountIdx, UInt32 uQualifierIdx, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateSubscriptionDiscountQualifierUUUTT( IntPtr thisptr, UInt32 uSubscriptionId, UInt32 uDiscountIndex, UInt32 uQualifierIndex, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError );
+		public Int32 EnumerateSubscriptionDiscountQualifier( UInt32 uSubscriptionId, UInt32 uDiscountIndex, UInt32 uQualifierIndex, ref TSteamDiscountQualifier pSteamDiscountQualifier, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeEnumerateSubscriptionDiscountQualifierUUUTT>( this.Functions.EnumerateSubscriptionDiscountQualifier78 )( this.ObjectAddress, uSubscriptionId, uDiscountIdx, uQualifierIdx, ref pSteamDiscountQualifier, ref pError ); 
+			return this.GetFunction<NativeEnumerateSubscriptionDiscountQualifierUUUTT>( this.Functions.EnumerateSubscriptionDiscountQualifier78 )( this.ObjectAddress, uSubscriptionId, uDiscountIndex, uQualifierIndex, ref pSteamDiscountQualifier, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppUTT( IntPtr thisptr, UInt32 uAppId, ref TSteamApp pApp, ref TSteamError pError );
@@ -659,10 +659,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeEnumerateAppVersionUUTT>( this.Functions.EnumerateAppVersion85 )( this.ObjectAddress, uAppId, uVersionIndex, ref pAppVersion, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependencyUUTT( IntPtr thisptr, UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError );
-		public Int32 EnumerateAppDependency( UInt32 AppId, UInt32 uDependency, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeEnumerateAppDependencyUUTT( IntPtr thisptr, UInt32 uAppId, UInt32 uIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError );
+		public Int32 EnumerateAppDependency( UInt32 uAppId, UInt32 uIndex, ref TSteamAppDependencyInfo pDependencyInfo, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeEnumerateAppDependencyUUTT>( this.Functions.EnumerateAppDependency86 )( this.ObjectAddress, AppId, uDependency, ref pDependencyInfo, ref pError ); 
+			return this.GetFunction<NativeEnumerateAppDependencyUUTT>( this.Functions.EnumerateAppDependency86 )( this.ObjectAddress, uAppId, uIndex, ref pDependencyInfo, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartLoadingCacheUT( IntPtr thisptr, UInt32 uAppId, ref TSteamError pError );
@@ -683,22 +683,22 @@ namespace Steam4NET
 			return this.GetFunction<NativeRemoveAppDependencyUUT>( this.Functions.RemoveAppDependency89 )( this.ObjectAddress, uAppId, uFileSystemIndex, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindAppSUT( IntPtr thisptr, string cszArg1, ref UInt32 puArg2, ref TSteamError pError );
-		public Int32 FindApp( string cszArg1, ref UInt32 puArg2, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeFindAppSUT( IntPtr thisptr, string cszAppName, ref UInt32 puAppId, ref TSteamError pError );
+		public Int32 FindApp( string cszAppName, ref UInt32 puAppId, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeFindAppSUT>( this.Functions.FindApp90 )( this.ObjectAddress, cszArg1, ref puArg2, ref pError ); 
+			return this.GetFunction<NativeFindAppSUT>( this.Functions.FindApp90 )( this.ObjectAddress, cszAppName, ref puAppId, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependenciesUUUT( IntPtr thisptr, UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError );
-		public Int32 GetAppDependencies( UInt32 uAppId, ref UInt32 puDependecies, UInt32 uBufferLength, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDependenciesUUUT( IntPtr thisptr, UInt32 uAppId, ref UInt32 puCacheIds, UInt32 uMaxIds, ref TSteamError pError );
+		public Int32 GetAppDependencies( UInt32 uAppId, ref UInt32 puCacheIds, UInt32 uMaxIds, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetAppDependenciesUUUT>( this.Functions.GetAppDependencies91 )( this.ObjectAddress, uAppId, ref puDependecies, uBufferLength, ref pError ); 
+			return this.GetFunction<NativeGetAppDependenciesUUUT>( this.Functions.GetAppDependencies91 )( this.ObjectAddress, uAppId, ref puCacheIds, uMaxIds, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribedUIIT( IntPtr thisptr, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError );
-		public Int32 IsSubscribed( UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pReserved, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsSubscribedUIIT( IntPtr thisptr, UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pbIsSubscriptionPending, ref TSteamError pError );
+		public Int32 IsSubscribed( UInt32 uSubscriptionId, ref Int32 pbIsSubscribed, ref Int32 pbIsSubscriptionPending, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeIsSubscribedUIIT>( this.Functions.IsSubscribed92 )( this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pReserved, ref pError ); 
+			return this.GetFunction<NativeIsSubscribedUIIT>( this.Functions.IsSubscribed92 )( this.ObjectAddress, uSubscriptionId, ref pbIsSubscribed, ref pbIsSubscriptionPending, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedInfoUSSUUT( IntPtr thisptr, UInt32 uAppId, string cszPropertyName, StringBuilder szPropertyValue, UInt32 uBufSize, ref UInt32 puPropertyValueLength, ref TSteamError pError );
@@ -737,10 +737,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeFlushCacheUT>( this.Functions.FlushCache98 )( this.ObjectAddress, uAppId, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCachesUIT( IntPtr thisptr, UInt32 uAppId, Int32 iArg2, ref TSteamError pError );
-		public UInt32 RepairOrDecryptCaches( UInt32 uAppId, Int32 iArg2, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRepairOrDecryptCachesUIT( IntPtr thisptr, UInt32 uAppId, Int32 bForceValidation, ref TSteamError pError );
+		public UInt32 RepairOrDecryptCaches( UInt32 uAppId, Int32 bForceValidation, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeRepairOrDecryptCachesUIT>( this.Functions.RepairOrDecryptCaches99 )( this.ObjectAddress, uAppId, iArg2, ref pError ); 
+			return this.GetFunction<NativeRepairOrDecryptCachesUIT>( this.Functions.RepairOrDecryptCaches99 )( this.ObjectAddress, uAppId, bForceValidation, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeLoadCacheFromDirUST( IntPtr thisptr, UInt32 uAppId, string cszPath, ref TSteamError pError );
@@ -803,34 +803,34 @@ namespace Steam4NET
 			return this.GetFunction<NativeSetNotificationCallbackIT>( this.Functions.SetNotificationCallback109 )( this.ObjectAddress, ref pCallbackFunction, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPasswordSSSSIT( IntPtr thisptr, string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSteamError pError );
-		public UInt32 ChangeForgottenPassword( string cszArg1, string cszArg2, string cszArg3, string cszArg4, ref Int32 piArg5, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeChangeForgottenPasswordSSSSIT( IntPtr thisptr, string cszUser, string cszAnswerToQuestion, string cszEmailVerificationKey, string cszNewPassphrase, ref Int32 pbChanged, ref TSteamError pError );
+		public UInt32 ChangeForgottenPassword( string cszUser, string cszAnswerToQuestion, string cszEmailVerificationKey, string cszNewPassphrase, ref Int32 pbChanged, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeChangeForgottenPasswordSSSSIT>( this.Functions.ChangeForgottenPassword110 )( this.ObjectAddress, cszArg1, cszArg2, cszArg3, cszArg4, ref piArg5, ref pError ); 
+			return this.GetFunction<NativeChangeForgottenPasswordSSSSIT>( this.Functions.ChangeForgottenPassword110 )( this.ObjectAddress, cszUser, cszAnswerToQuestion, cszEmailVerificationKey, cszNewPassphrase, ref pbChanged, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmailSST( IntPtr thisptr, string cszArg1, StringBuilder szArg2, ref TSteamError pError );
-		public UInt32 RequestForgottenPasswordEmail( string cszArg1, StringBuilder szArg2, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestForgottenPasswordEmailSST( IntPtr thisptr, string cszUser, StringBuilder ReceivePersonalQuestion, ref TSteamError pError );
+		public UInt32 RequestForgottenPasswordEmail( string cszUser, StringBuilder ReceivePersonalQuestion, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeRequestForgottenPasswordEmailSST>( this.Functions.RequestForgottenPasswordEmail111 )( this.ObjectAddress, cszArg1, szArg2, ref pError ); 
+			return this.GetFunction<NativeRequestForgottenPasswordEmailSST>( this.Functions.RequestForgottenPasswordEmail111 )( this.ObjectAddress, cszUser, ReceivePersonalQuestion, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmailST( IntPtr thisptr, string cszArg1, ref TSteamError pError );
-		public UInt32 RequestAccountsByEmailAddressEmail( string cszArg1, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByEmailAddressEmailST( IntPtr thisptr, string cszEmailAddress, ref TSteamError pError );
+		public UInt32 RequestAccountsByEmailAddressEmail( string cszEmailAddress, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeRequestAccountsByEmailAddressEmailST>( this.Functions.RequestAccountsByEmailAddressEmail112 )( this.ObjectAddress, cszArg1, ref pError ); 
+			return this.GetFunction<NativeRequestAccountsByEmailAddressEmailST>( this.Functions.RequestAccountsByEmailAddressEmail112 )( this.ObjectAddress, cszEmailAddress, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmailST( IntPtr thisptr, string cszArg1, ref TSteamError pError );
-		public UInt32 RequestAccountsByCdKeyEmail( string cszArg1, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRequestAccountsByCdKeyEmailST( IntPtr thisptr, string cszCdKey, ref TSteamError pError );
+		public UInt32 RequestAccountsByCdKeyEmail( string cszCdKey, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeRequestAccountsByCdKeyEmailST>( this.Functions.RequestAccountsByCdKeyEmail113 )( this.ObjectAddress, cszArg1, ref pError ); 
+			return this.GetFunction<NativeRequestAccountsByCdKeyEmailST>( this.Functions.RequestAccountsByCdKeyEmail113 )( this.ObjectAddress, cszCdKey, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddressSUT( IntPtr thisptr, string cszArg1, ref UInt32 puArg2, ref TSteamError pError );
-		public UInt32 GetNumAccountsWithEmailAddress( string cszArg1, ref UInt32 puArg2, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumAccountsWithEmailAddressSUT( IntPtr thisptr, string cszEmailAddress, ref UInt32 puNumAccounts, ref TSteamError pError );
+		public UInt32 GetNumAccountsWithEmailAddress( string cszEmailAddress, ref UInt32 puNumAccounts, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetNumAccountsWithEmailAddressSUT>( this.Functions.GetNumAccountsWithEmailAddress114 )( this.ObjectAddress, cszArg1, ref puArg2, ref pError ); 
+			return this.GetFunction<NativeGetNumAccountsWithEmailAddressSUT>( this.Functions.GetNumAccountsWithEmailAddress114 )( this.ObjectAddress, cszEmailAddress, ref puNumAccounts, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeUpdateAccountBillingInfoTT( IntPtr thisptr, ref TSteamPaymentCardInfo pPaymentCardInfo, ref TSteamError pError );
@@ -851,16 +851,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetSponsorUrlUSUUT>( this.Functions.GetSponsorUrl117 )( this.ObjectAddress, uAppId, szUrl, (UInt32) szUrl.Capacity, ref pUrlChars, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfoUUUT( IntPtr thisptr, UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError );
-		public Int32 GetContentServerInfo( UInt32 uArg1, ref UInt32 puArg2, ref UInt32 puArg3, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetContentServerInfoUUUT( IntPtr thisptr, UInt32 uAppId, ref UInt32 puServerId, ref UInt32 puServerIpAddress, ref TSteamError pError );
+		public Int32 GetContentServerInfo( UInt32 uAppId, ref UInt32 puServerId, ref UInt32 puServerIpAddress, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetContentServerInfoUUUT>( this.Functions.GetContentServerInfo118 )( this.ObjectAddress, uArg1, ref puArg2, ref puArg3, ref pError ); 
+			return this.GetFunction<NativeGetContentServerInfoUUUT>( this.Functions.GetContentServerInfo118 )( this.ObjectAddress, uAppId, ref puServerId, ref puServerIpAddress, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStatsUETT( IntPtr thisptr, UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError );
-		public UInt32 GetAppUpdateStats( UInt32 uAppId, ESteamAppUpdateStatsQueryType eSteamAppUpdateStatsQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppUpdateStatsUETT( IntPtr thisptr, UInt32 uAppOrCacheId, ESteamAppUpdateStatsQueryType eQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError );
+		public UInt32 GetAppUpdateStats( UInt32 uAppOrCacheId, ESteamAppUpdateStatsQueryType eQueryType, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetAppUpdateStatsUETT>( this.Functions.GetAppUpdateStats119 )( this.ObjectAddress, uAppId, eSteamAppUpdateStatsQueryType, ref pUpdateStats, ref pError ); 
+			return this.GetFunction<NativeGetAppUpdateStatsUETT>( this.Functions.GetAppUpdateStats119 )( this.ObjectAddress, uAppOrCacheId, eQueryType, ref pUpdateStats, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTotalUpdateStatsTT( IntPtr thisptr, ref TSteamUpdateStats pUpdateStats, ref TSteamError pError );
@@ -893,10 +893,10 @@ namespace Steam4NET
 			this.GetFunction<NativeWin32SetMiniDumpEnableFullMemory>( this.Functions.Win32SetMiniDumpEnableFullMemory124 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeWin32WriteMiniDumpSSSSU( IntPtr thisptr, string arg0, string arg1, string arg2, string arg3, UInt32 arg4 );
-		public void Win32WriteMiniDump( string arg0, string arg1, string arg2, string arg3, UInt32 arg4 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeWin32WriteMiniDumpSSSSU( IntPtr thisptr, string szErrorOrAssertType, string szDescriptionOrAssertName, string szAssertExpr, string szAssertFilename, UInt32 uAssertLineNumber );
+		public void Win32WriteMiniDump( string szErrorOrAssertType, string szDescriptionOrAssertName, string szAssertExpr, string szAssertFilename, UInt32 uAssertLineNumber ) 
 		{
-			this.GetFunction<NativeWin32WriteMiniDumpSSSSU>( this.Functions.Win32WriteMiniDump125 )( this.ObjectAddress, arg0, arg1, arg2, arg3, arg4 ); 
+			this.GetFunction<NativeWin32WriteMiniDumpSSSSU>( this.Functions.Win32WriteMiniDump125 )( this.ObjectAddress, szErrorOrAssertType, szDescriptionOrAssertName, szAssertExpr, szAssertFilename, uAssertLineNumber ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentAppIdUT( IntPtr thisptr, ref UInt32 puAppId, ref TSteamError pError );
@@ -905,28 +905,28 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetCurrentAppIdUT>( this.Functions.GetCurrentAppId126 )( this.ObjectAddress, ref puAppId, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppPurchaseCountryUSUUT( IntPtr thisptr, UInt32 uAppId, StringBuilder szCountryCode, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError );
-		public Int32 GetAppPurchaseCountry( UInt32 uAppId, StringBuilder szCountryCode, ref UInt32 puRecievedLength, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppPurchaseCountryUSUIT( IntPtr thisptr, UInt32 uAppId, StringBuilder szCountryCode, UInt32 uBufferLength, ref Int32 piRecievedLength, ref TSteamError pError );
+		public Int32 GetAppPurchaseCountry( UInt32 uAppId, StringBuilder szCountryCode, ref Int32 piRecievedLength, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetAppPurchaseCountryUSUUT>( this.Functions.GetAppPurchaseCountry127 )( this.ObjectAddress, uAppId, szCountryCode, (UInt32) szCountryCode.Capacity, ref puRecievedLength, ref pError ); 
+			return this.GetFunction<NativeGetAppPurchaseCountryUSUIT>( this.Functions.GetAppPurchaseCountry127 )( this.ObjectAddress, uAppId, szCountryCode, (UInt32) szCountryCode.Capacity, ref piRecievedLength, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalClientVersionUUT( IntPtr thisptr, ref UInt32 puArg1, ref UInt32 puArg2, ref TSteamError pError );
-		public Int32 GetLocalClientVersion( ref UInt32 puArg1, ref UInt32 puArg2, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLocalClientVersionUUT( IntPtr thisptr, ref UInt32 puBootStrapperVersionNum, ref UInt32 puClientAppVersionNum, ref TSteamError pError );
+		public Int32 GetLocalClientVersion( ref UInt32 puBootStrapperVersionNum, ref UInt32 puClientAppVersionNum, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetLocalClientVersionUUT>( this.Functions.GetLocalClientVersion128 )( this.ObjectAddress, ref puArg1, ref puArg2, ref pError ); 
+			return this.GetFunction<NativeGetLocalClientVersionUUT>( this.Functions.GetLocalClientVersion128 )( this.ObjectAddress, ref puBootStrapperVersionNum, ref puClientAppVersionNum, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileNeededByCacheUSUT( IntPtr thisptr, UInt32 uArg1, string cszFileName, UInt32 uArg3, ref TSteamError pError );
-		public Int32 IsFileNeededByCache( UInt32 uArg1, string cszFileName, UInt32 uArg3, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsFileNeededByCacheUSUT( IntPtr thisptr, UInt32 uCacheId, string cszFileName, UInt32 uFileSize, ref TSteamError pError );
+		public Int32 IsFileNeededByCache( UInt32 uCacheId, string cszFileName, UInt32 uFileSize, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeIsFileNeededByCacheUSUT>( this.Functions.IsFileNeededByCache129 )( this.ObjectAddress, uArg1, cszFileName, uArg3, ref pError ); 
+			return this.GetFunction<NativeIsFileNeededByCacheUSUT>( this.Functions.IsFileNeededByCache129 )( this.ObjectAddress, uCacheId, cszFileName, uFileSize, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLoadFileToCacheUSBUUT( IntPtr thisptr, UInt32 uArg1, string cszArg2, Byte[] pcvArg3, UInt32 uArg4, UInt32 uArg5, ref TSteamError pError );
-		public Int32 LoadFileToCache( UInt32 uArg1, string cszArg2, Byte[] pcvArg3, UInt32 uArg5, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeLoadFileToCacheUSBUUT( IntPtr thisptr, UInt32 uCacheId, string pchFileName, Byte[] pubDataChunk, UInt32 cubDataChunk, UInt32 cubDataOffset, ref TSteamError pError );
+		public Int32 LoadFileToCache( UInt32 uCacheId, string pchFileName, Byte[] pubDataChunk, UInt32 cubDataOffset, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeLoadFileToCacheUSBUUT>( this.Functions.LoadFileToCache130 )( this.ObjectAddress, uArg1, cszArg2, pcvArg3, (UInt32) pcvArg3.Length, uArg5, ref pError ); 
+			return this.GetFunction<NativeLoadFileToCacheUSBUUT>( this.Functions.LoadFileToCache130 )( this.ObjectAddress, uCacheId, pchFileName, pubDataChunk, (UInt32) pubDataChunk.Length, cubDataOffset, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCacheDecryptionKeyUSUUT( IntPtr thisptr, UInt32 uAppId, StringBuilder szCacheDecryptionKey, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError );
@@ -935,16 +935,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetCacheDecryptionKeyUSUUT>( this.Functions.GetCacheDecryptionKey131 )( this.ObjectAddress, uAppId, szCacheDecryptionKey, (UInt32) szCacheDecryptionKey.Capacity, ref puRecievedLength, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionExtendedInfoUSSUUT( IntPtr thisptr, UInt32 uSubscritptionId, string cszKeyName, StringBuilder szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError );
-		public Int32 GetSubscriptionExtendedInfo( UInt32 uSubscritptionId, string cszKeyName, StringBuilder szKeyValue, ref UInt32 puRecievedLength, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionExtendedInfoUSSUUT( IntPtr thisptr, UInt32 uSubscriptionId, string cszKeyName, StringBuilder szKeyValue, UInt32 uBufferLength, ref UInt32 puRecievedLength, ref TSteamError pError );
+		public Int32 GetSubscriptionExtendedInfo( UInt32 uSubscriptionId, string cszKeyName, StringBuilder szKeyValue, ref UInt32 puRecievedLength, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetSubscriptionExtendedInfoUSSUUT>( this.Functions.GetSubscriptionExtendedInfo132 )( this.ObjectAddress, uSubscritptionId, cszKeyName, szKeyValue, (UInt32) szKeyValue.Capacity, ref puRecievedLength, ref pError ); 
+			return this.GetFunction<NativeGetSubscriptionExtendedInfoUSSUUT>( this.Functions.GetSubscriptionExtendedInfo132 )( this.ObjectAddress, uSubscriptionId, cszKeyName, szKeyValue, (UInt32) szKeyValue.Capacity, ref puRecievedLength, ref pError ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionPurchaseCountryUSUIT( IntPtr thisptr, UInt32 uSubscritptionId, StringBuilder szCountry, UInt32 uBufferLength, ref Int32 piRecievedLength, ref TSteamError pError );
-		public Int32 GetSubscriptionPurchaseCountry( UInt32 uSubscritptionId, StringBuilder szCountry, ref Int32 piRecievedLength, ref TSteamError pError ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscriptionPurchaseCountryUSUIT( IntPtr thisptr, UInt32 uSubscriptionId, StringBuilder szCountry, UInt32 uBufSize, ref Int32 pPurchaseTime, ref TSteamError pError );
+		public Int32 GetSubscriptionPurchaseCountry( UInt32 uSubscriptionId, StringBuilder szCountry, ref Int32 pPurchaseTime, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeGetSubscriptionPurchaseCountryUSUIT>( this.Functions.GetSubscriptionPurchaseCountry133 )( this.ObjectAddress, uSubscritptionId, szCountry, (UInt32) szCountry.Capacity, ref piRecievedLength, ref pError ); 
+			return this.GetFunction<NativeGetSubscriptionPurchaseCountryUSUIT>( this.Functions.GetSubscriptionPurchaseCountry133 )( this.ObjectAddress, uSubscriptionId, szCountry, (UInt32) szCountry.Capacity, ref pPurchaseTime, ref pError ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppUserDefinedRecordUIBT( IntPtr thisptr, UInt32 uAppId, ref IntPtr AddEntryToKeyValueFunc, Byte[] pvCKeyValue, ref TSteamError pError );

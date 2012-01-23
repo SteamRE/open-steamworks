@@ -53,6 +53,7 @@ namespace Steam4NET
 		private IntPtr DTorISteamUserStats01041;
 	};
 	
+	[InteropHelp.InterfaceVersion("STEAMUSERSTATS_INTERFACE_VERSION010")]
 	public class ISteamUserStats010 : InteropHelp.NativeWrapper<ISteamUserStats010VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestCurrentStats( IntPtr thisptr );
@@ -62,32 +63,32 @@ namespace Steam4NET
 			return this.GetFunction<NativeRequestCurrentStats>( this.Functions.RequestCurrentStats0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetStatSI( IntPtr thisptr, string pchName, ref Int32 pData );
-		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetStat( string pchName, ref Int32 pData ) 
-		{
-			return this.GetFunction<NativeGetStatSI>( this.Functions.GetStat1 )( this.ObjectAddress, pchName, ref pData ); 
-		}
-		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetStatSF( IntPtr thisptr, string pchName, ref float pData );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetStat( string pchName, ref float pData ) 
 		{
-			return this.GetFunction<NativeGetStatSF>( this.Functions.GetStat2 )( this.ObjectAddress, pchName, ref pData ); 
+			return this.GetFunction<NativeGetStatSF>( this.Functions.GetStat1 )( this.ObjectAddress, pchName, ref pData ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetStatSI( IntPtr thisptr, string pchName, Int32 nData );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetStatSI( IntPtr thisptr, string pchName, ref Int32 pData );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetStat( string pchName, Int32 nData ) 
+		public bool GetStat( string pchName, ref Int32 pData ) 
 		{
-			return this.GetFunction<NativeSetStatSI>( this.Functions.SetStat3 )( this.ObjectAddress, pchName, nData ); 
+			return this.GetFunction<NativeGetStatSI>( this.Functions.GetStat2 )( this.ObjectAddress, pchName, ref pData ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetStatSF( IntPtr thisptr, string pchName, float fData );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool SetStat( string pchName, float fData ) 
 		{
-			return this.GetFunction<NativeSetStatSF>( this.Functions.SetStat4 )( this.ObjectAddress, pchName, fData ); 
+			return this.GetFunction<NativeSetStatSF>( this.Functions.SetStat3 )( this.ObjectAddress, pchName, fData ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetStatSI( IntPtr thisptr, string pchName, Int32 nData );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool SetStat( string pchName, Int32 nData ) 
+		{
+			return this.GetFunction<NativeSetStatSI>( this.Functions.SetStat4 )( this.ObjectAddress, pchName, nData ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateAvgRateStatSFD( IntPtr thisptr, string pchName, float flCountThisSession, double dSessionLength );
@@ -151,24 +152,24 @@ namespace Steam4NET
 			return this.GetFunction<NativeIndicateAchievementProgressSUU>( this.Functions.IndicateAchievementProgress13 )( this.ObjectAddress, pchName, nCurProgress, nMaxProgress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStatsC( IntPtr thisptr, ref UInt64 retarg, UInt64 steamIDUser );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStatsC( IntPtr thisptr, UInt64 steamIDUser );
 		public UInt64 RequestUserStats( CSteamID steamIDUser ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeRequestUserStatsC>( this.Functions.RequestUserStats14 )( this.ObjectAddress, ref ret, steamIDUser.ConvertToUint64() ); return (UInt64)ret;
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStatCSI( IntPtr thisptr, UInt64 steamIDUser, string pchName, ref Int32 pData );
-		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetUserStat( CSteamID steamIDUser, string pchName, ref Int32 pData ) 
-		{
-			return this.GetFunction<NativeGetUserStatCSI>( this.Functions.GetUserStat15 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), pchName, ref pData ); 
+			return this.GetFunction<NativeRequestUserStatsC>( this.Functions.RequestUserStats14 )( this.ObjectAddress, steamIDUser.ConvertToUint64() ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStatCSF( IntPtr thisptr, UInt64 steamIDUser, string pchName, ref float pData );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetUserStat( CSteamID steamIDUser, string pchName, ref float pData ) 
 		{
-			return this.GetFunction<NativeGetUserStatCSF>( this.Functions.GetUserStat16 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), pchName, ref pData ); 
+			return this.GetFunction<NativeGetUserStatCSF>( this.Functions.GetUserStat15 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), pchName, ref pData ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserStatCSI( IntPtr thisptr, UInt64 steamIDUser, string pchName, ref Int32 pData );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool GetUserStat( CSteamID steamIDUser, string pchName, ref Int32 pData ) 
+		{
+			return this.GetFunction<NativeGetUserStatCSI>( this.Functions.GetUserStat16 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), pchName, ref pData ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserAchievementCSB( IntPtr thisptr, UInt64 steamIDUser, string pchName, ref bool pbAchieved );
@@ -192,16 +193,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeResetAllStatsB>( this.Functions.ResetAllStats19 )( this.ObjectAddress, bAchievementsToo ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeFindOrCreateLeaderboardSEE( IntPtr thisptr, ref UInt64 retarg, string pchLeaderboardName, ELeaderboardSortMethod eLeaderboardSortMethod, ELeaderboardDisplayType eLeaderboardDisplayType );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeFindOrCreateLeaderboardSEE( IntPtr thisptr, string pchLeaderboardName, ELeaderboardSortMethod eLeaderboardSortMethod, ELeaderboardDisplayType eLeaderboardDisplayType );
 		public UInt64 FindOrCreateLeaderboard( string pchLeaderboardName, ELeaderboardSortMethod eLeaderboardSortMethod, ELeaderboardDisplayType eLeaderboardDisplayType ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeFindOrCreateLeaderboardSEE>( this.Functions.FindOrCreateLeaderboard20 )( this.ObjectAddress, ref ret, pchLeaderboardName, eLeaderboardSortMethod, eLeaderboardDisplayType ); return (UInt64)ret;
+			return this.GetFunction<NativeFindOrCreateLeaderboardSEE>( this.Functions.FindOrCreateLeaderboard20 )( this.ObjectAddress, pchLeaderboardName, eLeaderboardSortMethod, eLeaderboardDisplayType ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeFindLeaderboardS( IntPtr thisptr, ref UInt64 retarg, string pchLeaderboardName );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeFindLeaderboardS( IntPtr thisptr, string pchLeaderboardName );
 		public UInt64 FindLeaderboard( string pchLeaderboardName ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeFindLeaderboardS>( this.Functions.FindLeaderboard21 )( this.ObjectAddress, ref ret, pchLeaderboardName ); return (UInt64)ret;
+			return this.GetFunction<NativeFindLeaderboardS>( this.Functions.FindLeaderboard21 )( this.ObjectAddress, pchLeaderboardName ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLeaderboardNameU( IntPtr thisptr, UInt64 hSteamLeaderboard );
@@ -228,16 +229,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLeaderboardDisplayTypeU>( this.Functions.GetLeaderboardDisplayType25 )( this.ObjectAddress, hSteamLeaderboard ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDownloadLeaderboardEntriesUEII( IntPtr thisptr, ref UInt64 retarg, UInt64 hSteamLeaderboard, ELeaderboardDataRequest eLeaderboardDataRequest, Int32 nRangeStart, Int32 nRangeEnd );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDownloadLeaderboardEntriesUEII( IntPtr thisptr, UInt64 hSteamLeaderboard, ELeaderboardDataRequest eLeaderboardDataRequest, Int32 nRangeStart, Int32 nRangeEnd );
 		public UInt64 DownloadLeaderboardEntries( UInt64 hSteamLeaderboard, ELeaderboardDataRequest eLeaderboardDataRequest, Int32 nRangeStart, Int32 nRangeEnd ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeDownloadLeaderboardEntriesUEII>( this.Functions.DownloadLeaderboardEntries26 )( this.ObjectAddress, ref ret, hSteamLeaderboard, eLeaderboardDataRequest, nRangeStart, nRangeEnd ); return (UInt64)ret;
+			return this.GetFunction<NativeDownloadLeaderboardEntriesUEII>( this.Functions.DownloadLeaderboardEntries26 )( this.ObjectAddress, hSteamLeaderboard, eLeaderboardDataRequest, nRangeStart, nRangeEnd ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDownloadLeaderboardEntriesForUsersUCI( IntPtr thisptr, ref UInt64 retarg, UInt64 hSteamLeaderboard, ref UInt64 prgUsers, Int32 cUsers );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDownloadLeaderboardEntriesForUsersUCI( IntPtr thisptr, UInt64 hSteamLeaderboard, ref UInt64 prgUsers, Int32 cUsers );
 		public UInt64 DownloadLeaderboardEntriesForUsers( UInt64 hSteamLeaderboard, ref CSteamID prgUsers, Int32 cUsers ) 
 		{
-			UInt64 s0 = 0; UInt64 ret = 0; this.GetFunction<NativeDownloadLeaderboardEntriesForUsersUCI>( this.Functions.DownloadLeaderboardEntriesForUsers27 )( this.ObjectAddress, ref ret, hSteamLeaderboard, ref s0, cUsers ); prgUsers = new CSteamID(s0); return (UInt64)ret;
+			UInt64 s0 = 0; var result = this.GetFunction<NativeDownloadLeaderboardEntriesForUsersUCI>( this.Functions.DownloadLeaderboardEntriesForUsers27 )( this.ObjectAddress, hSteamLeaderboard, ref s0, cUsers ); prgUsers = new CSteamID(s0); return result;
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetDownloadedLeaderboardEntryUILII( IntPtr thisptr, UInt64 hSteamLeaderboardEntries, Int32 index, ref LeaderboardEntry002_t pLeaderboardEntry, ref Int32 pDetails, Int32 cDetailsMax );
@@ -247,28 +248,28 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetDownloadedLeaderboardEntryUILII>( this.Functions.GetDownloadedLeaderboardEntry28 )( this.ObjectAddress, hSteamLeaderboardEntries, index, ref pLeaderboardEntry, ref pDetails, cDetailsMax ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUploadLeaderboardScoreUEIII( IntPtr thisptr, ref UInt64 retarg, UInt64 hSteamLeaderboard, ELeaderboardUploadScoreMethod eLeaderboardUploadScoreMethod, Int32 nScore, ref Int32 pScoreDetails, Int32 cScoreDetailsCount );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUploadLeaderboardScoreUEIII( IntPtr thisptr, UInt64 hSteamLeaderboard, ELeaderboardUploadScoreMethod eLeaderboardUploadScoreMethod, Int32 nScore, ref Int32 pScoreDetails, Int32 cScoreDetailsCount );
 		public UInt64 UploadLeaderboardScore( UInt64 hSteamLeaderboard, ELeaderboardUploadScoreMethod eLeaderboardUploadScoreMethod, Int32 nScore, ref Int32 pScoreDetails, Int32 cScoreDetailsCount ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeUploadLeaderboardScoreUEIII>( this.Functions.UploadLeaderboardScore29 )( this.ObjectAddress, ref ret, hSteamLeaderboard, eLeaderboardUploadScoreMethod, nScore, ref pScoreDetails, cScoreDetailsCount ); return (UInt64)ret;
+			return this.GetFunction<NativeUploadLeaderboardScoreUEIII>( this.Functions.UploadLeaderboardScore29 )( this.ObjectAddress, hSteamLeaderboard, eLeaderboardUploadScoreMethod, nScore, ref pScoreDetails, cScoreDetailsCount ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeAttachLeaderboardUGCUU( IntPtr thisptr, ref UInt64 retarg, UInt64 hSteamLeaderboard, UInt64 hUGC );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeAttachLeaderboardUGCUU( IntPtr thisptr, UInt64 hSteamLeaderboard, UInt64 hUGC );
 		public UInt64 AttachLeaderboardUGC( UInt64 hSteamLeaderboard, UInt64 hUGC ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeAttachLeaderboardUGCUU>( this.Functions.AttachLeaderboardUGC30 )( this.ObjectAddress, ref ret, hSteamLeaderboard, hUGC ); return (UInt64)ret;
+			return this.GetFunction<NativeAttachLeaderboardUGCUU>( this.Functions.AttachLeaderboardUGC30 )( this.ObjectAddress, hSteamLeaderboard, hUGC ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetNumberOfCurrentPlayers( IntPtr thisptr, ref UInt64 retarg );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetNumberOfCurrentPlayers( IntPtr thisptr );
 		public UInt64 GetNumberOfCurrentPlayers(  ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetNumberOfCurrentPlayers>( this.Functions.GetNumberOfCurrentPlayers31 )( this.ObjectAddress, ref ret ); return (UInt64)ret;
+			return this.GetFunction<NativeGetNumberOfCurrentPlayers>( this.Functions.GetNumberOfCurrentPlayers31 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestGlobalAchievementPercentages( IntPtr thisptr, ref UInt64 retarg );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestGlobalAchievementPercentages( IntPtr thisptr );
 		public UInt64 RequestGlobalAchievementPercentages(  ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeRequestGlobalAchievementPercentages>( this.Functions.RequestGlobalAchievementPercentages32 )( this.ObjectAddress, ref ret ); return (UInt64)ret;
+			return this.GetFunction<NativeRequestGlobalAchievementPercentages>( this.Functions.RequestGlobalAchievementPercentages32 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetMostAchievedAchievementInfoSUFB( IntPtr thisptr, StringBuilder pchName, UInt32 unNameBufLen, ref float pflPercent, ref bool pbAchieved );
@@ -290,36 +291,36 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAchievementAchievedPercentSF>( this.Functions.GetAchievementAchievedPercent35 )( this.ObjectAddress, pchName, ref pflPercent ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestGlobalStatsI( IntPtr thisptr, ref UInt64 retarg, Int32 nHistoryDays );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestGlobalStatsI( IntPtr thisptr, Int32 nHistoryDays );
 		public UInt64 RequestGlobalStats( Int32 nHistoryDays ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeRequestGlobalStatsI>( this.Functions.RequestGlobalStats36 )( this.ObjectAddress, ref ret, nHistoryDays ); return (UInt64)ret;
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGlobalStatSI( IntPtr thisptr, string pchStatName, ref Int64 pData );
-		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetGlobalStat( string pchStatName, ref Int64 pData ) 
-		{
-			return this.GetFunction<NativeGetGlobalStatSI>( this.Functions.GetGlobalStat37 )( this.ObjectAddress, pchStatName, ref pData ); 
+			return this.GetFunction<NativeRequestGlobalStatsI>( this.Functions.RequestGlobalStats36 )( this.ObjectAddress, nHistoryDays ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGlobalStatSD( IntPtr thisptr, string pchStatName, ref double pData );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetGlobalStat( string pchStatName, ref double pData ) 
 		{
-			return this.GetFunction<NativeGetGlobalStatSD>( this.Functions.GetGlobalStat38 )( this.ObjectAddress, pchStatName, ref pData ); 
+			return this.GetFunction<NativeGetGlobalStatSD>( this.Functions.GetGlobalStat37 )( this.ObjectAddress, pchStatName, ref pData ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetGlobalStatHistorySIU( IntPtr thisptr, string pchStatName, ref Int64 pData, UInt32 cubData );
-		public Int32 GetGlobalStatHistory( string pchStatName, ref Int64 pData, UInt32 cubData ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGlobalStatSI( IntPtr thisptr, string pchStatName, ref Int64 pData );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool GetGlobalStat( string pchStatName, ref Int64 pData ) 
 		{
-			return this.GetFunction<NativeGetGlobalStatHistorySIU>( this.Functions.GetGlobalStatHistory39 )( this.ObjectAddress, pchStatName, ref pData, cubData ); 
+			return this.GetFunction<NativeGetGlobalStatSI>( this.Functions.GetGlobalStat38 )( this.ObjectAddress, pchStatName, ref pData ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetGlobalStatHistorySDU( IntPtr thisptr, string pchStatName, ref double pData, UInt32 cubData );
 		public Int32 GetGlobalStatHistory( string pchStatName, ref double pData, UInt32 cubData ) 
 		{
-			return this.GetFunction<NativeGetGlobalStatHistorySDU>( this.Functions.GetGlobalStatHistory40 )( this.ObjectAddress, pchStatName, ref pData, cubData ); 
+			return this.GetFunction<NativeGetGlobalStatHistorySDU>( this.Functions.GetGlobalStatHistory39 )( this.ObjectAddress, pchStatName, ref pData, cubData ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetGlobalStatHistorySIU( IntPtr thisptr, string pchStatName, ref Int64 pData, UInt32 cubData );
+		public Int32 GetGlobalStatHistory( string pchStatName, ref Int64 pData, UInt32 cubData ) 
+		{
+			return this.GetFunction<NativeGetGlobalStatHistorySIU>( this.Functions.GetGlobalStatHistory40 )( this.ObjectAddress, pchStatName, ref pData, cubData ); 
 		}
 		
 	};

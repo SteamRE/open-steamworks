@@ -6,18 +6,6 @@ using System.Runtime.InteropServices;
 namespace Steam4NET
 {
 
-	public enum EGCMsgResponse : int
-	{
-		k_EGCMsgResponseOK = 0,
-		k_EGCMsgResponseDenied = 1,
-		k_EGCMsgResponseServerError = 2,
-		k_EGCMsgResponseTimeout = 3,
-		k_EGCMsgResponseInvalid = 4,
-		k_EGCMsgResponseNoMatch = 5,
-		k_EGCMsgResponseUnknownError = 6,
-		k_EGCMsgResponseNotLoggedOn = 7,
-	};
-	
 	public enum EGCResults : int
 	{
 		k_EGCResultOK = 0,
@@ -36,6 +24,8 @@ namespace Steam4NET
 		k_ESOMsg_CacheSubscribed = 24,
 		k_ESOMsg_CacheUnsubscribed = 25,
 		k_ESOMsg_UpdateMultiple = 26,
+		k_ESOMsg_CacheSubscriptionCheck = 27,
+		k_ESOMsg_CacheSubscriptionRefresh = 28,
 		k_EGCMsgAchievementAwarded = 51,
 		k_EGCMsgConCommand = 52,
 		k_EGCMsgStartPlaying = 53,
@@ -120,10 +110,17 @@ namespace Steam4NET
 		k_EMsgGCLookupAccountResponse = 1044,
 		k_EMsgGCLookupAccountName = 1045,
 		k_EMsgGCLookupAccountNameResponse = 1046,
-		k_EMsgGCStartupCheck = 1047,
-		k_EMsgGCStartupCheckResponse = 1048,
 		k_EMsgGCUpdateItemSchema = 1049,
 		k_EMsgGCRequestInventoryRefresh = 1050,
+		k_EMsgGCRemoveCustomTexture = 1051,
+		k_EMsgGCRemoveCustomTextureResponse = 1052,
+		k_EMsgGCRemoveMakersMark = 1053,
+		k_EMsgGCRemoveMakersMarkResponse = 1054,
+		k_EMsgGCRemoveUniqueCraftIndex = 1055,
+		k_EMsgGCRemoveUniqueCraftIndexResponse = 1056,
+		k_EMsgGCSaxxyBroadcast = 1057,
+		k_EMsgGCBackpackSortFinished = 1058,
+		k_EMsgGCRequestItemSchemaData = 1060,
 		k_EMsgGCTrading_InitiateTradeRequest = 1501,
 		k_EMsgGCTrading_InitiateTradeResponse = 1502,
 		k_EMsgGCTrading_StartSession = 1503,
@@ -151,7 +148,9 @@ namespace Steam4NET
 		k_EMsgGCStorePurchaseCancelResponse = 2507,
 		k_EMsgGCStorePurchaseQueryTxn = 2508,
 		k_EMsgGCStorePurchaseQueryTxnResponse = 2509,
-		k_EMsgGCSystemMessage = 3001,
+		k_EMsgGCSystemMessage = 4001,
+		k_EMsgGCReplicateConVars = 4002,
+		k_EMsgGCConVarUpdated = 4003,
 		k_EMsgGCReportWarKill = 5001,
 		k_EMsgGCVoteKickBanPlayer = 5018,
 		k_EMsgGCVoteKickBanPlayerResult = 5019,
@@ -256,7 +255,7 @@ namespace Steam4NET
 	{
 		public const int k_iMessage = 24;
 		public GCMsgHeader_t header;
-		public UInt64 steamid;
+		public SteamID_t steamid;
 		public UInt32 numberOfTypes;
 	};
 	
@@ -293,7 +292,7 @@ namespace Steam4NET
 	{
 		public const int k_iMessage = 25;
 		public GCMsgHeader_t header;
-		public UInt64 steamid;
+		public SteamID_t steamid;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -302,7 +301,7 @@ namespace Steam4NET
 	{
 		public const int k_iMessage = 21;
 		public GCMsgHeader_t header;
-		public UInt64 steamid;
+		public SteamID_t steamid;
 		public UInt32 unknown;
 		public SOMsgCacheSubscribed_Item_t item;
 	};
@@ -313,7 +312,7 @@ namespace Steam4NET
 	{
 		public const int k_iMessage = 22;
 		public GCMsgHeader_t header;
-		public UInt64 steamid;
+		public SteamID_t steamid;
 		public UInt32 unk1;
 		public UInt64 itemID;
 		public UInt16 unk2;
@@ -326,7 +325,7 @@ namespace Steam4NET
 	{
 		public const int k_iMessage = 23;
 		public GCMsgHeader_t header;
-		public UInt64 steamid;
+		public SteamID_t steamid;
 		public UInt32 unk1;
 		public UInt64 itemid;
 	};
@@ -378,7 +377,7 @@ namespace Steam4NET
 	{
 		public const int k_iMessage = 1005;
 		public GCMsgHeader_t header;
-		public UInt64 steamid;
+		public SteamID_t steamid;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -444,7 +443,7 @@ namespace Steam4NET
 		public const int k_iMessage = 1501;
 		public GCMsgHeader_t header;
 		public UInt32 challenge;
-		public UInt64 steamID;
+		public SteamID_t steamID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -480,8 +479,8 @@ namespace Steam4NET
 	{
 		public const int k_iMessage = 1503;
 		public GCMsgHeader_t header;
-		public UInt64 steamID1;
-		public UInt64 steamID2;
+		public SteamID_t steamID1;
+		public SteamID_t steamID2;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -582,7 +581,7 @@ namespace Steam4NET
 	{
 		public const int k_iMessage = 1029;
 		public GCMsgHeader_t header;
-		public UInt64 steamID;
+		public SteamID_t steamID;
 	};
 	
 }

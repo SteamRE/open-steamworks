@@ -10,6 +10,8 @@ namespace Steam4NET
 	{
 		k_EAvatarSize32x32 = 0,
 		k_EAvatarSize64x64 = 1,
+		k_EAvatarSize184x184 = 2,
+		k_EAvatarSizeMAX = 3,
 	};
 	
 	public enum ECallState : int
@@ -32,19 +34,6 @@ namespace Steam4NET
 		k_EChatEntryTypeLeftConversation = 6,
 	};
 	
-	public enum ESystemIMType : int
-	{
-		k_ESystemIMRawText = 0,
-		k_ESystemIMInvalidCard = 1,
-		k_ESystemIMRecurringPurchaseFailed = 2,
-		k_ESystemIMCardWillExpire = 3,
-		k_ESystemIMSubscriptionExpired = 4,
-		k_ESystemIMGuestPassReceived = 5,
-		k_ESystemIMGuestPassGranted = 6,
-		k_ESystemIMGiftRevoked = 7,
-		k_ESystemIMTypeMax = 8,
-	};
-	
 	public enum EFriendRelationship : int
 	{
 		k_EFriendRelationshipNone = 0,
@@ -54,6 +43,7 @@ namespace Steam4NET
 		k_EFriendRelationshipRequestInitiator = 4,
 		k_EFriendRelationshipIgnored = 5,
 		k_EFriendRelationshipIgnoredFriend = 6,
+		k_EFriendRelationshipSuggested = 7,
 	};
 	
 	public enum EChatRoomType : int
@@ -65,17 +55,18 @@ namespace Steam4NET
 	
 	public enum EChatRoomVoiceStatus : int
 	{
-		eChatRoomVoiceStatusBad = 0,
-		eChatRoomVoiceStatusUnknownRoom = 1,
-		eChatRoomVoiceStatusUnknownUser = 2,
-		eChatRoomVoiceStatusNotSpeaking = 3,
-		eChatRoomVoiceStatusConnectedSpeaking = 4,
-		eChatRoomVoiceStatusConnectedSpeakingData = 5,
-		eChatRoomVoiceStatusNotConnectedSpeaking = 6,
-		eChatRoomVoiceStatusConnecting = 7,
-		eChatRoomVoiceStatusUnreachable = 8,
-		eChatRoomVoiceStatusDisconnected = 9,
-		eChatRoomVoiceStatusCount = 10,
+		eChatRoomVoiceStatus_Invalid = -1,
+		eChatRoomVoiceStatus_Bad = 0,
+		eChatRoomVoiceStatus_UnknownRoom = 1,
+		eChatRoomVoiceStatus_UnknownUser = 2,
+		eChatRoomVoiceStatus_NotSpeaking = 3,
+		eChatRoomVoiceStatus_Connected_Speaking = 4,
+		eChatRoomVoiceStatus_Connected_SpeakingData = 5,
+		eChatRoomVoiceStatus_NotConnected_Speaking = 6,
+		eChatRoomVoiceStatus_Connecting = 7,
+		eChatRoomVoiceStatus_Unreachable = 8,
+		eChatRoomVoiceStatus_Disconnected = 9,
+		eChatRoomVoiceStatus_Count = 10,
 	};
 	
 	public enum EClanRank : int
@@ -107,15 +98,8 @@ namespace Steam4NET
 		k_EFriendFlagRequestingInfo = 256,
 		k_EFriendFlagIgnored = 512,
 		k_EFriendFlagIgnoredFriend = 1024,
+		k_EFriendFlagSuggested = 2048,
 		k_EFriendFlagAll = 65535,
-	};
-	
-	public enum EFriendMsgType : int
-	{
-		k_EFriendMsgTypeChat = 1,
-		k_EFriendMsgTypeTyping = 2,
-		k_EFriendMsgTypeInvite = 3,
-		k_EFriendMsgTypeChatSent = 4,
 	};
 	
 	public enum EPersonaState : int
@@ -125,7 +109,15 @@ namespace Steam4NET
 		k_EPersonaStateBusy = 2,
 		k_EPersonaStateAway = 3,
 		k_EPersonaStateSnooze = 4,
-		k_EPersonaStateMax = 5,
+		k_EPersonaStateLookingToTrade = 5,
+		k_EPersonaStateLookingToPlay = 6,
+		k_EPersonaStateMax = 7,
+	};
+	
+	public enum EPersonaStateFlag : int
+	{
+		k_EPersonaStateFlagHasRichPresence = 1,
+		k_EPersonaStateFlagInJoinableGame = 2,
 	};
 	
 	public enum EPersonaChange : int
@@ -141,6 +133,7 @@ namespace Steam4NET
 		k_EPersonaChangeLeftSource = 256,
 		k_EPersonaChangeRelationshipChanged = 512,
 		k_EPersonaChangeNameFirstSet = 1024,
+		k_EPersonaChangeFacebookInfo = 2048,
 	};
 	
 	public enum EChatPermission : int
@@ -170,6 +163,9 @@ namespace Steam4NET
 		k_EChatRoomEnterResponseFull = 4,
 		k_EChatRoomEnterResponseError = 5,
 		k_EChatRoomEnterResponseBanned = 6,
+		k_EChatRoomEnterResponseLimited = 7,
+		k_EChatRoomEnterResponseClanDisabled = 8,
+		k_EChatRoomEnterResponseCommunityBan = 9,
 	};
 	
 	public enum EChatAction : int
@@ -217,302 +213,12 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(301)]
-	public struct FriendAdded_t
-	{
-		public const int k_iCallback = 301;
-		public EResult m_eResult;
-		public UInt64 m_ulSteamID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(302)]
-	public struct UserRequestingFriendship_t
-	{
-		public const int k_iCallback = 302;
-		public UInt64 m_ulSteamID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(303)]
-	public struct PersonaStateChangeOld_t
-	{
-		public const int k_iCallback = 303;
-		public UInt64 m_ulSteamID;
-		public Int32 m_ePersonaStatePrevious;
-		public Int32 m_nGameIDPrevious;
-		public UInt32 m_unGameServerIPPrevious;
-		public UInt16 m_usGameServerPortPrevious;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(304)]
 	public struct PersonaStateChange_t
 	{
 		public const int k_iCallback = 304;
-		public UInt64 m_ulSteamID;
+		public SteamID_t m_ulSteamID;
 		public EPersonaChange m_nChangeFlags;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(305)]
-	public struct SystemIM_t
-	{
-		public const int k_iCallback = 305;
-		public ESystemIMType m_ESystemIMType;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 4096)]
-		public string m_rgchMsgBody;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(306)]
-	public struct FriendChatMsg_t
-	{
-		public const int k_iCallback = 306;
-		public UInt64 m_ulReceiver;
-		public UInt64 m_ulSender;
-		public UInt16 m_eChatEntryType;
-		public Byte m_bLimitedAccount;
-		public UInt32 m_iChatID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(307)]
-	public struct FriendInvited_t
-	{
-		public const int k_iCallback = 307;
-		public EResult m_eResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(308)]
-	public struct ChatRoomInvite_t
-	{
-		public const int k_iCallback = 308;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDPatron;
-		public UInt64 m_ulSteamIDFriendChat;
-		public EChatRoomType m_EChatRoomType;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-		public string m_rgchChatRoomName;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(309)]
-	public struct ChatRoomEnter_t
-	{
-		public const int k_iCallback = 309;
-		public UInt64 m_ulSteamIDChat;
-		public EChatRoomType m_EChatRoomType;
-		public UInt64 m_ulSteamIDOwner;
-		public UInt64 m_ulSteamIDClan;
-		public UInt64 m_ulSteamIDFriendChat;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bLocked;
-		public Byte m_rgfChatPermissions;
-		public EChatRoomEnterResponse m_EChatRoomEnterResponse;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-		public string m_rgchChatRoomName;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(310)]
-	public struct ChatMemberStateChange_t
-	{
-		public const int k_iCallback = 310;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDUserChanged;
-		public EChatMemberStateChange m_rgfChatMemberStateChange;
-		public UInt64 m_ulSteamIDMakingChange;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(311)]
-	public struct ChatRoomMsg_t
-	{
-		public const int k_iCallback = 311;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDUser;
-		public Byte m_eChatEntryType;
-		public UInt32 m_iChatID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(312)]
-	public struct ChatRoomDlgClose_t
-	{
-		public const int k_iCallback = 312;
-		public UInt64 m_SteamID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(313)]
-	public struct ChatRoomClosing_t
-	{
-		public const int k_iCallback = 313;
-		public UInt64 m_ulSteamIDChat;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(314)]
-	public struct ChatRoomKicking_t
-	{
-		public const int k_iCallback = 314;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDAdmin;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(315)]
-	public struct ChatRoomBanning_t
-	{
-		public const int k_iCallback = 315;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDAdmin;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(316)]
-	public struct ChatRoomCreate_t
-	{
-		public const int k_iCallback = 316;
-		public EResult m_eResult;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDFriendChat;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(317)]
-	public struct ChatRoomMetadataUpdate_t
-	{
-		public const int k_iCallback = 317;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDMember;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(318)]
-	public struct OpenChatDialog_t
-	{
-		public const int k_iCallback = 318;
-		public UInt64 m_ulSteamID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(319)]
-	public struct ChatRoomActionResult_t
-	{
-		public const int k_iCallback = 319;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDUserActedOn;
-		public EChatAction m_EChatAction;
-		public EChatActionResult m_EChatActionResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(320)]
-	public struct ChatRoomDlgSerialized_t
-	{
-		public const int k_iCallback = 320;
-		public UInt64 m_ulSteamID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(321)]
-	public struct ClanInfoChanged_t
-	{
-		public const int k_iCallback = 321;
-		public UInt64 m_GroupID;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bNameChanged;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bAvatarChanged;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bAccountInfoChanged;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(322)]
-	public struct ChatMemberInfoChanged_t
-	{
-		public const int k_iCallback = 322;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDUser;
-		public UInt32 m_rgfChatMemberPermissions;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(323)]
-	public struct ChatRoomInfoChanged_t
-	{
-		public const int k_iCallback = 323;
-		public UInt64 m_ulSteamIDChat;
-		public UInt32 m_rgfChatRoomDetails;
-		public UInt64 m_ulSteamIDMakingChange;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(325)]
-	public struct ChatRoomSpeakChanged_t
-	{
-		public const int k_iCallback = 325;
-		public UInt64 m_ulSteamIDChat;
-		public UInt64 m_ulSteamIDUser;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bSpeaking;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(326)]
-	public struct NotifyIncomingCall_t
-	{
-		public const int k_iCallback = 326;
-		public Int32 m_Handle;
-		public UInt64 m_ulSteamID;
-		public UInt64 m_ulSteamIDChat;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bIncoming;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(327)]
-	public struct NotifyHangup_t
-	{
-		public const int k_iCallback = 327;
-		public Int32 m_Handle;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(328)]
-	public struct NotifyRequestResume_t
-	{
-		public const int k_iCallback = 328;
-		public Int32 m_Handle;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(329)]
-	public struct NotifyChatRoomVoiceStateChanged_t
-	{
-		public const int k_iCallback = 329;
-		public UInt64 m_steamChatRoom;
-		public UInt64 m_steamUser;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(330)]
-	public struct ChatRoomDlgUIChange_t
-	{
-		public const int k_iCallback = 330;
-		public UInt64 m_SteamIDChat;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bShowAvatars;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bBeepOnNewMsg;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bShowSteamIDs;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bShowTimestampOnNewMsg;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -539,20 +245,19 @@ namespace Steam4NET
 	public struct GameLobbyJoinRequested_t
 	{
 		public const int k_iCallback = 333;
-		public UInt64 m_steamIDLobby;
-		public UInt64 m_steamIDFriend;
+		public SteamID_t m_steamIDLobby;
+		public SteamID_t m_steamIDFriend;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(334)]
-	public struct FriendIgnored_t
+	public struct AvatarImageLoaded_t
 	{
 		public const int k_iCallback = 334;
-		public EResult m_eResult;
-		public UInt64 m_ulSteamID;
-		public UInt64 m_ulSteamFriendID;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bIgnored;
+		public SteamID_t m_steamID;
+		public Int32 m_iImage;
+		public Int32 m_iWide;
+		public Int32 m_iTall;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -560,7 +265,7 @@ namespace Steam4NET
 	public struct ClanOfficerListResponse_t
 	{
 		public const int k_iCallback = 335;
-		public UInt64 m_steamIDClan;
+		public SteamID_t m_steamIDClan;
 		public Int32 m_cOfficers;
 		public Byte m_bSuccess;
 	};
@@ -570,7 +275,7 @@ namespace Steam4NET
 	public struct FriendRichPresenceUpdate_t
 	{
 		public const int k_iCallback = 336;
-		public UInt64 m_steamIDFriend;
+		public SteamID_t m_steamIDFriend;
 		public UInt32 m_nAppID;
 	};
 	
@@ -579,17 +284,467 @@ namespace Steam4NET
 	public struct GameRichPresenceJoinRequested_t
 	{
 		public const int k_iCallback = 337;
-		public UInt64 m_steamIDFriend;
+		public SteamID_t m_steamIDFriend;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
 		public string m_rgchConnect;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(801)]
+	public struct GameOverlayActivateRequested_t
+	{
+		public const int k_iCallback = 801;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+		public string m_rgchDialog;
+		public SteamID_t m_steamIDTarget;
+		public UInt32 m_nAppID;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bWebPage;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(802)]
+	public struct ClanEventReceived_t
+	{
+		public const int k_iCallback = 802;
+		public UInt64 m_gidEvent;
+		public UInt64 m_ulSteamIDClan;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+		public string m_rgchTitle;
+		public UInt32 m_nStartTime;
+		public GameID_t m_GameID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(803)]
+	public struct FriendAdded_t
+	{
+		public const int k_iCallback = 803;
+		public EResult m_eResult;
+		public UInt64 m_ulSteamID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(804)]
+	public struct UserRequestingFriendship_t
+	{
+		public const int k_iCallback = 804;
+		public SteamID_t m_ulSteamID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(805)]
+	public struct FriendChatMsg_t
+	{
+		public const int k_iCallback = 805;
+		public SteamID_t m_ulFriendID;
+		public SteamID_t m_ulSenderID;
+		public Byte m_eChatEntryType;
+		public Byte m_bLimitedAccount;
+		public UInt32 m_iChatID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(806)]
+	public struct FriendInvited_t
+	{
+		public const int k_iCallback = 806;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(807)]
+	public struct ChatRoomInvite_t
+	{
+		public const int k_iCallback = 807;
+		public SteamID_t m_ulSteamIDChat;
+		public SteamID_t m_ulSteamIDPatron;
+		public SteamID_t m_ulSteamIDFriendChat;
+		public EChatRoomType m_EChatRoomType;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+		public string m_rgchChatRoomName;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(808)]
+	public struct ChatRoomEnter_t
+	{
+		public const int k_iCallback = 808;
+		public SteamID_t m_ulSteamIDChat;
+		public EChatRoomType m_EChatRoomType;
+		public UInt64 m_ulSteamIDOwner;
+		public SteamID_t m_ulSteamIDClan;
+		public SteamID_t m_ulSteamIDFriendChat;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bLocked;
+		public UInt32 m_rgfChatPermissions;
+		public EChatRoomEnterResponse m_EChatRoomEnterResponse;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+		public string m_rgchChatRoomName;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(809)]
+	public struct ChatMemberStateChange_t
+	{
+		public const int k_iCallback = 809;
+		public SteamID_t m_ulSteamIDChat;
+		public SteamID_t m_ulSteamIDUserChanged;
+		public EChatMemberStateChange m_rgfChatMemberStateChange;
+		public UInt64 m_ulSteamIDMakingChange;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(810)]
+	public struct ChatRoomMsg_t
+	{
+		public const int k_iCallback = 810;
+		public SteamID_t m_ulSteamIDChat;
+		public SteamID_t m_ulSteamIDUser;
+		public Byte m_eChatEntryType;
+		public UInt32 m_iChatID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(811)]
+	public struct ChatRoomDlgClose_t
+	{
+		public const int k_iCallback = 811;
+		public SteamID_t m_ulSteamIDChat;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(812)]
+	public struct ChatRoomClosing_t
+	{
+		public const int k_iCallback = 812;
+		public SteamID_t m_ulSteamIDChat;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(813)]
+	public struct ChatRoomKicking_t
+	{
+		public const int k_iCallback = 813;
+		public SteamID_t m_ulSteamIDChat;
+		public SteamID_t m_ulSteamIDAdmin;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(814)]
+	public struct ChatRoomBanning_t
+	{
+		public const int k_iCallback = 814;
+		public SteamID_t m_ulSteamIDChat;
+		public SteamID_t m_ulSteamIDAdmin;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(815)]
+	public struct ChatRoomCreate_t
+	{
+		public const int k_iCallback = 815;
+		public EResult m_eResult;
+		public UInt64 m_ulSteamIDChat;
+		public SteamID_t m_ulSteamIDFriendChat;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(816)]
+	public struct OpenChatDialog_t
+	{
+		public const int k_iCallback = 816;
+		public SteamID_t m_ulSteamID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(817)]
+	public struct ChatRoomActionResult_t
+	{
+		public const int k_iCallback = 817;
+		public SteamID_t m_ulSteamIDChat;
+		public SteamID_t m_ulSteamIDUserActedOn;
+		public EChatAction m_EChatAction;
+		public EChatActionResult m_EChatActionResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(818)]
+	public struct ChatRoomDlgSerialized_t
+	{
+		public const int k_iCallback = 818;
+		public SteamID_t m_ulSteamID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(819)]
+	public struct ClanInfoChanged_t
+	{
+		public const int k_iCallback = 819;
+		public SteamID_t m_ulSteamID;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bNameChanged;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bAvatarChanged;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bAccountInfoChanged;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(820)]
+	public struct ChatMemberInfoChanged_t
+	{
+		public const int k_iCallback = 820;
+		public SteamID_t m_ulSteamIDChat;
+		public SteamID_t m_ulSteamIDUser;
+		public UInt32 m_rgfChatMemberPermissions;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(821)]
+	public struct ChatRoomInfoChanged_t
+	{
+		public const int k_iCallback = 821;
+		public SteamID_t m_ulSteamIDChat;
+		public UInt32 m_rgfChatRoomDetails;
+		public UInt64 m_ulSteamIDMakingChange;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(822)]
+	public struct SteamRackBouncing_t
+	{
+		public const int k_iCallback = 822;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(823)]
+	public struct ChatRoomSpeakChanged_t
+	{
+		public const int k_iCallback = 823;
+		public SteamID_t m_ulSteamIDChat;
+		public SteamID_t m_ulSteamIDUser;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bSpeaking;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(824)]
+	public struct NotifyIncomingCall_t
+	{
+		public const int k_iCallback = 824;
+		public Int32 m_Handle;
+		public UInt64 m_ulSteamID;
+		public SteamID_t m_ulSteamIDChat;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bIncoming;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(825)]
+	public struct NotifyHangup_t
+	{
+		public const int k_iCallback = 825;
+		public Int32 m_Handle;
+		public EVoiceResult m_eVoiceResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(826)]
+	public struct NotifyRequestResume_t
+	{
+		public const int k_iCallback = 826;
+		public Int32 m_Handle;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(827)]
+	public struct NotifyChatRoomVoiceStateChanged_t
+	{
+		public const int k_iCallback = 827;
+		public SteamID_t m_steamChatRoom;
+		public SteamID_t m_steamUser;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(828)]
+	public struct ChatRoomDlgUIChange_t
+	{
+		public const int k_iCallback = 828;
+		public SteamID_t m_SteamIDChat;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bShowAvatars;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bBeepOnNewMsg;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bShowSteamIDs;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bShowTimestampOnNewMsg;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(829)]
+	public struct VoiceCallInitiated_t
+	{
+		public const int k_iCallback = 829;
+		public UInt64 m_ulSteamIDUser;
+		public UInt64 m_ulSteamIDFriend;
+		public Int32 m_hVoiceCall;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(830)]
+	public struct FriendIgnored_t
+	{
+		public const int k_iCallback = 830;
+		public EResult m_eResult;
+		public UInt64 m_ulSteamID;
+		public SteamID_t m_ulSteamIDFriend;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bIgnored;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(831)]
+	public struct VoiceInputDeviceChanged_t
+	{
+		public const int k_iCallback = 831;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(832)]
+	public struct VoiceEnabledStateChanged_t
+	{
+		public const int k_iCallback = 832;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bVoiceEnabled;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(833)]
+	public struct FriendsWhoPlayGameUpdate_t
+	{
+		public const int k_iCallback = 833;
+		public GameID_t m_gameID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(834)]
+	public struct FriendProfileInfoResponse_t
+	{
+		public const int k_iCallback = 834;
+		public SteamID_t m_steamIDFriend;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(835)]
+	public struct RichInviteReceived_t
+	{
+		public const int k_iCallback = 835;
+		public SteamID_t m_steamIDFriend;
+		public UInt32 m_nAppID;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+		public string m_rgchConnect;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(836)]
+	public struct FriendsMenuChange_t
+	{
+		public const int k_iCallback = 836;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bShowAvatars;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bSortByName;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bShowOnlineFriendsOnly;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bShowUntaggedFriends;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(837)]
+	public struct TradeInviteReceived_t
+	{
+		public const int k_iCallback = 837;
+		public SteamID_t m_steamIDPartner;
+		public UInt32 m_unTradeRequestID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(838)]
-	public struct FriendProfileInfoReceived_t
+	public struct TradeInviteResponse_t
 	{
 		public const int k_iCallback = 838;
-		public UInt64 m_ulSteamID;
+		public SteamID_t m_steamIDPartner;
+		public UInt32 m_eResponse;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(839)]
+	public struct TradeStartSession_t
+	{
+		public const int k_iCallback = 839;
+		public SteamID_t m_steamIDPartner;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(840)]
+	public struct TradeInviteCanceled_t
+	{
+		public const int k_iCallback = 840;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(841)]
+	public struct GameUsingVoice_t
+	{
+		public const int k_iCallback = 841;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(842)]
+	public struct FriendsGroupCreated_t
+	{
+		public const int k_iCallback = 842;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(843)]
+	public struct FriendsGroupDeleted_t
+	{
+		public const int k_iCallback = 843;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(844)]
+	public struct FriendsGroupRenamed_t
+	{
+		public const int k_iCallback = 844;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(845)]
+	public struct FriendsGroupMemberAdded_t
+	{
+		public const int k_iCallback = 845;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(846)]
+	public struct FriendsGroupMemberRemoved_t
+	{
+		public const int k_iCallback = 846;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(847)]
+	public struct NameHistoryResponse_t
+	{
+		public const int k_iCallback = 847;
+		public Int32 m_cSuccessfulLookups;
+		public Int32 m_cFailedLookups;
 	};
 	
 }

@@ -17,10 +17,10 @@ namespace Steam4NET
 		public IntPtr GetNumGroupAchievements5;
 		public IntPtr GetGroupAchievementName6;
 		public IntPtr RequestCurrentStats7;
-		public IntPtr GetStat9;
 		public IntPtr GetStat8;
-		public IntPtr SetStat11;
+		public IntPtr GetStat9;
 		public IntPtr SetStat10;
+		public IntPtr SetStat11;
 		public IntPtr UpdateAvgRateStat12;
 		public IntPtr GetAchievement13;
 		public IntPtr GetGroupAchievement14;
@@ -86,32 +86,32 @@ namespace Steam4NET
 			return this.GetFunction<NativeRequestCurrentStatsC>( this.Functions.RequestCurrentStats7 )( this.ObjectAddress, nGameID.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetStatCSI( IntPtr thisptr, UInt64 nGameID, string pchName, ref Int32 pData );
-		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetStat( CGameID nGameID, string pchName, ref Int32 pData ) 
-		{
-			return this.GetFunction<NativeGetStatCSI>( this.Functions.GetStat8 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, ref pData ); 
-		}
-		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetStatCSF( IntPtr thisptr, UInt64 nGameID, string pchName, ref float pData );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetStat( CGameID nGameID, string pchName, ref float pData ) 
 		{
-			return this.GetFunction<NativeGetStatCSF>( this.Functions.GetStat9 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, ref pData ); 
+			return this.GetFunction<NativeGetStatCSF>( this.Functions.GetStat8 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, ref pData ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetStatCSI( IntPtr thisptr, UInt64 nGameID, string pchName, Int32 nData );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetStatCSI( IntPtr thisptr, UInt64 nGameID, string pchName, ref Int32 pData );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool SetStat( CGameID nGameID, string pchName, Int32 nData ) 
+		public bool GetStat( CGameID nGameID, string pchName, ref Int32 pData ) 
 		{
-			return this.GetFunction<NativeSetStatCSI>( this.Functions.SetStat10 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, nData ); 
+			return this.GetFunction<NativeGetStatCSI>( this.Functions.GetStat9 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, ref pData ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetStatCSF( IntPtr thisptr, UInt64 nGameID, string pchName, float fData );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool SetStat( CGameID nGameID, string pchName, float fData ) 
 		{
-			return this.GetFunction<NativeSetStatCSF>( this.Functions.SetStat11 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, fData ); 
+			return this.GetFunction<NativeSetStatCSF>( this.Functions.SetStat10 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, fData ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetStatCSI( IntPtr thisptr, UInt64 nGameID, string pchName, Int32 nData );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool SetStat( CGameID nGameID, string pchName, Int32 nData ) 
+		{
+			return this.GetFunction<NativeSetStatCSI>( this.Functions.SetStat11 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, nData ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdateAvgRateStatCSFD( IntPtr thisptr, UInt64 nGameID, string pchName, float arg2, double dSessionLength );

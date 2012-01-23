@@ -25,6 +25,13 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(501)]
+	public struct FavoritesListChangedOld_t
+	{
+		public const int k_iCallback = 501;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(502)]
 	public struct FavoritesListChanged_t
 	{
@@ -43,8 +50,8 @@ namespace Steam4NET
 	public struct LobbyInvite_t
 	{
 		public const int k_iCallback = 503;
-		public UInt64 m_ulSteamIDUser;
-		public UInt64 m_ulSteamIDLobby;
+		public SteamID_t m_ulSteamIDUser;
+		public SteamID_t m_ulSteamIDLobby;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -52,7 +59,7 @@ namespace Steam4NET
 	public struct LobbyEnter_t
 	{
 		public const int k_iCallback = 504;
-		public UInt64 m_ulSteamIDLobby;
+		public SteamID_t m_ulSteamIDLobby;
 		public EChatPermission m_rgfChatPermissions;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bLocked;
@@ -64,8 +71,9 @@ namespace Steam4NET
 	public struct LobbyDataUpdate_t
 	{
 		public const int k_iCallback = 505;
-		public UInt64 m_ulSteamIDLobby;
-		public UInt64 m_ulSteamIDMember;
+		public SteamID_t m_ulSteamIDLobby;
+		public SteamID_t m_ulSteamIDMember;
+		public Byte m_bSuccess;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -73,9 +81,9 @@ namespace Steam4NET
 	public struct LobbyChatUpdate_t
 	{
 		public const int k_iCallback = 506;
-		public UInt64 m_ulSteamIDLobby;
-		public UInt64 m_ulSteamIDUserChanged;
-		public UInt64 m_ulSteamIDMakingChange;
+		public SteamID_t m_ulSteamIDLobby;
+		public SteamID_t m_ulSteamIDUserChanged;
+		public SteamID_t m_ulSteamIDMakingChange;
 		public EChatMemberStateChange m_rgfChatMemberStateChange;
 	};
 	
@@ -95,8 +103,8 @@ namespace Steam4NET
 	public struct LobbyAdminChange_t
 	{
 		public const int k_iCallback = 508;
-		public UInt64 m_ulSteamIDLobby;
-		public UInt64 m_ulSteamIDNewAdmin;
+		public SteamID_t m_ulSteamIDLobby;
+		public SteamID_t m_ulSteamIDNewAdmin;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -104,8 +112,8 @@ namespace Steam4NET
 	public struct LobbyGameCreated_t
 	{
 		public const int k_iCallback = 509;
-		public UInt64 m_ulSteamIDLobby;
-		public UInt64 m_ulSteamIDGameServer;
+		public SteamID_t m_ulSteamIDLobby;
+		public SteamID_t m_ulSteamIDGameServer;
 		public UInt32 m_unIP;
 		public UInt16 m_usPort;
 	};
@@ -123,7 +131,7 @@ namespace Steam4NET
 	public struct LobbyClosing_t
 	{
 		public const int k_iCallback = 511;
-		public UInt64 m_ulSteamIDLobby;
+		public SteamID_t m_ulSteamIDLobby;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -146,11 +154,22 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(514)]
+	public struct RequestFriendsLobbiesResponse_t
+	{
+		public const int k_iCallback = 514;
+		public UInt64 m_ulSteamIDFriend;
+		public UInt64 m_ulSteamIDLobby;
+		public Int32 m_cResultIndex;
+		public Int32 m_cResultsTotal;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct GMSQueryResult_t
 	{
 		public UInt32 uServerIP;
 		public UInt32 uServerPort;
-		public UInt32 uAuthPlayers;
+		public Int32 nAuthPlayers;
 	};
 	
 }

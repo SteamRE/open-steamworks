@@ -61,18 +61,6 @@ namespace Steam4NET
 		k_ELogonStateLoggedOn = 3,
 	};
 	
-	public enum EVoiceResult : int
-	{
-		k_EVoiceResultOK = 0,
-		k_EVoiceResultNotInitialized = 1,
-		k_EVoiceResultNotRecording = 2,
-		k_EVoiceResultNoData = 3,
-		k_EVoiceResultBufferTooSmall = 4,
-		k_EVoiceResultDataCorrupted = 5,
-		k_EVoiceResultRestricted = 6,
-		k_EVoiceResultUnsupportedCodec = 7,
-	};
-	
 	public enum EVACBan : int
 	{
 		k_EVACBanGoldsrc = 0,
@@ -102,6 +90,8 @@ namespace Steam4NET
 		k_ESteamUsageEventHardwareSurvey = 2,
 		k_ESteamUsageEventDownloadStarted = 3,
 		k_ESteamUsageEventLocalizedAudioChange = 4,
+		k_ESteamUsageEventClientGUIUsage = 5,
+		k_ESteamUsageEventCharityChoice = 6,
 	};
 	
 	public enum EClientStat : int
@@ -114,7 +104,16 @@ namespace Steam4NET
 		k_EClientStatMax = 5,
 	};
 	
-	public enum ENatType : int
+	public enum EMarketingMessageFlags : int
+	{
+		k_EMarketingMessageFlagsNone = 0,
+		k_EMarketingMessageFlagsHighPriority = 1,
+		k_EMarketingMessageFlagsPlatformWindows = 2,
+		k_EMarketingMessageFlagsPlatformMac = 4,
+		k_EMarketingMessageFlagsPlatformRestrictions = 6,
+	};
+	
+	public enum ENatDiscoveryTypes : int
 	{
 		eNatTypeUntested = 0,
 		eNatTypeTestFailed = 1,
@@ -129,21 +128,22 @@ namespace Steam4NET
 		eNatTypeCount = 10,
 	};
 	
-	public enum EMarketingMessageFlags : int
+	public enum EPhysicalSocketConnectionResult : int
 	{
-		k_EMarketingMessageFlagsNone = 0,
-		k_EMarketingMessageFlagsHighPriority = 1,
-		k_EMarketingMessageFlagsPlatformWindows = 2,
-		k_EMarketingMessageFlagsPlatformMac = 4,
-		k_EMarketingMessageFlagsPlatformRestrictions = 6,
+		PhysicalSocket_Unknown = 0,
+		PhysicalSocket_IsRemoteSide = 1,
+		PhysicalSocket_Connected = 2,
+		PhysicalSocket_Failed = 3,
+		PhysicalSocket_SignalingFailed = 4,
+		PhysicalSocket_ResultCount = 5,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct CNatTraversalStat
 	{
-		public EResult m_eResult;
-		public ENatType m_eLocalNatType;
-		public ENatType m_eRemoteNatType;
+		public EPhysicalSocketConnectionResult m_eResult;
+		public ENatDiscoveryTypes m_eLocalNatType;
+		public ENatDiscoveryTypes m_eRemoteNatType;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bMultiUserChat;
 		[MarshalAs(UnmanagedType.I1)]
@@ -151,10 +151,33 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(101)]
-	public struct LogonSuccess_t
+	public struct CAmount
 	{
-		public const int k_iCallback = 101;
+		public Int32 m_nAmount;
+		public ECurrencyCode m_eCurrencyCode;
+	};
+	
+	public enum EMicroTxnAuthResponse : int
+	{
+		k_EMicroTxnAuthResponseInvalid = 0,
+		k_EMicroTxnAuthResponseAuthorize = 1,
+		k_EMicroTxnAuthResponseDeny = 2,
+		k_EMicroTxnAuthResponseAutoDeny = 3,
+	};
+	
+	public enum EMicroTxnAuthResult : int
+	{
+		k_EMicroTxnAuthResultInvalid = 0,
+		k_EMicroTxnAuthResultOK = 1,
+		k_EMicroTxnAuthResultFail = 2,
+		k_EMicroTxnAuthResultInsufficientFunds = 3,
+	};
+	
+	public enum ERequestAccountDataAction : int
+	{
+		k_ERequestAccountDataActionFindAccountsByEmailAddress = 1,
+		k_ERequestAccountDataActionFindAccountsByCdKey = 2,
+		k_ERequestAccountDataActionGetNumAccountsWithEmailAddress = 3,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -162,14 +185,6 @@ namespace Steam4NET
 	public struct SteamServersConnected_t
 	{
 		public const int k_iCallback = 101;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(102)]
-	public struct LogonFailure_t
-	{
-		public const int k_iCallback = 102;
-		public EResult m_eResult;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -182,14 +197,6 @@ namespace Steam4NET
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(103)]
-	public struct LoggedOff_t
-	{
-		public const int k_iCallback = 103;
-		public EResult m_eResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(103)]
 	public struct SteamServersDisconnected_t
 	{
 		public const int k_iCallback = 103;
@@ -197,51 +204,10 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(903)]
-	public struct ClientPrimaryChatDestinationSet_t
-	{
-		public const int k_iCallback = 903;
-		public Byte m_bIsPrimary;
-		public Byte m_bWasPrimary;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(104)]
 	public struct BeginLogonRetry_t
 	{
 		public const int k_iCallback = 104;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(106)]
-	public struct Steam2TicketChanged_t
-	{
-		public const int k_iCallback = 106;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(110)]
-	public struct ClientAppNewsItemUpdate_t
-	{
-		public const int k_iCallback = 110;
-		public ENewsUpdateType m_eNewsUpdateType;
-		public UInt32 m_uNewsID;
-		public UInt32 m_uAppID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(112)]
-	public struct ClientSteamNewsItemUpdate_t
-	{
-		public const int k_iCallback = 112;
-		public ENewsUpdateType m_eNewsUpdateType;
-		public UInt32 m_uNewsID;
-		public UInt32 m_uHaveSubID;
-		public UInt32 m_uNotHaveSubID;
-		public UInt32 m_uHaveAppID;
-		public UInt32 m_uNotHaveAppID;
-		public UInt32 m_uHaveAppIDInstalled;
-		public UInt32 m_uHavePlayedAppID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -258,36 +224,10 @@ namespace Steam4NET
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(114)]
-	public struct PrimaryChatDestinationSet_t
+	public struct PrimaryChatDestinationSetOld_t
 	{
 		public const int k_iCallback = 114;
 		public Byte m_bIsPrimary;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(115)]
-	public struct UserPolicyResponse_t
-	{
-		public const int k_iCallback = 115;
-		public Byte m_bSecure;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(116)]
-	public struct ClientSteamNewsClientUpdate_t
-	{
-		public const int k_iCallback = 116;
-		public Byte m_eNewsUpdateType;
-		public Byte m_bReloadCDDB;
-		public UInt32 m_unCurrentBootstrapperVersion;
-		public UInt32 m_unCurrentClientVersion;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(117)]
-	public struct CallbackPipeFailure_t
-	{
-		public const int k_iCallback = 117;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -306,89 +246,10 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(118)]
-	public struct LegacyCDKeyRegistered_t
-	{
-		public const int k_iCallback = 118;
-		public EResult m_eResult;
-		public UInt32 m_iAppID;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-		public string m_rgchCDKey;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(119)]
-	public struct AccountInformationUpdated_t
-	{
-		public const int k_iCallback = 119;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(120)]
-	public struct GuestPassSent_t
-	{
-		public const int k_iCallback = 120;
-		public EResult m_eResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(121)]
-	public struct GuestPassAcked_t
-	{
-		public const int k_iCallback = 121;
-		public EResult m_eResult;
-		public UInt32 m_unPackageID;
-		public UInt64 m_gidGuestPassID;
-		public UInt64 m_ulGuestPassKey;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(122)]
-	public struct GuestPassRedeemed_t
-	{
-		public const int k_iCallback = 122;
-		public EResult m_eResult;
-		public UInt32 m_unPackageID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(123)]
-	public struct UpdateGuestPasses_t
-	{
-		public const int k_iCallback = 123;
-		public EResult m_eResult;
-		public UInt32 m_cGuestPassesToGive;
-		public UInt32 m_cGuestPassesToRedeem;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(124)]
-	public struct LogOnCredentialsChanged_t
-	{
-		public const int k_iCallback = 124;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(125)]
 	public struct LicensesUpdated_t
 	{
 		public const int k_iCallback = 125;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(126)]
-	public struct CheckPasswordResponse_t
-	{
-		public const int k_iCallback = 126;
-		public EResult m_EResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(127)]
-	public struct ResetPasswordResponse_t
-	{
-		public const int k_iCallback = 127;
-		public EResult m_EResult;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -403,72 +264,6 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(131)]
-	public struct AppOwnershipTicketReceived_t
-	{
-		public const int k_iCallback = 131;
-		public UInt32 m_nAppID;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(132)]
-	public struct PasswordChangeResponse_t
-	{
-		public const int k_iCallback = 132;
-		public EResult m_EResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(133)]
-	public struct EmailChangeResponse_t
-	{
-		public const int k_iCallback = 133;
-		public EResult m_EResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(134)]
-	public struct SecretQAChangeResponse_t
-	{
-		public const int k_iCallback = 134;
-		public EResult m_EResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(135)]
-	public struct CreateAccountResponse_t
-	{
-		public const int k_iCallback = 135;
-		public EResult m_EResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(137)]
-	public struct SendForgottonPasswordEmailResponse_t
-	{
-		public const int k_iCallback = 137;
-		public EResult m_EResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(138)]
-	public struct ResetForgottonPasswordResponse_t
-	{
-		public const int k_iCallback = 138;
-		public EResult m_EResult;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(140)]
-	public struct DownloadFromDFSResponse_t
-	{
-		public const int k_iCallback = 140;
-		public EResult m_EResult;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
-		public string m_rgchURL;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(141)]
 	public struct DRMSDKFileTransferResult_t
 	{
@@ -477,30 +272,12 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(142)]
-	public struct ClientMarketingMessageUpdate_t
-	{
-		public const int k_iCallback = 142;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(143)]
 	public struct ValidateAuthTicketResponse_t
 	{
 		public const int k_iCallback = 143;
-		public UInt64 m_SteamID;
+		public SteamID_t m_SteamID;
 		public EAuthSessionResponse m_eAuthSessionResponse;
-	};
-	
-	[StructLayout(LayoutKind.Sequential,Pack=8)]
-	[InteropHelp.CallbackIdentity(148)]
-	public struct MsgWebAuthToken_t
-	{
-		public const int k_iCallback = 148;
-		[MarshalAs(UnmanagedType.I1)]
-		public bool m_bValid;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 512)]
-		public string m_Token;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -519,6 +296,499 @@ namespace Steam4NET
 	{
 		public const int k_iCallback = 154;
 		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(901)]
+	public struct SystemIM_t
+	{
+		public const int k_iCallback = 901;
+		public UInt32 m_ESystemIMType;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 4096)]
+		public string m_rgchMsgBody;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(902)]
+	public struct GuestPassGiftTarget_t
+	{
+		public const int k_iCallback = 902;
+		public UInt32 m_unPackageID;
+		public UInt64 m_ulSteamIDFriend;
+		public Int32 m_iPotentialGiftTarget;
+		public Int32 m_cPotentialGiftTargetsTotal;
+		public Byte m_bValidGiftTarget;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(903)]
+	public struct PrimaryChatDestinationSet_t
+	{
+		public const int k_iCallback = 903;
+		public Byte m_bIsPrimary;
+		public Byte m_bWasPrimary;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(905)]
+	public struct LicenseChanged_t
+	{
+		public const int k_iCallback = 905;
+		public UInt32 m_nPackageID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(906)]
+	public struct RequestClientAppListInfo_t
+	{
+		public const int k_iCallback = 906;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bMedia;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bTools;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bGames;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bInstalled;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(907)]
+	public struct SetClientAppUpdateState_t
+	{
+		public const int k_iCallback = 907;
+		public UInt64 m_ulJobIDToPostResultTo;
+		public UInt32 m_nAppID;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bUpdate;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(908)]
+	public struct InstallClientApp_t
+	{
+		public const int k_iCallback = 908;
+		public UInt64 m_ulJobIDToPostResultTo;
+		public UInt32 m_nAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(909)]
+	public struct UninstallClientApp_t
+	{
+		public const int k_iCallback = 909;
+		public UInt64 m_ulJobIDToPostResultTo;
+		public UInt32 m_nAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(910)]
+	public struct Steam2TicketChanged_t
+	{
+		public const int k_iCallback = 910;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(911)]
+	public struct ClientAppNewsItemUpdate_t
+	{
+		public const int k_iCallback = 911;
+		public Byte m_eNewsUpdateType;
+		public UInt32 m_uNewsID;
+		public UInt32 m_uAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(912)]
+	public struct ClientSteamNewsItemUpdate_t
+	{
+		public const int k_iCallback = 912;
+		public Byte m_eNewsUpdateType;
+		public UInt32 m_uNewsID;
+		public UInt32 m_uHaveSubID;
+		public UInt32 m_uNotHaveSubID;
+		public UInt32 m_uHaveAppID;
+		public UInt32 m_uNotHaveAppID;
+		public UInt32 m_uHaveAppIDInstalled;
+		public UInt32 m_uHavePlayedAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(913)]
+	public struct ClientSteamNewsClientUpdate_t
+	{
+		public const int k_iCallback = 913;
+		public Byte m_eNewsUpdateType;
+		public Byte m_bReloadCDDB;
+		public UInt32 m_unCurrentBootstrapperVersion;
+		public UInt32 m_unCurrentClientVersion;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(914)]
+	public struct LegacyCDKeyRegistered_t
+	{
+		public const int k_iCallback = 914;
+		public EResult m_eResult;
+		public UInt32 m_iAppID;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+		public string m_rgchCDKey;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(915)]
+	public struct AccountInformationUpdated_t
+	{
+		public const int k_iCallback = 915;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bEmailValidationAction;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(916)]
+	public struct GuestPassSent_t
+	{
+		public const int k_iCallback = 916;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(917)]
+	public struct GuestPassAcked_t
+	{
+		public const int k_iCallback = 917;
+		public EResult m_eResult;
+		public UInt32 m_unPackageID;
+		public UInt64 m_gidGuestPassID;
+		public UInt64 m_ulGuestPassKey;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(918)]
+	public struct GuestPassRedeemed_t
+	{
+		public const int k_iCallback = 918;
+		public EResult m_eResult;
+		public UInt32 m_unPackageID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(919)]
+	public struct UpdateGuestPasses_t
+	{
+		public const int k_iCallback = 919;
+		public EResult m_eResult;
+		public UInt32 m_cGuestPassesToGive;
+		public UInt32 m_cGuestPassesToRedeem;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(920)]
+	public struct LogOnCredentialsChanged_t
+	{
+		public const int k_iCallback = 920;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(922)]
+	public struct CheckPasswordResponse_t
+	{
+		public const int k_iCallback = 922;
+		public EResult m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(923)]
+	public struct ResetPasswordResponse_t
+	{
+		public const int k_iCallback = 923;
+		public EResult m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(924)]
+	public struct DRMDataRequest_t
+	{
+		public const int k_iCallback = 924;
+		public UInt32 m_EResult;
+		public UInt32 m_unAppID;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bRestartApp;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(925)]
+	public struct DRMDataResponse_t
+	{
+		public const int k_iCallback = 925;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(926)]
+	public struct DRMFailureResponse_t
+	{
+		public const int k_iCallback = 926;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(928)]
+	public struct AppOwnershipTicketReceived_t
+	{
+		public const int k_iCallback = 928;
+		public UInt32 m_nAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(929)]
+	public struct PasswordChangeResponse_t
+	{
+		public const int k_iCallback = 929;
+		public EResult m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(930)]
+	public struct EmailChangeResponse_t
+	{
+		public const int k_iCallback = 930;
+		public EResult m_EResult;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bFinal;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(931)]
+	public struct SecretQAChangeResponse_t
+	{
+		public const int k_iCallback = 931;
+		public EResult m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(932)]
+	public struct CreateAccountResponse_t
+	{
+		public const int k_iCallback = 932;
+		public EResult m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(933)]
+	public struct SendForgottonPasswordEmailResponse_t
+	{
+		public const int k_iCallback = 933;
+		public EResult m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(934)]
+	public struct ResetForgottonPasswordResponse_t
+	{
+		public const int k_iCallback = 934;
+		public EResult m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(935)]
+	public struct CreateAccountInformSteam3Response_t
+	{
+		public const int k_iCallback = 935;
+		public UInt32 m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(936)]
+	public struct DownloadFromDFSResponse_t
+	{
+		public const int k_iCallback = 936;
+		public EResult m_EResult;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+		public string m_rgchURL;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(937)]
+	public struct ClientMarketingMessageUpdate_t
+	{
+		public const int k_iCallback = 937;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(938)]
+	public struct ValidateEmailResponse_t
+	{
+		public const int k_iCallback = 938;
+		public UInt32 m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(939)]
+	public struct RequestChangeEmailResponse_t
+	{
+		public const int k_iCallback = 939;
+		public UInt32 m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(940)]
+	public struct VerifyPasswordResponse_t
+	{
+		public const int k_iCallback = 940;
+		public UInt32 m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(941)]
+	public struct Steam2LoginResponse_t
+	{
+		public const int k_iCallback = 941;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bSuccessful;
+		public UInt32 m_steam2Error;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(942)]
+	public struct WebAuthRequestCallback_t
+	{
+		public const int k_iCallback = 942;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bSuccessful;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 512)]
+		public string m_rgchToken;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(944)]
+	public struct MicroTxnAuthRequestCallback_t
+	{
+		public const int k_iCallback = 944;
+		public UInt64 m_gidTransID;
+		public UInt32 m_unAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(945)]
+	public struct MicroTxnAuthResponse_t
+	{
+		public const int k_iCallback = 945;
+		public EMicroTxnAuthResult m_eAuthResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(946)]
+	public struct AppMinutesPlayedDataNotice_t
+	{
+		public const int k_iCallback = 946;
+		public Int32 m_nAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(947)]
+	public struct MicroTxnInfoUpdated_t
+	{
+		public const int k_iCallback = 947;
+		public EResult m_eResult;
+		public UInt64 m_gidTransID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(948)]
+	public struct WalletBalanceUpdated_t
+	{
+		public const int k_iCallback = 948;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(949)]
+	public struct EnableMachineLockingResponse_t
+	{
+		public const int k_iCallback = 949;
+		public UInt32 m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(950)]
+	public struct MachineLockProgressResponse_t
+	{
+		public const int k_iCallback = 950;
+		public UInt32 m_EResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(951)]
+	public struct Steam3ExtraLoginProgress_t
+	{
+		public const int k_iCallback = 951;
+		public UInt32 m_EResult;
+		public Int32 m_eState;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(952)]
+	public struct RequestAccountDataResult_t
+	{
+		public const int k_iCallback = 952;
+		public EResult m_EResult;
+		public UInt32 m_cMatches;
+		public ERequestAccountDataAction m_eAction;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(953)]
+	public struct IsAccountNameInUseResult_t
+	{
+		public const int k_iCallback = 953;
+		public EResult m_EResult;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+		public string m_szAccountNameSuggestion1;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+		public string m_szAccountNameSuggestion2;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+		public string m_szAccountNameSuggestion3;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(955)]
+	public struct LoginInformationChanged_t
+	{
+		public const int k_iCallback = 955;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(956)]
+	public struct RequestSpecialSurveyResult_t
+	{
+		public const int k_iCallback = 956;
+		public Int32 m_iSurveyID;
+		public EResult m_eResult;
+		public Int32 m_eState;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+		public string m_szName;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 512)]
+		public string m_szCustomURL;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bIncludeSoftware;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public Byte[] m_ubToken;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(957)]
+	public struct SendSpecialSurveyResponseResult_t
+	{
+		public const int k_iCallback = 957;
+		public Int32 m_iSurveyID;
+		public EResult m_eResult;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public Byte[] m_ubToken;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(958)]
+	public struct UpdateItemAnnouncement_t
+	{
+		public const int k_iCallback = 958;
 	};
 	
 }
