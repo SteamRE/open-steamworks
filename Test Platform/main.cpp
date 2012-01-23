@@ -1,47 +1,14 @@
 #define STEAMWORKS_CLIENT_INTERFACES
+
 #include "Steamworks.h"
 
 #pragma comment( lib, "../Resources/steamclient" )
 
-#ifdef _LINUX
-// This is the poor man's delay load.
-S_API bool STEAM_CALL Steam_BGetCallback( HSteamPipe hSteamPipe, CallbackMsg_t *pCallbackMsg )
-{
-	static bool (STEAM_CALL * _Steam_BGetCallback)(HSteamPipe, CallbackMsg_t *) = NULL;
-	if(!_Steam_BGetCallback)
-	{
-		void* hSteamClient = dlopen("steamclient.so", RTLD_LAZY);
-		if(hSteamClient)
-		{
-			_Steam_BGetCallback = (bool (STEAM_CALL *)(HSteamPipe, CallbackMsg_t *)) dlsym(hSteamClient, "Steam_BGetCallback");
-			dlclose(hSteamClient);
-		}
-	}
-	
-	return _Steam_BGetCallback(hSteamPipe, pCallbackMsg);
-}
-
-S_API void STEAM_CALL Steam_FreeLastCallback( HSteamPipe hSteamPipe )
-{
-	static void (STEAM_CALL * _Steam_FreeLastCallback)(HSteamPipe) = NULL;
-	if(!_Steam_FreeLastCallback)
-	{
-		void* hSteamClient = dlopen("steamclient.so", RTLD_LAZY);
-		if(hSteamClient)
-		{
-			_Steam_FreeLastCallback = (void (STEAM_CALL *)(HSteamPipe)) dlsym(hSteamClient, "Steam_FreeLastCallback");
-			dlclose(hSteamClient);
-		}
-	}
-	
-	return _Steam_FreeLastCallback(hSteamPipe);
-}
-#endif
+CSteamAPILoader loader;
 
 int main()
 {
-	CSteamAPILoader loader;
-	CreateInterfaceFn factory = loader.Load();
+	CreateInterfaceFn factory = loader.GetSteam3Factory();
 
 	if ( !factory )
 	{
@@ -96,7 +63,7 @@ int main()
 	{
 		szPassword[strlen(szPassword) - 1] = 0;
 	}
-	
+
 	pClientUser->LogOnWithPassword(false, szUsername, szPassword);
 
 	CallbackMsg_t callBack;
@@ -120,7 +87,7 @@ int main()
 					{
 						friendID = pClientFriends->GetFriendByIndex(i, k_EFriendFlagImmediate);
 
-						if(strcmp(pClientFriends->GetFriendPersonaName(friendID), ":MIB: Asherkin") == 0) // Put the persona name of the friend to use as the 'front end' here.
+						if(strcmp(pClientFriends->GetFriendPersonaName(friendID), "Didrole") == 0) // Put the persona name of the friend to use as the 'front end' here.
 						{
 							const char* cszMessage = "I'm logged on!";
 							pClientFriends->SendMsgToFriend(friendID, k_EChatEntryTypeChatMsg, cszMessage, strlen(cszMessage));
@@ -146,40 +113,30 @@ int main()
 			case FriendChatMsg_t::k_iCallback:
 				{
 					FriendChatMsg_t *pFriendMessageInfo = (FriendChatMsg_t *)callBack.m_pubParam;
-					if (pFriendMessageInfo->m_ulSenderID == adminID)
+					
+					EChatEntryType eMsgType;
+					CSteamID chatter;
+
+					char szData[k_cchFriendChatMsgMax];  
+					memset(szData, 0, k_cchFriendChatMsgMax);  
+
+					int iLength = pClientFriends->GetChatMessage(pFriendMessageInfo->m_ulSenderID, pFriendMessageInfo->m_iChatID, szData, sizeof(szData), &eMsgType, &chatter);  
+
+					if (eMsgType == k_EChatEntryTypeChatMsg || eMsgType == k_EChatEntryTypeEmote)  
 					{
-						EChatEntryType eMsgType;
-						CSteamID chatter;
-
-						char szData[k_cchFriendChatMsgMax];  
-						memset(szData, 0, k_cchFriendChatMsgMax);  
-
-						int iLength = pClientFriends->GetChatMessage(pFriendMessageInfo->m_ulSenderID, pFriendMessageInfo->m_iChatID, szData, sizeof(szData), &eMsgType, &chatter);  
-
-						if (eMsgType == k_EChatEntryTypeChatMsg || eMsgType == k_EChatEntryTypeEmote)  
+						printf("Message from %s: %s\n", pFriendMessageInfo->m_ulSenderID.Render(), szData);
+						
+						if (strcmp(szData, "quit") == 0 && pFriendMessageInfo->m_ulSenderID == adminID)
 						{
-							printf("Message from %s: %s\n", pFriendMessageInfo->m_ulSenderID.Render(), szData);
+							pClientFriends->SetPersonaState( k_EPersonaStateOffline );
+							pClientUser->LogOff();
+							pClientEngine->ReleaseUser(hPipe, hUser);
+							pClientEngine->BReleaseSteamPipe(hPipe);
 
-							if (strcmp(szData, "quit") == 0)
-							{
-								pClientFriends->SetPersonaState( k_EPersonaStateOffline );
-								pClientUser->LogOff();
-								
-								ELogonState eState;
-								do
-								{
-									eState = pClientUser->GetLogonState();
-								}
-								while ( eState == k_ELogonStateLoggingOff || eState == k_ELogonStateLoggedOn );
-
-								pClientEngine->ReleaseUser(hPipe, hUser);
-								pClientEngine->BReleaseSteamPipe(hPipe);
-
-								return 0;
-							}
-
-							pClientFriends->SendMsgToFriend(pFriendMessageInfo->m_ulSenderID, eMsgType, szData, iLength);
+							return 0;
 						}
+
+						pClientFriends->SendMsgToFriend(pFriendMessageInfo->m_ulSenderID, eMsgType, szData, iLength);
 					}
 					break;
 				}
@@ -188,12 +145,12 @@ int main()
 			Steam_FreeLastCallback( hPipe );
 		}
 
-#if defined _WIN32
+#ifdef _WIN32
 		Sleep(10);
-#elif defined _LINUX
+#else
 		usleep(10000);
 #endif
 	}
-	
+
 	return 0;
 }

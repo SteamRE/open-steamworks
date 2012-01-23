@@ -25,7 +25,13 @@
 #include "ContentServerCommon.h"
 
 // Protobuf'ed class
-class ClientAppInfo;
+class ClientAppInfo
+#ifdef _S4N_
+{
+	int m_iPadding;
+}
+#endif
+;
 
 abstract_class UNSAFE_INTERFACE IClientUser
 {
@@ -41,8 +47,8 @@ public:
 	virtual bool BConnected() = 0;
 	virtual bool BTryingToLogin() = 0;
 
-	virtual CSteamID GetSteamID() = 0;
-	virtual CSteamID GetConsoleSteamID() = 0;
+	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetSteamID) /*virtual CSteamID GetSteamID() = 0;*/
+	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetConsoleSteamID) /*virtual CSteamID GetConsoleSteamID() = 0;*/
 
 	virtual bool IsVACBanned( AppId_t nGameID ) = 0;
 	virtual bool RequireShowVACBannedMessage( AppId_t nAppID ) = 0;
@@ -173,10 +179,10 @@ public:
 
 	virtual void RequestForgottenPasswordEmail( const char *pchAccountName, const char *pchTriedPassword ) = 0;
 	
-	virtual void FindAccountsByEmailAddress( const char *pchEmailAddress ) = 0; // UI Callback 161
-	virtual void FindAccountsByCdKey( const char *pchCdKey ) = 0; // ???
-	virtual void GetNumAccountsWithEmailAddress( const char * pchEmailAddress ) = 0; // UI Callback 159
-	virtual void IsAccountNameInUse( const char * pchAccountName ) = 0; // UI Callback 160
+	virtual void FindAccountsByEmailAddress( const char *pchEmailAddress ) = 0;
+	virtual void FindAccountsByCdKey( const char *pchCdKey ) = 0;
+	virtual void GetNumAccountsWithEmailAddress( const char * pchEmailAddress ) = 0;
+	virtual void IsAccountNameInUse( const char * pchAccountName ) = 0;
 
 	virtual void Test_FakeConnectionTimeout() = 0;
 
@@ -220,7 +226,7 @@ public:
 	virtual bool BGameConnectTokensAvailable() = 0;
 
 	virtual int NumGamesRunning() = 0;
-	virtual CGameID GetRunningGameID( int iGame ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CGameID, GetRunningGameID, int, iGame) /*virtual CGameID GetRunningGameID( int iGame ) = 0;*/
 
 	virtual uint32 GetAccountSecurityPolicyFlags() = 0;
 

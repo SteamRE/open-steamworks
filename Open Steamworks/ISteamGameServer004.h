@@ -35,7 +35,7 @@ public:
 	virtual bool BLoggedOn() = 0;
 
 	virtual bool BSecure() = 0;
-	virtual CSteamID GetSteamID() = 0;
+	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetSteamID) /*virtual CSteamID GetSteamID() = 0;*/
 
 	virtual bool SendUserConnectAndAuthenticate( CSteamID steamIDUser, uint32, void *, uint32 ) = 0;
 
@@ -43,7 +43,7 @@ public:
 	// 
 	// Return Value: Returns a SteamID for the user to be tracked with, you should call HandleUserDisconnect()
 	// when this user leaves the server just like you would for a real user.
-	virtual CSteamID CreateUnauthenticatedUserConnection() = 0;
+	STEAMWORKS_STRUCT_RETURN_0(CSteamID, CreateUnauthenticatedUserConnection) /*virtual CSteamID CreateUnauthenticatedUserConnection() = 0;*/
 
 	// Should be called whenever a user leaves our game server, this lets Steam internally
 	// track which users are currently on which servers for the purposes of preventing a single

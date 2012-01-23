@@ -14,145 +14,182 @@
 //
 //=============================================================================
 
-#if !defined(INTERFACEOSW_H) && !defined(CLANG)
+#if !defined(INTERFACEOSW_H) && !defined(_S4N_)
 #define INTERFACEOSW_H
 #ifdef _WIN32
 #pragma once
 #endif
 
-#include <cstdlib>
-#include <iostream>
-#include <string>
-#include <memory>
+
 
 #ifdef _WIN32
-	#define TARGET_OS_WIN32 1
-	#include <windows.h>
-	#include <tchar.h>
 	#include "Win32Library.h"
+
+	static const int k_iPathMaxSize = MAX_PATH;
+	static const char* k_cszSteam2LibraryName = "steam.dll";
+	static const char* k_cszSteam3LibraryName = "steamclient.dll";
 #elif defined(__APPLE_CC__)
-	#define TARGET_OS_MAC 1
 	#include "POSIXLibrary.h"
 	#include <CoreServices/CoreServices.h>
 	#include <sys/param.h>
-#else
-	#define TARGET_OS_UNIX 1
+
+	static const int k_iPathMaxSize = MAXPATHLEN;
+	static const char* k_cszSteam2LibraryName = "libsteam.dylib";
+	static const char* k_cszSteam3LibraryName = "steamclient.dylib";
+#elif defined(__linux__)
+	#include "POSIXLibrary.h"
 	#include <libgen.h>
 	#include <limits.h>
-	#include "POSIXLibrary.h"
+
+	static const int k_iPathMaxSize = PATH_MAX;
+	static const char* k_cszSteam2LibraryName = "libsteam.so";
+	static const char* k_cszSteam3LibraryName = "steamclient.so";
+#else
+	#error Unsupported platform
 #endif
 
-#define CREATEINTERFACE_PROCNAME "CreateInterface"
-#define FACTORY_PROCNAME "_f"
 
 class CSteamAPILoader
 {
 public:
-	CSteamAPILoader() {
+	CSteamAPILoader()
+	{
+		m_pSteamclient = NULL;
+		m_pSteam = NULL;
+
 		TryGetSteamDir();
 		TryLoadLibraries();
 	}
+
+	~CSteamAPILoader()
+	{
+		if(m_pSteamclient)
+			delete m_pSteamclient;
+		if(m_pSteam)
+			delete m_pSteam;
+	}
+
+	CreateInterfaceFn GetSteam3Factory()
+	{
+		return (CreateInterfaceFn)m_pSteamclient->GetSymbol("CreateInterface");
+	}
+
+	FactoryFn GetSteam2Factory()
+	{
+		return (FactoryFn)m_pSteam->GetSymbol("_f");
+	}
 	
-	CreateInterfaceFn Load()
+	const char* GetSteamDir()
 	{
-		return (CreateInterfaceFn)m_steamclient->GetSymbol( CREATEINTERFACE_PROCNAME );
-	}
-
-	FactoryFn LoadFactory()
-	{
-		return (FactoryFn)m_steam->GetSymbol( FACTORY_PROCNAME );
-	}
-
-	std::string GetSteamDir() {
-		return m_steamDir;
+		return m_szSteamPath;
 	}
 	
-	DynamicLibrary *GetSteamClientModule()
+	const DynamicLibrary *GetSteamClientModule()
 	{
-		return m_steamclient.get();
+		return m_pSteamclient;
 	}
-	DynamicLibrary *GetSteamModule()
+	const DynamicLibrary *GetSteamModule()
 	{
-		return m_steam.get();
+		return m_pSteam;
 	}
 
+	CreateInterfaceFn STEAMWORKS_DEPRECATE("This function is provided for backward compatiblity. Please use GetSteam3Factory instead") Load()
+	{
+		return GetSteam3Factory();
+	}
+
+	FactoryFn STEAMWORKS_DEPRECATE("This function is provided for backward compatiblity. Please use GetSteam2Factory instead") LoadFactory()
+	{
+		return GetSteam2Factory();
+	}
 
 private:
+
+#ifdef _MSC_VER
+	#pragma warning(push) 
+	#pragma warning(disable: 4996) 
+#endif
+
 	void TryGetSteamDir()
 	{
-#if TARGET_OS_WIN32
+#ifdef _WIN32
 		HKEY hRegKey;
 
 		if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "Software\\Valve\\Steam", 0, KEY_QUERY_VALUE, &hRegKey) == ERROR_SUCCESS)
 		{
-			char pchSteamDir[MAX_PATH];
-			DWORD dwLength = sizeof(pchSteamDir);
-			RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)pchSteamDir, &dwLength);
+			DWORD dwLength = sizeof(m_szSteamPath) - 1;
+			if(RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)m_szSteamPath, &dwLength) == ERROR_SUCCESS)
+			{
+				m_szSteamPath[dwLength] = '\0';
+				return;
+			}
 			RegCloseKey(hRegKey);
-			
-			m_steamDir = pchSteamDir;
 		}
-#elif TARGET_OS_MAC
+
+		strcpy(m_szSteamPath, ".");
+#elif defined(__APPLE_CC__)
 		CFURLRef url;
 		OSStatus err = LSFindApplicationForInfo(kLSUnknownCreator, CFSTR("com.valvesoftware.steam"), NULL, NULL, &url);
-		if(err) return;
 		
-		UInt8 fsPath[MAXPATHLEN];
-		Boolean success = CFURLGetFileSystemRepresentation(url, true, fsPath, sizeof(fsPath));
-		
-		if(success)
-			m_steamDir = (const char *)fsPath;
-
+		if(err == noErr)
+		{
+			if(CFURLGetFileSystemRepresentation(url, true, (UInt8*)m_szSteamPath, sizeof(m_szSteamPath)))
+			{
+				strncat(m_szSteamPath, "/Contents/MacOS/osx32/", sizeof(m_szSteamPath));
+			}
+			else
+			{
+				strcpy(m_szSteamPath, ".");
+			}
+		}
 		CFRelease(url);
-#else
+#elif defined(__linux__)
 		// We don't know where to find Steam on this platform, so we're going
 		// to say it lives in the same directory as our executable
-		char pchSteamDir[PATH_MAX];
-		if( readlink("/proc/self/exe", pchSteamDir, sizeof(pchSteamDir)) != -1)
+		if( readlink("/proc/self/exe", m_szSteamPath, sizeof(m_szSteamPath)) != -1)
 		{
-			m_steamDir = dirname(pchSteamDir);
+			printf("m_szSteamPath %s\n", m_szSteamPath);
+			char *pchSlash = strrchr(m_szSteamPath, '/');
+
+			if(pchSlash)
+			{
+				*pchSlash = '\0';
+				printf("m_szSteamPath %s\n", m_szSteamPath);
+				return;
+			}
 		}
-		else
-			m_steamDir = ".";
+
+		strcpy(m_szSteamPath, ".");
 #endif
 	}
-	
+
 	void TryLoadLibraries()
 	{
-#if TARGET_OS_WIN32
-
+#ifdef _WIN32
 		// steamclient.dll expects to be able to load tier0_s without an absolute
 		// path, so we'll need to add the steam dir to the search path.
-		SetDllDirectoryA( m_steamDir.c_str() );
-
-		m_steamclient.reset( new DynamicLibrary( m_steamDir + "\\steamclient.dll" ) );
-		m_steam.reset( new DynamicLibrary( m_steamDir + "\\steam.dll" ) );
-
-#elif TARGET_OS_MAC
-
-		std::string libsPath;
-		if(!m_steamDir.empty()) {
-			libsPath = m_steamDir + "/Contents/MacOS/osx32/";
-		} else {
-			// The user doesn't have steam installed, fall back to using the 
-			// loader's runtime search paths
-			libsPath = "@rpath/";
-		}
-		
-		m_steamclient.reset( new DynamicLibrary( libsPath + "steamclient.dylib" ) );
-		m_steam.reset( new DynamicLibrary( libsPath + "libsteam.dylib" ) );
-
-#else
-
-		m_steamclient.reset( new DynamicLibrary( m_steamDir + "/steamclient.so" ) );
-		m_steam.reset( new DynamicLibrary( m_steamDir + "/libsteam.so" ) );
-
+		SetDllDirectoryA( m_szSteamPath );
 #endif
-	}
-	
-	std::string m_steamDir;
 
-	std::auto_ptr<DynamicLibrary> m_steamclient;
-	std::auto_ptr<DynamicLibrary> m_steam;
+		char szLibraryPath[k_iPathMaxSize];
+		szLibraryPath[sizeof(szLibraryPath) - 1] = '\0';
+
+		snprintf(szLibraryPath, sizeof(szLibraryPath) - 1, "%s/%s", m_szSteamPath, k_cszSteam3LibraryName);
+		m_pSteamclient = new DynamicLibrary(szLibraryPath);
+		
+		snprintf(szLibraryPath, sizeof(szLibraryPath) - 1, "%s/%s", m_szSteamPath, k_cszSteam2LibraryName);
+		m_pSteam = new DynamicLibrary(szLibraryPath);
+	}
+
+	
+	char m_szSteamPath[k_iPathMaxSize];
+
+	DynamicLibrary* m_pSteamclient;
+	DynamicLibrary* m_pSteam;
 };
+
+#ifdef _MSC_VER
+	#pragma warning(pop) 
+#endif
+
 #endif // INTERFACEOSW_H

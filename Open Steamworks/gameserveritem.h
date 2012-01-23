@@ -20,11 +20,6 @@
 #pragma once
 #endif
 
-#ifdef _WIN32
-	#pragma warning(push) 
-	#pragma warning(disable: 4996) 
-#endif
-
 //-----------------------------------------------------------------------------
 // Purpose: Data describing a single server
 //-----------------------------------------------------------------------------
@@ -71,7 +66,6 @@ inline gameserveritem_t::gameserveritem_t()
 	m_szGameTags[0] = 0;
 }
 
-#ifndef CLANG
 inline const char* gameserveritem_t::GetName() const
 {
 	// Use the IP address as the name if nothing is set yet.
@@ -81,14 +75,20 @@ inline const char* gameserveritem_t::GetName() const
 		return m_szServerName;
 }
 
+#ifdef _S4N_
+	#define strncpy(...)
+#elif defined(_MSC_VER)
+	#pragma warning(push) 
+	#pragma warning(disable: 4996) 
+#endif
+
 inline void gameserveritem_t::SetName( const char *pName )
 {
 	strncpy( m_szServerName, pName, sizeof( m_szServerName ) );
 	m_szServerName[ sizeof( m_szServerName ) - 1 ] = '\0';
 }
-#endif
 
-#ifdef _WIN32
+#ifdef _MSC_VER
 	#pragma warning(pop) 
 #endif
 

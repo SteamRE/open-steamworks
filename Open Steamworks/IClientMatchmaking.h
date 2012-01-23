@@ -43,7 +43,7 @@ public:
 	virtual void AddRequestLobbyListResultCountFilter( int cMaxResults ) = 0;
 	virtual void AddRequestLobbyListCompatibleMembersFilter( CSteamID steamID ) = 0;
 
-	virtual CSteamID GetLobbyByIndex( int iLobby ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetLobbyByIndex, int, iLobby) /*virtual CSteamID GetLobbyByIndex( int iLobby ) = 0;*/
 
 	virtual SteamAPICall_t CreateLobby( ELobbyType eLobbyType, int cMaxMembers ) = 0;
 	virtual SteamAPICall_t JoinLobby( CSteamID steamIDLobby ) = 0;
@@ -51,7 +51,7 @@ public:
 	virtual bool InviteUserToLobby( CSteamID steamIDLobby, CSteamID steamIDInvitee ) = 0;
 
 	virtual int GetNumLobbyMembers( CSteamID steamIDLobby ) = 0;
-	virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetLobbyMemberByIndex, CSteamID, steamIDLobby, int, iMember) /*virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;*/
 
 	virtual const char *GetLobbyData( CSteamID steamIDLobby, const char *pchKey ) = 0;
 	virtual bool SetLobbyData( CSteamID steamIDLobby, const char *pchKey, const char *pchValue ) = 0;
@@ -79,7 +79,7 @@ public:
 
 	virtual bool SetLobbyType( CSteamID steamIDLobby, ELobbyType eLobbyType ) = 0;
 	virtual bool SetLobbyJoinable( CSteamID steamIDLobby, bool bLobbyJoinable ) = 0;
-	virtual CSteamID GetLobbyOwner( CSteamID steamIDLobby ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetLobbyOwner, CSteamID, steamIDLobby) /*virtual CSteamID GetLobbyOwner( CSteamID steamIDLobby ) = 0;*/
 	virtual bool SetLobbyOwner( CSteamID steamIDLobby, CSteamID steamIDNewOwner ) = 0;
 	virtual bool SetLinkedLobby( CSteamID steamIDLobby, CSteamID steamIDLobby2 ) = 0;
 

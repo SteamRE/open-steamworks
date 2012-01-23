@@ -20,132 +20,229 @@
 #pragma once
 #endif
 
-#ifdef CLANG
-	#define S_API extern "C"
-	
-	typedef unsigned int errno_t;
-	typedef unsigned int size_t;
-	typedef unsigned char byte;
-	
-	#define NULL 0
-	
-#elif _WIN32
-	
-	#if defined(_MSC_VER) && _MSC_VER > 1400
-		#include <sdkddkver.h>
-	#else
-		#if !defined(_WIN32_WINNT)
-			#define _WIN32_WINNT 0x0502
-		#endif
-		#if !defined(WINVER)
-			#define WINVER _WIN32_WINNT
-		#endif
-	#endif
-		
-	#include <windows.h>
+// Compiler checks
 
-	#undef SendMessage // for ISteamGameCoordinator001 to work right..
-	#undef CreateProcess // for ISteam2Bridge
+#if defined(_MSC_VER)
+
+	#if _MSC_VER < 1400
+		#error "OpenSteamworks requires MSVC 2005 or better"
+	#endif
+	
+#elif defined(__GNUC__)
+
+	#if defined(_WIN32)
+		#if (__GNUC__ < 4 || __GNUC_MINOR__ < 6) && !defined(_S4N_)
+			#error "OpenSteamworks requires GCC 4.6 or better on windows"
+		#endif
+	#elif defined(__linux__) || defined(__APPLE_CC__)
+		#if __GNUC__ < 4
+			#error "OpenSteamworks requires GCC 4.X (4.2 or 4.4 have been tested)"
+		#endif
+	#else
+		#error "Unsupported OS: OpenSteamworks can only be used with Windows, Mac OS X or Linux"
+	#endif
+	
+#else
+	#error "Unsupported compiler: OpenSteamworks can only be used with MSVC, GCC or CLANG"
+#endif
+
+
+
+#if defined(_WIN32)
+	#ifndef _S4N_
+		#if defined(_MSC_VER) && _MSC_VER > 1400
+			#include <sdkddkver.h>
+		#else
+			#if !defined(_WIN32_WINNT)
+				#define _WIN32_WINNT 0x0502
+			#endif
+			#if !defined(WINVER)
+				#define WINVER _WIN32_WINNT
+			#endif
+		#endif
+			
+		#include <windows.h>
+
+		#undef SendMessage		// for ISteamGameCoordinator001 to work right..
+		#undef CreateProcess	// for ISteam2Bridge
+	#endif
 
 	#if defined( STEAM_API_EXPORTS )
-	#define S_API extern "C" __declspec( dllexport ) 
+		#define S_API extern "C" __declspec( dllexport ) 
 	#else
-	#define S_API extern "C" __declspec( dllimport ) 
+		#define S_API extern "C" __declspec( dllimport ) 
 	#endif // STEAM_API_EXPORTS
 #else
-
 	#include <dlfcn.h> // dlopen,dlclose, et al
 	#include <unistd.h>
 	#include <arpa/inet.h>
 	#include <string.h>
 
-	#define HMODULE void *
-	#define GetProcAddress dlsym
-
-
 	#define S_API extern "C"
+#endif
 
-	#ifndef __cdecl
-		#define __cdecl __attribute__((__cdecl__))
-	#endif
 
-	// mac doesn't have errno_t ??
+#ifdef __GNUC__
 	typedef unsigned int errno_t;
-	typedef unsigned char byte;
-
-#endif
-
-// this is an MSVC project.. but for the same of supporting other compilers we have to jump through hoops
-#if !defined(_MSC_VER) && !defined(CLANG)
-	#define sprintf_s snprintf
-	inline void _strcpy_s(char *dest, size_t len, const char *source) { strncpy(dest, source, len); };
-#else
-	#define _strcpy_s strcpy_s
-#endif
-
-
-#define STEAM_CALL __cdecl
-
-// Steam-specific types. Defined here so this header file can be included in other code bases.
-#if !defined(WCHARTYPES_H) && !defined(CLANG)
-typedef unsigned char uint8;
-#endif
-
-#if defined( __GNUC__ ) && !defined(POSIX)
-	#if __GNUC__ < 4
-		#error "Steamworks requires GCC 4.X (4.2 or 4.4 have been tested)"
+	
+	#ifdef _S4N_
+		typedef unsigned int size_t;
+		#define NULL 0
 	#endif
-	#define POSIX 1
+#endif
+
+#ifdef _WIN32
+	#define STEAM_CALL __cdecl
+#else
+	#define STEAM_CALL
 #endif
 
 #if defined(__x86_64__) || defined(_WIN64)
-#define X64BITS
+	#define X64BITS
 #endif
 
 typedef unsigned char uint8;
 typedef signed char int8;
 
-#if defined( _WIN32 ) && !defined(CLANG)
+#if defined( _MSV_VER )
 
-typedef __int16 int16;
-typedef unsigned __int16 uint16;
-typedef __int32 int32;
-typedef unsigned __int32 uint32;
-typedef __int64 int64;
-typedef unsigned __int64 uint64;
+	typedef __int16 int16;
+	typedef unsigned __int16 uint16;
+	typedef __int32 int32;
+	typedef unsigned __int32 uint32;
+	typedef __int64 int64;
+	typedef unsigned __int64 uint64;
 
-#ifdef X64BITS
-typedef __int64 intp;				// intp is an integer that can accomodate a pointer
-typedef unsigned __int64 uintp;		// (ie, sizeof(intp) >= sizeof(int) && sizeof(intp) >= sizeof(void *)
-#else
-typedef __int32 intp;
-typedef unsigned __int32 uintp;
-#endif
+	#ifdef X64BITS
+		typedef __int64 intp;				// intp is an integer that can accomodate a pointer
+		typedef unsigned __int64 uintp;		// (ie, sizeof(intp) >= sizeof(int) && sizeof(intp) >= sizeof(void *)
+	#else
+		typedef __int32 intp;
+		typedef unsigned __int32 uintp;
+	#endif
 
-#else // _WIN32
+#else // _MSV_VER
 
-typedef short int16;
-typedef unsigned short uint16;
-typedef int int32;
-typedef unsigned int uint32;
-typedef long long int64;
-typedef unsigned long long uint64;
-#ifdef X64BITS
-typedef long long intp;
-typedef unsigned long long uintp;
-#else
-typedef int intp;
-typedef unsigned int uintp;
-#endif
+	typedef short int16;
+	typedef unsigned short uint16;
+	typedef int int32;
+	typedef unsigned int uint32;
+	typedef long long int64;
+	typedef unsigned long long uint64;
+	#ifdef X64BITS
+		typedef long long intp;
+		typedef unsigned long long uintp;
+	#else
+		typedef int intp;
+		typedef unsigned int uintp;
+	#endif
 
-#endif // else _WIN32
+#endif // else _MSV_VER
+
 
 #ifndef abstract_class
-	#ifndef _MSC_VER
-		#define abstract_class class
-	#else
+	#ifdef _MSC_VER
 		#define abstract_class class __declspec( novtable )
+	#else
+		#define abstract_class class
 	#endif
+#endif
+
+
+#ifdef _MSC_VER
+	#define STEAMWORKS_DEPRECATE( Message ) __declspec(deprecated(#Message))
+#elif defined(__GNUC__)
+	#if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5))
+		#define STEAMWORKS_DEPRECATE( Message ) __attribute__((__deprecated__(#Message)))
+	#else
+		#define STEAMWORKS_DEPRECATE( Message ) __attribute__((__deprecated__))
+	#endif
+#else
+	#define STEAMWORKS_DEPRECATE( Message )
+#endif
+
+#ifndef STEAMWORKS_OBSOLETE_INTERFACES
+	#define OBSOLETE_INTERFACE STEAMWORKS_DEPRECATE("This interface is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_INTERFACES to suppress this warning.")
+#else
+	#define OBSOLETE_INTERFACE
+#endif
+
+#ifndef STEAMWORKS_OBSOLETE_FUNCTIONS
+	#define OBSOLETE_FUNCTION STEAMWORKS_DEPRECATE("This function is obsolete and is not available in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_FUNCTIONS to suppress this warning.")
+#else
+	#define OBSOLETE_FUNCTION
+#endif
+
+#ifndef STEAMWORKS_OBSOLETE_CALLBACKS
+	#define OBSOLETE_CALLBACK STEAMWORKS_DEPRECATE("This callback is obsolete and will not be triggered in the latest builds of Steam. #define STEAMWORKS_OBSOLETE_CALLBACKS to suppress this warning.")
+#else
+	#define OBSOLETE_CALLBACK
+#endif
+
+#ifndef STEAMWORKS_CLIENT_INTERFACES
+	#define UNSAFE_INTERFACE STEAMWORKS_DEPRECATE("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to suppress this warning.")
+#else
+	#define UNSAFE_INTERFACE
+#endif
+
+#ifndef STEAM_API_NON_VERSIONED_INTERFACES
+	#ifdef _MSC_VER
+		#define S_API_UNSAFE extern "C" __declspec( dllexport ) STEAMWORKS_DEPRECATE("Steam*() interface accessing functions are unversioned and potentially unsafe. These are versioned to assume you are using the latest version of the steam_api loader, if this is not the case your code is likely to crash, read the comment above the functions to learn about the version safe accessing method that will account for newer steam_api versions, older versions are always unsupported. #define STEAM_API_NON_VERSIONED_INTERFACES to suppress this warning.")
+	#elif defined(__GNUC__)
+		#if defined(__linux__) || defined(__APPLE_CC__)
+			#define S_API_UNSAFE extern "C" STEAMWORKS_DEPRECATE("Steam*() interface accessing functions are unversioned and potentially unsafe. These are versioned to assume you are using the latest version of the steam_api loader, if this is not the case your code is likely to crash, read the comment above the functions to learn about the version safe accessing method that will account for newer steam_api versions, older versions are always unsupported. #define STEAM_API_NON_VERSIONED_INTERFACES to suppress this warning.")
+		#else
+			#define S_API_UNSAFE extern "C" __declspec( dllexport ) STEAMWORKS_DEPRECATE("Steam*() interface accessing functions are unversioned and potentially unsafe. These are versioned to assume you are using the latest version of the steam_api loader, if this is not the case your code is likely to crash, read the comment above the functions to learn about the version safe accessing method that will account for newer steam_api versions, older versions are always unsupported. #define STEAM_API_NON_VERSIONED_INTERFACES to suppress this warning.")
+		#endif
+	#else
+		#define S_API_UNSAFE extern "C"
+	#endif
+#else
+	#ifdef _WIN32
+		#define S_API_UNSAFE extern "C" __declspec( dllexport )
+	#else
+		#define S_API_UNSAFE extern "C"
+	#endif
+#endif
+
+#if defined(_WIN32) && defined(__GNUC__) && !defined(_S4N_)
+	#define STEAMWORKS_STRUCT_RETURN_0(returnType, functionName)	\
+		virtual void functionName( returnType& ret ) = 0;			\
+		inline returnType functionName()							\
+		{															\
+			returnType ret;											\
+			this->functionName(ret);								\
+			return ret;												\
+		}
+	#define STEAMWORKS_STRUCT_RETURN_1(returnType, functionName, arg1Type, arg1Name)	\
+		virtual void functionName( returnType& ret, arg1Type arg1Name ) = 0;			\
+		inline returnType functionName( arg1Type arg1Name )								\
+		{																				\
+			returnType ret;																\
+			this->functionName(ret, arg1Name);											\
+			return ret;																	\
+		}
+	#define STEAMWORKS_STRUCT_RETURN_2(returnType, functionName, arg1Type, arg1Name, arg2Type, arg2Name)	\
+		virtual void functionName( returnType& ret, arg1Type arg1Name, arg2Type arg2Name ) = 0;				\
+		inline returnType functionName( arg1Type arg1Name, arg2Type arg2Name )								\
+		{																									\
+			returnType ret;																					\
+			this->functionName(ret, arg1Name, arg2Name);													\
+			return ret;																						\
+		}
+	#define STEAMWORKS_STRUCT_RETURN_3(returnType, functionName, arg1Type, arg1Name, arg2Type, arg2Name, arg3Type, arg3Name)	\
+		virtual void functionName( returnType& ret, arg1Type arg1Name, arg2Type arg2Name, arg3Type arg3Name ) = 0;				\
+		inline returnType functionName( arg1Type arg1Name, arg2Type arg2Name, arg3Type arg3Name )								\
+		{																														\
+			returnType ret;																										\
+			this->functionName(ret, arg1Name, arg2Name, arg3Name);																\
+			return ret;																											\
+		}
+#else
+	#define STEAMWORKS_STRUCT_RETURN_0(returnType, functionName) virtual returnType functionName() = 0;
+	#define STEAMWORKS_STRUCT_RETURN_1(returnType, functionName, arg1Type, arg1Name) virtual returnType functionName( arg1Type arg1Name ) = 0;
+	#define STEAMWORKS_STRUCT_RETURN_2(returnType, functionName, arg1Type, arg1Name, arg2Type, arg2Name) virtual returnType functionName( arg1Type arg1Name, arg2Type arg2Name ) = 0;
+	#define STEAMWORKS_STRUCT_RETURN_3(returnType, functionName, arg1Type, arg1Name, arg2Type, arg2Name, arg3Type, arg3Name) virtual returnType functionName( arg1Type arg1Name, arg2Type arg2Name, arg3Type arg3Name ) = 0;
 #endif
 
 // steamclient/api

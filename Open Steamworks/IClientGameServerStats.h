@@ -23,20 +23,29 @@
 #include "SteamTypes.h"
 #include "GameServerStatsCommon.h"
 
-
-
-//-----------------------------------------------------------------------------
-// Purpose: Functions for authenticating users via Steam to play on a game server
-//-----------------------------------------------------------------------------
-abstract_class IClientGameServerStats
+abstract_class UNSAFE_INTERFACE IClientGameServerStats
 {
 public:
 	virtual SteamAPICall_t RequestUserStats( CSteamID steamIDUser, CGameID gameID ) = 0;
+	
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool GetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, int32 *pData ) = 0;
 	virtual bool GetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float *pData ) = 0;
+#else
+	virtual bool GetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float *pData ) = 0;
+	virtual bool GetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, int32 *pData ) = 0;
+#endif
+
 	virtual bool GetUserAchievement( CSteamID steamIDUser, CGameID gameID, const char *pchName, bool *pbAchieved, RTime32 *prtTime ) = 0;
+	
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool SetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, int32 nData ) = 0;
 	virtual bool SetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float fData ) = 0;
+#else
+	virtual bool SetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float fData ) = 0;
+	virtual bool SetUserStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, int32 nData ) = 0;
+#endif
+
 	virtual bool UpdateUserAvgRateStat( CSteamID steamIDUser, CGameID gameID, const char *pchName, float flCountThisSession, double dSessionLength ) = 0;
 	virtual bool SetUserAchievement( CSteamID steamIDUser, CGameID gameID, const char *pchName ) = 0;
 	virtual bool ClearUserAchievement( CSteamID steamIDUser, CGameID gameID, const char *pchName ) = 0;

@@ -40,7 +40,7 @@ public:
 
 	// friend iteration
 	virtual int GetFriendCount( EFriendFlags iFriendFlags ) = 0;
-	virtual CSteamID GetFriendByIndex( int iFriend, EFriendFlags iFriendFlags ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetFriendByIndex, int, iFriend, EFriendFlags, iFriendFlags) /*virtual CSteamID GetFriendByIndex( int iFriend, EFriendFlags iFriendFlags ) = 0;*/
 
 	// gets the relationship to a user
 	virtual EFriendRelationship GetFriendRelationship( CSteamID steamIDFriend ) = 0;
@@ -60,12 +60,12 @@ public:
 
 	// clan functions
 	virtual int GetClanCount() = 0;
-	virtual CSteamID GetClanByIndex( int iClan ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetClanByIndex, int, iClan) /*virtual CSteamID GetClanByIndex( int iClan ) = 0;*/
 	virtual const char *GetClanName( CSteamID steamIDClan ) = 0;
 
 	// iterators for any source
 	virtual int GetFriendCountFromSource( CSteamID steamIDSource ) = 0;
-	virtual CSteamID GetFriendFromSourceByIndex( CSteamID steamIDSource, int iFriend ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetFriendFromSourceByIndex, CSteamID, steamIDSource, int, iFriend) /*virtual CSteamID GetFriendFromSourceByIndex( CSteamID steamIDSource, int iFriend ) = 0;*/
 	virtual bool IsUserInSource( CSteamID steamIDUser, CSteamID steamIDSource ) = 0;
 
 	// User is in a game pressing the talk button (will suppress the microphone for all voice comms from the Steam friends UI)

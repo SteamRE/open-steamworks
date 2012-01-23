@@ -23,7 +23,12 @@
 abstract_class ISteam004
 {
 public:
-	virtual ~ISteam004() { };
+	#if defined(_WIN32) && defined(__GNUC__) && !defined(_S4N_)
+		// We can't use the real destructor name here because gcc will put 2 destructors in the vtable.
+		virtual void _ISteam004() = 0;
+	#else
+		virtual ~ISteam004() = 0;
+	#endif
 
 	virtual SteamCallHandle_t ChangePassword(const char* cszCurrentPassphrase, const char* cszNewPassphrase, TSteamError* pError) = 0;
 	virtual int GetCurrentEmailAddress(char* szEmailaddress, unsigned int uBufSize, unsigned int* puEmailaddressChars, TSteamError* pError) = 0;

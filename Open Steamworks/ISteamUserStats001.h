@@ -47,12 +47,22 @@ public:
 	virtual bool RequestCurrentStats( CGameID nGameID ) = 0;
 
 	// Data accessors
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool GetStat( CGameID nGameID, const char *pchName, int32 *pData ) = 0;
 	virtual bool GetStat( CGameID nGameID, const char *pchName, float *pData ) = 0;
+#else
+	virtual bool GetStat( CGameID nGameID, const char *pchName, float *pData ) = 0;
+	virtual bool GetStat( CGameID nGameID, const char *pchName, int32 *pData ) = 0;
+#endif
 
 	// Set / update data
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool SetStat( CGameID nGameID, const char *pchName, int32 nData ) = 0;
 	virtual bool SetStat( CGameID nGameID, const char *pchName, float fData ) = 0;
+#else
+	virtual bool SetStat( CGameID nGameID, const char *pchName, float fData ) = 0;
+	virtual bool SetStat( CGameID nGameID, const char *pchName, int32 nData ) = 0;
+#endif
 
 	virtual bool UpdateAvgRateStat( CGameID nGameID, const char *pchName, float, double dSessionLength ) = 0;
 

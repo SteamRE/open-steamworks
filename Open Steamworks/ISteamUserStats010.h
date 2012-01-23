@@ -33,12 +33,22 @@ public:
 	virtual bool RequestCurrentStats() = 0;
 
 	// Data accessors
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool GetStat( const char *pchName, int32 *pData ) = 0;
 	virtual bool GetStat( const char *pchName, float *pData ) = 0;
+#else
+	virtual bool GetStat( const char *pchName, float *pData ) = 0;
+	virtual bool GetStat( const char *pchName, int32 *pData ) = 0;
+#endif
 
 	// Set / update data
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool SetStat( const char *pchName, int32 nData ) = 0;
 	virtual bool SetStat( const char *pchName, float fData ) = 0;
+#else
+	virtual bool SetStat( const char *pchName, float fData ) = 0;
+	virtual bool SetStat( const char *pchName, int32 nData ) = 0;
+#endif
 	virtual bool UpdateAvgRateStat( const char *pchName, float flCountThisSession, double dSessionLength ) = 0;
 
 	// Achievement flag accessors
@@ -83,8 +93,13 @@ public:
 	virtual SteamAPICall_t RequestUserStats( CSteamID steamIDUser ) = 0;
 
 	// requests stat information for a user, usable after a successful call to RequestUserStats()
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool GetUserStat( CSteamID steamIDUser, const char *pchName, int32 *pData ) = 0;
 	virtual bool GetUserStat( CSteamID steamIDUser, const char *pchName, float *pData ) = 0;
+#else
+	virtual bool GetUserStat( CSteamID steamIDUser, const char *pchName, float *pData ) = 0;
+	virtual bool GetUserStat( CSteamID steamIDUser, const char *pchName, int32 *pData ) = 0;
+#endif
 	virtual bool GetUserAchievement( CSteamID steamIDUser, const char *pchName, bool *pbAchieved ) = 0;
 	// See notes for GetAchievementAndUnlockTime above
 	virtual bool GetUserAchievementAndUnlockTime( CSteamID steamIDUser, const char *pchName, bool *pbAchieved, uint32 *punUnlockTime ) = 0;
@@ -184,15 +199,25 @@ public:
 	virtual SteamAPICall_t RequestGlobalStats( int nHistoryDays ) = 0;
 
 	// Gets the lifetime totals for an aggregated stat
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool GetGlobalStat( const char *pchStatName, int64 *pData ) = 0;
 	virtual bool GetGlobalStat( const char *pchStatName, double *pData ) = 0;
+#else
+	virtual bool GetGlobalStat( const char *pchStatName, double *pData ) = 0;
+	virtual bool GetGlobalStat( const char *pchStatName, int64 *pData ) = 0;
+#endif
 
 	// Gets history for an aggregated stat. pData will be filled with daily values, starting with today.
 	// So when called, pData[0] will be today, pData[1] will be yesterday, and pData[2] will be two days ago, 
 	// etc. cubData is the size in bytes of the pubData buffer. Returns the number of 
 	// elements actually set.
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual int32 GetGlobalStatHistory( const char *pchStatName, int64 *pData, uint32 cubData ) = 0;
 	virtual int32 GetGlobalStatHistory( const char *pchStatName, double *pData, uint32 cubData ) = 0;
+#else
+	virtual int32 GetGlobalStatHistory( const char *pchStatName, double *pData, uint32 cubData ) = 0;
+	virtual int32 GetGlobalStatHistory( const char *pchStatName, int64 *pData, uint32 cubData ) = 0;
+#endif
 };
 
 #endif // ISTEAMUSERSTATS010_H

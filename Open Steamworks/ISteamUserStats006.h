@@ -33,12 +33,22 @@ public:
 	virtual bool RequestCurrentStats() = 0;
 
 	// Data accessors
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool GetStat( const char *pchName, int32 *pData ) = 0;
 	virtual bool GetStat( const char *pchName, float *pData ) = 0;
+#else
+	virtual bool GetStat( const char *pchName, float *pData ) = 0;
+	virtual bool GetStat( const char *pchName, int32 *pData ) = 0;
+#endif
 
 	// Set / update data
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool SetStat( const char *pchName, int32 nData ) = 0;
 	virtual bool SetStat( const char *pchName, float fData ) = 0;
+#else
+	virtual bool SetStat( const char *pchName, float fData ) = 0;
+	virtual bool SetStat( const char *pchName, int32 nData ) = 0;
+#endif
 	virtual bool UpdateAvgRateStat( const char *pchName, float flCountThisSession, double dSessionLength ) = 0;
 
 	// Achievement flag accessors
@@ -69,8 +79,13 @@ public:
 
 
 	// requests stat information for a user, usable after a successful call to RequestUserStats()
+#if !(defined(_WIN32) && defined(__GNUC__))
 	virtual bool GetUserStat( CSteamID steamIDUser, const char *pchName, int32 *pData ) = 0;
 	virtual bool GetUserStat( CSteamID steamIDUser, const char *pchName, float *pData ) = 0;
+#else
+	virtual bool GetUserStat( CSteamID steamIDUser, const char *pchName, float *pData ) = 0;
+	virtual bool GetUserStat( CSteamID steamIDUser, const char *pchName, int32 *pData ) = 0;
+#endif
 	virtual bool GetUserAchievement( CSteamID steamIDUser, const char *pchName, bool *pbAchieved ) = 0;
 
 	// Reset stats 

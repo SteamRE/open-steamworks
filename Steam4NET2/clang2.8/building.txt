@@ -1,1 +1,1 @@
-clang++ -cc1 -ast-print-xml -DCLANG -DNO_CSTEAMID_STL -detailed-preprocessing-record temp.cpp
+clang++ -cc1 -ast-print-xml -D_S4N_ -DNO_CSTEAMID_STL -detailed-preprocessing-record steamworks.cpp

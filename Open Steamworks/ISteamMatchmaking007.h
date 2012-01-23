@@ -92,7 +92,7 @@ public:
 	// should only be called after a LobbyMatchList_t callback is received
 	// iLobby is of the range [0, LobbyMatchList_t::m_nLobbiesMatching)
 	// the returned CSteamID::IsValid() will be false if iLobby is out of range
-	virtual CSteamID GetLobbyByIndex( int iLobby ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetLobbyByIndex, int, iLobby) /*virtual CSteamID GetLobbyByIndex( int iLobby ) = 0;*/
 
 	// Create a lobby on the Steam servers.
 	// If private, then the lobby will not be returned by any RequestLobbyList() call; the CSteamID
@@ -129,7 +129,7 @@ public:
 	virtual int GetNumLobbyMembers( CSteamID steamIDLobby ) = 0;
 	// returns the CSteamID of a user in the lobby
 	// iMember is of range [0,GetNumLobbyMembers())
-	virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetLobbyMemberByIndex, CSteamID, steamIDLobby, int, iMember) /*virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;*/
 
 	// Get data associated with this lobby
 	// takes a simple key, and returns the string associated with it
@@ -201,7 +201,7 @@ public:
 	// you must be a member of the lobby to access this
 	// there always one lobby owner - if the current owner leaves, another user will become the owner
 	// it is possible (bur rare) to join a lobby just as the owner is leaving, thus entering a lobby with self as the owner
-	virtual CSteamID GetLobbyOwner( CSteamID steamIDLobby ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetLobbyOwner, CSteamID, steamIDLobby) /*virtual CSteamID GetLobbyOwner( CSteamID steamIDLobby ) = 0;*/
 
 	// changes who the lobby owner is
 	// you must be the lobby owner for this to succeed, and steamIDNewOwner must be in the lobby

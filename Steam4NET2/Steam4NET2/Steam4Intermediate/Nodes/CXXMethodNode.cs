@@ -55,10 +55,11 @@ namespace Steam4Intermediate.Nodes
 
             returns = generator.ResolveType( returns, constness, pointer, true, false );
 
-            if (returns == "UInt64" || returns == "Int64")
+            /*if (returns == "UInt64" || returns == "Int64")
             {
                 returnbystack = true;
             }
+            */
 
             List<INode> args = new List<INode>();
 

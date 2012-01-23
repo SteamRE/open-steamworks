@@ -42,7 +42,7 @@ public:
 
 	// returns the CSteamID of the account currently logged into the Steam client
 	// a CSteamID is a unique identifier for an account, and used to differentiate users in all parts of the Steamworks API
-	virtual CSteamID GetSteamID() = 0;
+	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetSteamID) /*virtual CSteamID GetSteamID() = 0;*/
 
 	// InitiateGameConnection() starts the state machine for authenticating the game client with the game server
 	// It is the client portion of a three-way handshake between the client, the game server, and the steam servers

@@ -14,7 +14,7 @@
 //
 //=============================================================================
 
-#if !defined(CCALLBACK_H) && !defined(CLANG)
+#if !defined(CCALLBACK_H) && !defined(_S4N_)
 #define CCALLBACK_H
 #ifdef _WIN32
 #pragma once
@@ -206,9 +206,9 @@ public:
 
 
 
-#ifdef _WIN32
-// disable this warning; this pattern need for steam callback registration
-#pragma warning( disable: 4355 )	// 'this' : used in base member initializer list
+#ifdef _MSC_VER
+	// disable this warning; this pattern need for steam callback registration
+	#pragma warning( disable: 4355 )	// 'this' : used in base member initializer list
 #endif
 
 // utility macro for declaring the function and callback object together

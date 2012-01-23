@@ -63,7 +63,7 @@ public:
 	virtual bool UpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pchMapName ) = 0;
 
 	virtual bool BSecure() = 0; 
-	virtual CSteamID GetSteamID() = 0;
+	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetSteamID) /*virtual CSteamID GetSteamID() = 0;*/
 
 	// You shouldn't need to call this as it is called internally by SteamGameServer_Init() and can only be called once.
 	//

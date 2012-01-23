@@ -112,6 +112,9 @@ namespace Steam4Intermediate.Nodes
 
         private void EmitCodeStruct(Generator generator, int depth, int ident)
         {
+            if (GetName() == "CSteamID")
+                return;
+
             generator.EmitLine("[StructLayout(LayoutKind.Sequential,Pack=8)]", depth);
             int attribMarker = generator.GetMarker();
             generator.EmitLine("public struct " + GetName(), depth);
@@ -165,9 +168,13 @@ namespace Steam4Intermediate.Nodes
                             types = "IntPtr";
                         }
                     }
-                    else if ( types == "CSteamID" || types == "CGameID" )
+                    else if (types == "CSteamID")
                     {
-                        types = "UInt64";
+                        types = "SteamID_t";
+                    }
+                    else if (types == "CGameID")
+                    {
+                        types = "GameID_t";
                     }
                     else if (pointer)
                     {

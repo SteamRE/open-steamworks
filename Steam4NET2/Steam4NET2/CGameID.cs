@@ -26,6 +26,13 @@ namespace Steam4NET
             : this()
         {
         }
+        public CGameID(GameID_t gid)
+            : this()
+        {
+            this.AppID = gid.m_nAppID & 0xFFFFFF;
+            this.AppType = (EGameID)gid.m_nType;
+            this.ModID = gid.m_nModID;
+        }
 
         public static implicit operator UInt64( CGameID gid )
         {
@@ -35,6 +42,11 @@ namespace Steam4NET
         public static implicit operator CGameID( UInt64 id )
         {
             return new CGameID( id );
+        }
+
+        public static implicit operator CGameID(GameID_t gid)
+        {
+            return new CGameID(gid);
         }
 
         public UInt32 AppID

@@ -16,27 +16,30 @@
 
 #pragma once
 #include <dlfcn.h>
-#include <string>
 
-class DynamicLibrary {
+class DynamicLibrary
+{
 public:
-	DynamicLibrary(std::string path) {
-		m_handle = dlopen(path.c_str(), RTLD_NOW);
+	DynamicLibrary(const char* cszPath)
+	{
+		m_handle = dlopen(cszPath, RTLD_LAZY);
 	}
 	
-	~DynamicLibrary() {
-		// Note that we don't dlclose() our module. This is because it's possible
-		// that dlclose() will put the module's refcount down to zero and the OS
-		// to unload it. This would cause any reference to anything inside the
-		// module to suddenly become invalid, which tends to be A Bad Thing(tm).
+	~DynamicLibrary()
+	{
+		dlclose(m_handle);
 	}
 	
-	void * GetSymbol(std::string name) {
-		if(!m_handle) return NULL;
-		return dlsym(m_handle, name.c_str());
+	void * GetSymbol(const char* cszSymbol) const
+	{
+		if(!m_handle)
+			return NULL;
+
+		return dlsym(m_handle, cszSymbol);
 	}
 	
-	bool IsLoaded() const {
+	bool IsLoaded() const
+	{
 		return m_handle != NULL;
 	}
 	

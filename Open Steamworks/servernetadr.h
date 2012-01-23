@@ -20,13 +20,6 @@
 #pragma once
 #endif
 
-#ifdef _WIN32
-	#pragma warning(push) 
-	#pragma warning(disable: 4996) 
-	#ifndef snprintf
-		#define snprintf _snprintf
-	#endif
-#endif
 
 // servernetadr_t is all the addressing info the serverbrowser needs to know about a game server,
 // namely: its IP, its connection port, and its query port.
@@ -57,7 +50,6 @@ public:
 	const char *GetQueryAddressString() const;
 
 	// Comparison operators and functions.
-#ifndef CLANG
 	bool	operator<(const servernetadr_t &netadr) const;
 	void operator=( const servernetadr_t &that )
 	{
@@ -65,7 +57,6 @@ public:
 		m_usQueryPort = that.m_usQueryPort;
 		m_unIP = that.m_unIP;
 	}
-#endif
 
 private:
 	const char *ToString( uint32 unIP, uint16 usPort ) const;
@@ -127,19 +118,33 @@ inline void	servernetadr_t::SetIP( uint32 unIP )
 	m_unIP = unIP;
 }
 
-#ifndef CLANG
+#ifdef _S4N_
+	#define snprintf(...)
+#elif defined(_MSC_VER)
+	#pragma warning(push) 
+	#pragma warning(disable: 4996) 
+	#ifndef snprintf
+		#define snprintf _snprintf
+	#endif	
+#endif
+
 inline const char *servernetadr_t::ToString( uint32 unIP, uint16 usPort ) const
 {
 	static char s[4][64];
 	static int nBuf = 0;
 	unsigned char *ipByte = (unsigned char *)&unIP;
-	snprintf (s[nBuf], sizeof( s[nBuf] ), "%u.%u.%u.%u:%i", (int)(ipByte[3]), (int)(ipByte[2]), (int)(ipByte[1]), (int)(ipByte[0]), usPort );
+	snprintf(s[nBuf], sizeof( s[nBuf] ), "%u.%u.%u.%u:%i", (int)(ipByte[3]), (int)(ipByte[2]), (int)(ipByte[1]), (int)(ipByte[0]), usPort );
 	s[nBuf][sizeof(s[nBuf]) - 1] = '\0';
 	const char *pchRet = s[nBuf];
 	++nBuf;
 	nBuf %= ( (sizeof(s)/sizeof(s[0])) );
 	return pchRet;
 }
+
+#ifdef _MSC_VER
+	#pragma warning(pop) 
+#endif
+
 
 inline const char* servernetadr_t::GetConnectionAddressString() const
 {
@@ -155,10 +160,5 @@ inline bool servernetadr_t::operator<(const servernetadr_t &netadr) const
 {
 	return ( m_unIP < netadr.m_unIP ) || ( m_unIP == netadr.m_unIP && m_usQueryPort < netadr.m_usQueryPort );
 }
-#endif
-
-#ifdef _WIN32
-	#pragma warning(pop) 
-#endif
 
 #endif // SERVERNETADR_H

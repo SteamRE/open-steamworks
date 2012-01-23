@@ -11,55 +11,284 @@ namespace Steam4Test
 {
     class Program
     {
-        public static void Main()
+        public static int Main()
         {
-            File.WriteAllText("steam_appid.txt", "630");
+            Environment.SetEnvironmentVariable("SteamAppId", "480");
 
-            Steamworks.Load(true);
+            Console.Write("Loading Steam2 and Steam3... ");
 
-            ISteamClient006 steamclient = Steamworks.CreateInterface<ISteamClient006>();
+            if (Steamworks.Load(true))
+            {
+                Console.WriteLine("Ok");
+            }
+            else
+            {
+                Console.WriteLine("Failed");
+                return -1;
+            }
+
+            Console.WriteLine("\nSteam2 tests:");
+
+            ISteam006 steam006 = Steamworks.CreateSteamInterface<ISteam006>();
+            if (steam006 == null)
+            {
+                Console.WriteLine("steam006 is null !");
+                return -1;
+            }
+
+            TSteamError steamError = new TSteamError();
+
+            Console.Write("GetVersion: ");
+            StringBuilder version = new StringBuilder();
+            if(steam006.GetVersion(version) != 0)
+            {
+                Console.WriteLine("Ok (" + version.ToString() + ")");
+            }
+            else
+            {
+                Console.WriteLine("Failed");
+                return -1;
+            }
+
+            steam006.ClearError(ref steamError);
+
+            Console.Write("Startup: ");
+            if(steam006.Startup(0, ref steamError) != 0)
+            {
+                Console.WriteLine("Ok");
+            }
+            else
+            {
+                Console.WriteLine("Failed (" + steamError.szDesc + ")");
+                return -1;
+            }
+
+            Console.Write("OpenTmpFile: ");
+            uint hFile = 0;
+            if((hFile = steam006.OpenTmpFile(ref steamError)) != 0)
+            {
+                Console.WriteLine("Ok");
+            }
+            else
+            {
+                Console.WriteLine("Failed (" + steamError.szDesc + ")");
+                return -1;
+            }
+
+            Console.Write("WriteFile: ");
+            byte[] fileContent = System.Text.UTF8Encoding.UTF8.GetBytes("test");
+            if(steam006.WriteFile(fileContent, (uint)fileContent.Length, hFile, ref steamError) == fileContent.Length)
+            {
+                Console.WriteLine("Ok");
+            }
+            else
+            {
+                Console.WriteLine("Failed (" + steamError.szDesc + ")");
+                return -1;
+            }
+
+            Console.Write("CloseFile: ");
+            if(steam006.CloseFile(hFile, ref steamError) == 0)
+            {
+                Console.WriteLine("Ok");
+            }
+            else
+            {
+                Console.WriteLine("Failed (" + steamError.szDesc + ")");
+                return -1;
+            }
+
+            Console.WriteLine("\nSteam3 tests:");
+
+            ISteamClient012 steamclient = Steamworks.CreateInterface<ISteamClient012>();
+            if (steamclient == null)
+            {
+                Console.WriteLine("steamclient is null !");
+                return -1;
+            }
+
+            IClientEngine clientengine = Steamworks.CreateInterface<IClientEngine>();
+            if (clientengine == null)
+            {
+                Console.WriteLine("clientengine is null !");
+                return -1;
+            }
 
             int pipe = steamclient.CreateSteamPipe();
-            int user = steamclient.ConnectToGlobalUser(pipe); // steamclient.CreateLocalUser(ref pipe); // steamclient.ConnectToGlobalUser(pipe);
-
-            ISteamUser004 steamuser = steamclient.GetISteamUser<ISteamUser004>(user, pipe);
-
-
-            ISteam003 steam003 = Steamworks.CreateSteamInterface<ISteam003>();
-
-            StringBuilder version = new StringBuilder();
-            version.EnsureCapacity(256);
-
-            steam003.GetVersion(version);
-
-            TSteamError error = new TSteamError();
-            uint sz = 0;
-            StringBuilder email = new StringBuilder();
-            email.EnsureCapacity(256);
-
-            steam003.GetCurrentEmailAddress(email, ref sz, ref error);
-
-            CSteamID steamid = steamuser.GetSteamID();
-
-            ISteamFriends003 friends = steamclient.GetISteamFriends<ISteamFriends003>(user, pipe);
-            ISteamFriends002 friends2 = steamclient.GetISteamFriends<ISteamFriends002>(user, pipe);
-
-            int num = friends.GetFriendCount(EFriendFlags.k_EFriendFlagAll);
-            for (int i = 0; i < num; i++)
+            if (pipe == 0)
             {
-                CSteamID id = friends.GetFriendByIndex(i, EFriendFlags.k_EFriendFlagAll);
-                string name = friends.GetFriendPersonaName(id);
-
-                if (name == "Stan")
-                {
-                    byte[] buff = Encoding.ASCII.GetBytes("Oidy.");
-                    friends2.SendMsgToFriend(id, EChatEntryType.k_EChatEntryTypeChatMsg, buff);
-                }
-
-                Debug.WriteLine(name);
+                Console.WriteLine("Failed to create a pipe");
+                return -1;
             }
-             
+
+            int user = steamclient.ConnectToGlobalUser(pipe);
+            if (user == 0 || user == -1)
+            {
+                Console.WriteLine("Failed to connect to global user");
+                return -1;
+            }
+
+            ISteamUser016 steamuser = steamclient.GetISteamUser<ISteamUser016>(user, pipe);
+            if (steamuser == null)
+            {
+                Console.WriteLine("steamuser is null !");
+                return -1;
+            }
+            ISteamUtils005 steamutils = steamclient.GetISteamUtils<ISteamUtils005>(pipe);
+            if (steamutils == null)
+            {
+                Console.WriteLine("steamutils is null !");
+                return -1;
+            }
+            ISteamUserStats002 userstats002 = steamclient.GetISteamUserStats<ISteamUserStats002>(user, pipe);
+            if (userstats002 == null)
+            {
+                Console.WriteLine("userstats002 is null !");
+                return -1;
+            }
+            ISteamUserStats010 userstats010 = steamclient.GetISteamUserStats<ISteamUserStats010>(user, pipe);
+            if (userstats010 == null)
+            {
+                Console.WriteLine("userstats010 is null !");
+                return -1;
+            }
+            IClientUser clientuser = clientengine.GetIClientUser<IClientUser>(user, pipe);
+            if (clientuser == null)
+            {
+                Console.WriteLine("clientuser is null !");
+                return -1;
+            }
+
+            Console.Write("RequestCurrentStats: ");
+            if (userstats002.RequestCurrentStats(steamutils.GetAppID()))
+            {
+                Console.WriteLine("Ok");
+            }
+            else
+            {
+                Console.WriteLine("Failed");
+                return -1;
+            }
+
+            Console.Write("Waiting for stats... ");
+
+            CallbackMsg_t callbackMsg = new CallbackMsg_t();
+            bool statsReceived = false;
+            while (!statsReceived)
+            {
+                while (Steamworks.GetCallback(pipe, ref callbackMsg) && !statsReceived)
+                {
+                    if (callbackMsg.m_iCallback == UserStatsReceived_t.k_iCallback)
+                    {
+                        UserStatsReceived_t userStatsReceived = (UserStatsReceived_t)Marshal.PtrToStructure(callbackMsg.m_pubParam, typeof(UserStatsReceived_t));
+                        if (userStatsReceived.m_steamIDUser == steamuser.GetSteamID() && userStatsReceived.m_nGameID == steamutils.GetAppID())
+                        {
+                            if (userStatsReceived.m_eResult == EResult.k_EResultOK)
+                            {
+                                Console.WriteLine("Ok");
+                                statsReceived = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Failed (" + userStatsReceived.m_eResult + ")");
+                                return -1;
+                            }
+                        }
+                    }
+                    Steamworks.FreeLastCallback(pipe);
+                }
+                System.Threading.Thread.Sleep(100);
+            }
+
+            Console.WriteLine("Stats for the current game :");
+            uint numStats = userstats002.GetNumStats(steamutils.GetAppID());
+            for (uint i = 0; i < numStats; i++)
+            {
+                string statName = userstats002.GetStatName(steamutils.GetAppID(), i);
+                ESteamUserStatType statType = userstats002.GetStatType(steamutils.GetAppID(), statName);
+                switch (statType)
+                {
+                case ESteamUserStatType.k_ESteamUserStatTypeINT:
+                    {
+                        int value = 0;
+                        Console.Write("\t" + statName + " ");
+                        if (userstats002.GetStat(steamutils.GetAppID(), statName, ref value))
+                        {
+                            Console.WriteLine(value);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed");
+                            return -1;
+                        }
+                        
+                        break;
+                    }
+                case ESteamUserStatType.k_ESteamUserStatTypeFLOAT:
+                    {
+                        float value = 0;
+                        Console.Write("\t" + statName + " ");
+                        if (userstats002.GetStat(steamutils.GetAppID(), statName, ref value))
+                        {
+                            Console.WriteLine(value);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed");
+                            return -1;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            Console.Write("GetNumberOfCurrentPlayers: ");
+            ulong getNumberOfCurrentPlayersCall = userstats010.GetNumberOfCurrentPlayers();
+            bool failed = false;
+            while (!steamutils.IsAPICallCompleted(getNumberOfCurrentPlayersCall, ref failed) && !failed)
+            {
+                System.Threading.Thread.Sleep(100);
+            }
+
+            if (failed)
+            {
+                Console.WriteLine("Failed (IsAPICallCompleted failure)");
+                return -1;
+            }
+
+            IntPtr pData = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(NumberOfCurrentPlayers_t)));
+
+            if (!Steamworks.GetAPICallResult(pipe, getNumberOfCurrentPlayersCall, pData, Marshal.SizeOf(typeof(NumberOfCurrentPlayers_t)), NumberOfCurrentPlayers_t.k_iCallback, ref failed))
+            {
+                Console.WriteLine("Failed (GetAPICallResult failure)");
+                return -1;
+            }
+
+            NumberOfCurrentPlayers_t numberOfCurrentPlayers = (NumberOfCurrentPlayers_t)Marshal.PtrToStructure(pData, typeof(NumberOfCurrentPlayers_t));
+            if(!System.Convert.ToBoolean(numberOfCurrentPlayers.m_bSuccess))
+            {
+                Console.WriteLine("Failed (numberOfCurrentPlayers.m_bSuccess is false)");
+                return -1;
+            }
+            Console.WriteLine("Ok (" + numberOfCurrentPlayers.m_cPlayers + ")");
+
+            Marshal.FreeHGlobal(pData);
+
+            
+            Console.Write("Games running: ");
+            for(int i = 0; i < clientuser.NumGamesRunning(); i++)
+            {
+                CGameID gameID = clientuser.GetRunningGameID(i);
+                Console.Write(gameID);
+                if(i + 1 < clientuser.NumGamesRunning())
+                    Console.Write(", ");
+                else
+                    Console.Write("\n");
+            }
+
+            Console.WriteLine("Current user SteamID: " + steamuser.GetSteamID());
+
+            return 0;
         }
-             
     }
 }

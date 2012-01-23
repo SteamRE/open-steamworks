@@ -45,7 +45,7 @@ public:
 
 	// returns the CSteamID of the account currently logged into the Steam client
 	// a CSteamID is a unique identifier for an account, and used to differentiate users in all parts of the Steamworks API
-	virtual CSteamID GetSteamID() = 0;
+	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetSteamID) /*virtual CSteamID GetSteamID() = 0;*/
 
 	// returns true if this account is VAC banned from the specified ban set
 	virtual bool IsVACBanned( EVACBan eVACBan ) = 0;

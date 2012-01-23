@@ -62,15 +62,14 @@
   <ItemGroup>
     <Compile Include="autogen\AppsCommon.cs" />
     <Compile Include="autogen\BillingCommon.cs" />
+    <None Include="autogen\CGameID.cs">
+      <SubType>Code</SubType>
+    </None>
     <Compile Include="autogen\ClientCommon.cs" />
     <Compile Include="autogen\ContentServerCommon.cs" />
-    <Compile Include="autogen\EAccountType.cs" />
-    <Compile Include="autogen\EChatMemberStateChange.cs" />
-    <Compile Include="autogen\ELobbyType.cs" />
-    <Compile Include="autogen\ENotificationPosition.cs" />
-    <Compile Include="autogen\EPersonalQuestion.cs" />
+    <Compile Include="autogen\CSteamID.cs" />
+    <Compile Include="autogen\ECurrencyCode.cs" />
     <Compile Include="autogen\EResult.cs" />
-    <Compile Include="autogen\EServerMode.cs" />
     <Compile Include="autogen\ESteamAppUpdateStatsQueryType.cs" />
     <Compile Include="autogen\ESteamBufferMethod.cs" />
     <Compile Include="autogen\ESteamError.cs" />
@@ -81,13 +80,12 @@
     <Compile Include="autogen\ESteamServerType.cs" />
     <Compile Include="autogen\ESteamSubscriptionBillingInfoType.cs" />
     <Compile Include="autogen\ESteamSubscriptionStatus.cs" />
-    <Compile Include="autogen\EUniverse.cs" />
+    <Compile Include="autogen\EVoiceResult.cs" />
     <Compile Include="autogen\FriendGameInfo.cs" />
     <Compile Include="autogen\FriendsCommon.cs" />
     <Compile Include="autogen\GameCoordinatorCommon.cs" />
     <Compile Include="autogen\GameServerCommon.cs" />
     <Compile Include="autogen\gameserveritem.cs" />
-    <Compile Include="autogen\GameServerItemsCommon.cs" />
     <Compile Include="autogen\GameServerStatsCommon.cs" />
     <Compile Include="autogen\GameStatsCommon.cs" />
     <Compile Include="autogen\HTTPCommon.cs" />
@@ -132,6 +130,8 @@
     <Compile Include="autogen\ISteamClient008.cs" />
     <Compile Include="autogen\ISteamClient009.cs" />
     <Compile Include="autogen\ISteamClient010.cs" />
+    <Compile Include="autogen\ISteamClient011.cs" />
+    <Compile Include="autogen\ISteamClient012.cs" />
     <Compile Include="autogen\ISteamContentServer001.cs" />
     <Compile Include="autogen\ISteamContentServer002.cs" />
     <Compile Include="autogen\ISteamFriends001.cs" />
@@ -143,6 +143,8 @@
     <Compile Include="autogen\ISteamFriends007.cs" />
     <Compile Include="autogen\ISteamFriends008.cs" />
     <Compile Include="autogen\ISteamFriends009.cs" />
+    <Compile Include="autogen\ISteamFriends010.cs" />
+    <Compile Include="autogen\ISteamFriends011.cs" />
     <Compile Include="autogen\ISteamGameCoordinator001.cs" />
     <Compile Include="autogen\ISteamGameServer002.cs" />
     <Compile Include="autogen\ISteamGameServer003.cs" />
@@ -153,9 +155,7 @@
     <Compile Include="autogen\ISteamGameServer008.cs" />
     <Compile Include="autogen\ISteamGameServer009.cs" />
     <Compile Include="autogen\ISteamGameServer010.cs" />
-    <Compile Include="autogen\ISteamGameServerItems002.cs" />
-    <Compile Include="autogen\ISteamGameServerItems003.cs" />
-    <Compile Include="autogen\ISteamGameServerItems004.cs" />
+    <Compile Include="autogen\ISteamGameServer011.cs" />
     <Compile Include="autogen\ISteamGameServerStats001.cs" />
     <Compile Include="autogen\ISteamGameStats001.cs" />
     <Compile Include="autogen\ISteamHTTP001.cs" />
@@ -168,6 +168,7 @@
     <Compile Include="autogen\ISteamMatchmaking006.cs" />
     <Compile Include="autogen\ISteamMatchmaking007.cs" />
     <Compile Include="autogen\ISteamMatchmaking008.cs" />
+    <Compile Include="autogen\ISteamMatchmaking009.cs" />
     <Compile Include="autogen\ISteamMatchmakingServers001.cs" />
     <Compile Include="autogen\ISteamMatchmakingServers002.cs" />
     <Compile Include="autogen\ISteamNetworking001.cs" />
@@ -179,6 +180,8 @@
     <Compile Include="autogen\ISteamRemoteStorage002.cs" />
     <Compile Include="autogen\ISteamRemoteStorage003.cs" />
     <Compile Include="autogen\ISteamRemoteStorage004.cs" />
+    <Compile Include="autogen\ISteamRemoteStorage005.cs" />
+    <Compile Include="autogen\ISteamRemoteStorage006.cs" />
     <Compile Include="autogen\ISteamScreenshots001.cs" />
     <Compile Include="autogen\ISteamUser004.cs" />
     <Compile Include="autogen\ISteamUser005.cs" />
@@ -193,10 +196,6 @@
     <Compile Include="autogen\ISteamUser014.cs" />
     <Compile Include="autogen\ISteamUser015.cs" />
     <Compile Include="autogen\ISteamUser016.cs" />
-    <Compile Include="autogen\ISteamUserItems001.cs" />
-    <Compile Include="autogen\ISteamUserItems002.cs" />
-    <Compile Include="autogen\ISteamUserItems003.cs" />
-    <Compile Include="autogen\ISteamUserItems004.cs" />
     <Compile Include="autogen\ISteamUserStats001.cs" />
     <Compile Include="autogen\ISteamUserStats002.cs" />
     <Compile Include="autogen\ISteamUserStats003.cs" />
@@ -217,11 +216,11 @@
     <Compile Include="autogen\MatchmakingServersCommon.cs" />
     <Compile Include="autogen\NetworkingCommon.cs" />
     <Compile Include="autogen\RemoteStorageCommon.cs" />
+    <Compile Include="autogen\ScreenshotsCommon.cs" />
     <Compile Include="autogen\servernetadr.cs" />
     <Compile Include="autogen\Steamclient.cs" />
     <Compile Include="autogen\SteamSalt.cs" />
     <Compile Include="autogen\SteamTypes.cs" />
-    <Compile Include="autogen\temp.cs" />
     <Compile Include="autogen\TSteamApp.cs" />
     <Compile Include="autogen\TSteamAppDependencyInfo.cs" />
     <Compile Include="autogen\TSteamAppLaunchOption.cs" />
@@ -246,16 +245,17 @@
     <Compile Include="autogen\TSteamSubscriptionStats.cs" />
     <Compile Include="autogen\TSteamUpdateStats.cs" />
     <Compile Include="autogen\UserCommon.cs" />
-    <Compile Include="autogen\UserItemsCommon.cs" />
     <Compile Include="autogen\UserStatsCommon.cs" />
     <Compile Include="autogen\UtilsCommon.cs" />
     <Compile Include="CallbackDispatcher.cs" />
     <Compile Include="CallbackIdentities.cs" />
     <Compile Include="CGameID.cs" />
     <Compile Include="CSteamID.cs" />
+    <Compile Include="GameID_t.cs" />
     <Compile Include="InterfaceVersions.cs" />
     <Compile Include="InteropHelp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SteamID_t.cs" />
     <Compile Include="Steamworks.cs" />
   </ItemGroup>
   <ItemGroup>

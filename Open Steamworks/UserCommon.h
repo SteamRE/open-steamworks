@@ -765,7 +765,9 @@ struct IsAccountNameInUseResult_t
 	enum { k_iCallback = k_iClientUserCallbacks + 53 };
 
 	EResult m_EResult;
-	char m_szAccountNameSuggestions[3][64];
+	char m_szAccountNameSuggestion1[64];
+	char m_szAccountNameSuggestion2[64];
+	char m_szAccountNameSuggestion3[64];
 };
 
 struct LoginInformationChanged_t

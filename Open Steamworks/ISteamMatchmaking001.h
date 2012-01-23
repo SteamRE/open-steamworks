@@ -53,7 +53,7 @@ public:
 
 	// Get a list of relevant lobbies
 	virtual void RequestLobbyList( uint64 ulGameID, MatchMakingKeyValuePair_t *pFilters, uint32 nFilters ) = 0;
-	virtual CSteamID GetLobbyByIndex( int iLobby ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetLobbyByIndex, int, iLobby) /*virtual CSteamID GetLobbyByIndex( int iLobby ) = 0;*/
 	// Create a lobby - you'll get the SteamID of it on success
 	virtual void CreateLobby( uint64 ulGameID, bool bPrivate ) = 0;
 	// Join a lobby
@@ -64,7 +64,7 @@ public:
 	virtual bool InviteUserToLobby( CSteamID steamIDLobby, CSteamID steamIDInvitee ) = 0;
 	// List users in this lobby
 	virtual int GetNumLobbyMembers( CSteamID steamIDLobby ) = 0;
-	virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetLobbyMemberByIndex, CSteamID, steamIDLobby, int, iMember) /*virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;*/
 	// Get data associated with this lobby
 	virtual const char *GetLobbyData( CSteamID SteamIDLobby, const char *pchKey ) = 0;
 	// Update lobby data (Admin only)

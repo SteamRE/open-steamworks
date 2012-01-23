@@ -53,7 +53,7 @@ public:
 	// iFriend is a index of range [0, GetFriendCount())
 	// iFriendsFlags must be the same value as used in GetFriendCount()
 	// the returned CSteamID can then be used by all the functions below to access details about the user
-	virtual CSteamID GetFriendByIndex( int iFriend, int iFriendFlags ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetFriendByIndex, int, iFriend, int, iFriendFlags) /*virtual CSteamID GetFriendByIndex( int iFriend, int iFriendFlags ) = 0;*/
 
 	// returns a relationship to a user
 	virtual EFriendRelationship GetFriendRelationship( CSteamID steamIDFriend ) = 0;
@@ -79,7 +79,7 @@ public:
 
 	// clan (group) iteration and access functions
 	virtual int GetClanCount() = 0;
-	virtual CSteamID GetClanByIndex( int iClan ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetClanByIndex, int, iClan) /*virtual CSteamID GetClanByIndex( int iClan ) = 0;*/
 	virtual const char *GetClanName( CSteamID steamIDClan ) = 0;
 	virtual const char *GetClanTag( CSteamID steamIDClan ) = 0;
 
@@ -90,7 +90,7 @@ public:
 	// note that large clans that cannot be iterated by the local user
 	// steamIDSource can be the steamID of a group, game server, lobby or chat room
 	virtual int GetFriendCountFromSource( CSteamID steamIDSource ) = 0;
-	virtual CSteamID GetFriendFromSourceByIndex( CSteamID steamIDSource, int iFriend ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetFriendFromSourceByIndex, CSteamID, steamIDSource, int, iFriend) /*virtual CSteamID GetFriendFromSourceByIndex( CSteamID steamIDSource, int iFriend ) = 0;*/
 
 	// returns true if the local user can see that steamIDUser is a member or in steamIDSource
 	virtual bool IsUserInSource( CSteamID steamIDUser, CSteamID steamIDSource ) = 0;
@@ -153,11 +153,11 @@ public:
 	// iteration of clan officers - can only be done when a RequestClanOfficerList() call has completed
 
 	// returns the steamID of the clan owner
-	virtual CSteamID GetClanOwner( CSteamID steamIDClan ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetClanOwner, CSteamID, steamIDClan) /*virtual CSteamID GetClanOwner( CSteamID steamIDClan ) = 0;*/
 	// returns the number of officers in a clan (including the owner)
 	virtual int GetClanOfficerCount( CSteamID steamIDClan ) = 0;
 	// returns the steamID of a clan officer, by index, of range [0,GetClanOfficerCount)
-	virtual CSteamID GetClanOfficerByIndex( CSteamID steamIDClan, int iOfficer ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetClanOfficerByIndex, CSteamID, steamIDClan, int, iOfficer) /*virtual CSteamID GetClanOfficerByIndex( CSteamID steamIDClan, int iOfficer ) = 0;*/
 	// if current user is chat restricted, he can't send or receive any text/voice chat messages.
 	// the user can't see custom avatars. But the user can be online and send/recv game invites.
 	// a chat restricted user can't add friends or join any groups.
@@ -190,7 +190,7 @@ public:
 	// this iterates the entire list of users recently played with, across games
 	// GetFriendCoplayTime() returns as a unix time
 	virtual int GetCoplayFriendCount() = 0;
-	virtual CSteamID GetCoplayFriend( int iCoplayFriend ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetCoplayFriend, int, iCoplayFriend) /*virtual CSteamID GetCoplayFriend( int iCoplayFriend ) = 0;*/
 	virtual int GetFriendCoplayTime( CSteamID steamIDFriend ) = 0;
 	virtual AppId_t GetFriendCoplayGame( CSteamID steamIDFriend ) = 0;
 
@@ -198,7 +198,7 @@ public:
 	virtual SteamAPICall_t JoinClanChatRoom( CSteamID groupID ) = 0;
 	virtual bool LeaveClanChatRoom( CSteamID groupID ) = 0;
 	virtual int GetClanChatMemberCount( CSteamID groupID ) = 0;
-	virtual CSteamID GetChatMemberByIndex( CSteamID groupID, int iIndex ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetChatMemberByIndex, CSteamID, groupID, int, iIndex) /*virtual CSteamID GetChatMemberByIndex( CSteamID groupID, int iIndex ) = 0;*/
 	virtual bool SendClanChatMessage( CSteamID groupID, const char *cszMessage ) = 0;
 	virtual int GetClanChatMessage( CSteamID groupID, int iChatID, void *pvData, int cubData, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter ) = 0;
 	virtual bool IsClanChatAdmin( CSteamID groupID, CSteamID userID ) = 0;

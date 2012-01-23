@@ -20,21 +20,23 @@
 #pragma once
 #endif
 
-#ifndef CLANG
-#include <stdio.h>
-#include <string.h>
-#endif
-
-#ifdef _WIN32
-	#pragma warning(push) 
-	#pragma warning(disable: 4996) 
+#ifdef _S4N_
+	#define strncpy(...)
+#else
+	#include <stdio.h>
+	#include <string.h>
 #endif
 
 struct MatchMakingKeyValuePair_t
 {
 	MatchMakingKeyValuePair_t() { m_szKey[0] = m_szValue[0] = 0; }
 	
-#ifndef CLANG
+
+	#ifdef _MSC_VER
+		#pragma warning(push) 
+		#pragma warning(disable: 4996) 
+	#endif
+
 	MatchMakingKeyValuePair_t( const char *pchKey, const char *pchValue )
 	{
 		strncpy( m_szKey, pchKey, sizeof(m_szKey) ); // this is a public header, use basic c library string funcs only!
@@ -42,14 +44,15 @@ struct MatchMakingKeyValuePair_t
 		strncpy( m_szValue, pchValue, sizeof(m_szValue) );
 		m_szValue[ sizeof( m_szValue ) - 1 ] = '\0';
 	}
-#endif
+
+	#ifdef _MSC_VER
+		#pragma warning(pop) 
+	#endif
 
 	char m_szKey[ 256 ];
 	char m_szValue[ 256 ];
 };
 
-#ifdef _WIN32
-	#pragma warning(pop) 
-#endif
+
 
 #endif // MATCHMAKINGKEYVALUEPAIR_H

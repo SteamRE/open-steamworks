@@ -91,7 +91,7 @@ public:
 	// should only be called after a LobbyMatchList_t callback is received
 	// iLobby is of the range [0, LobbyMatchList_t::m_nLobbiesMatching)
 	// the returned CSteamID::IsValid() will be false if iLobby is out of range
-	virtual CSteamID GetLobbyByIndex( int iLobby ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetLobbyByIndex, int, iLobby) /*virtual CSteamID GetLobbyByIndex( int iLobby ) = 0;*/
 
 	// Create a lobby - you'll get the SteamID of it on success
 	virtual void CreateLobby( bool bPrivate ) = 0;
@@ -115,7 +115,7 @@ public:
 	virtual int GetNumLobbyMembers( CSteamID steamIDLobby ) = 0;
 	// returns the CSteamID of a user in the lobby
 	// iMember is of range [0,GetNumLobbyMembers())
-	virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetLobbyMemberByIndex, CSteamID, steamIDLobby, int, iMember) /*virtual CSteamID GetLobbyMemberByIndex( CSteamID steamIDLobby, int iMember ) = 0;*/
 
 	// Get data associated with this lobby
 	// takes a simple key, and returns the string associated with it

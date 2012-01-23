@@ -16,23 +16,30 @@
 
 #pragma once
 
-class DynamicLibrary {
+class DynamicLibrary
+{
 public:
-	DynamicLibrary(std::string path) {
-		m_handle = LoadLibraryA( path.c_str() );
+	DynamicLibrary(const char* cszPath)
+	{
+		m_handle = LoadLibraryA(cszPath);
 	}
 	
-	~DynamicLibrary() {
+	~DynamicLibrary()
+	{
 		if(m_handle)
-			FreeLibrary( m_handle );
+			FreeLibrary(m_handle);
 	}
 	
-	void * GetSymbol(std::string name) {
-		if(!m_handle) return NULL;
-		return (void *)GetProcAddress( m_handle, name.c_str() );
+	void * GetSymbol(const char* cszSymbol) const
+	{
+		if(!m_handle)
+			return NULL;
+
+		return (void *)GetProcAddress(m_handle, cszSymbol);
 	}
 	
-	bool IsLoaded() const {
+	bool IsLoaded() const
+	{
 		return m_handle != NULL;
 	}
 	

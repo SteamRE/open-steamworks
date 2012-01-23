@@ -63,7 +63,7 @@ public:
 
 	// friend iteration
 	virtual int GetFriendCount() = 0;
-	virtual CSteamID GetFriendByIndex( int iFriend ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetFriendByIndex, int, iFriend) /*virtual CSteamID GetFriendByIndex( int iFriend ) = 0;*/
 
 	// generic friend->friend message sending
 	// DEPRECATED, use the sized-buffer version instead (has much higher max buffer size)

@@ -171,7 +171,6 @@ public:
 		return m_gameID.m_nAppID;
 	}
 
-#ifndef CLANG
 	bool operator == ( const CGameID &rhs ) const
 	{
 		return m_ulGameID == rhs.m_ulGameID;
@@ -186,7 +185,6 @@ public:
 	{
 		return ( m_ulGameID < rhs.m_ulGameID );
 	}
-#endif
 
 	bool IsValid() const
 	{

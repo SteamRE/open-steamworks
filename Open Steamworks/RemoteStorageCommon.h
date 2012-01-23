@@ -93,10 +93,32 @@ enum EResolveConflict
 };
 
 
-struct RemoteStorageUpdatePublishedFileRequest_t;
-enum ERemoteStoragePublishedFileVisibility{};
-enum ERemoteStoragePublishedFileSortOrder{};
-struct SteamParamStringArray_t;
+enum ERemoteStoragePublishedFileVisibility
+{
+	// TODO: Reverse this enum
+};
+
+enum ERemoteStoragePublishedFileSortOrder
+{
+	// TODO: Reverse this enum
+};
+
+struct SteamParamStringArray_t
+{
+	// TODO: Reverse this struct
+#ifdef _S4N_
+	int iPadding;
+#endif
+};
+
+struct RemoteStorageUpdatePublishedFileRequest_t
+{
+	// TODO: Reverse this struct
+#ifdef _S4N_
+	int iPadding;
+#endif
+};
+
 
 #pragma pack( push, 8 )
 
@@ -194,7 +216,7 @@ struct Deprecated_RemoteStorageDownloadUGCResult_t
 
 
 // TODO : Add callbacks 1309 to 1316
-
+//RemoteStorageEnumerateUserPublishedFilesResult_t
 
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to UGCDownload()

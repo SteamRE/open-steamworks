@@ -21,11 +21,23 @@
 #pragma once
 #endif
 
+
+#if defined(__GNUC__) && defined(_WIN32)
+	// This ugly hack allows us to provide GCC compatibility on windows without much effort
+	#pragma push_macro("virtual")
+	#undef virtual
+	#define virtual virtual __thiscall
+#endif
+
 // steam.dll interfaces
 #include "ISteam003.h"
 #include "ISteam004.h"
 #include "ISteam005.h"
 #include "ISteam006.h"
+
+#if defined(__GNUC__) && defined(_WIN32)
+	#pragma pop_macro("virtual")
+#endif
 
 
 // steam.dll exports

@@ -28,6 +28,11 @@ namespace Steam4NET
             this.steamid = new InteropHelp.BitVector64( id );
         }
 
+        public CSteamID(SteamID_t sid)
+            : this(sid.m_unAccountID, sid.m_unAccountInstance & 0xFFFFF, sid.m_EUniverse, (EAccountType)(((int)sid.m_EAccountType & 0xF0) >> 4))
+        {
+        }
+
         public static implicit operator UInt64( CSteamID sid )
         {
             return sid.steamid.Data;
@@ -36,6 +41,11 @@ namespace Steam4NET
         public static implicit operator CSteamID( UInt64 id )
         {
             return new CSteamID( id );
+        }
+
+        public static implicit operator CSteamID(SteamID_t sid)
+        {
+            return new CSteamID(sid);
         }
 
         public void Set( UInt32 unAccountID, EUniverse eUniverse, EAccountType eAccountType )

@@ -48,7 +48,7 @@ public:
 	// iFriend is a index of range [0, GetFriendCount())
 	// iFriendsFlags must be the same value as used in GetFriendCount()
 	// the returned CSteamID can then be used by all the functions below to access details about the user
-	virtual CSteamID GetFriendByIndex( int iFriend, EFriendFlags eFriendFlags ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetFriendByIndex, int, iFriend, EFriendFlags, eFriendFlags) /*virtual CSteamID GetFriendByIndex( int iFriend, EFriendFlags eFriendFlags ) = 0;*/
 
 
 	// returns a relationship to a user
@@ -78,14 +78,14 @@ public:
 
 	// clan (group) iteration and access functions
 	virtual int GetClanCount() = 0;
-	virtual CSteamID GetClanByIndex( int iClan ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(CSteamID, GetClanByIndex, int, iClan) /*virtual CSteamID GetClanByIndex( int iClan ) = 0;*/
 	virtual const char *GetClanName( CSteamID steamIDClan ) = 0;
 
 	// iterators for getting users in a chat room, lobby, game server or clan
 	// note that large clans that cannot be iterated by the local user
 	// steamIDSource can be the steamID of a group, game server, lobby or chat room
 	virtual int GetFriendCountFromSource( CSteamID steamIDSource ) = 0;
-	virtual CSteamID GetFriendFromSourceByIndex( CSteamID steamIDSource, int iFriend ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetFriendFromSourceByIndex, CSteamID, steamIDSource, int, iFriend) /*virtual CSteamID GetFriendFromSourceByIndex( CSteamID steamIDSource, int iFriend ) = 0;*/
 
 	// returns true if the local user can see that steamIDUser is a member or in steamIDSource
 	virtual bool IsUserInSource( CSteamID steamIDUser, CSteamID steamIDSource ) = 0;

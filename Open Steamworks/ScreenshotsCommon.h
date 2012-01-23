@@ -114,9 +114,9 @@ struct ScreenshotDeleted_t
 {
 	enum { k_iCallback = k_iClientScreenshotsCallbacks + 5 };
 
-	enum EResult m_eResult;
+	EResult m_eResult;
 	ScreenshotHandle m_hLocal;
-	class CGameID m_gameID;
+	CGameID m_gameID;
 };
 
 struct ScreenshotTriggered_t
