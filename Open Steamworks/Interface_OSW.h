@@ -115,46 +115,52 @@ private:
 #ifdef _WIN32
 		HKEY hRegKey;
 
+		bool bFallback = true;
 		if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "Software\\Valve\\Steam", 0, KEY_QUERY_VALUE, &hRegKey) == ERROR_SUCCESS)
 		{
 			DWORD dwLength = sizeof(m_szSteamPath) - 1;
 			if(RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)m_szSteamPath, &dwLength) == ERROR_SUCCESS)
 			{
 				m_szSteamPath[dwLength] = '\0';
-				return;
+				bFallback = false;
 			}
 			RegCloseKey(hRegKey);
 		}
 
-		strcpy(m_szSteamPath, ".");
+		if(bFallback)
+		{
+			strcpy(m_szSteamPath, ".");
+		}
 #elif defined(__APPLE_CC__)
 		CFURLRef url;
 		OSStatus err = LSFindApplicationForInfo(kLSUnknownCreator, CFSTR("com.valvesoftware.steam"), NULL, NULL, &url);
 		
+		bool bFallback = true;
+
 		if(err == noErr)
 		{
 			if(CFURLGetFileSystemRepresentation(url, true, (UInt8*)m_szSteamPath, sizeof(m_szSteamPath)))
 			{
 				strncat(m_szSteamPath, "/Contents/MacOS/osx32/", sizeof(m_szSteamPath));
-			}
-			else
-			{
-				strcpy(m_szSteamPath, ".");
+				bFallback = false;
 			}
 		}
 		CFRelease(url);
+
+		if(bFallback)
+		{
+			strcpy(m_szSteamPath, ".");
+		}
 #elif defined(__linux__)
 		// We don't know where to find Steam on this platform, so we're going
 		// to say it lives in the same directory as our executable
-		if( readlink("/proc/self/exe", m_szSteamPath, sizeof(m_szSteamPath)) != -1)
+		if(readlink("/proc/self/exe", m_szSteamPath, sizeof(m_szSteamPath)) != -1)
 		{
-			printf("m_szSteamPath %s\n", m_szSteamPath);
 			char *pchSlash = strrchr(m_szSteamPath, '/');
 
 			if(pchSlash)
 			{
 				*pchSlash = '\0';
-				printf("m_szSteamPath %s\n", m_szSteamPath);
 				return;
 			}
 		}
