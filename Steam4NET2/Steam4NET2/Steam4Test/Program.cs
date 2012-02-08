@@ -158,6 +158,12 @@ namespace Steam4Test
                 Console.WriteLine("clientuser is null !");
                 return -1;
             }
+            IClientFriends clientfriends = clientengine.GetIClientFriends<IClientFriends>(user, pipe);
+            if (clientfriends == null)
+            {
+                Console.WriteLine("clientfriends is null !");
+                return -1;
+            }
 
             Console.Write("RequestCurrentStats: ");
             if (userstats002.RequestCurrentStats(steamutils.GetAppID()))
@@ -287,6 +293,11 @@ namespace Steam4Test
             }
 
             Console.WriteLine("Current user SteamID: " + steamuser.GetSteamID());
+
+            SessionStateInfo_t sessionStateInfo = clientfriends.GetFriendSessionStateInfo(clientuser.GetSteamID());
+
+            Console.WriteLine("OnlineSessionInstances: " + sessionStateInfo.m_uOnlineSessionInstances);
+            Console.WriteLine("m_uPublishedInstanceId: " + sessionStateInfo.m_uPublishedInstanceId);
 
             return 0;
         }

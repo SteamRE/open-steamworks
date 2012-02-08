@@ -17,7 +17,7 @@ namespace Steam4Intermediate.Nodes
 
         public override void EmitCode(Generator generator, int depth, int ident)
         {
-            bool genericwrapper = false, returnbystack = false, returnbystack_typed = false;
+            bool genericwrapper = false, returnbystack = false, returnbystack_special = false;
             int sidarg_count = 0;
             List<int> maskedparams = new List<int>();
 
@@ -49,8 +49,10 @@ namespace Steam4Intermediate.Nodes
             else if ( returntype is RecordNode )
             {
                 returnbystack = true;
-                returnbystack_typed = true;
-                returns = "void";
+                if (returntype.GetName() == "CSteamID" || returntype.GetName() == "CGameID")
+                {
+                    returnbystack_special = true;
+                }
             }
 
             returns = generator.ResolveType( returns, constness, pointer, true, false );
@@ -77,8 +79,13 @@ namespace Steam4Intermediate.Nodes
 
             arg_native.Add( "IntPtr thisptr" );
 
-            if ( returnbystack )
-                arg_native.Add( "ref UInt64 retarg" );
+            if (returnbystack)
+            {
+                if (returnbystack_special)
+                    arg_native.Add("ref UInt64 retarg");
+                else
+                    arg_native.Add("ref " + returns + " retarg");
+            }
 
             bool prevarg_sb = false;
 
@@ -143,16 +150,7 @@ namespace Steam4Intermediate.Nodes
                 arg_native.Add( argtypes + " " + argname );
             }
 
-
-
-
-            generator.EmitLine( String.Format( "[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate {0} Native{1}{2}( {3} );", returns, GetName(), GetArgIdent(arg_native_pure), String.Join( ", ", arg_native.ToArray() ) ), depth );
-
-
-            if ( returnbystack && returnbystack_typed )
-            {
-                returns = returns_base;
-            }
+            generator.EmitLine( String.Format( "[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate {0} Native{1}{2}( {3} );", returnbystack ? "void" : returns, GetName(), GetArgIdent(arg_native_pure), String.Join( ", ", arg_native.ToArray() ) ), depth );
 
             string methodname = GetName();
             string extra = "";
@@ -182,7 +180,10 @@ namespace Steam4Intermediate.Nodes
 
             if ( returnbystack )
             {
-                method.Append( "UInt64 ret = 0; " );
+                if(returnbystack_special)
+                    method.Append("UInt64 ret = 0; ");
+                else
+                    method.Append(returns + " ret = new " + returns + "();");
             }
             else if ( returns != "void" )
             {
@@ -295,7 +296,7 @@ namespace Steam4Intermediate.Nodes
 
             if (returnbystack)
             {
-                if (returnbystack_typed)
+                if (returnbystack_special)
                 {
                     method.Append("return new " + returns + "(ret);");
                 }
