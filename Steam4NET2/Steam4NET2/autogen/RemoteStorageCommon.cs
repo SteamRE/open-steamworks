@@ -69,6 +69,10 @@ namespace Steam4NET
 	{
 	};
 	
+	public enum EWorkshopFileType : int
+	{
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct SteamParamStringArray_t
 	{

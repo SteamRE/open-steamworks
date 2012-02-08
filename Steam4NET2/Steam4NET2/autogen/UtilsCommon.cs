@@ -33,6 +33,44 @@ namespace Steam4NET
 		k_ECheckFileSignatureNoSignaturesFoundForThisFile = 4,
 	};
 	
+	public enum ESpewGroup : int
+	{
+		k_ESpewGroupConsole = 0,
+		k_ESpewGroupPublish = 1,
+		k_ESpewGroupBootstrap = 2,
+		k_ESpewGroupStartup = 3,
+		k_ESpewGroupService = 4,
+		k_ESpewGroupFileop = 5,
+		k_ESpewGroupSystem = 6,
+		k_ESpewGroupSmtp = 7,
+		k_ESpewGroupAccount = 8,
+		k_ESpewGroupJob = 9,
+		k_ESpewGroupCrypto = 10,
+		k_ESpewGroupNetwork = 11,
+		k_ESpewGroupVac = 12,
+		k_ESpewGroupClient = 13,
+		k_ESpewGroupContent = 14,
+		k_ESpewGroupCloud = 15,
+		k_ESpewGroupLogon = 16,
+		k_ESpewGroupClping = 17,
+		k_ESpewGroupThreads = 18,
+		k_ESpewGroupBsnova = 19,
+		k_ESpewGroupTest = 20,
+		k_ESpewGroupFiletx = 21,
+		k_ESpewGroupStats = 22,
+		k_ESpewGroupSrvping = 23,
+		k_ESpewGroupFriends = 24,
+		k_ESpewGroupChat = 25,
+		k_ESpewGroupGuestpass = 26,
+		k_ESpewGroupLicense = 27,
+		k_ESpewGroupP2p = 28,
+		k_ESpewGroupDatacoll = 29,
+		k_ESpewGroupDrm = 30,
+		k_ESpewGroupSvcm = 31,
+		k_ESpewGroupHttpclient = 32,
+		k_ESpewGroupHttpserver = 33,
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(701)]
 	public struct IPCountry_t

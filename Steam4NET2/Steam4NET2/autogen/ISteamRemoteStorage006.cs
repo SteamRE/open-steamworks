@@ -32,16 +32,22 @@ namespace Steam4NET
 		public IntPtr UGCRead20;
 		public IntPtr GetCachedUGCCount21;
 		public IntPtr GetCachedUGCHandle22;
-		public IntPtr PublishFile23;
-		public IntPtr PublishWorkshopFile24;
-		public IntPtr UpdatePublishedFile25;
-		public IntPtr GetPublishedFileDetails26;
-		public IntPtr DeletePublishedFile27;
-		public IntPtr EnumerateUserPublishedFiles28;
-		public IntPtr SubscribePublishedFile29;
-		public IntPtr EnumerateUserSubscribedFiles30;
-		public IntPtr UnsubscribePublishedFile31;
-		private IntPtr DTorISteamRemoteStorage00632;
+		public IntPtr PublishWorkshopFile23;
+		public IntPtr CreatePublishedFileUpdateRequest24;
+		public IntPtr UpdatePublishedFileFile25;
+		public IntPtr UpdatePublishedFilePreviewFile26;
+		public IntPtr UpdatePublishedFileTitle27;
+		public IntPtr UpdatePublishedFileDescription28;
+		public IntPtr UpdatePublishedFileVisibility29;
+		public IntPtr UpdatePublishedFileTags30;
+		public IntPtr CommitPublishedFileUpdate31;
+		public IntPtr GetPublishedFileDetails32;
+		public IntPtr DeletePublishedFile33;
+		public IntPtr EnumerateUserPublishedFiles34;
+		public IntPtr SubscribePublishedFile35;
+		public IntPtr EnumerateUserSubscribedFiles36;
+		public IntPtr UnsubscribePublishedFile37;
+		private IntPtr DTorISteamRemoteStorage00638;
 	};
 	
 	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION006")]
@@ -196,58 +202,100 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetCachedUGCHandleI>( this.Functions.GetCachedUGCHandle22 )( this.ObjectAddress, iCachedContent ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativePublishFileSSUSSES( IntPtr thisptr, string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, ref SteamParamStringArray_t pTags );
-		public UInt64 PublishFile( string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, ref SteamParamStringArray_t pTags ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativePublishWorkshopFileSSUSSESE( IntPtr thisptr, string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, ref SteamParamStringArray_t pTags, EWorkshopFileType eWorkshopFileType );
+		public UInt64 PublishWorkshopFile( string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, ref SteamParamStringArray_t pTags, EWorkshopFileType eWorkshopFileType ) 
 		{
-			return this.GetFunction<NativePublishFileSSUSSES>( this.Functions.PublishFile23 )( this.ObjectAddress, cszFileName, cszPreviewFileName, nConsumerAppId, cszTitle, cszDescription, eRemoteStoragePublishedFileVisibility, ref pTags ); 
+			return this.GetFunction<NativePublishWorkshopFileSSUSSESE>( this.Functions.PublishWorkshopFile23 )( this.ObjectAddress, cszFileName, cszPreviewFileName, nConsumerAppId, cszTitle, cszDescription, eRemoteStoragePublishedFileVisibility, ref pTags, eWorkshopFileType ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativePublishWorkshopFileSSUSSS( IntPtr thisptr, string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ref SteamParamStringArray_t pTags );
-		public UInt64 PublishWorkshopFile( string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ref SteamParamStringArray_t pTags ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreatePublishedFileUpdateRequestU( IntPtr thisptr, UInt64 hPublishedFile );
+		public UInt64 CreatePublishedFileUpdateRequest( UInt64 hPublishedFile ) 
 		{
-			return this.GetFunction<NativePublishWorkshopFileSSUSSS>( this.Functions.PublishWorkshopFile24 )( this.ObjectAddress, cszFileName, cszPreviewFileName, nConsumerAppId, cszTitle, cszDescription, ref pTags ); 
+			return this.GetFunction<NativeCreatePublishedFileUpdateRequestU>( this.Functions.CreatePublishedFileUpdateRequest24 )( this.ObjectAddress, hPublishedFile ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUpdatePublishedFileR( IntPtr thisptr, RemoteStorageUpdatePublishedFileRequest_t remoteStorageUpdatePublishedFileRequest );
-		public UInt64 UpdatePublishedFile( RemoteStorageUpdatePublishedFileRequest_t remoteStorageUpdatePublishedFileRequest ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileFileUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszFile );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool UpdatePublishedFileFile( UInt64 hUpdateRequest, string cszFile ) 
 		{
-			return this.GetFunction<NativeUpdatePublishedFileR>( this.Functions.UpdatePublishedFile25 )( this.ObjectAddress, remoteStorageUpdatePublishedFileRequest ); 
+			return this.GetFunction<NativeUpdatePublishedFileFileUS>( this.Functions.UpdatePublishedFileFile25 )( this.ObjectAddress, hUpdateRequest, cszFile ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetPublishedFileDetailsU( IntPtr thisptr, UInt64 ullPublishedFile );
-		public UInt64 GetPublishedFileDetails( UInt64 ullPublishedFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFilePreviewFileUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszPreviewFile );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool UpdatePublishedFilePreviewFile( UInt64 hUpdateRequest, string cszPreviewFile ) 
 		{
-			return this.GetFunction<NativeGetPublishedFileDetailsU>( this.Functions.GetPublishedFileDetails26 )( this.ObjectAddress, ullPublishedFile ); 
+			return this.GetFunction<NativeUpdatePublishedFilePreviewFileUS>( this.Functions.UpdatePublishedFilePreviewFile26 )( this.ObjectAddress, hUpdateRequest, cszPreviewFile ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeletePublishedFileU( IntPtr thisptr, UInt64 ullPublishedFile );
-		public UInt64 DeletePublishedFile( UInt64 ullPublishedFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileTitleUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszTitle );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool UpdatePublishedFileTitle( UInt64 hUpdateRequest, string cszTitle ) 
 		{
-			return this.GetFunction<NativeDeletePublishedFileU>( this.Functions.DeletePublishedFile27 )( this.ObjectAddress, ullPublishedFile ); 
+			return this.GetFunction<NativeUpdatePublishedFileTitleUS>( this.Functions.UpdatePublishedFileTitle27 )( this.ObjectAddress, hUpdateRequest, cszTitle ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileDescriptionUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszDescription );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool UpdatePublishedFileDescription( UInt64 hUpdateRequest, string cszDescription ) 
+		{
+			return this.GetFunction<NativeUpdatePublishedFileDescriptionUS>( this.Functions.UpdatePublishedFileDescription28 )( this.ObjectAddress, hUpdateRequest, cszDescription ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileVisibilityUE( IntPtr thisptr, UInt64 hUpdateRequest, ERemoteStoragePublishedFileVisibility eVisibility );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool UpdatePublishedFileVisibility( UInt64 hUpdateRequest, ERemoteStoragePublishedFileVisibility eVisibility ) 
+		{
+			return this.GetFunction<NativeUpdatePublishedFileVisibilityUE>( this.Functions.UpdatePublishedFileVisibility29 )( this.ObjectAddress, hUpdateRequest, eVisibility ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileTagsUS( IntPtr thisptr, UInt64 hUpdateRequest, ref SteamParamStringArray_t pTags );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool UpdatePublishedFileTags( UInt64 hUpdateRequest, ref SteamParamStringArray_t pTags ) 
+		{
+			return this.GetFunction<NativeUpdatePublishedFileTagsUS>( this.Functions.UpdatePublishedFileTags30 )( this.ObjectAddress, hUpdateRequest, ref pTags ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCommitPublishedFileUpdateU( IntPtr thisptr, UInt64 hUpdateRequest );
+		public UInt64 CommitPublishedFileUpdate( UInt64 hUpdateRequest ) 
+		{
+			return this.GetFunction<NativeCommitPublishedFileUpdateU>( this.Functions.CommitPublishedFileUpdate31 )( this.ObjectAddress, hUpdateRequest ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetPublishedFileDetailsU( IntPtr thisptr, UInt64 hPublishedFile );
+		public UInt64 GetPublishedFileDetails( UInt64 hPublishedFile ) 
+		{
+			return this.GetFunction<NativeGetPublishedFileDetailsU>( this.Functions.GetPublishedFileDetails32 )( this.ObjectAddress, hPublishedFile ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeletePublishedFileU( IntPtr thisptr, UInt64 hPublishedFile );
+		public UInt64 DeletePublishedFile( UInt64 hPublishedFile ) 
+		{
+			return this.GetFunction<NativeDeletePublishedFileU>( this.Functions.DeletePublishedFile33 )( this.ObjectAddress, hPublishedFile ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateUserPublishedFilesU( IntPtr thisptr, UInt32 uStartIndex );
 		public UInt64 EnumerateUserPublishedFiles( UInt32 uStartIndex ) 
 		{
-			return this.GetFunction<NativeEnumerateUserPublishedFilesU>( this.Functions.EnumerateUserPublishedFiles28 )( this.ObjectAddress, uStartIndex ); 
+			return this.GetFunction<NativeEnumerateUserPublishedFilesU>( this.Functions.EnumerateUserPublishedFiles34 )( this.ObjectAddress, uStartIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSubscribePublishedFileU( IntPtr thisptr, UInt64 ullPublishedFile );
-		public UInt64 SubscribePublishedFile( UInt64 ullPublishedFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSubscribePublishedFileU( IntPtr thisptr, UInt64 hPublishedFile );
+		public UInt64 SubscribePublishedFile( UInt64 hPublishedFile ) 
 		{
-			return this.GetFunction<NativeSubscribePublishedFileU>( this.Functions.SubscribePublishedFile29 )( this.ObjectAddress, ullPublishedFile ); 
+			return this.GetFunction<NativeSubscribePublishedFileU>( this.Functions.SubscribePublishedFile35 )( this.ObjectAddress, hPublishedFile ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateUserSubscribedFilesU( IntPtr thisptr, UInt32 uStartIndex );
 		public UInt64 EnumerateUserSubscribedFiles( UInt32 uStartIndex ) 
 		{
-			return this.GetFunction<NativeEnumerateUserSubscribedFilesU>( this.Functions.EnumerateUserSubscribedFiles30 )( this.ObjectAddress, uStartIndex ); 
+			return this.GetFunction<NativeEnumerateUserSubscribedFilesU>( this.Functions.EnumerateUserSubscribedFiles36 )( this.ObjectAddress, uStartIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUnsubscribePublishedFileU( IntPtr thisptr, UInt64 ullPublishedFile );
-		public UInt64 UnsubscribePublishedFile( UInt64 ullPublishedFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUnsubscribePublishedFileU( IntPtr thisptr, UInt64 hPublishedFile );
+		public UInt64 UnsubscribePublishedFile( UInt64 hPublishedFile ) 
 		{
-			return this.GetFunction<NativeUnsubscribePublishedFileU>( this.Functions.UnsubscribePublishedFile31 )( this.ObjectAddress, ullPublishedFile ); 
+			return this.GetFunction<NativeUnsubscribePublishedFileU>( this.Functions.UnsubscribePublishedFile37 )( this.ObjectAddress, hPublishedFile ); 
 		}
 		
 	};

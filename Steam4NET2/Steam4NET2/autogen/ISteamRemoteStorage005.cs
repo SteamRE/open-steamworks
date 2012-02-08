@@ -206,16 +206,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeUpdatePublishedFileR>( this.Functions.UpdatePublishedFile24 )( this.ObjectAddress, remoteStorageUpdatePublishedFileRequest ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetPublishedFileDetailsU( IntPtr thisptr, UInt64 ullPublishedFile );
-		public UInt64 GetPublishedFileDetails( UInt64 ullPublishedFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetPublishedFileDetailsU( IntPtr thisptr, UInt64 hPublishedFile );
+		public UInt64 GetPublishedFileDetails( UInt64 hPublishedFile ) 
 		{
-			return this.GetFunction<NativeGetPublishedFileDetailsU>( this.Functions.GetPublishedFileDetails25 )( this.ObjectAddress, ullPublishedFile ); 
+			return this.GetFunction<NativeGetPublishedFileDetailsU>( this.Functions.GetPublishedFileDetails25 )( this.ObjectAddress, hPublishedFile ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeletePublishedFileU( IntPtr thisptr, UInt64 ullPublishedFile );
-		public UInt64 DeletePublishedFile( UInt64 ullPublishedFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeletePublishedFileU( IntPtr thisptr, UInt64 hPublishedFile );
+		public UInt64 DeletePublishedFile( UInt64 hPublishedFile ) 
 		{
-			return this.GetFunction<NativeDeletePublishedFileU>( this.Functions.DeletePublishedFile26 )( this.ObjectAddress, ullPublishedFile ); 
+			return this.GetFunction<NativeDeletePublishedFileU>( this.Functions.DeletePublishedFile26 )( this.ObjectAddress, hPublishedFile ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateUserPublishedFilesU( IntPtr thisptr, UInt32 uStartIndex );
@@ -224,10 +224,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeEnumerateUserPublishedFilesU>( this.Functions.EnumerateUserPublishedFiles27 )( this.ObjectAddress, uStartIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSubscribePublishedFileU( IntPtr thisptr, UInt64 ullPublishedFile );
-		public UInt64 SubscribePublishedFile( UInt64 ullPublishedFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSubscribePublishedFileU( IntPtr thisptr, UInt64 hPublishedFile );
+		public UInt64 SubscribePublishedFile( UInt64 hPublishedFile ) 
 		{
-			return this.GetFunction<NativeSubscribePublishedFileU>( this.Functions.SubscribePublishedFile28 )( this.ObjectAddress, ullPublishedFile ); 
+			return this.GetFunction<NativeSubscribePublishedFileU>( this.Functions.SubscribePublishedFile28 )( this.ObjectAddress, hPublishedFile ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateUserSubscribedFilesU( IntPtr thisptr, UInt32 uStartIndex );
@@ -236,10 +236,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeEnumerateUserSubscribedFilesU>( this.Functions.EnumerateUserSubscribedFiles29 )( this.ObjectAddress, uStartIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUnsubscribePublishedFileU( IntPtr thisptr, UInt64 ullPublishedFile );
-		public UInt64 UnsubscribePublishedFile( UInt64 ullPublishedFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUnsubscribePublishedFileU( IntPtr thisptr, UInt64 hPublishedFile );
+		public UInt64 UnsubscribePublishedFile( UInt64 hPublishedFile ) 
 		{
-			return this.GetFunction<NativeUnsubscribePublishedFileU>( this.Functions.UnsubscribePublishedFile30 )( this.ObjectAddress, ullPublishedFile ); 
+			return this.GetFunction<NativeUnsubscribePublishedFileU>( this.Functions.UnsubscribePublishedFile30 )( this.ObjectAddress, hPublishedFile ); 
 		}
 		
 	};

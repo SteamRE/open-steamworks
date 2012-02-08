@@ -66,122 +66,123 @@ namespace Steam4NET
 		public IntPtr SetAccountNameForCachedCredentialLogin48;
 		public IntPtr SetLoginInformation49;
 		public IntPtr SetAccountCreationTime50;
-		public IntPtr DoesTextContainUserPassword51;
-		public IntPtr obselete_GetCMIPAddress52;
-		public IntPtr obselete_GetP2PRelayIPAddress53;
-		public IntPtr RequestWebAuthToken54;
-		public IntPtr GetLanguage55;
-		public IntPtr SetCyberCafe56;
-		public IntPtr CreateAccount57;
-		public IntPtr ResetPassword58;
-		public IntPtr TrackNatTraversalStat59;
-		public IntPtr RefreshSteam2Login60;
-		public IntPtr RefreshSteam2LoginWithSecureOption61;
-		public IntPtr Steam2IsSecureComputer62;
-		public IntPtr GetPackageIDForGuestPassToRedeemByGID63;
-		public IntPtr TrackSteamUsageEvent64;
-		public IntPtr TrackSteamGUIUsage65;
-		public IntPtr SetComputerInUse66;
-		public IntPtr BIsGameRunning67;
-		public IntPtr GetCurrentSessionToken68;
-		public IntPtr BUpdateAppOwnershipTicket69;
-		public IntPtr RequestCustomBinary70;
-		public IntPtr GetCustomBinariesState71;
-		public IntPtr RequestCustomBinaries72;
-		public IntPtr SetCellID73;
-		public IntPtr GetUserBaseFolder74;
-		public IntPtr GetUserDataFolder75;
-		public IntPtr GetUserConfigFolder76;
-		public IntPtr GetAccountName77;
-		public IntPtr RequiresLegacyCDKey78;
-		public IntPtr GetLegacyCDKey79;
-		public IntPtr HasLegacyCDKey80;
-		public IntPtr SetLegacyCDKey81;
-		public IntPtr RemoveLegacyCDKey82;
-		public IntPtr RequestLegacyCDKeyFromApp83;
-		public IntPtr BIsAnyGameRunning84;
-		public IntPtr ChangePassword85;
-		public IntPtr ChangeEmail86;
-		public IntPtr ChangeSecretQuestionAndAnswer87;
-		public IntPtr SetSteam2FullASTicket88;
-		public IntPtr GetSteam2FullASTicket89;
-		public IntPtr GetEmail90;
-		public IntPtr RequestForgottenPasswordEmail91;
-		public IntPtr FindAccountsByEmailAddress92;
-		public IntPtr FindAccountsByCdKey93;
-		public IntPtr GetNumAccountsWithEmailAddress94;
-		public IntPtr IsAccountNameInUse95;
-		public IntPtr Test_FakeConnectionTimeout96;
-		public IntPtr RunInstallScript97;
-		public IntPtr IsInstallScriptRunning98;
-		public IntPtr GetInstallScriptString99;
-		public IntPtr GetInstallScriptState100;
-		public IntPtr SpawnProcess101;
-		public IntPtr GetAppOwnershipTicketLength102;
-		public IntPtr GetAppOwnershipTicketData103;
-		public IntPtr GetAppOwnershipTicketExtendedData104;
-		public IntPtr GetAppDecryptionKey105;
-		public IntPtr GetMarketingMessageCount106;
-		public IntPtr GetMarketingMessage107;
-		public IntPtr GetAuthSessionTicket108;
-		public IntPtr BeginAuthSession109;
-		public IntPtr EndAuthSession110;
-		public IntPtr CancelAuthTicket111;
-		public IntPtr IsUserSubscribedAppInTicket112;
-		public IntPtr AdvertiseGame113;
-		public IntPtr RequestEncryptedAppTicket114;
-		public IntPtr GetEncryptedAppTicket115;
-		public IntPtr SetAccountLimited116;
-		public IntPtr BIsAccountLimited117;
-		public IntPtr SendValidationEmail118;
-		public IntPtr BGameConnectTokensAvailable119;
-		public IntPtr NumGamesRunning120;
-		public IntPtr GetRunningGameID121;
-		public IntPtr GetAccountSecurityPolicyFlags122;
-		public IntPtr RequestChangeEmail123;
-		public IntPtr ChangePasswordWithCode124;
-		public IntPtr ChangeEmailWithCode125;
-		public IntPtr ChangeSecretQuestionAndAnswerWithCode126;
-		public IntPtr SetClientStat127;
-		public IntPtr VerifyPassword128;
-		public IntPtr BSupportUser129;
-		public IntPtr BIsAppOverlayEnabled130;
-		public IntPtr BIsBehindNAT131;
-		public IntPtr GetMicroTxnAppID132;
-		public IntPtr GetMicroTxnOrderID133;
-		public IntPtr BGetMicroTxnPrice134;
-		public IntPtr GetMicroTxnLineItemCount135;
-		public IntPtr BGetMicroTxnLineItem136;
-		public IntPtr BIsSandboxMicroTxn137;
-		public IntPtr AuthorizeMicroTxn138;
-		public IntPtr NotifyAppMicroTxnAuthResponse139;
-		public IntPtr BGetWalletBalance140;
-		public IntPtr RequestMicroTxnInfo141;
-		public IntPtr BGetAppMinutesPlayed142;
-		public IntPtr BGetGuideURL143;
-		public IntPtr GetClientAppListResponse_AddApp144;
-		public IntPtr GetClientAppListResponse_AddDLC145;
-		public IntPtr GetClientAppListResponse_Done146;
-		public IntPtr PostUIResultToClientJob147;
-		public IntPtr BPromptToVerifyEmail148;
-		public IntPtr BPromptToChangePassword149;
-		public IntPtr BAccountLocked150;
-		public IntPtr BAccountShouldShowLockUI151;
-		public IntPtr BAccountLockedByIPT152;
-		public IntPtr GetCountAuthedComputers153;
-		public IntPtr BAccountCanUseIPT154;
-		public IntPtr ChangeTwoFactorAuthOptions155;
-		public IntPtr Set2ndFactorAuthCode156;
-		public IntPtr BAccountHasIPTConfig157;
-		public IntPtr GetEmailDomainFromLogonFailure158;
-		public IntPtr BIsSubscribedApp159;
-		public IntPtr RegisterActivationCode160;
-		public IntPtr OptionalDLCInstallation161;
-		public IntPtr AckSystemIM162;
-		public IntPtr RequestSpecialSurvey163;
-		public IntPtr SendSpecialSurveyResponse164;
-		public IntPtr RequestItemAnnouncements165;
-		private IntPtr DTorIClientUser166;
+		public IntPtr obselete_GetCMIPAddress51;
+		public IntPtr obselete_GetP2PRelayIPAddress52;
+		public IntPtr RequestWebAuthToken53;
+		public IntPtr GetLanguage54;
+		public IntPtr SetCyberCafe55;
+		public IntPtr CreateAccount56;
+		public IntPtr ResetPassword57;
+		public IntPtr TrackNatTraversalStat58;
+		public IntPtr RefreshSteam2Login59;
+		public IntPtr RefreshSteam2LoginWithSecureOption60;
+		public IntPtr Steam2IsSecureComputer61;
+		public IntPtr GetPackageIDForGuestPassToRedeemByGID62;
+		public IntPtr TrackSteamUsageEvent63;
+		public IntPtr TrackSteamGUIUsage64;
+		public IntPtr SetComputerInUse65;
+		public IntPtr BIsGameRunning66;
+		public IntPtr GetCurrentSessionToken67;
+		public IntPtr BUpdateAppOwnershipTicket68;
+		public IntPtr RequestCustomBinary69;
+		public IntPtr GetCustomBinariesState70;
+		public IntPtr RequestCustomBinaries71;
+		public IntPtr SetCellID72;
+		public IntPtr GetUserBaseFolder73;
+		public IntPtr GetUserDataFolder74;
+		public IntPtr GetUserConfigFolder75;
+		public IntPtr GetAccountName76;
+		public IntPtr RequiresLegacyCDKey77;
+		public IntPtr GetLegacyCDKey78;
+		public IntPtr HasLegacyCDKey79;
+		public IntPtr SetLegacyCDKey80;
+		public IntPtr RemoveLegacyCDKey81;
+		public IntPtr RequestLegacyCDKeyFromApp82;
+		public IntPtr BIsAnyGameRunning83;
+		public IntPtr ChangePassword84;
+		public IntPtr ChangeEmail85;
+		public IntPtr ChangeSecretQuestionAndAnswer86;
+		public IntPtr SetSteam2FullASTicket87;
+		public IntPtr GetSteam2FullASTicket88;
+		public IntPtr GetEmail89;
+		public IntPtr RequestForgottenPasswordEmail90;
+		public IntPtr FindAccountsByEmailAddress91;
+		public IntPtr FindAccountsByCdKey92;
+		public IntPtr GetNumAccountsWithEmailAddress93;
+		public IntPtr IsAccountNameInUse94;
+		public IntPtr Test_FakeConnectionTimeout95;
+		public IntPtr RunInstallScript96;
+		public IntPtr IsInstallScriptRunning97;
+		public IntPtr GetInstallScriptString98;
+		public IntPtr GetInstallScriptState99;
+		public IntPtr SpawnProcess100;
+		public IntPtr GetAppOwnershipTicketLength101;
+		public IntPtr GetAppOwnershipTicketData102;
+		public IntPtr GetAppOwnershipTicketExtendedData103;
+		public IntPtr GetAppDecryptionKey104;
+		public IntPtr GetMarketingMessageCount105;
+		public IntPtr GetMarketingMessage106;
+		public IntPtr GetAuthSessionTicket107;
+		public IntPtr BeginAuthSession108;
+		public IntPtr EndAuthSession109;
+		public IntPtr CancelAuthTicket110;
+		public IntPtr IsUserSubscribedAppInTicket111;
+		public IntPtr AdvertiseGame112;
+		public IntPtr RequestEncryptedAppTicket113;
+		public IntPtr GetEncryptedAppTicket114;
+		public IntPtr SetAccountLimited115;
+		public IntPtr BIsAccountLimited116;
+		public IntPtr SetAccountCommunityBanned117;
+		public IntPtr BIsAccountCommunityBanned118;
+		public IntPtr SendValidationEmail119;
+		public IntPtr BGameConnectTokensAvailable120;
+		public IntPtr NumGamesRunning121;
+		public IntPtr GetRunningGameID122;
+		public IntPtr GetAccountSecurityPolicyFlags123;
+		public IntPtr RequestChangeEmail124;
+		public IntPtr ChangePasswordWithCode125;
+		public IntPtr ChangeEmailWithCode126;
+		public IntPtr ChangeSecretQuestionAndAnswerWithCode127;
+		public IntPtr SetClientStat128;
+		public IntPtr VerifyPassword129;
+		public IntPtr BSupportUser130;
+		public IntPtr BIsAppOverlayEnabled131;
+		public IntPtr BIsBehindNAT132;
+		public IntPtr GetMicroTxnAppID133;
+		public IntPtr GetMicroTxnOrderID134;
+		public IntPtr BGetMicroTxnPrice135;
+		public IntPtr GetMicroTxnLineItemCount136;
+		public IntPtr BGetMicroTxnLineItem137;
+		public IntPtr BIsSandboxMicroTxn138;
+		public IntPtr AuthorizeMicroTxn139;
+		public IntPtr NotifyAppMicroTxnAuthResponse140;
+		public IntPtr BGetWalletBalance141;
+		public IntPtr RequestMicroTxnInfo142;
+		public IntPtr BGetAppMinutesPlayed143;
+		public IntPtr BGetGuideURL144;
+		public IntPtr GetClientAppListResponse_AddApp145;
+		public IntPtr GetClientAppListResponse_AddDLC146;
+		public IntPtr GetClientAppListResponse_Done147;
+		public IntPtr PostUIResultToClientJob148;
+		public IntPtr BPromptToVerifyEmail149;
+		public IntPtr BPromptToChangePassword150;
+		public IntPtr BAccountLocked151;
+		public IntPtr BAccountShouldShowLockUI152;
+		public IntPtr BAccountLockedByIPT153;
+		public IntPtr GetCountAuthedComputers154;
+		public IntPtr BAccountCanUseIPT155;
+		public IntPtr ChangeTwoFactorAuthOptions156;
+		public IntPtr Set2ndFactorAuthCode157;
+		public IntPtr BAccountHasIPTConfig158;
+		public IntPtr GetEmailDomainFromLogonFailure159;
+		public IntPtr BIsSubscribedApp160;
+		public IntPtr RegisterActivationCode161;
+		public IntPtr OptionalDLCInstallation162;
+		public IntPtr AckSystemIM163;
+		public IntPtr RequestSpecialSurvey164;
+		public IntPtr SendSpecialSurveyResponse165;
+		public IntPtr RequestItemAnnouncements166;
+		private IntPtr DTorIClientUser167;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTUSER_INTERFACE_VERSION001")]
@@ -519,737 +520,743 @@ namespace Steam4NET
 			this.GetFunction<NativeSetAccountCreationTimeU>( this.Functions.SetAccountCreationTime50 )( this.ObjectAddress, rtime32Time ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeDoesTextContainUserPasswordS( IntPtr thisptr, string pchText );
-		[return: MarshalAs(UnmanagedType.I1)]
-		public bool DoesTextContainUserPassword( string pchText ) 
-		{
-			return this.GetFunction<NativeDoesTextContainUserPasswordS>( this.Functions.DoesTextContainUserPassword51 )( this.ObjectAddress, pchText ); 
-		}
-		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 Nativeobselete_GetCMIPAddress( IntPtr thisptr );
 		public UInt32 obselete_GetCMIPAddress(  ) 
 		{
-			return this.GetFunction<Nativeobselete_GetCMIPAddress>( this.Functions.obselete_GetCMIPAddress52 )( this.ObjectAddress ); 
+			return this.GetFunction<Nativeobselete_GetCMIPAddress>( this.Functions.obselete_GetCMIPAddress51 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 Nativeobselete_GetP2PRelayIPAddress( IntPtr thisptr );
 		public UInt32 obselete_GetP2PRelayIPAddress(  ) 
 		{
-			return this.GetFunction<Nativeobselete_GetP2PRelayIPAddress>( this.Functions.obselete_GetP2PRelayIPAddress53 )( this.ObjectAddress ); 
+			return this.GetFunction<Nativeobselete_GetP2PRelayIPAddress>( this.Functions.obselete_GetP2PRelayIPAddress52 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestWebAuthToken( IntPtr thisptr );
 		public UInt64 RequestWebAuthToken(  ) 
 		{
-			return this.GetFunction<NativeRequestWebAuthToken>( this.Functions.RequestWebAuthToken54 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeRequestWebAuthToken>( this.Functions.RequestWebAuthToken53 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLanguageSI( IntPtr thisptr, StringBuilder pchLanguage, Int32 cbLanguage );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetLanguage( StringBuilder pchLanguage ) 
 		{
-			return this.GetFunction<NativeGetLanguageSI>( this.Functions.GetLanguage55 )( this.ObjectAddress, pchLanguage, (Int32) pchLanguage.Capacity ); 
+			return this.GetFunction<NativeGetLanguageSI>( this.Functions.GetLanguage54 )( this.ObjectAddress, pchLanguage, (Int32) pchLanguage.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetCyberCafeB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bCyberCafe );
 		public void SetCyberCafe( bool bCyberCafe ) 
 		{
-			this.GetFunction<NativeSetCyberCafeB>( this.Functions.SetCyberCafe56 )( this.ObjectAddress, bCyberCafe ); 
+			this.GetFunction<NativeSetCyberCafeB>( this.Functions.SetCyberCafe55 )( this.ObjectAddress, bCyberCafe ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCreateAccountSSSISS( IntPtr thisptr, string pchAccountName, string pchNewPassword, string pchNewEmail, Int32 iQuestion, string pchNewQuestion, string pchNewAnswer );
 		public void CreateAccount( string pchAccountName, string pchNewPassword, string pchNewEmail, Int32 iQuestion, string pchNewQuestion, string pchNewAnswer ) 
 		{
-			this.GetFunction<NativeCreateAccountSSSISS>( this.Functions.CreateAccount57 )( this.ObjectAddress, pchAccountName, pchNewPassword, pchNewEmail, iQuestion, pchNewQuestion, pchNewAnswer ); 
+			this.GetFunction<NativeCreateAccountSSSISS>( this.Functions.CreateAccount56 )( this.ObjectAddress, pchAccountName, pchNewPassword, pchNewEmail, iQuestion, pchNewQuestion, pchNewAnswer ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeResetPasswordSSSSS( IntPtr thisptr, string pchAccountName, string pchOldPassword, string pchNewPassword, string pchValidationCode, string pchAnswer );
 		public void ResetPassword( string pchAccountName, string pchOldPassword, string pchNewPassword, string pchValidationCode, string pchAnswer ) 
 		{
-			this.GetFunction<NativeResetPasswordSSSSS>( this.Functions.ResetPassword58 )( this.ObjectAddress, pchAccountName, pchOldPassword, pchNewPassword, pchValidationCode, pchAnswer ); 
+			this.GetFunction<NativeResetPasswordSSSSS>( this.Functions.ResetPassword57 )( this.ObjectAddress, pchAccountName, pchOldPassword, pchNewPassword, pchValidationCode, pchAnswer ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTrackNatTraversalStatC( IntPtr thisptr, ref CNatTraversalStat pNatStat );
 		public void TrackNatTraversalStat( ref CNatTraversalStat pNatStat ) 
 		{
-			this.GetFunction<NativeTrackNatTraversalStatC>( this.Functions.TrackNatTraversalStat59 )( this.ObjectAddress, ref pNatStat ); 
+			this.GetFunction<NativeTrackNatTraversalStatC>( this.Functions.TrackNatTraversalStat58 )( this.ObjectAddress, ref pNatStat ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRefreshSteam2Login( IntPtr thisptr );
 		public void RefreshSteam2Login(  ) 
 		{
-			this.GetFunction<NativeRefreshSteam2Login>( this.Functions.RefreshSteam2Login60 )( this.ObjectAddress ); 
+			this.GetFunction<NativeRefreshSteam2Login>( this.Functions.RefreshSteam2Login59 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRefreshSteam2LoginWithSecureOptionB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bIsSecure );
 		public void RefreshSteam2LoginWithSecureOption( bool bIsSecure ) 
 		{
-			this.GetFunction<NativeRefreshSteam2LoginWithSecureOptionB>( this.Functions.RefreshSteam2LoginWithSecureOption61 )( this.ObjectAddress, bIsSecure ); 
+			this.GetFunction<NativeRefreshSteam2LoginWithSecureOptionB>( this.Functions.RefreshSteam2LoginWithSecureOption60 )( this.ObjectAddress, bIsSecure ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSteam2IsSecureComputer( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool Steam2IsSecureComputer(  ) 
 		{
-			return this.GetFunction<NativeSteam2IsSecureComputer>( this.Functions.Steam2IsSecureComputer62 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeSteam2IsSecureComputer>( this.Functions.Steam2IsSecureComputer61 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetPackageIDForGuestPassToRedeemByGIDU( IntPtr thisptr, UInt64 gid );
 		public UInt32 GetPackageIDForGuestPassToRedeemByGID( UInt64 gid ) 
 		{
-			return this.GetFunction<NativeGetPackageIDForGuestPassToRedeemByGIDU>( this.Functions.GetPackageIDForGuestPassToRedeemByGID63 )( this.ObjectAddress, gid ); 
+			return this.GetFunction<NativeGetPackageIDForGuestPassToRedeemByGIDU>( this.Functions.GetPackageIDForGuestPassToRedeemByGID62 )( this.ObjectAddress, gid ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTrackSteamUsageEventEBU( IntPtr thisptr, ESteamUsageEvent eSteamUsageEvent, Byte[] pubKV, UInt32 cubKV );
 		public void TrackSteamUsageEvent( ESteamUsageEvent eSteamUsageEvent, Byte[] pubKV ) 
 		{
-			this.GetFunction<NativeTrackSteamUsageEventEBU>( this.Functions.TrackSteamUsageEvent64 )( this.ObjectAddress, eSteamUsageEvent, pubKV, (UInt32) pubKV.Length ); 
+			this.GetFunction<NativeTrackSteamUsageEventEBU>( this.Functions.TrackSteamUsageEvent63 )( this.ObjectAddress, eSteamUsageEvent, pubKV, (UInt32) pubKV.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTrackSteamGUIUsageS( IntPtr thisptr, string arg0 );
 		public void TrackSteamGUIUsage( string arg0 ) 
 		{
-			this.GetFunction<NativeTrackSteamGUIUsageS>( this.Functions.TrackSteamGUIUsage65 )( this.ObjectAddress, arg0 ); 
+			this.GetFunction<NativeTrackSteamGUIUsageS>( this.Functions.TrackSteamGUIUsage64 )( this.ObjectAddress, arg0 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetComputerInUse( IntPtr thisptr );
 		public void SetComputerInUse(  ) 
 		{
-			this.GetFunction<NativeSetComputerInUse>( this.Functions.SetComputerInUse66 )( this.ObjectAddress ); 
+			this.GetFunction<NativeSetComputerInUse>( this.Functions.SetComputerInUse65 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsGameRunningC( IntPtr thisptr, UInt64 gameID );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BIsGameRunning( CGameID gameID ) 
 		{
-			return this.GetFunction<NativeBIsGameRunningC>( this.Functions.BIsGameRunning67 )( this.ObjectAddress, gameID.ConvertToUint64() ); 
+			return this.GetFunction<NativeBIsGameRunningC>( this.Functions.BIsGameRunning66 )( this.ObjectAddress, gameID.ConvertToUint64() ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetCurrentSessionToken( IntPtr thisptr );
 		public UInt64 GetCurrentSessionToken(  ) 
 		{
-			return this.GetFunction<NativeGetCurrentSessionToken>( this.Functions.GetCurrentSessionToken68 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetCurrentSessionToken>( this.Functions.GetCurrentSessionToken67 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBUpdateAppOwnershipTicketUBB( IntPtr thisptr, UInt32 nAppID, [MarshalAs(UnmanagedType.I1)] bool bOnlyUpdateIfStale, [MarshalAs(UnmanagedType.I1)] bool bIsDepot );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BUpdateAppOwnershipTicket( UInt32 nAppID, bool bOnlyUpdateIfStale, bool bIsDepot ) 
 		{
-			return this.GetFunction<NativeBUpdateAppOwnershipTicketUBB>( this.Functions.BUpdateAppOwnershipTicket69 )( this.ObjectAddress, nAppID, bOnlyUpdateIfStale, bIsDepot ); 
+			return this.GetFunction<NativeBUpdateAppOwnershipTicketUBB>( this.Functions.BUpdateAppOwnershipTicket68 )( this.ObjectAddress, nAppID, bOnlyUpdateIfStale, bIsDepot ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestCustomBinarySUBB( IntPtr thisptr, string pszAbsolutePath, UInt32 nAppID, [MarshalAs(UnmanagedType.I1)] bool bForceUpdate, [MarshalAs(UnmanagedType.I1)] bool bAppLaunchRequest );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool RequestCustomBinary( string pszAbsolutePath, UInt32 nAppID, bool bForceUpdate, bool bAppLaunchRequest ) 
 		{
-			return this.GetFunction<NativeRequestCustomBinarySUBB>( this.Functions.RequestCustomBinary70 )( this.ObjectAddress, pszAbsolutePath, nAppID, bForceUpdate, bAppLaunchRequest ); 
+			return this.GetFunction<NativeRequestCustomBinarySUBB>( this.Functions.RequestCustomBinary69 )( this.ObjectAddress, pszAbsolutePath, nAppID, bForceUpdate, bAppLaunchRequest ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetCustomBinariesStateUU( IntPtr thisptr, UInt32 unAppID, ref UInt32 punProgress );
 		public UInt32 GetCustomBinariesState( UInt32 unAppID, ref UInt32 punProgress ) 
 		{
-			return this.GetFunction<NativeGetCustomBinariesStateUU>( this.Functions.GetCustomBinariesState71 )( this.ObjectAddress, unAppID, ref punProgress ); 
+			return this.GetFunction<NativeGetCustomBinariesStateUU>( this.Functions.GetCustomBinariesState70 )( this.ObjectAddress, unAppID, ref punProgress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeRequestCustomBinariesUBBU( IntPtr thisptr, UInt32 unAppID, [MarshalAs(UnmanagedType.I1)] bool arg1, [MarshalAs(UnmanagedType.I1)] bool arg2, ref UInt32 arg3 );
 		public EResult RequestCustomBinaries( UInt32 unAppID, bool arg1, bool arg2, ref UInt32 arg3 ) 
 		{
-			return this.GetFunction<NativeRequestCustomBinariesUBBU>( this.Functions.RequestCustomBinaries72 )( this.ObjectAddress, unAppID, arg1, arg2, ref arg3 ); 
+			return this.GetFunction<NativeRequestCustomBinariesUBBU>( this.Functions.RequestCustomBinaries71 )( this.ObjectAddress, unAppID, arg1, arg2, ref arg3 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetCellIDU( IntPtr thisptr, UInt32 cellID );
 		public void SetCellID( UInt32 cellID ) 
 		{
-			this.GetFunction<NativeSetCellIDU>( this.Functions.SetCellID73 )( this.ObjectAddress, cellID ); 
+			this.GetFunction<NativeSetCellIDU>( this.Functions.SetCellID72 )( this.ObjectAddress, cellID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetUserBaseFolder( IntPtr thisptr );
 		public string GetUserBaseFolder(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetUserBaseFolder>( this.Functions.GetUserBaseFolder74 )( this.ObjectAddress ) ); 
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetUserBaseFolder>( this.Functions.GetUserBaseFolder73 )( this.ObjectAddress ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserDataFolderCSI( IntPtr thisptr, UInt64 gameID, StringBuilder pchBuffer, Int32 cubBuffer );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetUserDataFolder( CGameID gameID, StringBuilder pchBuffer ) 
 		{
-			return this.GetFunction<NativeGetUserDataFolderCSI>( this.Functions.GetUserDataFolder75 )( this.ObjectAddress, gameID.ConvertToUint64(), pchBuffer, (Int32) pchBuffer.Capacity ); 
+			return this.GetFunction<NativeGetUserDataFolderCSI>( this.Functions.GetUserDataFolder74 )( this.ObjectAddress, gameID.ConvertToUint64(), pchBuffer, (Int32) pchBuffer.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserConfigFolderSI( IntPtr thisptr, StringBuilder pchBuffer, Int32 cubBuffer );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetUserConfigFolder( StringBuilder pchBuffer ) 
 		{
-			return this.GetFunction<NativeGetUserConfigFolderSI>( this.Functions.GetUserConfigFolder76 )( this.ObjectAddress, pchBuffer, (Int32) pchBuffer.Capacity ); 
+			return this.GetFunction<NativeGetUserConfigFolderSI>( this.Functions.GetUserConfigFolder75 )( this.ObjectAddress, pchBuffer, (Int32) pchBuffer.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAccountNameSU( IntPtr thisptr, StringBuilder pchAccountName, UInt32 cb );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetAccountName( StringBuilder pchAccountName ) 
 		{
-			return this.GetFunction<NativeGetAccountNameSU>( this.Functions.GetAccountName77 )( this.ObjectAddress, pchAccountName, (UInt32) pchAccountName.Capacity ); 
+			return this.GetFunction<NativeGetAccountNameSU>( this.Functions.GetAccountName76 )( this.ObjectAddress, pchAccountName, (UInt32) pchAccountName.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequiresLegacyCDKeyU( IntPtr thisptr, UInt32 nAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool RequiresLegacyCDKey( UInt32 nAppID ) 
 		{
-			return this.GetFunction<NativeRequiresLegacyCDKeyU>( this.Functions.RequiresLegacyCDKey78 )( this.ObjectAddress, nAppID ); 
+			return this.GetFunction<NativeRequiresLegacyCDKeyU>( this.Functions.RequiresLegacyCDKey77 )( this.ObjectAddress, nAppID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLegacyCDKeyUSI( IntPtr thisptr, UInt32 nAppID, StringBuilder pchKeyData, Int32 cbKeyData );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetLegacyCDKey( UInt32 nAppID, StringBuilder pchKeyData ) 
 		{
-			return this.GetFunction<NativeGetLegacyCDKeyUSI>( this.Functions.GetLegacyCDKey79 )( this.ObjectAddress, nAppID, pchKeyData, (Int32) pchKeyData.Capacity ); 
+			return this.GetFunction<NativeGetLegacyCDKeyUSI>( this.Functions.GetLegacyCDKey78 )( this.ObjectAddress, nAppID, pchKeyData, (Int32) pchKeyData.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHasLegacyCDKeyU( IntPtr thisptr, UInt32 nAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool HasLegacyCDKey( UInt32 nAppID ) 
 		{
-			return this.GetFunction<NativeHasLegacyCDKeyU>( this.Functions.HasLegacyCDKey80 )( this.ObjectAddress, nAppID ); 
+			return this.GetFunction<NativeHasLegacyCDKeyU>( this.Functions.HasLegacyCDKey79 )( this.ObjectAddress, nAppID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLegacyCDKeyUS( IntPtr thisptr, UInt32 nAppID, string pchKeyData );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool SetLegacyCDKey( UInt32 nAppID, string pchKeyData ) 
 		{
-			return this.GetFunction<NativeSetLegacyCDKeyUS>( this.Functions.SetLegacyCDKey81 )( this.ObjectAddress, nAppID, pchKeyData ); 
+			return this.GetFunction<NativeSetLegacyCDKeyUS>( this.Functions.SetLegacyCDKey80 )( this.ObjectAddress, nAppID, pchKeyData ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRemoveLegacyCDKeyU( IntPtr thisptr, UInt32 nAppID );
 		public void RemoveLegacyCDKey( UInt32 nAppID ) 
 		{
-			this.GetFunction<NativeRemoveLegacyCDKeyU>( this.Functions.RemoveLegacyCDKey82 )( this.ObjectAddress, nAppID ); 
+			this.GetFunction<NativeRemoveLegacyCDKeyU>( this.Functions.RemoveLegacyCDKey81 )( this.ObjectAddress, nAppID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestLegacyCDKeyFromAppUU( IntPtr thisptr, UInt32 nMainAppID, UInt32 nDLCAppID );
 		public void RequestLegacyCDKeyFromApp( UInt32 nMainAppID, UInt32 nDLCAppID ) 
 		{
-			this.GetFunction<NativeRequestLegacyCDKeyFromAppUU>( this.Functions.RequestLegacyCDKeyFromApp83 )( this.ObjectAddress, nMainAppID, nDLCAppID ); 
+			this.GetFunction<NativeRequestLegacyCDKeyFromAppUU>( this.Functions.RequestLegacyCDKeyFromApp82 )( this.ObjectAddress, nMainAppID, nDLCAppID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsAnyGameRunning( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BIsAnyGameRunning(  ) 
 		{
-			return this.GetFunction<NativeBIsAnyGameRunning>( this.Functions.BIsAnyGameRunning84 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsAnyGameRunning>( this.Functions.BIsAnyGameRunning83 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChangePasswordSS( IntPtr thisptr, string pchOldPassword, string pchNewPassword );
 		public void ChangePassword( string pchOldPassword, string pchNewPassword ) 
 		{
-			this.GetFunction<NativeChangePasswordSS>( this.Functions.ChangePassword85 )( this.ObjectAddress, pchOldPassword, pchNewPassword ); 
+			this.GetFunction<NativeChangePasswordSS>( this.Functions.ChangePassword84 )( this.ObjectAddress, pchOldPassword, pchNewPassword ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChangeEmailSS( IntPtr thisptr, string arg0, string pchEmail );
 		public void ChangeEmail( string arg0, string pchEmail ) 
 		{
-			this.GetFunction<NativeChangeEmailSS>( this.Functions.ChangeEmail86 )( this.ObjectAddress, arg0, pchEmail ); 
+			this.GetFunction<NativeChangeEmailSS>( this.Functions.ChangeEmail85 )( this.ObjectAddress, arg0, pchEmail ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChangeSecretQuestionAndAnswerSISS( IntPtr thisptr, string arg0, Int32 iQuestion, string pchNewQuestion, string pchNewAnswer );
 		public void ChangeSecretQuestionAndAnswer( string arg0, Int32 iQuestion, string pchNewQuestion, string pchNewAnswer ) 
 		{
-			this.GetFunction<NativeChangeSecretQuestionAndAnswerSISS>( this.Functions.ChangeSecretQuestionAndAnswer87 )( this.ObjectAddress, arg0, iQuestion, pchNewQuestion, pchNewAnswer ); 
+			this.GetFunction<NativeChangeSecretQuestionAndAnswerSISS>( this.Functions.ChangeSecretQuestionAndAnswer86 )( this.ObjectAddress, arg0, iQuestion, pchNewQuestion, pchNewAnswer ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetSteam2FullASTicketBI( IntPtr thisptr, Byte[] pubTicket, Int32 cubTicket );
 		public void SetSteam2FullASTicket( Byte[] pubTicket ) 
 		{
-			this.GetFunction<NativeSetSteam2FullASTicketBI>( this.Functions.SetSteam2FullASTicket88 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
+			this.GetFunction<NativeSetSteam2FullASTicketBI>( this.Functions.SetSteam2FullASTicket87 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetSteam2FullASTicketBI( IntPtr thisptr, Byte[] pubTicket, Int32 cubTicket );
 		public UInt32 GetSteam2FullASTicket( Byte[] pubTicket ) 
 		{
-			return this.GetFunction<NativeGetSteam2FullASTicketBI>( this.Functions.GetSteam2FullASTicket89 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
+			return this.GetFunction<NativeGetSteam2FullASTicketBI>( this.Functions.GetSteam2FullASTicket88 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetEmailSIB( IntPtr thisptr, StringBuilder pchEmail, Int32 cchEmail, ref bool pbValidated );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetEmail( StringBuilder pchEmail, ref bool pbValidated ) 
 		{
-			return this.GetFunction<NativeGetEmailSIB>( this.Functions.GetEmail90 )( this.ObjectAddress, pchEmail, (Int32) pchEmail.Capacity, ref pbValidated ); 
+			return this.GetFunction<NativeGetEmailSIB>( this.Functions.GetEmail89 )( this.ObjectAddress, pchEmail, (Int32) pchEmail.Capacity, ref pbValidated ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestForgottenPasswordEmailSS( IntPtr thisptr, string pchAccountName, string pchTriedPassword );
 		public void RequestForgottenPasswordEmail( string pchAccountName, string pchTriedPassword ) 
 		{
-			this.GetFunction<NativeRequestForgottenPasswordEmailSS>( this.Functions.RequestForgottenPasswordEmail91 )( this.ObjectAddress, pchAccountName, pchTriedPassword ); 
+			this.GetFunction<NativeRequestForgottenPasswordEmailSS>( this.Functions.RequestForgottenPasswordEmail90 )( this.ObjectAddress, pchAccountName, pchTriedPassword ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeFindAccountsByEmailAddressS( IntPtr thisptr, string pchEmailAddress );
 		public void FindAccountsByEmailAddress( string pchEmailAddress ) 
 		{
-			this.GetFunction<NativeFindAccountsByEmailAddressS>( this.Functions.FindAccountsByEmailAddress92 )( this.ObjectAddress, pchEmailAddress ); 
+			this.GetFunction<NativeFindAccountsByEmailAddressS>( this.Functions.FindAccountsByEmailAddress91 )( this.ObjectAddress, pchEmailAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeFindAccountsByCdKeyS( IntPtr thisptr, string pchCdKey );
 		public void FindAccountsByCdKey( string pchCdKey ) 
 		{
-			this.GetFunction<NativeFindAccountsByCdKeyS>( this.Functions.FindAccountsByCdKey93 )( this.ObjectAddress, pchCdKey ); 
+			this.GetFunction<NativeFindAccountsByCdKeyS>( this.Functions.FindAccountsByCdKey92 )( this.ObjectAddress, pchCdKey ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetNumAccountsWithEmailAddressS( IntPtr thisptr, string pchEmailAddress );
 		public void GetNumAccountsWithEmailAddress( string pchEmailAddress ) 
 		{
-			this.GetFunction<NativeGetNumAccountsWithEmailAddressS>( this.Functions.GetNumAccountsWithEmailAddress94 )( this.ObjectAddress, pchEmailAddress ); 
+			this.GetFunction<NativeGetNumAccountsWithEmailAddressS>( this.Functions.GetNumAccountsWithEmailAddress93 )( this.ObjectAddress, pchEmailAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeIsAccountNameInUseS( IntPtr thisptr, string pchAccountName );
 		public void IsAccountNameInUse( string pchAccountName ) 
 		{
-			this.GetFunction<NativeIsAccountNameInUseS>( this.Functions.IsAccountNameInUse95 )( this.ObjectAddress, pchAccountName ); 
+			this.GetFunction<NativeIsAccountNameInUseS>( this.Functions.IsAccountNameInUse94 )( this.ObjectAddress, pchAccountName ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTest_FakeConnectionTimeout( IntPtr thisptr );
 		public void Test_FakeConnectionTimeout(  ) 
 		{
-			this.GetFunction<NativeTest_FakeConnectionTimeout>( this.Functions.Test_FakeConnectionTimeout96 )( this.ObjectAddress ); 
+			this.GetFunction<NativeTest_FakeConnectionTimeout>( this.Functions.Test_FakeConnectionTimeout95 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRunInstallScriptUISSB( IntPtr thisptr, ref UInt32 pAppIDs, Int32 cAppIDs, string pchInstallPath, string pchLanguage, [MarshalAs(UnmanagedType.I1)] bool bUninstall );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool RunInstallScript( ref UInt32 pAppIDs, Int32 cAppIDs, string pchInstallPath, string pchLanguage, bool bUninstall ) 
 		{
-			return this.GetFunction<NativeRunInstallScriptUISSB>( this.Functions.RunInstallScript97 )( this.ObjectAddress, ref pAppIDs, cAppIDs, pchInstallPath, pchLanguage, bUninstall ); 
+			return this.GetFunction<NativeRunInstallScriptUISSB>( this.Functions.RunInstallScript96 )( this.ObjectAddress, ref pAppIDs, cAppIDs, pchInstallPath, pchLanguage, bUninstall ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeIsInstallScriptRunning( IntPtr thisptr );
 		public UInt32 IsInstallScriptRunning(  ) 
 		{
-			return this.GetFunction<NativeIsInstallScriptRunning>( this.Functions.IsInstallScriptRunning98 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeIsInstallScriptRunning>( this.Functions.IsInstallScriptRunning97 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetInstallScriptStringUSSSSSI( IntPtr thisptr, UInt32 nAppID, string pchInstallPath, string pchLanguage, string pchKeyname, string pchKeyvalue, StringBuilder pchValue, Int32 cchValue );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetInstallScriptString( UInt32 nAppID, string pchInstallPath, string pchLanguage, string pchKeyname, string pchKeyvalue, StringBuilder pchValue ) 
 		{
-			return this.GetFunction<NativeGetInstallScriptStringUSSSSSI>( this.Functions.GetInstallScriptString99 )( this.ObjectAddress, nAppID, pchInstallPath, pchLanguage, pchKeyname, pchKeyvalue, pchValue, (Int32) pchValue.Capacity ); 
+			return this.GetFunction<NativeGetInstallScriptStringUSSSSSI>( this.Functions.GetInstallScriptString98 )( this.ObjectAddress, nAppID, pchInstallPath, pchLanguage, pchKeyname, pchKeyvalue, pchValue, (Int32) pchValue.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetInstallScriptStateSUUU( IntPtr thisptr, StringBuilder pchDescription, UInt32 cchDescription, ref UInt32 punNumSteps, ref UInt32 punCurrStep );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetInstallScriptState( StringBuilder pchDescription, ref UInt32 punNumSteps, ref UInt32 punCurrStep ) 
 		{
-			return this.GetFunction<NativeGetInstallScriptStateSUUU>( this.Functions.GetInstallScriptState100 )( this.ObjectAddress, pchDescription, (UInt32) pchDescription.Capacity, ref punNumSteps, ref punCurrStep ); 
+			return this.GetFunction<NativeGetInstallScriptStateSUUU>( this.Functions.GetInstallScriptState99 )( this.ObjectAddress, pchDescription, (UInt32) pchDescription.Capacity, ref punNumSteps, ref punCurrStep ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSpawnProcessBUSSUSCUSB( IntPtr thisptr, Byte[] lpVACBlob, UInt32 cbBlobSize, string lpApplicationName, string lpCommandLine, UInt32 dwCreationFlags, string lpCurrentDirectory, UInt64 gameID, UInt32 nAppID, string pchGameName, [MarshalAs(UnmanagedType.I1)] bool bAlwaysUseShellExec );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool SpawnProcess( Byte[] lpVACBlob, string lpApplicationName, string lpCommandLine, UInt32 dwCreationFlags, string lpCurrentDirectory, CGameID gameID, UInt32 nAppID, string pchGameName, bool bAlwaysUseShellExec ) 
 		{
-			return this.GetFunction<NativeSpawnProcessBUSSUSCUSB>( this.Functions.SpawnProcess101 )( this.ObjectAddress, lpVACBlob, (UInt32) lpVACBlob.Length, lpApplicationName, lpCommandLine, dwCreationFlags, lpCurrentDirectory, gameID.ConvertToUint64(), nAppID, pchGameName, bAlwaysUseShellExec ); 
+			return this.GetFunction<NativeSpawnProcessBUSSUSCUSB>( this.Functions.SpawnProcess100 )( this.ObjectAddress, lpVACBlob, (UInt32) lpVACBlob.Length, lpApplicationName, lpCommandLine, dwCreationFlags, lpCurrentDirectory, gameID.ConvertToUint64(), nAppID, pchGameName, bAlwaysUseShellExec ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppOwnershipTicketLengthU( IntPtr thisptr, UInt32 nAppID );
 		public UInt32 GetAppOwnershipTicketLength( UInt32 nAppID ) 
 		{
-			return this.GetFunction<NativeGetAppOwnershipTicketLengthU>( this.Functions.GetAppOwnershipTicketLength102 )( this.ObjectAddress, nAppID ); 
+			return this.GetFunction<NativeGetAppOwnershipTicketLengthU>( this.Functions.GetAppOwnershipTicketLength101 )( this.ObjectAddress, nAppID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppOwnershipTicketDataUBU( IntPtr thisptr, UInt32 nAppID, Byte[] pvBuffer, UInt32 cbBufferLength );
 		public UInt32 GetAppOwnershipTicketData( UInt32 nAppID, Byte[] pvBuffer ) 
 		{
-			return this.GetFunction<NativeGetAppOwnershipTicketDataUBU>( this.Functions.GetAppOwnershipTicketData103 )( this.ObjectAddress, nAppID, pvBuffer, (UInt32) pvBuffer.Length ); 
+			return this.GetFunction<NativeGetAppOwnershipTicketDataUBU>( this.Functions.GetAppOwnershipTicketData102 )( this.ObjectAddress, nAppID, pvBuffer, (UInt32) pvBuffer.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppOwnershipTicketExtendedDataUBUUUUU( IntPtr thisptr, UInt32 nAppID, Byte[] pvBuffer, UInt32 cbBufferLength, ref UInt32 piAppId, ref UInt32 piSteamId, ref UInt32 piSignature, ref UInt32 pcbSignature );
 		public UInt32 GetAppOwnershipTicketExtendedData( UInt32 nAppID, Byte[] pvBuffer, ref UInt32 piAppId, ref UInt32 piSteamId, ref UInt32 piSignature, ref UInt32 pcbSignature ) 
 		{
-			return this.GetFunction<NativeGetAppOwnershipTicketExtendedDataUBUUUUU>( this.Functions.GetAppOwnershipTicketExtendedData104 )( this.ObjectAddress, nAppID, pvBuffer, (UInt32) pvBuffer.Length, ref piAppId, ref piSteamId, ref piSignature, ref pcbSignature ); 
+			return this.GetFunction<NativeGetAppOwnershipTicketExtendedDataUBUUUUU>( this.Functions.GetAppOwnershipTicketExtendedData103 )( this.ObjectAddress, nAppID, pvBuffer, (UInt32) pvBuffer.Length, ref piAppId, ref piSteamId, ref piSignature, ref pcbSignature ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAppDecryptionKeyUBU( IntPtr thisptr, UInt32 nAppID, Byte[] pvBuffer, UInt32 cbBufferLength );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetAppDecryptionKey( UInt32 nAppID, Byte[] pvBuffer ) 
 		{
-			return this.GetFunction<NativeGetAppDecryptionKeyUBU>( this.Functions.GetAppDecryptionKey105 )( this.ObjectAddress, nAppID, pvBuffer, (UInt32) pvBuffer.Length ); 
+			return this.GetFunction<NativeGetAppDecryptionKeyUBU>( this.Functions.GetAppDecryptionKey104 )( this.ObjectAddress, nAppID, pvBuffer, (UInt32) pvBuffer.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetMarketingMessageCount( IntPtr thisptr );
 		public Int32 GetMarketingMessageCount(  ) 
 		{
-			return this.GetFunction<NativeGetMarketingMessageCount>( this.Functions.GetMarketingMessageCount106 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetMarketingMessageCount>( this.Functions.GetMarketingMessageCount105 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetMarketingMessageIUSIE( IntPtr thisptr, Int32 cMarketingMessage, ref UInt64 gidMarketingMessageID, StringBuilder pubMsgUrl, Int32 cubMessageUrl, ref EMarketingMessageFlags eMarketingMssageFlags );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetMarketingMessage( Int32 cMarketingMessage, ref UInt64 gidMarketingMessageID, StringBuilder pubMsgUrl, ref EMarketingMessageFlags eMarketingMssageFlags ) 
 		{
-			return this.GetFunction<NativeGetMarketingMessageIUSIE>( this.Functions.GetMarketingMessage107 )( this.ObjectAddress, cMarketingMessage, ref gidMarketingMessageID, pubMsgUrl, (Int32) pubMsgUrl.Capacity, ref eMarketingMssageFlags ); 
+			return this.GetFunction<NativeGetMarketingMessageIUSIE>( this.Functions.GetMarketingMessage106 )( this.ObjectAddress, cMarketingMessage, ref gidMarketingMessageID, pubMsgUrl, (Int32) pubMsgUrl.Capacity, ref eMarketingMssageFlags ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAuthSessionTicketBIU( IntPtr thisptr, Byte[] pMyAuthTicket, Int32 cbMaxMyAuthTicket, ref UInt32 pcbAuthTicket );
 		public UInt32 GetAuthSessionTicket( Byte[] pMyAuthTicket, ref UInt32 pcbAuthTicket ) 
 		{
-			return this.GetFunction<NativeGetAuthSessionTicketBIU>( this.Functions.GetAuthSessionTicket108 )( this.ObjectAddress, pMyAuthTicket, (Int32) pMyAuthTicket.Length, ref pcbAuthTicket ); 
+			return this.GetFunction<NativeGetAuthSessionTicketBIU>( this.Functions.GetAuthSessionTicket107 )( this.ObjectAddress, pMyAuthTicket, (Int32) pMyAuthTicket.Length, ref pcbAuthTicket ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EBeginAuthSessionResult NativeBeginAuthSessionBIC( IntPtr thisptr, Byte[] pTheirAuthTicket, Int32 cbTicket, UInt64 steamID );
 		public EBeginAuthSessionResult BeginAuthSession( Byte[] pTheirAuthTicket, CSteamID steamID ) 
 		{
-			return this.GetFunction<NativeBeginAuthSessionBIC>( this.Functions.BeginAuthSession109 )( this.ObjectAddress, pTheirAuthTicket, (Int32) pTheirAuthTicket.Length, steamID.ConvertToUint64() ); 
+			return this.GetFunction<NativeBeginAuthSessionBIC>( this.Functions.BeginAuthSession108 )( this.ObjectAddress, pTheirAuthTicket, (Int32) pTheirAuthTicket.Length, steamID.ConvertToUint64() ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEndAuthSessionC( IntPtr thisptr, UInt64 steamID );
 		public void EndAuthSession( CSteamID steamID ) 
 		{
-			this.GetFunction<NativeEndAuthSessionC>( this.Functions.EndAuthSession110 )( this.ObjectAddress, steamID.ConvertToUint64() ); 
+			this.GetFunction<NativeEndAuthSessionC>( this.Functions.EndAuthSession109 )( this.ObjectAddress, steamID.ConvertToUint64() ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeCancelAuthTicketU( IntPtr thisptr, UInt32 hAuthTicket );
 		public void CancelAuthTicket( UInt32 hAuthTicket ) 
 		{
-			this.GetFunction<NativeCancelAuthTicketU>( this.Functions.CancelAuthTicket111 )( this.ObjectAddress, hAuthTicket ); 
+			this.GetFunction<NativeCancelAuthTicketU>( this.Functions.CancelAuthTicket110 )( this.ObjectAddress, hAuthTicket ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeIsUserSubscribedAppInTicketCU( IntPtr thisptr, UInt64 steamID, UInt32 appID );
 		public Int32 IsUserSubscribedAppInTicket( CSteamID steamID, UInt32 appID ) 
 		{
-			return this.GetFunction<NativeIsUserSubscribedAppInTicketCU>( this.Functions.IsUserSubscribedAppInTicket112 )( this.ObjectAddress, steamID.ConvertToUint64(), appID ); 
+			return this.GetFunction<NativeIsUserSubscribedAppInTicketCU>( this.Functions.IsUserSubscribedAppInTicket111 )( this.ObjectAddress, steamID.ConvertToUint64(), appID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAdvertiseGameCCUU( IntPtr thisptr, UInt64 gameID, UInt64 steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool AdvertiseGame( CGameID gameID, CSteamID steamIDGameServer, UInt32 unIPServer, UInt16 usPortServer ) 
 		{
-			return this.GetFunction<NativeAdvertiseGameCCUU>( this.Functions.AdvertiseGame113 )( this.ObjectAddress, gameID.ConvertToUint64(), steamIDGameServer.ConvertToUint64(), unIPServer, usPortServer ); 
+			return this.GetFunction<NativeAdvertiseGameCCUU>( this.Functions.AdvertiseGame112 )( this.ObjectAddress, gameID.ConvertToUint64(), steamIDGameServer.ConvertToUint64(), unIPServer, usPortServer ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestEncryptedAppTicketBI( IntPtr thisptr, Byte[] pUserData, Int32 cbUserData );
 		public UInt64 RequestEncryptedAppTicket( Byte[] pUserData ) 
 		{
-			return this.GetFunction<NativeRequestEncryptedAppTicketBI>( this.Functions.RequestEncryptedAppTicket114 )( this.ObjectAddress, pUserData, (Int32) pUserData.Length ); 
+			return this.GetFunction<NativeRequestEncryptedAppTicketBI>( this.Functions.RequestEncryptedAppTicket113 )( this.ObjectAddress, pUserData, (Int32) pUserData.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetEncryptedAppTicketBIU( IntPtr thisptr, Byte[] pTicket, Int32 cbMaxTicket, ref UInt32 pcbTicket );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetEncryptedAppTicket( Byte[] pTicket, ref UInt32 pcbTicket ) 
 		{
-			return this.GetFunction<NativeGetEncryptedAppTicketBIU>( this.Functions.GetEncryptedAppTicket115 )( this.ObjectAddress, pTicket, (Int32) pTicket.Length, ref pcbTicket ); 
+			return this.GetFunction<NativeGetEncryptedAppTicketBIU>( this.Functions.GetEncryptedAppTicket114 )( this.ObjectAddress, pTicket, (Int32) pTicket.Length, ref pcbTicket ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetAccountLimitedB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bAccountLimited );
 		public void SetAccountLimited( bool bAccountLimited ) 
 		{
-			this.GetFunction<NativeSetAccountLimitedB>( this.Functions.SetAccountLimited116 )( this.ObjectAddress, bAccountLimited ); 
+			this.GetFunction<NativeSetAccountLimitedB>( this.Functions.SetAccountLimited115 )( this.ObjectAddress, bAccountLimited ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsAccountLimited( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BIsAccountLimited(  ) 
 		{
-			return this.GetFunction<NativeBIsAccountLimited>( this.Functions.BIsAccountLimited117 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsAccountLimited>( this.Functions.BIsAccountLimited116 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetAccountCommunityBannedB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bBanned );
+		public void SetAccountCommunityBanned( bool bBanned ) 
+		{
+			this.GetFunction<NativeSetAccountCommunityBannedB>( this.Functions.SetAccountCommunityBanned117 )( this.ObjectAddress, bBanned ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsAccountCommunityBanned( IntPtr thisptr );
+		[return: MarshalAs(UnmanagedType.I1)]
+		public bool BIsAccountCommunityBanned(  ) 
+		{
+			return this.GetFunction<NativeBIsAccountCommunityBanned>( this.Functions.BIsAccountCommunityBanned118 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendValidationEmail( IntPtr thisptr );
 		public void SendValidationEmail(  ) 
 		{
-			this.GetFunction<NativeSendValidationEmail>( this.Functions.SendValidationEmail118 )( this.ObjectAddress ); 
+			this.GetFunction<NativeSendValidationEmail>( this.Functions.SendValidationEmail119 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGameConnectTokensAvailable( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BGameConnectTokensAvailable(  ) 
 		{
-			return this.GetFunction<NativeBGameConnectTokensAvailable>( this.Functions.BGameConnectTokensAvailable119 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBGameConnectTokensAvailable>( this.Functions.BGameConnectTokensAvailable120 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeNumGamesRunning( IntPtr thisptr );
 		public Int32 NumGamesRunning(  ) 
 		{
-			return this.GetFunction<NativeNumGamesRunning>( this.Functions.NumGamesRunning120 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeNumGamesRunning>( this.Functions.NumGamesRunning121 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetRunningGameIDI( IntPtr thisptr, ref UInt64 retarg, Int32 iGame );
 		public CGameID GetRunningGameID( Int32 iGame ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetRunningGameIDI>( this.Functions.GetRunningGameID121 )( this.ObjectAddress, ref ret, iGame ); return new CGameID(ret);
+			UInt64 ret = 0; this.GetFunction<NativeGetRunningGameIDI>( this.Functions.GetRunningGameID122 )( this.ObjectAddress, ref ret, iGame ); return new CGameID(ret);
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAccountSecurityPolicyFlags( IntPtr thisptr );
 		public UInt32 GetAccountSecurityPolicyFlags(  ) 
 		{
-			return this.GetFunction<NativeGetAccountSecurityPolicyFlags>( this.Functions.GetAccountSecurityPolicyFlags122 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetAccountSecurityPolicyFlags>( this.Functions.GetAccountSecurityPolicyFlags123 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestChangeEmailSI( IntPtr thisptr, string pchPassword, Int32 eRequestType );
 		public void RequestChangeEmail( string pchPassword, Int32 eRequestType ) 
 		{
-			this.GetFunction<NativeRequestChangeEmailSI>( this.Functions.RequestChangeEmail123 )( this.ObjectAddress, pchPassword, eRequestType ); 
+			this.GetFunction<NativeRequestChangeEmailSI>( this.Functions.RequestChangeEmail124 )( this.ObjectAddress, pchPassword, eRequestType ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChangePasswordWithCodeSSS( IntPtr thisptr, string pchOldPassword, string pchCode, string pchNewPassword );
 		public void ChangePasswordWithCode( string pchOldPassword, string pchCode, string pchNewPassword ) 
 		{
-			this.GetFunction<NativeChangePasswordWithCodeSSS>( this.Functions.ChangePasswordWithCode124 )( this.ObjectAddress, pchOldPassword, pchCode, pchNewPassword ); 
+			this.GetFunction<NativeChangePasswordWithCodeSSS>( this.Functions.ChangePasswordWithCode125 )( this.ObjectAddress, pchOldPassword, pchCode, pchNewPassword ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChangeEmailWithCodeSSSB( IntPtr thisptr, string pchPassword, string pchCode, string pchEmail, [MarshalAs(UnmanagedType.I1)] bool bFinal );
 		public void ChangeEmailWithCode( string pchPassword, string pchCode, string pchEmail, bool bFinal ) 
 		{
-			this.GetFunction<NativeChangeEmailWithCodeSSSB>( this.Functions.ChangeEmailWithCode125 )( this.ObjectAddress, pchPassword, pchCode, pchEmail, bFinal ); 
+			this.GetFunction<NativeChangeEmailWithCodeSSSB>( this.Functions.ChangeEmailWithCode126 )( this.ObjectAddress, pchPassword, pchCode, pchEmail, bFinal ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChangeSecretQuestionAndAnswerWithCodeSSSS( IntPtr thisptr, string pchPassword, string pchCode, string pchNewQuestion, string pchNewAnswer );
 		public void ChangeSecretQuestionAndAnswerWithCode( string pchPassword, string pchCode, string pchNewQuestion, string pchNewAnswer ) 
 		{
-			this.GetFunction<NativeChangeSecretQuestionAndAnswerWithCodeSSSS>( this.Functions.ChangeSecretQuestionAndAnswerWithCode126 )( this.ObjectAddress, pchPassword, pchCode, pchNewQuestion, pchNewAnswer ); 
+			this.GetFunction<NativeChangeSecretQuestionAndAnswerWithCodeSSSS>( this.Functions.ChangeSecretQuestionAndAnswerWithCode127 )( this.ObjectAddress, pchPassword, pchCode, pchNewQuestion, pchNewAnswer ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetClientStatEIUUU( IntPtr thisptr, EClientStat eStat, Int64 llValue, UInt32 nAppID, UInt32 nDepotID, UInt32 nCellID );
 		public void SetClientStat( EClientStat eStat, Int64 llValue, UInt32 nAppID, UInt32 nDepotID, UInt32 nCellID ) 
 		{
-			this.GetFunction<NativeSetClientStatEIUUU>( this.Functions.SetClientStat127 )( this.ObjectAddress, eStat, llValue, nAppID, nDepotID, nCellID ); 
+			this.GetFunction<NativeSetClientStatEIUUU>( this.Functions.SetClientStat128 )( this.ObjectAddress, eStat, llValue, nAppID, nDepotID, nCellID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeVerifyPasswordS( IntPtr thisptr, string pchPassword );
 		public void VerifyPassword( string pchPassword ) 
 		{
-			this.GetFunction<NativeVerifyPasswordS>( this.Functions.VerifyPassword128 )( this.ObjectAddress, pchPassword ); 
+			this.GetFunction<NativeVerifyPasswordS>( this.Functions.VerifyPassword129 )( this.ObjectAddress, pchPassword ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSupportUser( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BSupportUser(  ) 
 		{
-			return this.GetFunction<NativeBSupportUser>( this.Functions.BSupportUser129 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBSupportUser>( this.Functions.BSupportUser130 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsAppOverlayEnabledU( IntPtr thisptr, UInt32 nAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BIsAppOverlayEnabled( UInt32 nAppID ) 
 		{
-			return this.GetFunction<NativeBIsAppOverlayEnabledU>( this.Functions.BIsAppOverlayEnabled130 )( this.ObjectAddress, nAppID ); 
+			return this.GetFunction<NativeBIsAppOverlayEnabledU>( this.Functions.BIsAppOverlayEnabled131 )( this.ObjectAddress, nAppID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsBehindNAT( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BIsBehindNAT(  ) 
 		{
-			return this.GetFunction<NativeBIsBehindNAT>( this.Functions.BIsBehindNAT131 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBIsBehindNAT>( this.Functions.BIsBehindNAT132 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetMicroTxnAppIDU( IntPtr thisptr, UInt64 gidTransID );
 		public UInt32 GetMicroTxnAppID( UInt64 gidTransID ) 
 		{
-			return this.GetFunction<NativeGetMicroTxnAppIDU>( this.Functions.GetMicroTxnAppID132 )( this.ObjectAddress, gidTransID ); 
+			return this.GetFunction<NativeGetMicroTxnAppIDU>( this.Functions.GetMicroTxnAppID133 )( this.ObjectAddress, gidTransID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetMicroTxnOrderIDU( IntPtr thisptr, UInt64 gidTransID );
 		public UInt64 GetMicroTxnOrderID( UInt64 gidTransID ) 
 		{
-			return this.GetFunction<NativeGetMicroTxnOrderIDU>( this.Functions.GetMicroTxnOrderID133 )( this.ObjectAddress, gidTransID ); 
+			return this.GetFunction<NativeGetMicroTxnOrderIDU>( this.Functions.GetMicroTxnOrderID134 )( this.ObjectAddress, gidTransID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetMicroTxnPriceUCCB( IntPtr thisptr, UInt64 gidTransID, ref CAmount pamtTotal, ref CAmount pamtTax, ref bool pbVat );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BGetMicroTxnPrice( UInt64 gidTransID, ref CAmount pamtTotal, ref CAmount pamtTax, ref bool pbVat ) 
 		{
-			return this.GetFunction<NativeBGetMicroTxnPriceUCCB>( this.Functions.BGetMicroTxnPrice134 )( this.ObjectAddress, gidTransID, ref pamtTotal, ref pamtTax, ref pbVat ); 
+			return this.GetFunction<NativeBGetMicroTxnPriceUCCB>( this.Functions.BGetMicroTxnPrice135 )( this.ObjectAddress, gidTransID, ref pamtTotal, ref pamtTax, ref pbVat ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetMicroTxnLineItemCountU( IntPtr thisptr, UInt64 gidTransID );
 		public Int32 GetMicroTxnLineItemCount( UInt64 gidTransID ) 
 		{
-			return this.GetFunction<NativeGetMicroTxnLineItemCountU>( this.Functions.GetMicroTxnLineItemCount135 )( this.ObjectAddress, gidTransID ); 
+			return this.GetFunction<NativeGetMicroTxnLineItemCountU>( this.Functions.GetMicroTxnLineItemCount136 )( this.ObjectAddress, gidTransID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetMicroTxnLineItemUUCUSU( IntPtr thisptr, UInt64 gidTransID, UInt32 unLineItem, ref CAmount pamt, ref UInt32 punQuantity, StringBuilder pchDescription, UInt32 cubDescriptionLength );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BGetMicroTxnLineItem( UInt64 gidTransID, UInt32 unLineItem, ref CAmount pamt, ref UInt32 punQuantity, StringBuilder pchDescription ) 
 		{
-			return this.GetFunction<NativeBGetMicroTxnLineItemUUCUSU>( this.Functions.BGetMicroTxnLineItem136 )( this.ObjectAddress, gidTransID, unLineItem, ref pamt, ref punQuantity, pchDescription, (UInt32) pchDescription.Capacity ); 
+			return this.GetFunction<NativeBGetMicroTxnLineItemUUCUSU>( this.Functions.BGetMicroTxnLineItem137 )( this.ObjectAddress, gidTransID, unLineItem, ref pamt, ref punQuantity, pchDescription, (UInt32) pchDescription.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSandboxMicroTxnUB( IntPtr thisptr, UInt64 gidTransID, ref bool pbSandbox );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BIsSandboxMicroTxn( UInt64 gidTransID, ref bool pbSandbox ) 
 		{
-			return this.GetFunction<NativeBIsSandboxMicroTxnUB>( this.Functions.BIsSandboxMicroTxn137 )( this.ObjectAddress, gidTransID, ref pbSandbox ); 
+			return this.GetFunction<NativeBIsSandboxMicroTxnUB>( this.Functions.BIsSandboxMicroTxn138 )( this.ObjectAddress, gidTransID, ref pbSandbox ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeAuthorizeMicroTxnUE( IntPtr thisptr, UInt64 gidTransID, EMicroTxnAuthResponse eMicroTxnAuthResponse );
 		public UInt64 AuthorizeMicroTxn( UInt64 gidTransID, EMicroTxnAuthResponse eMicroTxnAuthResponse ) 
 		{
-			return this.GetFunction<NativeAuthorizeMicroTxnUE>( this.Functions.AuthorizeMicroTxn138 )( this.ObjectAddress, gidTransID, eMicroTxnAuthResponse ); 
+			return this.GetFunction<NativeAuthorizeMicroTxnUE>( this.Functions.AuthorizeMicroTxn139 )( this.ObjectAddress, gidTransID, eMicroTxnAuthResponse ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyAppMicroTxnAuthResponseUUB( IntPtr thisptr, UInt32 unAppID, UInt64 ulOrderID, [MarshalAs(UnmanagedType.I1)] bool bAuthorized );
 		public void NotifyAppMicroTxnAuthResponse( UInt32 unAppID, UInt64 ulOrderID, bool bAuthorized ) 
 		{
-			this.GetFunction<NativeNotifyAppMicroTxnAuthResponseUUB>( this.Functions.NotifyAppMicroTxnAuthResponse139 )( this.ObjectAddress, unAppID, ulOrderID, bAuthorized ); 
+			this.GetFunction<NativeNotifyAppMicroTxnAuthResponseUUB>( this.Functions.NotifyAppMicroTxnAuthResponse140 )( this.ObjectAddress, unAppID, ulOrderID, bAuthorized ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetWalletBalanceBC( IntPtr thisptr, ref bool pbHasWallet, ref CAmount pamtBalance );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BGetWalletBalance( ref bool pbHasWallet, ref CAmount pamtBalance ) 
 		{
-			return this.GetFunction<NativeBGetWalletBalanceBC>( this.Functions.BGetWalletBalance140 )( this.ObjectAddress, ref pbHasWallet, ref pamtBalance ); 
+			return this.GetFunction<NativeBGetWalletBalanceBC>( this.Functions.BGetWalletBalance141 )( this.ObjectAddress, ref pbHasWallet, ref pamtBalance ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestMicroTxnInfoU( IntPtr thisptr, UInt64 gidTransID );
 		public UInt64 RequestMicroTxnInfo( UInt64 gidTransID ) 
 		{
-			return this.GetFunction<NativeRequestMicroTxnInfoU>( this.Functions.RequestMicroTxnInfo141 )( this.ObjectAddress, gidTransID ); 
+			return this.GetFunction<NativeRequestMicroTxnInfoU>( this.Functions.RequestMicroTxnInfo142 )( this.ObjectAddress, gidTransID ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetAppMinutesPlayedUII( IntPtr thisptr, UInt32 nAppId, ref Int32 pnForever, ref Int32 pnLastTwoWeeks );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BGetAppMinutesPlayed( UInt32 nAppId, ref Int32 pnForever, ref Int32 pnLastTwoWeeks ) 
 		{
-			return this.GetFunction<NativeBGetAppMinutesPlayedUII>( this.Functions.BGetAppMinutesPlayed142 )( this.ObjectAddress, nAppId, ref pnForever, ref pnLastTwoWeeks ); 
+			return this.GetFunction<NativeBGetAppMinutesPlayedUII>( this.Functions.BGetAppMinutesPlayed143 )( this.ObjectAddress, nAppId, ref pnForever, ref pnLastTwoWeeks ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetGuideURLUSU( IntPtr thisptr, UInt32 uAppID, StringBuilder pchURL, UInt32 cchURL );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BGetGuideURL( UInt32 uAppID, StringBuilder pchURL ) 
 		{
-			return this.GetFunction<NativeBGetGuideURLUSU>( this.Functions.BGetGuideURL143 )( this.ObjectAddress, uAppID, pchURL, (UInt32) pchURL.Capacity ); 
+			return this.GetFunction<NativeBGetGuideURLUSU>( this.Functions.BGetGuideURL144 )( this.ObjectAddress, uAppID, pchURL, (UInt32) pchURL.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetClientAppListResponse_AddAppC( IntPtr thisptr, ref ClientAppInfo pClientAppInfo );
 		public void GetClientAppListResponse_AddApp( ref ClientAppInfo pClientAppInfo ) 
 		{
-			this.GetFunction<NativeGetClientAppListResponse_AddAppC>( this.Functions.GetClientAppListResponse_AddApp144 )( this.ObjectAddress, ref pClientAppInfo ); 
+			this.GetFunction<NativeGetClientAppListResponse_AddAppC>( this.Functions.GetClientAppListResponse_AddApp145 )( this.ObjectAddress, ref pClientAppInfo ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetClientAppListResponse_AddDLCUB( IntPtr thisptr, UInt32 nAppId, [MarshalAs(UnmanagedType.I1)] bool bInstalled );
 		public void GetClientAppListResponse_AddDLC( UInt32 nAppId, bool bInstalled ) 
 		{
-			this.GetFunction<NativeGetClientAppListResponse_AddDLCUB>( this.Functions.GetClientAppListResponse_AddDLC145 )( this.ObjectAddress, nAppId, bInstalled ); 
+			this.GetFunction<NativeGetClientAppListResponse_AddDLCUB>( this.Functions.GetClientAppListResponse_AddDLC146 )( this.ObjectAddress, nAppId, bInstalled ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetClientAppListResponse_DoneU( IntPtr thisptr, UInt64 ulBytesFreeOnDrive );
 		public void GetClientAppListResponse_Done( UInt64 ulBytesFreeOnDrive ) 
 		{
-			this.GetFunction<NativeGetClientAppListResponse_DoneU>( this.Functions.GetClientAppListResponse_Done146 )( this.ObjectAddress, ulBytesFreeOnDrive ); 
+			this.GetFunction<NativeGetClientAppListResponse_DoneU>( this.Functions.GetClientAppListResponse_Done147 )( this.ObjectAddress, ulBytesFreeOnDrive ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativePostUIResultToClientJobUE( IntPtr thisptr, UInt64 ulJobID, EResult eResult );
 		public void PostUIResultToClientJob( UInt64 ulJobID, EResult eResult ) 
 		{
-			this.GetFunction<NativePostUIResultToClientJobUE>( this.Functions.PostUIResultToClientJob147 )( this.ObjectAddress, ulJobID, eResult ); 
+			this.GetFunction<NativePostUIResultToClientJobUE>( this.Functions.PostUIResultToClientJob148 )( this.ObjectAddress, ulJobID, eResult ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBPromptToVerifyEmail( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BPromptToVerifyEmail(  ) 
 		{
-			return this.GetFunction<NativeBPromptToVerifyEmail>( this.Functions.BPromptToVerifyEmail148 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBPromptToVerifyEmail>( this.Functions.BPromptToVerifyEmail149 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBPromptToChangePassword( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BPromptToChangePassword(  ) 
 		{
-			return this.GetFunction<NativeBPromptToChangePassword>( this.Functions.BPromptToChangePassword149 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBPromptToChangePassword>( this.Functions.BPromptToChangePassword150 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBAccountLocked( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BAccountLocked(  ) 
 		{
-			return this.GetFunction<NativeBAccountLocked>( this.Functions.BAccountLocked150 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBAccountLocked>( this.Functions.BAccountLocked151 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBAccountShouldShowLockUI( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BAccountShouldShowLockUI(  ) 
 		{
-			return this.GetFunction<NativeBAccountShouldShowLockUI>( this.Functions.BAccountShouldShowLockUI151 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBAccountShouldShowLockUI>( this.Functions.BAccountShouldShowLockUI152 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBAccountLockedByIPT( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BAccountLockedByIPT(  ) 
 		{
-			return this.GetFunction<NativeBAccountLockedByIPT>( this.Functions.BAccountLockedByIPT152 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBAccountLockedByIPT>( this.Functions.BAccountLockedByIPT153 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCountAuthedComputers( IntPtr thisptr );
 		public Int32 GetCountAuthedComputers(  ) 
 		{
-			return this.GetFunction<NativeGetCountAuthedComputers>( this.Functions.GetCountAuthedComputers153 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetCountAuthedComputers>( this.Functions.GetCountAuthedComputers154 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBAccountCanUseIPT( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BAccountCanUseIPT(  ) 
 		{
-			return this.GetFunction<NativeBAccountCanUseIPT>( this.Functions.BAccountCanUseIPT154 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBAccountCanUseIPT>( this.Functions.BAccountCanUseIPT155 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeChangeTwoFactorAuthOptionsI( IntPtr thisptr, Int32 eOption );
 		public void ChangeTwoFactorAuthOptions( Int32 eOption ) 
 		{
-			this.GetFunction<NativeChangeTwoFactorAuthOptionsI>( this.Functions.ChangeTwoFactorAuthOptions155 )( this.ObjectAddress, eOption ); 
+			this.GetFunction<NativeChangeTwoFactorAuthOptionsI>( this.Functions.ChangeTwoFactorAuthOptions156 )( this.ObjectAddress, eOption ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSet2ndFactorAuthCodeS( IntPtr thisptr, string pchAuthCode );
 		public void Set2ndFactorAuthCode( string pchAuthCode ) 
 		{
-			this.GetFunction<NativeSet2ndFactorAuthCodeS>( this.Functions.Set2ndFactorAuthCode156 )( this.ObjectAddress, pchAuthCode ); 
+			this.GetFunction<NativeSet2ndFactorAuthCodeS>( this.Functions.Set2ndFactorAuthCode157 )( this.ObjectAddress, pchAuthCode ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBAccountHasIPTConfig( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BAccountHasIPTConfig(  ) 
 		{
-			return this.GetFunction<NativeBAccountHasIPTConfig>( this.Functions.BAccountHasIPTConfig157 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeBAccountHasIPTConfig>( this.Functions.BAccountHasIPTConfig158 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetEmailDomainFromLogonFailureSI( IntPtr thisptr, StringBuilder pchEmailDomain, Int32 cbEmailDomain );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool GetEmailDomainFromLogonFailure( StringBuilder pchEmailDomain ) 
 		{
-			return this.GetFunction<NativeGetEmailDomainFromLogonFailureSI>( this.Functions.GetEmailDomainFromLogonFailure158 )( this.ObjectAddress, pchEmailDomain, (Int32) pchEmailDomain.Capacity ); 
+			return this.GetFunction<NativeGetEmailDomainFromLogonFailureSI>( this.Functions.GetEmailDomainFromLogonFailure159 )( this.ObjectAddress, pchEmailDomain, (Int32) pchEmailDomain.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribedAppU( IntPtr thisptr, UInt32 nAppId );
 		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BIsSubscribedApp( UInt32 nAppId ) 
 		{
-			return this.GetFunction<NativeBIsSubscribedAppU>( this.Functions.BIsSubscribedApp159 )( this.ObjectAddress, nAppId ); 
+			return this.GetFunction<NativeBIsSubscribedAppU>( this.Functions.BIsSubscribedApp160 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRegisterActivationCodeS( IntPtr thisptr, string pchActivationCode );
 		public UInt64 RegisterActivationCode( string pchActivationCode ) 
 		{
-			return this.GetFunction<NativeRegisterActivationCodeS>( this.Functions.RegisterActivationCode160 )( this.ObjectAddress, pchActivationCode ); 
+			return this.GetFunction<NativeRegisterActivationCodeS>( this.Functions.RegisterActivationCode161 )( this.ObjectAddress, pchActivationCode ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeOptionalDLCInstallationUB( IntPtr thisptr, UInt32 nAppID, [MarshalAs(UnmanagedType.I1)] bool bInstall );
 		public void OptionalDLCInstallation( UInt32 nAppID, bool bInstall ) 
 		{
-			this.GetFunction<NativeOptionalDLCInstallationUB>( this.Functions.OptionalDLCInstallation161 )( this.ObjectAddress, nAppID, bInstall ); 
+			this.GetFunction<NativeOptionalDLCInstallationUB>( this.Functions.OptionalDLCInstallation162 )( this.ObjectAddress, nAppID, bInstall ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeAckSystemIMU( IntPtr thisptr, UInt64 arg0 );
 		public void AckSystemIM( UInt64 arg0 ) 
 		{
-			this.GetFunction<NativeAckSystemIMU>( this.Functions.AckSystemIM162 )( this.ObjectAddress, arg0 ); 
+			this.GetFunction<NativeAckSystemIMU>( this.Functions.AckSystemIM163 )( this.ObjectAddress, arg0 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestSpecialSurveyU( IntPtr thisptr, UInt32 uSurveyId );
 		public UInt64 RequestSpecialSurvey( UInt32 uSurveyId ) 
 		{
-			return this.GetFunction<NativeRequestSpecialSurveyU>( this.Functions.RequestSpecialSurvey163 )( this.ObjectAddress, uSurveyId ); 
+			return this.GetFunction<NativeRequestSpecialSurveyU>( this.Functions.RequestSpecialSurvey164 )( this.ObjectAddress, uSurveyId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSendSpecialSurveyResponseUBU( IntPtr thisptr, UInt32 uSurveyId, Byte[] pubData, UInt32 cubData );
 		public UInt64 SendSpecialSurveyResponse( UInt32 uSurveyId, Byte[] pubData ) 
 		{
-			return this.GetFunction<NativeSendSpecialSurveyResponseUBU>( this.Functions.SendSpecialSurveyResponse164 )( this.ObjectAddress, uSurveyId, pubData, (UInt32) pubData.Length ); 
+			return this.GetFunction<NativeSendSpecialSurveyResponseUBU>( this.Functions.SendSpecialSurveyResponse165 )( this.ObjectAddress, uSurveyId, pubData, (UInt32) pubData.Length ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestItemAnnouncements( IntPtr thisptr );
 		public void RequestItemAnnouncements(  ) 
 		{
-			this.GetFunction<NativeRequestItemAnnouncements>( this.Functions.RequestItemAnnouncements165 )( this.ObjectAddress ); 
+			this.GetFunction<NativeRequestItemAnnouncements>( this.Functions.RequestItemAnnouncements166 )( this.ObjectAddress ); 
 		}
 		
 	};

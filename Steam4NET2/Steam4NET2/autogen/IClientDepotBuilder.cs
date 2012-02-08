@@ -37,18 +37,17 @@ namespace Steam4NET
 		public IntPtr ReconstructDepotFromManifestAndChunks6;
 		public IntPtr BGetChunkCounts7;
 		public IntPtr GetManifestGIDs8;
-		public IntPtr RebaseAndBuildDepot9;
-		public IntPtr SetAppBuildLive10;
-		private IntPtr DTorIClientDepotBuilder11;
+		public IntPtr FinishAppBuild9;
+		private IntPtr DTorIClientDepotBuilder10;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTDEPOTBUILDER_INTERFACE_VERSION001")]
 	public class IClientDepotBuilder : InteropHelp.NativeWrapper<IClientDepotBuilderVTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRegisterAppBuildUS( IntPtr thisptr, UInt32 nAppID, string cszDescription );
-		public UInt32 RegisterAppBuild( UInt32 nAppID, string cszDescription ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRegisterAppBuildUSS( IntPtr thisptr, UInt32 nAppID, string cszDescription, string cszBetaKey );
+		public UInt32 RegisterAppBuild( UInt32 nAppID, string cszDescription, string cszBetaKey ) 
 		{
-			return this.GetFunction<NativeRegisterAppBuildUS>( this.Functions.RegisterAppBuild0 )( this.ObjectAddress, nAppID, cszDescription ); 
+			return this.GetFunction<NativeRegisterAppBuildUSS>( this.Functions.RegisterAppBuild0 )( this.ObjectAddress, nAppID, cszDescription, cszBetaKey ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetRegisteredBuildIDU( IntPtr thisptr, UInt32 arg0 );
@@ -63,11 +62,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeInitializeDepotBuildForConfigFileS>( this.Functions.InitializeDepotBuildForConfigFile2 )( this.ObjectAddress, pchConfigFile ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeStartBuildUUSSSU( IntPtr thisptr, UInt32 hDepotBuild, UInt32 uFlags, string cszBetaKey, string cszBetaPassword, string cszChunksPath, UInt32 arg5 );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeStartBuildUUSSU( IntPtr thisptr, UInt32 hDepotBuild, UInt32 uFlags, string cszBetaKey, string cszChunksPath, UInt32 arg4 );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool StartBuild( UInt32 hDepotBuild, UInt32 uFlags, string cszBetaKey, string cszBetaPassword, string cszChunksPath, UInt32 arg5 ) 
+		public bool StartBuild( UInt32 hDepotBuild, UInt32 uFlags, string cszBetaKey, string cszChunksPath, UInt32 arg4 ) 
 		{
-			return this.GetFunction<NativeStartBuildUUSSSU>( this.Functions.StartBuild3 )( this.ObjectAddress, hDepotBuild, uFlags, cszBetaKey, cszBetaPassword, cszChunksPath, arg5 ); 
+			return this.GetFunction<NativeStartBuildUUSSU>( this.Functions.StartBuild3 )( this.ObjectAddress, hDepotBuild, uFlags, cszBetaKey, cszChunksPath, arg4 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetDepotBuildStatusUEU( IntPtr thisptr, UInt32 hDepotBuild, ref EDepotBuildStatus pStatusOut, ref UInt32 pPercentDone );
@@ -104,16 +103,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetManifestGIDsUUU>( this.Functions.GetManifestGIDs8 )( this.ObjectAddress, hDepotBuild, ref pBaselineGID, ref pNewGID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRebaseAndBuildDepotUU( IntPtr thisptr, UInt64 arg0, UInt64 arg1 );
-		public UInt32 RebaseAndBuildDepot( UInt64 arg0, UInt64 arg1 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFinishAppBuildUUSBU( IntPtr thisptr, UInt32 uBuildID, UInt32 nAppID, string cszBetaKey, [MarshalAs(UnmanagedType.I1)] bool bOnlyFinish, UInt32 cNumSkipDepots );
+		public UInt32 FinishAppBuild( UInt32 uBuildID, UInt32 nAppID, string cszBetaKey, bool bOnlyFinish, UInt32 cNumSkipDepots ) 
 		{
-			return this.GetFunction<NativeRebaseAndBuildDepotUU>( this.Functions.RebaseAndBuildDepot9 )( this.ObjectAddress, arg0, arg1 ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetAppBuildLiveUUSS( IntPtr thisptr, UInt32 arg0, UInt32 arg1, string pchBetaKey, string cszBetaPassword );
-		public UInt32 SetAppBuildLive( UInt32 arg0, UInt32 arg1, string pchBetaKey, string cszBetaPassword ) 
-		{
-			return this.GetFunction<NativeSetAppBuildLiveUUSS>( this.Functions.SetAppBuildLive10 )( this.ObjectAddress, arg0, arg1, pchBetaKey, cszBetaPassword ); 
+			return this.GetFunction<NativeFinishAppBuildUUSBU>( this.Functions.FinishAppBuild9 )( this.ObjectAddress, uBuildID, nAppID, cszBetaKey, bOnlyFinish, cNumSkipDepots ); 
 		}
 		
 	};

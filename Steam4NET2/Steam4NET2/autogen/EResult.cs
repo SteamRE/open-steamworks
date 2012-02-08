@@ -79,6 +79,8 @@ namespace Steam4NET
 		k_EResultFacebookQueryError = 70,
 		k_EResultExpiredLoginAuthCode = 71,
 		k_EResultIPLoginRestrictionFailed = 72,
+		k_EResultAccountLocked = 73,
+		k_EResultVerifiedEmailRequired = 74,
 	};
 	
 }

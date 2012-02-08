@@ -296,11 +296,11 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetReceiptLineItemCountU>( this.Functions.GetReceiptLineItemCount36 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptLineItemInfoUUUUUUUEUS( IntPtr thisptr, UInt32 nReceiptIndex, UInt32 nLineItemIndex, ref UInt32 nPackageID, ref UInt32 nBaseCost, ref UInt32 nDiscount, ref UInt32 nTax, ref UInt32 nShipping, ref ECurrencyCode eCurrencyCode, ref UInt32 punAppId, StringBuilder pchDescription );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptLineItemInfoUUUUUUUEUSS( IntPtr thisptr, UInt32 nReceiptIndex, UInt32 nLineItemIndex, ref UInt32 nPackageID, ref UInt32 nBaseCost, ref UInt32 nDiscount, ref UInt32 nTax, ref UInt32 nShipping, ref ECurrencyCode eCurrencyCode, ref UInt32 punAppId, StringBuilder pchDescription, StringBuilder pchCouponInfoURL );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetReceiptLineItemInfo( UInt32 nReceiptIndex, UInt32 nLineItemIndex, ref UInt32 nPackageID, ref UInt32 nBaseCost, ref UInt32 nDiscount, ref UInt32 nTax, ref UInt32 nShipping, ref ECurrencyCode eCurrencyCode, ref UInt32 punAppId, StringBuilder pchDescription ) 
+		public bool GetReceiptLineItemInfo( UInt32 nReceiptIndex, UInt32 nLineItemIndex, ref UInt32 nPackageID, ref UInt32 nBaseCost, ref UInt32 nDiscount, ref UInt32 nTax, ref UInt32 nShipping, ref ECurrencyCode eCurrencyCode, ref UInt32 punAppId, StringBuilder pchDescription, StringBuilder pchCouponInfoURL ) 
 		{
-			return this.GetFunction<NativeGetReceiptLineItemInfoUUUUUUUEUS>( this.Functions.GetReceiptLineItemInfo37 )( this.ObjectAddress, nReceiptIndex, nLineItemIndex, ref nPackageID, ref nBaseCost, ref nDiscount, ref nTax, ref nShipping, ref eCurrencyCode, ref punAppId, pchDescription ); 
+			return this.GetFunction<NativeGetReceiptLineItemInfoUUUUUUUEUSS>( this.Functions.GetReceiptLineItemInfo37 )( this.ObjectAddress, nReceiptIndex, nLineItemIndex, ref nPackageID, ref nBaseCost, ref nDiscount, ref nTax, ref nShipping, ref eCurrencyCode, ref punAppId, pchDescription, pchCouponInfoURL ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEnableTestLicenseU( IntPtr thisptr, UInt32 unPackageID );

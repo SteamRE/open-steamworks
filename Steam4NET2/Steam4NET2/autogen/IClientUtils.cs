@@ -35,7 +35,8 @@ namespace Steam4NET
 		public IntPtr BIsGlobalInstance23;
 		public IntPtr CheckFileSignature24;
 		public IntPtr GetBuildID25;
-		private IntPtr DTorIClientUtils26;
+		public IntPtr SetSpew26;
+		private IntPtr DTorIClientUtils27;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTUTILS_INTERFACE_VERSION001")]
@@ -203,6 +204,12 @@ namespace Steam4NET
 		public UInt64 GetBuildID(  ) 
 		{
 			return this.GetFunction<NativeGetBuildID>( this.Functions.GetBuildID25 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetSpewEII( IntPtr thisptr, ESpewGroup eSpewGroup, Int32 iSpewLevel, Int32 iLogLevel );
+		public void SetSpew( ESpewGroup eSpewGroup, Int32 iSpewLevel, Int32 iLogLevel ) 
+		{
+			this.GetFunction<NativeSetSpewEII>( this.Functions.SetSpew26 )( this.ObjectAddress, eSpewGroup, iSpewLevel, iLogLevel ); 
 		}
 		
 	};

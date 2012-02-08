@@ -213,6 +213,13 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct SessionStateInfo_t
+	{
+		public UInt32 m_uOnlineSessionInstances;
+		public UInt32 m_uPublishedInstanceId;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(304)]
 	public struct PersonaStateChange_t
 	{
