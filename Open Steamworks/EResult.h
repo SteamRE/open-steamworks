@@ -96,7 +96,8 @@ typedef enum EResult
 	k_EResultFacebookQueryError = 70,			// Facebook query returned an error
 	k_EResultExpiredLoginAuthCode = 71,			// Expired Login Auth Code
 	k_EResultIPLoginRestrictionFailed = 72,		// IP Login Restriction Failed
-
+	k_EResultAccountLocked = 73,				// Account Locked
+	k_EResultVerifiedEmailRequired = 74,		// Account Logon Denied Verified Email Required
 } EResult;
 
 #endif // ERESULT_H

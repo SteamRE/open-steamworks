@@ -28,17 +28,20 @@
 abstract_class UNSAFE_INTERFACE IClientAppManager
 {
 public:
-	virtual bool InstallApp( AppId_t unAppID, bool ) = 0;
-	virtual bool ConvertFromSteam2( AppId_t unAppID, const char *cszPath ) = 0;
-	virtual bool UninstallApp( AppId_t unAppID, bool bComplete ) = 0;
+	virtual EAppUpdateError InstallApp( AppId_t unAppID, bool ) = 0;
+	virtual EAppUpdateError ConvertFromSteam2( AppId_t unAppID, const char *cszPath ) = 0;
+	virtual EAppUpdateError UninstallApp( AppId_t unAppID, bool bComplete ) = 0;
 
-	virtual bool LaunchApp( AppId_t unAppID, uint32 uLaunchOption, const char *pszUserArgs ) = 0;
+	virtual EAppUpdateError LaunchApp( AppId_t unAppID, uint32 uLaunchOption, const char *pszUserArgs ) = 0;
 	virtual bool ShutdownApp( AppId_t unAppID, bool bForce ) = 0;
 
 	virtual EAppState GetAppState( AppId_t unAppID ) = 0;
 
 	virtual uint64 GetAppSize( AppId_t unAppID ) = 0;
 	virtual uint32 GetAppDir( AppId_t unAppID, char *pchPath, uint32 cbPath ) = 0;
+
+	virtual int32 GetAppDependency( AppId_t unAppID ) = 0;
+	virtual int32 GetDependentApps( AppId_t unAppID, AppId_t *punAppIDs, int32 cAppIDsMax ) = 0;
 
 	virtual uint32 GetUpdateInfo( AppId_t unAppID, AppUpdateInfo_s *pUpdateInfo ) = 0;
 
@@ -69,9 +72,9 @@ public:
 	virtual bool BuildBackup( AppId_t unAppID, uint64 ullMaxFileSize, const char *cszBackupPath ) = 0;
 	virtual bool BuildInstaller( const char *cszProjectFile, const char *cszBackupPath ) = 0;
 	virtual bool CancelBackup() = 0;
-	virtual bool RestoreApp( AppId_t unAppID, char const* cszBackupPath ) = 0;
-	virtual bool BNeedsFile( AppId_t unAppID, char const* cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;
-	virtual bool BAddFileOnDisk( AppId_t unAppID, char const* cszFilePath, uint64 ullFileSize, uint32 uUnk, SHADigestWrapper_t ubSha1 ) = 0;
+	virtual EAppUpdateError RestoreApp( AppId_t unAppID, char const *cszBackupPath ) = 0;
+	virtual bool BNeedsFile( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;
+	virtual bool BAddFileOnDisk( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk, SHADigestWrapper_t ubSha1 ) = 0;
 	virtual uint64 FinishAddingFiles( AppId_t unAppID ) = 0;
 };
 

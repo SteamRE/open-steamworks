@@ -86,6 +86,8 @@ public:
 	virtual SteamAPICall_t CheckFileSignature( const char *szFileName ) = 0;
 
 	virtual uint64 GetBuildID() = 0;
+
+	virtual void SetSpew( ESpewGroup eSpewGroup, int32 iSpewLevel, int32 iLogLevel ) = 0;
 };
 
 #endif // ICLIENTUTILS_H

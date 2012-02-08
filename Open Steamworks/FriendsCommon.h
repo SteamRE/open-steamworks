@@ -290,6 +290,12 @@ const int k_nMaxPendingInvitations = 48;
 
 #pragma pack( push, 8 )
 
+struct SessionStateInfo_t
+{
+	uint32 m_uOnlineSessionInstances;
+	uint32 m_uPublishedInstanceId;
+};
+
 
 
 

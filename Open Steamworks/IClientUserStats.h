@@ -151,7 +151,7 @@ public:
 	//				...
 	//			}
 	// once you've accessed all the entries, the data will be free'd, and the SteamLeaderboardEntries_t handle will become invalid
-	virtual bool GetDownloadedLeaderboardEntry( SteamLeaderboardEntries_t hSteamLeaderboardEntries, int index, LeaderboardEntry_t *pLeaderboardEntry, int *pDetails, int cDetailsMax ) = 0;
+	virtual bool GetDownloadedLeaderboardEntry( SteamLeaderboardEntries_t hSteamLeaderboardEntries, int index, LeaderboardEntry_t *pLeaderboardEntry, int pDetails[], int cDetailsMax ) = 0;
 
 	// Attaches a piece of user generated content the user's entry on a leaderboard.
 	// hContent is a handle to a piece of user generated content that was shared using ISteamUserRemoteStorage::FileShare().

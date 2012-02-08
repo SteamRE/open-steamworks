@@ -61,13 +61,26 @@ public:
 	virtual UGCHandle_t GetCachedUGCHandle( int32 iCachedContent ) = 0;
 
 	virtual SteamAPICall_t PublishFile( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId , const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, bool bOverwrite, SteamParamStringArray_t *pTags, bool bWorkshopFile ) = 0;
-	virtual SteamAPICall_t UpdatePublishedFile( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, RemoteStorageUpdatePublishedFileRequest_t remoteStorageUpdatePublishedFileRequest ) = 0;
-	virtual SteamAPICall_t GetPublishedFileDetails( uint64 ullPublishedFile ) = 0;
-	virtual SteamAPICall_t DeletePublishedFile( uint64 ullPublishedFile ) = 0;
+
+	virtual JobID_t CreatePublishedFileUpdateRequest( AppId_t nAppId, UGCHandle_t m_hFile ) = 0;
+	virtual bool UpdatePublishedFileFile( JobID_t hUpdateRequest, const char *cszFile ) = 0;
+	virtual bool UpdatePublishedFilePreviewFile( JobID_t hUpdateRequest, const char *cszPreviewFile ) = 0;
+	virtual bool UpdatePublishedFileTitle( JobID_t hUpdateRequest, const char *cszTitle ) = 0;
+	virtual bool UpdatePublishedFileDescription( JobID_t hUpdateRequest, const char *cszDescription ) = 0;
+	virtual bool UpdatePublishedFileVisibility( JobID_t hUpdateRequest, ERemoteStoragePublishedFileVisibility eVisibility ) = 0;
+	virtual bool UpdatePublishedFileTags( JobID_t hUpdateRequest, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t CommitPublishedFileUpdate( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, JobID_t hUpdateRequest ) = 0;
+	
+	virtual SteamAPICall_t GetPublishedFileDetails( UGCHandle_t hPublishedFile, bool bUseNewCallback ) = 0; // Old callback id = 1310, new callback id = 1318
+	virtual SteamAPICall_t DeletePublishedFile( UGCHandle_t hPublishedFile ) = 0;
 	virtual SteamAPICall_t EnumerateUserPublishedFiles( AppId_t nAppId, uint32 uStartIndex, ERemoteStoragePublishedFileSortOrder eOrder ) = 0;
-	virtual SteamAPICall_t SubscribePublishedFile( AppId_t nAppId, uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t SubscribePublishedFile( AppId_t nAppId, UGCHandle_t hPublishedFile ) = 0;
 	virtual SteamAPICall_t EnumerateUserSubscribedFiles( AppId_t nAppId, uint32 uStartIndex ) = 0;
-	virtual SteamAPICall_t UnsubscribePublishedFile( AppId_t nAppId, uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t UnsubscribePublishedFile( AppId_t nAppId, UGCHandle_t hPublishedFile ) = 0;
+
+	virtual SteamAPICall_t EnumerateCRERankedByVote( AppId_t nAppId, uint32 uStartIndex, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
+	virtual SteamAPICall_t EnumerateCRERankedByTrend( AppId_t nAppId, uint32 uStartIndex, uint32 cDays, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
+	virtual SteamAPICall_t GetCREItemVoteSummary( UGCHandle_t hPublishedFile ) = 0;
 	
 	virtual EResult FilePersist( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
@@ -96,6 +109,8 @@ public:
 	virtual const char* PchNameFromERemoteStorageFileRoot( ERemoteStorageFileRoot eRemoteStorageFileRoot ) = 0;
 	
 	virtual bool ResetFileRequestState( AppId_t nAppId ) = 0;
+
+	virtual void ClearPublishFileUpdateRequests( AppId_t nAppId ) = 0;
 };
 
 #endif // ICLIENTREMOTESTORAGE_H

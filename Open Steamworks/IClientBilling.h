@@ -79,7 +79,7 @@ public:
 	virtual bool GetReceiptBillingAddress( uint32 nReceiptIndex, char* pchFirstName, char* pchLastName, char* pchAddress1, char* pchAddress2, char* pchCity, char* pchPostcode, char* pchState, char* pchCountry, char* pchPhone ) = 0;
 
 	virtual uint32 GetReceiptLineItemCount( uint32 nReceiptIndex ) = 0;
-	virtual bool GetReceiptLineItemInfo( uint32 nReceiptIndex, uint32 nLineItemIndex, PackageId_t *nPackageID, uint32 *nBaseCost, uint32 *nDiscount, uint32 *nTax, uint32 *nShipping, ECurrencyCode *eCurrencyCode, AppId_t *punAppId, char *pchDescription ) = 0;
+	virtual bool GetReceiptLineItemInfo( uint32 nReceiptIndex, uint32 nLineItemIndex, PackageId_t *nPackageID, uint32 *nBaseCost, uint32 *nDiscount, uint32 *nTax, uint32 *nShipping, ECurrencyCode *eCurrencyCode, AppId_t *punAppId, char *pchDescription, char *pchCouponInfoURL ) = 0;
 
 	virtual void EnableTestLicense( PackageId_t unPackageID ) = 0;
 	virtual void DisableTestLicense( PackageId_t unPackageID ) = 0;
@@ -89,7 +89,7 @@ public:
 	virtual bool GetLicenseForAppID( AppId_t unAppId, PackageId_t * punPackageID ) = 0;
 	virtual uint32 GetPackageName( PackageId_t unPackageID, char *pchName, int32 cubName ) = 0;
 	virtual bool GetPackageInfo( PackageId_t unPackageID, uint32 * puNumAppIds, uint32 * puNumDepotIDs, EBillingType * peBillingType, ELicenseType * peLicenseType, EPackageStatus * pePackageStatus, int32 * piCodeClass, int32 * piGameCode, int32 * piTerritoryCode, bool *pbRequiresShipping, bool *pbIsPreorder ) = 0;
-	virtual uint32 GetAppsInPackage( PackageId_t unPackageID, AppId_t* puIds, uint32 uMaxIds, bool bExcludeDepots, bool bExcludeApps ) = 0;
+	virtual uint32 GetAppsInPackage( PackageId_t unPackageID, AppId_t puIds[], uint32 uMaxIds, bool bExcludeDepots, bool bExcludeApps ) = 0;
 	virtual uint32 GetPackageExtendedInfo( PackageId_t unPackageID, uint8 *pubData, int32 cubData, bool bSharedKVSymbols ) = 0;
 
 	// Result returned by callback id 412

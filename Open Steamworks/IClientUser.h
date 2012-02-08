@@ -112,7 +112,6 @@ public:
 	virtual void SetLoginInformation( const char *pchAccountName, const char *pchPassword, bool bRememberPassword ) = 0;
 
 	virtual void SetAccountCreationTime( RTime32 rtime32Time ) = 0;
-	virtual bool DoesTextContainUserPassword( const char *pchText ) = 0;
 
 	virtual OBSOLETE_FUNCTION uint32 obselete_GetCMIPAddress() = 0;
 	virtual OBSOLETE_FUNCTION uint32 obselete_GetP2PRelayIPAddress() = 0;
@@ -221,6 +220,9 @@ public:
 
 	virtual void SetAccountLimited( bool bAccountLimited ) = 0;
 	virtual bool BIsAccountLimited() = 0;
+
+	virtual void SetAccountCommunityBanned( bool bBanned ) = 0;
+	virtual bool BIsAccountCommunityBanned() = 0;
 
 	virtual void SendValidationEmail() = 0;
 	virtual bool BGameConnectTokensAvailable() = 0;

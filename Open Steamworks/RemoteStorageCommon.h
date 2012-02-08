@@ -92,7 +92,6 @@ enum EResolveConflict
 	k_EResolveConflictKeepServer = 2,		// The server version of each file will be used to overwrite the local version
 };
 
-
 enum ERemoteStoragePublishedFileVisibility
 {
 	// TODO: Reverse this enum
@@ -102,6 +101,14 @@ enum ERemoteStoragePublishedFileSortOrder
 {
 	// TODO: Reverse this enum
 };
+
+enum EWorkshopFileType
+{
+	// TODO: Reverse this enum
+};
+
+
+#pragma pack( push, 8 )
 
 struct SteamParamStringArray_t
 {
@@ -120,7 +127,6 @@ struct RemoteStorageUpdatePublishedFileRequest_t
 };
 
 
-#pragma pack( push, 8 )
 
 //-----------------------------------------------------------------------------
 // Purpose: sent when the local file cache is fully synced with the server for an app

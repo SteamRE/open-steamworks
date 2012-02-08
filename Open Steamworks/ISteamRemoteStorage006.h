@@ -72,15 +72,22 @@ public:
 	virtual int32	GetCachedUGCCount() = 0;
 	virtual	UGCHandle_t GetCachedUGCHandle( int32 iCachedContent ) = 0;
 
-	virtual SteamAPICall_t PublishFile( const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, SteamParamStringArray_t *pTags ) = 0;
-	virtual SteamAPICall_t PublishWorkshopFile( const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, SteamParamStringArray_t *pTags ) = 0;
-	virtual SteamAPICall_t UpdatePublishedFile( RemoteStorageUpdatePublishedFileRequest_t remoteStorageUpdatePublishedFileRequest ) = 0;
-	virtual SteamAPICall_t GetPublishedFileDetails( uint64 ullPublishedFile ) = 0;
-	virtual SteamAPICall_t DeletePublishedFile( uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t PublishWorkshopFile( const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, SteamParamStringArray_t *pTags, EWorkshopFileType eWorkshopFileType ) = 0;
+	virtual JobID_t CreatePublishedFileUpdateRequest( UGCHandle_t hPublishedFile ) = 0;
+	virtual bool UpdatePublishedFileFile( JobID_t hUpdateRequest, const char *cszFile ) = 0;
+	virtual bool UpdatePublishedFilePreviewFile( JobID_t hUpdateRequest, const char *cszPreviewFile ) = 0;
+	virtual bool UpdatePublishedFileTitle( JobID_t hUpdateRequest, const char *cszTitle ) = 0;
+	virtual bool UpdatePublishedFileDescription( JobID_t hUpdateRequest, const char *cszDescription ) = 0;
+	virtual bool UpdatePublishedFileVisibility( JobID_t hUpdateRequest, ERemoteStoragePublishedFileVisibility eVisibility ) = 0;
+	virtual bool UpdatePublishedFileTags( JobID_t hUpdateRequest, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t CommitPublishedFileUpdate( JobID_t hUpdateRequest ) = 0;
+
+	virtual SteamAPICall_t GetPublishedFileDetails( UGCHandle_t hPublishedFile ) = 0;
+	virtual SteamAPICall_t DeletePublishedFile( UGCHandle_t hPublishedFile ) = 0;
 	virtual SteamAPICall_t EnumerateUserPublishedFiles( uint32 uStartIndex ) = 0;
-	virtual SteamAPICall_t SubscribePublishedFile( uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t SubscribePublishedFile( UGCHandle_t hPublishedFile ) = 0;
 	virtual SteamAPICall_t EnumerateUserSubscribedFiles( uint32 uStartIndex ) = 0;
-	virtual SteamAPICall_t UnsubscribePublishedFile( uint64 ullPublishedFile ) = 0;
+	virtual SteamAPICall_t UnsubscribePublishedFile( UGCHandle_t hPublishedFile ) = 0;
 };
 
 #endif // ISTEAMREMOTESTORAGE006_H

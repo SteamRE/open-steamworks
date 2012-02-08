@@ -75,6 +75,7 @@ public:
 
 	virtual EPersonaStateFlag GetFriendPersonaStateFlags( CSteamID steamIDFriend ) = 0;
 	virtual bool IsFriendGameOnConsole( CSteamID steamIDFriend ) = 0;
+	STEAMWORKS_STRUCT_RETURN_1(SessionStateInfo_t, GetFriendSessionStateInfo, CSteamID, steamIDFriend) /*virtual SessionStateInfo_t GetFriendSessionStateInfo( CSteamID steamIDFriend ) = 0;*/
 	virtual EUserRestriction GetFriendRestrictions( CSteamID steamIDFriend ) = 0;
 
 	// accesses old friends names - returns an empty string when their are no more items in the history
