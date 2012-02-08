@@ -180,7 +180,7 @@ typedef signed char int8;
 #endif
 
 #ifndef STEAMWORKS_CLIENT_INTERFACES
-	#define UNSAFE_INTERFACE STEAMWORKS_DEPRECATE("IClient interfaces are unversioned and potentially unsafe. Class defintion can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to suppress this warning.")
+	#define UNSAFE_INTERFACE STEAMWORKS_DEPRECATE("IClient interfaces are unversioned and potentially unsafe. Class definition can change between steamclient releases. #define STEAMWORKS_CLIENT_INTERFACES to suppress this warning.")
 #else
 	#define UNSAFE_INTERFACE
 #endif
