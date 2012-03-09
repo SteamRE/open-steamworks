@@ -2,7 +2,7 @@
 
 #include "Steamworks.h"
 
-#pragma comment( lib, "../Resources/steamclient" )
+#pragma comment( lib, "../Resources/Libs/Win32/steamclient.lib" )
 
 CSteamAPILoader loader;
 

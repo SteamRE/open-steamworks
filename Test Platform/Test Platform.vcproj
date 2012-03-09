@@ -59,7 +59,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				DelayLoadDLLs="steamclient.dll"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
