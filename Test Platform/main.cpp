@@ -55,13 +55,13 @@ int main()
 	printf("Enter your username: ");
 	if(fgets(szUsername, sizeof(szUsername), stdin))
 	{
-		szUsername[strlen(szUsername) - 1] = 0;
+		szUsername[sizeof(szUsername) - 1] = 0;
 	}
 	
 	printf("Enter your password: ");
 	if(fgets(szPassword, sizeof(szPassword), stdin))
 	{
-		szPassword[strlen(szPassword) - 1] = 0;
+		szPassword[sizeof(szPassword) - 1] = 0;
 	}
 
 	pClientUser->LogOnWithPassword(false, szUsername, szPassword);
