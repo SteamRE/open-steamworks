@@ -212,8 +212,6 @@ public:
 	virtual SteamAPICall_t AssociateWithClan( CSteamID clanID ) = 0;
 	virtual SteamAPICall_t ComputeNewPlayerCompatibility( CSteamID steamID ) = 0;
 
-	virtual void ForceHeartbeatViaCM() = 0;
-
 	// Ask if a user has a specific achievement for this game, will get a callback on reply
 	virtual bool _BGetUserAchievementStatus( CSteamID steamID, const char *pchAchievementName ) = 0;
 

@@ -216,6 +216,10 @@ public:
 	virtual bool SetListenForFriendsMessages( bool bInterceptEnabled ) = 0;
 	virtual bool ReplyToFriendMessage( CSteamID steamIDFriend, const char *pchMsgToSend ) = 0;
 	virtual int GetFriendMessage( CSteamID steamIDFriend, int iMessageID, void *pvData, int cubData, EChatEntryType *peChatEntryType ) = 0;
+
+	virtual SteamAPICall_t GetFollowerCount( CSteamID steamID ) = 0;
+	virtual SteamAPICall_t IsFollowing( CSteamID steamID ) = 0;
+	virtual SteamAPICall_t EnumerateFollowingList( uint32 uStartIndex ) = 0;
 };
 
 

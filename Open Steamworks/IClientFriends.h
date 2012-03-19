@@ -361,6 +361,10 @@ public:
 	virtual bool HideFriend( CSteamID steamIDFriend, bool bHide ) = 0;
 	virtual const char * GetFriendFacebookName( CSteamID steamIDFriend ) = 0;
 	virtual uint64 GetFriendFacebookID( CSteamID steamIDFriend ) = 0;
+	
+	virtual SteamAPICall_t GetFollowerCount( CSteamID steamID ) = 0;
+	virtual SteamAPICall_t IsFollowing( CSteamID steamID ) = 0;
+	virtual SteamAPICall_t EnumerateFollowingList( uint32 uStartIndex ) = 0;
 };
 
 #endif // ICLIENTFRIENDS_H

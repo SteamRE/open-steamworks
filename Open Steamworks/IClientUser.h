@@ -281,9 +281,16 @@ public:
 	virtual bool BAccountShouldShowLockUI() = 0;
 	virtual bool BAccountLockedByIPT() = 0;
 	virtual int32 GetCountAuthedComputers() = 0;
+	
+	virtual ESteamGuardProvider GetSteamGuardProvider() = 0;
+	virtual bool GetSteamGuardRequireCodeByDefault() = 0;
+	virtual bool ShowSteamGuardProviderOptions() = 0;
+	virtual bool SteamGuardProviderMobileIsOption() = 0;
+
 	virtual bool BAccountCanUseIPT() = 0;
 	virtual void ChangeTwoFactorAuthOptions( int32 eOption ) = 0;
-	virtual void Set2ndFactorAuthCode( const char* pchAuthCode ) = 0;
+	virtual void ChangeSteamGuardOptions( ESteamGuardProvider eProvider, bool bRequireCode ) = 0;
+	virtual void Set2ndFactorAuthCode( const char* pchAuthCode, bool bDontRememberComputer ) = 0;
 	virtual bool BAccountHasIPTConfig() = 0;
 
 	virtual bool GetEmailDomainFromLogonFailure( char * pchEmailDomain, int32 cbEmailDomain ) = 0;

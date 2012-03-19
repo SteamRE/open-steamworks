@@ -121,6 +121,10 @@ enum EWorkshopFileType
 	// TODO: Reverse this enum
 };
 
+enum EWorkshopFileAction
+{
+	// TODO: Reverse this enum
+};
 
 #pragma pack( push, 8 )
 

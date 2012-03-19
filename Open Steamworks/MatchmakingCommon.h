@@ -278,6 +278,11 @@ struct GMSQueryResult_t
 	int32 nAuthPlayers;
 };
 
+struct PingSample_t
+{
+	// TODO: Reverse this struct
+};
+
 #pragma pack( pop )
 
 
