@@ -62,8 +62,17 @@ enum ELobbyDistanceFilter
 // maximum number of characters a lobby metadata key can be
 #define k_nMaxLobbyKeyLength 255
 
+typedef int HServerQuery;
+const int HSERVERQUERY_INVALID = 0xffffffff;
+
+// game server flags
+const uint32 k_unFavoriteFlagNone			= 0x00;
+const uint32 k_unFavoriteFlagFavorite		= 0x01; // this game favorite entry is for the favorites list
+const uint32 k_unFavoriteFlagHistory		= 0x02; // this game favorite entry is for the history list
+
 
 #pragma pack( push, 8 )
+
 //-----------------------------------------------------------------------------
 // Purpose: a server was added/removed from the favorites list, you should refresh now
 //-----------------------------------------------------------------------------
@@ -99,8 +108,9 @@ struct LobbyInvite_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 3 };
 
-	CSteamID m_ulSteamIDUser;		// Steam ID of the person making the invite
+	CSteamID m_ulSteamIDUser;	// Steam ID of the person making the invite
 	CSteamID m_ulSteamIDLobby;	// Steam ID of the Lobby
+	CGameID m_ulGameID;			// GameID of the Lobby
 };
 
 
@@ -114,7 +124,7 @@ struct LobbyEnter_t
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 4 };
 
 	CSteamID m_ulSteamIDLobby;							// SteamID of the Lobby you have entered
-	EChatPermission m_rgfChatPermissions;						// Permissions of the current user
+	EChatPermission m_rgfChatPermissions;				// Permissions of the current user
 	bool m_bLocked;										// If true, then only invited users may join
 	EChatRoomEnterResponse m_EChatRoomEnterResponse;	// EChatRoomEnterResponse
 };
@@ -222,6 +232,7 @@ struct LobbyClosing_t
 struct LobbyKicked_t
 {
 	enum { k_iCallback = k_iSteamMatchmakingCallbacks + 12 };
+
 	uint64 m_ulSteamIDLobby;			// Lobby
 	uint64 m_ulSteamIDAdmin;			// User who kicked you - possibly the ID of the lobby itself
 	uint8 m_bKickedDueToDisconnect;		// true if you were kicked from the lobby due to the user losing connection to Steam (currently always true)

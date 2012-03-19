@@ -194,20 +194,28 @@ public:
 	virtual int GetFriendCoplayTime( CSteamID steamIDFriend ) = 0;
 	virtual AppId_t GetFriendCoplayGame( CSteamID steamIDFriend ) = 0;
 
-
-	virtual SteamAPICall_t JoinClanChatRoom( CSteamID groupID ) = 0;
-	virtual bool LeaveClanChatRoom( CSteamID groupID ) = 0;
-	virtual int GetClanChatMemberCount( CSteamID groupID ) = 0;
-	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetChatMemberByIndex, CSteamID, groupID, int, iIndex) /*virtual CSteamID GetChatMemberByIndex( CSteamID groupID, int iIndex ) = 0;*/
-	virtual bool SendClanChatMessage( CSteamID groupID, const char *cszMessage ) = 0;
-	virtual int GetClanChatMessage( CSteamID groupID, int iChatID, void *pvData, int cubData, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter ) = 0;
-	virtual bool IsClanChatAdmin( CSteamID groupID, CSteamID userID ) = 0;
-	virtual bool IsClanChatWindowOpenInSteam( CSteamID groupID ) = 0;
-	virtual bool OpenClanChatWindowInSteam( CSteamID groupID ) = 0;
-	virtual bool CloseClanChatWindowInSteam( CSteamID groupID ) = 0;
-	virtual bool SetListenForFriendsMessages( bool bListen ) = 0;
-	virtual bool ReplyToFriendMessage( CSteamID friendID, const char *cszMessage ) = 0;
-	virtual int GetFriendMessage( CSteamID friendID, int iChatID, void *pvData, int cubData, EChatEntryType *peChatEntryType ) = 0;
+	// chat interface for games
+	// this allows in-game access to group (clan) chats from in the game
+	// the behavior is somewhat sophisticated, because the user may or may not be already in the group chat from outside the game or in the overlay
+	// use ActivateGameOverlayToUser( "chat", steamIDClan ) to open the in-game overlay version of the chat
+	virtual SteamAPICall_t JoinClanChatRoom( CSteamID steamIDClan ) = 0;
+	virtual bool LeaveClanChatRoom( CSteamID steamIDClan ) = 0;
+	virtual int GetClanChatMemberCount( CSteamID steamIDClan ) = 0;
+	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetChatMemberByIndex, CSteamID, steamIDClan, int, iUser) /*virtual CSteamID GetChatMemberByIndex( CSteamID steamIDClan, int iUser ) = 0;*/
+	virtual bool SendClanChatMessage( CSteamID steamIDClanChat, const char *pchText ) = 0;
+	virtual int GetClanChatMessage( CSteamID steamIDClanChat, int iMessage, void *prgchText, int cchTextMax, EChatEntryType *peChatEntryType, CSteamID *pSteamIDChatter ) = 0;
+	virtual bool IsClanChatAdmin( CSteamID steamIDClanChat, CSteamID steamIDUser ) = 0;
+	
+	// interact with the Steam (game overlay / desktop)
+	virtual bool IsClanChatWindowOpenInSteam( CSteamID steamIDClanChat ) = 0;
+	virtual bool OpenClanChatWindowInSteam( CSteamID steamIDClanChat ) = 0;
+	virtual bool CloseClanChatWindowInSteam( CSteamID steamIDClanChat ) = 0;
+	
+	// peer-to-peer chat interception
+	// this is so you can show P2P chats inline in the game
+	virtual bool SetListenForFriendsMessages( bool bInterceptEnabled ) = 0;
+	virtual bool ReplyToFriendMessage( CSteamID steamIDFriend, const char *pchMsgToSend ) = 0;
+	virtual int GetFriendMessage( CSteamID steamIDFriend, int iMessageID, void *pvData, int cubData, EChatEntryType *peChatEntryType ) = 0;
 };
 
 

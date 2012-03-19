@@ -134,15 +134,23 @@ enum EAppUpdateError
 	k_EAppErrorUpdateRequired = 19,
 	k_EAppErrorStillBusy = 20,
 	k_EAppErrorNoConnectionToContentServers = 21,
+	k_EAppErrorInvalidApplicationConfiguration = 22,
+	k_EAppErrorInvalidContentConfiguration = 23,
+	k_EAppErrorMissingManifest = 24,
 };
 
+//-----------------------------------------------------------------------------
+// Purpose: possible results when registering an activation code
+//-----------------------------------------------------------------------------
 enum ERegisterActivactionCodeResult
 {
 	k_ERegisterActivactionCodeResultOK = 0,
 	k_ERegisterActivactionCodeResultFail = 1,
 	k_ERegisterActivactionCodeResultAlreadyRegistered = 2,
 	k_ERegisterActivactionCodeResultTimeout = 3,
+	k_ERegisterActivactionCodeAlreadyOwned = 4
 };
+
 
 struct SHADigestWrapper_t
 {
@@ -221,12 +229,15 @@ struct AppValidationComplete_t
 	uint32 m_TotalFilesFailed;
 };
 
+//-----------------------------------------------------------------------------
+// Purpose: response to RegisterActivationCode()
+//-----------------------------------------------------------------------------
 struct RegisterActivationCodeResponse_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 8 };
 
 	ERegisterActivactionCodeResult m_eResult;
-	uint32 m_unPackageRegistered;
+	uint32 m_unPackageRegistered;						// package that was registered. Only set on success
 };
 
 struct DownloadScheduleChanged_t

@@ -71,15 +71,15 @@ public:
 	virtual int32	GetCachedUGCCount() = 0;
 	virtual	UGCHandle_t GetCachedUGCHandle( int32 iCachedContent ) = 0;
 
-	virtual SteamAPICall_t PublishFile( const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, SteamParamStringArray_t *pTags ) = 0;
-	virtual SteamAPICall_t PublishWorkshopFile( const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, SteamParamStringArray_t *pTags ) = 0;
-	virtual SteamAPICall_t UpdatePublishedFile( RemoteStorageUpdatePublishedFileRequest_t remoteStorageUpdatePublishedFileRequest ) = 0;
-	virtual SteamAPICall_t GetPublishedFileDetails( UGCHandle_t hPublishedFile ) = 0;
-	virtual SteamAPICall_t DeletePublishedFile( UGCHandle_t hPublishedFile ) = 0;
-	virtual SteamAPICall_t EnumerateUserPublishedFiles( uint32 uStartIndex ) = 0;
-	virtual SteamAPICall_t SubscribePublishedFile( UGCHandle_t hPublishedFile ) = 0;
-	virtual SteamAPICall_t EnumerateUserSubscribedFiles( uint32 uStartIndex ) = 0;
-	virtual SteamAPICall_t UnsubscribePublishedFile( UGCHandle_t hPublishedFile ) = 0;
-};
+	// publishing UGC
+	virtual SteamAPICall_t	PublishFile( const char *pchFile, const char *pchPreviewFile, AppId_t nConsumerAppId, const char *pchTitle, const char *pchDescription, ERemoteStoragePublishedFileVisibility eVisibility, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t	PublishWorkshopFile( const char *pchFile, const char *pchPreviewFile, AppId_t nConsumerAppId, const char *pchTitle, const char *pchDescription, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t	UpdatePublishedFile( RemoteStorageUpdatePublishedFileRequest_t updatePublishedFileRequest ) = 0;
+	virtual SteamAPICall_t	GetPublishedFileDetails( PublishedFileId_t unPublishedFileId ) = 0;
+	virtual SteamAPICall_t	DeletePublishedFile( PublishedFileId_t unPublishedFileId ) = 0;
+	virtual SteamAPICall_t	EnumerateUserPublishedFiles( uint32 unStartIndex ) = 0;
+	virtual SteamAPICall_t	SubscribePublishedFile( PublishedFileId_t unPublishedFileId ) = 0;
+	virtual SteamAPICall_t	EnumerateUserSubscribedFiles( uint32 unStartIndex ) = 0;
+	virtual SteamAPICall_t	UnsubscribePublishedFile( PublishedFileId_t unPublishedFileId ) = 0;};
 
 #endif // ISTEAMREMOTESTORAGE005_H

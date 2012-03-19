@@ -214,6 +214,8 @@ public:
 	// after completion, the local user will no longer be the owner
 	virtual bool SetLobbyOwner( CSteamID steamIDLobby, CSteamID steamIDNewOwner ) = 0;
 
+	// link two lobbies for the purposes of checking player compatibility
+	// you must be the lobby owner of both lobbies
 	virtual bool SetLinkedLobby( CSteamID steamIDLobby, CSteamID steamIDLobby2 ) = 0;
 };
 

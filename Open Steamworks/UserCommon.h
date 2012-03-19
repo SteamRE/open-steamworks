@@ -245,6 +245,7 @@ struct SteamServersConnected_t
 struct SteamServerConnectFailure_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 2 };
+
 	EResult m_eResult;
 };
 
@@ -255,6 +256,7 @@ struct SteamServerConnectFailure_t
 struct SteamServersDisconnected_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 3 };
+
 	EResult m_eResult;
 };
 
@@ -337,6 +339,7 @@ struct OBSOLETE_CALLBACK DRMSDKFileTransferResult_t
 struct ValidateAuthTicketResponse_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 43 };
+
 	CSteamID m_SteamID;
 	EAuthSessionResponse m_eAuthSessionResponse;
 };
@@ -360,6 +363,17 @@ struct EncryptedAppTicketResponse_t
 {
 	enum { k_iCallback = k_iSteamUserCallbacks + 54 };
 
+	EResult m_eResult;
+};
+
+//-----------------------------------------------------------------------------
+// callback for GetAuthSessionTicket
+//-----------------------------------------------------------------------------
+struct GetAuthSessionTicketResponse_t
+{
+	enum { k_iCallback = k_iSteamUserCallbacks + 63 };
+
+	HAuthTicket m_hAuthTicket;
 	EResult m_eResult;
 };
 

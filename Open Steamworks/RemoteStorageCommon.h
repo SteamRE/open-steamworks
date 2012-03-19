@@ -32,6 +32,16 @@
 #define CLIENTREMOTESTORAGE_INTERFACE_VERSION "CLIENTREMOTESTORAGE_INTERFACE_VERSION001"
 
 
+// A handle to a piece of user generated content
+typedef uint64 UGCHandle_t;
+typedef uint64 PublishedFileId_t;
+const UGCHandle_t k_UGCHandleInvalid = 0xffffffffffffffffull;
+
+const uint32 k_cchPublishedDocumentTitleMax = 128 + 1;
+const uint32 k_cchPublishedDocumentDescriptionMax = 256 + 1;
+const uint32 k_unEnumeratePublishedFilesMaxResults = 50;
+const uint32 k_cchTagListMax = 1024 + 1;
+const uint32 k_cchFilenameMax = 260;
 
 enum ERemoteStorageFileRoot
 {
@@ -45,6 +55,8 @@ enum ERemoteStorageFileRoot
 	k_ERemoteStorageFileRootMacHome,
 	k_ERemoteStorageFileRootMacAppSupport,
 	k_ERemoteStorageFileRootMacDocuments,
+	k_ERemoteStorageFileRootWinSavedGames,
+	k_ERemoteStorageFileRootWinProgramData,
 	k_ERemoteStorageFileRootMax
 };
 
@@ -94,7 +106,9 @@ enum EResolveConflict
 
 enum ERemoteStoragePublishedFileVisibility
 {
-	// TODO: Reverse this enum
+	k_ERemoteStoragePublishedFileVisibilityPublic = 0,
+	k_ERemoteStoragePublishedFileVisibilityFriendsOnly = 1,
+	k_ERemoteStoragePublishedFileVisibilityPrivate = 2,
 };
 
 enum ERemoteStoragePublishedFileSortOrder
@@ -112,19 +126,118 @@ enum EWorkshopFileType
 
 struct SteamParamStringArray_t
 {
-	// TODO: Reverse this struct
-#ifdef _S4N_
-	int iPadding;
-#endif
+	const char ** m_ppStrings;
+	int32 m_nNumStrings;
 };
 
+//-----------------------------------------------------------------------------
+// Purpose: helper structure for making updates to published files.
+//	make sure to update serialization/deserialization in interfacemap.cpp if new properties are added
+//-----------------------------------------------------------------------------
 struct RemoteStorageUpdatePublishedFileRequest_t
 {
-	// TODO: Reverse this struct
-#ifdef _S4N_
-	int iPadding;
-#endif
+public:
+	RemoteStorageUpdatePublishedFileRequest_t()
+	{
+		Initialize( k_GIDNil );
+	}
+
+	RemoteStorageUpdatePublishedFileRequest_t( PublishedFileId_t unPublishedFileId )
+	{
+		Initialize( unPublishedFileId );
+	}
+
+	PublishedFileId_t GetPublishedFileId() { return m_unPublishedFileId; }
+
+	void SetFile( const char *pchFile )
+	{
+		m_pchFile = pchFile;
+		m_bUpdateFile = true;
+	}
+
+	const char *GetFile() { return m_pchFile; }
+	bool BUpdateFile() { return m_bUpdateFile; }
+
+	void SetPreviewFile( const char *pchPreviewFile )
+	{
+		m_pchPreviewFile = pchPreviewFile;
+		m_bUpdatePreviewFile = true;
+	}
+
+	const char *GetPreviewFile() { return m_pchPreviewFile; }
+	bool BUpdatePreviewFile() { return m_bUpdatePreviewFile; }
+
+	void SetTitle( const char *pchTitle )
+	{
+		m_pchTitle = pchTitle;
+		m_bUpdateTitle = true;
+	}
+
+	const char *GetTitle() { return m_pchTitle; }
+	bool BUpdateTitle() { return m_bUpdateTitle; }
+
+	void SetDescription( const char *pchDescription )
+	{
+		m_pchDescription = pchDescription;
+		m_bUpdateDescription = true;
+	}
+
+	const char *GetDescription() { return m_pchDescription; }
+	bool BUpdateDescription() { return m_bUpdateDescription; }
+
+	void SetVisibility( ERemoteStoragePublishedFileVisibility eVisibility )
+	{
+		m_eVisibility = eVisibility;
+		m_bUpdateVisibility = true;
+	}
+
+	const ERemoteStoragePublishedFileVisibility GetVisibility() { return m_eVisibility; }
+	bool BUpdateVisibility() { return m_bUpdateVisibility; }
+
+	void SetTags( SteamParamStringArray_t *pTags )
+	{
+		m_pTags = pTags;
+		m_bUpdateTags = true;
+	}
+
+	SteamParamStringArray_t *GetTags() { return m_pTags; }
+	bool BUpdateTags() { return m_bUpdateTags; }
+	SteamParamStringArray_t **GetTagsPointer() { return &m_pTags; }
+
+	void Initialize( PublishedFileId_t unPublishedFileId )
+	{
+		m_unPublishedFileId = unPublishedFileId;
+		m_pchFile = 0;
+		m_pchPreviewFile = 0;
+		m_pchTitle = 0;
+		m_pchDescription = 0;
+		m_pTags = 0;
+
+		m_bUpdateFile = false;
+		m_bUpdatePreviewFile = false;
+		m_bUpdateTitle = false;
+		m_bUpdateDescription = false;
+		m_bUpdateTags = false;
+		m_bUpdateVisibility = false;
+	}
+
+private:
+	PublishedFileId_t m_unPublishedFileId;
+	const char *m_pchFile;
+	const char *m_pchPreviewFile;
+	const char *m_pchTitle;
+	const char *m_pchDescription;
+	ERemoteStoragePublishedFileVisibility m_eVisibility;
+	SteamParamStringArray_t *m_pTags;
+
+	bool m_bUpdateFile;
+	bool m_bUpdatePreviewFile;
+	bool m_bUpdateTitle;
+	bool m_bUpdateDescription;
+	bool m_bUpdateVisibility;
+	bool m_bUpdateTags;
 };
+
 
 
 
@@ -135,6 +248,7 @@ struct RemoteStorageUpdatePublishedFileRequest_t
 struct RemoteStorageAppSyncedClient_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 1 };
+
 	AppId_t m_nAppID;
 	EResult m_eResult;
 	int m_unNumDownloads;
@@ -147,6 +261,7 @@ struct RemoteStorageAppSyncedClient_t
 struct RemoteStorageAppSyncedServer_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 2 };
+
 	AppId_t m_nAppID;
 	EResult m_eResult;
 	int m_unNumUploads;
@@ -159,6 +274,7 @@ struct RemoteStorageAppSyncedServer_t
 struct RemoteStorageAppSyncProgress_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 3 };
+
 	char m_rgchCurrentFile[260];				// Current file being transferred
 	AppId_t m_nAppID;							// App this info relates to
 	uint32 m_uBytesTransferredThisChunk;		// Bytes transferred this chunk
@@ -181,6 +297,7 @@ struct RemoteStorageAppInfoLoaded_t
 struct RemoteStorageAppSyncStatusCheck_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 5 };
+
 	AppId_t m_nAppID;
 	EResult m_eResult;
 };
@@ -191,6 +308,7 @@ struct RemoteStorageAppSyncStatusCheck_t
 struct RemoteStorageConflictResolution_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 6 };
+
 	AppId_t m_nAppID;
 	EResult m_eResult;
 };
@@ -201,6 +319,7 @@ struct RemoteStorageConflictResolution_t
 struct RemoteStorageFileShareResult_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 7 };
+
 	EResult m_eResult;			// The result of the operation
 	UGCHandle_t m_hFile;		// The handle that can be shared with users and features
 };
@@ -211,6 +330,7 @@ struct RemoteStorageFileShareResult_t
 struct Deprecated_RemoteStorageDownloadUGCResult_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 8 };
+
 	EResult m_eResult;				// The result of the operation.
 	UGCHandle_t m_hFile;			// The handle to the file that was attempted to be downloaded.
 	AppId_t m_nAppID;				// ID of the app that created this file.
@@ -220,9 +340,110 @@ struct Deprecated_RemoteStorageDownloadUGCResult_t
 	uint64 m_ulSteamIDOwner;		// Steam ID of the user who created this content.
 };
 
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to PublishFile()
+//-----------------------------------------------------------------------------
+struct RemoteStoragePublishFileResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 9 };
 
-// TODO : Add callbacks 1309 to 1316
-//RemoteStorageEnumerateUserPublishedFilesResult_t
+	EResult m_eResult;				// The result of the operation.
+	PublishedFileId_t m_nPublishedFileId;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to GetPublishedFileDetails()
+//-----------------------------------------------------------------------------
+struct RemoteStorageGetPublishedFileDetailsResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 10 };
+
+	EResult m_eResult;				// The result of the operation.
+	PublishedFileId_t m_nPublishedFileId;
+	AppId_t m_nCreatorAppID;		// ID of the app that created this file.
+	AppId_t m_nConsumerAppID;		// ID of the app that created this file.
+	char m_rgchTitle[129];			// title of document
+	char m_rgchDescription[257];	// description of document
+	UGCHandle_t m_hFile;			// The handle of the primary file
+	UGCHandle_t m_hPreviewFile;		// The handle of the preview file
+	uint64 m_ulSteamIDOwner;		// Steam ID of the user who created this content.
+	uint32 m_rtimeCreated;			// time when the published file was created
+	uint32 m_rtimeUpdated;			// time when the published file was last updated
+	ERemoteStoragePublishedFileVisibility m_eVisibility;
+	bool m_bBanned;
+	char m_rgchTags[1025];			// comma separated list of all tags associated with this file
+	bool m_bTagsTruncated;			// whether the list of tags was too long to be returned in the provided buffer
+	char m_pchFileName[260];		// The name of the primary file
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to DeletePublishedFile()
+//-----------------------------------------------------------------------------
+struct RemoteStorageDeletePublishedFileResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 11 };
+
+	EResult m_eResult;				// The result of the operation.
+	PublishedFileId_t m_nPublishedFileId;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to EnumerateUserPublishedFiles()
+//-----------------------------------------------------------------------------
+struct RemoteStorageEnumerateUserPublishedFilesResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 12 };
+
+	EResult m_eResult;				// The result of the operation.
+	int32 m_nResultsReturned;
+	int32 m_nTotalResultCount;
+	PublishedFileId_t m_rgPublishedFileId[50];
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to SubscribePublishedFile()
+//-----------------------------------------------------------------------------
+struct RemoteStorageSubscribePublishedFileResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 13 };
+
+	EResult m_eResult;				// The result of the operation.
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to EnumerateSubscribePublishedFiles()
+//-----------------------------------------------------------------------------
+struct RemoteStorageEnumerateUserSubscribedFilesResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 14 };
+
+	EResult m_eResult;				// The result of the operation.
+	int32 m_nResultsReturned;
+	int32 m_nTotalResultCount;
+	PublishedFileId_t m_rgPublishedFileId[50];
+	uint32 m_rgRTimeSubscribed[50];
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to UnsubscribePublishedFile()
+//-----------------------------------------------------------------------------
+struct RemoteStorageUnsubscribePublishedFileResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 15 };
+
+	EResult m_eResult;				// The result of the operation.
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to UpdatePublishedFile()
+//-----------------------------------------------------------------------------
+struct RemoteStorageUpdatePublishedFileResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 16 };
+
+	EResult m_eResult;				// The result of the operation.
+	PublishedFileId_t m_nPublishedFileId;
+};
 
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to UGCDownload()
@@ -230,6 +451,7 @@ struct Deprecated_RemoteStorageDownloadUGCResult_t
 struct RemoteStorageDownloadUGCResult_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 17 };
+
 	EResult m_eResult;				// The result of the operation.
 	UGCHandle_t m_hFile;			// The handle to the file that was attempted to be downloaded.
 	AppId_t m_nAppID;				// ID of the app that created this file.

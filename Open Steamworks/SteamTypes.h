@@ -253,6 +253,7 @@ typedef signed char int8;
 // lobby type description
 enum ELobbyType
 {
+	k_ELobbyTypePrivate = 0,		// only way to join the lobby is to invite to someone else
 	k_ELobbyTypeFriendsOnly = 1,	// shows for friends or invitees, but not in lobby list
 	k_ELobbyTypePublic = 2,			// visible for friends and in lobby list
 	k_ELobbyTypeInvisible = 3,		// returned by search, but not visible to other friends 
@@ -546,61 +547,18 @@ typedef uint32 HTTPRequestHandle;
 
 typedef int unknown_ret; // unknown return value
 
-typedef int HServerQuery;
-const int HSERVERQUERY_INVALID = 0xffffffff;
-
 // returns true of the flags indicate that a user has been removed from the chat
 #define BChatMemberStateChangeRemoved( rgfChatMemberStateChangeFlags ) ( rgfChatMemberStateChangeFlags & ( k_EChatMemberStateChangeDisconnected | k_EChatMemberStateChangeLeft | k_EChatMemberStateChangeKicked | k_EChatMemberStateChangeBanned ) )
-
-// game server flags
-const uint32 k_unFavoriteFlagNone			= 0x00;
-const uint32 k_unFavoriteFlagFavorite		= 0x01; // this game favorite entry is for the favorites list
-const uint32 k_unFavoriteFlagHistory		= 0x02; // this game favorite entry is for the history list
-
-// handle to a socket
-typedef uint32 SNetSocket_t;
-typedef uint32 SNetListenSocket_t;
-
-// max size on chat messages
-const uint32 k_cchFriendChatMsgMax = 0x3000;
-
-// maximum number of characters in a user's name. Two flavors; one for UTF-8 and one for UTF-16.
-// The UTF-8 version has to be very generous to accomodate characters that get large when encoded
-// in UTF-8.
-enum
-{
-	k_cchPersonaNameMax = 128,
-	k_cwchPersonaNameMax = 32,
-};
-
-// size limit on chat room or member metadata
-const uint32 k_cubChatMetadataMax = 8192;
-
-const int k_cchSystemIMTextMax = 4096;	// upper bound of length of system IM text
-
-// size limit on stat or achievement name (UTF-8 encoded)
-const int k_cchStatNameMax = 128;
-
-// maximum number of bytes for a leaderboard name (UTF-8 encoded)
-const int k_cchLeaderboardNameMax = 128;
-
-// maximum number of details int32's storable for a single leaderboard entry
-const int k_cLeaderboardDetailsMax = 64;
-
-// handle to a single leaderboard
-typedef uint64 SteamLeaderboard_t;
-
-// handle to a set of downloaded entries in a leaderboard
-typedef uint64 SteamLeaderboardEntries_t;
 
 typedef void (*PFNLegacyKeyRegistration)( const char *pchCDKey, const char *pchInstallPath );
 typedef bool (*PFNLegacyKeyInstalled)();
 
 const unsigned int k_unSteamAccountIDMask = 0xFFFFFFFF;
 const unsigned int k_unSteamAccountInstanceMask = 0x000FFFFF;
-// we allow 2 simultaneous user account instances right now, 1= desktop, 2 = console, 0 = all
+// we allow 3 simultaneous user account instances right now, 1= desktop, 2 = console, 4 = web, 0 = all
 const unsigned int k_unSteamUserDesktopInstance = 1;	 
 const unsigned int k_unSteamUserConsoleInstance = 2;
+const unsigned int k_unSteamUserWebInstance		= 4;
 
 // Special flags for Chat accounts - they go in the top 8 bits
 // of the steam ID's "instance", leaving 12 for the actual instances
@@ -614,10 +572,6 @@ enum EChatSteamIDInstanceFlags
 
 	// Max of 8 flags
 };
-
-// A handle to a piece of user generated content
-typedef uint64 UGCHandle_t;
-const UGCHandle_t k_UGCHandleInvalid = 0xffffffffffffffffull;
 
 #define STEAM_USING_FILESYSTEM							(0x00000001)
 #define STEAM_USING_LOGGING								(0x00000002)

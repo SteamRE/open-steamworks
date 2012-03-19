@@ -29,13 +29,51 @@
 abstract_class ISteamGameServer011
 {
 public:
+
+//
+// Basic server data.  These properties, if set, must be set before before calling LogOn.  They
+// may not be changed after logged in.
+//
+	
+	/// This is called by SteamGameServer_Init, and you will usually not need to call it directly
 	virtual bool InitGameServer( uint32 unGameIP, uint16 unGamePort, uint16 usQueryPort, uint32 unServerFlags, AppId_t nAppID, const char *pchVersion ) = 0;
+	
+	/// Game product identifier.  This is currently used by the master server for version checking purposes.
+	/// It's a required field, but will eventually will go away, and the AppID will be used for this purpose.
 	virtual void SetProduct( const char *pchProductName ) = 0;
+	
+	/// Description of the game.  This is a required field and is displayed in the steam server browser....for now.
+	/// This is a required field, but it will go away eventually, as the data should be determined from the AppID.
 	virtual void SetGameDescription( const char *pchGameDescription ) = 0;
+	
+	/// If your game is a "mod," pass the string that identifies it.  The default is an empty string, meaning
+	/// this application is the original game, not a mod.
+	///
+	/// @see k_cbMaxGameServerGameDir
 	virtual void SetModDir( const char *pchModDir ) = 0;
+	
+	/// Is this is a dedicated server?  The default value is false.
 	virtual void SetDedicatedServer( bool bDedicatedServer ) = 0;
-	virtual void LogOn( const char *pchLogin, const char *pchPassword ) = 0;
+
+//
+// Login
+//
+
+	/// Begin process to login to a persistent game server account
+	///
+	/// You need to register for callbacks to determine the result of this operation.
+	/// @see SteamServersConnected_t
+	/// @see SteamServerConnectFailure_t
+	/// @see SteamServersDisconnected_t
+	virtual void LogOn( const char *pszAccountName, const char *pszPassword ) = 0;
+	
+	/// Login to a generic, anonymous account.
+	///
+	/// Note: in previous versions of the SDK, this was automatically called within SteamGameServer_Init,
+	/// but this is no longer the case.
 	virtual void LogOnAnonymous() = 0;
+	
+	/// Begin process of logging game server out of steam
 	virtual void LogOff() = 0;
 
 	// status functions
@@ -43,38 +81,68 @@ public:
 	virtual bool BSecure() = 0; 
 	STEAMWORKS_STRUCT_RETURN_0(CSteamID, GetSteamID) /*virtual CSteamID GetSteamID() = 0;*/
 
-	// Returns true if the master server has requested a restart.
-	// Only returns true once per request.
+	/// Returns true if the master server has requested a restart.
+	/// Only returns true once per request.
 	virtual bool WasRestartRequested() = 0;
 
+//
+// Server state.  These properties may be changed at any time.
+//
+
+	/// Max player count that will be reported to server browser and client queries
 	virtual void SetMaxPlayerCount( int cPlayersMax ) = 0;
+	
+	/// Number of bots.  Default value is zero
 	virtual void SetBotPlayerCount( int cBotPlayers ) = 0;
-	virtual void SetServerName( const char *pchServerName ) = 0;
-	virtual void SetMapName( const char *pchMapName ) = 0;
+	
+	/// Set the name of server as it will appear in the server browser
+	///
+	/// @see k_cbMaxGameServerName
+	virtual void SetServerName( const char *pszServerName ) = 0;
+	
+	/// Set name of map to report in the server browser
+	///
+	/// @see k_cbMaxGameServerName
+	virtual void SetMapName( const char *pszMapName ) = 0;
+	
+	/// Let people know if your server will require a password
 	virtual void SetPasswordProtected( bool bPasswordProtected ) = 0;
 
-	// This can be called if spectator goes away or comes back (passing 0 means there is no spectator server now).
+	/// Spectator server.  The default value is zero, meaning the service
+	/// is not used.
 	virtual void SetSpectatorPort( uint16 unSpectatorPort ) = 0;
 
-	virtual void SetSpectatorServerName( const char *pchSpectatorServerName ) = 0;
+	/// Name of the spectator server.  (Only used if spectator port is nonzero.)
+	///
+	/// @see k_cbMaxGameServerMapName
+	virtual void SetSpectatorServerName( const char *pszSpectatorServerName ) = 0;
 
-	// Call this to clear the whole list of key/values that are sent in rules queries.
+	/// Call this to add/update a key/value pair.
 	virtual void ClearAllKeyValues() = 0;
 
-	// Call this to add/update a key/value pair.
+	/// Call this to add/update a key/value pair.
 	virtual void SetKeyValue( const char *pKey, const char *pValue ) = 0;
 
-	// Sets a string defining the "gametags" for this server, this is optional, but if it is set
-	// it allows users to filter in the matchmaking/server-browser interfaces based on the value
+	/// Sets a string defining the "gametags" for this server, this is optional, but if it is set
+	/// it allows users to filter in the matchmaking/server-browser interfaces based on the value
+	///
+	/// @see k_cbMaxGameServerTags
 	virtual void SetGameTags( const char *pchGameTags ) = 0; 
 
-	// Sets a string defining the "gamedata" for this server, this is optional, but if it is set
-	// it allows users to filter in the matchmaking/server-browser interfaces based on the value
-	// don't set this unless it actually changes, its only uploaded to the master once (when
-	// acknowledged)
+	/// Sets a string defining the "gamedata" for this server, this is optional, but if it is set
+	/// it allows users to filter in the matchmaking/server-browser interfaces based on the value
+	/// don't set this unless it actually changes, its only uploaded to the master once (when
+	/// acknowledged)
+	///
+	/// @see k_cbMaxGameServerGameData
 	virtual void SetGameData( const char *pchGameData ) = 0; 
 
+	/// Region identifier.  This is an optional field, the default value is empty, meaning the "world" region
 	virtual void SetRegion( const char *pchRegionName ) = 0;
+
+//
+// Player list management / authentication
+//
 
 	// Handles receiving a new connection from a Steam user.  This call will ask the Steam
 	// servers to validate the users identity, app ownership, and VAC status.  If the Steam servers 
@@ -130,6 +198,10 @@ public:
 	// returns false if we're not connected to the steam servers and thus cannot ask
 	virtual bool RequestUserGroupStatus( CSteamID steamIDUser, CSteamID steamIDGroup ) = 0;
 
+//
+// Query steam for server data
+//
+
 	// Ask for the gameplay stats for the server. Results returned in a callback
 	virtual void GetGameplayStats( ) = 0;
 
@@ -165,13 +237,26 @@ public:
 	// Call this each frame until it returns 0.
 	virtual int GetNextOutgoingPacket( void *pOut, int cbMaxOut, uint32 *pNetAdr, uint16 *pPort ) = 0;
 
-	virtual void EnableHeartbeats( bool bEnabled ) = 0;
-	virtual void SetHeartbeatInterval( int iInterval ) = 0;
+//
+// Control heartbeats / advertisement with master server
+//
 
-	// Force it to request a heartbeat from the master servers.
+	// Call this as often as you like to tell the master server updater whether or not
+	// you want it to be active (default: off).
+	virtual void EnableHeartbeats( bool bActive ) = 0;
+
+	// You usually don't need to modify this.
+	// Pass -1 to use the default value for iHeartbeatInterval.
+	// Some mods change this.
+	virtual void SetHeartbeatInterval( int iHeartbeatInterval ) = 0;
+
+	// Force a heartbeat to steam at the next opportunity
 	virtual void ForceHeartbeat() = 0;
 
+	// associate this game server with this clan for the purposes of computing player compat
 	virtual SteamAPICall_t AssociateWithClan( CSteamID clanID ) = 0;
+	
+	// ask if any of the current players dont want to play with this new player - or vice versa
 	virtual SteamAPICall_t ComputeNewPlayerCompatibility( CSteamID steamID ) = 0;
 };
 

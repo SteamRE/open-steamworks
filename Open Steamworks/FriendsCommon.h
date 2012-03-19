@@ -84,6 +84,9 @@ enum EFriendRelationship
 	k_EFriendRelationshipIgnored = 5,
 	k_EFriendRelationshipIgnoredFriend = 6,
 	k_EFriendRelationshipSuggested = 7,
+
+	// keep this updated
+	k_EFriendRelationshipMax = 8,
 };
 
 enum EChatRoomType
@@ -126,7 +129,9 @@ enum EClanRelationship
 	eClanRelationshipKicked = 4,
 };
 
-// for enumerating friends list
+//-----------------------------------------------------------------------------
+// Purpose: flags for enumerating friends list, or quickly checking a the relationship between users
+//-----------------------------------------------------------------------------
 enum EFriendFlags
 {
 	k_EFriendFlagNone			= 0x00,
@@ -135,8 +140,8 @@ enum EFriendFlags
 	k_EFriendFlagImmediate		= 0x04,			// "regular" friend
 	k_EFriendFlagClanMember		= 0x08,
 	k_EFriendFlagOnGameServer	= 0x10,	
-	//	k_EFriendFlagHasPlayedWith	= 0x20,	// not currently used
-	//	k_EFriendFlagFriendOfFriend	= 0x40,	// not currently used
+	// k_EFriendFlagHasPlayedWith	= 0x20,	// not currently used
+	// k_EFriendFlagFriendOfFriend	= 0x40, // not currently used
 	k_EFriendFlagRequestingFriendship = 0x80,
 	k_EFriendFlagRequestingInfo = 0x100,
 	k_EFriendFlagIgnored		= 0x200,
@@ -159,8 +164,8 @@ enum EPersonaState
 	k_EPersonaStateBusy = 2,			// user is on, but busy
 	k_EPersonaStateAway = 3,			// auto-away feature
 	k_EPersonaStateSnooze = 4,			// auto-away for a long time
-	k_EPersonaStateLookingToTrade = 5,	// Looking to Trade
-	k_EPersonaStateLookingToPlay = 6,	// Looking to Play
+	k_EPersonaStateLookingToTrade = 5,	// Online, trading
+	k_EPersonaStateLookingToPlay = 6,	// Online, wanting to play
 	k_EPersonaStateMax,
 };
 
@@ -218,9 +223,11 @@ enum EChatRoomEnterResponse
 	k_EChatRoomEnterResponseFull = 4,			// Chat room has reached its maximum size
 	k_EChatRoomEnterResponseError = 5,			// Unexpected Error
 	k_EChatRoomEnterResponseBanned = 6,			// You are banned from this chat room and may not join
-	k_EChatRoomEnterResponseLimited = 7,
-	k_EChatRoomEnterResponseClanDisabled = 8,
-	k_EChatRoomEnterResponseCommunityBan = 9,
+	k_EChatRoomEnterResponseLimited = 7,		// Joining this chat is not allowed because you are a limited user (no value on account)
+	k_EChatRoomEnterResponseClanDisabled = 8,	// Attempt to join a clan chat when the clan is locked or disabled
+	k_EChatRoomEnterResponseCommunityBan = 9,	// Attempt to join a chat when the user has a community lock on their account
+	k_EChatRoomEnterResponseMemberBlockedYou = 10, // Join failed - some member in the chat has blocked you from joining
+	k_EChatRoomEnterResponseYouBlockedMember = 11, // Join failed - you have blocked some member already in the chat
 };
 
 enum EChatAction
@@ -276,7 +283,6 @@ enum { k_cchMaxRichPresenceKeys = 20 };
 enum { k_cchMaxRichPresenceKeyLength = 64 };
 enum { k_cchMaxRichPresenceValueLength = 256 };
 
-
 // maximum length of friend group name (not including terminating nul!)
 const int k_cchMaxFriendGroupName = 64;
 
@@ -286,6 +292,28 @@ const int k_cFriendGroupLimit = 100;
 const int k_nMaxFriends = 250;
 const int k_nMaxPendingInvitations = 48;
 
+// maximum length of friend group name (not including terminating nul!)
+const int k_cchMaxFriendsGroupName = 64;
+
+// maximum number of groups a single user is allowed
+const int k_cFriendsGroupLimit = 100;
+
+// max size on chat messages
+const uint32 k_cchFriendChatMsgMax = 0x3000;
+
+// maximum number of characters in a user's name. Two flavors; one for UTF-8 and one for UTF-16.
+// The UTF-8 version has to be very generous to accomodate characters that get large when encoded
+// in UTF-8.
+enum
+{
+	k_cchPersonaNameMax = 128,
+	k_cwchPersonaNameMax = 32,
+};
+
+// size limit on chat room or member metadata
+const uint32 k_cubChatMetadataMax = 8192;
+
+const int k_cchSystemIMTextMax = 4096;	// upper bound of length of system IM text
 
 
 #pragma pack( push, 8 )
@@ -311,8 +339,8 @@ struct PersonaStateChange_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 4 };
 	
-	CSteamID m_ulSteamID;		// steamID of the friend who changed
-	EPersonaChange m_nChangeFlags;		// what's changed
+	CSteamID m_ulSteamID;			// steamID of the friend who changed
+	EPersonaChange m_nChangeFlags;	// what's changed
 };
 
 
@@ -348,9 +376,14 @@ struct GameServerChangeRequested_t
 struct GameLobbyJoinRequested_t
 {
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 33 };
-
 	CSteamID m_steamIDLobby;
-	CSteamID m_steamIDFriend;		// the friend they did the join via (will be invalid if not directly via a friend)
+
+	// The friend they did the join via (will be invalid if not directly via a friend)
+	//
+	// On PS3, the friend will be invalid if this was triggered by a PSN invite via the XMB, but
+	// the account type will be console user so you can tell at least that this was from a PSN friend
+	// rather than a Steam friend.
+	CSteamID m_steamIDFriend;		
 };
 
 
@@ -404,7 +437,74 @@ struct GameRichPresenceJoinRequested_t
 	char m_rgchConnect[k_cchMaxRichPresenceValueLength];
 };
 
-// TODO : Add callbacks 338 to 343
+//-----------------------------------------------------------------------------
+// Purpose: a chat message has been received for a clan chat the game has joined
+//-----------------------------------------------------------------------------
+struct GameConnectedClanChatMsg_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 38 };
+
+	CSteamID m_steamIDClanChat;
+	CSteamID m_steamIDUser;
+	int m_iMessageID;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: a user has joined a clan chat
+//-----------------------------------------------------------------------------
+struct GameConnectedChatJoin_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 39 };
+
+	CSteamID m_steamIDClanChat;
+	CSteamID m_steamIDUser;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: a user has left the chat we're in
+//-----------------------------------------------------------------------------
+struct GameConnectedChatLeave_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 40 };
+
+	CSteamID m_steamIDClanChat;
+	CSteamID m_steamIDUser;
+	bool m_bKicked;		// true if admin kicked
+	bool m_bDropped;	// true if Steam connection dropped
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: a DownloadClanActivityCounts() call has finished
+//-----------------------------------------------------------------------------
+struct DownloadClanActivityCountsResult_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 41 };
+
+	bool m_bSuccess;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: a JoinClanChatRoom() call has finished
+//-----------------------------------------------------------------------------
+struct JoinClanChatRoomCompletionResult_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 42 };
+
+	CSteamID m_steamIDClanChat;
+	EChatRoomEnterResponse m_eChatRoomEnterResponse;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: a chat message has been received from a user
+//-----------------------------------------------------------------------------
+struct GameConnectedFriendChatMsg_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 43 };
+
+	CSteamID m_steamIDUser;
+	int m_iMessageID;
+};
+
 
 
 

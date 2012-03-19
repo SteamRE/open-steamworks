@@ -107,6 +107,10 @@ enum ESNetSocketState
 };
 
 
+// handle to a socket
+typedef uint32 SNetSocket_t;		// CreateP2PConnectionSocket()
+typedef uint32 SNetListenSocket_t;	// CreateListenSocket()
+
 
 #pragma pack( push, 8 )
 

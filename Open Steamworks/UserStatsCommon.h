@@ -36,6 +36,20 @@
 #define CLIENTUSERSTATS_INTERFACE_VERSION "CLIENTUSERSTATS_INTERFACE_VERSION002"
 
 
+// size limit on stat or achievement name (UTF-8 encoded)
+enum { k_cchStatNameMax = 128 };
+
+// maximum number of bytes for a leaderboard name (UTF-8 encoded)
+enum { k_cchLeaderboardNameMax = 128 };
+
+// maximum number of details int32's storable for a single leaderboard entry
+enum { k_cLeaderboardDetailsMax = 64 };
+
+// handle to a single leaderboard
+typedef uint64 SteamLeaderboard_t;
+
+// handle to a set of downloaded entries in a leaderboard
+typedef uint64 SteamLeaderboardEntries_t;
 
 //-----------------------------------------------------------------------------
 // types of user game stats fields
@@ -121,6 +135,7 @@ typedef LeaderboardEntry002_t LeaderboardEntry_t;
 struct UserStatsReceived_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 1 };
+
 	uint64		m_nGameID;		// Game these stats are for
 	EResult		m_eResult;		// Success / error fetching the stats
 	CSteamID	m_steamIDUser;	// The user for whom the stats are retrieved for
@@ -133,6 +148,7 @@ struct UserStatsReceived_t
 struct UserStatsStored_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 2 };
+
 	uint64		m_nGameID;		// Game these stats are for
 	EResult		m_eResult;		// success / error
 };
@@ -162,6 +178,7 @@ struct UserAchievementStored_t
 struct LeaderboardFindResult_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 4 };
+
 	SteamLeaderboard_t m_hSteamLeaderboard;	// handle to the leaderboard serarched for, 0 if no leaderboard found
 	uint8 m_bLeaderboardFound;				// 0 if no leaderboard found
 };
@@ -174,6 +191,7 @@ struct LeaderboardFindResult_t
 struct LeaderboardScoresDownloaded_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 5 };
+
 	SteamLeaderboard_t m_hSteamLeaderboard;
 	SteamLeaderboardEntries_t m_hSteamLeaderboardEntries;	// the handle to pass into GetDownloadedLeaderboardEntries()
 	int m_cEntryCount; // the number of entries downloaded
@@ -187,6 +205,7 @@ struct LeaderboardScoresDownloaded_t
 struct LeaderboardScoreUploaded_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 6 };
+
 	uint8 m_bSuccess;			// 1 if the call was successful
 	SteamLeaderboard_t m_hSteamLeaderboard;	// the leaderboard handle that was
 	int32 m_nScore;				// the score that was attempted to set
@@ -198,6 +217,7 @@ struct LeaderboardScoreUploaded_t
 struct NumberOfCurrentPlayers_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 7 };
+
 	uint8 m_bSuccess;			// 1 if the call was successful
 	int32 m_cPlayers;			// Number of players currently playing
 };
@@ -209,6 +229,7 @@ struct NumberOfCurrentPlayers_t
 struct UserStatsUnloaded_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 8 };
+
 	CSteamID	m_steamIDUser;	// User whose stats have been unloaded
 };
 
@@ -242,6 +263,7 @@ struct GlobalAchievementPercentagesReady_t
 struct LeaderboardUGCSet_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 11 };
+
 	EResult m_eResult;				// The result of the operation
 	SteamLeaderboard_t m_hSteamLeaderboard;	// the leaderboard handle that was
 };
@@ -253,6 +275,7 @@ struct LeaderboardUGCSet_t
 struct GlobalStatsReceived_t
 {
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 12 };
+
 	uint64	m_nGameID;				// Game global stats were requested for
 	EResult	m_eResult;				// The result of the request
 };
