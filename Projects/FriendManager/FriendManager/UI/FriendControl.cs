@@ -100,7 +100,7 @@ namespace FriendManager
 
             try
             {
-                int avatarId = SteamContext.ClientFriends.GetSmallFriendAvatar( steamid.SteamID );
+                int avatarId = SteamContext.SteamFriends.GetSmallFriendAvatar( steamid.SteamID );
 
                 if ( avatarId == 0 )
                     return Resources.IconUnknown;

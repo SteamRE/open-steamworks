@@ -22,9 +22,23 @@ namespace FriendManager
         {
             if ( !IsInGame() )
                 return "";
+
             try
             {
-                return SteamContext.ClientFriends.GetFriendGamePlayedExtraInfo( this.SteamID );
+                FriendGameInfo_t gameInfo = new FriendGameInfo_t();
+                SteamContext.SteamFriends.GetFriendGamePlayed( this.SteamID, ref gameInfo );
+
+                StringBuilder builder = new StringBuilder( 255 );
+                SteamContext.SteamApps.GetAppData( new CGameID( gameInfo.m_gameID ).AppID, "name", builder, builder.Capacity );
+
+                if ( builder.Length > 0 )
+                {
+                    return builder.ToString();
+                }
+                else
+                {
+                    return "";
+                }
             }
             catch
             {
@@ -38,7 +52,9 @@ namespace FriendManager
             try
             {
                 FriendGameInfo_t gameInfo = new FriendGameInfo_t();
-                return SteamContext.ClientFriends.GetFriendGamePlayed( this.SteamID, ref gameInfo );
+                bool bInGame = SteamContext.SteamFriends.GetFriendGamePlayed( this.SteamID, ref gameInfo );
+
+                return bInGame && gameInfo.m_gameID != 0;
             }
             catch
             {
@@ -50,7 +66,7 @@ namespace FriendManager
         {
             try
             {
-                return SteamContext.ClientFriends.GetFriendPersonaState( this.SteamID ) != EPersonaState.k_EPersonaStateOffline;
+                return SteamContext.SteamFriends.GetFriendPersonaState( this.SteamID ) != EPersonaState.k_EPersonaStateOffline;
             }
             catch { return false; }
         }
@@ -59,7 +75,7 @@ namespace FriendManager
         {
             try
             {
-                return SteamContext.ClientFriends.GetFriendPersonaName( this.SteamID );
+                return SteamContext.SteamFriends.GetFriendPersonaName( this.SteamID );
             }
             catch
             {
@@ -74,7 +90,7 @@ namespace FriendManager
                 if ( this.IsInGame() )
                     return "In-Game";
 
-                EPersonaState state = SteamContext.ClientFriends.GetFriendPersonaState( this.SteamID );
+                EPersonaState state = SteamContext.SteamFriends.GetFriendPersonaState( this.SteamID );
 
                 switch ( state )
                 {
@@ -103,7 +119,7 @@ namespace FriendManager
         {
             try
             {
-                return SteamContext.ClientFriends.GetFriendPersonaState( this.SteamID );
+                return SteamContext.SteamFriends.GetFriendPersonaState( this.SteamID );
             }
             catch
             {

@@ -107,7 +107,7 @@ namespace FriendManager
         {
             foreach ( FriendControl fc in friendsFlow.Controls )
             {
-                fc.Width = this.Width - 34;
+                fc.Width = this.Width - 45;
             }
         }
 
@@ -115,10 +115,10 @@ namespace FriendManager
         {
             List<Friend> friends = new List<Friend>();
 
-            int friendCount = SteamContext.ClientFriends.GetFriendCount( ( int )EFriendFlags.k_EFriendFlagImmediate );
+            int friendCount = SteamContext.SteamFriends.GetFriendCount( EFriendFlags.k_EFriendFlagImmediate );
             for ( int x = 0 ; x < friendCount ; ++x )
             {
-                ulong friendId = SteamContext.ClientFriends.GetFriendByIndex( x, ( int )EFriendFlags.k_EFriendFlagImmediate );
+                ulong friendId = SteamContext.SteamFriends.GetFriendByIndex( x, ( int )EFriendFlags.k_EFriendFlagImmediate );
 
                 Friend friend = new Friend( friendId );
                 friends.Add( friend );

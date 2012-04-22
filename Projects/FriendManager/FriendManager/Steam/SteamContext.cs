@@ -25,6 +25,9 @@ namespace FriendManager
         // SteamUtils005
         public static ISteamUtils005 SteamUtils { get; private set; }
 
+        public static ISteamApps001 SteamApps { get; private set; }
+        public static ISteamFriends009 SteamFriends { get; private set; }
+
 
 
         public static Callback<PersonaStateChange_t> OnStateChange { get; private set; }
@@ -56,12 +59,12 @@ namespace FriendManager
             if ( ClientEngine == null )
                 throw new SteamException( "Unable to get IClientEngine interface." );
 
-            Pipe = ClientEngine.CreateSteamPipe();
+            Pipe = SteamClient.CreateSteamPipe();
 
             if ( Pipe == 0 )
                 throw new SteamException( "Unable to aquire steam pipe." );
 
-            User = ClientEngine.ConnectToGlobalUser( Pipe );
+            User = SteamClient.ConnectToGlobalUser( Pipe );
 
             if ( User == 0 )
                 throw new SteamException( "Unable to connect to global user." );
@@ -75,6 +78,16 @@ namespace FriendManager
             SteamUser = GetInterface<ISteamUser014>(
                 () => { return SteamClient.GetISteamUser( User, Pipe, "SteamUser014" ); },
                 "Unable to get ISteamUser interface."
+            );
+
+            SteamFriends = GetInterface<ISteamFriends009>(
+                () => { return SteamClient.GetISteamFriends( User, Pipe, "SteamFriends009" ); },
+                "Unable to get ISteamFriends interface."
+            );
+
+            SteamApps = GetInterface<ISteamApps001>(
+                () => { return SteamClient.GetISteamApps( User, Pipe, "STEAMAPPS_INTERFACE_VERSION001" ); },
+                "Unable to get ISteamApps interface."
             );
 
             SteamUtils = GetInterface<ISteamUtils005>(
@@ -97,13 +110,13 @@ namespace FriendManager
 
         public static void Shutdown()
         {
-            if ( ClientEngine != null )
+            if ( SteamClient != null )
             {
                 if ( User != 0 )
-                    ClientEngine.ReleaseUser( Pipe, User );
+                    SteamClient.ReleaseUser( Pipe, User );
 
                 if ( Pipe != 0 )
-                    ClientEngine.ReleaseSteamPipe( Pipe );
+                    SteamClient.ReleaseSteamPipe( Pipe );
             }
         }
 
