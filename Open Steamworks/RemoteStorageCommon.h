@@ -126,6 +126,12 @@ enum EWorkshopFileAction
 	// TODO: Reverse this enum
 };
 
+
+enum EWorkshopEnumerationType
+{
+	// TODO: Reverse this enum
+};
+
 #pragma pack( push, 8 )
 
 struct SteamParamStringArray_t
@@ -462,6 +468,28 @@ struct RemoteStorageDownloadUGCResult_t
 	int32 m_nSizeInBytes;			// The size of the file that was downloaded, in bytes.
 	char m_pchFileName[260];		// The name of the file that was downloaded.
 	uint64 m_ulSteamIDOwner;		// Steam ID of the user who created this content.
+};
+
+struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 26 };
+	
+	EResult m_eResult;
+	int32 m_nResultsReturned;
+	int32 m_nTotalResultCount;
+	PublishedFileId_t m_rgPublishedFileId[ k_unEnumeratePublishedFilesMaxResults ];
+};
+
+struct RemoteStorageEnumeratePublishedFilesByUserActionResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 28 };
+	
+	EResult m_eResult;
+	EWorkshopFileAction m_eAction;
+	int32 m_nResultsReturned;
+	int32 m_nTotalResultCount;
+	PublishedFileId_t m_rgPublishedFileId[ k_unEnumeratePublishedFilesMaxResults ];
+	uint32 m_rgRTimes[ k_unEnumeratePublishedFilesMaxResults ];
 };
 
 #pragma pack( pop )
