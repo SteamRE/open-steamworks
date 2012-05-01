@@ -38,7 +38,7 @@ typedef uint64 PublishedFileId_t;
 const UGCHandle_t k_UGCHandleInvalid = 0xffffffffffffffffull;
 
 const uint32 k_cchPublishedDocumentTitleMax = 128 + 1;
-const uint32 k_cchPublishedDocumentDescriptionMax = 256 + 1;
+const uint32 k_cchPublishedDocumentDescriptionMax = 8000;
 const uint32 k_unEnumeratePublishedFilesMaxResults = 50;
 const uint32 k_cchTagListMax = 1024 + 1;
 const uint32 k_cchFilenameMax = 260;
@@ -407,7 +407,7 @@ struct RemoteStorageEnumerateUserPublishedFilesResult_t
 	EResult m_eResult;				// The result of the operation.
 	int32 m_nResultsReturned;
 	int32 m_nTotalResultCount;
-	PublishedFileId_t m_rgPublishedFileId[50];
+	PublishedFileId_t m_rgPublishedFileId[ k_unEnumeratePublishedFilesMaxResults ];
 };
 
 //-----------------------------------------------------------------------------
@@ -430,8 +430,8 @@ struct RemoteStorageEnumerateUserSubscribedFilesResult_t
 	EResult m_eResult;				// The result of the operation.
 	int32 m_nResultsReturned;
 	int32 m_nTotalResultCount;
-	PublishedFileId_t m_rgPublishedFileId[50];
-	uint32 m_rgRTimeSubscribed[50];
+	PublishedFileId_t m_rgPublishedFileId[ k_unEnumeratePublishedFilesMaxResults ];
+	uint32 m_rgRTimeSubscribed[ k_unEnumeratePublishedFilesMaxResults ];
 };
 
 //-----------------------------------------------------------------------------
@@ -470,6 +470,36 @@ struct RemoteStorageDownloadUGCResult_t
 	uint64 m_ulSteamIDOwner;		// Steam ID of the user who created this content.
 };
 
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to GetPublishedFileDetails()
+//-----------------------------------------------------------------------------
+struct RemoteStorageGetPublishedFileDetailsResult002_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 18 };
+
+	EResult m_eResult;						// The result of the operation.
+	PublishedFileId_t m_nPublishedFileId;
+	AppId_t m_nCreatorAppID;				// ID of the app that created this file.
+	AppId_t m_nConsumerAppID;				// ID of the app that created this file.
+	char m_rgchTitle[ k_cchPublishedDocumentTitleMax ]; // title of document
+	char m_rgchDescription[ k_cchPublishedDocumentDescriptionMax ]; // description of document
+	UGCHandle_t m_hFile;					// The handle of the primary file
+	UGCHandle_t m_hPreviewFile;				// The handle of the preview file
+	uint64 m_ulSteamIDOwner;				// Steam ID of the user who created this content.
+	uint32 m_rtimeCreated;					// time when the published file was created
+	uint32 m_rtimeUpdated;					// time when the published file was last updated
+	ERemoteStoragePublishedFileVisibility m_eVisibility;
+	bool m_bBanned;
+	char m_rgchTags[ k_cchTagListMax ];		// comma separated list of all tags associated with this file
+	bool m_bTagsTruncated;					// whether the list of tags was too long to be returned in the provided buffer
+	char m_pchFileName[ k_cchFilenameMax ];	// The name of the primary file
+	int32 m_nFileSize;						// File size of the primary file
+	int32 m_nPreviewFileSize;				// File size of the preview file
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to EnumerateUserSharedWorkshopFiles()
+//-----------------------------------------------------------------------------
 struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 26 };
@@ -480,6 +510,9 @@ struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t
 	PublishedFileId_t m_rgPublishedFileId[ k_unEnumeratePublishedFilesMaxResults ];
 };
 
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to EnumeratePublishedFilesByUserAction()
+//-----------------------------------------------------------------------------
 struct RemoteStorageEnumeratePublishedFilesByUserActionResult_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 28 };
