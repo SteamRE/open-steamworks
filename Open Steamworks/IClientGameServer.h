@@ -35,8 +35,8 @@ typedef enum EGameConnectSteamResponse
 
 struct ConnectedUserInfo_t
 {
-	int m_cubConnectedUserInfo;
-	int m_nCountOfGuestUsers;
+	int32 m_cubConnectedUserInfo;
+	int32 m_nCountOfGuestUsers;
 	CSteamID m_SteamID;
 	uint32 m_unIPPublic;
 	uint32 m_nFrags;
@@ -70,8 +70,8 @@ public:
 	// Only returns true once per request.
 	virtual bool WasRestartRequested() = 0;
 
-	virtual void SetMaxPlayerCount( int cPlayersMax ) = 0;
-	virtual void SetBotPlayerCount( int cBotPlayers ) = 0;
+	virtual void SetMaxPlayerCount( int32 cPlayersMax ) = 0;
+	virtual void SetBotPlayerCount( int32 cBotPlayers ) = 0;
 	virtual void SetServerName( const char *pchServerName ) = 0;
 	virtual void SetMapName( const char *pchMapName ) = 0;
 	virtual void SetPasswordProtected( bool bPasswordProtected ) = 0;
@@ -108,7 +108,7 @@ public:
 	// Return Value: returns true if the users ticket passes basic checks. pSteamIDUser will contain the Steam ID of this user. pSteamIDUser must NOT be NULL
 	// If the call succeeds then you should expect a GSClientApprove_t or GSClientDeny_t callback which will tell you whether authentication
 	// for the user has succeeded or failed (the steamid in the callback will match the one returned by this call)
-	virtual int SendUserConnectAndAuthenticate( uint32 unIPClient, const void *pvAuthBlob, uint32 cubAuthBlobSize, CSteamID *pSteamIDUser ) = 0;
+	virtual EUserConnect SendUserConnectAndAuthenticate( uint32 unIPClient, const void *pvAuthBlob, uint32 cubAuthBlobSize, CSteamID *pSteamIDUser ) = 0;
 
 	// Creates a fake user (ie, a bot) which will be listed as playing on the server, but skips validation.  
 	// 
@@ -133,11 +133,11 @@ public:
 
 	// Retrieve ticket to be sent to the entity who wishes to authenticate you ( using BeginAuthSession API ). 
 	// pcbTicket retrieves the length of the actual ticket.
-	virtual HAuthTicket GetAuthSessionTicket( void *pTicket, int cbMaxTicket, uint32 *pcbTicket ) = 0;
+	virtual HAuthTicket GetAuthSessionTicket( void *pTicket, int32 cbMaxTicket, uint32 *pcbTicket ) = 0;
 
 	// Authenticate ticket ( from GetAuthSessionTicket ) from entity steamID to be sure it is valid and isnt reused
 	// Registers for callbacks if the entity goes offline or cancels the ticket ( see ValidateAuthTicketResponse_t callback and EAuthSessionResponse )
-	virtual EBeginAuthSessionResult BeginAuthSession( const void *pAuthTicket, int cbAuthTicket, CSteamID steamID ) = 0;
+	virtual EBeginAuthSessionResult BeginAuthSession( const void *pAuthTicket, int32 cbAuthTicket, CSteamID steamID ) = 0;
 
 	// Stop tracking started by BeginAuthSession - called when no longer playing game with this entity
 	virtual void EndAuthSession( CSteamID steamID ) = 0;
@@ -180,16 +180,16 @@ public:
 
 	// Call this when a packet that starts with 0xFFFFFFFF comes in. That means
 	// it's for us.
-	virtual bool HandleIncomingPacket( const void *pData, int cbData, uint32 srcIP, uint16 srcPort ) = 0;
+	virtual bool HandleIncomingPacket( const void *pData, int32 cbData, uint32 srcIP, uint16 srcPort ) = 0;
 
 	// AFTER calling HandleIncomingPacket for any packets that came in that frame, call this.
 	// This gets a packet that the master server updater needs to send out on UDP.
 	// It returns the length of the packet it wants to send, or 0 if there are no more packets to send.
 	// Call this each frame until it returns 0.
-	virtual int GetNextOutgoingPacket( void *pOut, int cbMaxOut, uint32 *pNetAdr, uint16 *pPort ) = 0;
+	virtual int32 GetNextOutgoingPacket( void *pOut, int32 cbMaxOut, uint32 *pNetAdr, uint16 *pPort ) = 0;
 
 	virtual void EnableHeartbeats( bool bEnabled ) = 0;
-	virtual void SetHeartbeatInterval( int iInterval ) = 0;
+	virtual void SetHeartbeatInterval( int32 iInterval ) = 0;
 
 	// Force it to request a heartbeat from the master servers.
 	virtual void ForceHeartbeat() = 0;
@@ -198,16 +198,16 @@ public:
 	virtual ELogonState GetLogonState() = 0;
 	virtual bool BConnected() = 0;
 
-	virtual int RaiseConnectionPriority( EConnectionPriority eConnectionPriority ) = 0;
-	virtual void ResetConnectionPriority( int hRaiseConnectionPriorityPrev ) = 0;
+	virtual int32 RaiseConnectionPriority( EConnectionPriority eConnectionPriority ) = 0;
+	virtual void ResetConnectionPriority( int32 hRaiseConnectionPriorityPrev ) = 0;
 
 	virtual void SetCellID( CellID_t cellID ) = 0;
 
 	virtual void TrackSteamUsageEvent( ESteamUsageEvent eSteamUsageEvent, const uint8 *pubKV, uint32 cubKV ) = 0;
 
-	virtual void SetCountOfSimultaneousGuestUsersPerSteamAccount( int nCount ) = 0;
+	virtual void SetCountOfSimultaneousGuestUsersPerSteamAccount( int32 nCount ) = 0;
 
-	virtual bool EnumerateConnectedUsers( int iterator, ConnectedUserInfo_t *pConnectedUserInfo ) = 0;
+	virtual bool EnumerateConnectedUsers( int32 iterator, ConnectedUserInfo_t *pConnectedUserInfo ) = 0;
 
 	virtual SteamAPICall_t AssociateWithClan( CSteamID clanID ) = 0;
 	virtual SteamAPICall_t ComputeNewPlayerCompatibility( CSteamID steamID ) = 0;
@@ -225,11 +225,11 @@ public:
 	virtual bool _GSRemoveUserConnect( uint32 unUserID ) = 0;
 
 	// Updates server status values which shows up in the server browser and matchmaking APIs
-	virtual bool _GSUpdateStatus( int cPlayers, int cPlayersMax, int cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
+	virtual bool _GSUpdateStatus( int32 cPlayers, int32 cPlayersMax, int32 cBotPlayers, const char *pchServerName, const char *pSpectatorServerName, const char *pchMapName ) = 0;
 
 	virtual bool _GSCreateUnauthenticatedUser( CSteamID *pSteamID ) = 0;
 
-	virtual bool _GSSetServerType( int iAppID, uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
+	virtual bool _GSSetServerType( int32 iAppID, uint32 unServerFlags, uint32 unGameIP, uint16 unGamePort, uint16 unSpectatorPort, uint16 usQueryPort, const char *pchGameDir, const char *pchVersion, bool bLANMode ) = 0;
 	virtual void _SetBasicServerData( unsigned short nProtocolVersion, bool bDedicatedServer, const char *pRegionName, const char *pProductName, unsigned short nMaxReportedClients, bool bPasswordProtected, const char *pGameDescription ) = 0;
 
 	virtual bool _GSSendUserDisconnect( CSteamID, uint32 unUserID ) = 0;

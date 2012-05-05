@@ -229,6 +229,11 @@ enum ESteamGuardProvider
 	// TODO: Reverse this enum
 };
 
+enum EUserConnect
+{
+	// TODO: Reverse this enum
+};
+
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when a connections to the Steam back-end has been established

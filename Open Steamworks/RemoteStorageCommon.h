@@ -136,6 +136,12 @@ enum EWorkshopEnumerationType
 
 struct SteamParamStringArray_t
 {
+	SteamParamStringArray_t()
+	{
+		m_ppStrings = NULL;
+		m_nNumStrings = 0;
+	}
+
 	const char ** m_ppStrings;
 	int32 m_nNumStrings;
 };
@@ -250,7 +256,6 @@ private:
 
 
 
-
 //-----------------------------------------------------------------------------
 // Purpose: sent when the local file cache is fully synced with the server for an app
 //          That means that an application can be started and has all latest files
@@ -337,7 +342,7 @@ struct RemoteStorageFileShareResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to UGCDownload()
 //-----------------------------------------------------------------------------
-struct Deprecated_RemoteStorageDownloadUGCResult_t
+struct _Deprecated_RemoteStorageDownloadUGCResult_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 8 };
 
@@ -364,7 +369,7 @@ struct RemoteStoragePublishFileResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to GetPublishedFileDetails()
 //-----------------------------------------------------------------------------
-struct RemoteStorageGetPublishedFileDetailsResult_t
+struct _Deprecated_RemoteStorageGetPublishedFileDetailsResult_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 10 };
 
@@ -473,7 +478,7 @@ struct RemoteStorageDownloadUGCResult_t
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to GetPublishedFileDetails()
 //-----------------------------------------------------------------------------
-struct RemoteStorageGetPublishedFileDetailsResult002_t
+struct RemoteStorageGetPublishedFileDetailsResult_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 18 };
 
@@ -497,6 +502,75 @@ struct RemoteStorageGetPublishedFileDetailsResult002_t
 	int32 m_nPreviewFileSize;				// File size of the preview file
 };
 
+struct RemoteStorageEnumerateWorkshopFilesResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 19 };
+
+	// TODO : Reverse this callback
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to GetCREItemVoteSummary()
+//-----------------------------------------------------------------------------
+struct RemoteStorageGetPublishedItemVoteDetailsResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 20 };
+
+	EResult m_eResult;
+	PublishedFileId_t m_unPublishedFileId;
+	int32 m_cVotesFor;
+	int32 m_cVotesAgainst;
+	int32 m_cReports;
+	float m_fScore; // [0-1.0]
+};
+
+struct RemoteStoragePublishedFileSubscribed_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 21 };
+
+	PublishedFileId_t m_unPublishedFileId;
+	AppId_t m_nAppID;
+};
+
+struct RemoteStoragePublishedFileUnsubscribed_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 22 };
+
+	PublishedFileId_t m_unPublishedFileId;
+	AppId_t m_nAppID;
+};
+
+struct RemoteStoragePublishedFileDeleted_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 23 };
+
+	PublishedFileId_t m_unPublishedFileId;
+	AppId_t m_nAppID;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to UpdateUserPublishedItemVote()
+//-----------------------------------------------------------------------------
+struct RemoteStorageUpdateUserPublishedItemVoteResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 24 };
+
+	EResult m_eResult;
+	PublishedFileId_t m_unPublishedFileId;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to GetUserPublishedItemVoteDetails()
+//-----------------------------------------------------------------------------
+struct RemoteStorageUserVoteDetails_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 25 };
+
+	EResult m_eResult;
+	int32 m_iVote; // Probably an enum
+	PublishedFileId_t m_unPublishedFileId;
+};
+
 //-----------------------------------------------------------------------------
 // Purpose: The result of a call to EnumerateUserSharedWorkshopFiles()
 //-----------------------------------------------------------------------------
@@ -508,6 +582,17 @@ struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t
 	int32 m_nResultsReturned;
 	int32 m_nTotalResultCount;
 	PublishedFileId_t m_rgPublishedFileId[ k_unEnumeratePublishedFilesMaxResults ];
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to SetUserPublishedFileAction()
+//-----------------------------------------------------------------------------
+struct RemoteStorageSetUserPublishedFileActionResult_t
+{
+	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 27 };
+
+	EResult m_eResult;
+	PublishedFileId_t m_unPublishedFileId;
 };
 
 //-----------------------------------------------------------------------------

@@ -37,11 +37,13 @@ public:
 
 	virtual EAppState GetAppState( AppId_t unAppID ) = 0;
 
-	virtual uint64 GetAppSize( AppId_t unAppID ) = 0;
+	// /!\ IPC is broken for this function
+	virtual bool GetAppSizeOnDisk( AppId_t unAppID, uint64 *pullAppSize, uint64 *pullUnk ) = 0;
+	
 	virtual uint32 GetAppDir( AppId_t unAppID, char *pchPath, uint32 cbPath ) = 0;
 
-	virtual int32 GetAppDependency( AppId_t unAppID ) = 0;
-	virtual int32 GetDependentApps( AppId_t unAppID, AppId_t *punAppIDs, int32 cAppIDsMax ) = 0;
+	virtual uint32 GetAppDependency( AppId_t unAppID ) = 0;
+	virtual uint32 GetDependentApps( AppId_t unAppID, AppId_t *punAppIDs, int32 cAppIDsMax ) = 0;
 
 	virtual uint32 GetUpdateInfo( AppId_t unAppID, AppUpdateInfo_s *pUpdateInfo ) = 0;
 
@@ -49,7 +51,7 @@ public:
 
 	virtual bool StartValidatingApp( AppId_t unAppID ) = 0;
 
-	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int cbBuffer, bool bSharedKVSymbols ) = 0;
+	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int32 cbBuffer, bool bSharedKVSymbols ) = 0;
 
 	virtual bool BIsAppUpToDate( AppId_t unAppID ) = 0;
 	
@@ -70,7 +72,7 @@ public:
 	virtual bool BHasLocalContentServer() = 0;
 
 	virtual bool BuildBackup( AppId_t unAppID, uint64 ullMaxFileSize, const char *cszBackupPath ) = 0;
-	virtual bool BuildInstaller( const char *cszProjectFile, const char *cszBackupPath ) = 0;
+	virtual bool BuildInstaller( const char *cszProjectFile, const char *cszBackupPath, const char * ) = 0;
 	virtual bool CancelBackup() = 0;
 	virtual EAppUpdateError RestoreApp( AppId_t unAppID, char const *cszBackupPath ) = 0;
 	virtual bool BNeedsFile( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;

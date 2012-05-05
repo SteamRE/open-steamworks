@@ -90,16 +90,16 @@ public:
 	virtual SteamAPICall_t EnumerateUserSubscribedFiles( uint32 uStartIndex ) = 0;
 	virtual SteamAPICall_t UnsubscribePublishedFile( PublishedFileId_t unPublishedFileId ) = 0;
 	
-	virtual bool UpdatePublishedFileSetChangeDescription( uint64, const char * ) = 0;
+	virtual bool UpdatePublishedFileSetChangeDescription( JobID_t hUpdateRequest, const char *cszDescription ) = 0;
 	virtual SteamAPICall_t GetPublishedItemVoteDetails( PublishedFileId_t unPublishedFileId ) = 0;
-	virtual SteamAPICall_t UpdateUserPublishedItemVote( PublishedFileId_t unPublishedFileId, bool ) = 0;
+	virtual SteamAPICall_t UpdateUserPublishedItemVote( PublishedFileId_t unPublishedFileId, bool bVoteUp ) = 0;
 	virtual SteamAPICall_t GetUserPublishedItemVoteDetails( PublishedFileId_t unPublishedFileId ) = 0;
-	virtual SteamAPICall_t EnumerateUserSharedWorkshopFiles( CSteamID, uint32, SteamParamStringArray_t *, SteamParamStringArray_t * ) = 0;
-	virtual SteamAPICall_t PublishVideo( const char *, const char *, uint32, const char *, const char *, ERemoteStoragePublishedFileVisibility, SteamParamStringArray_t * ) = 0;
-	virtual SteamAPICall_t SetUserPublishedFileAction( PublishedFileId_t unPublishedFileId, EWorkshopFileAction ) = 0;
-	virtual SteamAPICall_t EnumeratePublishedFilesByUserAction( EWorkshopFileAction, uint32 unStartIndex ) = 0;
-	virtual SteamAPICall_t EnumeratePublishedWorkshopFiles( EWorkshopEnumerationType, uint32 unStartIndex, uint32, uint32, SteamParamStringArray_t *, SteamParamStringArray_t * ) = 0;
-	virtual unknown_ret UpdatePublishedFileURL( uint64, const char * ) = 0;
+	virtual SteamAPICall_t EnumerateUserSharedWorkshopFiles( AppId_t nAppId, CSteamID creatorSteamID, uint32 uStartIndex, SteamParamStringArray_t * pRequiredTags, SteamParamStringArray_t * pExcludedTags ) = 0;
+	virtual SteamAPICall_t PublishVideo( const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t SetUserPublishedFileAction( PublishedFileId_t unPublishedFileId, EWorkshopFileAction eAction ) = 0;
+	virtual SteamAPICall_t EnumeratePublishedFilesByUserAction( EWorkshopFileAction eAction, uint32 uStartIndex ) = 0;
+	virtual SteamAPICall_t EnumeratePublishedWorkshopFiles( EWorkshopEnumerationType eType, uint32 uStartIndex, uint32 cDays, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
+	virtual bool UpdatePublishedFileURL( JobID_t hUpdateRequest, const char *cszURL ) = 0;
 };
 
 #endif // ISTEAMREMOTESTORAGE006_H

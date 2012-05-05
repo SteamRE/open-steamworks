@@ -33,7 +33,7 @@ public:
 	virtual bool IsSet( EConfigStore eConfigStore, const char *pszKeyNameIn ) = 0;
 
 	virtual bool GetBool( EConfigStore eConfigStore, const char *pszKeyNameIn, bool defaultValue ) = 0;
-	virtual int32 GetInt( EConfigStore eConfigStore, const char *pszKeyName, int defaultValue ) = 0;
+	virtual int32 GetInt( EConfigStore eConfigStore, const char *pszKeyName, int32 defaultValue ) = 0;
 	virtual uint64 GetUint64( EConfigStore eConfigStore, const char *pszKeyName, uint64 defaultValue ) = 0;
 	virtual float GetFloat( EConfigStore eConfigStore, const char *pszKeyName, float defaultValue ) = 0;
 	virtual const char* GetString( EConfigStore eConfigStore, const char *pszKeyName, const char *defaultValue ) = 0;
@@ -49,7 +49,7 @@ public:
 	virtual bool SetBinaryWatermarked( EConfigStore eConfigStore, const char *pszKeyName, const uint8 *pubData, uint32 cubData ) = 0;
 
 	virtual bool RemoveKey( EConfigStore eConfigStore, const char *pszKeyName ) = 0;
-	virtual int32 GetKeySerialized( EConfigStore eConfigStore, const char *pszKeyNameIn, uint8 *pchBuffer, int cbBufferMax ) = 0;
+	virtual int32 GetKeySerialized( EConfigStore eConfigStore, const char *pszKeyNameIn, uint8 *pchBuffer, int32 cbBufferMax ) = 0;
 
 	virtual bool FlushToDisk( bool bIsShuttingDown ) = 0;
 };

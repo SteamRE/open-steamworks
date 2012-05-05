@@ -27,10 +27,10 @@ abstract_class UNSAFE_INTERFACE IClientRemoteStorage
 {
 public:
 
-	virtual bool FileWrite( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, const void *pvData, int cubData ) = 0;
+	virtual EResult FileWrite( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, const void *pvData, int32 cubData ) = 0;
 	virtual int32 GetFileSize( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile  ) = 0;
 
-	virtual int FileRead( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, void *pvData, int cubDataToRead ) = 0;
+	virtual int32 FileRead( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, void *pvData, int32 cubDataToRead ) = 0;
 	
 	virtual bool FileForget( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 	virtual bool FileDelete( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
@@ -42,16 +42,16 @@ public:
 	virtual int64 GetFileTimestamp( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
 	virtual bool SetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, ERemoteStoragePlatform eRemoteStoragePlatform ) = 0;
-	virtual int GetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+	virtual ERemoteStoragePlatform GetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
 	virtual int32 GetFileCount( AppId_t nAppId, bool bFromExternalAPI ) = 0;
-	virtual const char *GetFileNameAndSize( AppId_t nAppId, int iFile, ERemoteStorageFileRoot *peRemoteStorageFileRoot, int *pnFileSizeInBytes, bool bFromExternalAPI ) = 0;
+	virtual const char *GetFileNameAndSize( AppId_t nAppId, int32 iFile, ERemoteStorageFileRoot *peRemoteStorageFileRoot, int32 *pnFileSizeInBytes, bool bFromExternalAPI ) = 0;
 
 	virtual bool GetQuota( AppId_t nAppId, int32 *pnTotalBytes, int32 *pnAvailableBytes ) = 0;
 	
 	virtual bool IsCloudEnabledForAccount();
 	virtual bool IsCloudEnabledForApp( AppId_t nAppId );
-	virtual bool SetCloudEnabledForApp( AppId_t nAppId, bool bEnable );
+	virtual void SetCloudEnabledForApp( AppId_t nAppId, bool bEnable );
 
 	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent, bool bUseNewCallback ) = 0; // Old callback id = 1308, new callback id = 1317
 	virtual bool GetUGCDownloadProgress( UGCHandle_t hContent, uint32 *puDownloadedBytes, uint32 *puTotalBytes );
@@ -60,10 +60,10 @@ public:
 	virtual int32 GetCachedUGCCount() = 0;
 	virtual UGCHandle_t GetCachedUGCHandle( int32 iCachedContent ) = 0;
 
-	virtual SteamAPICall_t PublishFile( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId , const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, bool bOverwrite, SteamParamStringArray_t *pTags, EWorkshopFileType eType ) = 0;
-	virtual SteamAPICall_t PublishVideo( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId , const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eRemoteStoragePublishedFileVisibility, bool bOverwrite, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t PublishFile( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId , const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, bool bOverwrite, SteamParamStringArray_t *pTags, EWorkshopFileType eType ) = 0;
+	virtual SteamAPICall_t PublishVideo( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId , const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, bool bOverwrite, SteamParamStringArray_t *pTags ) = 0;
 
-	virtual JobID_t CreatePublishedFileUpdateRequest( AppId_t nAppId, UGCHandle_t m_hFile ) = 0;
+	virtual JobID_t CreatePublishedFileUpdateRequest( AppId_t nAppId, PublishedFileId_t unPublishedFileId ) = 0;
 	virtual bool UpdatePublishedFileFile( JobID_t hUpdateRequest, const char *cszFile ) = 0;
 	virtual bool UpdatePublishedFilePreviewFile( JobID_t hUpdateRequest, const char *cszPreviewFile ) = 0;
 	virtual bool UpdatePublishedFileTitle( JobID_t hUpdateRequest, const char *cszTitle ) = 0;
@@ -75,22 +75,20 @@ public:
 	
 	virtual SteamAPICall_t CommitPublishedFileUpdate( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, JobID_t hUpdateRequest ) = 0;
 	
-	virtual SteamAPICall_t GetPublishedFileDetails( UGCHandle_t hPublishedFile, bool bUseNewCallback ) = 0; // Old callback id = 1310, new callback id = 1318
-	virtual SteamAPICall_t DeletePublishedFile( UGCHandle_t hPublishedFile ) = 0;
+	virtual SteamAPICall_t GetPublishedFileDetails( PublishedFileId_t unPublishedFileId, bool bUseNewCallback ) = 0; // Old callback id = 1310, new callback id = 1318
+	virtual SteamAPICall_t DeletePublishedFile( PublishedFileId_t unPublishedFileId ) = 0;
 	virtual SteamAPICall_t EnumerateUserPublishedFiles( AppId_t nAppId, uint32 uStartIndex, ERemoteStoragePublishedFileSortOrder eOrder ) = 0;
-	virtual SteamAPICall_t SubscribePublishedFile( AppId_t nAppId, UGCHandle_t hPublishedFile ) = 0;
+	virtual SteamAPICall_t SubscribePublishedFile( AppId_t nAppId, PublishedFileId_t unPublishedFileId ) = 0;
 	virtual SteamAPICall_t EnumerateUserSubscribedFiles( AppId_t nAppId, uint32 uStartIndex ) = 0;
-	virtual SteamAPICall_t UnsubscribePublishedFile( AppId_t nAppId, UGCHandle_t hPublishedFile ) = 0;
+	virtual SteamAPICall_t UnsubscribePublishedFile( AppId_t nAppId, PublishedFileId_t unPublishedFileId ) = 0;
 	
-	virtual SteamAPICall_t SetUserPublishedFileAction( AppId_t nAppId, UGCHandle_t hPublishedFile, EWorkshopFileAction eAction ) = 0;
+	virtual SteamAPICall_t SetUserPublishedFileAction( AppId_t nAppId, PublishedFileId_t unPublishedFileId, EWorkshopFileAction eAction ) = 0;
 	virtual SteamAPICall_t EnumeratePublishedFilesByUserAction( AppId_t nAppId, EWorkshopFileAction eAction, uint32 uStartIndex ) = 0;
-	virtual SteamAPICall_t GetCREItemVoteSummary( UGCHandle_t hPublishedFile ) = 0;
-	virtual SteamAPICall_t UpdateUserPublishedItemVote( UGCHandle_t hPublishedFile, bool bVoteUp ) = 0;
-	virtual SteamAPICall_t GetUserPublishedItemVoteDetails( UGCHandle_t hPublishedFile ) = 0;
-	virtual SteamAPICall_t EnumerateUserSharedWorkshopFiles( AppId_t nAppId, CSteamID creatorSteamID, uint32 uStartIndex, SteamParamStringArray_t * pRequiredTags, SteamParamStringArray_t * pExcludedTags ) = 0;
-
-	virtual SteamAPICall_t EnumerateCRERankedByVote( AppId_t nAppId, uint32 uStartIndex, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
-	virtual SteamAPICall_t EnumerateCRERankedByTrend( AppId_t nAppId, uint32 uStartIndex, uint32 cDays, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
+	virtual SteamAPICall_t GetCREItemVoteSummary( PublishedFileId_t unPublishedFileId ) = 0;
+	virtual SteamAPICall_t UpdateUserPublishedItemVote( PublishedFileId_t unPublishedFileId, bool bVoteUp ) = 0;
+	virtual SteamAPICall_t GetUserPublishedItemVoteDetails( PublishedFileId_t unPublishedFileId ) = 0;
+	virtual SteamAPICall_t EnumerateUserSharedWorkshopFiles( AppId_t nAppId, CSteamID creatorSteamID, uint32 uStartIndex, SteamParamStringArray_t *pRequiredTags, SteamParamStringArray_t *pExcludedTags ) = 0;
+	virtual SteamAPICall_t EnumeratePublishedWorkshopFiles( AppId_t nAppId, EWorkshopEnumerationType eType, uint32 uStartIndex, uint32 cDays, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
 	
 	virtual EResult FilePersist( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
@@ -100,7 +98,7 @@ public:
 
 	virtual EResult FileTouch( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, bool ) = 0;
 
-	virtual bool SetCloudEnabledForAccount( bool bEnabled );
+	virtual void SetCloudEnabledForAccount( bool bEnabled );
 
 	virtual void LoadLocalFileInfoCache( AppId_t nAppId ) = 0;
 
@@ -112,7 +110,7 @@ public:
 	virtual bool GetConflictingFileTimestamps( AppId_t nAppId, RTime32* pnTimestampLocal, RTime32* pnTimestampRemote ) = 0;
 	virtual bool ResolveSyncConflict( AppId_t nAppId, bool bAcceptLocalFiles ) = 0;
 
-	virtual void SynchronizeApp( AppId_t nAppId, bool bSyncClient, bool bSyncServer ) = 0;
+	virtual bool SynchronizeApp( AppId_t nAppId, bool bSyncClient, bool bSyncServer ) = 0;
 	virtual bool IsAppSyncInProgress( AppId_t nAppId ) = 0;
 
 	virtual ERemoteStorageFileRoot ERemoteStorageFileRootFromName( const char *pchName ) = 0;

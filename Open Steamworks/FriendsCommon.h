@@ -318,7 +318,7 @@ const int k_cchSystemIMTextMax = 4096;	// upper bound of length of system IM tex
 
 #pragma pack( push, 8 )
 
-struct SessionStateInfo_t
+struct FriendSessionStateInfo_t
 {
 	uint32 m_uOnlineSessionInstances;
 	uint32 m_uPublishedInstanceId;
@@ -505,7 +505,46 @@ struct GameConnectedFriendChatMsg_t
 	int m_iMessageID;
 };
 
+struct FriendsGetFollowerCount_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 44 };
 
+	EResult m_eResult;
+	CSteamID m_steamID;
+	int32 m_cCount;
+};
+
+struct FriendsIsFollowing_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 45 };
+
+	EResult m_eResult;
+	CSteamID m_steamID;
+	bool m_bIsFollowing;
+};
+
+struct FriendsEnumerateFollowingList_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 46 };
+
+	EResult m_eResult;
+	CSteamID m_steamIDs[50];
+	int32 m_cSteamIDs;
+	int32 m_cTotalResults;
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: a SetPersonaName / SetPersonaNameEx call has finished
+//-----------------------------------------------------------------------------
+struct SetPersonaNameResponse_t
+{
+	enum { k_iCallback = k_iSteamFriendsCallbacks + 47 };
+
+	bool m_bUnk1;
+	bool m_bUnk2;
+	
+	EResult m_eResult;
+};
 
 
 // k_iClientFriendsCallbacks callbacks
