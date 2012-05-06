@@ -129,7 +129,9 @@ enum EWorkshopFileAction
 
 enum EWorkshopEnumerationType
 {
-	// TODO: Reverse this enum
+	k_EWorkshopEnumerationTypeTopRated = 0,
+	k_EWorkshopEnumerationTypeMostRecent = 1,
+	k_EWorkshopEnumerationTypeMostPopular = 2,
 };
 
 #pragma pack( push, 8 )
@@ -502,11 +504,18 @@ struct RemoteStorageGetPublishedFileDetailsResult_t
 	int32 m_nPreviewFileSize;				// File size of the preview file
 };
 
+//-----------------------------------------------------------------------------
+// Purpose: The result of a call to EnumeratePublishedWorkshopFiles()
+//-----------------------------------------------------------------------------
 struct RemoteStorageEnumerateWorkshopFilesResult_t
 {
 	enum { k_iCallback = k_iClientRemoteStorageCallbacks + 19 };
 
-	// TODO : Reverse this callback
+	EResult m_eResult;
+	int32 m_nResultsReturned;
+	int32 m_nTotalResultCount;
+	PublishedFileId_t m_rgPublishedFileId[ k_unEnumeratePublishedFilesMaxResults ];
+	float m_rgScore[ k_unEnumeratePublishedFilesMaxResults ]; // [0-1.0]
 };
 
 //-----------------------------------------------------------------------------
