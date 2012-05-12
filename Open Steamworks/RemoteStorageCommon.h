@@ -131,7 +131,11 @@ enum EWorkshopEnumerationType
 {
 	k_EWorkshopEnumerationTypeTopRated = 0,
 	k_EWorkshopEnumerationTypeMostRecent = 1,
-	k_EWorkshopEnumerationTypeMostPopular = 2,
+	k_EWorkshopEnumerationTypeTrending = 2,
+	k_EWorkshopEnumerationTypeFavoritedByFriends = 3,
+	k_EWorkshopEnumerationTypeVotedByFriends = 4,
+	k_EWorkshopEnumerationTypeCreatedByFriends = 5,
+	k_EWorkshopEnumerationTypeCreatedByFollowed = 6,
 };
 
 #pragma pack( push, 8 )

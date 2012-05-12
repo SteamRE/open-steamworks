@@ -228,6 +228,9 @@ enum EChatRoomEnterResponse
 	k_EChatRoomEnterResponseCommunityBan = 9,	// Attempt to join a chat when the user has a community lock on their account
 	k_EChatRoomEnterResponseMemberBlockedYou = 10, // Join failed - some member in the chat has blocked you from joining
 	k_EChatRoomEnterResponseYouBlockedMember = 11, // Join failed - you have blocked some member already in the chat
+	k_EChatRoomEnterResponseNoRankingDataLobby = 12,
+	k_EChatRoomEnterResponseNoRankingDataUser = 13,
+	k_EChatRoomEnterResponseRankOutOfRange = 14,
 };
 
 enum EChatAction
