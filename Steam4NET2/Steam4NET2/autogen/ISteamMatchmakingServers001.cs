@@ -85,8 +85,8 @@ namespace Steam4NET
 			this.GetFunction<NativeRefreshQueryE>( this.Functions.RefreshQuery8 )( this.ObjectAddress, eType ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsRefreshingE( IntPtr thisptr, EMatchMakingType eType );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsRefreshingE( IntPtr thisptr, EMatchMakingType eType );
 		public bool IsRefreshing( EMatchMakingType eType ) 
 		{
 			return this.GetFunction<NativeIsRefreshingE>( this.Functions.IsRefreshing9 )( this.ObjectAddress, eType ); 

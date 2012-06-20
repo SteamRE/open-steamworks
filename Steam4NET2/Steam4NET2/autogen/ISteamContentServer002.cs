@@ -20,22 +20,22 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("SteamContentServer002")]
 	public class ISteamContentServer002 : InteropHelp.NativeWrapper<ISteamContentServer002VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLogOnU( IntPtr thisptr, UInt32 uContentServerID );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLogOnU( IntPtr thisptr, UInt32 uContentServerID );
 		public bool LogOn( UInt32 uContentServerID ) 
 		{
 			return this.GetFunction<NativeLogOnU>( this.Functions.LogOn0 )( this.ObjectAddress, uContentServerID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLogOff( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLogOff( IntPtr thisptr );
 		public bool LogOff(  ) 
 		{
 			return this.GetFunction<NativeLogOff>( this.Functions.LogOff1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		public bool BLoggedOn(  ) 
 		{
 			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn2 )( this.ObjectAddress ); 
@@ -47,8 +47,8 @@ namespace Steam4NET
 			this.GetFunction<NativeSendClientContentAuthRequestCUUB>( this.Functions.SendClientContentAuthRequest3 )( this.ObjectAddress, steamID.ConvertToUint64(), uContentID, ulSessionToken, bTokenPresent ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBCheckTicketCUBU( IntPtr thisptr, UInt64 steamID, UInt32 uContentID, Byte[] pvTicketData, UInt32 cubTicketLength );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBCheckTicketCUBU( IntPtr thisptr, UInt64 steamID, UInt32 uContentID, Byte[] pvTicketData, UInt32 cubTicketLength );
 		public bool BCheckTicket( CSteamID steamID, UInt32 uContentID, Byte[] pvTicketData ) 
 		{
 			return this.GetFunction<NativeBCheckTicketCUBU>( this.Functions.BCheckTicket4 )( this.ObjectAddress, steamID.ConvertToUint64(), uContentID, pvTicketData, (UInt32) pvTicketData.Length ); 

@@ -72,8 +72,8 @@ namespace Steam4NET
 			this.GetFunction<NativeLogOff>( this.Functions.LogOff2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		public bool BLoggedOn(  ) 
 		{
 			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn3 )( this.ObjectAddress ); 
@@ -85,8 +85,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLogonState>( this.Functions.GetLogonState4 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBConnected( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBConnected( IntPtr thisptr );
 		public bool BConnected(  ) 
 		{
 			return this.GetFunction<NativeBConnected>( this.Functions.BConnected5 )( this.ObjectAddress ); 
@@ -98,15 +98,15 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeGetSteamID>( this.Functions.GetSteamID6 )( this.ObjectAddress, ref ret ); return new CSteamID(ret);
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsVACBannedE( IntPtr thisptr, EVACBan eVACBan );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsVACBannedE( IntPtr thisptr, EVACBan eVACBan );
 		public bool IsVACBanned( EVACBan eVACBan ) 
 		{
 			return this.GetFunction<NativeIsVACBannedE>( this.Functions.IsVACBanned7 )( this.ObjectAddress, eVACBan ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequireShowVACBannedMessageE( IntPtr thisptr, EVACBan eVACBan );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequireShowVACBannedMessageE( IntPtr thisptr, EVACBan eVACBan );
 		public bool RequireShowVACBannedMessage( EVACBan eVACBan ) 
 		{
 			return this.GetFunction<NativeRequireShowVACBannedMessageE>( this.Functions.RequireShowVACBannedMessage8 )( this.ObjectAddress, eVACBan ); 
@@ -130,36 +130,36 @@ namespace Steam4NET
 			this.GetFunction<NativeAddServerNetAddressUU>( this.Functions.AddServerNetAddress11 )( this.ObjectAddress, unIP, unPort ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetEmailS( IntPtr thisptr, string pchEmail );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetEmailS( IntPtr thisptr, string pchEmail );
 		public bool SetEmail( string pchEmail ) 
 		{
 			return this.GetFunction<NativeSetEmailS>( this.Functions.SetEmail12 )( this.ObjectAddress, pchEmail ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetRegistryStringESS( IntPtr thisptr, ERegistrySubTree eRegistrySubTree, string pchKey, string pchValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetRegistryStringESS( IntPtr thisptr, ERegistrySubTree eRegistrySubTree, string pchKey, string pchValue );
 		public bool SetRegistryString( ERegistrySubTree eRegistrySubTree, string pchKey, string pchValue ) 
 		{
 			return this.GetFunction<NativeSetRegistryStringESS>( this.Functions.SetRegistryString13 )( this.ObjectAddress, eRegistrySubTree, pchKey, pchValue ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetRegistryStringESSI( IntPtr thisptr, ERegistrySubTree eRegistrySubTree, string pchKey, StringBuilder pchValue, Int32 cbValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetRegistryStringESSI( IntPtr thisptr, ERegistrySubTree eRegistrySubTree, string pchKey, StringBuilder pchValue, Int32 cbValue );
 		public bool GetRegistryString( ERegistrySubTree eRegistrySubTree, string pchKey, StringBuilder pchValue ) 
 		{
 			return this.GetFunction<NativeGetRegistryStringESSI>( this.Functions.GetRegistryString14 )( this.ObjectAddress, eRegistrySubTree, pchKey, pchValue, (Int32) pchValue.Capacity ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetRegistryIntESI( IntPtr thisptr, ERegistrySubTree eRegistrySubTree, string pchKey, Int32 iValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetRegistryIntESI( IntPtr thisptr, ERegistrySubTree eRegistrySubTree, string pchKey, Int32 iValue );
 		public bool SetRegistryInt( ERegistrySubTree eRegistrySubTree, string pchKey, Int32 iValue ) 
 		{
 			return this.GetFunction<NativeSetRegistryIntESI>( this.Functions.SetRegistryInt15 )( this.ObjectAddress, eRegistrySubTree, pchKey, iValue ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetRegistryIntESI( IntPtr thisptr, ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetRegistryIntESI( IntPtr thisptr, ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue );
 		public bool GetRegistryInt( ERegistrySubTree eRegistrySubTree, string pchKey, ref Int32 piValue ) 
 		{
 			return this.GetFunction<NativeGetRegistryIntESI>( this.Functions.GetRegistryInt16 )( this.ObjectAddress, eRegistrySubTree, pchKey, ref piValue ); 
@@ -183,8 +183,8 @@ namespace Steam4NET
 			this.GetFunction<NativeSetSelfAsPrimaryChatDestination>( this.Functions.SetSelfAsPrimaryChatDestination19 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsPrimaryChatDestination( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsPrimaryChatDestination( IntPtr thisptr );
 		public bool IsPrimaryChatDestination(  ) 
 		{
 			return this.GetFunction<NativeIsPrimaryChatDestination>( this.Functions.IsPrimaryChatDestination20 )( this.ObjectAddress ); 
@@ -196,29 +196,29 @@ namespace Steam4NET
 			this.GetFunction<NativeRequestLegacyCDKeyU>( this.Functions.RequestLegacyCDKey21 )( this.ObjectAddress, iAppID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendGuestPassByEmailSUB( IntPtr thisptr, string pchEmailAccount, UInt64 gidGuestPassID, [MarshalAs(UnmanagedType.I1)] bool bResending );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendGuestPassByEmailSUB( IntPtr thisptr, string pchEmailAccount, UInt64 gidGuestPassID, [MarshalAs(UnmanagedType.I1)] bool bResending );
 		public bool SendGuestPassByEmail( string pchEmailAccount, UInt64 gidGuestPassID, bool bResending ) 
 		{
 			return this.GetFunction<NativeSendGuestPassByEmailSUB>( this.Functions.SendGuestPassByEmail22 )( this.ObjectAddress, pchEmailAccount, gidGuestPassID, bResending ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendGuestPassByAccountIDUUB( IntPtr thisptr, UInt32 uAccountID, UInt64 gidGuestPassID, [MarshalAs(UnmanagedType.I1)] bool bResending );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendGuestPassByAccountIDUUB( IntPtr thisptr, UInt32 uAccountID, UInt64 gidGuestPassID, [MarshalAs(UnmanagedType.I1)] bool bResending );
 		public bool SendGuestPassByAccountID( UInt32 uAccountID, UInt64 gidGuestPassID, bool bResending ) 
 		{
 			return this.GetFunction<NativeSendGuestPassByAccountIDUUB>( this.Functions.SendGuestPassByAccountID23 )( this.ObjectAddress, uAccountID, gidGuestPassID, bResending ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAckGuestPassS( IntPtr thisptr, string pchGuestPassCode );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAckGuestPassS( IntPtr thisptr, string pchGuestPassCode );
 		public bool AckGuestPass( string pchGuestPassCode ) 
 		{
 			return this.GetFunction<NativeAckGuestPassS>( this.Functions.AckGuestPass24 )( this.ObjectAddress, pchGuestPassCode ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRedeemGuestPassS( IntPtr thisptr, string pchGuestPassCode );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRedeemGuestPassS( IntPtr thisptr, string pchGuestPassCode );
 		public bool RedeemGuestPass( string pchGuestPassCode ) 
 		{
 			return this.GetFunction<NativeRedeemGuestPassS>( this.Functions.RedeemGuestPass25 )( this.ObjectAddress, pchGuestPassCode ); 
@@ -242,29 +242,29 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetGuestPassLastUpdateTime>( this.Functions.GetGuestPassLastUpdateTime28 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGuestPassToGiveInfoUUUUUUUSI( IntPtr thisptr, UInt32 nPassIndex, ref UInt64 pgidGuestPassID, ref UInt32 pnPackageID, ref UInt32 pRTime32Created, ref UInt32 pRTime32Expiration, ref UInt32 pRTime32Sent, ref UInt32 pRTime32Redeemed, StringBuilder pchRecipientAddress, Int32 cRecipientAddressSize );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGuestPassToGiveInfoUUUUUUUSI( IntPtr thisptr, UInt32 nPassIndex, ref UInt64 pgidGuestPassID, ref UInt32 pnPackageID, ref UInt32 pRTime32Created, ref UInt32 pRTime32Expiration, ref UInt32 pRTime32Sent, ref UInt32 pRTime32Redeemed, StringBuilder pchRecipientAddress, Int32 cRecipientAddressSize );
 		public bool GetGuestPassToGiveInfo( UInt32 nPassIndex, ref UInt64 pgidGuestPassID, ref UInt32 pnPackageID, ref UInt32 pRTime32Created, ref UInt32 pRTime32Expiration, ref UInt32 pRTime32Sent, ref UInt32 pRTime32Redeemed, StringBuilder pchRecipientAddress ) 
 		{
 			return this.GetFunction<NativeGetGuestPassToGiveInfoUUUUUUUSI>( this.Functions.GetGuestPassToGiveInfo29 )( this.ObjectAddress, nPassIndex, ref pgidGuestPassID, ref pnPackageID, ref pRTime32Created, ref pRTime32Expiration, ref pRTime32Sent, ref pRTime32Redeemed, pchRecipientAddress, (Int32) pchRecipientAddress.Capacity ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGuestPassToRedeemInfoUUUUUUU( IntPtr thisptr, UInt32 nPassIndex, ref UInt64 pgidGuestPassID, ref UInt32 pnPackageID, ref UInt32 pRTime32Created, ref UInt32 pRTime32Expiration, ref UInt32 pRTime32Sent, ref UInt32 pRTime32Redeemed );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGuestPassToRedeemInfoUUUUUUU( IntPtr thisptr, UInt32 nPassIndex, ref UInt64 pgidGuestPassID, ref UInt32 pnPackageID, ref UInt32 pRTime32Created, ref UInt32 pRTime32Expiration, ref UInt32 pRTime32Sent, ref UInt32 pRTime32Redeemed );
 		public bool GetGuestPassToRedeemInfo( UInt32 nPassIndex, ref UInt64 pgidGuestPassID, ref UInt32 pnPackageID, ref UInt32 pRTime32Created, ref UInt32 pRTime32Expiration, ref UInt32 pRTime32Sent, ref UInt32 pRTime32Redeemed ) 
 		{
 			return this.GetFunction<NativeGetGuestPassToRedeemInfoUUUUUUU>( this.Functions.GetGuestPassToRedeemInfo30 )( this.ObjectAddress, nPassIndex, ref pgidGuestPassID, ref pnPackageID, ref pRTime32Created, ref pRTime32Expiration, ref pRTime32Sent, ref pRTime32Redeemed ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGuestPassToRedeemSenderAddressUSI( IntPtr thisptr, UInt32 nPassIndex, StringBuilder pchSenderAddress, Int32 cSenderAddressSize );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGuestPassToRedeemSenderAddressUSI( IntPtr thisptr, UInt32 nPassIndex, StringBuilder pchSenderAddress, Int32 cSenderAddressSize );
 		public bool GetGuestPassToRedeemSenderAddress( UInt32 nPassIndex, StringBuilder pchSenderAddress ) 
 		{
 			return this.GetFunction<NativeGetGuestPassToRedeemSenderAddressUSI>( this.Functions.GetGuestPassToRedeemSenderAddress31 )( this.ObjectAddress, nPassIndex, pchSenderAddress, (Int32) pchSenderAddress.Capacity ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGuestPassToRedeemSenderNameUSI( IntPtr thisptr, UInt32 nPassIndex, StringBuilder pchSenderName, Int32 cSenderNameSize );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGuestPassToRedeemSenderNameUSI( IntPtr thisptr, UInt32 nPassIndex, StringBuilder pchSenderName, Int32 cSenderNameSize );
 		public bool GetGuestPassToRedeemSenderName( UInt32 nPassIndex, StringBuilder pchSenderName ) 
 		{
 			return this.GetFunction<NativeGetGuestPassToRedeemSenderNameUSI>( this.Functions.GetGuestPassToRedeemSenderName32 )( this.ObjectAddress, nPassIndex, pchSenderName, (Int32) pchSenderName.Capacity ); 
@@ -276,8 +276,8 @@ namespace Steam4NET
 			this.GetFunction<NativeAcknowledgeMessageByGIDS>( this.Functions.AcknowledgeMessageByGID33 )( this.ObjectAddress, pchMessageGID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLanguageS( IntPtr thisptr, string pchLanguage );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLanguageS( IntPtr thisptr, string pchLanguage );
 		public bool SetLanguage( string pchLanguage ) 
 		{
 			return this.GetFunction<NativeSetLanguageS>( this.Functions.SetLanguage34 )( this.ObjectAddress, pchLanguage ); 

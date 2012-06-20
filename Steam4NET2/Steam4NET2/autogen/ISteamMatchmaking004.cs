@@ -48,8 +48,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetFavoriteGameCount>( this.Functions.GetFavoriteGameCount0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFavoriteGameIUUUUUU( IntPtr thisptr, Int32 iGame, ref UInt32 pnAppID, ref UInt32 pnIP, ref UInt16 pnConnPort, ref UInt16 pnQueryPort, ref UInt32 punFlags, ref UInt32 pRTime32LastPlayedOnServer );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetFavoriteGameIUUUUUU( IntPtr thisptr, Int32 iGame, ref UInt32 pnAppID, ref UInt32 pnIP, ref UInt16 pnConnPort, ref UInt16 pnQueryPort, ref UInt32 punFlags, ref UInt32 pRTime32LastPlayedOnServer );
 		public bool GetFavoriteGame( Int32 iGame, ref UInt32 pnAppID, ref UInt32 pnIP, ref UInt16 pnConnPort, ref UInt16 pnQueryPort, ref UInt32 punFlags, ref UInt32 pRTime32LastPlayedOnServer ) 
 		{
 			return this.GetFunction<NativeGetFavoriteGameIUUUUUU>( this.Functions.GetFavoriteGame1 )( this.ObjectAddress, iGame, ref pnAppID, ref pnIP, ref pnConnPort, ref pnQueryPort, ref punFlags, ref pRTime32LastPlayedOnServer ); 
@@ -61,8 +61,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeAddFavoriteGameUUUUUU>( this.Functions.AddFavoriteGame2 )( this.ObjectAddress, nAppID, nIP, nConnPort, nQueryPort, unFlags, rTime32LastPlayedOnServer ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFavoriteGameUUUUU( IntPtr thisptr, UInt32 nAppID, UInt32 nIP, UInt16 nConnPort, UInt16 nQueryPort, UInt32 unFlags );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFavoriteGameUUUUU( IntPtr thisptr, UInt32 nAppID, UInt32 nIP, UInt16 nConnPort, UInt16 nQueryPort, UInt32 unFlags );
 		public bool RemoveFavoriteGame( UInt32 nAppID, UInt32 nIP, UInt16 nConnPort, UInt16 nQueryPort, UInt32 unFlags ) 
 		{
 			return this.GetFunction<NativeRemoveFavoriteGameUUUUU>( this.Functions.RemoveFavoriteGame3 )( this.ObjectAddress, nAppID, nIP, nConnPort, nQueryPort, unFlags ); 
@@ -116,8 +116,8 @@ namespace Steam4NET
 			this.GetFunction<NativeLeaveLobbyC>( this.Functions.LeaveLobby11 )( this.ObjectAddress, steamIDLobby.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobbyCC( IntPtr thisptr, UInt64 steamIDLobby, UInt64 steamIDInvitee );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInviteUserToLobbyCC( IntPtr thisptr, UInt64 steamIDLobby, UInt64 steamIDInvitee );
 		public bool InviteUserToLobby( CSteamID steamIDLobby, CSteamID steamIDInvitee ) 
 		{
 			return this.GetFunction<NativeInviteUserToLobbyCC>( this.Functions.InviteUserToLobby12 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), steamIDInvitee.ConvertToUint64() ); 
@@ -141,8 +141,8 @@ namespace Steam4NET
 			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLobbyDataCS>( this.Functions.GetLobbyData15 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), pchKey ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyDataCSS( IntPtr thisptr, UInt64 steamIDLobby, string pchKey, string pchValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyDataCSS( IntPtr thisptr, UInt64 steamIDLobby, string pchKey, string pchValue );
 		public bool SetLobbyData( CSteamID steamIDLobby, string pchKey, string pchValue ) 
 		{
 			return this.GetFunction<NativeSetLobbyDataCSS>( this.Functions.SetLobbyData16 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), pchKey, pchValue ); 
@@ -160,8 +160,8 @@ namespace Steam4NET
 			this.GetFunction<NativeSetLobbyMemberDataCSS>( this.Functions.SetLobbyMemberData18 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), pchKey, pchValue ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsgCBI( IntPtr thisptr, UInt64 steamIDLobby, Byte[] pvMsgBody, Int32 cubMsgBody );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendLobbyChatMsgCBI( IntPtr thisptr, UInt64 steamIDLobby, Byte[] pvMsgBody, Int32 cubMsgBody );
 		public bool SendLobbyChatMsg( CSteamID steamIDLobby, Byte[] pvMsgBody ) 
 		{
 			return this.GetFunction<NativeSendLobbyChatMsgCBI>( this.Functions.SendLobbyChatMsg19 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), pvMsgBody, (Int32) pvMsgBody.Length ); 
@@ -173,8 +173,8 @@ namespace Steam4NET
 			UInt64 s0 = 0; var result = this.GetFunction<NativeGetLobbyChatEntryCICBIE>( this.Functions.GetLobbyChatEntry20 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), iChatID, ref s0, pvData, (Int32) pvData.Length, ref peChatEntryType ); pSteamIDUser = new CSteamID(s0); return result;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyDataC( IntPtr thisptr, UInt64 steamIDLobby );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestLobbyDataC( IntPtr thisptr, UInt64 steamIDLobby );
 		public bool RequestLobbyData( CSteamID steamIDLobby ) 
 		{
 			return this.GetFunction<NativeRequestLobbyDataC>( this.Functions.RequestLobbyData21 )( this.ObjectAddress, steamIDLobby.ConvertToUint64() ); 
@@ -186,15 +186,15 @@ namespace Steam4NET
 			this.GetFunction<NativeSetLobbyGameServerCUUC>( this.Functions.SetLobbyGameServer22 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), unGameServerIP, unGameServerPort, steamIDGameServer.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServerCUUC( IntPtr thisptr, UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLobbyGameServerCUUC( IntPtr thisptr, UInt64 steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref UInt64 psteamIDGameServer );
 		public bool GetLobbyGameServer( CSteamID steamIDLobby, ref UInt32 punGameServerIP, ref UInt16 punGameServerPort, ref CSteamID psteamIDGameServer ) 
 		{
 			UInt64 s0 = 0; var result = this.GetFunction<NativeGetLobbyGameServerCUUC>( this.Functions.GetLobbyGameServer23 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), ref punGameServerIP, ref punGameServerPort, ref s0 ); psteamIDGameServer = new CSteamID(s0); return result;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimitCI( IntPtr thisptr, UInt64 steamIDLobby, Int32 cMaxMembers );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLobbyMemberLimitCI( IntPtr thisptr, UInt64 steamIDLobby, Int32 cMaxMembers );
 		public bool SetLobbyMemberLimit( CSteamID steamIDLobby, Int32 cMaxMembers ) 
 		{
 			return this.GetFunction<NativeSetLobbyMemberLimitCI>( this.Functions.SetLobbyMemberLimit24 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), cMaxMembers ); 
@@ -206,8 +206,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLobbyMemberLimitC>( this.Functions.GetLobbyMemberLimit25 )( this.ObjectAddress, steamIDLobby.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestFriendsLobbies( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestFriendsLobbies( IntPtr thisptr );
 		public bool RequestFriendsLobbies(  ) 
 		{
 			return this.GetFunction<NativeRequestFriendsLobbies>( this.Functions.RequestFriendsLobbies26 )( this.ObjectAddress ); 

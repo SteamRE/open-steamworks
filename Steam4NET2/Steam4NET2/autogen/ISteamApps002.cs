@@ -22,29 +22,29 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("STEAMAPPS_INTERFACE_VERSION002")]
 	public class ISteamApps002 : InteropHelp.NativeWrapper<ISteamApps002VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribed( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribed( IntPtr thisptr );
 		public bool BIsSubscribed(  ) 
 		{
 			return this.GetFunction<NativeBIsSubscribed>( this.Functions.BIsSubscribed0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsLowViolence( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsLowViolence( IntPtr thisptr );
 		public bool BIsLowViolence(  ) 
 		{
 			return this.GetFunction<NativeBIsLowViolence>( this.Functions.BIsLowViolence1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsCybercafe( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsCybercafe( IntPtr thisptr );
 		public bool BIsCybercafe(  ) 
 		{
 			return this.GetFunction<NativeBIsCybercafe>( this.Functions.BIsCybercafe2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsVACBanned( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsVACBanned( IntPtr thisptr );
 		public bool BIsVACBanned(  ) 
 		{
 			return this.GetFunction<NativeBIsVACBanned>( this.Functions.BIsVACBanned3 )( this.ObjectAddress ); 
@@ -62,8 +62,8 @@ namespace Steam4NET
 			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetAvailableGameLanguages>( this.Functions.GetAvailableGameLanguages5 )( this.ObjectAddress ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribedAppU( IntPtr thisptr, UInt32 nAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribedAppU( IntPtr thisptr, UInt32 nAppID );
 		public bool BIsSubscribedApp( UInt32 nAppID ) 
 		{
 			return this.GetFunction<NativeBIsSubscribedAppU>( this.Functions.BIsSubscribedApp6 )( this.ObjectAddress, nAppID ); 

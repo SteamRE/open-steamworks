@@ -124,6 +124,25 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(210)]
+	public struct AssociateWithClanResult_t
+	{
+		public const int k_iCallback = 210;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(211)]
+	public struct ComputeNewPlayerCompatibilityResult_t
+	{
+		public const int k_iCallback = 211;
+		public EResult m_eResult;
+		public Int32 m_cPlayersThatDontLikeCandidate;
+		public Int32 m_cPlayersThatCandidateDoesntLike;
+		public Int32 m_cClanPlayersThatDontLikeCandidate;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(115)]
 	public struct GSPolicyResponse_t
 	{

@@ -50,8 +50,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAppDataSectionUEBIB>( this.Functions.GetAppDataSection3 )( this.ObjectAddress, unAppID, eSection, pchBuffer, (Int32) pchBuffer.Length, bSharedKVSymbols ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestAppInfoUpdateUIB( IntPtr thisptr, ref UInt32 pAppIDs, Int32 nNumAppIDs, [MarshalAs(UnmanagedType.I1)] bool bForceUpdate );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestAppInfoUpdateUIB( IntPtr thisptr, ref UInt32 pAppIDs, Int32 nNumAppIDs, [MarshalAs(UnmanagedType.I1)] bool bForceUpdate );
 		public bool RequestAppInfoUpdate( ref UInt32 pAppIDs, Int32 nNumAppIDs, bool bForceUpdate ) 
 		{
 			return this.GetFunction<NativeRequestAppInfoUpdateUIB>( this.Functions.RequestAppInfoUpdate4 )( this.ObjectAddress, ref pAppIDs, nNumAppIDs, bForceUpdate ); 
@@ -75,22 +75,22 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetDLCCountU>( this.Functions.GetDLCCount7 )( this.ObjectAddress, unAppID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetDLCDataByIndexUIUBSI( IntPtr thisptr, UInt32 unAppID, Int32 iDLC, ref UInt32 pDlcAppID, ref bool pbAvailable, StringBuilder pchName, Int32 cchNameBufferSize );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetDLCDataByIndexUIUBSI( IntPtr thisptr, UInt32 unAppID, Int32 iDLC, ref UInt32 pDlcAppID, ref bool pbAvailable, StringBuilder pchName, Int32 cchNameBufferSize );
 		public bool BGetDLCDataByIndex( UInt32 unAppID, Int32 iDLC, ref UInt32 pDlcAppID, ref bool pbAvailable, StringBuilder pchName ) 
 		{
 			return this.GetFunction<NativeBGetDLCDataByIndexUIUBSI>( this.Functions.BGetDLCDataByIndex8 )( this.ObjectAddress, unAppID, iDLC, ref pDlcAppID, ref pbAvailable, pchName, (Int32) pchName.Capacity ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBReloadLocalAppInfoOverrides( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBReloadLocalAppInfoOverrides( IntPtr thisptr );
 		public bool BReloadLocalAppInfoOverrides(  ) 
 		{
 			return this.GetFunction<NativeBReloadLocalAppInfoOverrides>( this.Functions.BReloadLocalAppInfoOverrides9 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsDlcInstalledUU( IntPtr thisptr, UInt32 unDlcAppID, UInt32 unGameAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsDlcInstalledUU( IntPtr thisptr, UInt32 unDlcAppID, UInt32 unGameAppID );
 		public bool BIsDlcInstalled( UInt32 unDlcAppID, UInt32 unGameAppID ) 
 		{
 			return this.GetFunction<NativeBIsDlcInstalledUU>( this.Functions.BIsDlcInstalled10 )( this.ObjectAddress, unDlcAppID, unGameAppID ); 

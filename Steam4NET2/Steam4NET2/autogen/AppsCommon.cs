@@ -109,6 +109,9 @@ namespace Steam4NET
 		k_EAppErrorUpdateRequired = 19,
 		k_EAppErrorStillBusy = 20,
 		k_EAppErrorNoConnectionToContentServers = 21,
+		k_EAppErrorInvalidApplicationConfiguration = 22,
+		k_EAppErrorInvalidContentConfiguration = 23,
+		k_EAppErrorMissingManifest = 24,
 	};
 	
 	public enum ERegisterActivactionCodeResult : int
@@ -117,6 +120,7 @@ namespace Steam4NET
 		k_ERegisterActivactionCodeResultFail = 1,
 		k_ERegisterActivactionCodeResultAlreadyRegistered = 2,
 		k_ERegisterActivactionCodeResultTimeout = 3,
+		k_ERegisterActivactionCodeAlreadyOwned = 4,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

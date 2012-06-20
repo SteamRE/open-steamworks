@@ -39,8 +39,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetHSteamUser>( this.Functions.GetHSteamUser0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		public bool BLoggedOn(  ) 
 		{
 			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn1 )( this.ObjectAddress ); 
@@ -70,8 +70,8 @@ namespace Steam4NET
 			this.GetFunction<NativeTrackAppUsageEventCES>( this.Functions.TrackAppUsageEvent5 )( this.ObjectAddress, gameID.ConvertToUint64(), eAppUsageEvent, pchExtraInfo ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserDataFolderSI( IntPtr thisptr, StringBuilder pchBuffer, Int32 cubBuffer );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUserDataFolderSI( IntPtr thisptr, StringBuilder pchBuffer, Int32 cubBuffer );
 		public bool GetUserDataFolder( StringBuilder pchBuffer ) 
 		{
 			return this.GetFunction<NativeGetUserDataFolderSI>( this.Functions.GetUserDataFolder6 )( this.ObjectAddress, pchBuffer, (Int32) pchBuffer.Capacity ); 
@@ -137,8 +137,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeUserHasLicenseForAppCU>( this.Functions.UserHasLicenseForApp16 )( this.ObjectAddress, steamID.ConvertToUint64(), appID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsBehindNAT( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsBehindNAT( IntPtr thisptr );
 		public bool BIsBehindNAT(  ) 
 		{
 			return this.GetFunction<NativeBIsBehindNAT>( this.Functions.BIsBehindNAT17 )( this.ObjectAddress ); 

@@ -38,29 +38,29 @@ namespace Steam4NET
 			this.GetFunction<NativeSetSteam2TicketBI>( this.Functions.SetSteam2Ticket0 )( this.ObjectAddress, pubTicket, (Int32) pubTicket.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountNameS( IntPtr thisptr, string pchAccountName );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountNameS( IntPtr thisptr, string pchAccountName );
 		public bool SetAccountName( string pchAccountName ) 
 		{
 			return this.GetFunction<NativeSetAccountNameS>( this.Functions.SetAccountName1 )( this.ObjectAddress, pchAccountName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetPasswordS( IntPtr thisptr, string pchPassword );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetPasswordS( IntPtr thisptr, string pchPassword );
 		public bool SetPassword( string pchPassword ) 
 		{
 			return this.GetFunction<NativeSetPasswordS>( this.Functions.SetPassword2 )( this.ObjectAddress, pchPassword ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountCreationTimeU( IntPtr thisptr, UInt32 rt );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetAccountCreationTimeU( IntPtr thisptr, UInt32 rt );
 		public bool SetAccountCreationTime( UInt32 rt ) 
 		{
 			return this.GetFunction<NativeSetAccountCreationTimeU>( this.Functions.SetAccountCreationTime3 )( this.ObjectAddress, rt ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCreateProcessBUSSUBSU( IntPtr thisptr, Byte[] lpVACBlob, UInt32 cbBlobSize, string lpApplicationName, StringBuilder lpCommandLine, UInt32 dwCreationFlags, Byte[] lpEnvironment, StringBuilder lpCurrentDirectory, UInt32 nGameID );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCreateProcessBUSSUBSU( IntPtr thisptr, Byte[] lpVACBlob, UInt32 cbBlobSize, string lpApplicationName, StringBuilder lpCommandLine, UInt32 dwCreationFlags, Byte[] lpEnvironment, StringBuilder lpCurrentDirectory, UInt32 nGameID );
 		public bool CreateProcess( Byte[] lpVACBlob, string lpApplicationName, StringBuilder lpCommandLine, UInt32 dwCreationFlags, Byte[] lpEnvironment, StringBuilder lpCurrentDirectory, UInt32 nGameID ) 
 		{
 			return this.GetFunction<NativeCreateProcessBUSSUBSU>( this.Functions.CreateProcess4 )( this.ObjectAddress, lpVACBlob, (UInt32) lpVACBlob.Length, lpApplicationName, lpCommandLine, dwCreationFlags, lpEnvironment, lpCurrentDirectory, nGameID ); 
@@ -132,8 +132,8 @@ namespace Steam4NET
 			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode15 )( this.ObjectAddress, nLicenseIndex ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetOfflineModeB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bOffline );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetOfflineModeB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bOffline );
 		public bool SetOfflineMode( bool bOffline ) 
 		{
 			return this.GetFunction<NativeSetOfflineModeB>( this.Functions.SetOfflineMode16 )( this.ObjectAddress, bOffline ); 

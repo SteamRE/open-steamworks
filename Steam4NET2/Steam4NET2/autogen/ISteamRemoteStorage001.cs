@@ -23,8 +23,8 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION001")]
 	public class ISteamRemoteStorage001 : InteropHelp.NativeWrapper<ISteamRemoteStorage001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteSBI( IntPtr thisptr, string filename, Byte[] data, Int32 arg2 );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteSBI( IntPtr thisptr, string filename, Byte[] data, Int32 arg2 );
 		public bool FileWrite( string filename, Byte[] data, Int32 arg2 ) 
 		{
 			return this.GetFunction<NativeFileWriteSBI>( this.Functions.FileWrite0 )( this.ObjectAddress, filename, data, arg2 ); 
@@ -36,22 +36,22 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetFileSizeS>( this.Functions.GetFileSize1 )( this.ObjectAddress, filename ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileReadSBI( IntPtr thisptr, string filename, Byte[] buffer, Int32 size );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileReadSBI( IntPtr thisptr, string filename, Byte[] buffer, Int32 size );
 		public bool FileRead( string filename, Byte[] buffer, Int32 size ) 
 		{
 			return this.GetFunction<NativeFileReadSBI>( this.Functions.FileRead2 )( this.ObjectAddress, filename, buffer, size ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileExistsS( IntPtr thisptr, string filename );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileExistsS( IntPtr thisptr, string filename );
 		public bool FileExists( string filename ) 
 		{
 			return this.GetFunction<NativeFileExistsS>( this.Functions.FileExists3 )( this.ObjectAddress, filename ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileDeleteS( IntPtr thisptr, string filename );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileDeleteS( IntPtr thisptr, string filename );
 		public bool FileDelete( string filename ) 
 		{
 			return this.GetFunction<NativeFileDeleteS>( this.Functions.FileDelete4 )( this.ObjectAddress, filename ); 
@@ -69,8 +69,8 @@ namespace Steam4NET
 			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetFileNameAndSizeII>( this.Functions.GetFileNameAndSize6 )( this.ObjectAddress, index, ref size ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetQuotaII( IntPtr thisptr, ref Int32 current, ref Int32 maximum );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetQuotaII( IntPtr thisptr, ref Int32 current, ref Int32 maximum );
 		public bool GetQuota( ref Int32 current, ref Int32 maximum ) 
 		{
 			return this.GetFunction<NativeGetQuotaII>( this.Functions.GetQuota7 )( this.ObjectAddress, ref current, ref maximum ); 

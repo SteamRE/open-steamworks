@@ -24,8 +24,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeSendMessageUUBU>( this.Functions.SendMessage0 )( this.ObjectAddress, unAppID, unMsgType, pubData, (UInt32) pubData.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsMessageAvailableUU( IntPtr thisptr, UInt32 unAppID, ref UInt32 pcubMsgSize );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsMessageAvailableUU( IntPtr thisptr, UInt32 unAppID, ref UInt32 pcubMsgSize );
 		public bool IsMessageAvailable( UInt32 unAppID, ref UInt32 pcubMsgSize ) 
 		{
 			return this.GetFunction<NativeIsMessageAvailableUU>( this.Functions.IsMessageAvailable1 )( this.ObjectAddress, unAppID, ref pcubMsgSize ); 

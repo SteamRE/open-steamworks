@@ -8,6 +8,7 @@ namespace Steam4NET
 
 	public enum ELobbyType : int
 	{
+		k_ELobbyTypePrivate = 0,
 		k_ELobbyTypeFriendsOnly = 1,
 		k_ELobbyTypePublic = 2,
 		k_ELobbyTypeInvisible = 3,
@@ -45,8 +46,7 @@ namespace Steam4NET
 		k_EUniverseBeta = 2,
 		k_EUniverseInternal = 3,
 		k_EUniverseDev = 4,
-		k_EUniverseRC = 5,
-		k_EUniverseMax = 6,
+		k_EUniverseMax = 5,
 	};
 	
 	public enum ShareType_t : int

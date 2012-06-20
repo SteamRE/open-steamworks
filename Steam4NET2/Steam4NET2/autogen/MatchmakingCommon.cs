@@ -52,6 +52,7 @@ namespace Steam4NET
 		public const int k_iCallback = 503;
 		public SteamID_t m_ulSteamIDUser;
 		public SteamID_t m_ulSteamIDLobby;
+		public GameID_t m_ulGameID;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -170,6 +171,12 @@ namespace Steam4NET
 		public UInt32 uServerIP;
 		public UInt32 uServerPort;
 		public Int32 nAuthPlayers;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct PingSample_t
+	{
+		public Int32 m_iPadding;
 	};
 	
 }

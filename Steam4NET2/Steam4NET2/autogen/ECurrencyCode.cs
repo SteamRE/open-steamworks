@@ -14,7 +14,9 @@ namespace Steam4NET
 		k_ECurrencyCodeEUR = 3,
 		k_ECurrencyCodeCHF = 4,
 		k_ECurrencyCodeRUB = 5,
-		k_ECurrencyCodeMax = 6,
+		k_ECurrencyCodePLN = 6,
+		k_ECurrencyCodeBRL = 7,
+		k_ECurrencyCodeMax = 8,
 	};
 	
 }

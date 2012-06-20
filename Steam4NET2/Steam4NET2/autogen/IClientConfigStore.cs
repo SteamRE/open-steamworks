@@ -33,15 +33,15 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("CLIENTCONFIGSTORE_INTERFACE_VERSION001")]
 	public class IClientConfigStore : InteropHelp.NativeWrapper<IClientConfigStoreVTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsSetES( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsSetES( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn );
 		public bool IsSet( EConfigStore eConfigStore, string pszKeyNameIn ) 
 		{
 			return this.GetFunction<NativeIsSetES>( this.Functions.IsSet0 )( this.ObjectAddress, eConfigStore, pszKeyNameIn ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetBoolESB( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, [MarshalAs(UnmanagedType.I1)] bool defaultValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetBoolESB( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, [MarshalAs(UnmanagedType.I1)] bool defaultValue );
 		public bool GetBool( EConfigStore eConfigStore, string pszKeyNameIn, bool defaultValue ) 
 		{
 			return this.GetFunction<NativeGetBoolESB>( this.Functions.GetBool1 )( this.ObjectAddress, eConfigStore, pszKeyNameIn, defaultValue ); 
@@ -83,57 +83,57 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetBinaryWatermarkedESBU>( this.Functions.GetBinaryWatermarked7 )( this.ObjectAddress, eConfigStore, pszKeyName, pubBuf, (UInt32) pubBuf.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetBoolESB( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, [MarshalAs(UnmanagedType.I1)] bool value );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetBoolESB( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, [MarshalAs(UnmanagedType.I1)] bool value );
 		public bool SetBool( EConfigStore eConfigStore, string pszKeyNameIn, bool value ) 
 		{
 			return this.GetFunction<NativeSetBoolESB>( this.Functions.SetBool8 )( this.ObjectAddress, eConfigStore, pszKeyNameIn, value ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetIntESI( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, Int32 nValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetIntESI( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, Int32 nValue );
 		public bool SetInt( EConfigStore eConfigStore, string pszKeyNameIn, Int32 nValue ) 
 		{
 			return this.GetFunction<NativeSetIntESI>( this.Functions.SetInt9 )( this.ObjectAddress, eConfigStore, pszKeyNameIn, nValue ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUint64ESU( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, UInt64 unValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetUint64ESU( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, UInt64 unValue );
 		public bool SetUint64( EConfigStore eConfigStore, string pszKeyNameIn, UInt64 unValue ) 
 		{
 			return this.GetFunction<NativeSetUint64ESU>( this.Functions.SetUint6410 )( this.ObjectAddress, eConfigStore, pszKeyNameIn, unValue ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetFloatESF( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, float flValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetFloatESF( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, float flValue );
 		public bool SetFloat( EConfigStore eConfigStore, string pszKeyNameIn, float flValue ) 
 		{
 			return this.GetFunction<NativeSetFloatESF>( this.Functions.SetFloat11 )( this.ObjectAddress, eConfigStore, pszKeyNameIn, flValue ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetStringESS( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, string pszValue );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetStringESS( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyNameIn, string pszValue );
 		public bool SetString( EConfigStore eConfigStore, string pszKeyNameIn, string pszValue ) 
 		{
 			return this.GetFunction<NativeSetStringESS>( this.Functions.SetString12 )( this.ObjectAddress, eConfigStore, pszKeyNameIn, pszValue ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetBinaryESBU( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyName, Byte[] pubData, UInt32 cubData );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetBinaryESBU( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyName, Byte[] pubData, UInt32 cubData );
 		public bool SetBinary( EConfigStore eConfigStore, string pszKeyName, Byte[] pubData ) 
 		{
 			return this.GetFunction<NativeSetBinaryESBU>( this.Functions.SetBinary13 )( this.ObjectAddress, eConfigStore, pszKeyName, pubData, (UInt32) pubData.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetBinaryWatermarkedESBU( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyName, Byte[] pubData, UInt32 cubData );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetBinaryWatermarkedESBU( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyName, Byte[] pubData, UInt32 cubData );
 		public bool SetBinaryWatermarked( EConfigStore eConfigStore, string pszKeyName, Byte[] pubData ) 
 		{
 			return this.GetFunction<NativeSetBinaryWatermarkedESBU>( this.Functions.SetBinaryWatermarked14 )( this.ObjectAddress, eConfigStore, pszKeyName, pubData, (UInt32) pubData.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveKeyES( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyName );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveKeyES( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyName );
 		public bool RemoveKey( EConfigStore eConfigStore, string pszKeyName ) 
 		{
 			return this.GetFunction<NativeRemoveKeyES>( this.Functions.RemoveKey15 )( this.ObjectAddress, eConfigStore, pszKeyName ); 
@@ -145,8 +145,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetKeySerializedESBI>( this.Functions.GetKeySerialized16 )( this.ObjectAddress, eConfigStore, pszKeyNameIn, pchBuffer, (Int32) pchBuffer.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFlushToDiskB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bIsShuttingDown );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFlushToDiskB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bIsShuttingDown );
 		public bool FlushToDisk( bool bIsShuttingDown ) 
 		{
 			return this.GetFunction<NativeFlushToDiskB>( this.Functions.FlushToDisk17 )( this.ObjectAddress, bIsShuttingDown ); 

@@ -66,22 +66,22 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("CLIENTBILLING_INTERFACE_VERSION001")]
 	public class IClientBilling : InteropHelp.NativeWrapper<IClientBillingVTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePurchaseWithActivationCodeS( IntPtr thisptr, string pchActivationCode );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePurchaseWithActivationCodeS( IntPtr thisptr, string pchActivationCode );
 		public bool PurchaseWithActivationCode( string pchActivationCode ) 
 		{
 			return this.GetFunction<NativePurchaseWithActivationCodeS>( this.Functions.PurchaseWithActivationCode0 )( this.ObjectAddress, pchActivationCode ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCancelLicenseUI( IntPtr thisptr, UInt32 packageID, Int32 nCancelReason );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCancelLicenseUI( IntPtr thisptr, UInt32 packageID, Int32 nCancelReason );
 		public bool CancelLicense( UInt32 packageID, Int32 nCancelReason ) 
 		{
 			return this.GetFunction<NativeCancelLicenseUI>( this.Functions.CancelLicense1 )( this.ObjectAddress, packageID, nCancelReason ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAcknowledgePurchaseReceiptU( IntPtr thisptr, UInt32 nReceiptIndex );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAcknowledgePurchaseReceiptU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public bool AcknowledgePurchaseReceipt( UInt32 nReceiptIndex ) 
 		{
 			return this.GetFunction<NativeAcknowledgePurchaseReceiptU>( this.Functions.AcknowledgePurchaseReceipt2 )( this.ObjectAddress, nReceiptIndex ); 
@@ -141,8 +141,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLicenseTerritoryCodeU>( this.Functions.GetLicenseTerritoryCode11 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLicenseInfoUUUIIEUIS( IntPtr thisptr, UInt32 nLicenseIndex, ref UInt32 pRTime32Created, ref UInt32 pRTime32NextProcess, ref Int32 pnMinuteLimit, ref Int32 pnMinutesUsed, ref EPaymentMethod pePaymentMethod, ref UInt32 punFlags, ref Int32 pnTerritoryCode, StringBuilder prgchPurchaseCountryCode );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLicenseInfoUUUIIEUIS( IntPtr thisptr, UInt32 nLicenseIndex, ref UInt32 pRTime32Created, ref UInt32 pRTime32NextProcess, ref Int32 pnMinuteLimit, ref Int32 pnMinutesUsed, ref EPaymentMethod pePaymentMethod, ref UInt32 punFlags, ref Int32 pnTerritoryCode, StringBuilder prgchPurchaseCountryCode );
 		public bool GetLicenseInfo( UInt32 nLicenseIndex, ref UInt32 pRTime32Created, ref UInt32 pRTime32NextProcess, ref Int32 pnMinuteLimit, ref Int32 pnMinutesUsed, ref EPaymentMethod pePaymentMethod, ref UInt32 punFlags, ref Int32 pnTerritoryCode, StringBuilder prgchPurchaseCountryCode ) 
 		{
 			return this.GetFunction<NativeGetLicenseInfoUUUIIEUIS>( this.Functions.GetLicenseInfo12 )( this.ObjectAddress, nLicenseIndex, ref pRTime32Created, ref pRTime32NextProcess, ref pnMinuteLimit, ref pnMinutesUsed, ref pePaymentMethod, ref punFlags, ref pnTerritoryCode, prgchPurchaseCountryCode ); 
@@ -178,8 +178,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetReceiptTransIDU>( this.Functions.GetReceiptTransID17 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptAcknowledgedU( IntPtr thisptr, UInt32 nReceiptIndex );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptAcknowledgedU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public bool GetReceiptAcknowledged( UInt32 nReceiptIndex ) 
 		{
 			return this.GetFunction<NativeGetReceiptAcknowledgedU>( this.Functions.GetReceiptAcknowledged18 )( this.ObjectAddress, nReceiptIndex ); 
@@ -269,22 +269,22 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetNumReceipts>( this.Functions.GetNumReceipts32 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePurchaseWithMachineIDUS( IntPtr thisptr, UInt32 nPackageID, string pchCustomData );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePurchaseWithMachineIDUS( IntPtr thisptr, UInt32 nPackageID, string pchCustomData );
 		public bool PurchaseWithMachineID( UInt32 nPackageID, string pchCustomData ) 
 		{
 			return this.GetFunction<NativePurchaseWithMachineIDUS>( this.Functions.PurchaseWithMachineID33 )( this.ObjectAddress, nPackageID, pchCustomData ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptCardInfoUESSSSS( IntPtr thisptr, UInt32 nReceiptIndex, ref ECreditCardType eCreditCardType, StringBuilder pchCardLast4Digits, StringBuilder pchCardHolderFirstName, StringBuilder pchCardHolderLastName, StringBuilder pchCardExpYear, StringBuilder pchCardExpMonth );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptCardInfoUESSSSS( IntPtr thisptr, UInt32 nReceiptIndex, ref ECreditCardType eCreditCardType, StringBuilder pchCardLast4Digits, StringBuilder pchCardHolderFirstName, StringBuilder pchCardHolderLastName, StringBuilder pchCardExpYear, StringBuilder pchCardExpMonth );
 		public bool GetReceiptCardInfo( UInt32 nReceiptIndex, ref ECreditCardType eCreditCardType, StringBuilder pchCardLast4Digits, StringBuilder pchCardHolderFirstName, StringBuilder pchCardHolderLastName, StringBuilder pchCardExpYear, StringBuilder pchCardExpMonth ) 
 		{
 			return this.GetFunction<NativeGetReceiptCardInfoUESSSSS>( this.Functions.GetReceiptCardInfo34 )( this.ObjectAddress, nReceiptIndex, ref eCreditCardType, pchCardLast4Digits, pchCardHolderFirstName, pchCardHolderLastName, pchCardExpYear, pchCardExpMonth ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptBillingAddressUSSSSSSSSS( IntPtr thisptr, UInt32 nReceiptIndex, StringBuilder pchFirstName, StringBuilder pchLastName, StringBuilder pchAddress1, StringBuilder pchAddress2, StringBuilder pchCity, StringBuilder pchPostcode, StringBuilder pchState, StringBuilder pchCountry, StringBuilder pchPhone );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptBillingAddressUSSSSSSSSS( IntPtr thisptr, UInt32 nReceiptIndex, StringBuilder pchFirstName, StringBuilder pchLastName, StringBuilder pchAddress1, StringBuilder pchAddress2, StringBuilder pchCity, StringBuilder pchPostcode, StringBuilder pchState, StringBuilder pchCountry, StringBuilder pchPhone );
 		public bool GetReceiptBillingAddress( UInt32 nReceiptIndex, StringBuilder pchFirstName, StringBuilder pchLastName, StringBuilder pchAddress1, StringBuilder pchAddress2, StringBuilder pchCity, StringBuilder pchPostcode, StringBuilder pchState, StringBuilder pchCountry, StringBuilder pchPhone ) 
 		{
 			return this.GetFunction<NativeGetReceiptBillingAddressUSSSSSSSSS>( this.Functions.GetReceiptBillingAddress35 )( this.ObjectAddress, nReceiptIndex, pchFirstName, pchLastName, pchAddress1, pchAddress2, pchCity, pchPostcode, pchState, pchCountry, pchPhone ); 
@@ -296,8 +296,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetReceiptLineItemCountU>( this.Functions.GetReceiptLineItemCount36 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptLineItemInfoUUUUUUUEUSS( IntPtr thisptr, UInt32 nReceiptIndex, UInt32 nLineItemIndex, ref UInt32 nPackageID, ref UInt32 nBaseCost, ref UInt32 nDiscount, ref UInt32 nTax, ref UInt32 nShipping, ref ECurrencyCode eCurrencyCode, ref UInt32 punAppId, StringBuilder pchDescription, StringBuilder pchCouponInfoURL );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptLineItemInfoUUUUUUUEUSS( IntPtr thisptr, UInt32 nReceiptIndex, UInt32 nLineItemIndex, ref UInt32 nPackageID, ref UInt32 nBaseCost, ref UInt32 nDiscount, ref UInt32 nTax, ref UInt32 nShipping, ref ECurrencyCode eCurrencyCode, ref UInt32 punAppId, StringBuilder pchDescription, StringBuilder pchCouponInfoURL );
 		public bool GetReceiptLineItemInfo( UInt32 nReceiptIndex, UInt32 nLineItemIndex, ref UInt32 nPackageID, ref UInt32 nBaseCost, ref UInt32 nDiscount, ref UInt32 nTax, ref UInt32 nShipping, ref ECurrencyCode eCurrencyCode, ref UInt32 punAppId, StringBuilder pchDescription, StringBuilder pchCouponInfoURL ) 
 		{
 			return this.GetFunction<NativeGetReceiptLineItemInfoUUUUUUUEUSS>( this.Functions.GetReceiptLineItemInfo37 )( this.ObjectAddress, nReceiptIndex, nLineItemIndex, ref nPackageID, ref nBaseCost, ref nDiscount, ref nTax, ref nShipping, ref eCurrencyCode, ref punAppId, pchDescription, pchCouponInfoURL ); 
@@ -315,15 +315,15 @@ namespace Steam4NET
 			this.GetFunction<NativeDisableTestLicenseU>( this.Functions.DisableTestLicense39 )( this.ObjectAddress, unPackageID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeActivateOEMTicketS( IntPtr thisptr, string pchOEMLicenseFile );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeActivateOEMTicketS( IntPtr thisptr, string pchOEMLicenseFile );
 		public bool ActivateOEMTicket( string pchOEMLicenseFile ) 
 		{
 			return this.GetFunction<NativeActivateOEMTicketS>( this.Functions.ActivateOEMTicket40 )( this.ObjectAddress, pchOEMLicenseFile ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLicenseForAppIDUU( IntPtr thisptr, UInt32 unAppId, ref UInt32 punPackageID );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLicenseForAppIDUU( IntPtr thisptr, UInt32 unAppId, ref UInt32 punPackageID );
 		public bool GetLicenseForAppID( UInt32 unAppId, ref UInt32 punPackageID ) 
 		{
 			return this.GetFunction<NativeGetLicenseForAppIDUU>( this.Functions.GetLicenseForAppID41 )( this.ObjectAddress, unAppId, ref punPackageID ); 
@@ -335,8 +335,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetPackageNameUSI>( this.Functions.GetPackageName42 )( this.ObjectAddress, unPackageID, pchName, (Int32) pchName.Capacity ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetPackageInfoUUUEEEIIIBB( IntPtr thisptr, UInt32 unPackageID, ref UInt32 puNumAppIds, ref UInt32 puNumDepotIDs, ref EBillingType peBillingType, ref ELicenseType peLicenseType, ref EPackageStatus pePackageStatus, ref Int32 piCodeClass, ref Int32 piGameCode, ref Int32 piTerritoryCode, ref bool pbRequiresShipping, ref bool pbIsPreorder );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetPackageInfoUUUEEEIIIBB( IntPtr thisptr, UInt32 unPackageID, ref UInt32 puNumAppIds, ref UInt32 puNumDepotIDs, ref EBillingType peBillingType, ref ELicenseType peLicenseType, ref EPackageStatus pePackageStatus, ref Int32 piCodeClass, ref Int32 piGameCode, ref Int32 piTerritoryCode, ref bool pbRequiresShipping, ref bool pbIsPreorder );
 		public bool GetPackageInfo( UInt32 unPackageID, ref UInt32 puNumAppIds, ref UInt32 puNumDepotIDs, ref EBillingType peBillingType, ref ELicenseType peLicenseType, ref EPackageStatus pePackageStatus, ref Int32 piCodeClass, ref Int32 piGameCode, ref Int32 piTerritoryCode, ref bool pbRequiresShipping, ref bool pbIsPreorder ) 
 		{
 			return this.GetFunction<NativeGetPackageInfoUUUEEEIIIBB>( this.Functions.GetPackageInfo43 )( this.ObjectAddress, unPackageID, ref puNumAppIds, ref puNumDepotIDs, ref peBillingType, ref peLicenseType, ref pePackageStatus, ref piCodeClass, ref piGameCode, ref piTerritoryCode, ref pbRequiresShipping, ref pbIsPreorder ); 

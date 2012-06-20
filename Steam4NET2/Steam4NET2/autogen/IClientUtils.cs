@@ -90,22 +90,22 @@ namespace Steam4NET
 			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetIPCountry>( this.Functions.GetIPCountry7 )( this.ObjectAddress ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetImageSizeIUU( IntPtr thisptr, Int32 iImage, ref UInt32 pnWidth, ref UInt32 pnHeight );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetImageSizeIUU( IntPtr thisptr, Int32 iImage, ref UInt32 pnWidth, ref UInt32 pnHeight );
 		public bool GetImageSize( Int32 iImage, ref UInt32 pnWidth, ref UInt32 pnHeight ) 
 		{
 			return this.GetFunction<NativeGetImageSizeIUU>( this.Functions.GetImageSize8 )( this.ObjectAddress, iImage, ref pnWidth, ref pnHeight ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetImageRGBAIBI( IntPtr thisptr, Int32 iImage, Byte[] pubDest, Int32 nDestBufferSize );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetImageRGBAIBI( IntPtr thisptr, Int32 iImage, Byte[] pubDest, Int32 nDestBufferSize );
 		public bool GetImageRGBA( Int32 iImage, Byte[] pubDest, Int32 nDestBufferSize ) 
 		{
 			return this.GetFunction<NativeGetImageRGBAIBI>( this.Functions.GetImageRGBA9 )( this.ObjectAddress, iImage, pubDest, nDestBufferSize ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetCSERIPPortUU( IntPtr thisptr, ref UInt32 unIP, ref UInt16 usPort );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetCSERIPPortUU( IntPtr thisptr, ref UInt32 unIP, ref UInt16 usPort );
 		public bool GetCSERIPPort( ref UInt32 unIP, ref UInt16 usPort ) 
 		{
 			return this.GetFunction<NativeGetCSERIPPortUU>( this.Functions.GetCSERIPPort10 )( this.ObjectAddress, ref unIP, ref usPort ); 
@@ -129,8 +129,8 @@ namespace Steam4NET
 			this.GetFunction<NativeSetOfflineModeB>( this.Functions.SetOfflineMode13 )( this.ObjectAddress, bOffline ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetOfflineMode( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetOfflineMode( IntPtr thisptr );
 		public bool GetOfflineMode(  ) 
 		{
 			return this.GetFunction<NativeGetOfflineMode>( this.Functions.GetOfflineMode14 )( this.ObjectAddress ); 
@@ -154,8 +154,8 @@ namespace Steam4NET
 			this.GetFunction<NativeSetAPIDebuggingActiveBB>( this.Functions.SetAPIDebuggingActive17 )( this.ObjectAddress, bActive, bVerbose ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsAPICallCompletedUB( IntPtr thisptr, UInt64 hSteamAPICall, ref bool pbFailed );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsAPICallCompletedUB( IntPtr thisptr, UInt64 hSteamAPICall, ref bool pbFailed );
 		public bool IsAPICallCompleted( UInt64 hSteamAPICall, ref bool pbFailed ) 
 		{
 			return this.GetFunction<NativeIsAPICallCompletedUB>( this.Functions.IsAPICallCompleted18 )( this.ObjectAddress, hSteamAPICall, ref pbFailed ); 
@@ -167,15 +167,15 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAPICallFailureReasonU>( this.Functions.GetAPICallFailureReason19 )( this.ObjectAddress, hSteamAPICall ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAPICallResultUBIIB( IntPtr thisptr, UInt64 hSteamAPICall, Byte[] pCallback, Int32 cubCallback, Int32 iCallbackExpected, ref bool pbFailed );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAPICallResultUBIIB( IntPtr thisptr, UInt64 hSteamAPICall, Byte[] pCallback, Int32 cubCallback, Int32 iCallbackExpected, ref bool pbFailed );
 		public bool GetAPICallResult( UInt64 hSteamAPICall, Byte[] pCallback, Int32 iCallbackExpected, ref bool pbFailed ) 
 		{
 			return this.GetFunction<NativeGetAPICallResultUBIIB>( this.Functions.GetAPICallResult20 )( this.ObjectAddress, hSteamAPICall, pCallback, (Int32) pCallback.Length, iCallbackExpected, ref pbFailed ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSignalAppsToShutDown( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSignalAppsToShutDown( IntPtr thisptr );
 		public bool SignalAppsToShutDown(  ) 
 		{
 			return this.GetFunction<NativeSignalAppsToShutDown>( this.Functions.SignalAppsToShutDown21 )( this.ObjectAddress ); 
@@ -187,8 +187,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetCellID>( this.Functions.GetCellID22 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsGlobalInstance( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsGlobalInstance( IntPtr thisptr );
 		public bool BIsGlobalInstance(  ) 
 		{
 			return this.GetFunction<NativeBIsGlobalInstance>( this.Functions.BIsGlobalInstance23 )( this.ObjectAddress ); 

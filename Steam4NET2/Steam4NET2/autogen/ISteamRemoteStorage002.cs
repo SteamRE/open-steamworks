@@ -22,8 +22,8 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION002")]
 	public class ISteamRemoteStorage002 : InteropHelp.NativeWrapper<ISteamRemoteStorage002VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteSBI( IntPtr thisptr, string pchFile, Byte[] pvData, Int32 cubData );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteSBI( IntPtr thisptr, string pchFile, Byte[] pvData, Int32 cubData );
 		public bool FileWrite( string pchFile, Byte[] pvData ) 
 		{
 			return this.GetFunction<NativeFileWriteSBI>( this.Functions.FileWrite0 )( this.ObjectAddress, pchFile, pvData, (Int32) pvData.Length ); 
@@ -41,8 +41,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeFileReadSBI>( this.Functions.FileRead2 )( this.ObjectAddress, pchFile, pvData, (Int32) pvData.Length ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileExistsS( IntPtr thisptr, string pchFile );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileExistsS( IntPtr thisptr, string pchFile );
 		public bool FileExists( string pchFile ) 
 		{
 			return this.GetFunction<NativeFileExistsS>( this.Functions.FileExists3 )( this.ObjectAddress, pchFile ); 
@@ -60,8 +60,8 @@ namespace Steam4NET
 			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetFileNameAndSizeII>( this.Functions.GetFileNameAndSize5 )( this.ObjectAddress, iFile, ref pnFileSizeInBytes ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetQuotaII( IntPtr thisptr, ref Int32 pnTotalBytes, ref Int32 puAvailableBytes );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetQuotaII( IntPtr thisptr, ref Int32 pnTotalBytes, ref Int32 puAvailableBytes );
 		public bool GetQuota( ref Int32 pnTotalBytes, ref Int32 puAvailableBytes ) 
 		{
 			return this.GetFunction<NativeGetQuotaII>( this.Functions.GetQuota6 )( this.ObjectAddress, ref pnTotalBytes, ref puAvailableBytes ); 

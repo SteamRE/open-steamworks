@@ -92,8 +92,8 @@ namespace Steam4NET
 			this.GetFunction<NativeRefreshQueryB>( this.Functions.RefreshQuery9 )( this.ObjectAddress, hRequest ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsRefreshingB( IntPtr thisptr, Byte[] hRequest );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsRefreshingB( IntPtr thisptr, Byte[] hRequest );
 		public bool IsRefreshing( Byte[] hRequest ) 
 		{
 			return this.GetFunction<NativeIsRefreshingB>( this.Functions.IsRefreshing10 )( this.ObjectAddress, hRequest ); 

@@ -59,8 +59,8 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("SteamGameServer011")]
 	public class ISteamGameServer011 : InteropHelp.NativeWrapper<ISteamGameServer011VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInitGameServerUUUUUS( IntPtr thisptr, UInt32 unGameIP, UInt16 unGamePort, UInt16 usQueryPort, UInt32 unServerFlags, UInt32 nAppID, string pchVersion );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInitGameServerUUUUUS( IntPtr thisptr, UInt32 unGameIP, UInt16 unGamePort, UInt16 usQueryPort, UInt32 unServerFlags, UInt32 nAppID, string pchVersion );
 		public bool InitGameServer( UInt32 unGameIP, UInt16 unGamePort, UInt16 usQueryPort, UInt32 unServerFlags, UInt32 nAppID, string pchVersion ) 
 		{
 			return this.GetFunction<NativeInitGameServerUUUUUS>( this.Functions.InitGameServer0 )( this.ObjectAddress, unGameIP, unGamePort, usQueryPort, unServerFlags, nAppID, pchVersion ); 
@@ -90,10 +90,10 @@ namespace Steam4NET
 			this.GetFunction<NativeSetDedicatedServerB>( this.Functions.SetDedicatedServer4 )( this.ObjectAddress, bDedicatedServer ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOnSS( IntPtr thisptr, string pchLogin, string pchPassword );
-		public void LogOn( string pchLogin, string pchPassword ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOnSS( IntPtr thisptr, string pszAccountName, string pszPassword );
+		public void LogOn( string pszAccountName, string pszPassword ) 
 		{
-			this.GetFunction<NativeLogOnSS>( this.Functions.LogOn5 )( this.ObjectAddress, pchLogin, pchPassword ); 
+			this.GetFunction<NativeLogOnSS>( this.Functions.LogOn5 )( this.ObjectAddress, pszAccountName, pszPassword ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOnAnonymous( IntPtr thisptr );
@@ -108,15 +108,15 @@ namespace Steam4NET
 			this.GetFunction<NativeLogOff>( this.Functions.LogOff7 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		public bool BLoggedOn(  ) 
 		{
 			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn8 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSecure( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSecure( IntPtr thisptr );
 		public bool BSecure(  ) 
 		{
 			return this.GetFunction<NativeBSecure>( this.Functions.BSecure9 )( this.ObjectAddress ); 
@@ -128,8 +128,8 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeGetSteamID>( this.Functions.GetSteamID10 )( this.ObjectAddress, ref ret ); return new CSteamID(ret);
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeWasRestartRequested( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeWasRestartRequested( IntPtr thisptr );
 		public bool WasRestartRequested(  ) 
 		{
 			return this.GetFunction<NativeWasRestartRequested>( this.Functions.WasRestartRequested11 )( this.ObjectAddress ); 
@@ -147,16 +147,16 @@ namespace Steam4NET
 			this.GetFunction<NativeSetBotPlayerCountI>( this.Functions.SetBotPlayerCount13 )( this.ObjectAddress, cBotPlayers ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetServerNameS( IntPtr thisptr, string pchServerName );
-		public void SetServerName( string pchServerName ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetServerNameS( IntPtr thisptr, string pszServerName );
+		public void SetServerName( string pszServerName ) 
 		{
-			this.GetFunction<NativeSetServerNameS>( this.Functions.SetServerName14 )( this.ObjectAddress, pchServerName ); 
+			this.GetFunction<NativeSetServerNameS>( this.Functions.SetServerName14 )( this.ObjectAddress, pszServerName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetMapNameS( IntPtr thisptr, string pchMapName );
-		public void SetMapName( string pchMapName ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetMapNameS( IntPtr thisptr, string pszMapName );
+		public void SetMapName( string pszMapName ) 
 		{
-			this.GetFunction<NativeSetMapNameS>( this.Functions.SetMapName15 )( this.ObjectAddress, pchMapName ); 
+			this.GetFunction<NativeSetMapNameS>( this.Functions.SetMapName15 )( this.ObjectAddress, pszMapName ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetPasswordProtectedB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bPasswordProtected );
@@ -171,10 +171,10 @@ namespace Steam4NET
 			this.GetFunction<NativeSetSpectatorPortU>( this.Functions.SetSpectatorPort17 )( this.ObjectAddress, unSpectatorPort ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetSpectatorServerNameS( IntPtr thisptr, string pchSpectatorServerName );
-		public void SetSpectatorServerName( string pchSpectatorServerName ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetSpectatorServerNameS( IntPtr thisptr, string pszSpectatorServerName );
+		public void SetSpectatorServerName( string pszSpectatorServerName ) 
 		{
-			this.GetFunction<NativeSetSpectatorServerNameS>( this.Functions.SetSpectatorServerName18 )( this.ObjectAddress, pchSpectatorServerName ); 
+			this.GetFunction<NativeSetSpectatorServerNameS>( this.Functions.SetSpectatorServerName18 )( this.ObjectAddress, pszSpectatorServerName ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearAllKeyValues( IntPtr thisptr );
@@ -225,8 +225,8 @@ namespace Steam4NET
 			this.GetFunction<NativeSendUserDisconnectC>( this.Functions.SendUserDisconnect26 )( this.ObjectAddress, steamIDUser.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBUpdateUserDataCSU( IntPtr thisptr, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBUpdateUserDataCSU( IntPtr thisptr, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore );
 		public bool BUpdateUserData( CSteamID steamIDUser, string pchPlayerName, UInt32 uScore ) 
 		{
 			return this.GetFunction<NativeBUpdateUserDataCSU>( this.Functions.BUpdateUserData27 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), pchPlayerName, uScore ); 
@@ -262,8 +262,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeUserHasLicenseForAppCU>( this.Functions.UserHasLicenseForApp32 )( this.ObjectAddress, steamID.ConvertToUint64(), appID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatusCC( IntPtr thisptr, UInt64 steamIDUser, UInt64 steamIDGroup );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatusCC( IntPtr thisptr, UInt64 steamIDUser, UInt64 steamIDGroup );
 		public bool RequestUserGroupStatus( CSteamID steamIDUser, CSteamID steamIDGroup ) 
 		{
 			return this.GetFunction<NativeRequestUserGroupStatusCC>( this.Functions.RequestUserGroupStatus33 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), steamIDGroup.ConvertToUint64() ); 
@@ -287,8 +287,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetPublicIP>( this.Functions.GetPublicIP36 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHandleIncomingPacketBIUU( IntPtr thisptr, Byte[] pData, Int32 cbData, UInt32 srcIP, UInt16 srcPort );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHandleIncomingPacketBIUU( IntPtr thisptr, Byte[] pData, Int32 cbData, UInt32 srcIP, UInt16 srcPort );
 		public bool HandleIncomingPacket( Byte[] pData, UInt32 srcIP, UInt16 srcPort ) 
 		{
 			return this.GetFunction<NativeHandleIncomingPacketBIUU>( this.Functions.HandleIncomingPacket37 )( this.ObjectAddress, pData, (Int32) pData.Length, srcIP, srcPort ); 
@@ -300,16 +300,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetNextOutgoingPacketBIUU>( this.Functions.GetNextOutgoingPacket38 )( this.ObjectAddress, pOut, (Int32) pOut.Length, ref pNetAdr, ref pPort ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEnableHeartbeatsB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bEnabled );
-		public void EnableHeartbeats( bool bEnabled ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEnableHeartbeatsB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bActive );
+		public void EnableHeartbeats( bool bActive ) 
 		{
-			this.GetFunction<NativeEnableHeartbeatsB>( this.Functions.EnableHeartbeats39 )( this.ObjectAddress, bEnabled ); 
+			this.GetFunction<NativeEnableHeartbeatsB>( this.Functions.EnableHeartbeats39 )( this.ObjectAddress, bActive ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetHeartbeatIntervalI( IntPtr thisptr, Int32 iInterval );
-		public void SetHeartbeatInterval( Int32 iInterval ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetHeartbeatIntervalI( IntPtr thisptr, Int32 iHeartbeatInterval );
+		public void SetHeartbeatInterval( Int32 iHeartbeatInterval ) 
 		{
-			this.GetFunction<NativeSetHeartbeatIntervalI>( this.Functions.SetHeartbeatInterval40 )( this.ObjectAddress, iInterval ); 
+			this.GetFunction<NativeSetHeartbeatIntervalI>( this.Functions.SetHeartbeatInterval40 )( this.ObjectAddress, iHeartbeatInterval ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeForceHeartbeat( IntPtr thisptr );

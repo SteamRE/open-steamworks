@@ -180,6 +180,14 @@ namespace Steam4NET
 		k_ERequestAccountDataActionGetNumAccountsWithEmailAddress = 3,
 	};
 	
+	public enum ESteamGuardProvider : int
+	{
+	};
+	
+	public enum EUserConnect : int
+	{
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(101)]
 	public struct SteamServersConnected_t
@@ -295,6 +303,15 @@ namespace Steam4NET
 	public struct EncryptedAppTicketResponse_t
 	{
 		public const int k_iCallback = 154;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(163)]
+	public struct GetAuthSessionTicketResponse_t
+	{
+		public const int k_iCallback = 163;
+		public UInt32 m_hAuthTicket;
 		public EResult m_eResult;
 	};
 	

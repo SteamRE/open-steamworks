@@ -62,9 +62,7 @@
   <ItemGroup>
     <Compile Include="autogen\AppsCommon.cs" />
     <Compile Include="autogen\BillingCommon.cs" />
-    <None Include="autogen\CGameID.cs">
-      <SubType>Code</SubType>
-    </None>
+    <None Include="autogen\CGameID.cs" />
     <Compile Include="autogen\ClientCommon.cs" />
     <Compile Include="autogen\ContentServerCommon.cs" />
     <Compile Include="autogen\CSteamID.cs" />
@@ -145,6 +143,7 @@
     <Compile Include="autogen\ISteamFriends009.cs" />
     <Compile Include="autogen\ISteamFriends010.cs" />
     <Compile Include="autogen\ISteamFriends011.cs" />
+    <Compile Include="autogen\ISteamFriends012.cs" />
     <Compile Include="autogen\ISteamGameCoordinator001.cs" />
     <Compile Include="autogen\ISteamGameServer002.cs" />
     <Compile Include="autogen\ISteamGameServer003.cs" />
@@ -176,6 +175,7 @@
     <Compile Include="autogen\ISteamNetworking003.cs" />
     <Compile Include="autogen\ISteamNetworking004.cs" />
     <Compile Include="autogen\ISteamNetworking005.cs" />
+    <Compile Include="autogen\ISteamOAuth001.cs" />
     <Compile Include="autogen\ISteamRemoteStorage001.cs" />
     <Compile Include="autogen\ISteamRemoteStorage002.cs" />
     <Compile Include="autogen\ISteamRemoteStorage003.cs" />

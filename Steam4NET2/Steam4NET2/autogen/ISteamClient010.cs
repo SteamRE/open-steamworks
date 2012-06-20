@@ -45,8 +45,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeCreateSteamPipe>( this.Functions.CreateSteamPipe0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBReleaseSteamPipeI( IntPtr thisptr, Int32 hSteamPipe );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBReleaseSteamPipeI( IntPtr thisptr, Int32 hSteamPipe );
 		public bool BReleaseSteamPipe( Int32 hSteamPipe ) 
 		{
 			return this.GetFunction<NativeBReleaseSteamPipeI>( this.Functions.BReleaseSteamPipe1 )( this.ObjectAddress, hSteamPipe ); 
@@ -172,8 +172,8 @@ namespace Steam4NET
 			this.GetFunction<NativeSetWarningMessageHookI>( this.Functions.SetWarningMessageHook21 )( this.ObjectAddress, ref pFunction ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBShutdownIfAllPipesClosed( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBShutdownIfAllPipesClosed( IntPtr thisptr );
 		public bool BShutdownIfAllPipesClosed(  ) 
 		{
 			return this.GetFunction<NativeBShutdownIfAllPipesClosed>( this.Functions.BShutdownIfAllPipesClosed22 )( this.ObjectAddress ); 

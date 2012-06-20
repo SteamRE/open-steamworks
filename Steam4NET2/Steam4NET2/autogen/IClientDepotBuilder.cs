@@ -20,9 +20,9 @@ namespace Steam4NET
 	public enum EStatusDepotVersion : int
 	{
 		k_EStatusDepotVersionInvalid = 0,
-		k_EStatusDepotVersionCompleteDisabled = 1,
-		k_EStatusDepotVersionCompleteEnabledBeta = 2,
-		k_EStatusDepotVersionCompleteEnabledPublic = 3,
+		k_EStatusDepotVersionDisabled = 1,
+		k_EStatusDepotVersionAvailable = 2,
+		k_EStatusDepotVersionCurrent = 3,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
@@ -38,16 +38,17 @@ namespace Steam4NET
 		public IntPtr BGetChunkCounts7;
 		public IntPtr GetManifestGIDs8;
 		public IntPtr FinishAppBuild9;
-		private IntPtr DTorIClientDepotBuilder10;
+		public IntPtr VerifyChunkStore10;
+		private IntPtr DTorIClientDepotBuilder11;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTDEPOTBUILDER_INTERFACE_VERSION001")]
 	public class IClientDepotBuilder : InteropHelp.NativeWrapper<IClientDepotBuilderVTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRegisterAppBuildUSS( IntPtr thisptr, UInt32 nAppID, string cszDescription, string cszBetaKey );
-		public UInt32 RegisterAppBuild( UInt32 nAppID, string cszDescription, string cszBetaKey ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeRegisterAppBuildUBS( IntPtr thisptr, UInt32 nAppID, [MarshalAs(UnmanagedType.I1)] bool bLocalCSBuild, string cszDescription );
+		public UInt32 RegisterAppBuild( UInt32 nAppID, bool bLocalCSBuild, string cszDescription ) 
 		{
-			return this.GetFunction<NativeRegisterAppBuildUSS>( this.Functions.RegisterAppBuild0 )( this.ObjectAddress, nAppID, cszDescription, cszBetaKey ); 
+			return this.GetFunction<NativeRegisterAppBuildUBS>( this.Functions.RegisterAppBuild0 )( this.ObjectAddress, nAppID, bLocalCSBuild, cszDescription ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetRegisteredBuildIDU( IntPtr thisptr, UInt32 arg0 );
@@ -56,57 +57,63 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetRegisteredBuildIDU>( this.Functions.GetRegisteredBuildID1 )( this.ObjectAddress, arg0 ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeInitializeDepotBuildForConfigFileS( IntPtr thisptr, string pchConfigFile );
-		public UInt32 InitializeDepotBuildForConfigFile( string pchConfigFile ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeInitializeDepotBuildForConfigFileSSS( IntPtr thisptr, string pchConfigFile, string arg1, string arg2 );
+		public UInt32 InitializeDepotBuildForConfigFile( string pchConfigFile, string arg1, string arg2 ) 
 		{
-			return this.GetFunction<NativeInitializeDepotBuildForConfigFileS>( this.Functions.InitializeDepotBuildForConfigFile2 )( this.ObjectAddress, pchConfigFile ); 
+			return this.GetFunction<NativeInitializeDepotBuildForConfigFileSSS>( this.Functions.InitializeDepotBuildForConfigFile2 )( this.ObjectAddress, pchConfigFile, arg1, arg2 ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeStartBuildUUSSU( IntPtr thisptr, UInt32 hDepotBuild, UInt32 uFlags, string cszBetaKey, string cszChunksPath, UInt32 arg4 );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool StartBuild( UInt32 hDepotBuild, UInt32 uFlags, string cszBetaKey, string cszChunksPath, UInt32 arg4 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeStartBuildUUSSU( IntPtr thisptr, UInt32 hDepotBuild, UInt32 uFlags, string cszChunksPath, string arg3, UInt32 arg4 );
+		public bool StartBuild( UInt32 hDepotBuild, UInt32 uFlags, string cszChunksPath, string arg3, UInt32 arg4 ) 
 		{
-			return this.GetFunction<NativeStartBuildUUSSU>( this.Functions.StartBuild3 )( this.ObjectAddress, hDepotBuild, uFlags, cszBetaKey, cszChunksPath, arg4 ); 
+			return this.GetFunction<NativeStartBuildUUSSU>( this.Functions.StartBuild3 )( this.ObjectAddress, hDepotBuild, uFlags, cszChunksPath, arg3, arg4 ); 
 		}
 		
+		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetDepotBuildStatusUEU( IntPtr thisptr, UInt32 hDepotBuild, ref EDepotBuildStatus pStatusOut, ref UInt32 pPercentDone );
-		[return: MarshalAs(UnmanagedType.I1)]
 		public bool BGetDepotBuildStatus( UInt32 hDepotBuild, ref EDepotBuildStatus pStatusOut, ref UInt32 pPercentDone ) 
 		{
 			return this.GetFunction<NativeBGetDepotBuildStatusUEU>( this.Functions.BGetDepotBuildStatus4 )( this.ObjectAddress, hDepotBuild, ref pStatusOut, ref pPercentDone ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCloseDepotBuildHandleU( IntPtr thisptr, UInt32 hDepotBuild );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCloseDepotBuildHandleU( IntPtr thisptr, UInt32 hDepotBuild );
 		public bool CloseDepotBuildHandle( UInt32 hDepotBuild ) 
 		{
 			return this.GetFunction<NativeCloseDepotBuildHandleU>( this.Functions.CloseDepotBuildHandle5 )( this.ObjectAddress, hDepotBuild ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReconstructDepotFromManifestAndChunksSSS( IntPtr thisptr, string pchLocalManifestPath, string pchLocalChunkPath, string pchRestorePath );
-		public UInt32 ReconstructDepotFromManifestAndChunks( string pchLocalManifestPath, string pchLocalChunkPath, string pchRestorePath ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeReconstructDepotFromManifestAndChunksSSSU( IntPtr thisptr, string pchLocalManifestPath, string pchLocalChunkPath, string pchRestorePath, UInt32 arg3 );
+		public UInt32 ReconstructDepotFromManifestAndChunks( string pchLocalManifestPath, string pchLocalChunkPath, string pchRestorePath, UInt32 arg3 ) 
 		{
-			return this.GetFunction<NativeReconstructDepotFromManifestAndChunksSSS>( this.Functions.ReconstructDepotFromManifestAndChunks6 )( this.ObjectAddress, pchLocalManifestPath, pchLocalChunkPath, pchRestorePath ); 
+			return this.GetFunction<NativeReconstructDepotFromManifestAndChunksSSSU>( this.Functions.ReconstructDepotFromManifestAndChunks6 )( this.ObjectAddress, pchLocalManifestPath, pchLocalChunkPath, pchRestorePath, arg3 ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetChunkCountsUUU( IntPtr thisptr, UInt32 hDepotBuild, ref UInt32 unTotalChunksInNewBuild, ref UInt32 unChunksAlsoInOldBuild );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetChunkCountsUUU( IntPtr thisptr, UInt32 hDepotBuild, ref UInt32 unTotalChunksInNewBuild, ref UInt32 unChunksAlsoInOldBuild );
 		public bool BGetChunkCounts( UInt32 hDepotBuild, ref UInt32 unTotalChunksInNewBuild, ref UInt32 unChunksAlsoInOldBuild ) 
 		{
 			return this.GetFunction<NativeBGetChunkCountsUUU>( this.Functions.BGetChunkCounts7 )( this.ObjectAddress, hDepotBuild, ref unTotalChunksInNewBuild, ref unChunksAlsoInOldBuild ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetManifestGIDsUUU( IntPtr thisptr, UInt32 hDepotBuild, ref UInt64 pBaselineGID, ref UInt64 pNewGID );
 		[return: MarshalAs(UnmanagedType.I1)]
-		public bool GetManifestGIDs( UInt32 hDepotBuild, ref UInt64 pBaselineGID, ref UInt64 pNewGID ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetManifestGIDsUUUB( IntPtr thisptr, UInt32 hDepotBuild, ref UInt64 pBaselineGID, ref UInt64 pNewGID, ref bool arg3 );
+		public bool GetManifestGIDs( UInt32 hDepotBuild, ref UInt64 pBaselineGID, ref UInt64 pNewGID, ref bool arg3 ) 
 		{
-			return this.GetFunction<NativeGetManifestGIDsUUU>( this.Functions.GetManifestGIDs8 )( this.ObjectAddress, hDepotBuild, ref pBaselineGID, ref pNewGID ); 
+			return this.GetFunction<NativeGetManifestGIDsUUUB>( this.Functions.GetManifestGIDs8 )( this.ObjectAddress, hDepotBuild, ref pBaselineGID, ref pNewGID, ref arg3 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeFinishAppBuildUUSBU( IntPtr thisptr, UInt32 uBuildID, UInt32 nAppID, string cszBetaKey, [MarshalAs(UnmanagedType.I1)] bool bOnlyFinish, UInt32 cNumSkipDepots );
 		public UInt32 FinishAppBuild( UInt32 uBuildID, UInt32 nAppID, string cszBetaKey, bool bOnlyFinish, UInt32 cNumSkipDepots ) 
 		{
 			return this.GetFunction<NativeFinishAppBuildUUSBU>( this.Functions.FinishAppBuild9 )( this.ObjectAddress, uBuildID, nAppID, cszBetaKey, bOnlyFinish, cNumSkipDepots ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeVerifyChunkStoreUUS( IntPtr thisptr, UInt32 arg0, UInt32 arg1, string arg2 );
+		public UInt32 VerifyChunkStore( UInt32 arg0, UInt32 arg1, string arg2 ) 
+		{
+			return this.GetFunction<NativeVerifyChunkStoreUUS>( this.Functions.VerifyChunkStore10 )( this.ObjectAddress, arg0, arg1, arg2 ); 
 		}
 		
 	};

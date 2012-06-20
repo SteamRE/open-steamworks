@@ -44,15 +44,15 @@ namespace Steam4NET
 			this.GetFunction<NativeLogOff>( this.Functions.LogOff1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		public bool BLoggedOn(  ) 
 		{
 			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSecure( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSecure( IntPtr thisptr );
 		public bool BSecure(  ) 
 		{
 			return this.GetFunction<NativeBSecure>( this.Functions.BSecure3 )( this.ObjectAddress ); 
@@ -64,8 +64,8 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeGetSteamID>( this.Functions.GetSteamID4 )( this.ObjectAddress, ref ret ); return new CSteamID(ret);
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticateUBUC( IntPtr thisptr, UInt32 unIPClient, Byte[] pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendUserConnectAndAuthenticateUBUC( IntPtr thisptr, UInt32 unIPClient, Byte[] pvAuthBlob, UInt32 cubAuthBlobSize, ref UInt64 pSteamIDUser );
 		public bool SendUserConnectAndAuthenticate( UInt32 unIPClient, Byte[] pvAuthBlob, ref CSteamID pSteamIDUser ) 
 		{
 			UInt64 s0 = 0; var result = this.GetFunction<NativeSendUserConnectAndAuthenticateUBUC>( this.Functions.SendUserConnectAndAuthenticate5 )( this.ObjectAddress, unIPClient, pvAuthBlob, (UInt32) pvAuthBlob.Length, ref s0 ); pSteamIDUser = new CSteamID(s0); return result;
@@ -83,15 +83,15 @@ namespace Steam4NET
 			this.GetFunction<NativeSendUserDisconnectC>( this.Functions.SendUserDisconnect7 )( this.ObjectAddress, steamIDUser.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBUpdateUserDataCSU( IntPtr thisptr, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBUpdateUserDataCSU( IntPtr thisptr, UInt64 steamIDUser, string pchPlayerName, UInt32 uScore );
 		public bool BUpdateUserData( CSteamID steamIDUser, string pchPlayerName, UInt32 uScore ) 
 		{
 			return this.GetFunction<NativeBUpdateUserDataCSU>( this.Functions.BUpdateUserData8 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), pchPlayerName, uScore ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSetServerTypeUUUUUSSB( IntPtr thisptr, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBSetServerTypeUUUUUSSB( IntPtr thisptr, UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, [MarshalAs(UnmanagedType.I1)] bool bLANMode );
 		public bool BSetServerType( UInt32 unServerFlags, UInt32 unGameIP, UInt16 unGamePort, UInt16 unSpectatorPort, UInt16 usQueryPort, string pchGameDir, string pchVersion, bool bLANMode ) 
 		{
 			return this.GetFunction<NativeBSetServerTypeUUUUUSSB>( this.Functions.BSetServerType9 )( this.ObjectAddress, unServerFlags, unGameIP, unGamePort, unSpectatorPort, usQueryPort, pchGameDir, pchVersion, bLANMode ); 
@@ -115,8 +115,8 @@ namespace Steam4NET
 			this.GetFunction<NativeSetGameTypeS>( this.Functions.SetGameType12 )( this.ObjectAddress, pchGameType ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetUserAchievementStatusCS( IntPtr thisptr, UInt64 steamID, string pchAchievementName );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetUserAchievementStatusCS( IntPtr thisptr, UInt64 steamID, string pchAchievementName );
 		public bool BGetUserAchievementStatus( CSteamID steamID, string pchAchievementName ) 
 		{
 			return this.GetFunction<NativeBGetUserAchievementStatusCS>( this.Functions.BGetUserAchievementStatus13 )( this.ObjectAddress, steamID.ConvertToUint64(), pchAchievementName ); 
@@ -128,8 +128,8 @@ namespace Steam4NET
 			this.GetFunction<NativeGetGameplayStats>( this.Functions.GetGameplayStats14 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatusCC( IntPtr thisptr, UInt64 steamIDUser, UInt64 steamIDGroup );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestUserGroupStatusCC( IntPtr thisptr, UInt64 steamIDUser, UInt64 steamIDGroup );
 		public bool RequestUserGroupStatus( CSteamID steamIDUser, CSteamID steamIDGroup ) 
 		{
 			return this.GetFunction<NativeRequestUserGroupStatusCC>( this.Functions.RequestUserGroupStatus15 )( this.ObjectAddress, steamIDUser.ConvertToUint64(), steamIDGroup.ConvertToUint64() ); 

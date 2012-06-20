@@ -36,6 +36,7 @@ namespace Steam4NET
 		private IntPtr DTorIClientMatchmakingServers24;
 	};
 	
+	[InteropHelp.InterfaceVersion("CLIENTMATCHMAKINGSERVERS_INTERFACE_VERSION001")]
 	public class IClientMatchmakingServers : InteropHelp.NativeWrapper<IClientMatchmakingServersVTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeRequestInternetServerListUMUI( IntPtr thisptr, UInt32 iApp, ref MatchMakingKeyValuePair_t ppchFilters, UInt32 nFilters, ref ISteamMatchmakingServerListResponse002 pRequestServersResponse );
@@ -98,8 +99,8 @@ namespace Steam4NET
 			this.GetFunction<NativeRefreshQueryB>( this.Functions.RefreshQuery9 )( this.ObjectAddress, hServerListRequest ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsRefreshingB( IntPtr thisptr, Byte[] hServerListRequest );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsRefreshingB( IntPtr thisptr, Byte[] hServerListRequest );
 		public bool IsRefreshing( Byte[] hServerListRequest ) 
 		{
 			return this.GetFunction<NativeIsRefreshingB>( this.Functions.IsRefreshing10 )( this.ObjectAddress, hServerListRequest ); 
@@ -165,8 +166,8 @@ namespace Steam4NET
 			this.GetFunction<Native_RefreshQuery_v001E>( this.Functions._RefreshQuery_v00120 )( this.ObjectAddress, eType ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool Native_IsRefreshing_v001E( IntPtr thisptr, EMatchMakingType eType );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool Native_IsRefreshing_v001E( IntPtr thisptr, EMatchMakingType eType );
 		public bool _IsRefreshing_v001( EMatchMakingType eType ) 
 		{
 			return this.GetFunction<Native_IsRefreshing_v001E>( this.Functions._IsRefreshing_v00121 )( this.ObjectAddress, eType ); 

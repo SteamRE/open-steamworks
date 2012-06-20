@@ -29,29 +29,29 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("STEAMAPPS_INTERFACE_VERSION004")]
 	public class ISteamApps004 : InteropHelp.NativeWrapper<ISteamApps004VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribed( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribed( IntPtr thisptr );
 		public bool BIsSubscribed(  ) 
 		{
 			return this.GetFunction<NativeBIsSubscribed>( this.Functions.BIsSubscribed0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsLowViolence( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsLowViolence( IntPtr thisptr );
 		public bool BIsLowViolence(  ) 
 		{
 			return this.GetFunction<NativeBIsLowViolence>( this.Functions.BIsLowViolence1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsCybercafe( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsCybercafe( IntPtr thisptr );
 		public bool BIsCybercafe(  ) 
 		{
 			return this.GetFunction<NativeBIsCybercafe>( this.Functions.BIsCybercafe2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsVACBanned( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsVACBanned( IntPtr thisptr );
 		public bool BIsVACBanned(  ) 
 		{
 			return this.GetFunction<NativeBIsVACBanned>( this.Functions.BIsVACBanned3 )( this.ObjectAddress ); 
@@ -69,15 +69,15 @@ namespace Steam4NET
 			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetAvailableGameLanguages>( this.Functions.GetAvailableGameLanguages5 )( this.ObjectAddress ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribedAppU( IntPtr thisptr, UInt32 nAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribedAppU( IntPtr thisptr, UInt32 nAppID );
 		public bool BIsSubscribedApp( UInt32 nAppID ) 
 		{
 			return this.GetFunction<NativeBIsSubscribedAppU>( this.Functions.BIsSubscribedApp6 )( this.ObjectAddress, nAppID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsDlcInstalledU( IntPtr thisptr, UInt32 nAppID );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsDlcInstalledU( IntPtr thisptr, UInt32 nAppID );
 		public bool BIsDlcInstalled( UInt32 nAppID ) 
 		{
 			return this.GetFunction<NativeBIsDlcInstalledU>( this.Functions.BIsDlcInstalled7 )( this.ObjectAddress, nAppID ); 
@@ -89,8 +89,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetEarliestPurchaseUnixTimeU>( this.Functions.GetEarliestPurchaseUnixTime8 )( this.ObjectAddress, nAppID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribedFromFreeWeekend( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsSubscribedFromFreeWeekend( IntPtr thisptr );
 		public bool BIsSubscribedFromFreeWeekend(  ) 
 		{
 			return this.GetFunction<NativeBIsSubscribedFromFreeWeekend>( this.Functions.BIsSubscribedFromFreeWeekend9 )( this.ObjectAddress ); 
@@ -102,8 +102,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetDLCCount>( this.Functions.GetDLCCount10 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetDLCDataByIndexIUBSI( IntPtr thisptr, Int32 iDLC, ref UInt32 pAppID, ref bool pbAvailable, StringBuilder pchName, Int32 cchNameBufferSize );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetDLCDataByIndexIUBSI( IntPtr thisptr, Int32 iDLC, ref UInt32 pAppID, ref bool pbAvailable, StringBuilder pchName, Int32 cchNameBufferSize );
 		public bool BGetDLCDataByIndex( Int32 iDLC, ref UInt32 pAppID, ref bool pbAvailable, StringBuilder pchName ) 
 		{
 			return this.GetFunction<NativeBGetDLCDataByIndexIUBSI>( this.Functions.BGetDLCDataByIndex11 )( this.ObjectAddress, iDLC, ref pAppID, ref pbAvailable, pchName, (Int32) pchName.Capacity ); 

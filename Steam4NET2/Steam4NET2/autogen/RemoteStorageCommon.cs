@@ -18,7 +18,10 @@ namespace Steam4NET
 		k_ERemoteStorageFileRootMacHome = 6,
 		k_ERemoteStorageFileRootMacAppSupport = 7,
 		k_ERemoteStorageFileRootMacDocuments = 8,
-		k_ERemoteStorageFileRootMax = 9,
+		k_ERemoteStorageFileRootWinSavedGames = 9,
+		k_ERemoteStorageFileRootWinProgramData = 10,
+		k_ERemoteStorageFileRootSteamCloudDocuments = 11,
+		k_ERemoteStorageFileRootMax = 12,
 	};
 	
 	public enum ERemoteStorageSyncState : int
@@ -31,6 +34,10 @@ namespace Steam4NET
 		k_ERemoteSyncStatePendingChangesLocally = 5,
 		k_ERemoteSyncStatePendingChangesInCloudAndLocally = 6,
 		k_ERemoteSyncStateConflictingChanges = 7,
+	};
+	
+	public enum EFileRemoteStorageSyncState : int
+	{
 	};
 	
 	public enum EUCMFilePrivacyState : int
@@ -63,6 +70,9 @@ namespace Steam4NET
 	
 	public enum ERemoteStoragePublishedFileVisibility : int
 	{
+		k_ERemoteStoragePublishedFileVisibilityPublic = 0,
+		k_ERemoteStoragePublishedFileVisibilityFriendsOnly = 1,
+		k_ERemoteStoragePublishedFileVisibilityPrivate = 2,
 	};
 	
 	public enum ERemoteStoragePublishedFileSortOrder : int
@@ -73,16 +83,52 @@ namespace Steam4NET
 	{
 	};
 	
+	public enum EWorkshopFileAction : int
+	{
+		k_EWorkshopFileActionPlayed = 0,
+		k_EWorkshopFileActionCompleted = 1,
+	};
+	
+	public enum EWorkshopEnumerationType : int
+	{
+		k_EWorkshopEnumerationTypeTopRated = 0,
+		k_EWorkshopEnumerationTypeMostRecent = 1,
+		k_EWorkshopEnumerationTypeTrending = 2,
+		k_EWorkshopEnumerationTypeFavoritedByFriends = 3,
+		k_EWorkshopEnumerationTypeVotedByFriends = 4,
+		k_EWorkshopEnumerationTypeCreatedByFriends = 5,
+		k_EWorkshopEnumerationTypeCreatedByFollowed = 6,
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct SteamParamStringArray_t
 	{
-		public Int32 iPadding;
+		public string m_ppStrings;
+		public Int32 m_nNumStrings;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct RemoteStorageUpdatePublishedFileRequest_t
 	{
-		public Int32 iPadding;
+		public UInt64 m_unPublishedFileId;
+		public string m_pchFile;
+		public string m_pchPreviewFile;
+		public string m_pchTitle;
+		public string m_pchDescription;
+		public ERemoteStoragePublishedFileVisibility m_eVisibility;
+		public IntPtr m_pTags;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bUpdateFile;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bUpdatePreviewFile;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bUpdateTitle;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bUpdateDescription;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bUpdateVisibility;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bUpdateTags;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -157,7 +203,7 @@ namespace Steam4NET
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(1308)]
-	public struct Deprecated_RemoteStorageDownloadUGCResult_t
+	public struct _Deprecated_RemoteStorageDownloadUGCResult_t
 	{
 		public const int k_iCallback = 1308;
 		public EResult m_eResult;
@@ -166,6 +212,101 @@ namespace Steam4NET
 		public Int32 m_nSizeInBytes;
 		public string m_pchFileName;
 		public UInt64 m_ulSteamIDOwner;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1309)]
+	public struct RemoteStoragePublishFileResult_t
+	{
+		public const int k_iCallback = 1309;
+		public EResult m_eResult;
+		public UInt64 m_nPublishedFileId;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1310)]
+	public struct _Deprecated_RemoteStorageGetPublishedFileDetailsResult_t
+	{
+		public const int k_iCallback = 1310;
+		public EResult m_eResult;
+		public UInt64 m_nPublishedFileId;
+		public UInt32 m_nCreatorAppID;
+		public UInt32 m_nConsumerAppID;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 129)]
+		public string m_rgchTitle;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 257)]
+		public string m_rgchDescription;
+		public UInt64 m_hFile;
+		public UInt64 m_hPreviewFile;
+		public UInt64 m_ulSteamIDOwner;
+		public UInt32 m_rtimeCreated;
+		public UInt32 m_rtimeUpdated;
+		public ERemoteStoragePublishedFileVisibility m_eVisibility;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bBanned;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 1025)]
+		public string m_rgchTags;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bTagsTruncated;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+		public string m_pchFileName;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1311)]
+	public struct RemoteStorageDeletePublishedFileResult_t
+	{
+		public const int k_iCallback = 1311;
+		public EResult m_eResult;
+		public UInt64 m_nPublishedFileId;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1312)]
+	public struct RemoteStorageEnumerateUserPublishedFilesResult_t
+	{
+		public const int k_iCallback = 1312;
+		public EResult m_eResult;
+		public Int32 m_nResultsReturned;
+		public Int32 m_nTotalResultCount;
+		public IntPtr m_rgPublishedFileId;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1313)]
+	public struct RemoteStorageSubscribePublishedFileResult_t
+	{
+		public const int k_iCallback = 1313;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1314)]
+	public struct RemoteStorageEnumerateUserSubscribedFilesResult_t
+	{
+		public const int k_iCallback = 1314;
+		public EResult m_eResult;
+		public Int32 m_nResultsReturned;
+		public Int32 m_nTotalResultCount;
+		public IntPtr m_rgPublishedFileId;
+		public IntPtr m_rgRTimeSubscribed;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1315)]
+	public struct RemoteStorageUnsubscribePublishedFileResult_t
+	{
+		public const int k_iCallback = 1315;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1316)]
+	public struct RemoteStorageUpdatePublishedFileResult_t
+	{
+		public const int k_iCallback = 1316;
+		public EResult m_eResult;
+		public UInt64 m_nPublishedFileId;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -180,6 +321,141 @@ namespace Steam4NET
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
 		public string m_pchFileName;
 		public UInt64 m_ulSteamIDOwner;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1318)]
+	public struct RemoteStorageGetPublishedFileDetailsResult_t
+	{
+		public const int k_iCallback = 1318;
+		public EResult m_eResult;
+		public UInt64 m_nPublishedFileId;
+		public UInt32 m_nCreatorAppID;
+		public UInt32 m_nConsumerAppID;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 129)]
+		public string m_rgchTitle;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 8000)]
+		public string m_rgchDescription;
+		public UInt64 m_hFile;
+		public UInt64 m_hPreviewFile;
+		public UInt64 m_ulSteamIDOwner;
+		public UInt32 m_rtimeCreated;
+		public UInt32 m_rtimeUpdated;
+		public ERemoteStoragePublishedFileVisibility m_eVisibility;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bBanned;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 1025)]
+		public string m_rgchTags;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bTagsTruncated;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+		public string m_pchFileName;
+		public Int32 m_nFileSize;
+		public Int32 m_nPreviewFileSize;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1319)]
+	public struct RemoteStorageEnumerateWorkshopFilesResult_t
+	{
+		public const int k_iCallback = 1319;
+		public EResult m_eResult;
+		public Int32 m_nResultsReturned;
+		public Int32 m_nTotalResultCount;
+		public IntPtr m_rgPublishedFileId;
+		public IntPtr m_rgScore;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1320)]
+	public struct RemoteStorageGetPublishedItemVoteDetailsResult_t
+	{
+		public const int k_iCallback = 1320;
+		public EResult m_eResult;
+		public UInt64 m_unPublishedFileId;
+		public Int32 m_cVotesFor;
+		public Int32 m_cVotesAgainst;
+		public Int32 m_cReports;
+		public float m_fScore;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1321)]
+	public struct RemoteStoragePublishedFileSubscribed_t
+	{
+		public const int k_iCallback = 1321;
+		public UInt64 m_unPublishedFileId;
+		public UInt32 m_nAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1322)]
+	public struct RemoteStoragePublishedFileUnsubscribed_t
+	{
+		public const int k_iCallback = 1322;
+		public UInt64 m_unPublishedFileId;
+		public UInt32 m_nAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1323)]
+	public struct RemoteStoragePublishedFileDeleted_t
+	{
+		public const int k_iCallback = 1323;
+		public UInt64 m_unPublishedFileId;
+		public UInt32 m_nAppID;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1324)]
+	public struct RemoteStorageUpdateUserPublishedItemVoteResult_t
+	{
+		public const int k_iCallback = 1324;
+		public EResult m_eResult;
+		public UInt64 m_unPublishedFileId;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1325)]
+	public struct RemoteStorageUserVoteDetails_t
+	{
+		public const int k_iCallback = 1325;
+		public EResult m_eResult;
+		public Int32 m_iVote;
+		public UInt64 m_unPublishedFileId;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1326)]
+	public struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t
+	{
+		public const int k_iCallback = 1326;
+		public EResult m_eResult;
+		public Int32 m_nResultsReturned;
+		public Int32 m_nTotalResultCount;
+		public IntPtr m_rgPublishedFileId;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1327)]
+	public struct RemoteStorageSetUserPublishedFileActionResult_t
+	{
+		public const int k_iCallback = 1327;
+		public EResult m_eResult;
+		public UInt64 m_unPublishedFileId;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1328)]
+	public struct RemoteStorageEnumeratePublishedFilesByUserActionResult_t
+	{
+		public const int k_iCallback = 1328;
+		public EResult m_eResult;
+		public EWorkshopFileAction m_eAction;
+		public Int32 m_nResultsReturned;
+		public Int32 m_nTotalResultCount;
+		public IntPtr m_rgPublishedFileId;
+		public IntPtr m_rgRTimes;
 	};
 	
 }

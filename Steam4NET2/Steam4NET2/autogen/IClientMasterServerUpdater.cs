@@ -41,8 +41,8 @@ namespace Steam4NET
 			this.GetFunction<NativeSetHeartbeatIntervalI>( this.Functions.SetHeartbeatInterval1 )( this.ObjectAddress, iHeartbeatInterval ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHandleIncomingPacketBIUU( IntPtr thisptr, Byte[] pData, Int32 cbData, UInt32 srcIP, UInt16 srcPort );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHandleIncomingPacketBIUU( IntPtr thisptr, Byte[] pData, Int32 cbData, UInt32 srcIP, UInt16 srcPort );
 		public bool HandleIncomingPacket( Byte[] pData, UInt32 srcIP, UInt16 srcPort ) 
 		{
 			return this.GetFunction<NativeHandleIncomingPacketBIUU>( this.Functions.HandleIncomingPacket2 )( this.ObjectAddress, pData, (Int32) pData.Length, srcIP, srcPort ); 
@@ -78,8 +78,8 @@ namespace Steam4NET
 			this.GetFunction<NativeNotifyShutdown>( this.Functions.NotifyShutdown7 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeWasRestartRequested( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeWasRestartRequested( IntPtr thisptr );
 		public bool WasRestartRequested(  ) 
 		{
 			return this.GetFunction<NativeWasRestartRequested>( this.Functions.WasRestartRequested8 )( this.ObjectAddress ); 
@@ -91,15 +91,15 @@ namespace Steam4NET
 			this.GetFunction<NativeForceHeartbeat>( this.Functions.ForceHeartbeat9 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddMasterServerS( IntPtr thisptr, string pServerAddress );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddMasterServerS( IntPtr thisptr, string pServerAddress );
 		public bool AddMasterServer( string pServerAddress ) 
 		{
 			return this.GetFunction<NativeAddMasterServerS>( this.Functions.AddMasterServer10 )( this.ObjectAddress, pServerAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveMasterServerS( IntPtr thisptr, string pServerAddress );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveMasterServerS( IntPtr thisptr, string pServerAddress );
 		public bool RemoveMasterServer( string pServerAddress ) 
 		{
 			return this.GetFunction<NativeRemoveMasterServerS>( this.Functions.RemoveMasterServer11 )( this.ObjectAddress, pServerAddress ); 

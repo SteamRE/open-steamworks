@@ -61,8 +61,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeCreateSteamPipe>( this.Functions.CreateSteamPipe0 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBReleaseSteamPipeI( IntPtr thisptr, Int32 hSteamPipe );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBReleaseSteamPipeI( IntPtr thisptr, Int32 hSteamPipe );
 		public bool BReleaseSteamPipe( Int32 hSteamPipe ) 
 		{
 			return this.GetFunction<NativeBReleaseSteamPipeI>( this.Functions.BReleaseSteamPipe1 )( this.ObjectAddress, hSteamPipe ); 
@@ -92,8 +92,8 @@ namespace Steam4NET
 			this.GetFunction<NativeReleaseUserII>( this.Functions.ReleaseUser5 )( this.ObjectAddress, hSteamPipe, hUser ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsValidHSteamUserPipeII( IntPtr thisptr, Int32 hSteamPipe, Int32 hUser );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsValidHSteamUserPipeII( IntPtr thisptr, Int32 hSteamPipe, Int32 hUser );
 		public bool IsValidHSteamUserPipe( Int32 hSteamPipe, Int32 hUser ) 
 		{
 			return this.GetFunction<NativeIsValidHSteamUserPipeII>( this.Functions.IsValidHSteamUserPipe6 )( this.ObjectAddress, hSteamPipe, hUser ); 
@@ -225,22 +225,22 @@ namespace Steam4NET
 			this.GetFunction<NativeSetOverlayNotificationPositionE>( this.Functions.SetOverlayNotificationPosition27 )( this.ObjectAddress, eNotificationPosition ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHookScreenshotsB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bHook );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHookScreenshotsB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bHook );
 		public bool HookScreenshots( bool bHook ) 
 		{
 			return this.GetFunction<NativeHookScreenshotsB>( this.Functions.HookScreenshots28 )( this.ObjectAddress, bHook ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsOverlayEnabled( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsOverlayEnabled( IntPtr thisptr );
 		public bool IsOverlayEnabled(  ) 
 		{
 			return this.GetFunction<NativeIsOverlayEnabled>( this.Functions.IsOverlayEnabled29 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAPICallResultIUBIIB( IntPtr thisptr, Int32 hSteamPipe, UInt64 hSteamAPICall, Byte[] pCallback, Int32 cubCallback, Int32 iCallbackExpected, ref bool pbFailed );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAPICallResultIUBIIB( IntPtr thisptr, Int32 hSteamPipe, UInt64 hSteamAPICall, Byte[] pCallback, Int32 cubCallback, Int32 iCallbackExpected, ref bool pbFailed );
 		public bool GetAPICallResult( Int32 hSteamPipe, UInt64 hSteamAPICall, Byte[] pCallback, Int32 iCallbackExpected, ref bool pbFailed ) 
 		{
 			return this.GetFunction<NativeGetAPICallResultIUBIIB>( this.Functions.GetAPICallResult30 )( this.ObjectAddress, hSteamPipe, hSteamAPICall, pCallback, (Int32) pCallback.Length, iCallbackExpected, ref pbFailed ); 
@@ -270,8 +270,8 @@ namespace Steam4NET
 			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientConfigStoreIIS>( this.Functions.GetIClientConfigStore34 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBOverlayNeedsPresent( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBOverlayNeedsPresent( IntPtr thisptr );
 		public bool BOverlayNeedsPresent(  ) 
 		{
 			return this.GetFunction<NativeBOverlayNeedsPresent>( this.Functions.BOverlayNeedsPresent35 )( this.ObjectAddress ); 
@@ -289,8 +289,8 @@ namespace Steam4NET
 			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientHTTPIIS>( this.Functions.GetIClientHTTP37 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBShutdownIfAllPipesClosed( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBShutdownIfAllPipesClosed( IntPtr thisptr );
 		public bool BShutdownIfAllPipesClosed(  ) 
 		{
 			return this.GetFunction<NativeBShutdownIfAllPipesClosed>( this.Functions.BShutdownIfAllPipesClosed38 )( this.ObjectAddress ); 

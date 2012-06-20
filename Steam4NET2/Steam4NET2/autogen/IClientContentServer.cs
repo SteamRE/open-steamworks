@@ -51,8 +51,8 @@ namespace Steam4NET
 			this.GetFunction<NativeLogOff>( this.Functions.LogOff3 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBLoggedOn( IntPtr thisptr );
 		public bool BLoggedOn(  ) 
 		{
 			return this.GetFunction<NativeBLoggedOn>( this.Functions.BLoggedOn4 )( this.ObjectAddress ); 
@@ -64,8 +64,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLogonState>( this.Functions.GetLogonState5 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBConnected( IntPtr thisptr );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBConnected( IntPtr thisptr );
 		public bool BConnected(  ) 
 		{
 			return this.GetFunction<NativeBConnected>( this.Functions.BConnected6 )( this.ObjectAddress ); 
@@ -89,15 +89,15 @@ namespace Steam4NET
 			this.GetFunction<NativeSetCellIDU>( this.Functions.SetCellID9 )( this.ObjectAddress, cellID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendClientContentAuthRequestCUBUB( IntPtr thisptr, UInt64 steamID, UInt32 unContentID, [MarshalAs(UnmanagedType.I1)] bool bUseToken, UInt64 ulSessionToken, [MarshalAs(UnmanagedType.I1)] bool bTokenPresent );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSendClientContentAuthRequestCUBUB( IntPtr thisptr, UInt64 steamID, UInt32 unContentID, [MarshalAs(UnmanagedType.I1)] bool bUseToken, UInt64 ulSessionToken, [MarshalAs(UnmanagedType.I1)] bool bTokenPresent );
 		public bool SendClientContentAuthRequest( CSteamID steamID, UInt32 unContentID, bool bUseToken, UInt64 ulSessionToken, bool bTokenPresent ) 
 		{
 			return this.GetFunction<NativeSendClientContentAuthRequestCUBUB>( this.Functions.SendClientContentAuthRequest10 )( this.ObjectAddress, steamID.ConvertToUint64(), unContentID, bUseToken, ulSessionToken, bTokenPresent ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBCheckTicketCUBU( IntPtr thisptr, UInt64 steamID, UInt32 uContentID, Byte[] pvTicketData, UInt32 cubTicketLength );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBCheckTicketCUBU( IntPtr thisptr, UInt64 steamID, UInt32 uContentID, Byte[] pvTicketData, UInt32 cubTicketLength );
 		public bool BCheckTicket( CSteamID steamID, UInt32 uContentID, Byte[] pvTicketData ) 
 		{
 			return this.GetFunction<NativeBCheckTicketCUBU>( this.Functions.BCheckTicket11 )( this.ObjectAddress, steamID.ConvertToUint64(), uContentID, pvTicketData, (UInt32) pvTicketData.Length ); 

@@ -45,15 +45,15 @@ namespace Steam4NET
 			this.GetFunction<NativeHookScreenshotsB>( this.Functions.HookScreenshots3 )( this.ObjectAddress, bHook ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLocationUS( IntPtr thisptr, UInt32 hScreenshot, string pchLocation );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLocationUS( IntPtr thisptr, UInt32 hScreenshot, string pchLocation );
 		public bool SetLocation( UInt32 hScreenshot, string pchLocation ) 
 		{
 			return this.GetFunction<NativeSetLocationUS>( this.Functions.SetLocation4 )( this.ObjectAddress, hScreenshot, pchLocation ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeTagUserUC( IntPtr thisptr, UInt32 hScreenshot, UInt64 steamID );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeTagUserUC( IntPtr thisptr, UInt32 hScreenshot, UInt64 steamID );
 		public bool TagUser( UInt32 hScreenshot, CSteamID steamID ) 
 		{
 			return this.GetFunction<NativeTagUserUC>( this.Functions.TagUser5 )( this.ObjectAddress, hScreenshot, steamID.ConvertToUint64() ); 

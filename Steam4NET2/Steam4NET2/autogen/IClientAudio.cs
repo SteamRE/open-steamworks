@@ -92,8 +92,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetVoiceOptimalSampleRate>( this.Functions.GetVoiceOptimalSampleRate7 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePlayAudioU( IntPtr thisptr, UInt32 hAudio );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePlayAudioU( IntPtr thisptr, UInt32 hAudio );
 		public bool PlayAudio( UInt32 hAudio ) 
 		{
 			return this.GetFunction<NativePlayAudioU>( this.Functions.PlayAudio8 )( this.ObjectAddress, hAudio ); 
@@ -141,22 +141,22 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAudioHandleS>( this.Functions.GetAudioHandle15 )( this.ObjectAddress, cszFilePath ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAudioDetailsUSISISI( IntPtr thisptr, UInt32 hAudio, StringBuilder arg1, Int32 arg2, StringBuilder arg3, Int32 arg4, StringBuilder arg5, Int32 arg6 );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAudioDetailsUSISISI( IntPtr thisptr, UInt32 hAudio, StringBuilder arg1, Int32 arg2, StringBuilder arg3, Int32 arg4, StringBuilder arg5, Int32 arg6 );
 		public bool GetAudioDetails( UInt32 hAudio, StringBuilder arg1, Int32 arg2, StringBuilder arg3, Int32 arg4, StringBuilder arg5, Int32 arg6 ) 
 		{
 			return this.GetFunction<NativeGetAudioDetailsUSISISI>( this.Functions.GetAudioDetails16 )( this.ObjectAddress, hAudio, arg1, arg2, arg3, arg4, arg5, arg6 ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAudioArtSizeUUU( IntPtr thisptr, UInt32 hAudio, ref UInt32 punWidth, ref UInt32 punHeight );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAudioArtSizeUUU( IntPtr thisptr, UInt32 hAudio, ref UInt32 punWidth, ref UInt32 punHeight );
 		public bool GetAudioArtSize( UInt32 hAudio, ref UInt32 punWidth, ref UInt32 punHeight ) 
 		{
 			return this.GetFunction<NativeGetAudioArtSizeUUU>( this.Functions.GetAudioArtSize17 )( this.ObjectAddress, hAudio, ref punWidth, ref punHeight ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAudioArtImageUBI( IntPtr thisptr, UInt32 hAudio, Byte[] pubBuffer, Int32 cubBuffer );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAudioArtImageUBI( IntPtr thisptr, UInt32 hAudio, Byte[] pubBuffer, Int32 cubBuffer );
 		public bool GetAudioArtImage( UInt32 hAudio, Byte[] pubBuffer ) 
 		{
 			return this.GetFunction<NativeGetAudioArtImageUBI>( this.Functions.GetAudioArtImage18 )( this.ObjectAddress, hAudio, pubBuffer, (Int32) pubBuffer.Length ); 
@@ -168,29 +168,29 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetPlayListCount>( this.Functions.GetPlayListCount19 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddSongToPlaylistU( IntPtr thisptr, UInt32 hAudio );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddSongToPlaylistU( IntPtr thisptr, UInt32 hAudio );
 		public bool AddSongToPlaylist( UInt32 hAudio ) 
 		{
 			return this.GetFunction<NativeAddSongToPlaylistU>( this.Functions.AddSongToPlaylist20 )( this.ObjectAddress, hAudio ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveSongFromPlaylistU( IntPtr thisptr, UInt32 hAudio );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveSongFromPlaylistU( IntPtr thisptr, UInt32 hAudio );
 		public bool RemoveSongFromPlaylist( UInt32 hAudio ) 
 		{
 			return this.GetFunction<NativeRemoveSongFromPlaylistU>( this.Functions.RemoveSongFromPlaylist21 )( this.ObjectAddress, hAudio ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSaveCurrentPlaylistToFileS( IntPtr thisptr, string cszFilePath );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSaveCurrentPlaylistToFileS( IntPtr thisptr, string cszFilePath );
 		public bool SaveCurrentPlaylistToFile( string cszFilePath ) 
 		{
 			return this.GetFunction<NativeSaveCurrentPlaylistToFileS>( this.Functions.SaveCurrentPlaylistToFile22 )( this.ObjectAddress, cszFilePath ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoadPlaylistFromFileS( IntPtr thisptr, string cszFilePath );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeLoadPlaylistFromFileS( IntPtr thisptr, string cszFilePath );
 		public bool LoadPlaylistFromFile( string cszFilePath ) 
 		{
 			return this.GetFunction<NativeLoadPlaylistFromFileS>( this.Functions.LoadPlaylistFromFile23 )( this.ObjectAddress, cszFilePath ); 
@@ -220,8 +220,8 @@ namespace Steam4NET
 			return this.GetFunction<NativeAddITunesFileSourceS>( this.Functions.AddITunesFileSource27 )( this.ObjectAddress, cszFileSource ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFileSourceU( IntPtr thisptr, UInt32 hFileSource );
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRemoveFileSourceU( IntPtr thisptr, UInt32 hFileSource );
 		public bool RemoveFileSource( UInt32 hFileSource ) 
 		{
 			return this.GetFunction<NativeRemoveFileSourceU>( this.Functions.RemoveFileSource28 )( this.ObjectAddress, hFileSource ); 
