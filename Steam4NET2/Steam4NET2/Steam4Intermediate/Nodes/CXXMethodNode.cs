@@ -150,6 +150,11 @@ namespace Steam4Intermediate.Nodes
                 arg_native.Add( argtypes + " " + argname );
             }
 
+            if (returns == "bool")
+            {
+                generator.EmitLine("[return: MarshalAs(UnmanagedType.I1)]", depth);
+            }
+
             generator.EmitLine( String.Format( "[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate {0} Native{1}{2}( {3} );", returnbystack ? "void" : returns, GetName(), GetArgIdent(arg_native_pure), String.Join( ", ", arg_native.ToArray() ) ), depth );
 
             string methodname = GetName();
@@ -160,11 +165,6 @@ namespace Steam4Intermediate.Nodes
                 returns = "TClass";
                 methodname = methodname + "<TClass>";
                 extra = "where TClass : InteropHelp.INativeWrapper, new()";
-            }
-
-            if ( returns == "bool")
-            {
-                generator.EmitLine( "[return: MarshalAs(UnmanagedType.I1)]", depth );
             }
 
             generator.EmitLine( String.Format( "public {0} {1}( {2} ) {3}", returns, methodname, String.Join(", ", arg.ToArray() ), extra), depth );

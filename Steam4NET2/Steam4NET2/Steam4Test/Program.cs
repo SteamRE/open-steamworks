@@ -266,7 +266,7 @@ namespace Steam4Test
 
             if (!Steamworks.GetAPICallResult(pipe, getNumberOfCurrentPlayersCall, pData, Marshal.SizeOf(typeof(NumberOfCurrentPlayers_t)), NumberOfCurrentPlayers_t.k_iCallback, ref failed))
             {
-                Console.WriteLine("Failed (GetAPICallResult failure)");
+                Console.WriteLine("Failed (GetAPICallResult failure: " + steamutils.GetAPICallFailureReason(getNumberOfCurrentPlayersCall) + ")");
                 return -1;
             }
 
@@ -294,10 +294,49 @@ namespace Steam4Test
 
             Console.WriteLine("Current user SteamID: " + steamuser.GetSteamID());
 
-            SessionStateInfo_t sessionStateInfo = clientfriends.GetFriendSessionStateInfo(clientuser.GetSteamID());
+            FriendSessionStateInfo_t sessionStateInfo = clientfriends.GetFriendSessionStateInfo(clientuser.GetSteamID());
 
-            Console.WriteLine("OnlineSessionInstances: " + sessionStateInfo.m_uOnlineSessionInstances);
+            Console.WriteLine("m_uOnlineSessionInstances: " + sessionStateInfo.m_uOnlineSessionInstances);
             Console.WriteLine("m_uPublishedInstanceId: " + sessionStateInfo.m_uPublishedInstanceId);
+
+            Console.Write("RequestFriendProfileInfo: ");
+            ulong requestFriendProfileInfoCall = clientfriends.RequestFriendProfileInfo(steamuser.GetSteamID());
+
+            while (!steamutils.IsAPICallCompleted(requestFriendProfileInfoCall, ref failed) && !failed)
+            {
+                System.Threading.Thread.Sleep(100);
+            }
+
+            if (failed)
+            {
+                Console.WriteLine("Failed (IsAPICallCompleted failure)");
+                return -1;
+            }
+
+            pData = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(FriendProfileInfoResponse_t)));
+
+            if (!Steamworks.GetAPICallResult(pipe, requestFriendProfileInfoCall, pData, Marshal.SizeOf(typeof(FriendProfileInfoResponse_t)), FriendProfileInfoResponse_t.k_iCallback, ref failed))
+            {
+                Console.WriteLine("Failed (GetAPICallResult failure: " + steamutils.GetAPICallFailureReason(requestFriendProfileInfoCall) + ")");
+                return -1;
+            }
+
+            FriendProfileInfoResponse_t friendProfileInfoResponse = (FriendProfileInfoResponse_t)Marshal.PtrToStructure(pData, typeof(FriendProfileInfoResponse_t));
+            if (friendProfileInfoResponse.m_eResult != EResult.k_EResultOK)
+            {
+                Console.WriteLine("Failed (friendProfileInfoResponse.m_eResult = " + friendProfileInfoResponse.m_eResult + ")");
+                return -1;
+            }
+            if (friendProfileInfoResponse.m_steamIDFriend == clientuser.GetSteamID())
+            {
+                Console.WriteLine("Ok");
+            }
+            else
+            {
+                Console.WriteLine("Failed (SteamIDs doesn't match)");
+            }
+
+            Marshal.FreeHGlobal(pData);
 
             return 0;
         }

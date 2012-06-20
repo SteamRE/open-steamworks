@@ -29,7 +29,7 @@ namespace Steam4NET
         }
 
         public CSteamID(SteamID_t sid)
-            : this(sid.m_unAccountID, sid.m_unAccountInstance & 0xFFFFF, sid.m_EUniverse, (EAccountType)(((int)sid.m_EAccountType & 0xF0) >> 4))
+            : this(sid.low32Bits, sid.high32Bits & 0xFFFFF, (EUniverse)(sid.high32Bits >> 24), (EAccountType)((sid.high32Bits >> 20) & 0xF))
         {
         }
 
