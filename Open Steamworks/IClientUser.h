@@ -108,15 +108,15 @@ public:
 	virtual void SetAccountNameFromSteam2( const char *pchAccountName ) = 0;
 	virtual bool SetPasswordFromSteam2( const char *pchPassword ) = 0;
 
-	virtual bool SetAccountNameForCachedCredentialLogin( const char *pchAccountName, bool bRememberPassword, bool bUnk ) = 0;
+	virtual bool SetAccountNameForCachedCredentialLogin( const char *pchAccountName, bool bUnk ) = 0;
 	virtual void SetLoginInformation( const char *pchAccountName, const char *pchPassword, bool bRememberPassword ) = 0;
+	virtual void ClearAllLoginInformation() = 0;
 
 	virtual void SetAccountCreationTime( RTime32 rtime32Time ) = 0;
 
-	virtual OBSOLETE_FUNCTION uint32 obselete_GetCMIPAddress() = 0;
-	virtual OBSOLETE_FUNCTION uint32 obselete_GetP2PRelayIPAddress() = 0;
-
 	virtual SteamAPICall_t RequestWebAuthToken() = 0;
+	virtual bool GetCurrentWebAuthToken( char *pchBuffer, int32 cubBuffer ) = 0;
+
 	virtual bool GetLanguage( char* pchLanguage, int32 cbLanguage ) = 0;
 	virtual void SetCyberCafe( bool bCyberCafe ) = 0;
 
@@ -124,12 +124,7 @@ public:
 
 	virtual SteamAPICall_t ResetPassword( const char *pchAccountName, const char *pchOldPassword, const char *pchNewPassword, const char *pchValidationCode, const char *pchAnswer ) = 0;
 
-
 	virtual void TrackNatTraversalStat( const CNatTraversalStat *pNatStat ) = 0;
-
-	virtual void RefreshSteam2Login() = 0;
-	virtual void RefreshSteam2LoginWithSecureOption( bool bIsSecure ) = 0;
-	virtual bool Steam2IsSecureComputer() = 0;
 
 	virtual PackageId_t GetPackageIDForGuestPassToRedeemByGID( GID_t gid ) = 0;
 
@@ -150,6 +145,7 @@ public:
 	virtual EResult RequestCustomBinaries( AppId_t unAppID, bool, bool, uint32 * ) = 0;
 
 	virtual void SetCellID( CellID_t cellID ) = 0;
+	virtual void SetWinningPingTimeForCellID( uint32 uPing ) = 0;
 
 	virtual const char *GetUserBaseFolder() = 0;
 
@@ -157,6 +153,7 @@ public:
 	virtual bool GetUserConfigFolder( char *pchBuffer, int32 cubBuffer ) = 0;
 
 	virtual bool GetAccountName( char* pchAccountName, uint32 cb ) = 0;
+	virtual bool IsPasswordRemembered() = 0;
 
 	virtual bool RequiresLegacyCDKey( AppId_t nAppID ) = 0;
 	virtual bool GetLegacyCDKey( AppId_t nAppID, char* pchKeyData, int32 cbKeyData ) = 0;
@@ -217,6 +214,10 @@ public:
 
 	virtual SteamAPICall_t RequestEncryptedAppTicket( const void *pUserData, int32 cbUserData ) = 0;
 	virtual bool GetEncryptedAppTicket( void *pTicket, int32 cbMaxTicket, uint32 *pcbTicket ) = 0;
+
+	virtual SteamAPICall_t RequestOAuthTokenForApp( const char *cszOAuthScope ) = 0;
+	virtual bool GetOAuthTokenForApp( void *pubBuffer, int32 cubBuffer, uint32 *puTokenSize ) = 0;
+	virtual void InvalidateOAuthTokenForApp() = 0;
 
 	virtual void SetAccountLimited( bool bAccountLimited ) = 0;
 	virtual bool BIsAccountLimited() = 0;

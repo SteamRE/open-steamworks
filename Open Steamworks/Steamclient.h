@@ -51,6 +51,7 @@
 #include "ISteamFriends009.h"
 #include "ISteamFriends010.h"
 #include "ISteamFriends011.h"
+#include "ISteamFriends012.h"
 
 // screenshots
 #include "ISteamScreenshots001.h"
@@ -69,6 +70,9 @@
 #include "ISteamUser014.h"
 #include "ISteamUser015.h"
 #include "ISteamUser016.h"
+
+// OAuth
+#include "ISteamOAuth001.h"
 
 // apps
 #include "ISteamApps001.h"

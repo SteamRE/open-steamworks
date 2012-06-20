@@ -57,6 +57,7 @@ enum ERemoteStorageFileRoot
 	k_ERemoteStorageFileRootMacDocuments,
 	k_ERemoteStorageFileRootWinSavedGames,
 	k_ERemoteStorageFileRootWinProgramData,
+	k_ERemoteStorageFileRootSteamCloudDocuments,
 	k_ERemoteStorageFileRootMax
 };
 
@@ -70,6 +71,11 @@ enum ERemoteStorageSyncState
 	k_ERemoteSyncStatePendingChangesLocally = 5,
 	k_ERemoteSyncStatePendingChangesInCloudAndLocally = 6,
 	k_ERemoteSyncStateConflictingChanges = 7,
+};
+
+enum EFileRemoteStorageSyncState
+{
+	// TODO: Reverse this enum
 };
 
 enum EUCMFilePrivacyState

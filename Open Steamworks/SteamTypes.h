@@ -302,7 +302,7 @@ enum EUniverse
 	k_EUniverseBeta = 2,
 	k_EUniverseInternal = 3,
 	k_EUniverseDev = 4,
-	k_EUniverseRC = 5,
+//	k_EUniverseRC = 5, // Removed
 
 	k_EUniverseMax
 };

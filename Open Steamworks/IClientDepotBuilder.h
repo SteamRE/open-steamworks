@@ -57,23 +57,25 @@ typedef uint32 HDEPOTBUILD;
 abstract_class IClientDepotBuilder
 {
 public:
-	virtual uint32 RegisterAppBuild( AppId_t nAppID, const char *cszDescription, const char *cszBetaKey ) = 0;
+	virtual uint32 RegisterAppBuild( AppId_t nAppID, bool bLocalCSBuild, const char *cszDescription ) = 0;
 	virtual uint32 GetRegisteredBuildID( uint32 ) = 0;
 
-	virtual HDEPOTBUILD InitializeDepotBuildForConfigFile( const char *pchConfigFile ) = 0;
+	virtual HDEPOTBUILD InitializeDepotBuildForConfigFile( const char *pchConfigFile, const char *, const char * ) = 0;
 	
 	virtual bool StartBuild( HDEPOTBUILD hDepotBuild, uint32 uFlags, const char *cszChunksPath, const char*, uint32 ) = 0;
 
 	virtual bool BGetDepotBuildStatus( HDEPOTBUILD hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
 	virtual bool CloseDepotBuildHandle( HDEPOTBUILD hDepotBuild ) = 0;
 
-	virtual HDEPOTBUILD ReconstructDepotFromManifestAndChunks( const char *pchLocalManifestPath, const char *pchLocalChunkPath, const char *pchRestorePath ) = 0;
+	virtual HDEPOTBUILD ReconstructDepotFromManifestAndChunks( const char *pchLocalManifestPath, const char *pchLocalChunkPath, const char *pchRestorePath, uint32  ) = 0;
 
 	virtual bool BGetChunkCounts( HDEPOTBUILD hDepotBuild, uint32 *unTotalChunksInNewBuild, uint32 *unChunksAlsoInOldBuild ) = 0;
 
 	virtual bool GetManifestGIDs( HDEPOTBUILD hDepotBuild, GID_t* pBaselineGID, GID_t* pNewGID, bool* ) = 0;
 
 	virtual uint32 FinishAppBuild( uint32 uBuildID, uint32 nAppID, const char *cszBetaKey, bool bOnlyFinish, uint32 cNumSkipDepots ) = 0;
+
+	virtual uint32 VerifyChunkStore( uint32, uint32, const char * ) = 0;
 };
 
 #endif // ICLIENTDEPOTBUILDER_H

@@ -270,7 +270,6 @@ struct RequestFriendsLobbiesResponse_t
 	int m_cResultsTotal;
 };
 
-
 struct GMSQueryResult_t
 {
 	uint32 uServerIP;
@@ -281,6 +280,9 @@ struct GMSQueryResult_t
 struct PingSample_t
 {
 	// TODO: Reverse this struct
+	#ifdef _S4N_
+	int m_iPadding;
+	#endif
 };
 
 #pragma pack( pop )

@@ -117,6 +117,9 @@ public:
 	virtual int16 GetFirstGroupFriendsMember( CSteamID steamID ) = 0;
 	virtual int16 GetNextGroupFriendsMember( CSteamID steamID ) = 0;
 
+	virtual const char * GetPlayerNickname( CSteamID playerSteamID ) = 0;
+	virtual bool SetPlayerNickname( CSteamID playerSteamID, const char *cszNickname ) = 0;
+
 	// chat message iteration
 	// returns the number of bytes in the message, filling pvData with as many of those bytes as possible
 	// returns 0 if the steamID or iChatID are invalid
@@ -349,6 +352,7 @@ public:
 	virtual EUserRestriction GetUserRestrictions() = 0;
 
 	virtual SteamAPICall_t RequestFriendProfileInfo( CSteamID steamIDFriend ) = 0;
+	// Available keys: TimeCreated, RealName, CityName, StateName, CountryName, Headline, Playtime, Summary
 	virtual const char* GetFriendProfileInfo( CSteamID steamIDFriend, const char* pchKey ) = 0;
 
 	virtual bool InviteUserToGame( CSteamID steamIDFriend, const char *pchConnectString ) = 0;
