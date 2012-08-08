@@ -81,7 +81,7 @@ public:
 	// Calling this w/ N out of N progress will NOT set the achievement, the game must still do that.
 	virtual bool IndicateAchievementProgress( CGameID nGameID, const char *pchName, uint32 nCurProgress, uint32 nMaxProgress ) = 0;
 	
-	virtual bool SetMaxStatsLoaded( uint32 uMax ) = 0;
+	virtual void SetMaxStatsLoaded( uint32 uMax ) = 0;
 
 	// downloads stats for the user
 	// returns a UserStatsReceived_t received when completed
@@ -170,7 +170,7 @@ public:
 	virtual SteamAPICall_t GetNumberOfCurrentPlayers() = 0;
 
 	virtual uint32 GetNumAchievedAchievements( CGameID nGameID ) = 0;
-	virtual uint32 GetLastAchievementUnlocked( CGameID nGameID ) = 0;
+	virtual const char * GetLastAchievementUnlocked( CGameID nGameID ) = 0;
 
 	// Requests that Steam fetch data on the percentage of players who have received each achievement
 	// for the game globally.
