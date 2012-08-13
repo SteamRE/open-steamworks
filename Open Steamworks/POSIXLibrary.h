@@ -27,7 +27,8 @@ public:
 	
 	~DynamicLibrary()
 	{
-		dlclose(m_handle);
+		if(m_handle)
+			dlclose(m_handle);
 	}
 	
 	void * GetSymbol(const char* cszSymbol) const
