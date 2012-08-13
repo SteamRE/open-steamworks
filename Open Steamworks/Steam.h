@@ -353,8 +353,10 @@ S_API int STEAM_CALL SteamIsUsingSdkContentServer( int *pbUsingSdkCS, TSteamErro
 
 S_API int STEAM_CALL SteamForceCellId( unsigned int uCellId, TSteamError* pError );
 
-S_API int SteamWasBlobRegistryDeleted( int *puWasDeleted, TSteamError *pError );
+S_API int STEAM_CALL SteamWasBlobRegistryDeleted( int *puWasDeleted, TSteamError *pError );
 
-S_API int SteamGetDepotParent( unsigned int uDepotId, unsigned int* puParentId, TSteamError* pError );
+S_API int STEAM_CALL SteamGetDepotParent( unsigned int uDepotId, unsigned int* puParentId, TSteamError* pError );
+
+S_API int STEAM_CALL GetCurrentCellID( unsigned int* puCellID, unsigned int* puPing, TSteamError* pError );
 
 #endif // STEAM_H

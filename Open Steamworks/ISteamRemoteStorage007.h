@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMREMOTESTORAGE006_H
-#define ISTEAMREMOTESTORAGE006_H
+#ifndef ISTEAMREMOTESTORAGE007_H
+#define ISTEAMREMOTESTORAGE007_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing, reading and writing files stored remotely 
 //			and cached locally
 //-----------------------------------------------------------------------------
-abstract_class ISteamRemoteStorage006
+abstract_class ISteamRemoteStorage007
 {
 public:
 	// NOTE
@@ -95,10 +95,10 @@ public:
 	virtual SteamAPICall_t UpdateUserPublishedItemVote( PublishedFileId_t unPublishedFileId, bool bVoteUp ) = 0;
 	virtual SteamAPICall_t GetUserPublishedItemVoteDetails( PublishedFileId_t unPublishedFileId ) = 0;
 	virtual SteamAPICall_t EnumerateUserSharedWorkshopFiles( AppId_t nAppId, CSteamID creatorSteamID, uint32 uStartIndex, SteamParamStringArray_t * pRequiredTags, SteamParamStringArray_t * pExcludedTags ) = 0;
-	virtual SteamAPICall_t PublishVideo( const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t PublishVideo( EWorkshopVideoProvider eVideoProvider, const char *cszVideoAccountName, const char *cszVideoIdentifier, const char *cszFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, SteamParamStringArray_t *pTags ) = 0;
 	virtual SteamAPICall_t SetUserPublishedFileAction( PublishedFileId_t unPublishedFileId, EWorkshopFileAction eAction ) = 0;
 	virtual SteamAPICall_t EnumeratePublishedFilesByUserAction( EWorkshopFileAction eAction, uint32 uStartIndex ) = 0;
 	virtual SteamAPICall_t EnumeratePublishedWorkshopFiles( EWorkshopEnumerationType eType, uint32 uStartIndex, uint32 cDays, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
 };
 
-#endif // ISTEAMREMOTESTORAGE006_H
+#endif // ISTEAMREMOTESTORAGE007_H

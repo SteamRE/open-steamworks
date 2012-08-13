@@ -827,7 +827,32 @@ struct UpdateItemAnnouncement_t
 {
 	enum { k_iCallback = k_iClientUserCallbacks + 58 };
 
-	// TODO : Reverse this callback
+	uint32 m_cNewItems;
+};
+
+struct ChangeSteamGuardOptionsResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 59 };
+
+	EResult m_eResult;
+};
+
+struct UpdateCommentNotification_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 60 };
+
+	uint32 m_cNewComments;
+	uint32 m_cNewCommentsOwner;
+	uint32 m_cNewCommentsSubscriptions;
+};
+
+struct FriendUserStatusPublished_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 61 };
+
+	CSteamID m_steamIDFriend;
+	AppId_t m_unAppID;
+	char m_szStatus;
 };
 
 #pragma pack( pop )

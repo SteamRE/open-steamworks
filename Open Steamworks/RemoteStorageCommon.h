@@ -28,6 +28,7 @@
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_004 "STEAMREMOTESTORAGE_INTERFACE_VERSION004"
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_005 "STEAMREMOTESTORAGE_INTERFACE_VERSION005"
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_006 "STEAMREMOTESTORAGE_INTERFACE_VERSION006"
+#define STEAMREMOTESTORAGE_INTERFACE_VERSION_007 "STEAMREMOTESTORAGE_INTERFACE_VERSION007"
 
 #define CLIENTREMOTESTORAGE_INTERFACE_VERSION "CLIENTREMOTESTORAGE_INTERFACE_VERSION001"
 
@@ -123,6 +124,11 @@ enum ERemoteStoragePublishedFileSortOrder
 };
 
 enum EWorkshopFileType
+{
+	// TODO: Reverse this enum
+};
+
+enum EWorkshopVideoProvider
 {
 	// TODO: Reverse this enum
 };
@@ -402,6 +408,7 @@ struct _Deprecated_RemoteStorageGetPublishedFileDetailsResult_t
 	char m_rgchTags[1025];			// comma separated list of all tags associated with this file
 	bool m_bTagsTruncated;			// whether the list of tags was too long to be returned in the provided buffer
 	char m_pchFileName[260];		// The name of the primary file
+	EWorkshopFileType m_eFileType;
 };
 
 //-----------------------------------------------------------------------------

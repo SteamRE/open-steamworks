@@ -309,6 +309,9 @@ public:
 	virtual SteamAPICall_t SendSpecialSurveyResponse( uint32 uSurveyId, const uint8 * pubData, uint32 cubData ) = 0;
 	
 	virtual void RequestNotifications() = 0;
+	
+	virtual bool InCommunityBeta() = 0;
+	virtual void SetInCommunityBeta( bool bInBeta ) = 0;
 };
 
 #endif // ICLIENTUSER_H

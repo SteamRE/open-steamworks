@@ -61,7 +61,8 @@ public:
 	virtual UGCHandle_t GetCachedUGCHandle( int32 iCachedContent ) = 0;
 
 	virtual SteamAPICall_t PublishFile( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId , const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, bool bOverwrite, SteamParamStringArray_t *pTags, EWorkshopFileType eType ) = 0;
-	virtual SteamAPICall_t PublishVideo( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszFileName, const char *cszPreviewFileName, AppId_t nConsumerAppId , const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, bool bOverwrite, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t PublishVideo( AppId_t nAppId, EWorkshopVideoProvider eVideoProvider, const char *cszVideoAccountName, const char *cszVideoIdentifier, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, SteamParamStringArray_t *pTags ) = 0;
+	virtual SteamAPICall_t PublishVideoFromURL( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *cszVideoURL, const char *cszFileName, AppId_t nConsumerAppId, const char *cszTitle, const char *cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, SteamParamStringArray_t *pTags ) = 0;
 
 	virtual JobID_t CreatePublishedFileUpdateRequest( AppId_t nAppId, PublishedFileId_t unPublishedFileId ) = 0;
 	virtual bool UpdatePublishedFileFile( JobID_t hUpdateRequest, const char *cszFile ) = 0;
