@@ -24,7 +24,7 @@ int main()
 	}
 	
 	HSteamPipe hPipe;
-	HSteamUser hUser = pClientEngine->CreateGlobalUser( &hPipe );
+	HSteamUser hUser = pClientEngine->CreateLocalUser(&hPipe, k_EAccountTypeIndividual);
 	if ( !hUser || !hPipe )
 	{
 		fprintf(stderr, "Unable to create the global user.\n");
@@ -37,6 +37,7 @@ int main()
 		fprintf(stderr, "Unable to get the client user interface.\n");
 		pClientEngine->ReleaseUser(hPipe, hUser);
 		pClientEngine->BReleaseSteamPipe(hPipe);
+		pClientEngine->BShutdownIfAllPipesClosed();
 		return 1;
 	}
 	
@@ -46,6 +47,7 @@ int main()
 		fprintf(stderr, "Unable to get the client friends interface.\n");
 		pClientEngine->ReleaseUser(hPipe, hUser);
 		pClientEngine->BReleaseSteamPipe(hPipe);
+		pClientEngine->BShutdownIfAllPipesClosed();
 		return 1;
 	}
 	
@@ -71,7 +73,7 @@ int main()
 
 	while ( true )
 	{
-		if ( Steam_BGetCallback( hPipe, &callBack ) )
+		while ( Steam_BGetCallback( hPipe, &callBack ) )
 		{
 			switch (callBack.m_iCallback)
 			{
@@ -106,6 +108,7 @@ int main()
 
 					pClientEngine->ReleaseUser(hPipe, hUser);
 					pClientEngine->BReleaseSteamPipe(hPipe);
+					pClientEngine->BShutdownIfAllPipesClosed();
 
 					return 1;
 				}
@@ -132,8 +135,19 @@ int main()
 							{
 								pClientFriends->SetPersonaState( k_EPersonaStateOffline );
 								pClientUser->LogOff();
+
+								while(pClientUser->GetLogonState() == k_ELogonStateLoggingOff)
+								{
+									#ifdef _WIN32
+											Sleep(100);
+									#else
+											usleep(100000);
+									#endif
+								}
+
 								pClientEngine->ReleaseUser(hPipe, hUser);
 								pClientEngine->BReleaseSteamPipe(hPipe);
+								pClientEngine->BShutdownIfAllPipesClosed();
 
 								return 0;
 							}
@@ -149,9 +163,9 @@ int main()
 		}
 
 #ifdef _WIN32
-		Sleep(10);
+		Sleep(100);
 #else
-		usleep(10000);
+		usleep(100000);
 #endif
 	}
 
