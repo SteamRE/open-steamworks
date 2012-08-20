@@ -52,8 +52,15 @@
 class CSteamAPILoader
 {
 public:
-	CSteamAPILoader()
+	enum ESearchOrder
 	{
+		k_ESearchOrderLocalFirst,
+		k_ESearchOrderSteamInstallFirst,
+	};
+
+	CSteamAPILoader(ESearchOrder eSearchOrder = k_ESearchOrderLocalFirst)
+	{
+		m_eSearchOrder = eSearchOrder;
 		m_pSteamclient = NULL;
 		m_pSteam = NULL;
 
@@ -171,6 +178,23 @@ private:
 
 	void TryLoadLibraries()
 	{
+		if(m_eSearchOrder == k_ESearchOrderLocalFirst)
+		{
+			m_pSteamclient = new DynamicLibrary(k_cszSteam3LibraryName);
+			m_pSteam = new DynamicLibrary(k_cszSteam2LibraryName);
+
+			if(!m_pSteamclient->IsLoaded() || !m_pSteam->IsLoaded())
+			{
+				delete m_pSteamclient;
+				m_pSteamclient = NULL;
+
+				delete m_pSteam;
+				m_pSteam = NULL;
+			}
+			else
+				return;
+		}
+
 #ifdef _WIN32
 		// steamclient.dll expects to be able to load tier0_s without an absolute
 		// path, so we'll need to add the steam dir to the search path.
@@ -192,6 +216,8 @@ private:
 
 	DynamicLibrary* m_pSteamclient;
 	DynamicLibrary* m_pSteam;
+
+	ESearchOrder m_eSearchOrder;
 };
 
 #ifdef _MSC_VER
