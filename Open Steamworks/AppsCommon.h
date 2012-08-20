@@ -83,6 +83,7 @@ enum EAppInfoSection
 	k_EAppInfoSectionCommunity
 };
 
+#pragma pack( push, 1 )
 struct AppUpdateInfo_s
 {
 	RTime32 m_timeUpdateStart;
@@ -90,7 +91,9 @@ struct AppUpdateInfo_s
 	uint64 m_unBytesDownloaded;
 	uint64 m_unBytesToProcess;
 	uint64 m_unBytesProcessed;
+	uint32 m_uUnk;
 };
+#pragma pack( pop )
 
 struct DownloadStats_s
 {
@@ -104,10 +107,11 @@ struct DownloadStats_s
 enum EAppDownloadPriority
 {
 	k_EAppDownloadPriorityNone = 0,
-	k_EAppDownloadPriorityTop = 1,
+	k_EAppDownloadPriorityFirst = 1,
 	k_EAppDownloadPriorityUp = 2,
 	k_EAppDownloadPriorityDown = 3,
-
+	k_EAppDownloadPriorityLast = 4,
+	k_EAppDownloadPriorityPaused = 5,
 };
 
 enum EAppUpdateError
@@ -137,6 +141,8 @@ enum EAppUpdateError
 	k_EAppErrorInvalidApplicationConfiguration = 22,
 	k_EAppErrorInvalidContentConfiguration = 23,
 	k_EAppErrorMissingManifest = 24,
+	k_EAppErrorNotReleased = 25,
+	k_EAppErrorRegionRestricted = 26,
 };
 
 //-----------------------------------------------------------------------------
