@@ -44,6 +44,11 @@ public:
 	virtual bool SetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, ERemoteStoragePlatform eRemoteStoragePlatform ) = 0;
 	virtual ERemoteStoragePlatform GetSyncPlatforms( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
 
+	virtual GID_t FileWriteStreamOpen( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
+	virtual EResult FileWriteStreamClose( GID_t hStream ) = 0;
+	virtual EResult FileWriteStreamCancel( GID_t hStream ) = 0;
+	virtual EResult FileWriteStreamWriteChunk( GID_t hStream, const void *pvData, int32 cubData ) = 0;
+
 	virtual int32 GetFileCount( AppId_t nAppId, bool bFromExternalAPI ) = 0;
 	virtual const char *GetFileNameAndSize( AppId_t nAppId, int32 iFile, ERemoteStorageFileRoot *peRemoteStorageFileRoot, int32 *pnFileSizeInBytes, bool bFromExternalAPI ) = 0;
 

@@ -52,6 +52,7 @@
 #include "ISteamFriends010.h"
 #include "ISteamFriends011.h"
 #include "ISteamFriends012.h"
+#include "ISteamFriends013.h"
 
 // screenshots
 #include "ISteamScreenshots001.h"
@@ -91,6 +92,7 @@
 #include "ISteamUserStats008.h"
 #include "ISteamUserStats009.h"
 #include "ISteamUserStats010.h"
+#include "ISteamUserStats011.h"
 
 // utils
 #include "ISteamUtils001.h"
@@ -148,6 +150,7 @@
 #include "ISteamRemoteStorage005.h"
 #include "ISteamRemoteStorage006.h"
 #include "ISteamRemoteStorage007.h"
+#include "ISteamRemoteStorage008.h"
 
 // content server
 #include "ISteamContentServer001.h"

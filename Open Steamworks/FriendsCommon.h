@@ -36,6 +36,7 @@
 #define STEAMFRIENDS_INTERFACE_VERSION_010 "SteamFriends010"
 #define STEAMFRIENDS_INTERFACE_VERSION_011 "SteamFriends011"
 #define STEAMFRIENDS_INTERFACE_VERSION_012 "SteamFriends012"
+#define STEAMFRIENDS_INTERFACE_VERSION_013 "SteamFriends013"
 
 //-----------------------------------------------------------------------------
 // Purpose: avatar sizes, used in ISteamFriends::GetFriendAvatar()
@@ -279,6 +280,12 @@ enum EUserRestriction
 	k_nUserRestrictionVoiceChat	= 4,	// user is not allowed to (or can't) send/recv voice chat
 	k_nUserRestrictionGroupChat	= 8,	// user is not allowed to (or can't) send/recv group chat
 	k_nUserRestrictionRating	= 16,	// user is too young according to rating in current region
+};
+
+enum EOverlayToStoreFlag
+{
+	k_EOverlayToStoreFlagNone		= 0,
+	k_EOverlayToStoreFlagAddToCart	= 1,
 };
 
 
@@ -563,6 +570,7 @@ struct GameOverlayActivateRequested_t
 	CSteamID m_steamIDTarget;
 	AppId_t m_nAppID;
 	bool m_bWebPage;
+	EOverlayToStoreFlag m_eFlag;
 };
 
 struct ClanEventReceived_t

@@ -86,13 +86,11 @@ public:
 
 	virtual bool ActivateOEMTicket( const char *pchOEMLicenseFile ) = 0;
 
-	virtual bool GetLicenseForAppID( AppId_t unAppId, PackageId_t * punPackageID ) = 0;
 	virtual uint32 GetPackageName( PackageId_t unPackageID, char *pchName, int32 cubName ) = 0;
 	virtual bool GetPackageInfo( PackageId_t unPackageID, uint32 * puNumAppIds, uint32 * puNumDepotIDs, EBillingType * peBillingType, ELicenseType * peLicenseType, EPackageStatus * pePackageStatus, int32 * piCodeClass, int32 * piGameCode, int32 * piTerritoryCode, bool *pbRequiresShipping, bool *pbIsPreorder ) = 0;
 	virtual uint32 GetAppsInPackage( PackageId_t unPackageID, AppId_t puIds[], uint32 uMaxIds, bool bExcludeDepots, bool bExcludeApps ) = 0;
 	virtual uint32 GetPackageExtendedInfo( PackageId_t unPackageID, uint8 *pubData, int32 cubData, bool bSharedKVSymbols ) = 0;
 
-	// Result returned by callback id 412
 	virtual SteamAPICall_t RequestFreeLicenseForApp( AppId_t unAppId ) = 0;
 };
 

@@ -318,7 +318,7 @@ public:
 	virtual void ActivateGameOverlay( const char *pchDialog ) = 0;
 	virtual void ActivateGameOverlayToUser( const char *pchDialog, CSteamID steamID ) = 0;
 	virtual void ActivateGameOverlayToWebPage( const char *pchURL ) = 0;
-	virtual void ActivateGameOverlayToStore( AppId_t nAppId ) = 0;
+	virtual void ActivateGameOverlayToStore( AppId_t nAppId, EOverlayToStoreFlag eFlag ) = 0;
 	virtual void ActivateGameOverlayInviteDialog( CSteamID steamIDLobby ) = 0;
 
 	virtual void NotifyGameOverlayStateChanged( bool bActive ) = 0;

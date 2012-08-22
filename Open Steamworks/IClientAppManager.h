@@ -35,7 +35,7 @@ public:
 	virtual EAppUpdateError LaunchApp( AppId_t unAppID, uint32 uLaunchOption, const char *pszUserArgs ) = 0;
 	virtual bool ShutdownApp( AppId_t unAppID, bool bForce ) = 0;
 
-	virtual EAppState GetAppState( AppId_t unAppID ) = 0;
+	virtual EAppState GetAppInstallState( AppId_t unAppID ) = 0;
 
 	// /!\ IPC is broken for this function
 	virtual bool GetAppSizeOnDisk( AppId_t unAppID, uint64 *pullAppSize, uint64 *pullUnk ) = 0;
@@ -44,6 +44,7 @@ public:
 
 	virtual uint32 GetAppDependency( AppId_t unAppID ) = 0;
 	virtual uint32 GetDependentApps( AppId_t unAppID, AppId_t *punAppIDs, int32 cAppIDsMax ) = 0;
+	virtual bool RemoveAppDependencies( AppId_t unAppID ) = 0;
 
 	virtual uint32 GetUpdateInfo( AppId_t unAppID, AppUpdateInfo_s *pUpdateInfo ) = 0;
 
@@ -55,7 +56,9 @@ public:
 
 	virtual bool BIsAppUpToDate( AppId_t unAppID ) = 0;
 	
-	virtual bool BCheckBetaPassword( AppId_t unAppID, const char *cszBetaKey, const char *cszBetaPassword ) = 0;
+	virtual bool BCacheBetaPassword( AppId_t unAppID, const char *cszBetaKey, const char *cszBetaPassword ) = 0;
+	virtual bool BRequestBetaPasswords( AppId_t unAppID ) = 0;
+	virtual bool BIsCachedBetaPasswordValid( AppId_t unAppID, const char *cszBetaKey ) = 0;
 
 	virtual bool SetDownloadingEnabled( bool bState ) = 0;
 	virtual bool BIsDownloadingEnabled() = 0;
@@ -78,6 +81,8 @@ public:
 	virtual bool BNeedsFile( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;
 	virtual bool BAddFileOnDisk( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk, SHADigestWrapper_t ubSha1 ) = 0;
 	virtual uint64 FinishAddingFiles( AppId_t unAppID ) = 0;
+
+	virtual bool GetAppStateInfo( AppId_t unAppID, EAppReleaseState * peReleaseState, EAppOwernshipFlags * peOwernshipFlags ) = 0;
 };
 
 #endif // ICLIENTAPPMANAGER_H

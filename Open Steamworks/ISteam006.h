@@ -185,6 +185,7 @@ public:
 	virtual int IsUsingSdkContentServer( int* pbUsingSdkCS, TSteamError* pError ) = 0;
 	virtual int GetDepotParent( unsigned int uDepotId, unsigned int* puParentId, TSteamError* pError ) = 0;
 	virtual int GetCurrentCellID( unsigned int* puCellID, unsigned int* puPing, TSteamError* pError ) = 0;
+	virtual int ForceProcessLocalEngine() = 0;
 	virtual SteamCallHandle_t SetUser2( const char* cszUser, TSteamError* pError ) = 0;
 };
 

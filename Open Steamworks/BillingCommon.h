@@ -191,8 +191,13 @@ struct CancelLicenseMsg_t
 	enum EResult m_EResult;
 };
 
-// TODO: Add callback 411
-// TODO: Add callback 412
+struct RequestFreeLicenseResponse_t
+{
+	enum { k_iCallback = k_iSteamBillingCallbacks + 12 };
+
+	EResult m_EResult;
+	AppId_t m_uAppId;
+};
 
 struct OEMTicketActivationResponse_t
 {

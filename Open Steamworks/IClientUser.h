@@ -118,7 +118,9 @@ public:
 	virtual bool GetCurrentWebAuthToken( char *pchBuffer, int32 cubBuffer ) = 0;
 
 	virtual bool GetLanguage( char* pchLanguage, int32 cbLanguage ) = 0;
-	virtual void SetCyberCafe( bool bCyberCafe ) = 0;
+
+	virtual bool BIsCyberCafe() = 0;
+	virtual bool BIsAcademicAccount() = 0;
 
 	virtual void CreateAccount( const char *pchAccountName, const char *pchNewPassword, const char *pchNewEmail, int32 iQuestion, const char *pchNewQuestion, const char *pchNewAnswer ) = 0;
 
@@ -312,6 +314,8 @@ public:
 	
 	virtual bool InCommunityBeta() = 0;
 	virtual void SetInCommunityBeta( bool bInBeta ) = 0;
+
+	virtual bool GetAppOwnershipInfo( AppId_t unAppId, RTime32* pRTime32Created, char* pchCountry ) = 0; // Use a 3 bytes buffer for the country
 };
 
 #endif // ICLIENTUSER_H

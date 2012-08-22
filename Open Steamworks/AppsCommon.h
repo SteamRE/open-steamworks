@@ -157,6 +157,23 @@ enum ERegisterActivactionCodeResult
 	k_ERegisterActivactionCodeAlreadyOwned = 4
 };
 
+enum EAppOwernshipFlags
+{
+	k_EAppOwernshipFlagsNone =				0,
+	k_EAppOwernshipFlagsOwnsLicense =		1 << 0,
+	k_EAppOwernshipFlagsFreeLicense =		1 << 1,
+	k_EAppOwernshipFlagsRegionRestricted =	1 << 2,
+	k_EAppOwernshipFlagsLowViolence =		1 << 3,
+};
+
+enum EAppReleaseState
+{
+	k_EAppReleaseStateUnknown = 0,
+	k_EAppReleaseStateUnavailable,
+	k_EAppReleaseStatePrerelease,
+	k_EAppReleaseStatePreloadonly,
+	k_EAppReleaseStateReleased,
+};
 
 struct SHADigestWrapper_t
 {

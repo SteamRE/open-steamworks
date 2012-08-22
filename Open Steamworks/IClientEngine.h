@@ -61,6 +61,7 @@ public:
 	virtual HSteamUser ConnectToGlobalUser( HSteamPipe hSteamPipe ) = 0;
 
 	virtual HSteamUser CreateLocalUser( HSteamPipe* phSteamPipe, EAccountType eAccountType ) = 0;
+	virtual void CreatePipeToLocalUser( HSteamUser hSteamUser, HSteamPipe* phSteamPipe ) = 0;
 
 	virtual void ReleaseUser( HSteamPipe hSteamPipe, HSteamUser hUser ) = 0;
 

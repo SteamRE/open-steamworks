@@ -76,6 +76,7 @@ public:
 	virtual uint32 FinishAppBuild( uint32 uBuildID, uint32 nAppID, const char *cszBetaKey, bool bOnlyFinish, uint32 cNumSkipDepots ) = 0;
 
 	virtual uint32 VerifyChunkStore( uint32, uint32, const char * ) = 0;
+	virtual uint32 StartUploadTest( uint32, uint32 ) = 0;
 };
 
 #endif // ICLIENTDEPOTBUILDER_H
