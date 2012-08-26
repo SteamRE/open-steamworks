@@ -65,6 +65,7 @@ namespace Steam4NET
 		public UInt64 m_unBytesDownloaded;
 		public UInt64 m_unBytesToProcess;
 		public UInt64 m_unBytesProcessed;
+		public UInt32 m_uUnk;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -80,9 +81,11 @@ namespace Steam4NET
 	public enum EAppDownloadPriority : int
 	{
 		k_EAppDownloadPriorityNone = 0,
-		k_EAppDownloadPriorityTop = 1,
+		k_EAppDownloadPriorityFirst = 1,
 		k_EAppDownloadPriorityUp = 2,
 		k_EAppDownloadPriorityDown = 3,
+		k_EAppDownloadPriorityLast = 4,
+		k_EAppDownloadPriorityPaused = 5,
 	};
 	
 	public enum EAppUpdateError : int
@@ -112,6 +115,8 @@ namespace Steam4NET
 		k_EAppErrorInvalidApplicationConfiguration = 22,
 		k_EAppErrorInvalidContentConfiguration = 23,
 		k_EAppErrorMissingManifest = 24,
+		k_EAppErrorNotReleased = 25,
+		k_EAppErrorRegionRestricted = 26,
 	};
 	
 	public enum ERegisterActivactionCodeResult : int
@@ -121,6 +126,24 @@ namespace Steam4NET
 		k_ERegisterActivactionCodeResultAlreadyRegistered = 2,
 		k_ERegisterActivactionCodeResultTimeout = 3,
 		k_ERegisterActivactionCodeAlreadyOwned = 4,
+	};
+	
+	public enum EAppOwernshipFlags : int
+	{
+		k_EAppOwernshipFlagsNone = 0,
+		k_EAppOwernshipFlagsOwnsLicense = 1,
+		k_EAppOwernshipFlagsFreeLicense = 2,
+		k_EAppOwernshipFlagsRegionRestricted = 4,
+		k_EAppOwernshipFlagsLowViolence = 8,
+	};
+	
+	public enum EAppReleaseState : int
+	{
+		k_EAppReleaseStateUnknown = 0,
+		k_EAppReleaseStateUnavailable = 1,
+		k_EAppReleaseStatePrerelease = 2,
+		k_EAppReleaseStatePreloadonly = 3,
+		k_EAppReleaseStateReleased = 4,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

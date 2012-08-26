@@ -1384,10 +1384,10 @@ namespace Steam4NET
 			this.GetFunction<NativeActivateGameOverlayToWebPageS>( this.Functions.ActivateGameOverlayToWebPage180 )( this.ObjectAddress, pchURL ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToStoreU( IntPtr thisptr, UInt32 nAppId );
-		public void ActivateGameOverlayToStore( UInt32 nAppId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToStoreUE( IntPtr thisptr, UInt32 nAppId, EOverlayToStoreFlag eFlag );
+		public void ActivateGameOverlayToStore( UInt32 nAppId, EOverlayToStoreFlag eFlag ) 
 		{
-			this.GetFunction<NativeActivateGameOverlayToStoreU>( this.Functions.ActivateGameOverlayToStore181 )( this.ObjectAddress, nAppId ); 
+			this.GetFunction<NativeActivateGameOverlayToStoreUE>( this.Functions.ActivateGameOverlayToStore181 )( this.ObjectAddress, nAppId, eFlag ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayInviteDialogC( IntPtr thisptr, UInt64 steamIDLobby );

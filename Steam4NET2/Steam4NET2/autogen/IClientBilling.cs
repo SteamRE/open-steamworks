@@ -54,13 +54,12 @@ namespace Steam4NET
 		public IntPtr EnableTestLicense38;
 		public IntPtr DisableTestLicense39;
 		public IntPtr ActivateOEMTicket40;
-		public IntPtr GetLicenseForAppID41;
-		public IntPtr GetPackageName42;
-		public IntPtr GetPackageInfo43;
-		public IntPtr GetAppsInPackage44;
-		public IntPtr GetPackageExtendedInfo45;
-		public IntPtr RequestFreeLicenseForApp46;
-		private IntPtr DTorIClientBilling47;
+		public IntPtr GetPackageName41;
+		public IntPtr GetPackageInfo42;
+		public IntPtr GetAppsInPackage43;
+		public IntPtr GetPackageExtendedInfo44;
+		public IntPtr RequestFreeLicenseForApp45;
+		private IntPtr DTorIClientBilling46;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTBILLING_INTERFACE_VERSION001")]
@@ -322,42 +321,35 @@ namespace Steam4NET
 			return this.GetFunction<NativeActivateOEMTicketS>( this.Functions.ActivateOEMTicket40 )( this.ObjectAddress, pchOEMLicenseFile ); 
 		}
 		
-		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLicenseForAppIDUU( IntPtr thisptr, UInt32 unAppId, ref UInt32 punPackageID );
-		public bool GetLicenseForAppID( UInt32 unAppId, ref UInt32 punPackageID ) 
-		{
-			return this.GetFunction<NativeGetLicenseForAppIDUU>( this.Functions.GetLicenseForAppID41 )( this.ObjectAddress, unAppId, ref punPackageID ); 
-		}
-		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetPackageNameUSI( IntPtr thisptr, UInt32 unPackageID, StringBuilder pchName, Int32 cubName );
 		public UInt32 GetPackageName( UInt32 unPackageID, StringBuilder pchName ) 
 		{
-			return this.GetFunction<NativeGetPackageNameUSI>( this.Functions.GetPackageName42 )( this.ObjectAddress, unPackageID, pchName, (Int32) pchName.Capacity ); 
+			return this.GetFunction<NativeGetPackageNameUSI>( this.Functions.GetPackageName41 )( this.ObjectAddress, unPackageID, pchName, (Int32) pchName.Capacity ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetPackageInfoUUUEEEIIIBB( IntPtr thisptr, UInt32 unPackageID, ref UInt32 puNumAppIds, ref UInt32 puNumDepotIDs, ref EBillingType peBillingType, ref ELicenseType peLicenseType, ref EPackageStatus pePackageStatus, ref Int32 piCodeClass, ref Int32 piGameCode, ref Int32 piTerritoryCode, ref bool pbRequiresShipping, ref bool pbIsPreorder );
 		public bool GetPackageInfo( UInt32 unPackageID, ref UInt32 puNumAppIds, ref UInt32 puNumDepotIDs, ref EBillingType peBillingType, ref ELicenseType peLicenseType, ref EPackageStatus pePackageStatus, ref Int32 piCodeClass, ref Int32 piGameCode, ref Int32 piTerritoryCode, ref bool pbRequiresShipping, ref bool pbIsPreorder ) 
 		{
-			return this.GetFunction<NativeGetPackageInfoUUUEEEIIIBB>( this.Functions.GetPackageInfo43 )( this.ObjectAddress, unPackageID, ref puNumAppIds, ref puNumDepotIDs, ref peBillingType, ref peLicenseType, ref pePackageStatus, ref piCodeClass, ref piGameCode, ref piTerritoryCode, ref pbRequiresShipping, ref pbIsPreorder ); 
+			return this.GetFunction<NativeGetPackageInfoUUUEEEIIIBB>( this.Functions.GetPackageInfo42 )( this.ObjectAddress, unPackageID, ref puNumAppIds, ref puNumDepotIDs, ref peBillingType, ref peLicenseType, ref pePackageStatus, ref piCodeClass, ref piGameCode, ref piTerritoryCode, ref pbRequiresShipping, ref pbIsPreorder ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppsInPackageUUUBB( IntPtr thisptr, UInt32 unPackageID, ref UInt32 puIds, UInt32 uMaxIds, [MarshalAs(UnmanagedType.I1)] bool bExcludeDepots, [MarshalAs(UnmanagedType.I1)] bool bExcludeApps );
 		public UInt32 GetAppsInPackage( UInt32 unPackageID, ref UInt32 puIds, UInt32 uMaxIds, bool bExcludeDepots, bool bExcludeApps ) 
 		{
-			return this.GetFunction<NativeGetAppsInPackageUUUBB>( this.Functions.GetAppsInPackage44 )( this.ObjectAddress, unPackageID, ref puIds, uMaxIds, bExcludeDepots, bExcludeApps ); 
+			return this.GetFunction<NativeGetAppsInPackageUUUBB>( this.Functions.GetAppsInPackage43 )( this.ObjectAddress, unPackageID, ref puIds, uMaxIds, bExcludeDepots, bExcludeApps ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetPackageExtendedInfoUBIB( IntPtr thisptr, UInt32 unPackageID, Byte[] pubData, Int32 cubData, [MarshalAs(UnmanagedType.I1)] bool bSharedKVSymbols );
 		public UInt32 GetPackageExtendedInfo( UInt32 unPackageID, Byte[] pubData, bool bSharedKVSymbols ) 
 		{
-			return this.GetFunction<NativeGetPackageExtendedInfoUBIB>( this.Functions.GetPackageExtendedInfo45 )( this.ObjectAddress, unPackageID, pubData, (Int32) pubData.Length, bSharedKVSymbols ); 
+			return this.GetFunction<NativeGetPackageExtendedInfoUBIB>( this.Functions.GetPackageExtendedInfo44 )( this.ObjectAddress, unPackageID, pubData, (Int32) pubData.Length, bSharedKVSymbols ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestFreeLicenseForAppU( IntPtr thisptr, UInt32 unAppId );
 		public UInt64 RequestFreeLicenseForApp( UInt32 unAppId ) 
 		{
-			return this.GetFunction<NativeRequestFreeLicenseForAppU>( this.Functions.RequestFreeLicenseForApp46 )( this.ObjectAddress, unAppId ); 
+			return this.GetFunction<NativeRequestFreeLicenseForAppU>( this.Functions.RequestFreeLicenseForApp45 )( this.ObjectAddress, unAppId ); 
 		}
 		
 	};

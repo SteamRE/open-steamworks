@@ -157,7 +157,9 @@ namespace Steam4NET
 		public IntPtr StartEngineEx145;
 		public IntPtr IsUsingSdkContentServer146;
 		public IntPtr GetDepotParent147;
-		public IntPtr SetUser2148;
+		public IntPtr GetCurrentCellID148;
+		public IntPtr ForceProcessLocalEngine149;
+		public IntPtr SetUser2150;
 	};
 	
 	[InteropHelp.InterfaceVersion("Steam006")]
@@ -1045,10 +1047,22 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetDepotParentUUT>( this.Functions.GetDepotParent147 )( this.ObjectAddress, uDepotId, ref puParentId, ref pError ); 
 		}
 		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCurrentCellIDUUT( IntPtr thisptr, ref UInt32 puCellID, ref UInt32 puPing, ref TSteamError pError );
+		public Int32 GetCurrentCellID( ref UInt32 puCellID, ref UInt32 puPing, ref TSteamError pError ) 
+		{
+			return this.GetFunction<NativeGetCurrentCellIDUUT>( this.Functions.GetCurrentCellID148 )( this.ObjectAddress, ref puCellID, ref puPing, ref pError ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeForceProcessLocalEngine( IntPtr thisptr );
+		public Int32 ForceProcessLocalEngine(  ) 
+		{
+			return this.GetFunction<NativeForceProcessLocalEngine>( this.Functions.ForceProcessLocalEngine149 )( this.ObjectAddress ); 
+		}
+		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeSetUser2ST( IntPtr thisptr, string cszUser, ref TSteamError pError );
 		public UInt32 SetUser2( string cszUser, ref TSteamError pError ) 
 		{
-			return this.GetFunction<NativeSetUser2ST>( this.Functions.SetUser2148 )( this.ObjectAddress, cszUser, ref pError ); 
+			return this.GetFunction<NativeSetUser2ST>( this.Functions.SetUser2150 )( this.ObjectAddress, cszUser, ref pError ); 
 		}
 		
 	};

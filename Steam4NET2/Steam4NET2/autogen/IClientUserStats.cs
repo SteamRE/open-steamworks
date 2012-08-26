@@ -181,11 +181,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeIndicateAchievementProgressCSUU>( this.Functions.IndicateAchievementProgress17 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, nCurProgress, nMaxProgress ); 
 		}
 		
-		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetMaxStatsLoadedU( IntPtr thisptr, UInt32 uMax );
-		public bool SetMaxStatsLoaded( UInt32 uMax ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetMaxStatsLoadedU( IntPtr thisptr, UInt32 uMax );
+		public void SetMaxStatsLoaded( UInt32 uMax ) 
 		{
-			return this.GetFunction<NativeSetMaxStatsLoadedU>( this.Functions.SetMaxStatsLoaded18 )( this.ObjectAddress, uMax ); 
+			this.GetFunction<NativeSetMaxStatsLoadedU>( this.Functions.SetMaxStatsLoaded18 )( this.ObjectAddress, uMax ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStatsCC( IntPtr thisptr, UInt64 steamIDUser, UInt64 nGameID );
@@ -301,10 +300,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetNumAchievedAchievementsC>( this.Functions.GetNumAchievedAchievements36 )( this.ObjectAddress, nGameID.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLastAchievementUnlockedC( IntPtr thisptr, UInt64 nGameID );
-		public UInt32 GetLastAchievementUnlocked( CGameID nGameID ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLastAchievementUnlockedC( IntPtr thisptr, UInt64 nGameID );
+		public string GetLastAchievementUnlocked( CGameID nGameID ) 
 		{
-			return this.GetFunction<NativeGetLastAchievementUnlockedC>( this.Functions.GetLastAchievementUnlocked37 )( this.ObjectAddress, nGameID.ConvertToUint64() ); 
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLastAchievementUnlockedC>( this.Functions.GetLastAchievementUnlocked37 )( this.ObjectAddress, nGameID.ConvertToUint64() ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestGlobalAchievementPercentagesC( IntPtr thisptr, UInt64 nGameID );

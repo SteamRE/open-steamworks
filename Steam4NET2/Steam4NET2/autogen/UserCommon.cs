@@ -806,6 +806,35 @@ namespace Steam4NET
 	public struct UpdateItemAnnouncement_t
 	{
 		public const int k_iCallback = 958;
+		public UInt32 m_cNewItems;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(959)]
+	public struct ChangeSteamGuardOptionsResponse_t
+	{
+		public const int k_iCallback = 959;
+		public EResult m_eResult;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(960)]
+	public struct UpdateCommentNotification_t
+	{
+		public const int k_iCallback = 960;
+		public UInt32 m_cNewComments;
+		public UInt32 m_cNewCommentsOwner;
+		public UInt32 m_cNewCommentsSubscriptions;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(961)]
+	public struct FriendUserStatusPublished_t
+	{
+		public const int k_iCallback = 961;
+		public SteamID_t m_steamIDFriend;
+		public UInt32 m_unAppID;
+		public SByte m_szStatus;
 	};
 	
 }

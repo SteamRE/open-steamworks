@@ -162,6 +162,15 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(412)]
+	public struct RequestFreeLicenseResponse_t
+	{
+		public const int k_iCallback = 412;
+		public EResult m_EResult;
+		public UInt32 m_uAppId;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(414)]
 	public struct OEMTicketActivationResponse_t
 	{

@@ -83,6 +83,10 @@ namespace Steam4NET
 	{
 	};
 	
+	public enum EWorkshopVideoProvider : int
+	{
+	};
+	
 	public enum EWorkshopFileAction : int
 	{
 		k_EWorkshopFileActionPlayed = 0,
@@ -250,6 +254,7 @@ namespace Steam4NET
 		public bool m_bTagsTruncated;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
 		public string m_pchFileName;
+		public EWorkshopFileType m_eFileType;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

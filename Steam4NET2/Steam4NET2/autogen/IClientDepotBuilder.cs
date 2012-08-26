@@ -39,7 +39,8 @@ namespace Steam4NET
 		public IntPtr GetManifestGIDs8;
 		public IntPtr FinishAppBuild9;
 		public IntPtr VerifyChunkStore10;
-		private IntPtr DTorIClientDepotBuilder11;
+		public IntPtr StartUploadTest11;
+		private IntPtr DTorIClientDepotBuilder12;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTDEPOTBUILDER_INTERFACE_VERSION001")]
@@ -114,6 +115,12 @@ namespace Steam4NET
 		public UInt32 VerifyChunkStore( UInt32 arg0, UInt32 arg1, string arg2 ) 
 		{
 			return this.GetFunction<NativeVerifyChunkStoreUUS>( this.Functions.VerifyChunkStore10 )( this.ObjectAddress, arg0, arg1, arg2 ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeStartUploadTestUU( IntPtr thisptr, UInt32 arg0, UInt32 arg1 );
+		public UInt32 StartUploadTest( UInt32 arg0, UInt32 arg1 ) 
+		{
+			return this.GetFunction<NativeStartUploadTestUU>( this.Functions.StartUploadTest11 )( this.ObjectAddress, arg0, arg1 ); 
 		}
 		
 	};

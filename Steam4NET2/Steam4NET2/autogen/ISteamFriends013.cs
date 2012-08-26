@@ -7,7 +7,7 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
-	public class ISteamFriends012VTable
+	public class ISteamFriends013VTable
 	{
 		public IntPtr GetPersonaName0;
 		public IntPtr SetPersonaName1;
@@ -72,11 +72,11 @@ namespace Steam4NET
 		public IntPtr GetFollowerCount60;
 		public IntPtr IsFollowing61;
 		public IntPtr EnumerateFollowingList62;
-		private IntPtr DTorISteamFriends01263;
+		private IntPtr DTorISteamFriends01363;
 	};
 	
-	[InteropHelp.InterfaceVersion("SteamFriends012")]
-	public class ISteamFriends012 : InteropHelp.NativeWrapper<ISteamFriends012VTable>
+	[InteropHelp.InterfaceVersion("SteamFriends013")]
+	public class ISteamFriends013 : InteropHelp.NativeWrapper<ISteamFriends013VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetPersonaName( IntPtr thisptr );
 		public string GetPersonaName(  ) 
@@ -226,10 +226,10 @@ namespace Steam4NET
 			this.GetFunction<NativeActivateGameOverlayToWebPageS>( this.Functions.ActivateGameOverlayToWebPage23 )( this.ObjectAddress, pchURL ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToStoreU( IntPtr thisptr, UInt32 nAppID );
-		public void ActivateGameOverlayToStore( UInt32 nAppID ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeActivateGameOverlayToStoreUE( IntPtr thisptr, UInt32 nAppID, EOverlayToStoreFlag eFlag );
+		public void ActivateGameOverlayToStore( UInt32 nAppID, EOverlayToStoreFlag eFlag ) 
 		{
-			this.GetFunction<NativeActivateGameOverlayToStoreU>( this.Functions.ActivateGameOverlayToStore24 )( this.ObjectAddress, nAppID ); 
+			this.GetFunction<NativeActivateGameOverlayToStoreUE>( this.Functions.ActivateGameOverlayToStore24 )( this.ObjectAddress, nAppID, eFlag ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetPlayedWithC( IntPtr thisptr, UInt64 steamIDUserPlayedWith );

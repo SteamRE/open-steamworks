@@ -144,6 +144,7 @@
     <Compile Include="autogen\ISteamFriends010.cs" />
     <Compile Include="autogen\ISteamFriends011.cs" />
     <Compile Include="autogen\ISteamFriends012.cs" />
+    <Compile Include="autogen\ISteamFriends013.cs" />
     <Compile Include="autogen\ISteamGameCoordinator001.cs" />
     <Compile Include="autogen\ISteamGameServer002.cs" />
     <Compile Include="autogen\ISteamGameServer003.cs" />
@@ -182,6 +183,8 @@
     <Compile Include="autogen\ISteamRemoteStorage004.cs" />
     <Compile Include="autogen\ISteamRemoteStorage005.cs" />
     <Compile Include="autogen\ISteamRemoteStorage006.cs" />
+    <Compile Include="autogen\ISteamRemoteStorage007.cs" />
+    <Compile Include="autogen\ISteamRemoteStorage008.cs" />
     <Compile Include="autogen\ISteamScreenshots001.cs" />
     <Compile Include="autogen\ISteamUser004.cs" />
     <Compile Include="autogen\ISteamUser005.cs" />
@@ -206,6 +209,7 @@
     <Compile Include="autogen\ISteamUserStats008.cs" />
     <Compile Include="autogen\ISteamUserStats009.cs" />
     <Compile Include="autogen\ISteamUserStats010.cs" />
+    <Compile Include="autogen\ISteamUserStats011.cs" />
     <Compile Include="autogen\ISteamUtils001.cs" />
     <Compile Include="autogen\ISteamUtils002.cs" />
     <Compile Include="autogen\ISteamUtils003.cs" />

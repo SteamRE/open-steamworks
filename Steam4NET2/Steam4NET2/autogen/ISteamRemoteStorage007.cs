@@ -7,7 +7,7 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
-	public class ISteamRemoteStorage006VTable
+	public class ISteamRemoteStorage007VTable
 	{
 		public IntPtr FileWrite0;
 		public IntPtr FileRead1;
@@ -56,11 +56,11 @@ namespace Steam4NET
 		public IntPtr SetUserPublishedFileAction44;
 		public IntPtr EnumeratePublishedFilesByUserAction45;
 		public IntPtr EnumeratePublishedWorkshopFiles46;
-		private IntPtr DTorISteamRemoteStorage00647;
+		private IntPtr DTorISteamRemoteStorage00747;
 	};
 	
-	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION006")]
-	public class ISteamRemoteStorage006 : InteropHelp.NativeWrapper<ISteamRemoteStorage006VTable>
+	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION007")]
+	public class ISteamRemoteStorage007 : InteropHelp.NativeWrapper<ISteamRemoteStorage007VTable>
 	{
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteSBI( IntPtr thisptr, string pchFile, Byte[] pvData, Int32 cubData );
@@ -338,10 +338,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeEnumerateUserSharedWorkshopFilesUCUSS>( this.Functions.EnumerateUserSharedWorkshopFiles42 )( this.ObjectAddress, nAppId, creatorSteamID.ConvertToUint64(), uStartIndex, ref pRequiredTags, ref pExcludedTags ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativePublishVideoSSUSSES( IntPtr thisptr, string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags );
-		public UInt64 PublishVideo( string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativePublishVideoESSSUSSES( IntPtr thisptr, EWorkshopVideoProvider eVideoProvider, string cszVideoAccountName, string cszVideoIdentifier, string cszFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags );
+		public UInt64 PublishVideo( EWorkshopVideoProvider eVideoProvider, string cszVideoAccountName, string cszVideoIdentifier, string cszFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags ) 
 		{
-			return this.GetFunction<NativePublishVideoSSUSSES>( this.Functions.PublishVideo43 )( this.ObjectAddress, cszFileName, cszPreviewFileName, nConsumerAppId, cszTitle, cszDescription, eVisibility, ref pTags ); 
+			return this.GetFunction<NativePublishVideoESSSUSSES>( this.Functions.PublishVideo43 )( this.ObjectAddress, eVideoProvider, cszVideoAccountName, cszVideoIdentifier, cszFileName, nConsumerAppId, cszTitle, cszDescription, eVisibility, ref pTags ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSetUserPublishedFileActionUE( IntPtr thisptr, UInt64 unPublishedFileId, EWorkshopFileAction eAction );

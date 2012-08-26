@@ -218,6 +218,12 @@ namespace Steam4NET
 		k_nUserRestrictionRating = 16,
 	};
 	
+	public enum EOverlayToStoreFlag : int
+	{
+		k_EOverlayToStoreFlagNone = 0,
+		k_EOverlayToStoreFlagAddToCart = 1,
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct FriendSessionStateInfo_t
 	{
@@ -416,6 +422,7 @@ namespace Steam4NET
 		public UInt32 m_nAppID;
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bWebPage;
+		public EOverlayToStoreFlag m_eFlag;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
