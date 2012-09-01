@@ -136,11 +136,31 @@ namespace Steam4Intermediate.Nodes
                         size = basetype.GetAttribute("size");
                         types = basetype.ResolveType(1, out basetype, out constness, out pointer);
 
-                        pointer = true;
                         arraytype = true;
                     }
 
                     types = generator.ResolveType( types, constness, pointer, true, false );
+
+                    if (types == "CSteamID")
+                    {
+                        types = "SteamID_t";
+                    }
+                    else if (types == "CGameID")
+                    {
+                        types = "GameID_t";
+                    }
+
+                    if(arraytype)
+                    {
+                        if (types == "SByte")
+                        {
+                            types = "string";
+                        }
+                        else 
+                        {
+                            types += "[]";
+                        }
+                    }
 
                     if ( types == "bool" )
                     {
@@ -168,17 +188,13 @@ namespace Steam4Intermediate.Nodes
                             types = "IntPtr";
                         }
                     }
-                    else if (types == "CSteamID")
-                    {
-                        types = "SteamID_t";
-                    }
-                    else if (types == "CGameID")
-                    {
-                        types = "GameID_t";
-                    }
                     else if (pointer)
                     {
                         types = "IntPtr";
+                    }
+                    else if (arraytype)
+                    {
+                        generator.EmitLine("[MarshalAs(UnmanagedType.ByValArray, SizeConst = " + size + ")]", depth + 1);
                     }
                     else if (types == child.GetName())
                     {
