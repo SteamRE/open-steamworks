@@ -394,7 +394,8 @@ namespace Steam4NET
 	{
 		public const int k_iCallback = 346;
 		public EResult m_eResult;
-		public SteamID_t m_steamIDs;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 50)]
+		public SteamID_t[] m_steamIDs;
 		public Int32 m_cSteamIDs;
 		public Int32 m_cTotalResults;
 	};

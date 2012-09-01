@@ -274,7 +274,8 @@ namespace Steam4NET
 		public EResult m_eResult;
 		public Int32 m_nResultsReturned;
 		public Int32 m_nTotalResultCount;
-		public IntPtr m_rgPublishedFileId;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 50)]
+		public UInt64[] m_rgPublishedFileId;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -293,8 +294,10 @@ namespace Steam4NET
 		public EResult m_eResult;
 		public Int32 m_nResultsReturned;
 		public Int32 m_nTotalResultCount;
-		public IntPtr m_rgPublishedFileId;
-		public IntPtr m_rgRTimeSubscribed;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 50)]
+		public UInt64[] m_rgPublishedFileId;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 50)]
+		public UInt32[] m_rgRTimeSubscribed;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -367,8 +370,10 @@ namespace Steam4NET
 		public EResult m_eResult;
 		public Int32 m_nResultsReturned;
 		public Int32 m_nTotalResultCount;
-		public IntPtr m_rgPublishedFileId;
-		public IntPtr m_rgScore;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 50)]
+		public UInt64[] m_rgPublishedFileId;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 50)]
+		public float[] m_rgScore;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -438,7 +443,8 @@ namespace Steam4NET
 		public EResult m_eResult;
 		public Int32 m_nResultsReturned;
 		public Int32 m_nTotalResultCount;
-		public IntPtr m_rgPublishedFileId;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 50)]
+		public UInt64[] m_rgPublishedFileId;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -459,8 +465,10 @@ namespace Steam4NET
 		public EWorkshopFileAction m_eAction;
 		public Int32 m_nResultsReturned;
 		public Int32 m_nTotalResultCount;
-		public IntPtr m_rgPublishedFileId;
-		public IntPtr m_rgRTimes;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 50)]
+		public UInt64[] m_rgPublishedFileId;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 50)]
+		public UInt32[] m_rgRTimes;
 	};
 	
 }

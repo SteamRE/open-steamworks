@@ -242,7 +242,8 @@ namespace Steam4NET
 		[MarshalAs(UnmanagedType.I1)]
 		public bool m_bDownloadEnabled;
 		public UInt32 m_nTotalAppsScheduled;
-		public IntPtr m_rgunAppSchedule;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+		public UInt32[] m_rgunAppSchedule;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
