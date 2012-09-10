@@ -312,9 +312,6 @@ public:
 	
 	virtual void RequestNotifications() = 0;
 	
-	virtual bool InCommunityBeta() = 0;
-	virtual void SetInCommunityBeta( bool bInBeta ) = 0;
-
 	virtual bool GetAppOwnershipInfo( AppId_t unAppId, RTime32* pRTime32Created, char* pchCountry ) = 0; // Use a 3 bytes buffer for the country
 };
 

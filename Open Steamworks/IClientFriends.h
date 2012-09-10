@@ -56,8 +56,6 @@ public:
 	// returns the name of a friend - guaranteed to not be NULL.
 	virtual const char *GetFriendPersonaName( CSteamID steamIDFriend ) = 0;
 
-	virtual void SetFriendAlias( CSteamID steamIDFriend, const char *pchAlias ) = 0;
-
 	// gets the avatar of the current user, which is a handle to be used in IClientUtils::GetImageRGBA(), or 0 if none set
 	virtual int32 GetSmallFriendAvatar( CSteamID steamIDFriend ) = 0;
 	virtual int32 GetMediumFriendAvatar( CSteamID steamIDFriend ) = 0;
