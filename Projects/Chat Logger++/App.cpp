@@ -42,6 +42,7 @@ void CApp::InvalidParameterHandler(const wchar_t * expression, const wchar_t * f
 bool CApp::OnInit()
 {
 	_set_invalid_parameter_handler(&InvalidParameterHandler);
+	setlocale(LC_TIME, "");
 
 	m_pTaskBarIcon = new CTaskBarIcon();
 	m_pTaskBarIcon->SetIcon(wxICON(AppIcon), L"Chat Logger++");

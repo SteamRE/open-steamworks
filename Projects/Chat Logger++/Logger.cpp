@@ -36,6 +36,7 @@ CLogger::CLogger() : wxThread(wxTHREAD_DETACHED), m_steamLoader(CSteamAPILoader:
 
 CLogger::~CLogger()
 {
+	CloseLogs();
 	CleanupSteam();
 }
 
@@ -255,9 +256,12 @@ void CLogger::OnFriendChatMsg(FriendChatMsg_t* pFriendChatMsg)
 	if(!m_pSteamFriends)
 		return;
 
-	char szMessage[k_cchFriendChatMsgMax];
+	char szMessage[k_cchFriendChatMsgMax + 1];
 	EChatEntryType eEntryType;
-	if(m_pSteamFriends->GetFriendMessage(pFriendChatMsg->m_ulFriendID, pFriendChatMsg->m_iChatID, szMessage, sizeof(szMessage), &eEntryType))
+	int iMessageSize = m_pSteamFriends->GetFriendMessage(pFriendChatMsg->m_ulFriendID, pFriendChatMsg->m_iChatID, szMessage, sizeof(szMessage) - 1, &eEntryType);
+	szMessage[iMessageSize] = '\0';
+
+	if(iMessageSize)
 	{
 		if(eEntryType == k_EChatEntryTypeChatMsg)
 		{
@@ -267,6 +271,7 @@ void CLogger::OnFriendChatMsg(FriendChatMsg_t* pFriendChatMsg)
 				wxString message = m_messageFormat + _T("\n");
 				FormatMessage(message, pFriendChatMsg->m_ulSenderID, szMessage);
 				pFile->Write(message);
+				pFile->Flush();
 			}
 		}
 		else if(eEntryType == k_EChatEntryTypeEmote)
@@ -277,6 +282,7 @@ void CLogger::OnFriendChatMsg(FriendChatMsg_t* pFriendChatMsg)
 				wxString message = m_emoteFormat + _T("\n");
 				FormatMessage(message, pFriendChatMsg->m_ulSenderID, szMessage);
 				pFile->Write(message);
+				pFile->Flush();
 			}
 		}
 	}
@@ -287,10 +293,13 @@ void CLogger::OnChatRoomMsg(ChatRoomMsg_t* pChatRoomMsg)
 	if(!m_pClientFriends)
 		return;
 
-	char szMessage[k_cchFriendChatMsgMax];
+	char szMessage[k_cchFriendChatMsgMax + 1];
 	EChatEntryType eEntryType;
 	CSteamID chatterID;
-	if(m_pClientFriends->GetChatRoomEntry(pChatRoomMsg->m_ulSteamIDChat, pChatRoomMsg->m_iChatID, &chatterID, szMessage, sizeof(szMessage), &eEntryType))
+	int iMessageSize = m_pClientFriends->GetChatRoomEntry(pChatRoomMsg->m_ulSteamIDChat, pChatRoomMsg->m_iChatID, &chatterID, szMessage, sizeof(szMessage) - 1, &eEntryType);
+	szMessage[iMessageSize] = '\0';
+
+	if(iMessageSize)
 	{
 		if(eEntryType == k_EChatEntryTypeChatMsg)
 		{
@@ -300,6 +309,7 @@ void CLogger::OnChatRoomMsg(ChatRoomMsg_t* pChatRoomMsg)
 				wxString message = m_messageFormat + _T("\n");
 				FormatMessage(message, pChatRoomMsg->m_ulSteamIDUser, szMessage);
 				pFile->Write(message);
+				pFile->Flush();
 			}
 		}
 		else if(eEntryType == k_EChatEntryTypeEmote)
@@ -310,6 +320,7 @@ void CLogger::OnChatRoomMsg(ChatRoomMsg_t* pChatRoomMsg)
 				wxString message = m_emoteFormat + _T("\n");
 				FormatMessage(message, pChatRoomMsg->m_ulSteamIDUser, szMessage);
 				pFile->Write(message);
+				pFile->Flush();
 			}
 		}
 	}
@@ -321,7 +332,6 @@ void CLogger::OnChatRoomDlgClose(ChatRoomDlgClose_t* pChatRoomDlgClose)
 	if(pFile)
 	{
 		pFile->Write(m_separationString);
-
 		pFile->Write(_T("\n"));
 
 		pFile->Flush();
@@ -514,6 +524,9 @@ void CLogger::CloseLogs()
 {
 	for(std::map<CSteamID, wxFFile*>::iterator it = m_logsOpened.begin(); it != m_logsOpened.end(); )
 	{
+		it->second->Write(m_separationString);
+		it->second->Write(_T("\n"));
+
 		it->second->Flush();
 		it->second->Close();
 		delete it->second;
