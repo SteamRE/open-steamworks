@@ -190,10 +190,8 @@ namespace Steam4NET
 		public IntPtr RequestSpecialSurvey172;
 		public IntPtr SendSpecialSurveyResponse173;
 		public IntPtr RequestNotifications174;
-		public IntPtr InCommunityBeta175;
-		public IntPtr SetInCommunityBeta176;
-		public IntPtr GetAppOwnershipInfo177;
-		private IntPtr DTorIClientUser178;
+		public IntPtr GetAppOwnershipInfo175;
+		private IntPtr DTorIClientUser176;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTUSER_INTERFACE_VERSION001")]
@@ -1325,23 +1323,10 @@ namespace Steam4NET
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInCommunityBeta( IntPtr thisptr );
-		public bool InCommunityBeta(  ) 
-		{
-			return this.GetFunction<NativeInCommunityBeta>( this.Functions.InCommunityBeta175 )( this.ObjectAddress ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetInCommunityBetaB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bInBeta );
-		public void SetInCommunityBeta( bool bInBeta ) 
-		{
-			this.GetFunction<NativeSetInCommunityBetaB>( this.Functions.SetInCommunityBeta176 )( this.ObjectAddress, bInBeta ); 
-		}
-		
-		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAppOwnershipInfoUUS( IntPtr thisptr, UInt32 unAppId, ref UInt32 pRTime32Created, StringBuilder pchCountry );
 		public bool GetAppOwnershipInfo( UInt32 unAppId, ref UInt32 pRTime32Created, StringBuilder pchCountry ) 
 		{
-			return this.GetFunction<NativeGetAppOwnershipInfoUUS>( this.Functions.GetAppOwnershipInfo177 )( this.ObjectAddress, unAppId, ref pRTime32Created, pchCountry ); 
+			return this.GetFunction<NativeGetAppOwnershipInfoUUS>( this.Functions.GetAppOwnershipInfo175 )( this.ObjectAddress, unAppId, ref pRTime32Created, pchCountry ); 
 		}
 		
 	};
