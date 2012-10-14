@@ -195,6 +195,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SigScanner.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\TaskBarIcon.cpp"
 				>
 			</File>
@@ -217,6 +221,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SigScanner.h"
+				>
+			</File>
+			<File
 				RelativePath=".\TaskBarIcon.h"
 				>
 			</File>
@@ -236,6 +244,14 @@
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\app_disconnected.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\app_error.ico"
+				>
 			</File>
 			<File
 				RelativePath=".\resource.rc"

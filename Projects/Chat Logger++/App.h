@@ -24,6 +24,14 @@ public:
 	void Message(const wxString& message);
 	void Warning(const wxString& message);
 
+	enum EIcon
+	{
+		k_EIconNormal = 0,
+		k_EIconWarning,
+		k_EIconDisconnected,
+	};
+	void SetTrayIcon(EIcon eIcon, const wxString& text = _T(""));
+
 	CLogger* GetLogger();
 
 private:

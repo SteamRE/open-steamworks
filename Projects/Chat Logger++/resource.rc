@@ -1,11 +1,12 @@
 #include "afxres.h"
 
-AppIcon               ICON                    "app.ico"
-
+1_AppIcon               ICON                    "app.ico"
+2_AppWarningIcon        ICON                    "app_warning.ico"
+3_AppDisconnectedIcon   ICON                    "app_disconnected.ico"
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,0
- PRODUCTVERSION 1,0,0,0
+ FILEVERSION 1,2,0,0
+ PRODUCTVERSION 1,2,0,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -20,10 +21,10 @@ BEGIN
     BEGIN
         BLOCK "000904b0"
         BEGIN
-            VALUE "FileVersion", "1, 0, 0, 0"
+            VALUE "FileVersion", "1, 2, 0, 0"
             VALUE "LegalCopyright", "©2k12, Didrole"
             VALUE "ProductName", "Chat Logger++"
-            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "ProductVersion", "1, 2, 0, 0"
         END
     END
     BLOCK "VarFileInfo"

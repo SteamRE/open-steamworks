@@ -36,6 +36,8 @@ private:
 	void CleanupSteam();
 	void CallbackHandlerThread();
 
+	void* FindSteamFunction(const char* cszName);
+
 	void OnIPCFailure(IPCFailure_t* pIPCFailure);
 	void OnFriendChatMsg(FriendChatMsg_t* pFriendChatMsg);
 	void OnChatRoomMsg(ChatRoomMsg_t* pChatRoomMsg);
@@ -58,6 +60,10 @@ private:
 	ISteamUser016* m_pSteamUser;
 	ISteamFriends013* m_pSteamFriends;
 	IClientFriends* m_pClientFriends;
+	
+	int32 (__thiscall *m_pGetChatRoomEntry)( IClientFriends*, CSteamID steamIDChat, int32 iChatID, CSteamID *steamIDuser, void *pvData, int32 cubData, EChatEntryType *peChatEntryType );
+	const char * (__thiscall *m_pGetChatRoomName)( IClientFriends*, CSteamID steamIDChat );
+	const char * (__thiscall *m_pGetPlayerNickname)( IClientFriends*, CSteamID playerSteamID );
 
 	std::map<CSteamID, wxFFile*> m_logsOpened;
 

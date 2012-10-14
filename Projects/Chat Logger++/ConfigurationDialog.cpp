@@ -34,7 +34,7 @@ BEGIN_EVENT_TABLE(CConfigurationDialog, wxDialog)
 	EVT_BUTTON(wxID_ANY, CConfigurationDialog::OnButton)
 END_EVENT_TABLE()
 
-CConfigurationDialog::CConfigurationDialog() : wxDialog(NULL, wxID_ANY, wxString(_T("Chat Logger++ - Configuration")), wxDefaultPosition, wxDefaultSize, wxCAPTION | wxSYSTEM_MENU | wxCLOSE_BOX | wxMINIMIZE_BOX | wxDIALOG_NO_PARENT), m_config(_T("Chat Logger++"), _T("OSW"))
+CConfigurationDialog::CConfigurationDialog() : wxDialog(NULL, wxID_ANY, wxString(_("Chat Logger++ - Configuration")), wxDefaultPosition, wxDefaultSize, wxCAPTION | wxSYSTEM_MENU | wxCLOSE_BOX | wxMINIMIZE_BOX | wxDIALOG_NO_PARENT), m_config(_T("Chat Logger++"), _T("OSW"))
 {
 	m_bEnablePreviews = false;
 
@@ -55,7 +55,7 @@ CConfigurationDialog::CConfigurationDialog() : wxDialog(NULL, wxID_ANY, wxString
 		underlinedAttr.SetFont(underlinedFont);
 
 		pTextCtrl->SetDefaultStyle(underlinedAttr);
-		pTextCtrl->AppendText(L"Common variables:\n\n");
+		pTextCtrl->AppendText(_("Common variables:\n\n"));
 		pTextCtrl->SetDefaultStyle(originalAttr);
 
 		pTextCtrl->AppendText
@@ -76,7 +76,7 @@ CConfigurationDialog::CConfigurationDialog() : wxDialog(NULL, wxID_ANY, wxString
 		);
 
 		pTextCtrl->SetDefaultStyle(underlinedAttr);
-		pTextCtrl->AppendText(L"Message specific variables:\n\n");
+		pTextCtrl->AppendText(_("Message specific variables:\n\n"));
 		pTextCtrl->SetDefaultStyle(originalAttr);
 
 		pTextCtrl->AppendText
@@ -89,7 +89,7 @@ CConfigurationDialog::CConfigurationDialog() : wxDialog(NULL, wxID_ANY, wxString
 		);
 
 		pTextCtrl->SetDefaultStyle(underlinedAttr);
-		pTextCtrl->AppendText(L"Additional informations:\n\n");
+		pTextCtrl->AppendText(_("Additional informations:\n\n"));
 		pTextCtrl->SetDefaultStyle(originalAttr);
 
 		pTextCtrl->AppendText
@@ -99,7 +99,7 @@ CConfigurationDialog::CConfigurationDialog() : wxDialog(NULL, wxID_ANY, wxString
 			L"This program is powered by Open Steamworks ( http://opensteamworks.org/ ).\n"
 		);
 
-		wxBoxSizer *pBoxSizer = new wxBoxSizer(wxBOTH);
+		wxBoxSizer *pBoxSizer = new wxBoxSizer(wxVERTICAL);
 		m_pHelpPanel->SetSizer(pBoxSizer);
 		pBoxSizer->Add(pTextCtrl, 1, wxEXPAND);
 	}
@@ -108,7 +108,7 @@ CConfigurationDialog::CConfigurationDialog() : wxDialog(NULL, wxID_ANY, wxString
 	m_pLoggingPanel->SetSizer(pBoxSizer);
 
 	wxGridBagSizer *pGridBagSizer = new wxGridBagSizer(10, 10);
-	pGridBagSizer->AddGrowableCol(1);
+	pGridBagSizer->AddGrowableCol(0);
 	pBoxSizer->Add(pGridBagSizer, 1, wxALL | wxEXPAND, 10);
 
 	int iRow = 0;
@@ -306,9 +306,9 @@ void CConfigurationDialog::UpdatePreviews()
 		tags.Add(_T("{MySteamID}"));	replacements.Add(wxString(mySteamID.SteamRender(), wxConvUTF8));
 		tags.Add(_T("{SteamID64}"));	replacements.Add(wxString::Format(_T("%llu"), friendSteamID.ConvertToUint64()));
 		tags.Add(_T("{MySteamID64}"));	replacements.Add(wxString::Format(_T("%llu"), mySteamID.ConvertToUint64()));
-		tags.Add(_T("{Name}"));			replacements.Add(_T("Christopher"));
-		tags.Add(_T("{Nickname}"));		replacements.Add(_T("Chris"));
-		tags.Add(_T("{MyName}"));		replacements.Add(_T("Your Name"));
+		tags.Add(_T("{Name}"));			replacements.Add(_("Christopher"));
+		tags.Add(_T("{Nickname}"));		replacements.Add(_("Chris"));
+		tags.Add(_T("{MyName}"));		replacements.Add(_("Your Name"));
 		tags.Add(_T("{Date}"));			replacements.Add(wxDateTime::Now().Format(m_pDateInput->GetValue()));
 		tags.Add(_T("{Time}"));			replacements.Add(wxDateTime::Now().Format(m_pTimeInput->GetValue()));
 		tags.Add(_T("{UnixTime}"));		replacements.Add(wxString::Format(_T("%lld"), (long long)wxDateTime::GetTimeNow()));
@@ -332,15 +332,15 @@ void CConfigurationDialog::UpdatePreviews()
 		tags.Add(_T("{MySteamID}"));	replacements.Add(wxString(mySteamID.SteamRender(), wxConvUTF8));
 		tags.Add(_T("{SteamID64}"));	replacements.Add(wxString::Format(_T("%llu"), friendSteamID.ConvertToUint64()));
 		tags.Add(_T("{MySteamID64}"));	replacements.Add(wxString::Format(_T("%llu"), mySteamID.ConvertToUint64()));
-		tags.Add(_T("{Name}"));			replacements.Add(_T("Christopher"));
-		tags.Add(_T("{Nickname}"));		replacements.Add(_T("Chris"));
-		tags.Add(_T("{MyName}"));		replacements.Add(_T("Your Name"));
+		tags.Add(_T("{Name}"));			replacements.Add(_("Christopher"));
+		tags.Add(_T("{Nickname}"));		replacements.Add(_("Chris"));
+		tags.Add(_T("{MyName}"));		replacements.Add(_("Your Name"));
 		tags.Add(_T("{Date}"));			replacements.Add(wxDateTime::Now().Format(m_pDateInput->GetValue()));
 		tags.Add(_T("{Time}"));			replacements.Add(wxDateTime::Now().Format(m_pTimeInput->GetValue()));
 		tags.Add(_T("{UnixTime}"));		replacements.Add(wxString::Format(_T("%lld"), (long long)wxDateTime::GetTimeNow()));
 		tags.Add(_T("{NewLine}"));		replacements.Add(_T("\n"));
 		tags.Add(_T("{Tab}"));			replacements.Add(_T("\t"));
-		tags.Add(_T("{Message}"));		replacements.Add(_T("Hello there!"));
+		tags.Add(_T("{Message}"));		replacements.Add(_("Hello there!"));
 
 		preview = CLogger::TagsReplace(preview, tags, replacements);
 
@@ -355,15 +355,15 @@ void CConfigurationDialog::UpdatePreviews()
 		tags.Add(_T("{MySteamID}"));	replacements.Add(wxString(mySteamID.SteamRender(), wxConvUTF8));
 		tags.Add(_T("{SteamID64}"));	replacements.Add(wxString::Format(_T("%llu"), friendSteamID.ConvertToUint64()));
 		tags.Add(_T("{MySteamID64}"));	replacements.Add(wxString::Format(_T("%llu"), mySteamID.ConvertToUint64()));
-		tags.Add(_T("{Name}"));			replacements.Add(_T("Christopher"));
-		tags.Add(_T("{Nickname}"));		replacements.Add(_T("Chris"));
-		tags.Add(_T("{MyName}"));		replacements.Add(_T("Your Name"));
+		tags.Add(_T("{Name}"));			replacements.Add(_("Christopher"));
+		tags.Add(_T("{Nickname}"));		replacements.Add(_("Chris"));
+		tags.Add(_T("{MyName}"));		replacements.Add(_("Your Name"));
 		tags.Add(_T("{Date}"));			replacements.Add(wxDateTime::Now().Format(m_pDateInput->GetValue()));
 		tags.Add(_T("{Time}"));			replacements.Add(wxDateTime::Now().Format(m_pTimeInput->GetValue()));
 		tags.Add(_T("{UnixTime}"));		replacements.Add(wxString::Format(_T("%lld"), (long long)wxDateTime::GetTimeNow()));
 		tags.Add(_T("{NewLine}"));		replacements.Add(_T("\n"));
 		tags.Add(_T("{Tab}"));			replacements.Add(_T("\t"));
-		tags.Add(_T("{Message}"));		replacements.Add(_T("does an emote."));
+		tags.Add(_T("{Message}"));		replacements.Add(_("does an emote."));
 
 		preview = CLogger::TagsReplace(preview, tags, replacements);
 

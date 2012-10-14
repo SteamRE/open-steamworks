@@ -6,6 +6,8 @@
 */
 
 #include <wx/stdpaths.h>
+#include <wx/snglinst.h>
+
 #include "App.h"
 
 #include "TaskBarIcon.h"
@@ -41,11 +43,18 @@ void CApp::InvalidParameterHandler(const wchar_t * expression, const wchar_t * f
 
 bool CApp::OnInit()
 {
+	static wxSingleInstanceChecker checker(wxString::Format(_T("Chat Logger++ - %s"), wxGetUserId()));
+	if(checker.IsAnotherRunning())
+	{
+		wxMessageBox(_("Chat Logger++ is already running."), _("Chat Logger++"), wxOK | wxCENTRE | wxICON_EXCLAMATION);
+		return false;
+	}
+
 	_set_invalid_parameter_handler(&InvalidParameterHandler);
 	setlocale(LC_TIME, "");
 
 	m_pTaskBarIcon = new CTaskBarIcon();
-	m_pTaskBarIcon->SetIcon(wxICON(AppIcon), L"Chat Logger++");
+	this->SetTrayIcon(k_EIconDisconnected, _("Not connected to Steam"));
 
 	m_pLogger = new CLogger();
 
@@ -89,9 +98,9 @@ void CApp::OnTaskBarIconClick(wxTaskBarIconEvent& event)
 	}
 
 	wxMenu menu;
-	menu.Append(wxID_OPEN, L"Configuration");
+	menu.Append(wxID_OPEN, _("Configuration"));
 	menu.AppendSeparator();
-	menu.Append(wxID_AUTOSTART, L"Start with Windows", wxEmptyString, wxITEM_CHECK)->Check(bAutoRun);
+	menu.Append(wxID_AUTOSTART, _("Start with Windows"), wxEmptyString, wxITEM_CHECK)->Check(bAutoRun);
 	menu.AppendSeparator();
 	menu.Append(wxID_EXIT);
 
@@ -113,7 +122,7 @@ void CApp::OnAutoStartButtonClick(wxCommandEvent& event)
 		if(event.IsChecked())
 		{
 			wxString appPath = wxStandardPaths::Get().GetExecutablePath();
-			RegSetValueExW(hkRegistry, L"Chat Logger++", 0, REG_SZ, (BYTE*)appPath.c_str(), (wcslen(appPath.c_str()) + 1) * sizeof(wchar_t));
+			RegSetValueExW(hkRegistry, L"Chat Logger++", 0, REG_SZ, (BYTE*)appPath.wc_str(), (wcslen(appPath.wc_str()) + 1) * sizeof(wchar_t));
 		}
 		else
 		{
@@ -151,6 +160,43 @@ void CApp::Message(const wxString& message)
 void CApp::Warning(const wxString& message)
 {
 	m_pTaskBarIcon->ShowMessage(_T(""), message, CTaskBarIcon::k_EIconWarning);
+}
+
+void CApp::SetTrayIcon(EIcon eIcon, const wxString& text/* = _T("")*/)
+{
+	wxString str;
+	if(text.Len())
+	{
+		str.Printf(_("Chat Logger++\n%s"), text);
+	}
+	else
+	{
+		str = _("Chat Logger++");
+	}
+
+	wxIcon icon;
+
+	switch(eIcon)
+	{
+	case k_EIconDisconnected:
+		{
+			icon = wxICON(3_AppDisconnectedIcon);
+			break;
+		}
+	case k_EIconWarning:
+		{
+			icon = wxICON(2_AppWarningIcon);
+			break;
+		}
+	case k_EIconNormal:
+	default:
+		{
+			icon = wxICON(1_AppIcon);
+			break;
+		}
+	}
+	
+	m_pTaskBarIcon->SetIcon(icon, str);
 }
 
 CLogger* CApp::GetLogger()

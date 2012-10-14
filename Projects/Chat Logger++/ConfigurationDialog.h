@@ -8,7 +8,7 @@
 #pragma once
 
 #include <wx/wx.h>
-#include <wx/msw/regconf.h>
+#include <wx/config.h>
 #include <wx/notebook.h>
 #include <wx/filepicker.h>
 
