@@ -250,11 +250,11 @@ public:
 	virtual AppId_t GetMicroTxnAppID( GID_t gidTransID ) = 0;
 	virtual uint64 GetMicroTxnOrderID( GID_t gidTransID ) = 0;
 
-	virtual bool BGetMicroTxnPrice( GID_t gidTransID, CAmount<int> *pamtTotal, CAmount<int> *pamtTax, bool *pbVat ) = 0;
+	virtual bool BGetMicroTxnPrice( GID_t gidTransID, CAmount *pamtTotal, CAmount *pamtTax, bool *pbVat ) = 0;
 
 	virtual int32 GetMicroTxnLineItemCount( GID_t gidTransID ) = 0;
 
-	virtual bool BGetMicroTxnLineItem( GID_t gidTransID, uint32 unLineItem, CAmount<int> *pamt, uint32 *punQuantity, char *pchDescription, uint32 cubDescriptionLength ) = 0;
+	virtual bool BGetMicroTxnLineItem( GID_t gidTransID, uint32 unLineItem, CAmount *pamt, uint32 *punQuantity, char *pchDescription, uint32 cubDescriptionLength ) = 0;
 
 	virtual bool BIsSandboxMicroTxn( GID_t gidTransID, bool* pbSandbox ) = 0;
 
@@ -262,7 +262,7 @@ public:
 
 	virtual void NotifyAppMicroTxnAuthResponse( AppId_t unAppID, uint64 ulOrderID, bool bAuthorized ) = 0;
 
-	virtual bool BGetWalletBalance( bool *pbHasWallet, CAmount<int> *pamtBalance ) = 0;
+	virtual bool BGetWalletBalance( bool *pbHasWallet, CAmount *pamtBalance ) = 0;
 
 	virtual SteamAPICall_t RequestMicroTxnInfo( GID_t gidTransID ) = 0;
 
