@@ -29,7 +29,10 @@ namespace Steam4NET
 		public IntPtr IsOverlayEnabled17;
 		public IntPtr BOverlayNeedsPresent18;
 		public IntPtr CheckFileSignature19;
-		private IntPtr DTorISteamUtils00520;
+		public IntPtr ShowGamepadTextInput20;
+		public IntPtr GetEnteredGamepadTextLength21;
+		public IntPtr GetEnteredGamepadTextInput22;
+		private IntPtr DTorISteamUtils00523;
 	};
 	
 	[InteropHelp.InterfaceVersion("SteamUtils005")]
@@ -160,6 +163,26 @@ namespace Steam4NET
 		public UInt64 CheckFileSignature( string szFileName ) 
 		{
 			return this.GetFunction<NativeCheckFileSignatureS>( this.Functions.CheckFileSignature19 )( this.ObjectAddress, szFileName ); 
+		}
+		
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeShowGamepadTextInputEESU( IntPtr thisptr, EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eInputLineMode, string szText, UInt32 uMaxLength );
+		public bool ShowGamepadTextInput( EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eInputLineMode, string szText, UInt32 uMaxLength ) 
+		{
+			return this.GetFunction<NativeShowGamepadTextInputEESU>( this.Functions.ShowGamepadTextInput20 )( this.ObjectAddress, eInputMode, eInputLineMode, szText, uMaxLength ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetEnteredGamepadTextLength( IntPtr thisptr );
+		public UInt32 GetEnteredGamepadTextLength(  ) 
+		{
+			return this.GetFunction<NativeGetEnteredGamepadTextLength>( this.Functions.GetEnteredGamepadTextLength21 )( this.ObjectAddress ); 
+		}
+		
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetEnteredGamepadTextInputSU( IntPtr thisptr, StringBuilder pchValue, UInt32 cchValueMax );
+		public bool GetEnteredGamepadTextInput( StringBuilder pchValue ) 
+		{
+			return this.GetFunction<NativeGetEnteredGamepadTextInputSU>( this.Functions.GetEnteredGamepadTextInput22 )( this.ObjectAddress, pchValue, (UInt32) pchValue.Capacity ); 
 		}
 		
 	};

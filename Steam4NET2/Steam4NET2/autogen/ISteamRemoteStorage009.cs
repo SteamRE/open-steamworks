@@ -7,7 +7,7 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
-	public class ISteamRemoteStorage008VTable
+	public class ISteamRemoteStorage009VTable
 	{
 		public IntPtr FileWrite0;
 		public IntPtr FileRead1;
@@ -60,11 +60,11 @@ namespace Steam4NET
 		public IntPtr SetUserPublishedFileAction48;
 		public IntPtr EnumeratePublishedFilesByUserAction49;
 		public IntPtr EnumeratePublishedWorkshopFiles50;
-		private IntPtr DTorISteamRemoteStorage00851;
+		private IntPtr DTorISteamRemoteStorage00951;
 	};
 	
-	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION008")]
-	public class ISteamRemoteStorage008 : InteropHelp.NativeWrapper<ISteamRemoteStorage008VTable>
+	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION009")]
+	public class ISteamRemoteStorage009 : InteropHelp.NativeWrapper<ISteamRemoteStorage009VTable>
 	{
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteSBI( IntPtr thisptr, string pchFile, Byte[] pvData, Int32 cubData );
@@ -221,10 +221,10 @@ namespace Steam4NET
 			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails23 )( this.ObjectAddress, hContent, ref pnAppID, ppchName, ref pnFileSizeInBytes, ref s0 ); pSteamIDOwner = new CSteamID(s0); return result;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBI( IntPtr thisptr, UInt64 hContent, Byte[] pvData, Int32 cubDataToRead );
-		public Int32 UGCRead( UInt64 hContent, Byte[] pvData ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBIU( IntPtr thisptr, UInt64 hContent, Byte[] pvData, Int32 cubDataToRead, UInt32 uOffset );
+		public Int32 UGCRead( UInt64 hContent, Byte[] pvData, UInt32 uOffset ) 
 		{
-			return this.GetFunction<NativeUGCReadUBI>( this.Functions.UGCRead24 )( this.ObjectAddress, hContent, pvData, (Int32) pvData.Length ); 
+			return this.GetFunction<NativeUGCReadUBIU>( this.Functions.UGCRead24 )( this.ObjectAddress, hContent, pvData, (Int32) pvData.Length, uOffset ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCCount( IntPtr thisptr );

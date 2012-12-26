@@ -11,7 +11,7 @@ namespace Steam4NET
 	{
 		public IntPtr GetAppData0;
 		public IntPtr GetInternalAppIDFromGameID1;
-		public IntPtr RequestAppCallbacks2;
+		public IntPtr GetAllOwnedMultiplayerApps2;
 		public IntPtr GetAppDataSection3;
 		public IntPtr RequestAppInfoUpdate4;
 		public IntPtr NotifyAppEventTriggered5;
@@ -38,10 +38,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetInternalAppIDFromGameIDC>( this.Functions.GetInternalAppIDFromGameID1 )( this.ObjectAddress, nGameID.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestAppCallbacksB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bOnlyMultiplayerApps );
-		public void RequestAppCallbacks( bool bOnlyMultiplayerApps ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAllOwnedMultiplayerAppsUI( IntPtr thisptr, ref UInt32 punAppIDs, Int32 cAppIDsMax );
+		public Int32 GetAllOwnedMultiplayerApps( ref UInt32 punAppIDs, Int32 cAppIDsMax ) 
 		{
-			this.GetFunction<NativeRequestAppCallbacksB>( this.Functions.RequestAppCallbacks2 )( this.ObjectAddress, bOnlyMultiplayerApps ); 
+			return this.GetFunction<NativeGetAllOwnedMultiplayerAppsUI>( this.Functions.GetAllOwnedMultiplayerApps2 )( this.ObjectAddress, ref punAppIDs, cAppIDsMax ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDataSectionUEBIB( IntPtr thisptr, UInt32 unAppID, EAppInfoSection eSection, Byte[] pchBuffer, Int32 cbBufferMax, [MarshalAs(UnmanagedType.I1)] bool bSharedKVSymbols );

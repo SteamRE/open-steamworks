@@ -7,7 +7,7 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
-	public class ISteamRemoteStorage008VTable
+	public class ISteamRemoteStorage010VTable
 	{
 		public IntPtr FileWrite0;
 		public IntPtr FileRead1;
@@ -16,9 +16,9 @@ namespace Steam4NET
 		public IntPtr FileShare4;
 		public IntPtr SetSyncPlatforms5;
 		public IntPtr FileWriteStreamOpen6;
-		public IntPtr FileWriteStreamClose7;
-		public IntPtr FileWriteStreamCancel8;
-		public IntPtr FileWriteStreamWriteChunk9;
+		public IntPtr FileWriteStreamWriteChunk7;
+		public IntPtr FileWriteStreamClose8;
+		public IntPtr FileWriteStreamCancel9;
 		public IntPtr FileExists10;
 		public IntPtr FilePersisted11;
 		public IntPtr GetFileSize12;
@@ -60,11 +60,11 @@ namespace Steam4NET
 		public IntPtr SetUserPublishedFileAction48;
 		public IntPtr EnumeratePublishedFilesByUserAction49;
 		public IntPtr EnumeratePublishedWorkshopFiles50;
-		private IntPtr DTorISteamRemoteStorage00851;
+		private IntPtr DTorISteamRemoteStorage01051;
 	};
 	
-	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION008")]
-	public class ISteamRemoteStorage008 : InteropHelp.NativeWrapper<ISteamRemoteStorage008VTable>
+	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION010")]
+	public class ISteamRemoteStorage010 : InteropHelp.NativeWrapper<ISteamRemoteStorage010VTable>
 	{
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteSBI( IntPtr thisptr, string pchFile, Byte[] pvData, Int32 cubData );
@@ -112,22 +112,22 @@ namespace Steam4NET
 			return this.GetFunction<NativeFileWriteStreamOpenS>( this.Functions.FileWriteStreamOpen6 )( this.ObjectAddress, pchFile ); 
 		}
 		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFileWriteStreamWriteChunkUBI( IntPtr thisptr, UInt64 hStream, Byte[] pvData, Int32 cubData );
+		public EResult FileWriteStreamWriteChunk( UInt64 hStream, Byte[] pvData ) 
+		{
+			return this.GetFunction<NativeFileWriteStreamWriteChunkUBI>( this.Functions.FileWriteStreamWriteChunk7 )( this.ObjectAddress, hStream, pvData, (Int32) pvData.Length ); 
+		}
+		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFileWriteStreamCloseU( IntPtr thisptr, UInt64 hStream );
 		public EResult FileWriteStreamClose( UInt64 hStream ) 
 		{
-			return this.GetFunction<NativeFileWriteStreamCloseU>( this.Functions.FileWriteStreamClose7 )( this.ObjectAddress, hStream ); 
+			return this.GetFunction<NativeFileWriteStreamCloseU>( this.Functions.FileWriteStreamClose8 )( this.ObjectAddress, hStream ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFileWriteStreamCancelU( IntPtr thisptr, UInt64 hStream );
 		public EResult FileWriteStreamCancel( UInt64 hStream ) 
 		{
-			return this.GetFunction<NativeFileWriteStreamCancelU>( this.Functions.FileWriteStreamCancel8 )( this.ObjectAddress, hStream ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFileWriteStreamWriteChunkUBI( IntPtr thisptr, UInt64 hStream, Byte[] pvData, Int32 cubData );
-		public EResult FileWriteStreamWriteChunk( UInt64 hStream, Byte[] pvData ) 
-		{
-			return this.GetFunction<NativeFileWriteStreamWriteChunkUBI>( this.Functions.FileWriteStreamWriteChunk9 )( this.ObjectAddress, hStream, pvData, (Int32) pvData.Length ); 
+			return this.GetFunction<NativeFileWriteStreamCancelU>( this.Functions.FileWriteStreamCancel9 )( this.ObjectAddress, hStream ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -201,10 +201,10 @@ namespace Steam4NET
 			this.GetFunction<NativeSetCloudEnabledForAppB>( this.Functions.SetCloudEnabledForApp20 )( this.ObjectAddress, bEnabled ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadU( IntPtr thisptr, UInt64 hContent );
-		public UInt64 UGCDownload( UInt64 hContent ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadUU( IntPtr thisptr, UInt64 hContent, UInt32 uUnk );
+		public UInt64 UGCDownload( UInt64 hContent, UInt32 uUnk ) 
 		{
-			return this.GetFunction<NativeUGCDownloadU>( this.Functions.UGCDownload21 )( this.ObjectAddress, hContent ); 
+			return this.GetFunction<NativeUGCDownloadUU>( this.Functions.UGCDownload21 )( this.ObjectAddress, hContent, uUnk ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -221,10 +221,10 @@ namespace Steam4NET
 			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails23 )( this.ObjectAddress, hContent, ref pnAppID, ppchName, ref pnFileSizeInBytes, ref s0 ); pSteamIDOwner = new CSteamID(s0); return result;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBI( IntPtr thisptr, UInt64 hContent, Byte[] pvData, Int32 cubDataToRead );
-		public Int32 UGCRead( UInt64 hContent, Byte[] pvData ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBIU( IntPtr thisptr, UInt64 hContent, Byte[] pvData, Int32 cubDataToRead, UInt32 uOffset );
+		public Int32 UGCRead( UInt64 hContent, Byte[] pvData, UInt32 uOffset ) 
 		{
-			return this.GetFunction<NativeUGCReadUBI>( this.Functions.UGCRead24 )( this.ObjectAddress, hContent, pvData, (Int32) pvData.Length ); 
+			return this.GetFunction<NativeUGCReadUBIU>( this.Functions.UGCRead24 )( this.ObjectAddress, hContent, pvData, (Int32) pvData.Length, uOffset ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCCount( IntPtr thisptr );

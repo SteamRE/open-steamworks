@@ -36,7 +36,8 @@ namespace Steam4NET
 		public IntPtr GetPlatformName24;
 		public IntPtr GetSteam2FullASTicket25;
 		public IntPtr SetWinningPingTimeForCellID26;
-		private IntPtr DTorISteam2Bridge00227;
+		public IntPtr GetSteam2ID27;
+		private IntPtr DTorISteam2Bridge00228;
 	};
 	
 	[InteropHelp.InterfaceVersion("STEAM2BRIDGE_INTERFACE_VERSION002")]
@@ -209,6 +210,12 @@ namespace Steam4NET
 		public void SetWinningPingTimeForCellID( UInt32 uPing ) 
 		{
 			this.GetFunction<NativeSetWinningPingTimeForCellIDU>( this.Functions.SetWinningPingTimeForCellID26 )( this.ObjectAddress, uPing ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetSteam2IDT( IntPtr thisptr, ref TSteamGlobalUserID pUserID );
+		public void GetSteam2ID( ref TSteamGlobalUserID pUserID ) 
+		{
+			this.GetFunction<NativeGetSteam2IDT>( this.Functions.GetSteam2ID27 )( this.ObjectAddress, ref pUserID ); 
 		}
 		
 	};

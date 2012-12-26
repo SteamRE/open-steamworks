@@ -16,7 +16,7 @@ namespace Steam4NET
 		k_ECurrencyCodeRUB = 5,
 		k_ECurrencyCodePLN = 6,
 		k_ECurrencyCodeBRL = 7,
-		k_ECurrencyCodeMax = 8,
+		k_ECurrencyCodeNOK = 9,
 	};
 	
 }

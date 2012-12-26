@@ -21,7 +21,9 @@ namespace Steam4NET
 		k_ERemoteStorageFileRootWinSavedGames = 9,
 		k_ERemoteStorageFileRootWinProgramData = 10,
 		k_ERemoteStorageFileRootSteamCloudDocuments = 11,
-		k_ERemoteStorageFileRootMax = 12,
+		k_ERemoteStorageFileRootWinAppDataLocalLow = 12,
+		k_ERemoteStorageFileRootMacCaches = 13,
+		k_ERemoteStorageFileRootMax = 14,
 	};
 	
 	public enum ERemoteStorageSyncState : int

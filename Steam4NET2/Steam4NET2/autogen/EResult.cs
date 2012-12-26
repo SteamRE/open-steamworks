@@ -81,6 +81,8 @@ namespace Steam4NET
 		k_EResultIPLoginRestrictionFailed = 72,
 		k_EResultAccountLocked = 73,
 		k_EResultVerifiedEmailRequired = 74,
+		k_EResultNoMatchingURL = 75,
+		k_EResultBadResponse = 76,
 	};
 	
 }

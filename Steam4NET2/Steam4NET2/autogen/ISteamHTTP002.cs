@@ -7,7 +7,7 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
-	public class IClientHTTPVTable
+	public class ISteamHTTP002VTable
 	{
 		public IntPtr CreateHTTPRequest0;
 		public IntPtr SetHTTPRequestContextValue1;
@@ -18,20 +18,19 @@ namespace Steam4NET
 		public IntPtr SendHTTPRequestAndStreamResponse6;
 		public IntPtr DeferHTTPRequest7;
 		public IntPtr PrioritizeHTTPRequest8;
-		public IntPtr CancelHTTPRequest9;
-		public IntPtr GetHTTPResponseHeaderSize10;
-		public IntPtr GetHTTPResponseHeaderValue11;
-		public IntPtr GetHTTPResponseBodySize12;
-		public IntPtr GetHTTPResponseBodyData13;
-		public IntPtr GetHTTPStreamingResponseBodyData14;
-		public IntPtr ReleaseHTTPRequest15;
-		public IntPtr GetHTTPDownloadProgressPct16;
-		public IntPtr SetHTTPRequestRawPostBody17;
-		private IntPtr DTorIClientHTTP18;
+		public IntPtr GetHTTPResponseHeaderSize9;
+		public IntPtr GetHTTPResponseHeaderValue10;
+		public IntPtr GetHTTPResponseBodySize11;
+		public IntPtr GetHTTPResponseBodyData12;
+		public IntPtr GetHTTPStreamingResponseBodyData13;
+		public IntPtr ReleaseHTTPRequest14;
+		public IntPtr GetHTTPDownloadProgressPct15;
+		public IntPtr SetHTTPRequestRawPostBody16;
+		private IntPtr DTorISteamHTTP00217;
 	};
 	
-	[InteropHelp.InterfaceVersion("CLIENTHTTP_INTERFACE_VERSION001")]
-	public class IClientHTTP : InteropHelp.NativeWrapper<IClientHTTPVTable>
+	[InteropHelp.InterfaceVersion("STEAMHTTP_INTERFACE_VERSION002")]
+	public class ISteamHTTP002 : InteropHelp.NativeWrapper<ISteamHTTP002VTable>
 	{
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeCreateHTTPRequestES( IntPtr thisptr, EHTTPMethod eHTTPRequestMethod, string pchAbsoluteURL );
 		public UInt32 CreateHTTPRequest( EHTTPMethod eHTTPRequestMethod, string pchAbsoluteURL ) 
@@ -96,66 +95,59 @@ namespace Steam4NET
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCancelHTTPRequestU( IntPtr thisptr, UInt32 hRequest );
-		public bool CancelHTTPRequest( UInt32 hRequest ) 
-		{
-			return this.GetFunction<NativeCancelHTTPRequestU>( this.Functions.CancelHTTPRequest9 )( this.ObjectAddress, hRequest ); 
-		}
-		
-		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPResponseHeaderSizeUSU( IntPtr thisptr, UInt32 hRequest, string pchHeaderName, ref UInt32 unResponseHeaderSize );
 		public bool GetHTTPResponseHeaderSize( UInt32 hRequest, string pchHeaderName, ref UInt32 unResponseHeaderSize ) 
 		{
-			return this.GetFunction<NativeGetHTTPResponseHeaderSizeUSU>( this.Functions.GetHTTPResponseHeaderSize10 )( this.ObjectAddress, hRequest, pchHeaderName, ref unResponseHeaderSize ); 
+			return this.GetFunction<NativeGetHTTPResponseHeaderSizeUSU>( this.Functions.GetHTTPResponseHeaderSize9 )( this.ObjectAddress, hRequest, pchHeaderName, ref unResponseHeaderSize ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPResponseHeaderValueUSBU( IntPtr thisptr, UInt32 hRequest, string pchHeaderName, Byte[] pHeaderValueBuffer, UInt32 unBufferSize );
 		public bool GetHTTPResponseHeaderValue( UInt32 hRequest, string pchHeaderName, Byte[] pHeaderValueBuffer ) 
 		{
-			return this.GetFunction<NativeGetHTTPResponseHeaderValueUSBU>( this.Functions.GetHTTPResponseHeaderValue11 )( this.ObjectAddress, hRequest, pchHeaderName, pHeaderValueBuffer, (UInt32) pHeaderValueBuffer.Length ); 
+			return this.GetFunction<NativeGetHTTPResponseHeaderValueUSBU>( this.Functions.GetHTTPResponseHeaderValue10 )( this.ObjectAddress, hRequest, pchHeaderName, pHeaderValueBuffer, (UInt32) pHeaderValueBuffer.Length ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPResponseBodySizeUU( IntPtr thisptr, UInt32 hRequest, ref UInt32 unBodySize );
 		public bool GetHTTPResponseBodySize( UInt32 hRequest, ref UInt32 unBodySize ) 
 		{
-			return this.GetFunction<NativeGetHTTPResponseBodySizeUU>( this.Functions.GetHTTPResponseBodySize12 )( this.ObjectAddress, hRequest, ref unBodySize ); 
+			return this.GetFunction<NativeGetHTTPResponseBodySizeUU>( this.Functions.GetHTTPResponseBodySize11 )( this.ObjectAddress, hRequest, ref unBodySize ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPResponseBodyDataUBU( IntPtr thisptr, UInt32 hRequest, Byte[] pBodyDataBuffer, UInt32 unBufferSize );
 		public bool GetHTTPResponseBodyData( UInt32 hRequest, Byte[] pBodyDataBuffer ) 
 		{
-			return this.GetFunction<NativeGetHTTPResponseBodyDataUBU>( this.Functions.GetHTTPResponseBodyData13 )( this.ObjectAddress, hRequest, pBodyDataBuffer, (UInt32) pBodyDataBuffer.Length ); 
+			return this.GetFunction<NativeGetHTTPResponseBodyDataUBU>( this.Functions.GetHTTPResponseBodyData12 )( this.ObjectAddress, hRequest, pBodyDataBuffer, (UInt32) pBodyDataBuffer.Length ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPStreamingResponseBodyDataUUBU( IntPtr thisptr, UInt32 hRequest, UInt32 arg1, Byte[] pBodyDataBuffer, UInt32 unBufferSize );
 		public bool GetHTTPStreamingResponseBodyData( UInt32 hRequest, UInt32 arg1, Byte[] pBodyDataBuffer ) 
 		{
-			return this.GetFunction<NativeGetHTTPStreamingResponseBodyDataUUBU>( this.Functions.GetHTTPStreamingResponseBodyData14 )( this.ObjectAddress, hRequest, arg1, pBodyDataBuffer, (UInt32) pBodyDataBuffer.Length ); 
+			return this.GetFunction<NativeGetHTTPStreamingResponseBodyDataUUBU>( this.Functions.GetHTTPStreamingResponseBodyData13 )( this.ObjectAddress, hRequest, arg1, pBodyDataBuffer, (UInt32) pBodyDataBuffer.Length ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeReleaseHTTPRequestU( IntPtr thisptr, UInt32 hRequest );
 		public bool ReleaseHTTPRequest( UInt32 hRequest ) 
 		{
-			return this.GetFunction<NativeReleaseHTTPRequestU>( this.Functions.ReleaseHTTPRequest15 )( this.ObjectAddress, hRequest ); 
+			return this.GetFunction<NativeReleaseHTTPRequestU>( this.Functions.ReleaseHTTPRequest14 )( this.ObjectAddress, hRequest ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPDownloadProgressPctUF( IntPtr thisptr, UInt32 hRequest, ref float pflPercentOut );
 		public bool GetHTTPDownloadProgressPct( UInt32 hRequest, ref float pflPercentOut ) 
 		{
-			return this.GetFunction<NativeGetHTTPDownloadProgressPctUF>( this.Functions.GetHTTPDownloadProgressPct16 )( this.ObjectAddress, hRequest, ref pflPercentOut ); 
+			return this.GetFunction<NativeGetHTTPDownloadProgressPctUF>( this.Functions.GetHTTPDownloadProgressPct15 )( this.ObjectAddress, hRequest, ref pflPercentOut ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetHTTPRequestRawPostBodyUSBU( IntPtr thisptr, UInt32 hRequest, string pchContentType, Byte[] pubBody, UInt32 unBodyLen );
 		public bool SetHTTPRequestRawPostBody( UInt32 hRequest, string pchContentType, Byte[] pubBody ) 
 		{
-			return this.GetFunction<NativeSetHTTPRequestRawPostBodyUSBU>( this.Functions.SetHTTPRequestRawPostBody17 )( this.ObjectAddress, hRequest, pchContentType, pubBody, (UInt32) pubBody.Length ); 
+			return this.GetFunction<NativeSetHTTPRequestRawPostBodyUSBU>( this.Functions.SetHTTPRequestRawPostBody16 )( this.ObjectAddress, hRequest, pchContentType, pubBody, (UInt32) pubBody.Length ); 
 		}
 		
 	};

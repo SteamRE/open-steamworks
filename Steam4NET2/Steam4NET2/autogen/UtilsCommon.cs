@@ -71,6 +71,20 @@ namespace Steam4NET
 		k_ESpewGroupHttpserver = 33,
 	};
 	
+	public enum EUIMode : int
+	{
+		k_EUIModeNormal = 0,
+		k_EUIModeTenFoot = 1,
+	};
+	
+	public enum EGamepadTextInputMode : int
+	{
+	};
+	
+	public enum EGamepadTextInputLineMode : int
+	{
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(701)]
 	public struct IPCountry_t

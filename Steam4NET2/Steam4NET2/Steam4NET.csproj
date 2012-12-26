@@ -120,6 +120,7 @@
     <Compile Include="autogen\ISteamApps002.cs" />
     <Compile Include="autogen\ISteamApps003.cs" />
     <Compile Include="autogen\ISteamApps004.cs" />
+    <Compile Include="autogen\ISteamApps005.cs" />
     <Compile Include="autogen\ISteamAppTicket001.cs" />
     <Compile Include="autogen\ISteamBilling001.cs" />
     <Compile Include="autogen\ISteamBilling002.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="autogen\ISteamGameServerStats001.cs" />
     <Compile Include="autogen\ISteamGameStats001.cs" />
     <Compile Include="autogen\ISteamHTTP001.cs" />
+    <Compile Include="autogen\ISteamHTTP002.cs" />
     <Compile Include="autogen\ISteamMasterServerUpdater001.cs" />
     <Compile Include="autogen\ISteamMatchmaking001.cs" />
     <Compile Include="autogen\ISteamMatchmaking002.cs" />
@@ -185,6 +187,8 @@
     <Compile Include="autogen\ISteamRemoteStorage006.cs" />
     <Compile Include="autogen\ISteamRemoteStorage007.cs" />
     <Compile Include="autogen\ISteamRemoteStorage008.cs" />
+    <Compile Include="autogen\ISteamRemoteStorage009.cs" />
+    <Compile Include="autogen\ISteamRemoteStorage010.cs" />
     <Compile Include="autogen\ISteamScreenshots001.cs" />
     <Compile Include="autogen\ISteamUser004.cs" />
     <Compile Include="autogen\ISteamUser005.cs" />

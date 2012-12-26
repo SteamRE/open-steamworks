@@ -27,16 +27,17 @@ namespace Steam4NET
 		public IntPtr GetLocalScreenshot15;
 		public IntPtr SetLocalScreenshotCaption16;
 		public IntPtr SetLocalScreenshotPrivacy17;
-		public IntPtr StartBatch18;
-		public IntPtr AddToBatch19;
-		public IntPtr UploadBatch20;
-		public IntPtr DeleteBatch21;
-		public IntPtr CancelBatch22;
-		public IntPtr RecoverOldScreenshots23;
-		public IntPtr GetTaggedUserCount24;
-		public IntPtr GetTaggedUser25;
-		public IntPtr GetLocation26;
-		private IntPtr DTorIClientScreenshots27;
+		public IntPtr SetLocalScreenshotSpoiler18;
+		public IntPtr StartBatch19;
+		public IntPtr AddToBatch20;
+		public IntPtr UploadBatch21;
+		public IntPtr DeleteBatch22;
+		public IntPtr CancelBatch23;
+		public IntPtr RecoverOldScreenshots24;
+		public IntPtr GetTaggedUserCount25;
+		public IntPtr GetTaggedUser26;
+		public IntPtr GetLocation27;
+		private IntPtr DTorIClientScreenshots28;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTSCREENSHOTS_INTERFACE_VERSION001")]
@@ -137,10 +138,10 @@ namespace Steam4NET
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLocalScreenshotCIUIIUEUSU( IntPtr thisptr, UInt64 gameID, Int32 iScreenshotIndex, ref UInt32 phScreenshot, ref Int32 piWidth, ref Int32 piHeight, ref UInt32 puTimestamp, ref EUCMFilePrivacyState pePrivacy, ref UInt64 pullFileID, StringBuilder pchCaption, UInt32 cubCaption );
-		public bool GetLocalScreenshot( CGameID gameID, Int32 iScreenshotIndex, ref UInt32 phScreenshot, ref Int32 piWidth, ref Int32 piHeight, ref UInt32 puTimestamp, ref EUCMFilePrivacyState pePrivacy, ref UInt64 pullFileID, StringBuilder pchCaption ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLocalScreenshotCIUIIUEUSUB( IntPtr thisptr, UInt64 gameID, Int32 iScreenshotIndex, ref UInt32 phScreenshot, ref Int32 piWidth, ref Int32 piHeight, ref UInt32 puTimestamp, ref EUCMFilePrivacyState pePrivacy, ref UInt64 pullFileID, StringBuilder pchCaption, UInt32 cubCaption, ref bool pbSpoiler );
+		public bool GetLocalScreenshot( CGameID gameID, Int32 iScreenshotIndex, ref UInt32 phScreenshot, ref Int32 piWidth, ref Int32 piHeight, ref UInt32 puTimestamp, ref EUCMFilePrivacyState pePrivacy, ref UInt64 pullFileID, StringBuilder pchCaption, ref bool pbSpoiler ) 
 		{
-			return this.GetFunction<NativeGetLocalScreenshotCIUIIUEUSU>( this.Functions.GetLocalScreenshot15 )( this.ObjectAddress, gameID.ConvertToUint64(), iScreenshotIndex, ref phScreenshot, ref piWidth, ref piHeight, ref puTimestamp, ref pePrivacy, ref pullFileID, pchCaption, (UInt32) pchCaption.Capacity ); 
+			return this.GetFunction<NativeGetLocalScreenshotCIUIIUEUSUB>( this.Functions.GetLocalScreenshot15 )( this.ObjectAddress, gameID.ConvertToUint64(), iScreenshotIndex, ref phScreenshot, ref piWidth, ref piHeight, ref puTimestamp, ref pePrivacy, ref pullFileID, pchCaption, (UInt32) pchCaption.Capacity, ref pbSpoiler ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -158,61 +159,68 @@ namespace Steam4NET
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLocalScreenshotSpoilerCUB( IntPtr thisptr, UInt64 arg0, UInt32 hScreenshot, [MarshalAs(UnmanagedType.I1)] bool bSpoiler );
+		public bool SetLocalScreenshotSpoiler( CGameID arg0, UInt32 hScreenshot, bool bSpoiler ) 
+		{
+			return this.GetFunction<NativeSetLocalScreenshotSpoilerCUB>( this.Functions.SetLocalScreenshotSpoiler18 )( this.ObjectAddress, arg0.ConvertToUint64(), hScreenshot, bSpoiler ); 
+		}
+		
+		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeStartBatchC( IntPtr thisptr, UInt64 gameID );
 		public bool StartBatch( CGameID gameID ) 
 		{
-			return this.GetFunction<NativeStartBatchC>( this.Functions.StartBatch18 )( this.ObjectAddress, gameID.ConvertToUint64() ); 
+			return this.GetFunction<NativeStartBatchC>( this.Functions.StartBatch19 )( this.ObjectAddress, gameID.ConvertToUint64() ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAddToBatchU( IntPtr thisptr, UInt32 hScreenshot );
 		public bool AddToBatch( UInt32 hScreenshot ) 
 		{
-			return this.GetFunction<NativeAddToBatchU>( this.Functions.AddToBatch19 )( this.ObjectAddress, hScreenshot ); 
+			return this.GetFunction<NativeAddToBatchU>( this.Functions.AddToBatch20 )( this.ObjectAddress, hScreenshot ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUploadBatchE( IntPtr thisptr, EUCMFilePrivacyState ePrivacy );
 		public UInt64 UploadBatch( EUCMFilePrivacyState ePrivacy ) 
 		{
-			return this.GetFunction<NativeUploadBatchE>( this.Functions.UploadBatch20 )( this.ObjectAddress, ePrivacy ); 
+			return this.GetFunction<NativeUploadBatchE>( this.Functions.UploadBatch21 )( this.ObjectAddress, ePrivacy ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeleteBatchB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bDeleteFromCloud );
 		public UInt64 DeleteBatch( bool bDeleteFromCloud ) 
 		{
-			return this.GetFunction<NativeDeleteBatchB>( this.Functions.DeleteBatch21 )( this.ObjectAddress, bDeleteFromCloud ); 
+			return this.GetFunction<NativeDeleteBatchB>( this.Functions.DeleteBatch22 )( this.ObjectAddress, bDeleteFromCloud ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeCancelBatch( IntPtr thisptr );
 		public bool CancelBatch(  ) 
 		{
-			return this.GetFunction<NativeCancelBatch>( this.Functions.CancelBatch22 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeCancelBatch>( this.Functions.CancelBatch23 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRecoverOldScreenshots( IntPtr thisptr );
 		public void RecoverOldScreenshots(  ) 
 		{
-			this.GetFunction<NativeRecoverOldScreenshots>( this.Functions.RecoverOldScreenshots23 )( this.ObjectAddress ); 
+			this.GetFunction<NativeRecoverOldScreenshots>( this.Functions.RecoverOldScreenshots24 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetTaggedUserCountCU( IntPtr thisptr, UInt64 gameID, UInt32 hScreenshot );
 		public Int32 GetTaggedUserCount( CGameID gameID, UInt32 hScreenshot ) 
 		{
-			return this.GetFunction<NativeGetTaggedUserCountCU>( this.Functions.GetTaggedUserCount24 )( this.ObjectAddress, gameID.ConvertToUint64(), hScreenshot ); 
+			return this.GetFunction<NativeGetTaggedUserCountCU>( this.Functions.GetTaggedUserCount25 )( this.ObjectAddress, gameID.ConvertToUint64(), hScreenshot ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeGetTaggedUserCUI( IntPtr thisptr, ref UInt64 retarg, UInt64 gameID, UInt32 hScreenshot, Int32 iUserIndex );
 		public CSteamID GetTaggedUser( CGameID gameID, UInt32 hScreenshot, Int32 iUserIndex ) 
 		{
-			UInt64 ret = 0; this.GetFunction<NativeGetTaggedUserCUI>( this.Functions.GetTaggedUser25 )( this.ObjectAddress, ref ret, gameID.ConvertToUint64(), hScreenshot, iUserIndex ); return new CSteamID(ret);
+			UInt64 ret = 0; this.GetFunction<NativeGetTaggedUserCUI>( this.Functions.GetTaggedUser26 )( this.ObjectAddress, ref ret, gameID.ConvertToUint64(), hScreenshot, iUserIndex ); return new CSteamID(ret);
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetLocationCUSU( IntPtr thisptr, UInt64 gameID, UInt32 hScreenshot, StringBuilder pchLocation, UInt32 cubLocation );
 		public bool GetLocation( CGameID gameID, UInt32 hScreenshot, StringBuilder pchLocation ) 
 		{
-			return this.GetFunction<NativeGetLocationCUSU>( this.Functions.GetLocation26 )( this.ObjectAddress, gameID.ConvertToUint64(), hScreenshot, pchLocation, (UInt32) pchLocation.Capacity ); 
+			return this.GetFunction<NativeGetLocationCUSU>( this.Functions.GetLocation27 )( this.ObjectAddress, gameID.ConvertToUint64(), hScreenshot, pchLocation, (UInt32) pchLocation.Capacity ); 
 		}
 		
 	};
