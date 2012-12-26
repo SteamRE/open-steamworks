@@ -98,6 +98,8 @@ typedef enum EResult
 	k_EResultIPLoginRestrictionFailed = 72,		// IP Login Restriction Failed
 	k_EResultAccountLocked = 73,				// Account Locked Down
 	k_EResultVerifiedEmailRequired = 74,		// Account Logon Denied Verified Email Required
+	k_EResultNoMatchingURL = 75,				// No matching URL
+	k_EResultBadResponse = 76,					// Bad response
 } EResult;
 
 #endif // ERESULT_H

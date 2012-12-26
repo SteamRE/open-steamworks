@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMREMOTESTORAGE008_H
-#define ISTEAMREMOTESTORAGE008_H
+#ifndef ISTEAMREMOTESTORAGE010_H
+#define ISTEAMREMOTESTORAGE010_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing, reading and writing files stored remotely 
 //			and cached locally
 //-----------------------------------------------------------------------------
-abstract_class ISteamRemoteStorage008
+abstract_class ISteamRemoteStorage010
 {
 public:
 	// NOTE
@@ -46,9 +46,9 @@ public:
 	virtual bool	SetSyncPlatforms( const char *pchFile, ERemoteStoragePlatform eRemoteStoragePlatform ) = 0;
 
 	virtual GID_t FileWriteStreamOpen( const char *pchFile ) = 0;
+	virtual EResult FileWriteStreamWriteChunk( GID_t hStream, const void *pvData, int32 cubData ) = 0;
 	virtual EResult FileWriteStreamClose( GID_t hStream ) = 0;
 	virtual EResult FileWriteStreamCancel( GID_t hStream ) = 0;
-	virtual EResult FileWriteStreamWriteChunk( GID_t hStream, const void *pvData, int32 cubData ) = 0;
 
 	// file information
 	virtual bool	FileExists( const char *pchFile ) = 0;
@@ -68,10 +68,10 @@ public:
 	virtual void SetCloudEnabledForApp( bool bEnabled ) = 0;
 
 	// user generated content
-	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent ) = 0; // Returns a RemoteStorageDownloadUGCResult_t callback
+	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent, uint32 uUnk ) = 0; // Returns a RemoteStorageDownloadUGCResult_t callback
 	virtual bool GetUGCDownloadProgress( UGCHandle_t hContent, uint32 *puDownloadedBytes, uint32 *puTotalBytes ) = 0;
 	virtual bool	GetUGCDetails( UGCHandle_t hContent, AppId_t *pnAppID, char **ppchName, int32 *pnFileSizeInBytes, CSteamID *pSteamIDOwner ) = 0;
-	virtual int32	UGCRead( UGCHandle_t hContent, void *pvData, int32 cubDataToRead ) = 0;
+	virtual int32	UGCRead( UGCHandle_t hContent, void *pvData, int32 cubDataToRead, uint32 uOffset ) = 0;
 
 	// user generated content iteration
 	virtual int32	GetCachedUGCCount() = 0;
@@ -106,4 +106,4 @@ public:
 	virtual SteamAPICall_t EnumeratePublishedWorkshopFiles( EWorkshopEnumerationType eType, uint32 uStartIndex, uint32 cDays, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
 };
 
-#endif // ISTEAMREMOTESTORAGE008_H
+#endif // ISTEAMREMOTESTORAGE010_H

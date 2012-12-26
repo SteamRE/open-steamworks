@@ -60,6 +60,9 @@ public:
 	virtual void UninstallDLC( AppId_t nAppID ) = 0;
 	
 	virtual void RequestAppProofOfPurchaseKey( AppId_t nDLCAppID ) = 0;
+	
+	virtual bool GetCurrentBetaName( char *pchName, int32 cchNameBufferSize ) = 0;
+	virtual bool MarkContentCorrupt( bool bCorrupt ) = 0;
 };
 
 

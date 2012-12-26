@@ -48,9 +48,10 @@ public:
 	STEAMWORKS_STRUCT_RETURN_1(CGameID, GetGameWithLocalScreenshots, int32, iGameIndex) /*virtual CGameID GetGameWithLocalScreenshots( int32 iGameIndex ) = 0;*/
 
 	virtual int32 GetLocalScreenshotCount( CGameID gameID ) = 0;
-	virtual bool GetLocalScreenshot( CGameID gameID, int32 iScreenshotIndex, ScreenshotHandle* phScreenshot, int32 *piWidth, int32 *piHeight, uint32 *puTimestamp, EUCMFilePrivacyState *pePrivacy, uint64* pullFileID, char *pchCaption, uint32 cubCaption ) = 0;
+	virtual bool GetLocalScreenshot( CGameID gameID, int32 iScreenshotIndex, ScreenshotHandle* phScreenshot, int32 *piWidth, int32 *piHeight, uint32 *puTimestamp, EUCMFilePrivacyState *pePrivacy, uint64* pullFileID, char *pchCaption, uint32 cubCaption, bool *pbSpoiler ) = 0;
 	virtual bool SetLocalScreenshotCaption( CGameID gameID, ScreenshotHandle hScreenshot, const char *cszCaption ) = 0;
 	virtual bool SetLocalScreenshotPrivacy( CGameID gameID, ScreenshotHandle hScreenshot, EUCMFilePrivacyState ePrivacy ) = 0;
+	virtual bool SetLocalScreenshotSpoiler( CGameID, ScreenshotHandle hScreenshot, bool bSpoiler ) = 0;
 
 	virtual bool StartBatch( CGameID gameID ) = 0;
 	virtual bool AddToBatch( ScreenshotHandle hScreenshot ) = 0;

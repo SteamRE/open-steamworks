@@ -188,7 +188,6 @@ public:
 
 	virtual AppId_t IsInstallScriptRunning() = 0;
 
-	virtual bool GetInstallScriptString( AppId_t nAppID, const char *pchInstallPath, const char *pchLanguage, const char *pchKeyname, const char *pchKeyvalue, char* pchValue, int32 cchValue ) = 0;
 	virtual bool GetInstallScriptState( char* pchDescription, uint32 cchDescription, uint32* punNumSteps, uint32* punCurrStep ) = 0;
 
 	virtual bool SpawnProcess( void *lpVACBlob, uint32 cbBlobSize, const char *lpApplicationName, const char *lpCommandLine, uint32 dwCreationFlags, const char *lpCurrentDirectory, CGameID gameID, AppId_t nAppID, const char *pchGameName, bool bAlwaysUseShellExec ) = 0;
@@ -197,8 +196,6 @@ public:
 	virtual uint32 GetAppOwnershipTicketData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
 
 	virtual uint32 GetAppOwnershipTicketExtendedData( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength, uint32* piAppId, uint32* piSteamId, uint32* piSignature, uint32* pcbSignature ) = 0;
-
-	virtual bool GetAppDecryptionKey( uint32 nAppID, void *pvBuffer, uint32 cbBufferLength ) = 0;
 
 	virtual int32 GetMarketingMessageCount() = 0;
 	virtual bool GetMarketingMessage( int32 cMarketingMessage, GID_t* gidMarketingMessageID, char* pubMsgUrl, int32 cubMessageUrl, EMarketingMessageFlags *eMarketingMssageFlags ) = 0;
@@ -253,11 +250,11 @@ public:
 	virtual AppId_t GetMicroTxnAppID( GID_t gidTransID ) = 0;
 	virtual uint64 GetMicroTxnOrderID( GID_t gidTransID ) = 0;
 
-	virtual bool BGetMicroTxnPrice( GID_t gidTransID, CAmount *pamtTotal, CAmount *pamtTax, bool *pbVat ) = 0;
+	virtual bool BGetMicroTxnPrice( GID_t gidTransID, CAmount<int> *pamtTotal, CAmount<int> *pamtTax, bool *pbVat ) = 0;
 
 	virtual int32 GetMicroTxnLineItemCount( GID_t gidTransID ) = 0;
 
-	virtual bool BGetMicroTxnLineItem( GID_t gidTransID, uint32 unLineItem, CAmount *pamt, uint32 *punQuantity, char *pchDescription, uint32 cubDescriptionLength ) = 0;
+	virtual bool BGetMicroTxnLineItem( GID_t gidTransID, uint32 unLineItem, CAmount<int> *pamt, uint32 *punQuantity, char *pchDescription, uint32 cubDescriptionLength ) = 0;
 
 	virtual bool BIsSandboxMicroTxn( GID_t gidTransID, bool* pbSandbox ) = 0;
 
@@ -265,7 +262,7 @@ public:
 
 	virtual void NotifyAppMicroTxnAuthResponse( AppId_t unAppID, uint64 ulOrderID, bool bAuthorized ) = 0;
 
-	virtual bool BGetWalletBalance( bool *pbHasWallet, CAmount *pamtBalance ) = 0;
+	virtual bool BGetWalletBalance( bool *pbHasWallet, CAmount<int> *pamtBalance ) = 0;
 
 	virtual SteamAPICall_t RequestMicroTxnInfo( GID_t gidTransID ) = 0;
 
@@ -313,6 +310,8 @@ public:
 	virtual void RequestNotifications() = 0;
 	
 	virtual bool GetAppOwnershipInfo( AppId_t unAppId, RTime32* pRTime32Created, char* pchCountry ) = 0; // Use a 3 bytes buffer for the country
+	
+	virtual void SendGameWebCallback( AppId_t unAppId, const char *szData ) = 0;
 };
 
 #endif // ICLIENTUSER_H

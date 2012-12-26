@@ -118,6 +118,7 @@ public:
 	virtual const char * GetPlayerNickname( CSteamID playerSteamID ) = 0;
 	virtual bool SetPlayerNickname( CSteamID playerSteamID, const char *cszNickname ) = 0;
 
+	 virtual int32 GetChatMessagesCount( CSteamID steamIDFriend ) = 0;
 	// chat message iteration
 	// returns the number of bytes in the message, filling pvData with as many of those bytes as possible
 	// returns 0 if the steamID or iChatID are invalid
@@ -190,6 +191,8 @@ public:
 	virtual bool InviteUserToChatRoom( CSteamID steamIDChat, CSteamID steamIDInvitee ) = 0;
 
 	virtual bool SendChatMsg( CSteamID steamIDChat, EChatEntryType eChatEntryType, const void *pvMsgBody, int32 cubMsgBody ) = 0;
+	
+	virtual int32 GetChatRoomMessagesCount( CSteamID steamIDChat ) = 0;
 
 	virtual int32 GetChatRoomEntry( CSteamID steamIDChat, int32 iChatID, CSteamID *steamIDuser, void *pvData, int32 cubData, EChatEntryType *peChatEntryType ) = 0;
 

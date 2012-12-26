@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMREMOTESTORAGE008_H
-#define ISTEAMREMOTESTORAGE008_H
+#ifndef ISTEAMREMOTESTORAGE009_H
+#define ISTEAMREMOTESTORAGE009_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing, reading and writing files stored remotely 
 //			and cached locally
 //-----------------------------------------------------------------------------
-abstract_class ISteamRemoteStorage008
+abstract_class ISteamRemoteStorage009
 {
 public:
 	// NOTE
@@ -71,7 +71,7 @@ public:
 	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent ) = 0; // Returns a RemoteStorageDownloadUGCResult_t callback
 	virtual bool GetUGCDownloadProgress( UGCHandle_t hContent, uint32 *puDownloadedBytes, uint32 *puTotalBytes ) = 0;
 	virtual bool	GetUGCDetails( UGCHandle_t hContent, AppId_t *pnAppID, char **ppchName, int32 *pnFileSizeInBytes, CSteamID *pSteamIDOwner ) = 0;
-	virtual int32	UGCRead( UGCHandle_t hContent, void *pvData, int32 cubDataToRead ) = 0;
+	virtual int32	UGCRead( UGCHandle_t hContent, void *pvData, int32 cubDataToRead, uint32 uOffset ) = 0;
 
 	// user generated content iteration
 	virtual int32	GetCachedUGCCount() = 0;
@@ -106,4 +106,4 @@ public:
 	virtual SteamAPICall_t EnumeratePublishedWorkshopFiles( EWorkshopEnumerationType eType, uint32 uStartIndex, uint32 cDays, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
 };
 
-#endif // ISTEAMREMOTESTORAGE008_H
+#endif // ISTEAMREMOTESTORAGE009_H

@@ -64,15 +64,11 @@
 			Name="Link Libraries"
 			>
 			<File
-				RelativePath="..\Resources\steam.lib"
+				RelativePath="..\Resources\Libs\Win32\Steam.lib"
 				>
 			</File>
 			<File
-				RelativePath="..\Resources\steam_api.lib"
-				>
-			</File>
-			<File
-				RelativePath="..\Resources\steamclient.lib"
+				RelativePath="..\Resources\Libs\Win32\steamclient.lib"
 				>
 			</File>
 		</Filter>
@@ -590,6 +586,14 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamRemoteStorage009.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamRemoteStorage010.h"
+						>
+					</File>
+					<File
 						RelativePath=".\RemoteStorageCommon.h"
 						>
 					</File>
@@ -791,6 +795,10 @@
 					</File>
 					<File
 						RelativePath=".\ISteamHTTP001.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamHTTP002.h"
 						>
 					</File>
 				</Filter>

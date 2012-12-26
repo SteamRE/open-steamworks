@@ -103,6 +103,22 @@ enum ESpewGroup
 	k_ESpewGroupHttpserver = 33,
 };
 
+enum EUIMode
+{
+	k_EUIModeNormal = 0,
+	k_EUIModeTenFoot = 1,
+};
+
+enum EGamepadTextInputMode
+{
+	// TODO: Reverse this enum
+};
+
+enum EGamepadTextInputLineMode
+{
+	// TODO: Reverse this enum
+};
+
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: The country of the user changed

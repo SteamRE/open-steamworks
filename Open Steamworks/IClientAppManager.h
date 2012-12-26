@@ -28,7 +28,7 @@
 abstract_class UNSAFE_INTERFACE IClientAppManager
 {
 public:
-	virtual EAppUpdateError InstallApp( AppId_t unAppID, bool ) = 0;
+	virtual EAppUpdateError InstallApp( AppId_t unAppID, const char *cszAppDir, int32 iBaseFolder, bool bLegacy ) = 0;
 	virtual EAppUpdateError ConvertFromSteam2( AppId_t unAppID, const char *cszPath ) = 0;
 	virtual EAppUpdateError UninstallApp( AppId_t unAppID, bool bComplete ) = 0;
 
@@ -40,7 +40,11 @@ public:
 	// /!\ IPC is broken for this function
 	virtual bool GetAppSizeOnDisk( AppId_t unAppID, uint64 *pullAppSize, uint64 *pullUnk ) = 0;
 	
-	virtual uint32 GetAppDir( AppId_t unAppID, char *pchPath, uint32 cbPath ) = 0;
+	virtual uint32 GetAppInstallDir( AppId_t unAppID, char *pchPath, uint32 cbPath ) = 0;
+	
+	virtual bool IsAppDlcInstalled( AppId_t unAppID, AppId_t unDLCAppID ) = 0;
+	virtual uint32 GetNumInstalledApps() = 0;
+	virtual uint32 GetInstalledApps( uint32 *punAppIDs, uint32 cAppIDsMax ) = 0;
 
 	virtual uint32 GetAppDependency( AppId_t unAppID ) = 0;
 	virtual uint32 GetDependentApps( AppId_t unAppID, AppId_t *punAppIDs, int32 cAppIDsMax ) = 0;
@@ -50,11 +54,13 @@ public:
 
 	virtual bool SetContentLocked( AppId_t unAppID, bool bLockContent ) = 0;
 
-	virtual bool StartValidatingApp( AppId_t unAppID ) = 0;
-
 	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int32 cbBuffer, bool bSharedKVSymbols ) = 0;
+	virtual int32 GetAppConfigValue( AppId_t unAppID, const char *pchKey, char *pchValue, int32 cchValueMax ) = 0;
 
 	virtual bool BIsAppUpToDate( AppId_t unAppID ) = 0;
+	
+	virtual bool StartValidatingApp( AppId_t unAppID ) = 0;
+	virtual bool MarkContentCorrupt( AppId_t unAppID, bool bCorrupt ) = 0;
 	
 	virtual bool BCacheBetaPassword( AppId_t unAppID, const char *cszBetaKey, const char *cszBetaPassword ) = 0;
 	virtual bool BRequestBetaPasswords( AppId_t unAppID ) = 0;
@@ -77,12 +83,20 @@ public:
 	virtual bool BuildBackup( AppId_t unAppID, uint64 ullMaxFileSize, const char *cszBackupPath ) = 0;
 	virtual bool BuildInstaller( const char *cszProjectFile, const char *cszBackupPath, const char * ) = 0;
 	virtual bool CancelBackup() = 0;
-	virtual EAppUpdateError RestoreApp( AppId_t unAppID, char const *cszBackupPath ) = 0;
+	virtual EAppUpdateError RestoreApp( AppId_t unAppID, int32 iBaseFolder, char const *cszBackupPath ) = 0;
 	virtual bool BNeedsFile( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;
 	virtual bool BAddFileOnDisk( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk, SHADigestWrapper_t ubSha1 ) = 0;
 	virtual uint64 FinishAddingFiles( AppId_t unAppID ) = 0;
 
 	virtual bool GetAppStateInfo( AppId_t unAppID, EAppReleaseState * peReleaseState, EAppOwernshipFlags * peOwernshipFlags ) = 0;
+	
+	virtual int32 GetNumInstallBaseFolders() = 0;
+	virtual int32 GetInstallBaseFolder( int32 iBaseFolder, char *pchPath, int32 cbPath ) = 0;
+	virtual int32 AddInstallBaseFolder( const char *szPath ) = 0;
+	virtual bool RemoveInstallBaseFolder( int32 iBaseFolder ) = 0;
+	virtual uint64 GetFreeDiskSpace( int32 iBaseFolder ) = 0;
+	
+	virtual void ForceInstallDirOverride( const char *cszPath ) = 0;
 };
 
 #endif // ICLIENTAPPMANAGER_H

@@ -193,10 +193,11 @@ public:
 	bool m_bRelay : 1;
 };
 
+template <typename T>
 class CAmount
 {
 public:
-	int m_nAmount;
+	T m_nAmount;
 	ECurrencyCode m_eCurrencyCode;
 };
 

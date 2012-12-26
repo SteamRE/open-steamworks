@@ -126,9 +126,8 @@ enum EAppUpdateError
 	k_EAppErrorTimeout = 7,
 	k_EAppErrorMissingKey = 8,
 	k_EAppErrorMissingConfig = 9,
-	k_EAppErrorMissingContent = 10,
-	k_EAppErrorDiskFailed = 11,
-	k_EAppErrorNotEnoughDiskSpace = 12,
+	k_EAppErrorDiskReadFailure = 10,
+	k_EAppErrorDiskWriteFailure = 11,
 	k_EAppErrorCorruptContent = 13,
 	k_EAppErrorWaitingForDisk = 14,
 	k_EAppErrorInvalidInstallPath = 15,
@@ -143,6 +142,9 @@ enum EAppUpdateError
 	k_EAppErrorMissingManifest = 24,
 	k_EAppErrorNotReleased = 25,
 	k_EAppErrorRegionRestricted = 26,
+	k_EAppErrorCorruptDepotCache = 27,
+	k_EAppErrorMissingExecutable = 28,
+	k_EAppErrorInvalidPlatform = 29,
 };
 
 //-----------------------------------------------------------------------------

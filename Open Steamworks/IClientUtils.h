@@ -23,7 +23,6 @@
 #include "SteamTypes.h"
 #include "UtilsCommon.h"
 
-
 abstract_class UNSAFE_INTERFACE IClientUtils
 {
 public:
@@ -35,6 +34,7 @@ public:
 	// return the number of seconds since the user 
 	virtual uint32 GetSecondsSinceAppActive() = 0;
 	virtual uint32 GetSecondsSinceComputerActive() = 0;
+	virtual void SetComputerActive() = 0;
 
 	// the universe this client is connecting to
 	virtual EUniverse GetConnectedUniverse() = 0;
@@ -86,6 +86,12 @@ public:
 	virtual SteamAPICall_t CheckFileSignature( const char *szFileName ) = 0;
 
 	virtual uint64 GetBuildID() = 0;
+
+	virtual void SetCurrentUIMode( EUIMode eUIMode ) = 0;
+	virtual bool ShowGamepadTextInput( EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eInputLineMode, const char *szText, uint32 uMaxLength ) = 0;
+	virtual uint32 GetEnteredGamepadTextLength() = 0;
+	virtual bool GetEnteredGamepadTextInput( char *pchValue, uint32 cchValueMax ) = 0;
+	virtual void GamepadTextInputClosed( HSteamPipe hSteamPipe, bool, const char * ) = 0;
 
 	virtual void SetSpew( ESpewGroup eSpewGroup, int32 iSpewLevel, int32 iLogLevel ) = 0;
 };

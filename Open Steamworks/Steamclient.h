@@ -80,6 +80,7 @@
 #include "ISteamApps002.h"
 #include "ISteamApps003.h"
 #include "ISteamApps004.h"
+#include "ISteamApps005.h"
 
 // user stats
 #include "ISteamUserStats001.h"
@@ -151,6 +152,8 @@
 #include "ISteamRemoteStorage006.h"
 #include "ISteamRemoteStorage007.h"
 #include "ISteamRemoteStorage008.h"
+#include "ISteamRemoteStorage009.h"
+#include "ISteamRemoteStorage010.h"
 
 // content server
 #include "ISteamContentServer001.h"
@@ -174,6 +177,7 @@
 
 // http
 #include "ISteamHTTP001.h"
+#include "ISteamHTTP002.h"
 
 #ifndef NO_ICLIENT
 // client interfaces

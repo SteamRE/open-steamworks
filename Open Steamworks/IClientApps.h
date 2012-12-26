@@ -34,7 +34,7 @@ public:
 
 	virtual AppId_t GetInternalAppIDFromGameID( CGameID nGameID ) = 0;
 
-	virtual void RequestAppCallbacks( bool bOnlyMultiplayerApps ) = 0;
+	virtual int32 GetAllOwnedMultiplayerApps( uint32 *punAppIDs, int32 cAppIDsMax ) = 0;
 
 	virtual int32 GetAppDataSection( AppId_t unAppID, EAppInfoSection eSection, uint8 *pchBuffer, int32 cbBufferMax, bool bSharedKVSymbols ) = 0;
 	virtual bool RequestAppInfoUpdate( const AppId_t *pAppIDs, int32 nNumAppIDs, bool bForceUpdate ) = 0;

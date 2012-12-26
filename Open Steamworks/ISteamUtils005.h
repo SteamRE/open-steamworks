@@ -110,6 +110,10 @@ public:
 	//   k_ECheckFileSignatureInvalidSignature - The file exists, and the signing tab has been set for this file, but the file is either not signed or the signature does not match.
 	//   k_ECheckFileSignatureValidSignature - The file is signed and the signature is valid.
 	virtual SteamAPICall_t CheckFileSignature( const char *szFileName ) = 0;
+	
+	virtual bool ShowGamepadTextInput( EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eInputLineMode, const char *szText, uint32 uMaxLength ) = 0;
+	virtual uint32 GetEnteredGamepadTextLength() = 0;
+	virtual bool GetEnteredGamepadTextInput( char *pchValue, uint32 cchValueMax ) = 0;
 };
 
 #endif // ISTEAMUTILS005_H
