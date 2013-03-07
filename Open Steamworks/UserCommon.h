@@ -852,7 +852,37 @@ struct FriendUserStatusPublished_t
 
 	CSteamID m_steamIDFriend;
 	AppId_t m_unAppID;
-	char m_szStatus;
+	char m_szStatus[512];
+};
+
+struct UpdateOfflineMessageNotification_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 62 };
+	
+	// TODO : Reverse this callback
+};
+
+struct FriendMessageHistoryChatLog_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 63 };
+	
+	// TODO : Reverse this callback
+};
+
+struct TestAvailablePasswordResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 64 };
+	
+	// TODO : Reverse this callback
+};
+
+// 65 ??
+
+struct GetSteamGuardDetailsResponse_t
+{
+	enum { k_iCallback = k_iClientUserCallbacks + 66 };
+	
+	// TODO : Reverse this callback
 };
 
 #pragma pack( pop )

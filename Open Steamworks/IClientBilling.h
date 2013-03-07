@@ -36,8 +36,6 @@ public:
 
 	virtual bool CancelLicense( PackageId_t packageID, int32 nCancelReason ) = 0;
 
-	virtual bool AcknowledgePurchaseReceipt( uint32 nReceiptIndex ) = 0;
-
 	virtual PackageId_t GetLicensePackageID( uint32 nLicenseIndex ) = 0;
 	virtual RTime32 GetLicenseTimeCreated( uint32 nLicenseIndex ) = 0;
 	virtual RTime32 GetLicenseTimeNextProcess( uint32 nLicenseIndex ) = 0;
@@ -54,7 +52,6 @@ public:
 	virtual EPurchaseResultDetail GetReceiptResultDetail( uint32 nReceiptIndex ) = 0;
 	virtual RTime32 GetReceiptTransTime( uint32 nReceiptIndex ) = 0;
 	virtual uint64 GetReceiptTransID( uint32 nReceiptIndex ) = 0;
-	virtual bool GetReceiptAcknowledged( uint32 nReceiptIndex ) = 0;
 	virtual EPaymentMethod GetReceiptPaymentMethod( uint32 nReceiptIndex ) = 0;
 	virtual uint32 GetReceiptBaseCost( uint32 nReceiptIndex ) = 0;
 	virtual uint32 GetReceiptTotalDiscount( uint32 nReceiptIndex ) = 0;

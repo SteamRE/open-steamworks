@@ -38,7 +38,8 @@ public:
 
 	virtual bool SetLocation( CGameID gameID, ScreenshotHandle hScreenshot, const char *cszLocation ) = 0;
 	virtual bool TagUser( CGameID gameID, ScreenshotHandle hScreenshot, CSteamID userID ) = 0;
-
+	virtual bool TagPublishedFile( CGameID gameID, ScreenshotHandle hScreenshot, PublishedFileId_t unPublishedFileId ) = 0;
+	
 	virtual bool ResolvePath( CGameID gameID, ScreenshotHandle hScreenshot, bool bUnk, char *szResolvedPath, uint32 cubResolvedPath ) = 0;
 	virtual uint32 GetSizeOnDisk( CGameID gameID, ScreenshotHandle hScreenshot ) = 0;
 	virtual uint32 GetSizeInCloud( CGameID gameID, ScreenshotHandle hScreenshot ) = 0;
@@ -60,9 +61,12 @@ public:
 	virtual bool CancelBatch() = 0;
 
 	virtual void RecoverOldScreenshots() = 0;
-	virtual int32 GetTaggedUserCount( CGameID gameID, ScreenshotHandle hScreenshot ) = 0;
+	virtual uint32 GetTaggedUserCount( CGameID gameID, ScreenshotHandle hScreenshot ) = 0;
 	STEAMWORKS_STRUCT_RETURN_3(CSteamID, GetTaggedUser, CGameID, gameID, ScreenshotHandle, hScreenshot, int32, iUserIndex) /*virtual CSteamID GetTaggedUser( CGameID gameID, ScreenshotHandle hScreenshot, int32 iUserIndex ) = 0;*/
 	virtual bool GetLocation( CGameID gameID, ScreenshotHandle hScreenshot, char *pchLocation, uint32 cubLocation ) = 0;
+	
+	virtual uint32 GetTaggedPublishedFileCount( CGameID gameID, ScreenshotHandle hScreenshot ) = 0;
+	virtual PublishedFileId_t GetTaggedPublishedFile( CGameID gameID, ScreenshotHandle hScreenshot, int32 iPublishedFileIndex ) = 0;
 };
 
 #endif // ICLIENTSCREENSHOTS_H

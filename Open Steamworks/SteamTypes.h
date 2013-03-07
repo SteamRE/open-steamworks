@@ -687,6 +687,7 @@ enum ECallbackType
 	k_iClientScreenshotsCallbacks = 2200,
 	k_iSteamScreenshotsCallbacks = 2300,
 	k_iClientAudioCallbacks = 2400,
+	k_iSteamUnifiedMessagesCallbacks = 2500,
 };
 
 

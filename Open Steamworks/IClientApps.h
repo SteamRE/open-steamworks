@@ -37,7 +37,7 @@ public:
 	virtual int32 GetAllOwnedMultiplayerApps( uint32 *punAppIDs, int32 cAppIDsMax ) = 0;
 
 	virtual int32 GetAppDataSection( AppId_t unAppID, EAppInfoSection eSection, uint8 *pchBuffer, int32 cbBufferMax, bool bSharedKVSymbols ) = 0;
-	virtual bool RequestAppInfoUpdate( const AppId_t *pAppIDs, int32 nNumAppIDs, bool bForceUpdate ) = 0;
+	virtual bool RequestAppInfoUpdate( const AppId_t *pAppIDs, int32 nNumAppIDs ) = 0;
 
 	virtual void NotifyAppEventTriggered( AppId_t unAppID, EAppEvent eAppEvent ) = 0;
 	virtual void NotifyDlcInstalled( AppId_t unAppID ) = 0;

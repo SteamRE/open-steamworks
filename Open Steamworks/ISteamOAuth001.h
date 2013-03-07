@@ -24,7 +24,7 @@
 #include "OAuthCommon.h"
 
 
-abstract_class ISteamOAuth001
+abstract_class OBSOLETE_INTERFACE ISteamOAuth001
 {
 public:
 	virtual SteamAPICall_t RequestOAuthTokenForApp( const char *cszOAuthScope ) = 0;

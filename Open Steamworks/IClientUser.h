@@ -166,6 +166,9 @@ public:
 
 	virtual bool BIsAnyGameRunning() = 0;
 
+	virtual void TestAvailablePassword( const uint8 *pubDigestPassword, int32 cubDigestPassword ) = 0;
+	virtual void GetSteamGuardDetails() = 0;
+
 	virtual void ChangePassword( const char *pchOldPassword, const char *pchNewPassword ) = 0;
 	virtual void ChangeEmail( const char *, const char *pchEmail ) = 0;
 	virtual void ChangeSecretQuestionAndAnswer( const char *, int32 iQuestion, const char *pchNewQuestion, const char *pchNewAnswer ) = 0;
@@ -214,10 +217,6 @@ public:
 	virtual SteamAPICall_t RequestEncryptedAppTicket( const void *pUserData, int32 cbUserData ) = 0;
 	virtual bool GetEncryptedAppTicket( void *pTicket, int32 cbMaxTicket, uint32 *pcbTicket ) = 0;
 
-	virtual SteamAPICall_t RequestOAuthTokenForApp( const char *cszOAuthScope ) = 0;
-	virtual bool GetOAuthTokenForApp( void *pubBuffer, int32 cubBuffer, uint32 *puTokenSize ) = 0;
-	virtual void InvalidateOAuthTokenForApp() = 0;
-
 	virtual void SetAccountLimited( bool bAccountLimited ) = 0;
 	virtual bool BIsAccountLimited() = 0;
 
@@ -254,13 +253,13 @@ public:
 
 	virtual int32 GetMicroTxnLineItemCount( GID_t gidTransID ) = 0;
 
-	virtual bool BGetMicroTxnLineItem( GID_t gidTransID, uint32 unLineItem, CAmount *pamt, uint32 *punQuantity, char *pchDescription, uint32 cubDescriptionLength ) = 0;
+	virtual bool BGetMicroTxnLineItem( GID_t gidTransID, uint32 unLineItem, CAmount *pamt, uint32 *punQuantity, char *pchDescription, uint32 cubDescriptionLength, int32 *pRecurringTimeUnit, uint8 *pRecurringFrequency, CAmount *pRecurringAmount ) = 0;
 
 	virtual bool BIsSandboxMicroTxn( GID_t gidTransID, bool* pbSandbox ) = 0;
+	
+	virtual bool BMicroTxnRequiresCachedPmtMethod( GID_t gidTransID, bool *pbRequired ) = 0;
 
 	virtual SteamAPICall_t AuthorizeMicroTxn( GID_t gidTransID, EMicroTxnAuthResponse eMicroTxnAuthResponse ) = 0;
-
-	virtual void NotifyAppMicroTxnAuthResponse( AppId_t unAppID, uint64 ulOrderID, bool bAuthorized ) = 0;
 
 	virtual bool BGetWalletBalance( bool *pbHasWallet, CAmount *pamtBalance ) = 0;
 
@@ -286,6 +285,10 @@ public:
 	virtual bool GetSteamGuardRequireCodeByDefault() = 0;
 	virtual bool ShowSteamGuardProviderOptions() = 0;
 	virtual bool SteamGuardProviderMobileIsOption() = 0;
+
+	virtual bool BSteamGuardNewMachineNotification() = 0;
+	virtual RTime32 GetSteamGuardEnabledTime() = 0;
+	virtual bool GetSteamGuardHistoryEntry( int32 iEntryIndex, RTime32 *puTimestamp, uint32 *puIP, bool *pbIsRemembered ) = 0;
 
 	virtual bool BAccountCanUseIPT() = 0;
 	virtual void ChangeTwoFactorAuthOptions( int32 eOption ) = 0;

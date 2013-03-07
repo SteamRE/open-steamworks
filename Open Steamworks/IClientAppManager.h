@@ -40,7 +40,7 @@ public:
 	// /!\ IPC is broken for this function
 	virtual bool GetAppSizeOnDisk( AppId_t unAppID, uint64 *pullAppSize, uint64 *pullUnk ) = 0;
 	
-	virtual uint32 GetAppInstallDir( AppId_t unAppID, char *pchPath, uint32 cbPath ) = 0;
+	virtual uint32 GetAppInstallDir( AppId_t unAppID, char *pchPath, uint32 cchPath ) = 0;
 	
 	virtual bool IsAppDlcInstalled( AppId_t unAppID, AppId_t unDLCAppID ) = 0;
 	virtual uint32 GetNumInstalledApps() = 0;
@@ -48,7 +48,6 @@ public:
 
 	virtual uint32 GetAppDependency( AppId_t unAppID ) = 0;
 	virtual uint32 GetDependentApps( AppId_t unAppID, AppId_t *punAppIDs, int32 cAppIDsMax ) = 0;
-	virtual bool RemoveAppDependencies( AppId_t unAppID ) = 0;
 
 	virtual uint32 GetUpdateInfo( AppId_t unAppID, AppUpdateInfo_s *pUpdateInfo ) = 0;
 
@@ -56,11 +55,17 @@ public:
 
 	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int32 cbBuffer, bool bSharedKVSymbols ) = 0;
 	virtual int32 GetAppConfigValue( AppId_t unAppID, const char *pchKey, char *pchValue, int32 cchValueMax ) = 0;
+	virtual bool SetAppConfigValue( AppId_t unAppID, const char *pchKey, const char *pchValue ) = 0;
 
 	virtual bool BIsAppUpToDate( AppId_t unAppID ) = 0;
 	
+	virtual uint32 GetAvailableLaunchOptions( AppId_t unAppID, uint32 puOptions[], uint32 cuOptionsMax ) = 0;
+	virtual uint32 GetAvailableLanguages( AppId_t unAppID, bool, char *pchLanguages, uint32 cchLanguagesMax ) = 0;
+	
 	virtual bool StartValidatingApp( AppId_t unAppID ) = 0;
 	virtual bool MarkContentCorrupt( AppId_t unAppID, bool bCorrupt ) = 0;
+	
+	virtual uint32 GetInstalledDepots( AppId_t unAppID, AppId_t puDepots[], uint32 cuDepotsMax ) = 0;
 	
 	virtual bool BCacheBetaPassword( AppId_t unAppID, const char *cszBetaKey, const char *cszBetaPassword ) = 0;
 	virtual bool BRequestBetaPasswords( AppId_t unAppID ) = 0;
@@ -86,9 +91,9 @@ public:
 	virtual EAppUpdateError RestoreApp( AppId_t unAppID, int32 iBaseFolder, char const *cszBackupPath ) = 0;
 	virtual bool BNeedsFile( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk ) = 0;
 	virtual bool BAddFileOnDisk( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk, SHADigestWrapper_t ubSha1 ) = 0;
-	virtual uint64 FinishAddingFiles( AppId_t unAppID ) = 0;
+	virtual uint32 FinishAddingFiles( AppId_t unAppID ) = 0;
 
-	virtual bool GetAppStateInfo( AppId_t unAppID, EAppReleaseState * peReleaseState, EAppOwernshipFlags * peOwernshipFlags ) = 0;
+	virtual bool GetAppStateInfo( AppId_t unAppID, EAppReleaseState * peReleaseState, EAppOwernshipFlags * peOwernshipFlags, EAppState * peAppState ) = 0;
 	
 	virtual int32 GetNumInstallBaseFolders() = 0;
 	virtual int32 GetInstallBaseFolder( int32 iBaseFolder, char *pchPath, int32 cbPath ) = 0;

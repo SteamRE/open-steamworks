@@ -118,11 +118,13 @@ public:
 	virtual const char * GetPlayerNickname( CSteamID playerSteamID ) = 0;
 	virtual bool SetPlayerNickname( CSteamID playerSteamID, const char *cszNickname ) = 0;
 
+	virtual uint32 GetFriendsSteamLevel( CSteamID steamIDFriend ) = 0;
+	
 	 virtual int32 GetChatMessagesCount( CSteamID steamIDFriend ) = 0;
 	// chat message iteration
 	// returns the number of bytes in the message, filling pvData with as many of those bytes as possible
 	// returns 0 if the steamID or iChatID are invalid
-	virtual int32 GetChatMessage( CSteamID steamIDFriend, int32 iChatID, void *pvData, int32 cubData, EChatEntryType *peChatEntryType, CSteamID* pSteamIDChatter ) = 0;
+	virtual int32 GetChatMessage( CSteamID steamIDFriend, int32 iChatID, void *pvData, int32 cubData, EChatEntryType *peChatEntryType, CSteamID* pSteamIDChatter, RTime32 *puTime ) = 0;
 
 	// generic friend->friend message sending, takes a sized buffer
 	virtual bool SendMsgToFriend( CSteamID steamIDFriend, EChatEntryType eChatEntryType, const void *pvMsgBody, int32 cubMsgBody ) = 0;
@@ -371,6 +373,10 @@ public:
 	virtual SteamAPICall_t GetFollowerCount( CSteamID steamID ) = 0;
 	virtual SteamAPICall_t IsFollowing( CSteamID steamID ) = 0;
 	virtual SteamAPICall_t EnumerateFollowingList( uint32 uStartIndex ) = 0;
+
+	virtual bool BOfflineMessagesEnabled() = 0;
+	virtual void RequestFriendMessageHistory( CSteamID steamIDFriend ) = 0;
+	virtual void RequestFriendMessageHistoryForOfflineMessages() = 0;
 };
 
 #endif // ICLIENTFRIENDS_H

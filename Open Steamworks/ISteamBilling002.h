@@ -52,7 +52,6 @@ public:
 	virtual bool CancelLicense( PackageId_t nPackageID, int32 nCancelReason ) = 0;
 
 	virtual bool GetPurchaseReceipts( bool bUnacknowledgedOnly ) = 0;
-	virtual bool AcknowledgePurchaseReceipt( uint32 nReceiptIndex ) = 0;
 
 	// Sets the billing address in the ISteamBilling object for use by other ISteamBilling functions (not stored on server)
 	virtual bool SetBillingAddress( uint32 nCardIndex, const char *pchFirstName, const char *pchLastName, const char *pchAddress1, const char *pchAddress2, const char *pchCity, const char *pchPostcode, const char *pchState, const char *pchCountry, const char *pchPhone ) = 0;
@@ -84,7 +83,6 @@ public:
 	virtual EPurchaseResultDetail GetReceiptResultDetail( uint32 nReceiptIndex ) = 0;
 	virtual RTime32 GetReceiptTransTime( uint32 nReceiptIndex ) = 0;
 	virtual uint64 GetReceiptTransID( uint32 nReceiptIndex ) = 0;
-	virtual bool GetReceiptAcknowledged( uint32 nReceiptIndex ) = 0;
 	virtual EPaymentMethod GetReceiptPaymentMethod( uint32 nReceiptIndex ) = 0;
 	virtual uint32 GetReceiptBaseCost( uint32 nReceiptIndex ) = 0;
 	virtual uint32 GetReceiptTotalDiscount( uint32 nReceiptIndex ) = 0;

@@ -63,6 +63,9 @@ public:
 	
 	virtual bool GetCurrentBetaName( char *pchName, int32 cchNameBufferSize ) = 0;
 	virtual bool MarkContentCorrupt( bool bCorrupt ) = 0;
+	
+	virtual uint32 GetInstalledDepots( AppId_t puDepots[], uint32 cuDepotsMax ) = 0;
+	virtual uint32 GetAppInstallDir( char *pchPath, uint32 cchPath ) = 0;
 };
 
 

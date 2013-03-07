@@ -39,10 +39,11 @@ enum EAppState
 	k_EAppStateUpdateRequired	= 2,
 	k_EAppStateFullyInstalled	= 4,
 	k_EAppStateDataEncrypted	= 8,
+	k_EAppStateSharedOnly		= 64,
 	k_EAppStateDataLocked		= 16,
 	k_EAppStateFilesMissing		= 32,
 	k_EAppStateFilesCorrupt		= 128,
-	k_EAppStateAppRunning		= 64,
+	k_EAppStateAppRunning		= 8192,
 	k_EAppStateBackupRunning	= 4096,
 	k_EAppStateUpdateRunning	= 256,
 	k_EAppStateUpdateStopping	= 8388608,
@@ -145,6 +146,8 @@ enum EAppUpdateError
 	k_EAppErrorCorruptDepotCache = 27,
 	k_EAppErrorMissingExecutable = 28,
 	k_EAppErrorInvalidPlatform = 29,
+	k_EAppErrorInvalidFileSystem = 30,
+	k_EAppErrorCorruptUpdateFiles = 31,
 };
 
 //-----------------------------------------------------------------------------
@@ -166,6 +169,7 @@ enum EAppOwernshipFlags
 	k_EAppOwernshipFlagsFreeLicense =		1 << 1,
 	k_EAppOwernshipFlagsRegionRestricted =	1 << 2,
 	k_EAppOwernshipFlagsLowViolence =		1 << 3,
+	k_EAppOwernshipFlagsInvalidPlatform =	1 << 4,
 };
 
 enum EAppReleaseState
@@ -211,6 +215,7 @@ struct AppInfoUpdateComplete_t
 
 	EResult m_EResult;
 	uint32 m_cAppsUpdated;
+	bool m_bSteam2CDDBChanged;
 };
 
 struct AppEventTriggered_t
@@ -246,12 +251,13 @@ struct AppValidationComplete_t
 	enum { k_iCallback = k_iSteamAppsCallbacks + 7 };
 
 	AppId_t m_nAppID;
-	EResult m_eResult;
+	bool m_bFinished;
 
 	uint64 m_TotalBytesValidated;
 	uint64 m_TotalBytesFailed;
 	uint32 m_TotalFilesValidated;
 	uint32 m_TotalFilesFailed;
+	uint32 m_TotalFilesFailedCEGFiles;
 };
 
 //-----------------------------------------------------------------------------
@@ -282,11 +288,26 @@ struct DlcInstallRequest_t
 	bool m_bInstall;
 };
 
+struct AppLaunchTenFootOverlay_t
+{
+	enum { k_iCallback = k_iSteamAppsCallbacks + 11 };
+
+	CGameID m_GameID;
+	uint64 m_nPid;
+	bool m_bCanShareSurfaces;
+};
+
 struct AppBackupStatus_t
 {
 	enum { k_iCallback = k_iSteamAppsCallbacks + 12 };
 
-	// TODO : Reverse this callback
+	AppId_t m_nAppID;
+	EResult m_eResult;
+	
+	uint64 m_unBytesToProcess;
+	uint64 m_unBytesProcessed;
+	uint64 m_unTotalBytesWritten;
+	uint64 m_unBytesFailed;
 };
 
 struct RequestAppProofOfPurchaseKeyResponse_t

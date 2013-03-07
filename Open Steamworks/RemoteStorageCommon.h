@@ -64,6 +64,8 @@ enum ERemoteStorageFileRoot
 	k_ERemoteStorageFileRootSteamCloudDocuments,
 	k_ERemoteStorageFileRootWinAppDataLocalLow,
 	k_ERemoteStorageFileRootMacCaches,
+	k_ERemoteStorageFileRootLinuxHome,
+	k_ERemoteStorageFileRootLinuxXdgDataHome,
 	k_ERemoteStorageFileRootMax
 };
 
@@ -154,6 +156,11 @@ enum EWorkshopEnumerationType
 	k_EWorkshopEnumerationTypeVotedByFriends = 4,
 	k_EWorkshopEnumerationTypeCreatedByFriends = 5,
 	k_EWorkshopEnumerationTypeCreatedByFollowed = 6,
+};
+
+enum EPublishedFileInfoMatchingFileType
+{
+	// TODO: Reverse this enum
 };
 
 #pragma pack( push, 8 )

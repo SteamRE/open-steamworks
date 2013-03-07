@@ -83,9 +83,6 @@ public:
 	virtual bool SetLobbyOwner( CSteamID steamIDLobby, CSteamID steamIDNewOwner ) = 0;
 	virtual bool SetLinkedLobby( CSteamID steamIDLobby, CSteamID steamIDLobby2 ) = 0;
 
-	virtual int32 GetGMSServerCount() = 0;
-	virtual bool GetGMSServerAddress( int32 iServer, uint32 *punServerIP, uint16 *pusServerPort ) = 0;
-
 	virtual uint64 BeginGMSQuery( AppId_t nAppId, int32 iRegionCode, const char* szFilterText ) = 0;
 	virtual int32 PollGMSQuery( uint64 ullGMSQuery ) = 0;
 	virtual int32 GetGMSQueryResults( uint64 ullGMSQuery, GMSQueryResult_t *pGMSQueryResults, int32 nResultBufSizeInBytes ) = 0;

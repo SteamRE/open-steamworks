@@ -56,6 +56,7 @@
 
 // screenshots
 #include "ISteamScreenshots001.h"
+#include "ISteamScreenshots002.h"
 
 // user
 #include "ISteamUser004.h"
@@ -179,6 +180,9 @@
 #include "ISteamHTTP001.h"
 #include "ISteamHTTP002.h"
 
+// unified messages
+#include "ISteamUnifiedMessages001.h"
+
 #ifndef NO_ICLIENT
 // client interfaces
 #include "IClientEngine.h"
@@ -205,6 +209,7 @@
 #include "IClientUtils.h"
 #include "IClientHTTP.h"
 #include "IClientConfigStore.h"
+#include "IClientUnifiedMessages.h"
 #endif // NO_ICLIENT
 
 // callback

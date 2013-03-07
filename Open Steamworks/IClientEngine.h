@@ -49,6 +49,7 @@ class IClientGameServerStats;
 class IClientConfigStore;
 class IClientScreenshots;
 class IClientAudio;
+class IClientUnifiedMessages;
 
 abstract_class UNSAFE_INTERFACE IClientEngine
 {
@@ -115,6 +116,7 @@ public:
 	virtual bool BShutdownIfAllPipesClosed() = 0;
 
 	virtual IClientAudio *GetIClientAudio( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
+	virtual IClientUnifiedMessages *GetIClientUnifiedMessages( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 };
 
 #endif // ICLIENTENGINE_H

@@ -41,6 +41,7 @@ class ISteamGameServerItems;
 class ISteamGameServerStats;
 class ISteamHTTP;
 class ISteamScreenshots;
+class ISteamUnifiedMessages;
 
 
 #define CLIENTENGINE_INTERFACE_VERSION "CLIENTENGINE_INTERFACE_VERSION002"
