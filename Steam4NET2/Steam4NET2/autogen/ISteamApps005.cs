@@ -26,7 +26,9 @@ namespace Steam4NET
 		public IntPtr RequestAppProofOfPurchaseKey14;
 		public IntPtr GetCurrentBetaName15;
 		public IntPtr MarkContentCorrupt16;
-		private IntPtr DTorISteamApps00517;
+		public IntPtr GetInstalledDepots17;
+		public IntPtr GetAppInstallDir18;
+		private IntPtr DTorISteamApps00519;
 	};
 	
 	[InteropHelp.InterfaceVersion("STEAMAPPS_INTERFACE_VERSION005")]
@@ -124,10 +126,10 @@ namespace Steam4NET
 			this.GetFunction<NativeUninstallDLCU>( this.Functions.UninstallDLC13 )( this.ObjectAddress, nAppID ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestAppProofOfPurchaseKeyU( IntPtr thisptr, UInt32 nDLCAppID );
-		public void RequestAppProofOfPurchaseKey( UInt32 nDLCAppID ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestAppProofOfPurchaseKeyU( IntPtr thisptr, UInt32 nAppID );
+		public void RequestAppProofOfPurchaseKey( UInt32 nAppID ) 
 		{
-			this.GetFunction<NativeRequestAppProofOfPurchaseKeyU>( this.Functions.RequestAppProofOfPurchaseKey14 )( this.ObjectAddress, nDLCAppID ); 
+			this.GetFunction<NativeRequestAppProofOfPurchaseKeyU>( this.Functions.RequestAppProofOfPurchaseKey14 )( this.ObjectAddress, nAppID ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -142,6 +144,18 @@ namespace Steam4NET
 		public bool MarkContentCorrupt( bool bCorrupt ) 
 		{
 			return this.GetFunction<NativeMarkContentCorruptB>( this.Functions.MarkContentCorrupt16 )( this.ObjectAddress, bCorrupt ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetInstalledDepotsUU( IntPtr thisptr, ref UInt32 puDepots, UInt32 cuDepotsMax );
+		public UInt32 GetInstalledDepots( ref UInt32 puDepots, UInt32 cuDepotsMax ) 
+		{
+			return this.GetFunction<NativeGetInstalledDepotsUU>( this.Functions.GetInstalledDepots17 )( this.ObjectAddress, ref puDepots, cuDepotsMax ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppInstallDirUSU( IntPtr thisptr, UInt32 nAppID, StringBuilder pchPath, UInt32 cchPath );
+		public UInt32 GetAppInstallDir( UInt32 nAppID, StringBuilder pchPath ) 
+		{
+			return this.GetFunction<NativeGetAppInstallDirUSU>( this.Functions.GetAppInstallDir18 )( this.ObjectAddress, nAppID, pchPath, (UInt32) pchPath.Capacity ); 
 		}
 		
 	};

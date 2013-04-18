@@ -834,7 +834,36 @@ namespace Steam4NET
 		public const int k_iCallback = 961;
 		public SteamID_t m_steamIDFriend;
 		public UInt32 m_unAppID;
-		public SByte m_szStatus;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 512)]
+		public string m_szStatus;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(962)]
+	public struct UpdateOfflineMessageNotification_t
+	{
+		public const int k_iCallback = 962;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(963)]
+	public struct FriendMessageHistoryChatLog_t
+	{
+		public const int k_iCallback = 963;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(964)]
+	public struct TestAvailablePasswordResponse_t
+	{
+		public const int k_iCallback = 964;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(966)]
+	public struct GetSteamGuardDetailsResponse_t
+	{
+		public const int k_iCallback = 966;
 	};
 	
 }

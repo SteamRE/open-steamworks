@@ -216,6 +216,8 @@ namespace Steam4NET
 		k_nUserRestrictionVoiceChat = 4,
 		k_nUserRestrictionGroupChat = 8,
 		k_nUserRestrictionRating = 16,
+		k_nUserRestrictionGameInvites = 32,
+		k_nUserRestrictionTrading = 64,
 	};
 	
 	public enum EOverlayToStoreFlag : int
@@ -227,8 +229,8 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct FriendSessionStateInfo_t
 	{
-		public UInt32 m_uOnlineSessionInstances;
-		public UInt32 m_uPublishedInstanceId;
+		public UInt32 m_uiOnlineSessionInstances;
+		public Byte m_uiPublishedToFriendsSessionInstance;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

@@ -51,10 +51,10 @@ namespace Steam4NET
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestAppInfoUpdateUIB( IntPtr thisptr, ref UInt32 pAppIDs, Int32 nNumAppIDs, [MarshalAs(UnmanagedType.I1)] bool bForceUpdate );
-		public bool RequestAppInfoUpdate( ref UInt32 pAppIDs, Int32 nNumAppIDs, bool bForceUpdate ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestAppInfoUpdateUI( IntPtr thisptr, ref UInt32 pAppIDs, Int32 nNumAppIDs );
+		public bool RequestAppInfoUpdate( ref UInt32 pAppIDs, Int32 nNumAppIDs ) 
 		{
-			return this.GetFunction<NativeRequestAppInfoUpdateUIB>( this.Functions.RequestAppInfoUpdate4 )( this.ObjectAddress, ref pAppIDs, nNumAppIDs, bForceUpdate ); 
+			return this.GetFunction<NativeRequestAppInfoUpdateUI>( this.Functions.RequestAppInfoUpdate4 )( this.ObjectAddress, ref pAppIDs, nNumAppIDs ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyAppEventTriggeredUE( IntPtr thisptr, UInt32 unAppID, EAppEvent eAppEvent );

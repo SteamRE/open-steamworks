@@ -140,6 +140,7 @@ namespace Steam4NET
 		public Int32 m_cPlayersThatDontLikeCandidate;
 		public Int32 m_cPlayersThatCandidateDoesntLike;
 		public Int32 m_cClanPlayersThatDontLikeCandidate;
+		public SteamID_t m_SteamIDCandidate;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

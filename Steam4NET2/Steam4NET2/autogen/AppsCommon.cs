@@ -13,10 +13,11 @@ namespace Steam4NET
 		k_EAppStateUpdateRequired = 2,
 		k_EAppStateFullyInstalled = 4,
 		k_EAppStateDataEncrypted = 8,
+		k_EAppStateSharedOnly = 64,
 		k_EAppStateDataLocked = 16,
 		k_EAppStateFilesMissing = 32,
 		k_EAppStateFilesCorrupt = 128,
-		k_EAppStateAppRunning = 64,
+		k_EAppStateAppRunning = 8192,
 		k_EAppStateBackupRunning = 4096,
 		k_EAppStateUpdateRunning = 256,
 		k_EAppStateUpdateStopping = 8388608,
@@ -119,6 +120,8 @@ namespace Steam4NET
 		k_EAppErrorCorruptDepotCache = 27,
 		k_EAppErrorMissingExecutable = 28,
 		k_EAppErrorInvalidPlatform = 29,
+		k_EAppErrorInvalidFileSystem = 30,
+		k_EAppErrorCorruptUpdateFiles = 31,
 	};
 	
 	public enum ERegisterActivactionCodeResult : int
@@ -137,6 +140,7 @@ namespace Steam4NET
 		k_EAppOwernshipFlagsFreeLicense = 2,
 		k_EAppOwernshipFlagsRegionRestricted = 4,
 		k_EAppOwernshipFlagsLowViolence = 8,
+		k_EAppOwernshipFlagsInvalidPlatform = 16,
 	};
 	
 	public enum EAppReleaseState : int
@@ -184,6 +188,8 @@ namespace Steam4NET
 		public const int k_iCallback = 1003;
 		public EResult m_EResult;
 		public UInt32 m_cAppsUpdated;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bSteam2CDDBChanged;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -220,11 +226,13 @@ namespace Steam4NET
 	{
 		public const int k_iCallback = 1007;
 		public UInt32 m_nAppID;
-		public EResult m_eResult;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bFinished;
 		public UInt64 m_TotalBytesValidated;
 		public UInt64 m_TotalBytesFailed;
 		public UInt32 m_TotalFilesValidated;
 		public UInt32 m_TotalFilesFailed;
+		public UInt32 m_TotalFilesFailedCEGFiles;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -259,10 +267,27 @@ namespace Steam4NET
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	[InteropHelp.CallbackIdentity(1011)]
+	public struct AppLaunchTenFootOverlay_t
+	{
+		public const int k_iCallback = 1011;
+		public GameID_t m_GameID;
+		public UInt64 m_nPid;
+		[MarshalAs(UnmanagedType.I1)]
+		public bool m_bCanShareSurfaces;
+	};
+	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(1012)]
 	public struct AppBackupStatus_t
 	{
 		public const int k_iCallback = 1012;
+		public UInt32 m_nAppID;
+		public EResult m_eResult;
+		public UInt64 m_unBytesToProcess;
+		public UInt64 m_unBytesProcessed;
+		public UInt64 m_unTotalBytesWritten;
+		public UInt64 m_unBytesFailed;
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
@@ -273,7 +298,7 @@ namespace Steam4NET
 		public EResult m_eResult;
 		public UInt32 m_nAppID;
 		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
-		public string m_szCDKey;
+		public string m_rgchKey;
 	};
 	
 }

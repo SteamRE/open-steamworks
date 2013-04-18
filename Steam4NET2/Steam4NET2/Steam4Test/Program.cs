@@ -296,8 +296,8 @@ namespace Steam4Test
 
             FriendSessionStateInfo_t sessionStateInfo = clientfriends.GetFriendSessionStateInfo(clientuser.GetSteamID());
 
-            Console.WriteLine("m_uOnlineSessionInstances: " + sessionStateInfo.m_uOnlineSessionInstances);
-            Console.WriteLine("m_uPublishedInstanceId: " + sessionStateInfo.m_uPublishedInstanceId);
+            Console.WriteLine("m_uiOnlineSessionInstances: " + sessionStateInfo.m_uiOnlineSessionInstances);
+            Console.WriteLine("m_uiPublishedToFriendsSessionInstance: " + sessionStateInfo.m_uiPublishedToFriendsSessionInstance);
 
             Console.Write("RequestFriendProfileInfo: ");
             ulong requestFriendProfileInfoCall = clientfriends.RequestFriendProfileInfo(steamuser.GetSteamID());

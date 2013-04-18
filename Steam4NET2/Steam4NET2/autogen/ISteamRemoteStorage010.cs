@@ -60,7 +60,8 @@ namespace Steam4NET
 		public IntPtr SetUserPublishedFileAction48;
 		public IntPtr EnumeratePublishedFilesByUserAction49;
 		public IntPtr EnumeratePublishedWorkshopFiles50;
-		private IntPtr DTorISteamRemoteStorage01051;
+		public IntPtr UGCDownloadToLocation51;
+		private IntPtr DTorISteamRemoteStorage01052;
 	};
 	
 	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION010")]
@@ -388,6 +389,12 @@ namespace Steam4NET
 		public UInt64 EnumeratePublishedWorkshopFiles( EWorkshopEnumerationType eType, UInt32 uStartIndex, UInt32 cDays, UInt32 cCount, ref SteamParamStringArray_t pTags, ref SteamParamStringArray_t pUserTags ) 
 		{
 			return this.GetFunction<NativeEnumeratePublishedWorkshopFilesEUUUSS>( this.Functions.EnumeratePublishedWorkshopFiles50 )( this.ObjectAddress, eType, uStartIndex, cDays, cCount, ref pTags, ref pUserTags ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadToLocationUSU( IntPtr thisptr, UInt64 hContent, string cszLocation, UInt32 uUnk );
+		public UInt64 UGCDownloadToLocation( UInt64 hContent, string cszLocation, UInt32 uUnk ) 
+		{
+			return this.GetFunction<NativeUGCDownloadToLocationUSU>( this.Functions.UGCDownloadToLocation51 )( this.ObjectAddress, hContent, cszLocation, uUnk ); 
 		}
 		
 	};

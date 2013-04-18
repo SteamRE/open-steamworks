@@ -90,6 +90,8 @@ namespace Steam4NET
 		k_iClientScreenshotsCallbacks = 2200,
 		k_iSteamScreenshotsCallbacks = 2300,
 		k_iClientAudioCallbacks = 2400,
+		k_iSteamUnifiedMessagesCallbacks = 2500,
+		k_iClientUnifiedMessagesCallbacks = 2600,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

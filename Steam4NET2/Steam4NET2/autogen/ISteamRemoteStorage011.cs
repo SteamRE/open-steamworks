@@ -7,7 +7,7 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
-	public class ISteamRemoteStorage009VTable
+	public class ISteamRemoteStorage011VTable
 	{
 		public IntPtr FileWrite0;
 		public IntPtr FileRead1;
@@ -60,11 +60,12 @@ namespace Steam4NET
 		public IntPtr SetUserPublishedFileAction48;
 		public IntPtr EnumeratePublishedFilesByUserAction49;
 		public IntPtr EnumeratePublishedWorkshopFiles50;
-		private IntPtr DTorISteamRemoteStorage00951;
+		public IntPtr UGCDownloadToLocation51;
+		private IntPtr DTorISteamRemoteStorage01152;
 	};
 	
-	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION009")]
-	public class ISteamRemoteStorage009 : InteropHelp.NativeWrapper<ISteamRemoteStorage009VTable>
+	[InteropHelp.InterfaceVersion("STEAMREMOTESTORAGE_INTERFACE_VERSION011")]
+	public class ISteamRemoteStorage011 : InteropHelp.NativeWrapper<ISteamRemoteStorage011VTable>
 	{
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileWriteSBI( IntPtr thisptr, string pchFile, Byte[] pvData, Int32 cubData );
@@ -201,10 +202,10 @@ namespace Steam4NET
 			this.GetFunction<NativeSetCloudEnabledForAppB>( this.Functions.SetCloudEnabledForApp20 )( this.ObjectAddress, bEnabled ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadU( IntPtr thisptr, UInt64 hContent );
-		public UInt64 UGCDownload( UInt64 hContent ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadUU( IntPtr thisptr, UInt64 hContent, UInt32 uUnk );
+		public UInt64 UGCDownload( UInt64 hContent, UInt32 uUnk ) 
 		{
-			return this.GetFunction<NativeUGCDownloadU>( this.Functions.UGCDownload21 )( this.ObjectAddress, hContent ); 
+			return this.GetFunction<NativeUGCDownloadUU>( this.Functions.UGCDownload21 )( this.ObjectAddress, hContent, uUnk ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -299,10 +300,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeCommitPublishedFileUpdateU>( this.Functions.CommitPublishedFileUpdate35 )( this.ObjectAddress, hUpdateRequest ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetPublishedFileDetailsU( IntPtr thisptr, UInt64 unPublishedFileId );
-		public UInt64 GetPublishedFileDetails( UInt64 unPublishedFileId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetPublishedFileDetailsUU( IntPtr thisptr, UInt64 unPublishedFileId, UInt32 arg1 );
+		public UInt64 GetPublishedFileDetails( UInt64 unPublishedFileId, UInt32 arg1 ) 
 		{
-			return this.GetFunction<NativeGetPublishedFileDetailsU>( this.Functions.GetPublishedFileDetails36 )( this.ObjectAddress, unPublishedFileId ); 
+			return this.GetFunction<NativeGetPublishedFileDetailsUU>( this.Functions.GetPublishedFileDetails36 )( this.ObjectAddress, unPublishedFileId, arg1 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeletePublishedFileU( IntPtr thisptr, UInt64 unPublishedFileId );
@@ -388,6 +389,12 @@ namespace Steam4NET
 		public UInt64 EnumeratePublishedWorkshopFiles( EWorkshopEnumerationType eType, UInt32 uStartIndex, UInt32 cDays, UInt32 cCount, ref SteamParamStringArray_t pTags, ref SteamParamStringArray_t pUserTags ) 
 		{
 			return this.GetFunction<NativeEnumeratePublishedWorkshopFilesEUUUSS>( this.Functions.EnumeratePublishedWorkshopFiles50 )( this.ObjectAddress, eType, uStartIndex, cDays, cCount, ref pTags, ref pUserTags ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadToLocationUSU( IntPtr thisptr, UInt64 hContent, string cszLocation, UInt32 uUnk );
+		public UInt64 UGCDownloadToLocation( UInt64 hContent, string cszLocation, UInt32 uUnk ) 
+		{
+			return this.GetFunction<NativeUGCDownloadToLocationUSU>( this.Functions.UGCDownloadToLocation51 )( this.ObjectAddress, hContent, cszLocation, uUnk ); 
 		}
 		
 	};

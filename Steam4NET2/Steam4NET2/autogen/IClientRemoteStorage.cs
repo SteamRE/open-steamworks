@@ -31,65 +31,66 @@ namespace Steam4NET
 		public IntPtr IsCloudEnabledForApp19;
 		public IntPtr SetCloudEnabledForApp20;
 		public IntPtr UGCDownload21;
-		public IntPtr GetUGCDownloadProgress22;
-		public IntPtr GetUGCDetails23;
-		public IntPtr UGCRead24;
-		public IntPtr GetCachedUGCCount25;
-		public IntPtr GetCachedUGCHandle26;
-		public IntPtr PublishFile27;
-		public IntPtr PublishVideo28;
-		public IntPtr PublishVideoFromURL29;
-		public IntPtr CreatePublishedFileUpdateRequest30;
-		public IntPtr UpdatePublishedFileFile31;
-		public IntPtr UpdatePublishedFilePreviewFile32;
-		public IntPtr UpdatePublishedFileTitle33;
-		public IntPtr UpdatePublishedFileDescription34;
-		public IntPtr UpdatePublishedFileSetChangeDescription35;
-		public IntPtr UpdatePublishedFileVisibility36;
-		public IntPtr UpdatePublishedFileTags37;
-		public IntPtr UpdatePublishedFileURL38;
-		public IntPtr CommitPublishedFileUpdate39;
-		public IntPtr GetPublishedFileDetails40;
-		public IntPtr DeletePublishedFile41;
-		public IntPtr EnumerateUserPublishedFiles42;
-		public IntPtr SubscribePublishedFile43;
-		public IntPtr EnumerateUserSubscribedFiles44;
-		public IntPtr UnsubscribePublishedFile45;
-		public IntPtr SetUserPublishedFileAction46;
-		public IntPtr EnumeratePublishedFilesByUserAction47;
-		public IntPtr EnumerateUserSubscribedFilesWithUpdates48;
-		public IntPtr GetCREItemVoteSummary49;
-		public IntPtr UpdateUserPublishedItemVote50;
-		public IntPtr GetUserPublishedItemVoteDetails51;
-		public IntPtr EnumerateUserSharedWorkshopFiles52;
-		public IntPtr EnumeratePublishedWorkshopFiles53;
-		public IntPtr EGetFileSyncState54;
-		public IntPtr BIsFileSyncing55;
-		public IntPtr FilePersist56;
-		public IntPtr FileFetch57;
-		public IntPtr ResolvePath58;
-		public IntPtr FileTouch59;
-		public IntPtr SetCloudEnabledForAccount60;
-		public IntPtr LoadLocalFileInfoCache61;
-		public IntPtr EvaluateRemoteStorageSyncState62;
-		public IntPtr GetRemoteStorageSyncState63;
-		public IntPtr HaveLatestFilesLocally64;
-		public IntPtr GetConflictingFileTimestamps65;
-		public IntPtr ResolveSyncConflict66;
-		public IntPtr SynchronizeApp67;
-		public IntPtr IsAppSyncInProgress68;
-		public IntPtr ERemoteStorageFileRootFromName69;
-		public IntPtr PchNameFromERemoteStorageFileRoot70;
-		public IntPtr ResetFileRequestState71;
-		public IntPtr ClearPublishFileUpdateRequests72;
-		public IntPtr GetSubscribedFileDownloadCount73;
-		public IntPtr BGetSubscribedFileDownloadInfo74;
+		public IntPtr UGCDownloadToLocation22;
+		public IntPtr GetUGCDownloadProgress23;
+		public IntPtr GetUGCDetails24;
+		public IntPtr UGCRead25;
+		public IntPtr GetCachedUGCCount26;
+		public IntPtr GetCachedUGCHandle27;
+		public IntPtr PublishFile28;
+		public IntPtr PublishVideo29;
+		public IntPtr PublishVideoFromURL30;
+		public IntPtr CreatePublishedFileUpdateRequest31;
+		public IntPtr UpdatePublishedFileFile32;
+		public IntPtr UpdatePublishedFilePreviewFile33;
+		public IntPtr UpdatePublishedFileTitle34;
+		public IntPtr UpdatePublishedFileDescription35;
+		public IntPtr UpdatePublishedFileSetChangeDescription36;
+		public IntPtr UpdatePublishedFileVisibility37;
+		public IntPtr UpdatePublishedFileTags38;
+		public IntPtr UpdatePublishedFileURL39;
+		public IntPtr CommitPublishedFileUpdate40;
+		public IntPtr GetPublishedFileDetails41;
+		public IntPtr DeletePublishedFile42;
+		public IntPtr EnumerateUserPublishedFiles43;
+		public IntPtr SubscribePublishedFile44;
+		public IntPtr EnumerateUserSubscribedFiles45;
+		public IntPtr UnsubscribePublishedFile46;
+		public IntPtr SetUserPublishedFileAction47;
+		public IntPtr EnumeratePublishedFilesByUserAction48;
+		public IntPtr EnumerateUserSubscribedFilesWithUpdates49;
+		public IntPtr GetCREItemVoteSummary50;
+		public IntPtr UpdateUserPublishedItemVote51;
+		public IntPtr GetUserPublishedItemVoteDetails52;
+		public IntPtr EnumerateUserSharedWorkshopFiles53;
+		public IntPtr EnumeratePublishedWorkshopFiles54;
+		public IntPtr EGetFileSyncState55;
+		public IntPtr BIsFileSyncing56;
+		public IntPtr FilePersist57;
+		public IntPtr FileFetch58;
+		public IntPtr ResolvePath59;
+		public IntPtr FileTouch60;
+		public IntPtr SetCloudEnabledForAccount61;
+		public IntPtr LoadLocalFileInfoCache62;
+		public IntPtr EvaluateRemoteStorageSyncState63;
+		public IntPtr GetRemoteStorageSyncState64;
+		public IntPtr HaveLatestFilesLocally65;
+		public IntPtr GetConflictingFileTimestamps66;
+		public IntPtr ResolveSyncConflict67;
+		public IntPtr SynchronizeApp68;
+		public IntPtr IsAppSyncInProgress69;
+		public IntPtr ERemoteStorageFileRootFromName70;
+		public IntPtr PchNameFromERemoteStorageFileRoot71;
+		public IntPtr ResetFileRequestState72;
+		public IntPtr ClearPublishFileUpdateRequests73;
+		public IntPtr GetSubscribedFileDownloadCount74;
 		public IntPtr BGetSubscribedFileDownloadInfo75;
-		public IntPtr PauseSubscribedFileDownloadsForApp76;
-		public IntPtr ResumeSubscribedFileDownloadsForApp77;
-		public IntPtr PauseAllSubscribedFileDownloads78;
-		public IntPtr ResumeAllSubscribedFileDownloads79;
-		private IntPtr DTorIClientRemoteStorage80;
+		public IntPtr BGetSubscribedFileDownloadInfo76;
+		public IntPtr PauseSubscribedFileDownloadsForApp77;
+		public IntPtr ResumeSubscribedFileDownloadsForApp78;
+		public IntPtr PauseAllSubscribedFileDownloads79;
+		public IntPtr ResumeAllSubscribedFileDownloads80;
+		private IntPtr DTorIClientRemoteStorage81;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTREMOTESTORAGE_INTERFACE_VERSION001")]
@@ -235,373 +236,379 @@ namespace Steam4NET
 			return this.GetFunction<NativeUGCDownloadUBU>( this.Functions.UGCDownload21 )( this.ObjectAddress, hContent, bUseNewCallback, uUnk ); 
 		}
 		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadToLocationUSU( IntPtr thisptr, UInt64 hContent, string cszLocation, UInt32 uUnk );
+		public UInt64 UGCDownloadToLocation( UInt64 hContent, string cszLocation, UInt32 uUnk ) 
+		{
+			return this.GetFunction<NativeUGCDownloadToLocationUSU>( this.Functions.UGCDownloadToLocation22 )( this.ObjectAddress, hContent, cszLocation, uUnk ); 
+		}
+		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUGCDownloadProgressUUU( IntPtr thisptr, UInt64 hContent, ref UInt32 puDownloadedBytes, ref UInt32 puTotalBytes );
 		public bool GetUGCDownloadProgress( UInt64 hContent, ref UInt32 puDownloadedBytes, ref UInt32 puTotalBytes ) 
 		{
-			return this.GetFunction<NativeGetUGCDownloadProgressUUU>( this.Functions.GetUGCDownloadProgress22 )( this.ObjectAddress, hContent, ref puDownloadedBytes, ref puTotalBytes ); 
+			return this.GetFunction<NativeGetUGCDownloadProgressUUU>( this.Functions.GetUGCDownloadProgress23 )( this.ObjectAddress, hContent, ref puDownloadedBytes, ref puTotalBytes ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetUGCDetailsUUSIC( IntPtr thisptr, UInt64 hContent, ref UInt32 pnAppID, StringBuilder ppchName, ref Int32 pnFileSizeInBytes, ref UInt64 pSteamIDOwner );
 		public bool GetUGCDetails( UInt64 hContent, ref UInt32 pnAppID, StringBuilder ppchName, ref Int32 pnFileSizeInBytes, ref CSteamID pSteamIDOwner ) 
 		{
-			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails23 )( this.ObjectAddress, hContent, ref pnAppID, ppchName, ref pnFileSizeInBytes, ref s0 ); pSteamIDOwner = new CSteamID(s0); return result;
+			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails24 )( this.ObjectAddress, hContent, ref pnAppID, ppchName, ref pnFileSizeInBytes, ref s0 ); pSteamIDOwner = new CSteamID(s0); return result;
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBIU( IntPtr thisptr, UInt64 hContent, Byte[] pubDest, Int32 nDestBufferSize, UInt32 uOffset );
 		public Int32 UGCRead( UInt64 hContent, Byte[] pubDest, Int32 nDestBufferSize, UInt32 uOffset ) 
 		{
-			return this.GetFunction<NativeUGCReadUBIU>( this.Functions.UGCRead24 )( this.ObjectAddress, hContent, pubDest, nDestBufferSize, uOffset ); 
+			return this.GetFunction<NativeUGCReadUBIU>( this.Functions.UGCRead25 )( this.ObjectAddress, hContent, pubDest, nDestBufferSize, uOffset ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCCount( IntPtr thisptr );
 		public Int32 GetCachedUGCCount(  ) 
 		{
-			return this.GetFunction<NativeGetCachedUGCCount>( this.Functions.GetCachedUGCCount25 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetCachedUGCCount>( this.Functions.GetCachedUGCCount26 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetCachedUGCHandleI( IntPtr thisptr, Int32 iCachedContent );
 		public UInt64 GetCachedUGCHandle( Int32 iCachedContent ) 
 		{
-			return this.GetFunction<NativeGetCachedUGCHandleI>( this.Functions.GetCachedUGCHandle26 )( this.ObjectAddress, iCachedContent ); 
+			return this.GetFunction<NativeGetCachedUGCHandleI>( this.Functions.GetCachedUGCHandle27 )( this.ObjectAddress, iCachedContent ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativePublishFileUESSUSSESE( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags, EWorkshopFileType eType );
 		public UInt64 PublishFile( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string cszFileName, string cszPreviewFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags, EWorkshopFileType eType ) 
 		{
-			return this.GetFunction<NativePublishFileUESSUSSESE>( this.Functions.PublishFile27 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, cszFileName, cszPreviewFileName, nConsumerAppId, cszTitle, cszDescription, eVisibility, ref pTags, eType ); 
+			return this.GetFunction<NativePublishFileUESSUSSESE>( this.Functions.PublishFile28 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, cszFileName, cszPreviewFileName, nConsumerAppId, cszTitle, cszDescription, eVisibility, ref pTags, eType ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativePublishVideoUESSESUSSES( IntPtr thisptr, UInt32 nAppId, EWorkshopVideoProvider eVideoProvider, string cszVideoAccountName, string cszVideoIdentifier, ERemoteStorageFileRoot eRemoteStorageFileRoot, string cszFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags );
 		public UInt64 PublishVideo( UInt32 nAppId, EWorkshopVideoProvider eVideoProvider, string cszVideoAccountName, string cszVideoIdentifier, ERemoteStorageFileRoot eRemoteStorageFileRoot, string cszFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags ) 
 		{
-			return this.GetFunction<NativePublishVideoUESSESUSSES>( this.Functions.PublishVideo28 )( this.ObjectAddress, nAppId, eVideoProvider, cszVideoAccountName, cszVideoIdentifier, eRemoteStorageFileRoot, cszFileName, nConsumerAppId, cszTitle, cszDescription, eVisibility, ref pTags ); 
+			return this.GetFunction<NativePublishVideoUESSESUSSES>( this.Functions.PublishVideo29 )( this.ObjectAddress, nAppId, eVideoProvider, cszVideoAccountName, cszVideoIdentifier, eRemoteStorageFileRoot, cszFileName, nConsumerAppId, cszTitle, cszDescription, eVisibility, ref pTags ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativePublishVideoFromURLUESSUSSES( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string cszVideoURL, string cszFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags );
 		public UInt64 PublishVideoFromURL( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string cszVideoURL, string cszFileName, UInt32 nConsumerAppId, string cszTitle, string cszDescription, ERemoteStoragePublishedFileVisibility eVisibility, ref SteamParamStringArray_t pTags ) 
 		{
-			return this.GetFunction<NativePublishVideoFromURLUESSUSSES>( this.Functions.PublishVideoFromURL29 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, cszVideoURL, cszFileName, nConsumerAppId, cszTitle, cszDescription, eVisibility, ref pTags ); 
+			return this.GetFunction<NativePublishVideoFromURLUESSUSSES>( this.Functions.PublishVideoFromURL30 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, cszVideoURL, cszFileName, nConsumerAppId, cszTitle, cszDescription, eVisibility, ref pTags ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCreatePublishedFileUpdateRequestUU( IntPtr thisptr, UInt32 nAppId, UInt64 unPublishedFileId );
 		public UInt64 CreatePublishedFileUpdateRequest( UInt32 nAppId, UInt64 unPublishedFileId ) 
 		{
-			return this.GetFunction<NativeCreatePublishedFileUpdateRequestUU>( this.Functions.CreatePublishedFileUpdateRequest30 )( this.ObjectAddress, nAppId, unPublishedFileId ); 
+			return this.GetFunction<NativeCreatePublishedFileUpdateRequestUU>( this.Functions.CreatePublishedFileUpdateRequest31 )( this.ObjectAddress, nAppId, unPublishedFileId ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileFileUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszFile );
 		public bool UpdatePublishedFileFile( UInt64 hUpdateRequest, string cszFile ) 
 		{
-			return this.GetFunction<NativeUpdatePublishedFileFileUS>( this.Functions.UpdatePublishedFileFile31 )( this.ObjectAddress, hUpdateRequest, cszFile ); 
+			return this.GetFunction<NativeUpdatePublishedFileFileUS>( this.Functions.UpdatePublishedFileFile32 )( this.ObjectAddress, hUpdateRequest, cszFile ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFilePreviewFileUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszPreviewFile );
 		public bool UpdatePublishedFilePreviewFile( UInt64 hUpdateRequest, string cszPreviewFile ) 
 		{
-			return this.GetFunction<NativeUpdatePublishedFilePreviewFileUS>( this.Functions.UpdatePublishedFilePreviewFile32 )( this.ObjectAddress, hUpdateRequest, cszPreviewFile ); 
+			return this.GetFunction<NativeUpdatePublishedFilePreviewFileUS>( this.Functions.UpdatePublishedFilePreviewFile33 )( this.ObjectAddress, hUpdateRequest, cszPreviewFile ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileTitleUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszTitle );
 		public bool UpdatePublishedFileTitle( UInt64 hUpdateRequest, string cszTitle ) 
 		{
-			return this.GetFunction<NativeUpdatePublishedFileTitleUS>( this.Functions.UpdatePublishedFileTitle33 )( this.ObjectAddress, hUpdateRequest, cszTitle ); 
+			return this.GetFunction<NativeUpdatePublishedFileTitleUS>( this.Functions.UpdatePublishedFileTitle34 )( this.ObjectAddress, hUpdateRequest, cszTitle ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileDescriptionUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszDescription );
 		public bool UpdatePublishedFileDescription( UInt64 hUpdateRequest, string cszDescription ) 
 		{
-			return this.GetFunction<NativeUpdatePublishedFileDescriptionUS>( this.Functions.UpdatePublishedFileDescription34 )( this.ObjectAddress, hUpdateRequest, cszDescription ); 
+			return this.GetFunction<NativeUpdatePublishedFileDescriptionUS>( this.Functions.UpdatePublishedFileDescription35 )( this.ObjectAddress, hUpdateRequest, cszDescription ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileSetChangeDescriptionUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszDescription );
 		public bool UpdatePublishedFileSetChangeDescription( UInt64 hUpdateRequest, string cszDescription ) 
 		{
-			return this.GetFunction<NativeUpdatePublishedFileSetChangeDescriptionUS>( this.Functions.UpdatePublishedFileSetChangeDescription35 )( this.ObjectAddress, hUpdateRequest, cszDescription ); 
+			return this.GetFunction<NativeUpdatePublishedFileSetChangeDescriptionUS>( this.Functions.UpdatePublishedFileSetChangeDescription36 )( this.ObjectAddress, hUpdateRequest, cszDescription ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileVisibilityUE( IntPtr thisptr, UInt64 hUpdateRequest, ERemoteStoragePublishedFileVisibility eVisibility );
 		public bool UpdatePublishedFileVisibility( UInt64 hUpdateRequest, ERemoteStoragePublishedFileVisibility eVisibility ) 
 		{
-			return this.GetFunction<NativeUpdatePublishedFileVisibilityUE>( this.Functions.UpdatePublishedFileVisibility36 )( this.ObjectAddress, hUpdateRequest, eVisibility ); 
+			return this.GetFunction<NativeUpdatePublishedFileVisibilityUE>( this.Functions.UpdatePublishedFileVisibility37 )( this.ObjectAddress, hUpdateRequest, eVisibility ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileTagsUS( IntPtr thisptr, UInt64 hUpdateRequest, ref SteamParamStringArray_t pTags );
 		public bool UpdatePublishedFileTags( UInt64 hUpdateRequest, ref SteamParamStringArray_t pTags ) 
 		{
-			return this.GetFunction<NativeUpdatePublishedFileTagsUS>( this.Functions.UpdatePublishedFileTags37 )( this.ObjectAddress, hUpdateRequest, ref pTags ); 
+			return this.GetFunction<NativeUpdatePublishedFileTagsUS>( this.Functions.UpdatePublishedFileTags38 )( this.ObjectAddress, hUpdateRequest, ref pTags ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeUpdatePublishedFileURLUS( IntPtr thisptr, UInt64 hUpdateRequest, string cszURL );
 		public bool UpdatePublishedFileURL( UInt64 hUpdateRequest, string cszURL ) 
 		{
-			return this.GetFunction<NativeUpdatePublishedFileURLUS>( this.Functions.UpdatePublishedFileURL38 )( this.ObjectAddress, hUpdateRequest, cszURL ); 
+			return this.GetFunction<NativeUpdatePublishedFileURLUS>( this.Functions.UpdatePublishedFileURL39 )( this.ObjectAddress, hUpdateRequest, cszURL ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeCommitPublishedFileUpdateUEU( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, UInt64 hUpdateRequest );
 		public UInt64 CommitPublishedFileUpdate( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, UInt64 hUpdateRequest ) 
 		{
-			return this.GetFunction<NativeCommitPublishedFileUpdateUEU>( this.Functions.CommitPublishedFileUpdate39 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, hUpdateRequest ); 
+			return this.GetFunction<NativeCommitPublishedFileUpdateUEU>( this.Functions.CommitPublishedFileUpdate40 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, hUpdateRequest ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetPublishedFileDetailsUB( IntPtr thisptr, UInt64 unPublishedFileId, [MarshalAs(UnmanagedType.I1)] bool bUseNewCallback );
-		public UInt64 GetPublishedFileDetails( UInt64 unPublishedFileId, bool bUseNewCallback ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetPublishedFileDetailsUBU( IntPtr thisptr, UInt64 unPublishedFileId, [MarshalAs(UnmanagedType.I1)] bool bUseNewCallback, UInt32 arg2 );
+		public UInt64 GetPublishedFileDetails( UInt64 unPublishedFileId, bool bUseNewCallback, UInt32 arg2 ) 
 		{
-			return this.GetFunction<NativeGetPublishedFileDetailsUB>( this.Functions.GetPublishedFileDetails40 )( this.ObjectAddress, unPublishedFileId, bUseNewCallback ); 
+			return this.GetFunction<NativeGetPublishedFileDetailsUBU>( this.Functions.GetPublishedFileDetails41 )( this.ObjectAddress, unPublishedFileId, bUseNewCallback, arg2 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeletePublishedFileU( IntPtr thisptr, UInt64 unPublishedFileId );
 		public UInt64 DeletePublishedFile( UInt64 unPublishedFileId ) 
 		{
-			return this.GetFunction<NativeDeletePublishedFileU>( this.Functions.DeletePublishedFile41 )( this.ObjectAddress, unPublishedFileId ); 
+			return this.GetFunction<NativeDeletePublishedFileU>( this.Functions.DeletePublishedFile42 )( this.ObjectAddress, unPublishedFileId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateUserPublishedFilesUUE( IntPtr thisptr, UInt32 nAppId, UInt32 uStartIndex, ERemoteStoragePublishedFileSortOrder eOrder );
 		public UInt64 EnumerateUserPublishedFiles( UInt32 nAppId, UInt32 uStartIndex, ERemoteStoragePublishedFileSortOrder eOrder ) 
 		{
-			return this.GetFunction<NativeEnumerateUserPublishedFilesUUE>( this.Functions.EnumerateUserPublishedFiles42 )( this.ObjectAddress, nAppId, uStartIndex, eOrder ); 
+			return this.GetFunction<NativeEnumerateUserPublishedFilesUUE>( this.Functions.EnumerateUserPublishedFiles43 )( this.ObjectAddress, nAppId, uStartIndex, eOrder ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSubscribePublishedFileUU( IntPtr thisptr, UInt32 nAppId, UInt64 unPublishedFileId );
 		public UInt64 SubscribePublishedFile( UInt32 nAppId, UInt64 unPublishedFileId ) 
 		{
-			return this.GetFunction<NativeSubscribePublishedFileUU>( this.Functions.SubscribePublishedFile43 )( this.ObjectAddress, nAppId, unPublishedFileId ); 
+			return this.GetFunction<NativeSubscribePublishedFileUU>( this.Functions.SubscribePublishedFile44 )( this.ObjectAddress, nAppId, unPublishedFileId ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateUserSubscribedFilesUU( IntPtr thisptr, UInt32 nAppId, UInt32 uStartIndex );
-		public UInt64 EnumerateUserSubscribedFiles( UInt32 nAppId, UInt32 uStartIndex ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateUserSubscribedFilesUUBE( IntPtr thisptr, UInt32 nAppId, UInt32 uStartIndex, Byte uListType, EPublishedFileInfoMatchingFileType eMatchingFileType );
+		public UInt64 EnumerateUserSubscribedFiles( UInt32 nAppId, UInt32 uStartIndex, Byte uListType, EPublishedFileInfoMatchingFileType eMatchingFileType ) 
 		{
-			return this.GetFunction<NativeEnumerateUserSubscribedFilesUU>( this.Functions.EnumerateUserSubscribedFiles44 )( this.ObjectAddress, nAppId, uStartIndex ); 
+			return this.GetFunction<NativeEnumerateUserSubscribedFilesUUBE>( this.Functions.EnumerateUserSubscribedFiles45 )( this.ObjectAddress, nAppId, uStartIndex, uListType, eMatchingFileType ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUnsubscribePublishedFileUU( IntPtr thisptr, UInt32 nAppId, UInt64 unPublishedFileId );
 		public UInt64 UnsubscribePublishedFile( UInt32 nAppId, UInt64 unPublishedFileId ) 
 		{
-			return this.GetFunction<NativeUnsubscribePublishedFileUU>( this.Functions.UnsubscribePublishedFile45 )( this.ObjectAddress, nAppId, unPublishedFileId ); 
+			return this.GetFunction<NativeUnsubscribePublishedFileUU>( this.Functions.UnsubscribePublishedFile46 )( this.ObjectAddress, nAppId, unPublishedFileId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeSetUserPublishedFileActionUUE( IntPtr thisptr, UInt32 nAppId, UInt64 unPublishedFileId, EWorkshopFileAction eAction );
 		public UInt64 SetUserPublishedFileAction( UInt32 nAppId, UInt64 unPublishedFileId, EWorkshopFileAction eAction ) 
 		{
-			return this.GetFunction<NativeSetUserPublishedFileActionUUE>( this.Functions.SetUserPublishedFileAction46 )( this.ObjectAddress, nAppId, unPublishedFileId, eAction ); 
+			return this.GetFunction<NativeSetUserPublishedFileActionUUE>( this.Functions.SetUserPublishedFileAction47 )( this.ObjectAddress, nAppId, unPublishedFileId, eAction ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumeratePublishedFilesByUserActionUEU( IntPtr thisptr, UInt32 nAppId, EWorkshopFileAction eAction, UInt32 uStartIndex );
 		public UInt64 EnumeratePublishedFilesByUserAction( UInt32 nAppId, EWorkshopFileAction eAction, UInt32 uStartIndex ) 
 		{
-			return this.GetFunction<NativeEnumeratePublishedFilesByUserActionUEU>( this.Functions.EnumeratePublishedFilesByUserAction47 )( this.ObjectAddress, nAppId, eAction, uStartIndex ); 
+			return this.GetFunction<NativeEnumeratePublishedFilesByUserActionUEU>( this.Functions.EnumeratePublishedFilesByUserAction48 )( this.ObjectAddress, nAppId, eAction, uStartIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateUserSubscribedFilesWithUpdatesUUU( IntPtr thisptr, UInt32 nAppId, UInt32 uStartIndex, UInt32 uStartTime );
 		public UInt64 EnumerateUserSubscribedFilesWithUpdates( UInt32 nAppId, UInt32 uStartIndex, UInt32 uStartTime ) 
 		{
-			return this.GetFunction<NativeEnumerateUserSubscribedFilesWithUpdatesUUU>( this.Functions.EnumerateUserSubscribedFilesWithUpdates48 )( this.ObjectAddress, nAppId, uStartIndex, uStartTime ); 
+			return this.GetFunction<NativeEnumerateUserSubscribedFilesWithUpdatesUUU>( this.Functions.EnumerateUserSubscribedFilesWithUpdates49 )( this.ObjectAddress, nAppId, uStartIndex, uStartTime ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetCREItemVoteSummaryU( IntPtr thisptr, UInt64 unPublishedFileId );
 		public UInt64 GetCREItemVoteSummary( UInt64 unPublishedFileId ) 
 		{
-			return this.GetFunction<NativeGetCREItemVoteSummaryU>( this.Functions.GetCREItemVoteSummary49 )( this.ObjectAddress, unPublishedFileId ); 
+			return this.GetFunction<NativeGetCREItemVoteSummaryU>( this.Functions.GetCREItemVoteSummary50 )( this.ObjectAddress, unPublishedFileId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUpdateUserPublishedItemVoteUB( IntPtr thisptr, UInt64 unPublishedFileId, [MarshalAs(UnmanagedType.I1)] bool bVoteUp );
 		public UInt64 UpdateUserPublishedItemVote( UInt64 unPublishedFileId, bool bVoteUp ) 
 		{
-			return this.GetFunction<NativeUpdateUserPublishedItemVoteUB>( this.Functions.UpdateUserPublishedItemVote50 )( this.ObjectAddress, unPublishedFileId, bVoteUp ); 
+			return this.GetFunction<NativeUpdateUserPublishedItemVoteUB>( this.Functions.UpdateUserPublishedItemVote51 )( this.ObjectAddress, unPublishedFileId, bVoteUp ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetUserPublishedItemVoteDetailsU( IntPtr thisptr, UInt64 unPublishedFileId );
 		public UInt64 GetUserPublishedItemVoteDetails( UInt64 unPublishedFileId ) 
 		{
-			return this.GetFunction<NativeGetUserPublishedItemVoteDetailsU>( this.Functions.GetUserPublishedItemVoteDetails51 )( this.ObjectAddress, unPublishedFileId ); 
+			return this.GetFunction<NativeGetUserPublishedItemVoteDetailsU>( this.Functions.GetUserPublishedItemVoteDetails52 )( this.ObjectAddress, unPublishedFileId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateUserSharedWorkshopFilesUCUSS( IntPtr thisptr, UInt32 nAppId, UInt64 creatorSteamID, UInt32 uStartIndex, ref SteamParamStringArray_t pRequiredTags, ref SteamParamStringArray_t pExcludedTags );
 		public UInt64 EnumerateUserSharedWorkshopFiles( UInt32 nAppId, CSteamID creatorSteamID, UInt32 uStartIndex, ref SteamParamStringArray_t pRequiredTags, ref SteamParamStringArray_t pExcludedTags ) 
 		{
-			return this.GetFunction<NativeEnumerateUserSharedWorkshopFilesUCUSS>( this.Functions.EnumerateUserSharedWorkshopFiles52 )( this.ObjectAddress, nAppId, creatorSteamID.ConvertToUint64(), uStartIndex, ref pRequiredTags, ref pExcludedTags ); 
+			return this.GetFunction<NativeEnumerateUserSharedWorkshopFilesUCUSS>( this.Functions.EnumerateUserSharedWorkshopFiles53 )( this.ObjectAddress, nAppId, creatorSteamID.ConvertToUint64(), uStartIndex, ref pRequiredTags, ref pExcludedTags ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumeratePublishedWorkshopFilesUEUUUSS( IntPtr thisptr, UInt32 nAppId, EWorkshopEnumerationType eType, UInt32 uStartIndex, UInt32 cDays, UInt32 cCount, ref SteamParamStringArray_t pTags, ref SteamParamStringArray_t pUserTags );
 		public UInt64 EnumeratePublishedWorkshopFiles( UInt32 nAppId, EWorkshopEnumerationType eType, UInt32 uStartIndex, UInt32 cDays, UInt32 cCount, ref SteamParamStringArray_t pTags, ref SteamParamStringArray_t pUserTags ) 
 		{
-			return this.GetFunction<NativeEnumeratePublishedWorkshopFilesUEUUUSS>( this.Functions.EnumeratePublishedWorkshopFiles53 )( this.ObjectAddress, nAppId, eType, uStartIndex, cDays, cCount, ref pTags, ref pUserTags ); 
+			return this.GetFunction<NativeEnumeratePublishedWorkshopFilesUEUUUSS>( this.Functions.EnumeratePublishedWorkshopFiles54 )( this.ObjectAddress, nAppId, eType, uStartIndex, cDays, cCount, ref pTags, ref pUserTags ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFileRemoteStorageSyncState NativeEGetFileSyncStateUES( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile );
 		public EFileRemoteStorageSyncState EGetFileSyncState( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile ) 
 		{
-			return this.GetFunction<NativeEGetFileSyncStateUES>( this.Functions.EGetFileSyncState54 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile ); 
+			return this.GetFunction<NativeEGetFileSyncStateUES>( this.Functions.EGetFileSyncState55 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsFileSyncingUES( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile );
 		public bool BIsFileSyncing( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile ) 
 		{
-			return this.GetFunction<NativeBIsFileSyncingUES>( this.Functions.BIsFileSyncing55 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile ); 
+			return this.GetFunction<NativeBIsFileSyncingUES>( this.Functions.BIsFileSyncing56 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFilePersistUES( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile );
 		public EResult FilePersist( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile ) 
 		{
-			return this.GetFunction<NativeFilePersistUES>( this.Functions.FilePersist56 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile ); 
+			return this.GetFunction<NativeFilePersistUES>( this.Functions.FilePersist57 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeFileFetchUES( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile );
 		public bool FileFetch( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile ) 
 		{
-			return this.GetFunction<NativeFileFetchUES>( this.Functions.FileFetch57 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile ); 
+			return this.GetFunction<NativeFileFetchUES>( this.Functions.FileFetch58 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeResolvePathUESSU( IntPtr thisptr, UInt32 nAppID, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchRelPath, StringBuilder pchDest, UInt32 cchDest );
 		public bool ResolvePath( UInt32 nAppID, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchRelPath, StringBuilder pchDest ) 
 		{
-			return this.GetFunction<NativeResolvePathUESSU>( this.Functions.ResolvePath58 )( this.ObjectAddress, nAppID, eRemoteStorageFileRoot, pchRelPath, pchDest, (UInt32) pchDest.Capacity ); 
+			return this.GetFunction<NativeResolvePathUESSU>( this.Functions.ResolvePath59 )( this.ObjectAddress, nAppID, eRemoteStorageFileRoot, pchRelPath, pchDest, (UInt32) pchDest.Capacity ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFileTouchUESB( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile, [MarshalAs(UnmanagedType.I1)] bool arg3 );
 		public EResult FileTouch( UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile, bool arg3 ) 
 		{
-			return this.GetFunction<NativeFileTouchUESB>( this.Functions.FileTouch59 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile, arg3 ); 
+			return this.GetFunction<NativeFileTouchUESB>( this.Functions.FileTouch60 )( this.ObjectAddress, nAppId, eRemoteStorageFileRoot, pchFile, arg3 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetCloudEnabledForAccountB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bEnabled );
 		public void SetCloudEnabledForAccount( bool bEnabled ) 
 		{
-			this.GetFunction<NativeSetCloudEnabledForAccountB>( this.Functions.SetCloudEnabledForAccount60 )( this.ObjectAddress, bEnabled ); 
+			this.GetFunction<NativeSetCloudEnabledForAccountB>( this.Functions.SetCloudEnabledForAccount61 )( this.ObjectAddress, bEnabled ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLoadLocalFileInfoCacheU( IntPtr thisptr, UInt32 nAppId );
 		public void LoadLocalFileInfoCache( UInt32 nAppId ) 
 		{
-			this.GetFunction<NativeLoadLocalFileInfoCacheU>( this.Functions.LoadLocalFileInfoCache61 )( this.ObjectAddress, nAppId ); 
+			this.GetFunction<NativeLoadLocalFileInfoCacheU>( this.Functions.LoadLocalFileInfoCache62 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEvaluateRemoteStorageSyncStateU( IntPtr thisptr, UInt32 nAppId );
 		public void EvaluateRemoteStorageSyncState( UInt32 nAppId ) 
 		{
-			this.GetFunction<NativeEvaluateRemoteStorageSyncStateU>( this.Functions.EvaluateRemoteStorageSyncState62 )( this.ObjectAddress, nAppId ); 
+			this.GetFunction<NativeEvaluateRemoteStorageSyncStateU>( this.Functions.EvaluateRemoteStorageSyncState63 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ERemoteStorageSyncState NativeGetRemoteStorageSyncStateU( IntPtr thisptr, UInt32 nAppId );
 		public ERemoteStorageSyncState GetRemoteStorageSyncState( UInt32 nAppId ) 
 		{
-			return this.GetFunction<NativeGetRemoteStorageSyncStateU>( this.Functions.GetRemoteStorageSyncState63 )( this.ObjectAddress, nAppId ); 
+			return this.GetFunction<NativeGetRemoteStorageSyncStateU>( this.Functions.GetRemoteStorageSyncState64 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeHaveLatestFilesLocallyU( IntPtr thisptr, UInt32 nAppId );
 		public bool HaveLatestFilesLocally( UInt32 nAppId ) 
 		{
-			return this.GetFunction<NativeHaveLatestFilesLocallyU>( this.Functions.HaveLatestFilesLocally64 )( this.ObjectAddress, nAppId ); 
+			return this.GetFunction<NativeHaveLatestFilesLocallyU>( this.Functions.HaveLatestFilesLocally65 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetConflictingFileTimestampsUUU( IntPtr thisptr, UInt32 nAppId, ref UInt32 pnTimestampLocal, ref UInt32 pnTimestampRemote );
 		public bool GetConflictingFileTimestamps( UInt32 nAppId, ref UInt32 pnTimestampLocal, ref UInt32 pnTimestampRemote ) 
 		{
-			return this.GetFunction<NativeGetConflictingFileTimestampsUUU>( this.Functions.GetConflictingFileTimestamps65 )( this.ObjectAddress, nAppId, ref pnTimestampLocal, ref pnTimestampRemote ); 
+			return this.GetFunction<NativeGetConflictingFileTimestampsUUU>( this.Functions.GetConflictingFileTimestamps66 )( this.ObjectAddress, nAppId, ref pnTimestampLocal, ref pnTimestampRemote ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeResolveSyncConflictUB( IntPtr thisptr, UInt32 nAppId, [MarshalAs(UnmanagedType.I1)] bool bAcceptLocalFiles );
 		public bool ResolveSyncConflict( UInt32 nAppId, bool bAcceptLocalFiles ) 
 		{
-			return this.GetFunction<NativeResolveSyncConflictUB>( this.Functions.ResolveSyncConflict66 )( this.ObjectAddress, nAppId, bAcceptLocalFiles ); 
+			return this.GetFunction<NativeResolveSyncConflictUB>( this.Functions.ResolveSyncConflict67 )( this.ObjectAddress, nAppId, bAcceptLocalFiles ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSynchronizeAppUBB( IntPtr thisptr, UInt32 nAppId, [MarshalAs(UnmanagedType.I1)] bool bSyncClient, [MarshalAs(UnmanagedType.I1)] bool bSyncServer );
 		public bool SynchronizeApp( UInt32 nAppId, bool bSyncClient, bool bSyncServer ) 
 		{
-			return this.GetFunction<NativeSynchronizeAppUBB>( this.Functions.SynchronizeApp67 )( this.ObjectAddress, nAppId, bSyncClient, bSyncServer ); 
+			return this.GetFunction<NativeSynchronizeAppUBB>( this.Functions.SynchronizeApp68 )( this.ObjectAddress, nAppId, bSyncClient, bSyncServer ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsAppSyncInProgressU( IntPtr thisptr, UInt32 nAppId );
 		public bool IsAppSyncInProgress( UInt32 nAppId ) 
 		{
-			return this.GetFunction<NativeIsAppSyncInProgressU>( this.Functions.IsAppSyncInProgress68 )( this.ObjectAddress, nAppId ); 
+			return this.GetFunction<NativeIsAppSyncInProgressU>( this.Functions.IsAppSyncInProgress69 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ERemoteStorageFileRoot NativeERemoteStorageFileRootFromNameS( IntPtr thisptr, string pchName );
 		public ERemoteStorageFileRoot ERemoteStorageFileRootFromName( string pchName ) 
 		{
-			return this.GetFunction<NativeERemoteStorageFileRootFromNameS>( this.Functions.ERemoteStorageFileRootFromName69 )( this.ObjectAddress, pchName ); 
+			return this.GetFunction<NativeERemoteStorageFileRootFromNameS>( this.Functions.ERemoteStorageFileRootFromName70 )( this.ObjectAddress, pchName ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativePchNameFromERemoteStorageFileRootE( IntPtr thisptr, ERemoteStorageFileRoot eRemoteStorageFileRoot );
 		public string PchNameFromERemoteStorageFileRoot( ERemoteStorageFileRoot eRemoteStorageFileRoot ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativePchNameFromERemoteStorageFileRootE>( this.Functions.PchNameFromERemoteStorageFileRoot70 )( this.ObjectAddress, eRemoteStorageFileRoot ) ); 
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativePchNameFromERemoteStorageFileRootE>( this.Functions.PchNameFromERemoteStorageFileRoot71 )( this.ObjectAddress, eRemoteStorageFileRoot ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeResetFileRequestStateU( IntPtr thisptr, UInt32 nAppId );
 		public bool ResetFileRequestState( UInt32 nAppId ) 
 		{
-			return this.GetFunction<NativeResetFileRequestStateU>( this.Functions.ResetFileRequestState71 )( this.ObjectAddress, nAppId ); 
+			return this.GetFunction<NativeResetFileRequestStateU>( this.Functions.ResetFileRequestState72 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearPublishFileUpdateRequestsU( IntPtr thisptr, UInt32 nAppId );
 		public void ClearPublishFileUpdateRequests( UInt32 nAppId ) 
 		{
-			this.GetFunction<NativeClearPublishFileUpdateRequestsU>( this.Functions.ClearPublishFileUpdateRequests72 )( this.ObjectAddress, nAppId ); 
+			this.GetFunction<NativeClearPublishFileUpdateRequestsU>( this.Functions.ClearPublishFileUpdateRequests73 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetSubscribedFileDownloadCount( IntPtr thisptr );
 		public Int32 GetSubscribedFileDownloadCount(  ) 
 		{
-			return this.GetFunction<NativeGetSubscribedFileDownloadCount>( this.Functions.GetSubscribedFileDownloadCount73 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetSubscribedFileDownloadCount>( this.Functions.GetSubscribedFileDownloadCount74 )( this.ObjectAddress ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetSubscribedFileDownloadInfoIUUUU( IntPtr thisptr, Int32 iFile, ref UInt64 punPublishedFileId, ref UInt32 puBytesDownloaded, ref UInt32 puBytesExpected, ref UInt32 pnAppId );
 		public bool BGetSubscribedFileDownloadInfo( Int32 iFile, ref UInt64 punPublishedFileId, ref UInt32 puBytesDownloaded, ref UInt32 puBytesExpected, ref UInt32 pnAppId ) 
 		{
-			return this.GetFunction<NativeBGetSubscribedFileDownloadInfoIUUUU>( this.Functions.BGetSubscribedFileDownloadInfo74 )( this.ObjectAddress, iFile, ref punPublishedFileId, ref puBytesDownloaded, ref puBytesExpected, ref pnAppId ); 
+			return this.GetFunction<NativeBGetSubscribedFileDownloadInfoIUUUU>( this.Functions.BGetSubscribedFileDownloadInfo75 )( this.ObjectAddress, iFile, ref punPublishedFileId, ref puBytesDownloaded, ref puBytesExpected, ref pnAppId ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBGetSubscribedFileDownloadInfoUUUU( IntPtr thisptr, UInt64 unPublishedFileId, ref UInt32 puBytesDownloaded, ref UInt32 puBytesExpected, ref UInt32 pnAppId );
 		public bool BGetSubscribedFileDownloadInfo( UInt64 unPublishedFileId, ref UInt32 puBytesDownloaded, ref UInt32 puBytesExpected, ref UInt32 pnAppId ) 
 		{
-			return this.GetFunction<NativeBGetSubscribedFileDownloadInfoUUUU>( this.Functions.BGetSubscribedFileDownloadInfo75 )( this.ObjectAddress, unPublishedFileId, ref puBytesDownloaded, ref puBytesExpected, ref pnAppId ); 
+			return this.GetFunction<NativeBGetSubscribedFileDownloadInfoUUUU>( this.Functions.BGetSubscribedFileDownloadInfo76 )( this.ObjectAddress, unPublishedFileId, ref puBytesDownloaded, ref puBytesExpected, ref pnAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativePauseSubscribedFileDownloadsForAppU( IntPtr thisptr, UInt32 nAppId );
 		public void PauseSubscribedFileDownloadsForApp( UInt32 nAppId ) 
 		{
-			this.GetFunction<NativePauseSubscribedFileDownloadsForAppU>( this.Functions.PauseSubscribedFileDownloadsForApp76 )( this.ObjectAddress, nAppId ); 
+			this.GetFunction<NativePauseSubscribedFileDownloadsForAppU>( this.Functions.PauseSubscribedFileDownloadsForApp77 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeResumeSubscribedFileDownloadsForAppU( IntPtr thisptr, UInt32 nAppId );
 		public void ResumeSubscribedFileDownloadsForApp( UInt32 nAppId ) 
 		{
-			this.GetFunction<NativeResumeSubscribedFileDownloadsForAppU>( this.Functions.ResumeSubscribedFileDownloadsForApp77 )( this.ObjectAddress, nAppId ); 
+			this.GetFunction<NativeResumeSubscribedFileDownloadsForAppU>( this.Functions.ResumeSubscribedFileDownloadsForApp78 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativePauseAllSubscribedFileDownloads( IntPtr thisptr );
 		public void PauseAllSubscribedFileDownloads(  ) 
 		{
-			this.GetFunction<NativePauseAllSubscribedFileDownloads>( this.Functions.PauseAllSubscribedFileDownloads78 )( this.ObjectAddress ); 
+			this.GetFunction<NativePauseAllSubscribedFileDownloads>( this.Functions.PauseAllSubscribedFileDownloads79 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeResumeAllSubscribedFileDownloads( IntPtr thisptr );
 		public void ResumeAllSubscribedFileDownloads(  ) 
 		{
-			this.GetFunction<NativeResumeAllSubscribedFileDownloads>( this.Functions.ResumeAllSubscribedFileDownloads79 )( this.ObjectAddress ); 
+			this.GetFunction<NativeResumeAllSubscribedFileDownloads>( this.Functions.ResumeAllSubscribedFileDownloads80 )( this.ObjectAddress ); 
 		}
 		
 	};

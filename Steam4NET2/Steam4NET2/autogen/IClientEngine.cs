@@ -50,7 +50,9 @@ namespace Steam4NET
 		public IntPtr GetIClientHTTP38;
 		public IntPtr BShutdownIfAllPipesClosed39;
 		public IntPtr GetIClientAudio40;
-		private IntPtr DTorIClientEngine41;
+		public IntPtr GetIClientUnifiedMessages41;
+		public IntPtr GetIClientStreamLauncher42;
+		private IntPtr DTorIClientEngine43;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTENGINE_INTERFACE_VERSION002")]
@@ -307,6 +309,18 @@ namespace Steam4NET
 		public TClass GetIClientAudio<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
 			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientAudioIIS>( this.Functions.GetIClientAudio40 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientUnifiedMessagesIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
+		public TClass GetIClientUnifiedMessages<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
+		{
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientUnifiedMessagesIIS>( this.Functions.GetIClientUnifiedMessages41 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientStreamLauncherIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
+		public TClass GetIClientStreamLauncher<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
+		{
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetIClientStreamLauncherIIS>( this.Functions.GetIClientStreamLauncher42 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 	};

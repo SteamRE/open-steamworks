@@ -49,14 +49,12 @@ namespace Steam4NET
 		public IntPtr GetLobbyOwner37;
 		public IntPtr SetLobbyOwner38;
 		public IntPtr SetLinkedLobby39;
-		public IntPtr GetGMSServerCount40;
-		public IntPtr GetGMSServerAddress41;
-		public IntPtr BeginGMSQuery42;
-		public IntPtr PollGMSQuery43;
-		public IntPtr GetGMSQueryResults44;
-		public IntPtr ReleaseGMSQuery45;
-		public IntPtr SendGameServerPingSample46;
-		private IntPtr DTorIClientMatchmaking47;
+		public IntPtr BeginGMSQuery40;
+		public IntPtr PollGMSQuery41;
+		public IntPtr GetGMSQueryResults42;
+		public IntPtr ReleaseGMSQuery43;
+		public IntPtr SendGameServerPingSample44;
+		private IntPtr DTorIClientMatchmaking45;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTMATCHMAKING_INTERFACE_VERSION001")]
@@ -317,47 +315,34 @@ namespace Steam4NET
 			return this.GetFunction<NativeSetLinkedLobbyCC>( this.Functions.SetLinkedLobby39 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), steamIDLobby2.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetGMSServerCount( IntPtr thisptr );
-		public Int32 GetGMSServerCount(  ) 
-		{
-			return this.GetFunction<NativeGetGMSServerCount>( this.Functions.GetGMSServerCount40 )( this.ObjectAddress ); 
-		}
-		
-		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetGMSServerAddressIUU( IntPtr thisptr, Int32 iServer, ref UInt32 punServerIP, ref UInt16 pusServerPort );
-		public bool GetGMSServerAddress( Int32 iServer, ref UInt32 punServerIP, ref UInt16 pusServerPort ) 
-		{
-			return this.GetFunction<NativeGetGMSServerAddressIUU>( this.Functions.GetGMSServerAddress41 )( this.ObjectAddress, iServer, ref punServerIP, ref pusServerPort ); 
-		}
-		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeBeginGMSQueryUIS( IntPtr thisptr, UInt32 nAppId, Int32 iRegionCode, string szFilterText );
 		public UInt64 BeginGMSQuery( UInt32 nAppId, Int32 iRegionCode, string szFilterText ) 
 		{
-			return this.GetFunction<NativeBeginGMSQueryUIS>( this.Functions.BeginGMSQuery42 )( this.ObjectAddress, nAppId, iRegionCode, szFilterText ); 
+			return this.GetFunction<NativeBeginGMSQueryUIS>( this.Functions.BeginGMSQuery40 )( this.ObjectAddress, nAppId, iRegionCode, szFilterText ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativePollGMSQueryU( IntPtr thisptr, UInt64 ullGMSQuery );
 		public Int32 PollGMSQuery( UInt64 ullGMSQuery ) 
 		{
-			return this.GetFunction<NativePollGMSQueryU>( this.Functions.PollGMSQuery43 )( this.ObjectAddress, ullGMSQuery ); 
+			return this.GetFunction<NativePollGMSQueryU>( this.Functions.PollGMSQuery41 )( this.ObjectAddress, ullGMSQuery ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetGMSQueryResultsUGI( IntPtr thisptr, UInt64 ullGMSQuery, ref GMSQueryResult_t pGMSQueryResults, Int32 nResultBufSizeInBytes );
 		public Int32 GetGMSQueryResults( UInt64 ullGMSQuery, ref GMSQueryResult_t pGMSQueryResults, Int32 nResultBufSizeInBytes ) 
 		{
-			return this.GetFunction<NativeGetGMSQueryResultsUGI>( this.Functions.GetGMSQueryResults44 )( this.ObjectAddress, ullGMSQuery, ref pGMSQueryResults, nResultBufSizeInBytes ); 
+			return this.GetFunction<NativeGetGMSQueryResultsUGI>( this.Functions.GetGMSQueryResults42 )( this.ObjectAddress, ullGMSQuery, ref pGMSQueryResults, nResultBufSizeInBytes ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeReleaseGMSQueryU( IntPtr thisptr, UInt64 ullGMSQuery );
 		public void ReleaseGMSQuery( UInt64 ullGMSQuery ) 
 		{
-			this.GetFunction<NativeReleaseGMSQueryU>( this.Functions.ReleaseGMSQuery45 )( this.ObjectAddress, ullGMSQuery ); 
+			this.GetFunction<NativeReleaseGMSQueryU>( this.Functions.ReleaseGMSQuery43 )( this.ObjectAddress, ullGMSQuery ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSendGameServerPingSampleUIP( IntPtr thisptr, UInt32 unAppID, Int32 nSamples, ref PingSample_t pSamples );
 		public void SendGameServerPingSample( UInt32 unAppID, Int32 nSamples, ref PingSample_t pSamples ) 
 		{
-			this.GetFunction<NativeSendGameServerPingSampleUIP>( this.Functions.SendGameServerPingSample46 )( this.ObjectAddress, unAppID, nSamples, ref pSamples ); 
+			this.GetFunction<NativeSendGameServerPingSampleUIP>( this.Functions.SendGameServerPingSample44 )( this.ObjectAddress, unAppID, nSamples, ref pSamples ); 
 		}
 		
 	};

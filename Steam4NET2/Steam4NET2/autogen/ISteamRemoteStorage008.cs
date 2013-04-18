@@ -16,9 +16,9 @@ namespace Steam4NET
 		public IntPtr FileShare4;
 		public IntPtr SetSyncPlatforms5;
 		public IntPtr FileWriteStreamOpen6;
-		public IntPtr FileWriteStreamClose7;
-		public IntPtr FileWriteStreamCancel8;
-		public IntPtr FileWriteStreamWriteChunk9;
+		public IntPtr FileWriteStreamWriteChunk7;
+		public IntPtr FileWriteStreamClose8;
+		public IntPtr FileWriteStreamCancel9;
 		public IntPtr FileExists10;
 		public IntPtr FilePersisted11;
 		public IntPtr GetFileSize12;
@@ -112,22 +112,22 @@ namespace Steam4NET
 			return this.GetFunction<NativeFileWriteStreamOpenS>( this.Functions.FileWriteStreamOpen6 )( this.ObjectAddress, pchFile ); 
 		}
 		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFileWriteStreamWriteChunkUBI( IntPtr thisptr, UInt64 hStream, Byte[] pvData, Int32 cubData );
+		public EResult FileWriteStreamWriteChunk( UInt64 hStream, Byte[] pvData ) 
+		{
+			return this.GetFunction<NativeFileWriteStreamWriteChunkUBI>( this.Functions.FileWriteStreamWriteChunk7 )( this.ObjectAddress, hStream, pvData, (Int32) pvData.Length ); 
+		}
+		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFileWriteStreamCloseU( IntPtr thisptr, UInt64 hStream );
 		public EResult FileWriteStreamClose( UInt64 hStream ) 
 		{
-			return this.GetFunction<NativeFileWriteStreamCloseU>( this.Functions.FileWriteStreamClose7 )( this.ObjectAddress, hStream ); 
+			return this.GetFunction<NativeFileWriteStreamCloseU>( this.Functions.FileWriteStreamClose8 )( this.ObjectAddress, hStream ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFileWriteStreamCancelU( IntPtr thisptr, UInt64 hStream );
 		public EResult FileWriteStreamCancel( UInt64 hStream ) 
 		{
-			return this.GetFunction<NativeFileWriteStreamCancelU>( this.Functions.FileWriteStreamCancel8 )( this.ObjectAddress, hStream ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EResult NativeFileWriteStreamWriteChunkUBI( IntPtr thisptr, UInt64 hStream, Byte[] pvData, Int32 cubData );
-		public EResult FileWriteStreamWriteChunk( UInt64 hStream, Byte[] pvData ) 
-		{
-			return this.GetFunction<NativeFileWriteStreamWriteChunkUBI>( this.Functions.FileWriteStreamWriteChunk9 )( this.ObjectAddress, hStream, pvData, (Int32) pvData.Length ); 
+			return this.GetFunction<NativeFileWriteStreamCancelU>( this.Functions.FileWriteStreamCancel9 )( this.ObjectAddress, hStream ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

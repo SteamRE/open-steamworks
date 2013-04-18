@@ -465,10 +465,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeIsFollowingC>( this.Functions.IsFollowing61 )( this.ObjectAddress, steamID.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateFollowingListU( IntPtr thisptr, UInt32 uStartIndex );
-		public UInt64 EnumerateFollowingList( UInt32 uStartIndex ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumerateFollowingListU( IntPtr thisptr, UInt32 unStartIndex );
+		public UInt64 EnumerateFollowingList( UInt32 unStartIndex ) 
 		{
-			return this.GetFunction<NativeEnumerateFollowingListU>( this.Functions.EnumerateFollowingList62 )( this.ObjectAddress, uStartIndex ); 
+			return this.GetFunction<NativeEnumerateFollowingListU>( this.Functions.EnumerateFollowingList62 )( this.ObjectAddress, unStartIndex ); 
 		}
 		
 	};

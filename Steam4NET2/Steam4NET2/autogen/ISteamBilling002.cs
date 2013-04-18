@@ -22,39 +22,37 @@ namespace Steam4NET
 		public IntPtr Obsolete_GetLicenses10;
 		public IntPtr CancelLicense11;
 		public IntPtr GetPurchaseReceipts12;
-		public IntPtr AcknowledgePurchaseReceipt13;
-		public IntPtr SetBillingAddress14;
-		public IntPtr GetBillingAddress15;
-		public IntPtr SetShippingAddress16;
-		public IntPtr GetShippingAddress17;
-		public IntPtr SetCardInfo18;
-		public IntPtr GetCardInfo19;
-		public IntPtr GetLicensePackageID20;
-		public IntPtr GetLicenseTimeCreated21;
-		public IntPtr GetLicenseTimeNextProcess22;
-		public IntPtr GetLicenseMinuteLimit23;
-		public IntPtr GetLicenseMinutesUsed24;
-		public IntPtr GetLicensePaymentMethod25;
-		public IntPtr GetLicenseFlags26;
-		public IntPtr GetLicensePurchaseCountryCode27;
-		public IntPtr GetReceiptPackageID28;
-		public IntPtr GetReceiptStatus29;
-		public IntPtr GetReceiptResultDetail30;
-		public IntPtr GetReceiptTransTime31;
-		public IntPtr GetReceiptTransID32;
-		public IntPtr GetReceiptAcknowledged33;
-		public IntPtr GetReceiptPaymentMethod34;
-		public IntPtr GetReceiptBaseCost35;
-		public IntPtr GetReceiptTotalDiscount36;
-		public IntPtr GetReceiptTax37;
-		public IntPtr GetReceiptShipping38;
-		public IntPtr GetReceiptCountryCode39;
-		public IntPtr GetNumLicenses40;
-		public IntPtr GetNumReceipts41;
-		public IntPtr PurchaseWithMachineID42;
-		public IntPtr InitClickAndBuyPurchase43;
-		public IntPtr GetPreviousClickAndBuyAccount44;
-		private IntPtr DTorISteamBilling00245;
+		public IntPtr SetBillingAddress13;
+		public IntPtr GetBillingAddress14;
+		public IntPtr SetShippingAddress15;
+		public IntPtr GetShippingAddress16;
+		public IntPtr SetCardInfo17;
+		public IntPtr GetCardInfo18;
+		public IntPtr GetLicensePackageID19;
+		public IntPtr GetLicenseTimeCreated20;
+		public IntPtr GetLicenseTimeNextProcess21;
+		public IntPtr GetLicenseMinuteLimit22;
+		public IntPtr GetLicenseMinutesUsed23;
+		public IntPtr GetLicensePaymentMethod24;
+		public IntPtr GetLicenseFlags25;
+		public IntPtr GetLicensePurchaseCountryCode26;
+		public IntPtr GetReceiptPackageID27;
+		public IntPtr GetReceiptStatus28;
+		public IntPtr GetReceiptResultDetail29;
+		public IntPtr GetReceiptTransTime30;
+		public IntPtr GetReceiptTransID31;
+		public IntPtr GetReceiptPaymentMethod32;
+		public IntPtr GetReceiptBaseCost33;
+		public IntPtr GetReceiptTotalDiscount34;
+		public IntPtr GetReceiptTax35;
+		public IntPtr GetReceiptShipping36;
+		public IntPtr GetReceiptCountryCode37;
+		public IntPtr GetNumLicenses38;
+		public IntPtr GetNumReceipts39;
+		public IntPtr PurchaseWithMachineID40;
+		public IntPtr InitClickAndBuyPurchase41;
+		public IntPtr GetPreviousClickAndBuyAccount42;
+		private IntPtr DTorISteamBilling00243;
 	};
 	
 	[InteropHelp.InterfaceVersion("SteamBilling002")]
@@ -152,206 +150,192 @@ namespace Steam4NET
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeAcknowledgePurchaseReceiptU( IntPtr thisptr, UInt32 nReceiptIndex );
-		public bool AcknowledgePurchaseReceipt( UInt32 nReceiptIndex ) 
-		{
-			return this.GetFunction<NativeAcknowledgePurchaseReceiptU>( this.Functions.AcknowledgePurchaseReceipt13 )( this.ObjectAddress, nReceiptIndex ); 
-		}
-		
-		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetBillingAddressUSSSSSSSSS( IntPtr thisptr, UInt32 nCardIndex, string pchFirstName, string pchLastName, string pchAddress1, string pchAddress2, string pchCity, string pchPostcode, string pchState, string pchCountry, string pchPhone );
 		public bool SetBillingAddress( UInt32 nCardIndex, string pchFirstName, string pchLastName, string pchAddress1, string pchAddress2, string pchCity, string pchPostcode, string pchState, string pchCountry, string pchPhone ) 
 		{
-			return this.GetFunction<NativeSetBillingAddressUSSSSSSSSS>( this.Functions.SetBillingAddress14 )( this.ObjectAddress, nCardIndex, pchFirstName, pchLastName, pchAddress1, pchAddress2, pchCity, pchPostcode, pchState, pchCountry, pchPhone ); 
+			return this.GetFunction<NativeSetBillingAddressUSSSSSSSSS>( this.Functions.SetBillingAddress13 )( this.ObjectAddress, nCardIndex, pchFirstName, pchLastName, pchAddress1, pchAddress2, pchCity, pchPostcode, pchState, pchCountry, pchPhone ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetBillingAddressUSSSSSSSSS( IntPtr thisptr, UInt32 nCardIndex, StringBuilder pchFirstName, StringBuilder pchLastName, StringBuilder pchAddress1, StringBuilder pchAddress2, StringBuilder pchCity, StringBuilder pchPostcode, StringBuilder pchState, StringBuilder pchCountry, StringBuilder pchPhone );
 		public bool GetBillingAddress( UInt32 nCardIndex, StringBuilder pchFirstName, StringBuilder pchLastName, StringBuilder pchAddress1, StringBuilder pchAddress2, StringBuilder pchCity, StringBuilder pchPostcode, StringBuilder pchState, StringBuilder pchCountry, StringBuilder pchPhone ) 
 		{
-			return this.GetFunction<NativeGetBillingAddressUSSSSSSSSS>( this.Functions.GetBillingAddress15 )( this.ObjectAddress, nCardIndex, pchFirstName, pchLastName, pchAddress1, pchAddress2, pchCity, pchPostcode, pchState, pchCountry, pchPhone ); 
+			return this.GetFunction<NativeGetBillingAddressUSSSSSSSSS>( this.Functions.GetBillingAddress14 )( this.ObjectAddress, nCardIndex, pchFirstName, pchLastName, pchAddress1, pchAddress2, pchCity, pchPostcode, pchState, pchCountry, pchPhone ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetShippingAddressSSSSSSSSS( IntPtr thisptr, string pchFirstName, string pchLastName, string pchAddress1, string pchAddress2, string pchCity, string pchPostcode, string pchState, string pchCountry, string pchPhone );
 		public bool SetShippingAddress( string pchFirstName, string pchLastName, string pchAddress1, string pchAddress2, string pchCity, string pchPostcode, string pchState, string pchCountry, string pchPhone ) 
 		{
-			return this.GetFunction<NativeSetShippingAddressSSSSSSSSS>( this.Functions.SetShippingAddress16 )( this.ObjectAddress, pchFirstName, pchLastName, pchAddress1, pchAddress2, pchCity, pchPostcode, pchState, pchCountry, pchPhone ); 
+			return this.GetFunction<NativeSetShippingAddressSSSSSSSSS>( this.Functions.SetShippingAddress15 )( this.ObjectAddress, pchFirstName, pchLastName, pchAddress1, pchAddress2, pchCity, pchPostcode, pchState, pchCountry, pchPhone ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetShippingAddressSSSSSSSSS( IntPtr thisptr, StringBuilder pchFirstName, StringBuilder pchLastName, StringBuilder pchAddress1, StringBuilder pchAddress2, StringBuilder pchCity, StringBuilder pchPostcode, StringBuilder pchState, StringBuilder pchCountry, StringBuilder pchPhone );
 		public bool GetShippingAddress( StringBuilder pchFirstName, StringBuilder pchLastName, StringBuilder pchAddress1, StringBuilder pchAddress2, StringBuilder pchCity, StringBuilder pchPostcode, StringBuilder pchState, StringBuilder pchCountry, StringBuilder pchPhone ) 
 		{
-			return this.GetFunction<NativeGetShippingAddressSSSSSSSSS>( this.Functions.GetShippingAddress17 )( this.ObjectAddress, pchFirstName, pchLastName, pchAddress1, pchAddress2, pchCity, pchPostcode, pchState, pchCountry, pchPhone ); 
+			return this.GetFunction<NativeGetShippingAddressSSSSSSSSS>( this.Functions.GetShippingAddress16 )( this.ObjectAddress, pchFirstName, pchLastName, pchAddress1, pchAddress2, pchCity, pchPostcode, pchState, pchCountry, pchPhone ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetCardInfoUESSSSSS( IntPtr thisptr, UInt32 nCardIndex, ECreditCardType eCreditCardType, string pchCardNumber, string pchCardHolderFirstName, string pchCardHolderLastName, string pchCardExpYear, string pchCardExpMonth, string pchCardCVV2 );
 		public bool SetCardInfo( UInt32 nCardIndex, ECreditCardType eCreditCardType, string pchCardNumber, string pchCardHolderFirstName, string pchCardHolderLastName, string pchCardExpYear, string pchCardExpMonth, string pchCardCVV2 ) 
 		{
-			return this.GetFunction<NativeSetCardInfoUESSSSSS>( this.Functions.SetCardInfo18 )( this.ObjectAddress, nCardIndex, eCreditCardType, pchCardNumber, pchCardHolderFirstName, pchCardHolderLastName, pchCardExpYear, pchCardExpMonth, pchCardCVV2 ); 
+			return this.GetFunction<NativeSetCardInfoUESSSSSS>( this.Functions.SetCardInfo17 )( this.ObjectAddress, nCardIndex, eCreditCardType, pchCardNumber, pchCardHolderFirstName, pchCardHolderLastName, pchCardExpYear, pchCardExpMonth, pchCardCVV2 ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetCardInfoUESSSSSS( IntPtr thisptr, UInt32 nCardIndex, ref ECreditCardType eCreditCardType, StringBuilder pchCardNumber, StringBuilder pchCardHolderFirstName, StringBuilder pchCardHolderLastName, StringBuilder pchCardExpYear, StringBuilder pchCardExpMonth, StringBuilder pchCardCVV2 );
 		public bool GetCardInfo( UInt32 nCardIndex, ref ECreditCardType eCreditCardType, StringBuilder pchCardNumber, StringBuilder pchCardHolderFirstName, StringBuilder pchCardHolderLastName, StringBuilder pchCardExpYear, StringBuilder pchCardExpMonth, StringBuilder pchCardCVV2 ) 
 		{
-			return this.GetFunction<NativeGetCardInfoUESSSSSS>( this.Functions.GetCardInfo19 )( this.ObjectAddress, nCardIndex, ref eCreditCardType, pchCardNumber, pchCardHolderFirstName, pchCardHolderLastName, pchCardExpYear, pchCardExpMonth, pchCardCVV2 ); 
+			return this.GetFunction<NativeGetCardInfoUESSSSSS>( this.Functions.GetCardInfo18 )( this.ObjectAddress, nCardIndex, ref eCreditCardType, pchCardNumber, pchCardHolderFirstName, pchCardHolderLastName, pchCardExpYear, pchCardExpMonth, pchCardCVV2 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicensePackageIDU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public UInt32 GetLicensePackageID( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicensePackageIDU>( this.Functions.GetLicensePackageID20 )( this.ObjectAddress, nLicenseIndex ); 
+			return this.GetFunction<NativeGetLicensePackageIDU>( this.Functions.GetLicensePackageID19 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseTimeCreatedU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public UInt32 GetLicenseTimeCreated( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseTimeCreatedU>( this.Functions.GetLicenseTimeCreated21 )( this.ObjectAddress, nLicenseIndex ); 
+			return this.GetFunction<NativeGetLicenseTimeCreatedU>( this.Functions.GetLicenseTimeCreated20 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLicenseTimeNextProcessU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public UInt32 GetLicenseTimeNextProcess( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseTimeNextProcessU>( this.Functions.GetLicenseTimeNextProcess22 )( this.ObjectAddress, nLicenseIndex ); 
+			return this.GetFunction<NativeGetLicenseTimeNextProcessU>( this.Functions.GetLicenseTimeNextProcess21 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLicenseMinuteLimitU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public Int32 GetLicenseMinuteLimit( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseMinuteLimitU>( this.Functions.GetLicenseMinuteLimit23 )( this.ObjectAddress, nLicenseIndex ); 
+			return this.GetFunction<NativeGetLicenseMinuteLimitU>( this.Functions.GetLicenseMinuteLimit22 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLicenseMinutesUsedU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public Int32 GetLicenseMinutesUsed( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseMinutesUsedU>( this.Functions.GetLicenseMinutesUsed24 )( this.ObjectAddress, nLicenseIndex ); 
+			return this.GetFunction<NativeGetLicenseMinutesUsedU>( this.Functions.GetLicenseMinutesUsed23 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPaymentMethod NativeGetLicensePaymentMethodU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public EPaymentMethod GetLicensePaymentMethod( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicensePaymentMethodU>( this.Functions.GetLicensePaymentMethod25 )( this.ObjectAddress, nLicenseIndex ); 
+			return this.GetFunction<NativeGetLicensePaymentMethodU>( this.Functions.GetLicensePaymentMethod24 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ELicenseFlags NativeGetLicenseFlagsU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public ELicenseFlags GetLicenseFlags( UInt32 nLicenseIndex ) 
 		{
-			return this.GetFunction<NativeGetLicenseFlagsU>( this.Functions.GetLicenseFlags26 )( this.ObjectAddress, nLicenseIndex ); 
+			return this.GetFunction<NativeGetLicenseFlagsU>( this.Functions.GetLicenseFlags25 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLicensePurchaseCountryCodeU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public string GetLicensePurchaseCountryCode( UInt32 nLicenseIndex ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode27 )( this.ObjectAddress, nLicenseIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode26 )( this.ObjectAddress, nLicenseIndex ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetReceiptPackageIDU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public UInt32 GetReceiptPackageID( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptPackageIDU>( this.Functions.GetReceiptPackageID28 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptPackageIDU>( this.Functions.GetReceiptPackageID27 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPurchaseStatus NativeGetReceiptStatusU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public EPurchaseStatus GetReceiptStatus( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptStatusU>( this.Functions.GetReceiptStatus29 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptStatusU>( this.Functions.GetReceiptStatus28 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPurchaseResultDetail NativeGetReceiptResultDetailU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public EPurchaseResultDetail GetReceiptResultDetail( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptResultDetailU>( this.Functions.GetReceiptResultDetail30 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptResultDetailU>( this.Functions.GetReceiptResultDetail29 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetReceiptTransTimeU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public UInt32 GetReceiptTransTime( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptTransTimeU>( this.Functions.GetReceiptTransTime31 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptTransTimeU>( this.Functions.GetReceiptTransTime30 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeGetReceiptTransIDU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public UInt64 GetReceiptTransID( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptTransIDU>( this.Functions.GetReceiptTransID32 )( this.ObjectAddress, nReceiptIndex ); 
-		}
-		
-		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetReceiptAcknowledgedU( IntPtr thisptr, UInt32 nReceiptIndex );
-		public bool GetReceiptAcknowledged( UInt32 nReceiptIndex ) 
-		{
-			return this.GetFunction<NativeGetReceiptAcknowledgedU>( this.Functions.GetReceiptAcknowledged33 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptTransIDU>( this.Functions.GetReceiptTransID31 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EPaymentMethod NativeGetReceiptPaymentMethodU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public EPaymentMethod GetReceiptPaymentMethod( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptPaymentMethodU>( this.Functions.GetReceiptPaymentMethod34 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptPaymentMethodU>( this.Functions.GetReceiptPaymentMethod32 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetReceiptBaseCostU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public UInt32 GetReceiptBaseCost( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptBaseCostU>( this.Functions.GetReceiptBaseCost35 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptBaseCostU>( this.Functions.GetReceiptBaseCost33 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetReceiptTotalDiscountU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public UInt32 GetReceiptTotalDiscount( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptTotalDiscountU>( this.Functions.GetReceiptTotalDiscount36 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptTotalDiscountU>( this.Functions.GetReceiptTotalDiscount34 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetReceiptTaxU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public UInt32 GetReceiptTax( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptTaxU>( this.Functions.GetReceiptTax37 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptTaxU>( this.Functions.GetReceiptTax35 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetReceiptShippingU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public UInt32 GetReceiptShipping( UInt32 nReceiptIndex ) 
 		{
-			return this.GetFunction<NativeGetReceiptShippingU>( this.Functions.GetReceiptShipping38 )( this.ObjectAddress, nReceiptIndex ); 
+			return this.GetFunction<NativeGetReceiptShippingU>( this.Functions.GetReceiptShipping36 )( this.ObjectAddress, nReceiptIndex ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetReceiptCountryCodeU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public string GetReceiptCountryCode( UInt32 nReceiptIndex ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetReceiptCountryCodeU>( this.Functions.GetReceiptCountryCode39 )( this.ObjectAddress, nReceiptIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetReceiptCountryCodeU>( this.Functions.GetReceiptCountryCode37 )( this.ObjectAddress, nReceiptIndex ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumLicenses( IntPtr thisptr );
 		public UInt32 GetNumLicenses(  ) 
 		{
-			return this.GetFunction<NativeGetNumLicenses>( this.Functions.GetNumLicenses40 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetNumLicenses>( this.Functions.GetNumLicenses38 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumReceipts( IntPtr thisptr );
 		public UInt32 GetNumReceipts(  ) 
 		{
-			return this.GetFunction<NativeGetNumReceipts>( this.Functions.GetNumReceipts41 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetNumReceipts>( this.Functions.GetNumReceipts39 )( this.ObjectAddress ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativePurchaseWithMachineIDUS( IntPtr thisptr, UInt32 nPackageID, string pchCustomData );
 		public bool PurchaseWithMachineID( UInt32 nPackageID, string pchCustomData ) 
 		{
-			return this.GetFunction<NativePurchaseWithMachineIDUS>( this.Functions.PurchaseWithMachineID42 )( this.ObjectAddress, nPackageID, pchCustomData ); 
+			return this.GetFunction<NativePurchaseWithMachineIDUS>( this.Functions.PurchaseWithMachineID40 )( this.ObjectAddress, nPackageID, pchCustomData ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInitClickAndBuyPurchaseUISS( IntPtr thisptr, UInt32 nPackageID, Int64 nAccountNum, string pchState, string pchCountryCode );
 		public bool InitClickAndBuyPurchase( UInt32 nPackageID, Int64 nAccountNum, string pchState, string pchCountryCode ) 
 		{
-			return this.GetFunction<NativeInitClickAndBuyPurchaseUISS>( this.Functions.InitClickAndBuyPurchase43 )( this.ObjectAddress, nPackageID, nAccountNum, pchState, pchCountryCode ); 
+			return this.GetFunction<NativeInitClickAndBuyPurchaseUISS>( this.Functions.InitClickAndBuyPurchase41 )( this.ObjectAddress, nPackageID, nAccountNum, pchState, pchCountryCode ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetPreviousClickAndBuyAccountISS( IntPtr thisptr, ref Int64 pnAccountNum, StringBuilder pchState, StringBuilder pchCountryCode );
 		public bool GetPreviousClickAndBuyAccount( ref Int64 pnAccountNum, StringBuilder pchState, StringBuilder pchCountryCode ) 
 		{
-			return this.GetFunction<NativeGetPreviousClickAndBuyAccountISS>( this.Functions.GetPreviousClickAndBuyAccount44 )( this.ObjectAddress, ref pnAccountNum, pchState, pchCountryCode ); 
+			return this.GetFunction<NativeGetPreviousClickAndBuyAccountISS>( this.Functions.GetPreviousClickAndBuyAccount42 )( this.ObjectAddress, ref pnAccountNum, pchState, pchCountryCode ); 
 		}
 		
 	};
