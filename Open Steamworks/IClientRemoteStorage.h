@@ -83,7 +83,7 @@ public:
 	
 	virtual SteamAPICall_t CommitPublishedFileUpdate( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, JobID_t hUpdateRequest ) = 0;
 	
-	virtual SteamAPICall_t GetPublishedFileDetails( PublishedFileId_t unPublishedFileId, bool bUseNewCallback ) = 0; // Old callback id = 1310, new callback id = 1318
+	virtual SteamAPICall_t GetPublishedFileDetails( PublishedFileId_t unPublishedFileId, bool bUseNewCallback, uint32 ) = 0; // Old callback id = 1310, new callback id = 1318
 	virtual SteamAPICall_t DeletePublishedFile( PublishedFileId_t unPublishedFileId ) = 0;
 	virtual SteamAPICall_t EnumerateUserPublishedFiles( AppId_t nAppId, uint32 uStartIndex, ERemoteStoragePublishedFileSortOrder eOrder ) = 0;
 	virtual SteamAPICall_t SubscribePublishedFile( AppId_t nAppId, PublishedFileId_t unPublishedFileId ) = 0;

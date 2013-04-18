@@ -59,13 +59,18 @@ public:
 	virtual void InstallDLC( AppId_t nAppID ) = 0;
 	virtual void UninstallDLC( AppId_t nAppID ) = 0;
 	
-	virtual void RequestAppProofOfPurchaseKey( AppId_t nDLCAppID ) = 0;
+	// Request cd-key for yourself or owned DLC. If you are interested in this
+	// data then make sure you provide us with a list of valid keys to be distributed
+	// to users when they purchase the game, before the game ships.
+	// You'll receive an AppProofOfPurchaseKeyResponse_t callback when
+	// the key is available (which may be immediately).
+	virtual void RequestAppProofOfPurchaseKey( AppId_t nAppID ) = 0;
 	
 	virtual bool GetCurrentBetaName( char *pchName, int32 cchNameBufferSize ) = 0;
 	virtual bool MarkContentCorrupt( bool bCorrupt ) = 0;
 	
 	virtual uint32 GetInstalledDepots( AppId_t puDepots[], uint32 cuDepotsMax ) = 0;
-	virtual uint32 GetAppInstallDir( char *pchPath, uint32 cchPath ) = 0;
+	virtual uint32 GetAppInstallDir( AppId_t nAppID, char *pchPath, uint32 cchPath ) = 0;
 };
 
 

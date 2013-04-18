@@ -190,6 +190,8 @@ struct SHADigestWrapper_t
 	uint32 E;
 };
 
+const int k_cubAppProofOfPurchaseKeyMax = 64;			// max bytes of a legacy cd key we support
+
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: called when new information about an app has arrived
@@ -316,7 +318,7 @@ struct RequestAppProofOfPurchaseKeyResponse_t
 
 	EResult m_eResult;
 	AppId_t m_nAppID;
-	char m_szCDKey[64];	
+	char m_rgchKey[ k_cubAppProofOfPurchaseKeyMax ];	
 };
 #pragma pack( pop )
 

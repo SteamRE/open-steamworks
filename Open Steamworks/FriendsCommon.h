@@ -219,20 +219,20 @@ enum EChatPermission
 //-----------------------------------------------------------------------------
 enum EChatRoomEnterResponse
 {
-	k_EChatRoomEnterResponseSuccess = 1,		// Success
-	k_EChatRoomEnterResponseDoesntExist = 2,	// Chat doesn't exist (probably closed)
-	k_EChatRoomEnterResponseNotAllowed = 3,		// General Denied - You don't have the permissions needed to join the chat
-	k_EChatRoomEnterResponseFull = 4,			// Chat room has reached its maximum size
-	k_EChatRoomEnterResponseError = 5,			// Unexpected Error
-	k_EChatRoomEnterResponseBanned = 6,			// You are banned from this chat room and may not join
-	k_EChatRoomEnterResponseLimited = 7,		// Joining this chat is not allowed because you are a limited user (no value on account)
-	k_EChatRoomEnterResponseClanDisabled = 8,	// Attempt to join a clan chat when the clan is locked or disabled
-	k_EChatRoomEnterResponseCommunityBan = 9,	// Attempt to join a chat when the user has a community lock on their account
-	k_EChatRoomEnterResponseMemberBlockedYou = 10, // Join failed - some member in the chat has blocked you from joining
-	k_EChatRoomEnterResponseYouBlockedMember = 11, // Join failed - you have blocked some member already in the chat
-	k_EChatRoomEnterResponseNoRankingDataLobby = 12,
-	k_EChatRoomEnterResponseNoRankingDataUser = 13,
-	k_EChatRoomEnterResponseRankOutOfRange = 14,
+	k_EChatRoomEnterResponseSuccess = 1,				// Success
+	k_EChatRoomEnterResponseDoesntExist = 2,			// Chat doesn't exist (probably closed)
+	k_EChatRoomEnterResponseNotAllowed = 3,				// General Denied - You don't have the permissions needed to join the chat
+	k_EChatRoomEnterResponseFull = 4,					// Chat room has reached its maximum size
+	k_EChatRoomEnterResponseError = 5,					// Unexpected Error
+	k_EChatRoomEnterResponseBanned = 6,					// You are banned from this chat room and may not join
+	k_EChatRoomEnterResponseLimited = 7,				// Joining this chat is not allowed because you are a limited user (no value on account)
+	k_EChatRoomEnterResponseClanDisabled = 8,			// Attempt to join a clan chat when the clan is locked or disabled
+	k_EChatRoomEnterResponseCommunityBan = 9,			// Attempt to join a chat when the user has a community lock on their account
+	k_EChatRoomEnterResponseMemberBlockedYou = 10,		// Join failed - some member in the chat has blocked you from joining
+	k_EChatRoomEnterResponseYouBlockedMember = 11,		// Join failed - you have blocked some member already in the chat
+	k_EChatRoomEnterResponseNoRankingDataLobby = 12,	// There is no ranking data available for the lobby 
+	k_EChatRoomEnterResponseNoRankingDataUser = 13,		// There is no ranking data available for the user
+	k_EChatRoomEnterResponseRankOutOfRange = 14,		// The user is out of the allowable ranking range
 };
 
 enum EChatAction
@@ -274,12 +274,14 @@ enum EChatActionResult
 //-----------------------------------------------------------------------------
 enum EUserRestriction
 {
-	k_nUserRestrictionNone		= 0,	// no known chat/content restriction
-	k_nUserRestrictionUnknown	= 1,	// we don't know yet (user offline)
-	k_nUserRestrictionAnyChat	= 2,	// user is not allowed to (or can't) send/recv any chat
-	k_nUserRestrictionVoiceChat	= 4,	// user is not allowed to (or can't) send/recv voice chat
-	k_nUserRestrictionGroupChat	= 8,	// user is not allowed to (or can't) send/recv group chat
-	k_nUserRestrictionRating	= 16,	// user is too young according to rating in current region
+	k_nUserRestrictionNone			= 0,	// no known chat/content restriction
+	k_nUserRestrictionUnknown		= 1,	// we don't know yet (user offline)
+	k_nUserRestrictionAnyChat		= 2,	// user is not allowed to (or can't) send/recv any chat
+	k_nUserRestrictionVoiceChat		= 4,	// user is not allowed to (or can't) send/recv voice chat
+	k_nUserRestrictionGroupChat		= 8,	// user is not allowed to (or can't) send/recv group chat
+	k_nUserRestrictionRating		= 16,	// user is too young according to rating in current region
+	k_nUserRestrictionGameInvites	= 32,	// user cannot send or recv game invites (e.g. mobile)
+	k_nUserRestrictionTrading		= 64,	// user cannot participate in trading (console, mobile)
 };
 
 enum EOverlayToStoreFlag
@@ -309,6 +311,8 @@ const int k_cchMaxFriendsGroupName = 64;
 // maximum number of groups a single user is allowed
 const int k_cFriendsGroupLimit = 100;
 
+const int k_cEnumerateFollowersMax = 50;
+
 // max size on chat messages
 const uint32 k_cchFriendChatMsgMax = 0x3000;
 
@@ -329,10 +333,13 @@ const int k_cchSystemIMTextMax = 4096;	// upper bound of length of system IM tex
 
 #pragma pack( push, 8 )
 
+//-----------------------------------------------------------------------------
+// Purpose: information about user sessions
+//-----------------------------------------------------------------------------
 struct FriendSessionStateInfo_t
 {
-	uint32 m_uOnlineSessionInstances;
-	uint32 m_uPublishedInstanceId;
+	uint32 m_uiOnlineSessionInstances;
+	uint8 m_uiPublishedToFriendsSessionInstance;
 };
 
 
@@ -539,7 +546,7 @@ struct FriendsEnumerateFollowingList_t
 	enum { k_iCallback = k_iSteamFriendsCallbacks + 46 };
 
 	EResult m_eResult;
-	CSteamID m_steamIDs[50];
+	CSteamID m_steamIDs[ k_cEnumerateFollowersMax ];
 	int32 m_cSteamIDs;
 	int32 m_cTotalResults;
 };

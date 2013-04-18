@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMREMOTESTORAGE009_H
-#define ISTEAMREMOTESTORAGE009_H
+#ifndef ISTEAMREMOTESTORAGE011_H
+#define ISTEAMREMOTESTORAGE011_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -27,7 +27,7 @@
 // Purpose: Functions for accessing, reading and writing files stored remotely 
 //			and cached locally
 //-----------------------------------------------------------------------------
-abstract_class ISteamRemoteStorage009
+abstract_class ISteamRemoteStorage011
 {
 public:
 	// NOTE
@@ -68,7 +68,7 @@ public:
 	virtual void SetCloudEnabledForApp( bool bEnabled ) = 0;
 
 	// user generated content
-	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent ) = 0; // Returns a RemoteStorageDownloadUGCResult_t callback
+	virtual SteamAPICall_t UGCDownload( UGCHandle_t hContent, uint32 uUnk ) = 0; // Returns a RemoteStorageDownloadUGCResult_t callback
 	virtual bool GetUGCDownloadProgress( UGCHandle_t hContent, uint32 *puDownloadedBytes, uint32 *puTotalBytes ) = 0;
 	virtual bool	GetUGCDetails( UGCHandle_t hContent, AppId_t *pnAppID, char **ppchName, int32 *pnFileSizeInBytes, CSteamID *pSteamIDOwner ) = 0;
 	virtual int32	UGCRead( UGCHandle_t hContent, void *pvData, int32 cubDataToRead, uint32 uOffset ) = 0;
@@ -88,7 +88,7 @@ public:
 	virtual bool UpdatePublishedFileTags( JobID_t hUpdateRequest, SteamParamStringArray_t *pTags ) = 0;
 	virtual SteamAPICall_t CommitPublishedFileUpdate( JobID_t hUpdateRequest ) = 0;
 
-	virtual SteamAPICall_t GetPublishedFileDetails( PublishedFileId_t unPublishedFileId ) = 0;
+	virtual SteamAPICall_t GetPublishedFileDetails( PublishedFileId_t unPublishedFileId, uint32 ) = 0;
 	virtual SteamAPICall_t DeletePublishedFile( PublishedFileId_t unPublishedFileId ) = 0;
 	virtual SteamAPICall_t EnumerateUserPublishedFiles( uint32 uStartIndex ) = 0;
 	virtual SteamAPICall_t SubscribePublishedFile( PublishedFileId_t unPublishedFileId ) = 0;
@@ -104,6 +104,8 @@ public:
 	virtual SteamAPICall_t SetUserPublishedFileAction( PublishedFileId_t unPublishedFileId, EWorkshopFileAction eAction ) = 0;
 	virtual SteamAPICall_t EnumeratePublishedFilesByUserAction( EWorkshopFileAction eAction, uint32 uStartIndex ) = 0;
 	virtual SteamAPICall_t EnumeratePublishedWorkshopFiles( EWorkshopEnumerationType eType, uint32 uStartIndex, uint32 cDays, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
+	
+	virtual SteamAPICall_t UGCDownloadToLocation( UGCHandle_t hContent, const char *cszLocation, uint32 uUnk ) = 0;
 };
 
-#endif // ISTEAMREMOTESTORAGE009_H
+#endif // ISTEAMREMOTESTORAGE011_H

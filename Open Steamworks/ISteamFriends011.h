@@ -217,9 +217,10 @@ public:
 	virtual bool ReplyToFriendMessage( CSteamID steamIDFriend, const char *pchMsgToSend ) = 0;
 	virtual int GetFriendMessage( CSteamID steamIDFriend, int iMessageID, void *pvData, int cubData, EChatEntryType *peChatEntryType ) = 0;
 
+	// following apis
 	virtual SteamAPICall_t GetFollowerCount( CSteamID steamID ) = 0;
 	virtual SteamAPICall_t IsFollowing( CSteamID steamID ) = 0;
-	virtual SteamAPICall_t EnumerateFollowingList( uint32 uStartIndex ) = 0;
+	virtual SteamAPICall_t EnumerateFollowingList( uint32 unStartIndex ) = 0;
 };
 
 

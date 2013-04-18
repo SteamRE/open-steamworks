@@ -288,7 +288,8 @@ public:
 
 	virtual bool BSteamGuardNewMachineNotification() = 0;
 	virtual RTime32 GetSteamGuardEnabledTime() = 0;
-	virtual bool GetSteamGuardHistoryEntry( int32 iEntryIndex, RTime32 *puTimestamp, uint32 *puIP, bool *pbIsRemembered ) = 0;
+	virtual bool GetSteamGuardHistoryEntry( int32 iEntryIndex, RTime32 *puTimestamp, uint32 *puIP, bool *pbIsRemembered, char *pchGeolocInfo, int32 cchGeolocInfo ) = 0;
+	virtual void SetSteamGuardNewMachineDialogResponse( bool bIsApproved, bool bIsWizardComplete ) = 0;
 
 	virtual bool BAccountCanUseIPT() = 0;
 	virtual void ChangeTwoFactorAuthOptions( int32 eOption ) = 0;
@@ -315,6 +316,11 @@ public:
 	virtual bool GetAppOwnershipInfo( AppId_t unAppId, RTime32* pRTime32Created, char* pchCountry ) = 0; // Use a 3 bytes buffer for the country
 	
 	virtual void SendGameWebCallback( AppId_t unAppId, const char *szData ) = 0;
+	
+	virtual bool BIsCurrentlyStreaming() = 0;
+	virtual void RequestStopStreaming() = 0;
+	virtual void OnBigPictureStreamingResult( bool, void * ) = 0;
+	virtual void OnBigPictureStreamingDone() = 0;
 };
 
 #endif // ICLIENTUSER_H

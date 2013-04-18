@@ -36,6 +36,7 @@ public:
 	virtual bool ShutdownApp( AppId_t unAppID, bool bForce ) = 0;
 
 	virtual EAppState GetAppInstallState( AppId_t unAppID ) = 0;
+	virtual uint32 GetAppBuildID( AppId_t unAppID ) = 0;
 
 	// /!\ IPC is broken for this function
 	virtual bool GetAppSizeOnDisk( AppId_t unAppID, uint64 *pullAppSize, uint64 *pullUnk ) = 0;
@@ -78,10 +79,6 @@ public:
 
 	virtual AppId_t GetDownloadingAppID() = 0;
 	virtual bool ChangeAppPriority( AppId_t unAppID, EAppDownloadPriority ePriority ) = 0;
-
-	virtual bool AddSteam2Update( AppId_t unAppID ) = 0;
-	virtual bool RemoveSteam2Update( AppId_t unAppID ) = 0;
-	virtual bool StalledSteam2Update( AppId_t unAppID ) = 0;
 
 	virtual bool BHasLocalContentServer() = 0;
 

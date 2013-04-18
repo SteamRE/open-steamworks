@@ -32,20 +32,25 @@
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_008 "STEAMREMOTESTORAGE_INTERFACE_VERSION008"
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_009 "STEAMREMOTESTORAGE_INTERFACE_VERSION009"
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_010 "STEAMREMOTESTORAGE_INTERFACE_VERSION010"
+#define STEAMREMOTESTORAGE_INTERFACE_VERSION_011 "STEAMREMOTESTORAGE_INTERFACE_VERSION011"
 
 #define CLIENTREMOTESTORAGE_INTERFACE_VERSION "CLIENTREMOTESTORAGE_INTERFACE_VERSION001"
 
 
 // A handle to a piece of user generated content
 typedef uint64 UGCHandle_t;
+typedef uint64 PublishedFileUpdateHandle_t;
 typedef uint64 PublishedFileId_t;
 const UGCHandle_t k_UGCHandleInvalid = 0xffffffffffffffffull;
+const PublishedFileUpdateHandle_t k_PublishedFileUpdateHandleInvalid = 0xffffffffffffffffull;
 
 const uint32 k_cchPublishedDocumentTitleMax = 128 + 1;
 const uint32 k_cchPublishedDocumentDescriptionMax = 8000;
+const uint32 k_cchPublishedDocumentChangeDescriptionMax = 256;
 const uint32 k_unEnumeratePublishedFilesMaxResults = 50;
 const uint32 k_cchTagListMax = 1024 + 1;
 const uint32 k_cchFilenameMax = 260;
+const uint32 k_cchPublishedFileURLMax = 256;
 
 enum ERemoteStorageFileRoot
 {
@@ -132,7 +137,19 @@ enum ERemoteStoragePublishedFileSortOrder
 
 enum EWorkshopFileType
 {
-	// TODO: Reverse this enum
+	k_EWorkshopFileTypeCommunity = 0,
+	k_EWorkshopFileTypeMicrotransaction = 1,
+	k_EWorkshopFileTypeCollection = 2,
+	k_EWorkshopFileTypeArt = 3,
+	k_EWorkshopFileTypeVideo = 4,
+	k_EWorkshopFileTypeScreenshot = 5,
+};
+
+enum EWorkshopVote
+{
+	k_EWorkshopVoteUnvoted = 0,
+	k_EWorkshopVoteFor = 1,
+	k_EWorkshopVoteAgainst = 2,
 };
 
 enum EWorkshopVideoProvider
@@ -149,13 +166,13 @@ enum EWorkshopFileAction
 
 enum EWorkshopEnumerationType
 {
-	k_EWorkshopEnumerationTypeTopRated = 0,
-	k_EWorkshopEnumerationTypeMostRecent = 1,
+	k_EWorkshopEnumerationTypeRankedByVote = 0,
+	k_EWorkshopEnumerationTypeRecent = 1,
 	k_EWorkshopEnumerationTypeTrending = 2,
-	k_EWorkshopEnumerationTypeFavoritedByFriends = 3,
+	k_EWorkshopEnumerationTypeFavoritesOfFriends = 3,
 	k_EWorkshopEnumerationTypeVotedByFriends = 4,
-	k_EWorkshopEnumerationTypeCreatedByFriends = 5,
-	k_EWorkshopEnumerationTypeCreatedByFollowed = 6,
+	k_EWorkshopEnumerationTypeContentByFriends = 5,
+	k_EWorkshopEnumerationTypeRecentFromFollowedUsers = 6,
 };
 
 enum EPublishedFileInfoMatchingFileType
@@ -549,7 +566,7 @@ struct RemoteStorageEnumerateWorkshopFilesResult_t
 };
 
 //-----------------------------------------------------------------------------
-// Purpose: The result of a call to GetCREItemVoteSummary()
+// Purpose: The result of GetPublishedItemVoteDetails
 //-----------------------------------------------------------------------------
 struct RemoteStorageGetPublishedItemVoteDetailsResult_t
 {
@@ -557,9 +574,9 @@ struct RemoteStorageGetPublishedItemVoteDetailsResult_t
 
 	EResult m_eResult;
 	PublishedFileId_t m_unPublishedFileId;
-	int32 m_cVotesFor;
-	int32 m_cVotesAgainst;
-	int32 m_cReports;
+	int32 m_nVotesFor;
+	int32 m_nVotesAgainst;
+	int32 m_nReports;
 	float m_fScore; // [0-1.0]
 };
 

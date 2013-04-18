@@ -155,6 +155,7 @@
 #include "ISteamRemoteStorage008.h"
 #include "ISteamRemoteStorage009.h"
 #include "ISteamRemoteStorage010.h"
+#include "ISteamRemoteStorage011.h"
 
 // content server
 #include "ISteamContentServer001.h"
@@ -183,6 +184,9 @@
 // unified messages
 #include "ISteamUnifiedMessages001.h"
 
+// stream launcher
+#include "ISteamStreamLauncher001.h"
+
 #ifndef NO_ICLIENT
 // client interfaces
 #include "IClientEngine.h"
@@ -210,6 +214,7 @@
 #include "IClientHTTP.h"
 #include "IClientConfigStore.h"
 #include "IClientUnifiedMessages.h"
+#include "IClientStreamLauncher.h"
 #endif // NO_ICLIENT
 
 // callback

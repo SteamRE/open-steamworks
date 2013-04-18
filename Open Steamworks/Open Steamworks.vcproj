@@ -215,6 +215,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\IClientStreamLauncher.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IClientUnifiedMessages.h"
+					>
+				</File>
+				<File
 					RelativePath=".\IClientUser.h"
 					>
 				</File>
@@ -594,6 +602,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamRemoteStorage011.h"
+						>
+					</File>
+					<File
 						RelativePath=".\RemoteStorageCommon.h"
 						>
 					</File>
@@ -823,6 +835,30 @@
 					</File>
 					<File
 						RelativePath=".\OAuthCommon.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="ISteamUnifiedMessages"
+					>
+					<File
+						RelativePath=".\ISteamUnifiedMessages001.h"
+						>
+					</File>
+					<File
+						RelativePath=".\UnifiedMessagesCommon.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="ISteamStreamLauncher"
+					>
+					<File
+						RelativePath=".\ISteamStreamLauncher001.h"
+						>
+					</File>
+					<File
+						RelativePath=".\StreamLauncherCommon.h"
 						>
 					</File>
 				</Filter>

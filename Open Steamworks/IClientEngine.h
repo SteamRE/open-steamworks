@@ -50,6 +50,7 @@ class IClientConfigStore;
 class IClientScreenshots;
 class IClientAudio;
 class IClientUnifiedMessages;
+class IClientStreamLauncher;
 
 abstract_class UNSAFE_INTERFACE IClientEngine
 {
@@ -117,6 +118,7 @@ public:
 
 	virtual IClientAudio *GetIClientAudio( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientUnifiedMessages *GetIClientUnifiedMessages( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
+	virtual IClientStreamLauncher *GetIClientStreamLauncher( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 };
 
 #endif // ICLIENTENGINE_H

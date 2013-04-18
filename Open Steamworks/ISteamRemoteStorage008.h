@@ -46,9 +46,9 @@ public:
 	virtual bool	SetSyncPlatforms( const char *pchFile, ERemoteStoragePlatform eRemoteStoragePlatform ) = 0;
 
 	virtual GID_t FileWriteStreamOpen( const char *pchFile ) = 0;
+	virtual EResult FileWriteStreamWriteChunk( GID_t hStream, const void *pvData, int32 cubData ) = 0;
 	virtual EResult FileWriteStreamClose( GID_t hStream ) = 0;
 	virtual EResult FileWriteStreamCancel( GID_t hStream ) = 0;
-	virtual EResult FileWriteStreamWriteChunk( GID_t hStream, const void *pvData, int32 cubData ) = 0;
 
 	// file information
 	virtual bool	FileExists( const char *pchFile ) = 0;
