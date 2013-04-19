@@ -1,6 +1,7 @@
 #define STEAMWORKS_CLIENT_INTERFACES
 
 #include "Steamworks.h"
+#include <time.h>
 
 #pragma comment( lib, "../Resources/Libs/Win32/steamclient.lib" )
 
@@ -121,15 +122,20 @@ int main()
 					{
 						EChatEntryType eMsgType;
 						CSteamID chatter;
-
+						RTime32 uMsgTime;
 						char szData[k_cchFriendChatMsgMax];  
 						memset(szData, 0, k_cchFriendChatMsgMax);  
 
-						int iLength = pClientFriends->GetChatMessage(pFriendMessageInfo->m_ulFriendID, pFriendMessageInfo->m_iChatID, szData, sizeof(szData), &eMsgType, &chatter);  
+						int iLength = pClientFriends->GetChatMessage(pFriendMessageInfo->m_ulFriendID, pFriendMessageInfo->m_iChatID, szData, sizeof(szData), &eMsgType, &chatter, &uMsgTime);  
 
 						if (eMsgType == k_EChatEntryTypeChatMsg || eMsgType == k_EChatEntryTypeEmote)  
 						{
-							printf("Message from %s: %s\n", pFriendMessageInfo->m_ulSenderID.Render(), szData);
+							time_t uTime = uMsgTime;
+							tm *pTM = localtime(&uTime);
+							char szTime[20];
+							strftime(szTime, sizeof(szTime), "%X", pTM);
+
+							printf("[%s] %s: %s\n", szTime, pFriendMessageInfo->m_ulSenderID.Render(), szData);
 							
 							if (strcmp(szData, "quit") == 0 && pFriendMessageInfo->m_ulSenderID == adminID)
 							{
