@@ -321,6 +321,7 @@ public:
 	virtual void RequestStopStreaming() = 0;
 	virtual void OnBigPictureStreamingResult( bool, void * ) = 0;
 	virtual void OnBigPictureStreamingDone() = 0;
+	virtual void OnBigPictureStreamRestarting() = 0;
 };
 
 #endif // ICLIENTUSER_H
