@@ -61,7 +61,7 @@ namespace Steam4NET
 		k_ERemoteStoragePlatformWindows = 1,
 		k_ERemoteStoragePlatformOSX = 2,
 		k_ERemoteStoragePlatformPS3 = 4,
-		k_ERemoteStoragePlatformReserved1 = 8,
+		k_ERemoteStoragePlatformLinux = 8,
 		k_ERemoteStoragePlatformReserved2 = 16,
 		k_ERemoteStoragePlatformAll = -1,
 	};
@@ -122,6 +122,10 @@ namespace Steam4NET
 	};
 	
 	public enum EPublishedFileInfoMatchingFileType : int
+	{
+	};
+	
+	public enum EUGCReadAction : int
 	{
 	};
 	

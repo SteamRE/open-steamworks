@@ -61,6 +61,10 @@ namespace Steam4NET
 		k_ELogonStateLoggedOn = 3,
 	};
 	
+	public enum ELauncherType : int
+	{
+	};
+	
 	public enum EVACBan : int
 	{
 		k_EVACBanGoldsrc = 0,

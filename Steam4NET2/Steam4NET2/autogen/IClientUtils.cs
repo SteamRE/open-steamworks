@@ -43,7 +43,9 @@ namespace Steam4NET
 		public IntPtr GamepadTextInputClosed31;
 		public IntPtr SetSpew32;
 		public IntPtr BDownloadsDisabled33;
-		private IntPtr DTorIClientUtils34;
+		public IntPtr SetFocusedWindow34;
+		public IntPtr GetSteamUILanguage35;
+		private IntPtr DTorIClientUtils36;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTUTILS_INTERFACE_VERSION001")]
@@ -262,6 +264,18 @@ namespace Steam4NET
 		public bool BDownloadsDisabled(  ) 
 		{
 			return this.GetFunction<NativeBDownloadsDisabled>( this.Functions.BDownloadsDisabled33 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetFocusedWindowEU( IntPtr thisptr, EWindowType eWindowType, UInt32 uUnk );
+		public void SetFocusedWindow( EWindowType eWindowType, UInt32 uUnk ) 
+		{
+			this.GetFunction<NativeSetFocusedWindowEU>( this.Functions.SetFocusedWindow34 )( this.ObjectAddress, eWindowType, uUnk ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetSteamUILanguage( IntPtr thisptr );
+		public string GetSteamUILanguage(  ) 
+		{
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetSteamUILanguage>( this.Functions.GetSteamUILanguage35 )( this.ObjectAddress ) ); 
 		}
 		
 	};

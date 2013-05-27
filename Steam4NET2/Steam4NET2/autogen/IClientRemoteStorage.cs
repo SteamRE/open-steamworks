@@ -79,8 +79,8 @@ namespace Steam4NET
 		public IntPtr ResolveSyncConflict67;
 		public IntPtr SynchronizeApp68;
 		public IntPtr IsAppSyncInProgress69;
-		public IntPtr ERemoteStorageFileRootFromName70;
-		public IntPtr PchNameFromERemoteStorageFileRoot71;
+		public IntPtr RunAutoCloudOnAppLaunch70;
+		public IntPtr RunAutoCloudOnAppExit71;
 		public IntPtr ResetFileRequestState72;
 		public IntPtr ClearPublishFileUpdateRequests73;
 		public IntPtr GetSubscribedFileDownloadCount74;
@@ -90,7 +90,8 @@ namespace Steam4NET
 		public IntPtr ResumeSubscribedFileDownloadsForApp78;
 		public IntPtr PauseAllSubscribedFileDownloads79;
 		public IntPtr ResumeAllSubscribedFileDownloads80;
-		private IntPtr DTorIClientRemoteStorage81;
+		public IntPtr OnAppLifetime81;
+		private IntPtr DTorIClientRemoteStorage82;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTREMOTESTORAGE_INTERFACE_VERSION001")]
@@ -256,10 +257,10 @@ namespace Steam4NET
 			UInt64 s0 = 0; var result = this.GetFunction<NativeGetUGCDetailsUUSIC>( this.Functions.GetUGCDetails24 )( this.ObjectAddress, hContent, ref pnAppID, ppchName, ref pnFileSizeInBytes, ref s0 ); pSteamIDOwner = new CSteamID(s0); return result;
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBIU( IntPtr thisptr, UInt64 hContent, Byte[] pubDest, Int32 nDestBufferSize, UInt32 uOffset );
-		public Int32 UGCRead( UInt64 hContent, Byte[] pubDest, Int32 nDestBufferSize, UInt32 uOffset ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeUGCReadUBIUE( IntPtr thisptr, UInt64 hContent, Byte[] pvData, Int32 cubDataToRead, UInt32 uOffset, EUGCReadAction eAction );
+		public Int32 UGCRead( UInt64 hContent, Byte[] pvData, UInt32 uOffset, EUGCReadAction eAction ) 
 		{
-			return this.GetFunction<NativeUGCReadUBIU>( this.Functions.UGCRead25 )( this.ObjectAddress, hContent, pubDest, nDestBufferSize, uOffset ); 
+			return this.GetFunction<NativeUGCReadUBIUE>( this.Functions.UGCRead25 )( this.ObjectAddress, hContent, pvData, (Int32) pvData.Length, uOffset, eAction ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCachedUGCCount( IntPtr thisptr );
@@ -542,16 +543,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeIsAppSyncInProgressU>( this.Functions.IsAppSyncInProgress69 )( this.ObjectAddress, nAppId ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ERemoteStorageFileRoot NativeERemoteStorageFileRootFromNameS( IntPtr thisptr, string pchName );
-		public ERemoteStorageFileRoot ERemoteStorageFileRootFromName( string pchName ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRunAutoCloudOnAppLaunchU( IntPtr thisptr, UInt32 nAppId );
+		public void RunAutoCloudOnAppLaunch( UInt32 nAppId ) 
 		{
-			return this.GetFunction<NativeERemoteStorageFileRootFromNameS>( this.Functions.ERemoteStorageFileRootFromName70 )( this.ObjectAddress, pchName ); 
+			this.GetFunction<NativeRunAutoCloudOnAppLaunchU>( this.Functions.RunAutoCloudOnAppLaunch70 )( this.ObjectAddress, nAppId ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativePchNameFromERemoteStorageFileRootE( IntPtr thisptr, ERemoteStorageFileRoot eRemoteStorageFileRoot );
-		public string PchNameFromERemoteStorageFileRoot( ERemoteStorageFileRoot eRemoteStorageFileRoot ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRunAutoCloudOnAppExitU( IntPtr thisptr, UInt32 nAppId );
+		public void RunAutoCloudOnAppExit( UInt32 nAppId ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativePchNameFromERemoteStorageFileRootE>( this.Functions.PchNameFromERemoteStorageFileRoot71 )( this.ObjectAddress, eRemoteStorageFileRoot ) ); 
+			this.GetFunction<NativeRunAutoCloudOnAppExitU>( this.Functions.RunAutoCloudOnAppExit71 )( this.ObjectAddress, nAppId ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -609,6 +610,12 @@ namespace Steam4NET
 		public void ResumeAllSubscribedFileDownloads(  ) 
 		{
 			this.GetFunction<NativeResumeAllSubscribedFileDownloads>( this.Functions.ResumeAllSubscribedFileDownloads80 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeOnAppLifetimeUB( IntPtr thisptr, UInt32 nAppId, [MarshalAs(UnmanagedType.I1)] bool bUnk );
+		public void OnAppLifetime( UInt32 nAppId, bool bUnk ) 
+		{
+			this.GetFunction<NativeOnAppLifetimeUB>( this.Functions.OnAppLifetime81 )( this.ObjectAddress, nAppId, bUnk ); 
 		}
 		
 	};

@@ -230,7 +230,10 @@ namespace Steam4NET
 		public IntPtr BOfflineMessagesEnabled218;
 		public IntPtr RequestFriendMessageHistory219;
 		public IntPtr RequestFriendMessageHistoryForOfflineMessages220;
-		private IntPtr DTorIClientFriends221;
+		public IntPtr RequestEmoticonList221;
+		public IntPtr GetEmoticonCount222;
+		public IntPtr GetEmoticonName223;
+		private IntPtr DTorIClientFriends224;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTFRIENDS_INTERFACE_VERSION001")]
@@ -1633,6 +1636,24 @@ namespace Steam4NET
 		public void RequestFriendMessageHistoryForOfflineMessages(  ) 
 		{
 			this.GetFunction<NativeRequestFriendMessageHistoryForOfflineMessages>( this.Functions.RequestFriendMessageHistoryForOfflineMessages220 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestEmoticonList( IntPtr thisptr );
+		public void RequestEmoticonList(  ) 
+		{
+			this.GetFunction<NativeRequestEmoticonList>( this.Functions.RequestEmoticonList221 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetEmoticonCount( IntPtr thisptr );
+		public Int32 GetEmoticonCount(  ) 
+		{
+			return this.GetFunction<NativeGetEmoticonCount>( this.Functions.GetEmoticonCount222 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetEmoticonNameI( IntPtr thisptr, Int32 iEmoticon );
+		public string GetEmoticonName( Int32 iEmoticon ) 
+		{
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetEmoticonNameI>( this.Functions.GetEmoticonName223 )( this.ObjectAddress, iEmoticon ) ); 
 		}
 		
 	};

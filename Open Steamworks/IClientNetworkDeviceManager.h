@@ -36,8 +36,12 @@ enum EWirelessSecurityFlags
 struct WirelessAccessPoint_t
 {
 	// TODO : Reverse this struct
+#ifdef _S4N_
+	int m_iPadding;
+#endif
 };
 
+#define CLIENTNETWORKDEVICEMANAGER_INTERFACE_VERSION "CLIENTNETWORKDEVICEMANAGER_INTERFACE_VERSION001"
 
 abstract_class UNSAFE_INTERFACE IClientNetworkDeviceManager
 {

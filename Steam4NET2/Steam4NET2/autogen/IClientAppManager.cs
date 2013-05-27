@@ -56,8 +56,12 @@ namespace Steam4NET
 		public IntPtr AddInstallBaseFolder44;
 		public IntPtr RemoveInstallBaseFolder45;
 		public IntPtr GetFreeDiskSpace46;
-		public IntPtr ForceInstallDirOverride47;
-		private IntPtr DTorIClientAppManager48;
+		public IntPtr GetAppInstallBaseFolder47;
+		public IntPtr ForceInstallDirOverride48;
+		public IntPtr SetDownloadThrottleRateKbps49;
+		public IntPtr GetDownloadThrottleRateKbps50;
+		public IntPtr SuspendDownloadThrottling51;
+		private IntPtr DTorIClientAppManager52;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTAPPMANAGER_INTERFACE_VERSION001")]
@@ -369,10 +373,35 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetFreeDiskSpaceI>( this.Functions.GetFreeDiskSpace46 )( this.ObjectAddress, iBaseFolder ); 
 		}
 		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppInstallBaseFolderI( IntPtr thisptr, Int32 iBaseFolder );
+		public Int32 GetAppInstallBaseFolder( Int32 iBaseFolder ) 
+		{
+			return this.GetFunction<NativeGetAppInstallBaseFolderI>( this.Functions.GetAppInstallBaseFolder47 )( this.ObjectAddress, iBaseFolder ); 
+		}
+		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeForceInstallDirOverrideS( IntPtr thisptr, string cszPath );
 		public void ForceInstallDirOverride( string cszPath ) 
 		{
-			this.GetFunction<NativeForceInstallDirOverrideS>( this.Functions.ForceInstallDirOverride47 )( this.ObjectAddress, cszPath ); 
+			this.GetFunction<NativeForceInstallDirOverrideS>( this.Functions.ForceInstallDirOverride48 )( this.ObjectAddress, cszPath ); 
+		}
+		
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetDownloadThrottleRateKbpsI( IntPtr thisptr, Int32 iRate );
+		public bool SetDownloadThrottleRateKbps( Int32 iRate ) 
+		{
+			return this.GetFunction<NativeSetDownloadThrottleRateKbpsI>( this.Functions.SetDownloadThrottleRateKbps49 )( this.ObjectAddress, iRate ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetDownloadThrottleRateKbps( IntPtr thisptr );
+		public Int32 GetDownloadThrottleRateKbps(  ) 
+		{
+			return this.GetFunction<NativeGetDownloadThrottleRateKbps>( this.Functions.GetDownloadThrottleRateKbps50 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSuspendDownloadThrottlingB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bSuspend );
+		public void SuspendDownloadThrottling( bool bSuspend ) 
+		{
+			this.GetFunction<NativeSuspendDownloadThrottlingB>( this.Functions.SuspendDownloadThrottling51 )( this.ObjectAddress, bSuspend ); 
 		}
 		
 	};
