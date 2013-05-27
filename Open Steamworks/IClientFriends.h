@@ -377,6 +377,10 @@ public:
 	virtual bool BOfflineMessagesEnabled() = 0;
 	virtual void RequestFriendMessageHistory( CSteamID steamIDFriend ) = 0;
 	virtual void RequestFriendMessageHistoryForOfflineMessages() = 0;
+
+	virtual void RequestEmoticonList() = 0;
+	virtual int32 GetEmoticonCount() = 0;
+	virtual const char *GetEmoticonName( int32 iEmoticon ) = 0;
 };
 
 #endif // ICLIENTFRIENDS_H

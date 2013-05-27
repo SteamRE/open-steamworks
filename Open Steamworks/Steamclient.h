@@ -102,6 +102,7 @@
 #include "ISteamUtils003.h"
 #include "ISteamUtils004.h"
 #include "ISteamUtils005.h"
+#include "ISteamUtils006.h"
 
 // game server
 #include "ISteamGameServer002.h"
@@ -156,6 +157,7 @@
 #include "ISteamRemoteStorage009.h"
 #include "ISteamRemoteStorage010.h"
 #include "ISteamRemoteStorage011.h"
+#include "ISteamRemoteStorage012.h"
 
 // content server
 #include "ISteamContentServer001.h"
@@ -215,6 +217,8 @@
 #include "IClientConfigStore.h"
 #include "IClientUnifiedMessages.h"
 #include "IClientStreamLauncher.h"
+#include "IClientNetworkDeviceManager.h"
+#include "IClientDeviceAuth.h"
 #endif // NO_ICLIENT
 
 // callback

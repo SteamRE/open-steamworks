@@ -63,7 +63,7 @@ public:
 
 	virtual bool GetUGCDownloadProgress( UGCHandle_t hContent, uint32 *puDownloadedBytes, uint32 *puTotalBytes );
 	virtual bool GetUGCDetails( UGCHandle_t hContent, AppId_t *pnAppID, char **ppchName, int32 *pnFileSizeInBytes, CSteamID *pSteamIDOwner ) = 0;
-	virtual int32 UGCRead( UGCHandle_t hContent, void *pubDest, int32 nDestBufferSize, uint32 uOffset ) = 0;
+	virtual int32 UGCRead( UGCHandle_t hContent, void *pvData, int32 cubDataToRead, uint32 uOffset, EUGCReadAction eAction ) = 0;
 	virtual int32 GetCachedUGCCount() = 0;
 	virtual UGCHandle_t GetCachedUGCHandle( int32 iCachedContent ) = 0;
 
@@ -124,9 +124,9 @@ public:
 
 	virtual bool SynchronizeApp( AppId_t nAppId, bool bSyncClient, bool bSyncServer ) = 0;
 	virtual bool IsAppSyncInProgress( AppId_t nAppId ) = 0;
-
-	virtual ERemoteStorageFileRoot ERemoteStorageFileRootFromName( const char *pchName ) = 0;
-	virtual const char* PchNameFromERemoteStorageFileRoot( ERemoteStorageFileRoot eRemoteStorageFileRoot ) = 0;
+	
+	virtual void RunAutoCloudOnAppLaunch( AppId_t nAppId ) = 0;
+	virtual void RunAutoCloudOnAppExit( AppId_t nAppId ) = 0;
 	
 	virtual bool ResetFileRequestState( AppId_t nAppId ) = 0;
 
@@ -139,6 +139,7 @@ public:
 	virtual void ResumeSubscribedFileDownloadsForApp( AppId_t nAppId ) = 0;
 	virtual void PauseAllSubscribedFileDownloads() = 0;
 	virtual void ResumeAllSubscribedFileDownloads() = 0;
+	virtual void OnAppLifetime( AppId_t nAppId, bool bUnk ) = 0;
 };
 
 #endif // ICLIENTREMOTESTORAGE_H

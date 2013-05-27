@@ -33,6 +33,7 @@
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_009 "STEAMREMOTESTORAGE_INTERFACE_VERSION009"
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_010 "STEAMREMOTESTORAGE_INTERFACE_VERSION010"
 #define STEAMREMOTESTORAGE_INTERFACE_VERSION_011 "STEAMREMOTESTORAGE_INTERFACE_VERSION011"
+#define STEAMREMOTESTORAGE_INTERFACE_VERSION_012 "STEAMREMOTESTORAGE_INTERFACE_VERSION012"
 
 #define CLIENTREMOTESTORAGE_INTERFACE_VERSION "CLIENTREMOTESTORAGE_INTERFACE_VERSION001"
 
@@ -110,7 +111,7 @@ enum ERemoteStoragePlatform
 	k_ERemoteStoragePlatformWindows		= (1 << 0),
 	k_ERemoteStoragePlatformOSX			= (1 << 1),
 	k_ERemoteStoragePlatformPS3			= (1 << 2),
-	k_ERemoteStoragePlatformReserved1	= (1 << 3),
+	k_ERemoteStoragePlatformLinux		= (1 << 3),
 	k_ERemoteStoragePlatformReserved2	= (1 << 4),
 
 	k_ERemoteStoragePlatformAll = 0xffffffff
@@ -176,6 +177,11 @@ enum EWorkshopEnumerationType
 };
 
 enum EPublishedFileInfoMatchingFileType
+{
+	// TODO: Reverse this enum
+};
+
+enum EUGCReadAction
 {
 	// TODO: Reverse this enum
 };

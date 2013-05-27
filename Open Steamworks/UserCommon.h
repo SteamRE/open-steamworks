@@ -96,6 +96,11 @@ typedef enum ELogonState
 	k_ELogonStateLoggedOn = 3
 } ELogonState;
 
+typedef enum ELauncherType
+{
+	// TODO: Reverse this enum
+} ELauncherType;
+
 //-----------------------------------------------------------------------------
 // Purpose: types of VAC bans
 //-----------------------------------------------------------------------------

@@ -29,6 +29,7 @@
 #define STEAMUTILS_INTERFACE_VERSION_002 "SteamUtils002"
 #define STEAMUTILS_INTERFACE_VERSION_004 "SteamUtils004"
 #define STEAMUTILS_INTERFACE_VERSION_005 "SteamUtils005"
+#define STEAMUTILS_INTERFACE_VERSION_006 "SteamUtils006"
 
 
 
@@ -115,6 +116,11 @@ enum EGamepadTextInputMode
 };
 
 enum EGamepadTextInputLineMode
+{
+	// TODO: Reverse this enum
+};
+
+enum EWindowType
 {
 	// TODO: Reverse this enum
 };

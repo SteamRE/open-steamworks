@@ -163,6 +163,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\IClientDeviceAuth.h"
+					>
+				</File>
+				<File
 					RelativePath=".\IClientEngine.h"
 					>
 				</File>
@@ -200,6 +204,10 @@
 				</File>
 				<File
 					RelativePath=".\IClientMatchmakingServers.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IClientNetworkDeviceManager.h"
 					>
 				</File>
 				<File
@@ -606,6 +614,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ISteamRemoteStorage012.h"
+						>
+					</File>
+					<File
 						RelativePath=".\RemoteStorageCommon.h"
 						>
 					</File>
@@ -743,6 +755,10 @@
 					</File>
 					<File
 						RelativePath=".\ISteamUtils005.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamUtils006.h"
 						>
 					</File>
 					<File

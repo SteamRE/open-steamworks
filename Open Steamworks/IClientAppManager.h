@@ -98,7 +98,12 @@ public:
 	virtual bool RemoveInstallBaseFolder( int32 iBaseFolder ) = 0;
 	virtual uint64 GetFreeDiskSpace( int32 iBaseFolder ) = 0;
 	
+	virtual int32 GetAppInstallBaseFolder( int32 iBaseFolder ) = 0;
 	virtual void ForceInstallDirOverride( const char *cszPath ) = 0;
+	
+	virtual bool SetDownloadThrottleRateKbps( int32 iRate ) = 0;
+	virtual int32 GetDownloadThrottleRateKbps() = 0;
+	virtual void SuspendDownloadThrottling( bool bSuspend ) = 0;
 };
 
 #endif // ICLIENTAPPMANAGER_H

@@ -51,6 +51,10 @@ class IClientScreenshots;
 class IClientAudio;
 class IClientUnifiedMessages;
 class IClientStreamLauncher;
+class IClientNetworkDeviceManager;
+class IClientController;
+class IClientParentalSettings;
+class IClientDeviceAuth;
 
 abstract_class UNSAFE_INTERFACE IClientEngine
 {
@@ -101,8 +105,9 @@ public:
 	virtual bool IsOverlayEnabled() = 0;
 
 	virtual bool GetAPICallResult( HSteamPipe hSteamPipe, SteamAPICall_t hSteamAPICall, void* pCallback, int cubCallback, int iCallbackExpected, bool* pbFailed ) = 0;
-
+	
 	virtual IClientDepotBuilder *GetIClientDepotBuilder( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
+	virtual IClientNetworkDeviceManager *GetIClientNetworkDeviceManager( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
 	virtual void ConCommandInit( IConCommandBaseAccessor *pAccessor ) = 0;
 
@@ -118,7 +123,10 @@ public:
 
 	virtual IClientAudio *GetIClientAudio( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientUnifiedMessages *GetIClientUnifiedMessages( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
+	virtual IClientController *GetIClientController( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
+	virtual IClientParentalSettings *GetIClientParentalSettings( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientStreamLauncher *GetIClientStreamLauncher( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
+	virtual IClientDeviceAuth *GetIClientDeviceAuth( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 };
 
 #endif // ICLIENTENGINE_H
