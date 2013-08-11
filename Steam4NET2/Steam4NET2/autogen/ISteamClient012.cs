@@ -34,7 +34,8 @@ namespace Steam4NET
 		public IntPtr BShutdownIfAllPipesClosed22;
 		public IntPtr GetISteamHTTP23;
 		public IntPtr GetISteamUnifiedMessages24;
-		private IntPtr DTorISteamClient01225;
+		public IntPtr GetISteamController25;
+		private IntPtr DTorISteamClient01226;
 	};
 	
 	[InteropHelp.InterfaceVersion("SteamClient012")]
@@ -190,6 +191,12 @@ namespace Steam4NET
 		public TClass GetISteamUnifiedMessages<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
 		{
 			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamUnifiedMessagesIIS>( this.Functions.GetISteamUnifiedMessages24 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamControllerIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );
+		public TClass GetISteamController<TClass>( Int32 hSteamUser, Int32 hSteamPipe ) where TClass : InteropHelp.INativeWrapper, new()
+		{
+			return InteropHelp.CastInterface<TClass>( this.GetFunction<NativeGetISteamControllerIIS>( this.Functions.GetISteamController25 )( this.ObjectAddress, hSteamUser, hSteamPipe, InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) ) ) ); 
 		}
 		
 	};

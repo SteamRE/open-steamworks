@@ -83,6 +83,9 @@ namespace Steam4NET
 		k_EResultAccountLogonDeniedVerifiedEmailRequired = 74,
 		k_EResultNoMatchingURL = 75,
 		k_EResultBadResponse = 76,
+		k_EResultRequirePasswordReEntry = 77,
+		k_EResultValueOutOfRange = 78,
+		k_EResultUnexpectedError = 79,
 	};
 	
 }

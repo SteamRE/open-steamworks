@@ -18,9 +18,8 @@ namespace Steam4NET
 		public IntPtr NotifyDlcInstalled6;
 		public IntPtr GetDLCCount7;
 		public IntPtr BGetDLCDataByIndex8;
-		public IntPtr BReloadLocalAppInfoOverrides9;
-		public IntPtr BIsDlcInstalled10;
-		private IntPtr DTorIClientApps11;
+		public IntPtr BIsDlcInstalled9;
+		private IntPtr DTorIClientApps10;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTAPPS_INTERFACE_VERSION001")]
@@ -83,17 +82,10 @@ namespace Steam4NET
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBReloadLocalAppInfoOverrides( IntPtr thisptr );
-		public bool BReloadLocalAppInfoOverrides(  ) 
-		{
-			return this.GetFunction<NativeBReloadLocalAppInfoOverrides>( this.Functions.BReloadLocalAppInfoOverrides9 )( this.ObjectAddress ); 
-		}
-		
-		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsDlcInstalledUU( IntPtr thisptr, UInt32 unDlcAppID, UInt32 unGameAppID );
 		public bool BIsDlcInstalled( UInt32 unDlcAppID, UInt32 unGameAppID ) 
 		{
-			return this.GetFunction<NativeBIsDlcInstalledUU>( this.Functions.BIsDlcInstalled10 )( this.ObjectAddress, unDlcAppID, unGameAppID ); 
+			return this.GetFunction<NativeBIsDlcInstalledUU>( this.Functions.BIsDlcInstalled9 )( this.ObjectAddress, unDlcAppID, unGameAppID ); 
 		}
 		
 	};

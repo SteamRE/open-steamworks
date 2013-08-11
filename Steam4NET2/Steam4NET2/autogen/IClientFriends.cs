@@ -227,13 +227,15 @@ namespace Steam4NET
 		public IntPtr GetFollowerCount215;
 		public IntPtr IsFollowing216;
 		public IntPtr EnumerateFollowingList217;
-		public IntPtr BOfflineMessagesEnabled218;
-		public IntPtr RequestFriendMessageHistory219;
-		public IntPtr RequestFriendMessageHistoryForOfflineMessages220;
-		public IntPtr RequestEmoticonList221;
-		public IntPtr GetEmoticonCount222;
-		public IntPtr GetEmoticonName223;
-		private IntPtr DTorIClientFriends224;
+		public IntPtr RequestFriendMessageHistory218;
+		public IntPtr RequestFriendMessageHistoryForOfflineMessages219;
+		public IntPtr GetCountFriendsWithOfflineMessages220;
+		public IntPtr GetFriendWithOfflineMessage221;
+		public IntPtr ClearFriendHasOfflineMessage222;
+		public IntPtr RequestEmoticonList223;
+		public IntPtr GetEmoticonCount224;
+		public IntPtr GetEmoticonName225;
+		private IntPtr DTorIClientFriends226;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTFRIENDS_INTERFACE_VERSION001")]
@@ -1619,41 +1621,52 @@ namespace Steam4NET
 			return this.GetFunction<NativeEnumerateFollowingListU>( this.Functions.EnumerateFollowingList217 )( this.ObjectAddress, uStartIndex ); 
 		}
 		
-		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBOfflineMessagesEnabled( IntPtr thisptr );
-		public bool BOfflineMessagesEnabled(  ) 
-		{
-			return this.GetFunction<NativeBOfflineMessagesEnabled>( this.Functions.BOfflineMessagesEnabled218 )( this.ObjectAddress ); 
-		}
-		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestFriendMessageHistoryC( IntPtr thisptr, UInt64 steamIDFriend );
 		public void RequestFriendMessageHistory( CSteamID steamIDFriend ) 
 		{
-			this.GetFunction<NativeRequestFriendMessageHistoryC>( this.Functions.RequestFriendMessageHistory219 )( this.ObjectAddress, steamIDFriend.ConvertToUint64() ); 
+			this.GetFunction<NativeRequestFriendMessageHistoryC>( this.Functions.RequestFriendMessageHistory218 )( this.ObjectAddress, steamIDFriend.ConvertToUint64() ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestFriendMessageHistoryForOfflineMessages( IntPtr thisptr );
 		public void RequestFriendMessageHistoryForOfflineMessages(  ) 
 		{
-			this.GetFunction<NativeRequestFriendMessageHistoryForOfflineMessages>( this.Functions.RequestFriendMessageHistoryForOfflineMessages220 )( this.ObjectAddress ); 
+			this.GetFunction<NativeRequestFriendMessageHistoryForOfflineMessages>( this.Functions.RequestFriendMessageHistoryForOfflineMessages219 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetCountFriendsWithOfflineMessages( IntPtr thisptr );
+		public Int32 GetCountFriendsWithOfflineMessages(  ) 
+		{
+			return this.GetFunction<NativeGetCountFriendsWithOfflineMessages>( this.Functions.GetCountFriendsWithOfflineMessages220 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetFriendWithOfflineMessageI( IntPtr thisptr, Int32 iFriend );
+		public UInt32 GetFriendWithOfflineMessage( Int32 iFriend ) 
+		{
+			return this.GetFunction<NativeGetFriendWithOfflineMessageI>( this.Functions.GetFriendWithOfflineMessage221 )( this.ObjectAddress, iFriend ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeClearFriendHasOfflineMessageU( IntPtr thisptr, UInt32 uFriend );
+		public void ClearFriendHasOfflineMessage( UInt32 uFriend ) 
+		{
+			this.GetFunction<NativeClearFriendHasOfflineMessageU>( this.Functions.ClearFriendHasOfflineMessage222 )( this.ObjectAddress, uFriend ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRequestEmoticonList( IntPtr thisptr );
 		public void RequestEmoticonList(  ) 
 		{
-			this.GetFunction<NativeRequestEmoticonList>( this.Functions.RequestEmoticonList221 )( this.ObjectAddress ); 
+			this.GetFunction<NativeRequestEmoticonList>( this.Functions.RequestEmoticonList223 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetEmoticonCount( IntPtr thisptr );
 		public Int32 GetEmoticonCount(  ) 
 		{
-			return this.GetFunction<NativeGetEmoticonCount>( this.Functions.GetEmoticonCount222 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetEmoticonCount>( this.Functions.GetEmoticonCount224 )( this.ObjectAddress ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetEmoticonNameI( IntPtr thisptr, Int32 iEmoticon );
 		public string GetEmoticonName( Int32 iEmoticon ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetEmoticonNameI>( this.Functions.GetEmoticonName223 )( this.ObjectAddress, iEmoticon ) ); 
+			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetEmoticonNameI>( this.Functions.GetEmoticonName225 )( this.ObjectAddress, iEmoticon ) ); 
 		}
 		
 	};

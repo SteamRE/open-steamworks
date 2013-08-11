@@ -122,6 +122,9 @@ namespace Steam4NET
 		k_EAppErrorInvalidPlatform = 29,
 		k_EAppErrorInvalidFileSystem = 30,
 		k_EAppErrorCorruptUpdateFiles = 31,
+		k_EAppUpdateErrorDownloadCorrupt = 32,
+		k_EAppUpdateErrorDownloadDisabled = 33,
+		k_EAppUpdateErrorSharedLibraryLocked = 34,
 	};
 	
 	public enum ERegisterActivactionCodeResult : int
@@ -141,6 +144,9 @@ namespace Steam4NET
 		k_EAppOwernshipFlagsRegionRestricted = 4,
 		k_EAppOwernshipFlagsLowViolence = 8,
 		k_EAppOwernshipFlagsInvalidPlatform = 16,
+		k_EAppOwernshipFlagsSharedLicense = 32,
+		k_EAppOwernshipFlagsFreeWeekend = 64,
+		k_EAppOwernshipFlagsLockedLicense = 128,
 	};
 	
 	public enum EAppReleaseState : int

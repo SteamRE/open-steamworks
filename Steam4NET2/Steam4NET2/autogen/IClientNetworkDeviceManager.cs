@@ -20,6 +20,16 @@ namespace Steam4NET
 		public Int32 m_iPadding;
 	};
 	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct WirelessCredentials_t
+	{
+		public Int32 m_iPadding;
+	};
+	
+	public enum ENetworkDeviceManagerError : int
+	{
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
 	public class IClientNetworkDeviceManagerVTable
 	{
@@ -31,12 +41,13 @@ namespace Steam4NET
 		public IntPtr IsWiredDevicePluggedIn5;
 		public IntPtr GetActiveWirelessAccessPoint6;
 		public IntPtr EnumerateWirelessAccessPoints7;
-		public IntPtr GetPreferredSecurityMethod8;
-		public IntPtr ActivateWiredConnection9;
-		public IntPtr DeactivateWiredConnection10;
-		public IntPtr ConnectToAccessPoint11;
-		public IntPtr DisconnectFromAccessPoint12;
-		private IntPtr DTorIClientNetworkDeviceManager13;
+		public IntPtr GetCachedCredentialsForSSID8;
+		public IntPtr GetPreferredSecurityMethod9;
+		public IntPtr ActivateWiredConnection10;
+		public IntPtr DeactivateWiredConnection11;
+		public IntPtr ConnectToAccessPoint12;
+		public IntPtr DisconnectFromAccessPoint13;
+		private IntPtr DTorIClientNetworkDeviceManager14;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTNETWORKDEVICEMANAGER_INTERFACE_VERSION001")]
@@ -67,63 +78,68 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetWiredDeviceCount>( this.Functions.GetWiredDeviceCount3 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ENetworkDeviceState NativeGetWiredDeviceStateI( IntPtr thisptr, Int32 arg0 );
-		public ENetworkDeviceState GetWiredDeviceState( Int32 arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ENetworkDeviceState NativeGetWiredDeviceStateI( IntPtr thisptr, Int32 iDevice );
+		public ENetworkDeviceState GetWiredDeviceState( Int32 iDevice ) 
 		{
-			return this.GetFunction<NativeGetWiredDeviceStateI>( this.Functions.GetWiredDeviceState4 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeGetWiredDeviceStateI>( this.Functions.GetWiredDeviceState4 )( this.ObjectAddress, iDevice ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsWiredDevicePluggedInI( IntPtr thisptr, Int32 arg0 );
-		public bool IsWiredDevicePluggedIn( Int32 arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsWiredDevicePluggedInI( IntPtr thisptr, Int32 iDevice );
+		public bool IsWiredDevicePluggedIn( Int32 iDevice ) 
 		{
-			return this.GetFunction<NativeIsWiredDevicePluggedInI>( this.Functions.IsWiredDevicePluggedIn5 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeIsWiredDevicePluggedInI>( this.Functions.IsWiredDevicePluggedIn5 )( this.ObjectAddress, iDevice ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetActiveWirelessAccessPointW( IntPtr thisptr, ref WirelessAccessPoint_t arg0 );
-		public bool GetActiveWirelessAccessPoint( ref WirelessAccessPoint_t arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetActiveWirelessAccessPointW( IntPtr thisptr, ref WirelessAccessPoint_t pAccessPoint );
+		public bool GetActiveWirelessAccessPoint( ref WirelessAccessPoint_t pAccessPoint ) 
 		{
-			return this.GetFunction<NativeGetActiveWirelessAccessPointW>( this.Functions.GetActiveWirelessAccessPoint6 )( this.ObjectAddress, ref arg0 ); 
+			return this.GetFunction<NativeGetActiveWirelessAccessPointW>( this.Functions.GetActiveWirelessAccessPoint6 )( this.ObjectAddress, ref pAccessPoint ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeEnumerateWirelessAccessPointsWUU( IntPtr thisptr, ref WirelessAccessPoint_t arg0, UInt32 arg1, ref UInt32 arg2 );
-		public bool EnumerateWirelessAccessPoints( ref WirelessAccessPoint_t arg0, UInt32 arg1, ref UInt32 arg2 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeEnumerateWirelessAccessPointsWUU( IntPtr thisptr, ref WirelessAccessPoint_t pAccessPoint, UInt32 uUnk, ref UInt32 puUnk );
+		public bool EnumerateWirelessAccessPoints( ref WirelessAccessPoint_t pAccessPoint, UInt32 uUnk, ref UInt32 puUnk ) 
 		{
-			return this.GetFunction<NativeEnumerateWirelessAccessPointsWUU>( this.Functions.EnumerateWirelessAccessPoints7 )( this.ObjectAddress, ref arg0, arg1, ref arg2 ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EWirelessSecurityFlags NativeGetPreferredSecurityMethodU( IntPtr thisptr, UInt32 arg0 );
-		public EWirelessSecurityFlags GetPreferredSecurityMethod( UInt32 arg0 ) 
-		{
-			return this.GetFunction<NativeGetPreferredSecurityMethodU>( this.Functions.GetPreferredSecurityMethod8 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeEnumerateWirelessAccessPointsWUU>( this.Functions.EnumerateWirelessAccessPoints7 )( this.ObjectAddress, ref pAccessPoint, uUnk, ref puUnk ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeActivateWiredConnectionI( IntPtr thisptr, Int32 arg0 );
-		public bool ActivateWiredConnection( Int32 arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetCachedCredentialsForSSIDSW( IntPtr thisptr, string pchUnk, ref WirelessCredentials_t pCredentials );
+		public bool GetCachedCredentialsForSSID( string pchUnk, ref WirelessCredentials_t pCredentials ) 
 		{
-			return this.GetFunction<NativeActivateWiredConnectionI>( this.Functions.ActivateWiredConnection9 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeGetCachedCredentialsForSSIDSW>( this.Functions.GetCachedCredentialsForSSID8 )( this.ObjectAddress, pchUnk, ref pCredentials ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeDeactivateWiredConnectionI( IntPtr thisptr, Int32 arg0 );
-		public void DeactivateWiredConnection( Int32 arg0 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EWirelessSecurityFlags NativeGetPreferredSecurityMethodU( IntPtr thisptr, UInt32 uUnk );
+		public EWirelessSecurityFlags GetPreferredSecurityMethod( UInt32 uUnk ) 
 		{
-			this.GetFunction<NativeDeactivateWiredConnectionI>( this.Functions.DeactivateWiredConnection10 )( this.ObjectAddress, arg0 ); 
+			return this.GetFunction<NativeGetPreferredSecurityMethodU>( this.Functions.GetPreferredSecurityMethod9 )( this.ObjectAddress, uUnk ); 
 		}
 		
-		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeConnectToAccessPointSBES( IntPtr thisptr, string arg0, [MarshalAs(UnmanagedType.I1)] bool arg1, EWirelessSecurityFlags arg2, string arg3 );
-		public bool ConnectToAccessPoint( string arg0, bool arg1, EWirelessSecurityFlags arg2, string arg3 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ENetworkDeviceManagerError NativeActivateWiredConnectionI( IntPtr thisptr, Int32 iConnection );
+		public ENetworkDeviceManagerError ActivateWiredConnection( Int32 iConnection ) 
 		{
-			return this.GetFunction<NativeConnectToAccessPointSBES>( this.Functions.ConnectToAccessPoint11 )( this.ObjectAddress, arg0, arg1, arg2, arg3 ); 
+			return this.GetFunction<NativeActivateWiredConnectionI>( this.Functions.ActivateWiredConnection10 )( this.ObjectAddress, iConnection ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeDeactivateWiredConnectionI( IntPtr thisptr, Int32 iConnection );
+		public void DeactivateWiredConnection( Int32 iConnection ) 
+		{
+			this.GetFunction<NativeDeactivateWiredConnectionI>( this.Functions.DeactivateWiredConnection11 )( this.ObjectAddress, iConnection ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ENetworkDeviceManagerError NativeConnectToAccessPointSBES( IntPtr thisptr, string pchUnk1, [MarshalAs(UnmanagedType.I1)] bool bUnk, EWirelessSecurityFlags eSecurityFlags, string pchUnk2 );
+		public ENetworkDeviceManagerError ConnectToAccessPoint( string pchUnk1, bool bUnk, EWirelessSecurityFlags eSecurityFlags, string pchUnk2 ) 
+		{
+			return this.GetFunction<NativeConnectToAccessPointSBES>( this.Functions.ConnectToAccessPoint12 )( this.ObjectAddress, pchUnk1, bUnk, eSecurityFlags, pchUnk2 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeDisconnectFromAccessPoint( IntPtr thisptr );
 		public void DisconnectFromAccessPoint(  ) 
 		{
-			this.GetFunction<NativeDisconnectFromAccessPoint>( this.Functions.DisconnectFromAccessPoint12 )( this.ObjectAddress ); 
+			this.GetFunction<NativeDisconnectFromAccessPoint>( this.Functions.DisconnectFromAccessPoint13 )( this.ObjectAddress ); 
 		}
 		
 	};

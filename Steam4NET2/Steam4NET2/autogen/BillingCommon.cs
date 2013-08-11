@@ -59,6 +59,7 @@ namespace Steam4NET
 		k_EPaymentMethodSplit = 512,
 		k_EPaymentMethodComplimentary = 1024,
 		k_EPaymentMethodAuthorizedDevice = 30,
+		k_EPaymentMethodMOLPoints = 31,
 	};
 	
 	public enum EPurchaseResultDetail : int

@@ -61,7 +61,8 @@ namespace Steam4NET
 		public IntPtr SetDownloadThrottleRateKbps49;
 		public IntPtr GetDownloadThrottleRateKbps50;
 		public IntPtr SuspendDownloadThrottling51;
-		private IntPtr DTorIClientAppManager52;
+		public IntPtr GetAppOwner52;
+		private IntPtr DTorIClientAppManager53;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTAPPMANAGER_INTERFACE_VERSION001")]
@@ -402,6 +403,13 @@ namespace Steam4NET
 		public void SuspendDownloadThrottling( bool bSuspend ) 
 		{
 			this.GetFunction<NativeSuspendDownloadThrottlingB>( this.Functions.SuspendDownloadThrottling51 )( this.ObjectAddress, bSuspend ); 
+		}
+		
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetAppOwnerUCSU( IntPtr thisptr, UInt32 uUnk1, ref UInt64 pUnk, StringBuilder szUnk, UInt32 uUnk2 );
+		public bool GetAppOwner( UInt32 uUnk1, ref CSteamID pUnk, StringBuilder szUnk ) 
+		{
+			UInt64 s0 = 0; var result = this.GetFunction<NativeGetAppOwnerUCSU>( this.Functions.GetAppOwner52 )( this.ObjectAddress, uUnk1, ref s0, szUnk, (UInt32) szUnk.Capacity ); pUnk = new CSteamID(s0); return result;
 		}
 		
 	};

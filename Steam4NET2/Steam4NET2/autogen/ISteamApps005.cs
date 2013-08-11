@@ -28,7 +28,8 @@ namespace Steam4NET
 		public IntPtr MarkContentCorrupt16;
 		public IntPtr GetInstalledDepots17;
 		public IntPtr GetAppInstallDir18;
-		private IntPtr DTorISteamApps00519;
+		public IntPtr BIsAppInstalled19;
+		private IntPtr DTorISteamApps00520;
 	};
 	
 	[InteropHelp.InterfaceVersion("STEAMAPPS_INTERFACE_VERSION005")]
@@ -140,22 +141,29 @@ namespace Steam4NET
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeMarkContentCorruptB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bCorrupt );
-		public bool MarkContentCorrupt( bool bCorrupt ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeMarkContentCorruptB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bMissingFilesOnly );
+		public bool MarkContentCorrupt( bool bMissingFilesOnly ) 
 		{
-			return this.GetFunction<NativeMarkContentCorruptB>( this.Functions.MarkContentCorrupt16 )( this.ObjectAddress, bCorrupt ); 
+			return this.GetFunction<NativeMarkContentCorruptB>( this.Functions.MarkContentCorrupt16 )( this.ObjectAddress, bMissingFilesOnly ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetInstalledDepotsUU( IntPtr thisptr, ref UInt32 puDepots, UInt32 cuDepotsMax );
-		public UInt32 GetInstalledDepots( ref UInt32 puDepots, UInt32 cuDepotsMax ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetInstalledDepotsUU( IntPtr thisptr, ref UInt32 pvecDepots, UInt32 cMaxDepots );
+		public UInt32 GetInstalledDepots( ref UInt32 pvecDepots, UInt32 cMaxDepots ) 
 		{
-			return this.GetFunction<NativeGetInstalledDepotsUU>( this.Functions.GetInstalledDepots17 )( this.ObjectAddress, ref puDepots, cuDepotsMax ); 
+			return this.GetFunction<NativeGetInstalledDepotsUU>( this.Functions.GetInstalledDepots17 )( this.ObjectAddress, ref pvecDepots, cMaxDepots ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppInstallDirUSU( IntPtr thisptr, UInt32 nAppID, StringBuilder pchPath, UInt32 cchPath );
-		public UInt32 GetAppInstallDir( UInt32 nAppID, StringBuilder pchPath ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAppInstallDirUSU( IntPtr thisptr, UInt32 appID, StringBuilder pchFolder, UInt32 cchFolderBufferSize );
+		public UInt32 GetAppInstallDir( UInt32 appID, StringBuilder pchFolder ) 
 		{
-			return this.GetFunction<NativeGetAppInstallDirUSU>( this.Functions.GetAppInstallDir18 )( this.ObjectAddress, nAppID, pchPath, (UInt32) pchPath.Capacity ); 
+			return this.GetFunction<NativeGetAppInstallDirUSU>( this.Functions.GetAppInstallDir18 )( this.ObjectAddress, appID, pchFolder, (UInt32) pchFolder.Capacity ); 
+		}
+		
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsAppInstalledU( IntPtr thisptr, UInt32 appID );
+		public bool BIsAppInstalled( UInt32 appID ) 
+		{
+			return this.GetFunction<NativeBIsAppInstalledU>( this.Functions.BIsAppInstalled19 )( this.ObjectAddress, appID ); 
 		}
 		
 	};

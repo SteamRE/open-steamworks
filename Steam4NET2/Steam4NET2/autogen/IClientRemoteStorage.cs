@@ -439,10 +439,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeEnumerateUserSharedWorkshopFilesUCUSS>( this.Functions.EnumerateUserSharedWorkshopFiles53 )( this.ObjectAddress, nAppId, creatorSteamID.ConvertToUint64(), uStartIndex, ref pRequiredTags, ref pExcludedTags ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumeratePublishedWorkshopFilesUEUUUSS( IntPtr thisptr, UInt32 nAppId, EWorkshopEnumerationType eType, UInt32 uStartIndex, UInt32 cDays, UInt32 cCount, ref SteamParamStringArray_t pTags, ref SteamParamStringArray_t pUserTags );
-		public UInt64 EnumeratePublishedWorkshopFiles( UInt32 nAppId, EWorkshopEnumerationType eType, UInt32 uStartIndex, UInt32 cDays, UInt32 cCount, ref SteamParamStringArray_t pTags, ref SteamParamStringArray_t pUserTags ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnumeratePublishedWorkshopFilesUEEUUUSS( IntPtr thisptr, UInt32 nAppId, EWorkshopEnumerationType eType, EPublishedFileInfoMatchingFileType eFileType, UInt32 uStartIndex, UInt32 cDays, UInt32 cCount, ref SteamParamStringArray_t pTags, ref SteamParamStringArray_t pUserTags );
+		public UInt64 EnumeratePublishedWorkshopFiles( UInt32 nAppId, EWorkshopEnumerationType eType, EPublishedFileInfoMatchingFileType eFileType, UInt32 uStartIndex, UInt32 cDays, UInt32 cCount, ref SteamParamStringArray_t pTags, ref SteamParamStringArray_t pUserTags ) 
 		{
-			return this.GetFunction<NativeEnumeratePublishedWorkshopFilesUEUUUSS>( this.Functions.EnumeratePublishedWorkshopFiles54 )( this.ObjectAddress, nAppId, eType, uStartIndex, cDays, cCount, ref pTags, ref pUserTags ); 
+			return this.GetFunction<NativeEnumeratePublishedWorkshopFilesUEEUUUSS>( this.Functions.EnumeratePublishedWorkshopFiles54 )( this.ObjectAddress, nAppId, eType, eFileType, uStartIndex, cDays, cCount, ref pTags, ref pUserTags ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate EFileRemoteStorageSyncState NativeEGetFileSyncStateUES( IntPtr thisptr, UInt32 nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, string pchFile );

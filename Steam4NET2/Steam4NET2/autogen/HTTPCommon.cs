@@ -14,6 +14,7 @@ namespace Steam4NET
 		k_EHTTPMethodPOST = 3,
 		k_EHTTPMethodPUT = 4,
 		k_EHTTPMethodDELETE = 5,
+		k_EHTTPMethodOPTIONS = 6,
 	};
 	
 	public enum EHTTPStatusCode : int

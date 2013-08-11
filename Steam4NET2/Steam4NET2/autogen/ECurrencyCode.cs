@@ -16,7 +16,14 @@ namespace Steam4NET
 		k_ECurrencyCodeRUB = 5,
 		k_ECurrencyCodePLN = 6,
 		k_ECurrencyCodeBRL = 7,
+		k_ECurrencyCodeJPY = 8,
 		k_ECurrencyCodeNOK = 9,
+		k_ECurrencyCodeIDR = 10,
+		k_ECurrencyCodeMYR = 11,
+		k_ECurrencyCodePHP = 12,
+		k_ECurrencyCodeSGD = 13,
+		k_ECurrencyCodeTHB = 14,
+		k_ECurrencyCodeVND = 15,
 	};
 	
 }
