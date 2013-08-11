@@ -99,7 +99,10 @@ typedef enum EResult
 	k_EResultAccountLockedDown = 73,						// Account Locked Down
 	k_EResultAccountLogonDeniedVerifiedEmailRequired = 74,	// Account Logon Denied Verified Email Required
 	k_EResultNoMatchingURL = 75,							// No matching URL
-	k_EResultBadResponse = 76,								// Bad response
+	k_EResultBadResponse = 76,								// parse failure, missing field, etc.
+	k_EResultRequirePasswordReEntry = 77,					// The user cannot complete the action until they re-enter their password
+	k_EResultValueOutOfRange = 78,							// the value entered is outside the acceptable range
+	k_EResultUnexpectedError = 79,							// 
 } EResult;
 
 #endif // ERESULT_H

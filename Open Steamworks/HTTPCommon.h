@@ -39,11 +39,11 @@ enum EHTTPMethod
 	k_EHTTPMethodPOST,
 	k_EHTTPMethodPUT,
 	k_EHTTPMethodDELETE,
+	k_EHTTPMethodOPTIONS,
 
 	// The remaining HTTP methods are not yet supported, per rfc2616 section 5.1.1 only GET and HEAD are required for 
 	// a compliant general purpose server.  We'll likely add more as we find uses for them.
 
-	// k_EHTTPMethodOPTIONS,
 	// k_EHTTPMethodTRACE,
 	// k_EHTTPMethodCONNECT
 };

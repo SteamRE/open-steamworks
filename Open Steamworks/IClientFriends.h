@@ -374,9 +374,12 @@ public:
 	virtual SteamAPICall_t IsFollowing( CSteamID steamID ) = 0;
 	virtual SteamAPICall_t EnumerateFollowingList( uint32 uStartIndex ) = 0;
 
-	virtual bool BOfflineMessagesEnabled() = 0;
 	virtual void RequestFriendMessageHistory( CSteamID steamIDFriend ) = 0;
 	virtual void RequestFriendMessageHistoryForOfflineMessages() = 0;
+
+	virtual int32 GetCountFriendsWithOfflineMessages() = 0;
+	virtual uint32 GetFriendWithOfflineMessage( int32 iFriend ) = 0;
+	virtual void ClearFriendHasOfflineMessage( uint32 uFriend ) = 0;
 
 	virtual void RequestEmoticonList() = 0;
 	virtual int32 GetEmoticonCount() = 0;

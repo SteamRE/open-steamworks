@@ -72,6 +72,7 @@
 #include "ISteamUser014.h"
 #include "ISteamUser015.h"
 #include "ISteamUser016.h"
+#include "ISteamUser017.h"
 
 // OAuth
 #include "ISteamOAuth001.h"
@@ -189,6 +190,9 @@
 // stream launcher
 #include "ISteamStreamLauncher001.h"
 
+// controller
+#include "ISteamController001.h"
+
 #ifndef NO_ICLIENT
 // client interfaces
 #include "IClientEngine.h"
@@ -219,6 +223,7 @@
 #include "IClientStreamLauncher.h"
 #include "IClientNetworkDeviceManager.h"
 #include "IClientDeviceAuth.h"
+#include "IClientMusic.h"
 #endif // NO_ICLIENT
 
 // callback

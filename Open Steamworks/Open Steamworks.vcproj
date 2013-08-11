@@ -203,6 +203,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\IClientMusic.h"
+					>
+				</File>
+				<File
 					RelativePath=".\IClientMatchmakingServers.h"
 					>
 				</File>
@@ -355,6 +359,18 @@
 					</File>
 					<File
 						RelativePath=".\ISteamContentServer002.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="ISteamController"
+					>
+					<File
+						RelativePath=".\ControllerCommon.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamController001.h"
 						>
 					</File>
 				</Filter>
@@ -675,6 +691,10 @@
 					</File>
 					<File
 						RelativePath=".\ISteamUser016.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ISteamUser017.h"
 						>
 					</File>
 					<File

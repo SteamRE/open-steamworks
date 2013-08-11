@@ -41,6 +41,19 @@ struct WirelessAccessPoint_t
 #endif
 };
 
+struct WirelessCredentials_t
+{
+	// TODO : Reverse this struct
+#ifdef _S4N_
+	int m_iPadding;
+#endif
+};
+
+enum ENetworkDeviceManagerError
+{
+	// TODO: Reverse this enum
+};
+
 #define CLIENTNETWORKDEVICEMANAGER_INTERFACE_VERSION "CLIENTNETWORKDEVICEMANAGER_INTERFACE_VERSION001"
 
 abstract_class UNSAFE_INTERFACE IClientNetworkDeviceManager
@@ -50,14 +63,16 @@ public:
 	virtual void RefreshDevices() = 0;
 	virtual ENetworkDeviceState GetWirelessDeviceState() = 0;
 	virtual int32 GetWiredDeviceCount() = 0;
-	virtual ENetworkDeviceState GetWiredDeviceState( int32 ) = 0;
-	virtual bool IsWiredDevicePluggedIn( int32 ) = 0;
-	virtual bool GetActiveWirelessAccessPoint( WirelessAccessPoint_t * ) = 0;
-	virtual bool EnumerateWirelessAccessPoints( WirelessAccessPoint_t *, uint32, uint32 * ) = 0;
-	virtual EWirelessSecurityFlags GetPreferredSecurityMethod( uint32 ) = 0;
-	virtual bool ActivateWiredConnection( int32 ) = 0;
-	virtual void DeactivateWiredConnection( int32 ) = 0;
-	virtual bool ConnectToAccessPoint( const char *, bool, EWirelessSecurityFlags, const char * ) = 0;
+	virtual ENetworkDeviceState GetWiredDeviceState( int32 iDevice ) = 0;
+	virtual bool IsWiredDevicePluggedIn( int32 iDevice ) = 0;
+	virtual bool GetActiveWirelessAccessPoint( WirelessAccessPoint_t * pAccessPoint ) = 0;
+	virtual bool EnumerateWirelessAccessPoints( WirelessAccessPoint_t * pAccessPoint, uint32 uUnk, uint32 * puUnk ) = 0;
+	virtual bool GetCachedCredentialsForSSID( const char * pchUnk, WirelessCredentials_t * pCredentials ) = 0;
+	virtual EWirelessSecurityFlags GetPreferredSecurityMethod( uint32 uUnk ) = 0;
+
+	virtual ENetworkDeviceManagerError ActivateWiredConnection( int32 iConnection ) = 0;
+	virtual void DeactivateWiredConnection( int32 iConnection ) = 0;
+	virtual ENetworkDeviceManagerError ConnectToAccessPoint( const char * pchUnk1, bool bUnk, EWirelessSecurityFlags eSecurityFlags, const char * pchUnk2 ) = 0;
 	virtual void DisconnectFromAccessPoint() = 0;
 };
 

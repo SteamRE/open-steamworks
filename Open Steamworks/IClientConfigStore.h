@@ -38,6 +38,7 @@ public:
 	virtual float GetFloat( EConfigStore eConfigStore, const char *pszKeyName, float defaultValue ) = 0;
 	virtual const char* GetString( EConfigStore eConfigStore, const char *pszKeyName, const char *defaultValue ) = 0;
 	virtual uint32 GetBinary( EConfigStore eConfigStore, const char *pszKeyName, uint8 *pubBuf, uint32 cubBuf ) = 0;
+	virtual uint32 GetBinary( EConfigStore eConfigStore, const char *pszKeyName, CUtlBuffer *pUtlBuf) = 0;
 	virtual uint32 GetBinaryWatermarked( EConfigStore eConfigStore, const char *pszKeyName, uint8 *pubBuf, uint32 cubBuf ) = 0;
 
 	virtual bool SetBool( EConfigStore eConfigStore, const char *pszKeyNameIn, bool value ) = 0;

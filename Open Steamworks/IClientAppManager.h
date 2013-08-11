@@ -104,6 +104,7 @@ public:
 	virtual bool SetDownloadThrottleRateKbps( int32 iRate ) = 0;
 	virtual int32 GetDownloadThrottleRateKbps() = 0;
 	virtual void SuspendDownloadThrottling( bool bSuspend ) = 0;
+	virtual bool GetAppOwner( uint32 uUnk1, CSteamID * pUnk, char * szUnk, uint32 uUnk2) = 0;
 };
 
 #endif // ICLIENTAPPMANAGER_H

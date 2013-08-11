@@ -29,8 +29,11 @@ abstract_class UNSAFE_INTERFACE IClientDeviceAuth
 public:
 	virtual uint64 AuthorizeLocalDevice( const char * pubUnk, uint32 cubUnk ) = 0;
 	virtual uint64 DeauthorizeLocalDevice( uint32 uUnk) = 0;
-	virtual uint32 GetDeviceAuthorizations( uint32 * puUnk, uint32 uUnk ) = 0;
-	virtual bool GetDeviceAuthorizationInfo( uint32 uUnk, uint32 * puUnk, bool * pbUnk, char * pubUnk, int32 cubUnk ) = 0;
+	virtual uint32 GetDeviceAuthorizations( uint64 * puUnk, uint32 uUnk ) = 0;
+	virtual bool GetDeviceAuthorizationInfo( uint64 uUnk, uint32 * puUnk1, uint32 * puUnk2, uint32 * puUnk3, bool * pbUnk, char * pszUnk1, int32 iUnk1, char * pszUnk2, int32 iUnk2, char * pszUnk3, int32 iUnk3 ) = 0;
+	virtual uint64 RequestAuthorizedDevicesInfo() = 0;
+	virtual bool BIsAuthorizedLender( uint32 uUnk ) = 0;
+	virtual uint32 GetSharedLibraryLockedBy( uint32 uUnk ) = 0;
 };
 
 #endif // ICLIENTDEVICEAUTH_H

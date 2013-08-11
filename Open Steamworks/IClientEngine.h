@@ -55,6 +55,7 @@ class IClientNetworkDeviceManager;
 class IClientController;
 class IClientParentalSettings;
 class IClientDeviceAuth;
+class IClientMusic;
 
 abstract_class UNSAFE_INTERFACE IClientEngine
 {
@@ -120,8 +121,9 @@ public:
 	virtual IClientHTTP *GetIClientHTTP( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
 	virtual bool BShutdownIfAllPipesClosed() = 0;
-
+	
 	virtual IClientAudio *GetIClientAudio( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
+	virtual IClientMusic *GetIClientMusic( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientUnifiedMessages *GetIClientUnifiedMessages( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientController *GetIClientController( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual IClientParentalSettings *GetIClientParentalSettings( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;

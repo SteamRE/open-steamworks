@@ -196,5 +196,6 @@ struct CellIDChanged_t
 
 #pragma pack( pop )
 
+class CUtlBuffer;
 
 #endif // UTILSCOMMON_H

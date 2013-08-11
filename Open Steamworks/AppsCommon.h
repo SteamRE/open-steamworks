@@ -148,6 +148,9 @@ enum EAppUpdateError
 	k_EAppErrorInvalidPlatform = 29,
 	k_EAppErrorInvalidFileSystem = 30,
 	k_EAppErrorCorruptUpdateFiles = 31,
+	k_EAppUpdateErrorDownloadCorrupt = 32,
+	k_EAppUpdateErrorDownloadDisabled = 33,
+	k_EAppUpdateErrorSharedLibraryLocked = 34,
 };
 
 //-----------------------------------------------------------------------------
@@ -170,6 +173,9 @@ enum EAppOwernshipFlags
 	k_EAppOwernshipFlagsRegionRestricted =	1 << 2,
 	k_EAppOwernshipFlagsLowViolence =		1 << 3,
 	k_EAppOwernshipFlagsInvalidPlatform =	1 << 4,
+	k_EAppOwernshipFlagsSharedLicense =		1 << 5,
+	k_EAppOwernshipFlagsFreeWeekend =		1 << 6,
+	k_EAppOwernshipFlagsLockedLicense =		1 << 7,
 };
 
 enum EAppReleaseState

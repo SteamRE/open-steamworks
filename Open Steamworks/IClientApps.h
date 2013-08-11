@@ -44,9 +44,7 @@ public:
 
 	virtual int32 GetDLCCount( AppId_t unAppID ) = 0;
 	virtual bool BGetDLCDataByIndex( AppId_t unAppID, int32 iDLC, AppId_t* pDlcAppID, bool *pbAvailable, char *pchName, int32 cchNameBufferSize ) = 0;
-
-	virtual bool BReloadLocalAppInfoOverrides() = 0;
-	
+		
 	virtual bool BIsDlcInstalled( AppId_t unDlcAppID, AppId_t unGameAppID ) = 0;
 };
 

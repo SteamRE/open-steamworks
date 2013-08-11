@@ -66,11 +66,13 @@ public:
 	// the key is available (which may be immediately).
 	virtual void RequestAppProofOfPurchaseKey( AppId_t nAppID ) = 0;
 	
-	virtual bool GetCurrentBetaName( char *pchName, int32 cchNameBufferSize ) = 0;
-	virtual bool MarkContentCorrupt( bool bCorrupt ) = 0;
-	
-	virtual uint32 GetInstalledDepots( AppId_t puDepots[], uint32 cuDepotsMax ) = 0;
-	virtual uint32 GetAppInstallDir( AppId_t nAppID, char *pchPath, uint32 cchPath ) = 0;
+	virtual bool GetCurrentBetaName( char *pchName, int cchNameBufferSize ) = 0; // returns current beta branch name, 'public' is the default branch
+	virtual bool MarkContentCorrupt( bool bMissingFilesOnly ) = 0; // signal Steam that game files seems corrupt or missing
+	virtual uint32 GetInstalledDepots( DepotId_t *pvecDepots, uint32 cMaxDepots ) = 0; // return installed depots in mount order
+
+	// returns current app install folder for AppID, returns folder name length
+	virtual uint32 GetAppInstallDir( AppId_t appID, char *pchFolder, uint32 cchFolderBufferSize ) = 0;
+	virtual bool BIsAppInstalled( AppId_t appID ) = 0;;
 };
 
 
