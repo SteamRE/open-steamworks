@@ -155,7 +155,12 @@ namespace Steam4Intermediate.Nodes
                 generator.EmitLine("[return: MarshalAs(UnmanagedType.I1)]", depth);
             }
 
-            generator.EmitLine( String.Format( "[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate {0} Native{1}{2}( {3} );", returnbystack ? "void" : returns, GetName(), GetArgIdent(arg_native_pure), String.Join( ", ", arg_native.ToArray() ) ), depth );
+            var innerReturns = returns;
+            if (returns == "string")
+            {
+                innerReturns = "IntPtr";
+            }
+            generator.EmitLine( String.Format( "[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate {0} Native{1}{2}( {3} );", returnbystack ? "void" : innerReturns, GetName(), GetArgIdent(arg_native_pure), String.Join( ", ", arg_native.ToArray() ) ), depth );
 
             string methodname = GetName();
             string extra = "";
@@ -199,7 +204,7 @@ namespace Steam4Intermediate.Nodes
 
             if ( returns == "string" )
             {
-                method.Append( "InteropHelp.DecodeANSIReturn( " );
+                method.Append( "Marshal.PtrToStringAnsi( " );
             }
 
             if ( genericwrapper )
