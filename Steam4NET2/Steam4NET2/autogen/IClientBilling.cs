@@ -122,7 +122,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetLicensePurchaseCountryCodeU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public string GetLicensePurchaseCountryCode( UInt32 nLicenseIndex ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode9 )( this.ObjectAddress, nLicenseIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode9 )( this.ObjectAddress, nLicenseIndex ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLicenseTerritoryCodeU( IntPtr thisptr, UInt32 nLicenseIndex );
@@ -207,31 +207,31 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetReceiptCountryCodeU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public string GetReceiptCountryCode( UInt32 nReceiptIndex ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptCountryCodeU>( this.Functions.GetReceiptCountryCode23 )( this.ObjectAddress, nReceiptIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptCountryCodeU>( this.Functions.GetReceiptCountryCode23 )( this.ObjectAddress, nReceiptIndex ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetReceiptErrorHeadlineU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public string GetReceiptErrorHeadline( UInt32 nReceiptIndex ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptErrorHeadlineU>( this.Functions.GetReceiptErrorHeadline24 )( this.ObjectAddress, nReceiptIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptErrorHeadlineU>( this.Functions.GetReceiptErrorHeadline24 )( this.ObjectAddress, nReceiptIndex ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetReceiptErrorStringU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public string GetReceiptErrorString( UInt32 nReceiptIndex ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptErrorStringU>( this.Functions.GetReceiptErrorString25 )( this.ObjectAddress, nReceiptIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptErrorStringU>( this.Functions.GetReceiptErrorString25 )( this.ObjectAddress, nReceiptIndex ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetReceiptErrorLinkTextU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public string GetReceiptErrorLinkText( UInt32 nReceiptIndex ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptErrorLinkTextU>( this.Functions.GetReceiptErrorLinkText26 )( this.ObjectAddress, nReceiptIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptErrorLinkTextU>( this.Functions.GetReceiptErrorLinkText26 )( this.ObjectAddress, nReceiptIndex ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetReceiptErrorLinkURLU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public string GetReceiptErrorLinkURL( UInt32 nReceiptIndex ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptErrorLinkURLU>( this.Functions.GetReceiptErrorLinkURL27 )( this.ObjectAddress, nReceiptIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptErrorLinkURLU>( this.Functions.GetReceiptErrorLinkURL27 )( this.ObjectAddress, nReceiptIndex ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetReceiptErrorAppIDU( IntPtr thisptr, UInt32 nReceiptIndex );

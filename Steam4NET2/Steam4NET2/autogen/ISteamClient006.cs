@@ -100,7 +100,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetUniverseNameE( IntPtr thisptr, EUniverse eUniverse );
 		public string GetUniverseName( EUniverse eUniverse ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetUniverseNameE>( this.Functions.GetUniverseName10 )( this.ObjectAddress, eUniverse ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetUniverseNameE>( this.Functions.GetUniverseName10 )( this.ObjectAddress, eUniverse ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetISteamFriendsIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );

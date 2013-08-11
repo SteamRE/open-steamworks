@@ -254,7 +254,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetCurrentUserSpotify( IntPtr thisptr );
 		public string GetCurrentUserSpotify(  ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetCurrentUserSpotify>( this.Functions.GetCurrentUserSpotify31 )( this.ObjectAddress ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetCurrentUserSpotify>( this.Functions.GetCurrentUserSpotify31 )( this.ObjectAddress ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeForgetCurrentUserSpotify( IntPtr thisptr );

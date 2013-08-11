@@ -984,7 +984,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeFindServersGetErrorString( IntPtr thisptr );
 		public string FindServersGetErrorString(  ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeFindServersGetErrorString>( this.Functions.FindServersGetErrorString137 )( this.ObjectAddress ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeFindServersGetErrorString>( this.Functions.FindServersGetErrorString137 )( this.ObjectAddress ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCheckAppOwnershipUITT( IntPtr thisptr, UInt32 uAppId, ref Int32 pbOwned, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError );

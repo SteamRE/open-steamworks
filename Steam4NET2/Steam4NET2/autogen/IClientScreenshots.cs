@@ -49,7 +49,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetShortcutDisplayNameC( IntPtr thisptr, UInt64 gameID );
 		public string GetShortcutDisplayName( CGameID gameID ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetShortcutDisplayNameC>( this.Functions.GetShortcutDisplayName0 )( this.ObjectAddress, gameID.ConvertToUint64() ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetShortcutDisplayNameC>( this.Functions.GetShortcutDisplayName0 )( this.ObjectAddress, gameID.ConvertToUint64() ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetShortcutDisplayNameCS( IntPtr thisptr, UInt64 arg0, string cszName );

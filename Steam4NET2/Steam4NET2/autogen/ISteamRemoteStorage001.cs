@@ -66,7 +66,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetFileNameAndSizeII( IntPtr thisptr, Int32 index, ref Int32 size );
 		public string GetFileNameAndSize( Int32 index, ref Int32 size ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetFileNameAndSizeII>( this.Functions.GetFileNameAndSize6 )( this.ObjectAddress, index, ref size ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetFileNameAndSizeII>( this.Functions.GetFileNameAndSize6 )( this.ObjectAddress, index, ref size ) ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

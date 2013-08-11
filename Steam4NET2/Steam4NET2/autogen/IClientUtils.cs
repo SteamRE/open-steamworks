@@ -54,19 +54,19 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetInstallPath( IntPtr thisptr );
 		public string GetInstallPath(  ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetInstallPath>( this.Functions.GetInstallPath0 )( this.ObjectAddress ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetInstallPath>( this.Functions.GetInstallPath0 )( this.ObjectAddress ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetUserBaseFolderInstallImage( IntPtr thisptr );
 		public string GetUserBaseFolderInstallImage(  ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetUserBaseFolderInstallImage>( this.Functions.GetUserBaseFolderInstallImage1 )( this.ObjectAddress ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetUserBaseFolderInstallImage>( this.Functions.GetUserBaseFolderInstallImage1 )( this.ObjectAddress ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetManagedContentRoot( IntPtr thisptr );
 		public string GetManagedContentRoot(  ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetManagedContentRoot>( this.Functions.GetManagedContentRoot2 )( this.ObjectAddress ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetManagedContentRoot>( this.Functions.GetManagedContentRoot2 )( this.ObjectAddress ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetSecondsSinceAppActive( IntPtr thisptr );
@@ -102,7 +102,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIPCountry( IntPtr thisptr );
 		public string GetIPCountry(  ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetIPCountry>( this.Functions.GetIPCountry8 )( this.ObjectAddress ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetIPCountry>( this.Functions.GetIPCountry8 )( this.ObjectAddress ) ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -275,7 +275,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetSteamUILanguage( IntPtr thisptr );
 		public string GetSteamUILanguage(  ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetSteamUILanguage>( this.Functions.GetSteamUILanguage35 )( this.ObjectAddress ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetSteamUILanguage>( this.Functions.GetSteamUILanguage35 )( this.ObjectAddress ) ) ); 
 		}
 		
 	};

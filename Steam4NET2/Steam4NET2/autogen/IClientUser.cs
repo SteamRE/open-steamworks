@@ -733,7 +733,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetUserBaseFolder( IntPtr thisptr );
 		public string GetUserBaseFolder(  ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetUserBaseFolder>( this.Functions.GetUserBaseFolder75 )( this.ObjectAddress ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetUserBaseFolder>( this.Functions.GetUserBaseFolder75 )( this.ObjectAddress ) ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

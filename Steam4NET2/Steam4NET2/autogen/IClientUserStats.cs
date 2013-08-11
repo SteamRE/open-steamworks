@@ -71,7 +71,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetStatNameCU( IntPtr thisptr, UInt64 nGameID, UInt32 iStat );
 		public string GetStatName( CGameID nGameID, UInt32 iStat ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetStatNameCU>( this.Functions.GetStatName1 )( this.ObjectAddress, nGameID.ConvertToUint64(), iStat ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetStatNameCU>( this.Functions.GetStatName1 )( this.ObjectAddress, nGameID.ConvertToUint64(), iStat ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ESteamUserStatType NativeGetStatTypeCS( IntPtr thisptr, UInt64 nGameID, string pchName );
@@ -89,7 +89,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetAchievementNameCU( IntPtr thisptr, UInt64 nGameID, UInt32 iAchievement );
 		public string GetAchievementName( CGameID nGameID, UInt32 iAchievement ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetAchievementNameCU>( this.Functions.GetAchievementName4 )( this.ObjectAddress, nGameID.ConvertToUint64(), iAchievement ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetAchievementNameCU>( this.Functions.GetAchievementName4 )( this.ObjectAddress, nGameID.ConvertToUint64(), iAchievement ) ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -171,7 +171,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetAchievementDisplayAttributeCSSB( IntPtr thisptr, UInt64 nGameID, string pchName, string pchKey, [MarshalAs(UnmanagedType.I1)] bool bUseGameLanguage );
 		public string GetAchievementDisplayAttribute( CGameID nGameID, string pchName, string pchKey, bool bUseGameLanguage ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetAchievementDisplayAttributeCSSB>( this.Functions.GetAchievementDisplayAttribute16 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, pchKey, bUseGameLanguage ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetAchievementDisplayAttributeCSSB>( this.Functions.GetAchievementDisplayAttribute16 )( this.ObjectAddress, nGameID.ConvertToUint64(), pchName, pchKey, bUseGameLanguage ) ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -236,7 +236,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetLeaderboardNameU( IntPtr thisptr, UInt64 hSteamLeaderboard );
 		public string GetLeaderboardName( UInt64 hSteamLeaderboard ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLeaderboardNameU>( this.Functions.GetLeaderboardName26 )( this.ObjectAddress, hSteamLeaderboard ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLeaderboardNameU>( this.Functions.GetLeaderboardName26 )( this.ObjectAddress, hSteamLeaderboard ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLeaderboardEntryCountU( IntPtr thisptr, UInt64 hSteamLeaderboard );
@@ -303,7 +303,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetLastAchievementUnlockedC( IntPtr thisptr, UInt64 nGameID );
 		public string GetLastAchievementUnlocked( CGameID nGameID ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLastAchievementUnlockedC>( this.Functions.GetLastAchievementUnlocked37 )( this.ObjectAddress, nGameID.ConvertToUint64() ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLastAchievementUnlockedC>( this.Functions.GetLastAchievementUnlocked37 )( this.ObjectAddress, nGameID.ConvertToUint64() ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestGlobalAchievementPercentagesC( IntPtr thisptr, UInt64 nGameID );

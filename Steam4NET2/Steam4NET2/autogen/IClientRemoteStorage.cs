@@ -201,7 +201,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetFileNameAndSizeUIEIB( IntPtr thisptr, UInt32 nAppId, Int32 iFile, ref ERemoteStorageFileRoot peRemoteStorageFileRoot, ref Int32 pnFileSizeInBytes, [MarshalAs(UnmanagedType.I1)] bool bFromExternalAPI );
 		public string GetFileNameAndSize( UInt32 nAppId, Int32 iFile, ref ERemoteStorageFileRoot peRemoteStorageFileRoot, ref Int32 pnFileSizeInBytes, bool bFromExternalAPI ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetFileNameAndSizeUIEIB>( this.Functions.GetFileNameAndSize16 )( this.ObjectAddress, nAppId, iFile, ref peRemoteStorageFileRoot, ref pnFileSizeInBytes, bFromExternalAPI ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetFileNameAndSizeUIEIB>( this.Functions.GetFileNameAndSize16 )( this.ObjectAddress, nAppId, iFile, ref peRemoteStorageFileRoot, ref pnFileSizeInBytes, bFromExternalAPI ) ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

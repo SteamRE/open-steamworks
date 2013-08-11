@@ -236,7 +236,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetLicensePurchaseCountryCodeU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public string GetLicensePurchaseCountryCode( UInt32 nLicenseIndex ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode26 )( this.ObjectAddress, nLicenseIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode26 )( this.ObjectAddress, nLicenseIndex ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetReceiptPackageIDU( IntPtr thisptr, UInt32 nReceiptIndex );
@@ -302,7 +302,7 @@ namespace Steam4NET
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetReceiptCountryCodeU( IntPtr thisptr, UInt32 nReceiptIndex );
 		public string GetReceiptCountryCode( UInt32 nReceiptIndex ) 
 		{
-			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptCountryCodeU>( this.Functions.GetReceiptCountryCode37 )( this.ObjectAddress, nReceiptIndex ) ); 
+			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetReceiptCountryCodeU>( this.Functions.GetReceiptCountryCode37 )( this.ObjectAddress, nReceiptIndex ) ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumLicenses( IntPtr thisptr );
