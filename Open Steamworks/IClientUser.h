@@ -49,7 +49,13 @@ enum EParentalFeature
 };
 
 // Protobuf, see steammessages_offline.steamclient.proto
-class COffline_OfflineLogonTicket;
+class COffline_OfflineLogonTicket
+#ifdef _S4N_
+{
+	int m_iPadding;
+}
+#endif
+;
 
 abstract_class UNSAFE_INTERFACE IClientUser
 {

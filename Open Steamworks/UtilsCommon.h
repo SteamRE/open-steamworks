@@ -196,6 +196,12 @@ struct CellIDChanged_t
 
 #pragma pack( pop )
 
-class CUtlBuffer;
+class CUtlBuffer
+#ifdef _S4N_
+{
+	int m_iPadding;
+}
+#endif
+;
 
 #endif // UTILSCOMMON_H
