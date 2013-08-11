@@ -27,6 +27,12 @@ namespace Steam4NET
 		k_EParentalFeatureOverlay = 10,
 	};
 	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct COffline_OfflineLogonTicket
+	{
+		public Int32 m_iPadding;
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
 	public class IClientUserVTable
 	{
@@ -724,10 +730,10 @@ namespace Steam4NET
 			this.GetFunction<NativeSetWinningPingTimeForCellIDU>( this.Functions.SetWinningPingTimeForCellID74 )( this.ObjectAddress, uPing ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetUserBaseFolder( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetUserBaseFolder( IntPtr thisptr );
 		public string GetUserBaseFolder(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetUserBaseFolder>( this.Functions.GetUserBaseFolder75 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetUserBaseFolder>( this.Functions.GetUserBaseFolder75 )( this.ObjectAddress ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

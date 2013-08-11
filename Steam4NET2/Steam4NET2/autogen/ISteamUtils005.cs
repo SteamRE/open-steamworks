@@ -62,10 +62,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetServerRealTime>( this.Functions.GetServerRealTime3 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetIPCountry( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIPCountry( IntPtr thisptr );
 		public string GetIPCountry(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetIPCountry>( this.Functions.GetIPCountry4 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetIPCountry>( this.Functions.GetIPCountry4 )( this.ObjectAddress ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

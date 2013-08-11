@@ -46,10 +46,10 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("CLIENTSCREENSHOTS_INTERFACE_VERSION001")]
 	public class IClientScreenshots : InteropHelp.NativeWrapper<IClientScreenshotsVTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetShortcutDisplayNameC( IntPtr thisptr, UInt64 gameID );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetShortcutDisplayNameC( IntPtr thisptr, UInt64 gameID );
 		public string GetShortcutDisplayName( CGameID gameID ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetShortcutDisplayNameC>( this.Functions.GetShortcutDisplayName0 )( this.ObjectAddress, gameID.ConvertToUint64() ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetShortcutDisplayNameC>( this.Functions.GetShortcutDisplayName0 )( this.ObjectAddress, gameID.ConvertToUint64() ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetShortcutDisplayNameCS( IntPtr thisptr, UInt64 arg0, string cszName );

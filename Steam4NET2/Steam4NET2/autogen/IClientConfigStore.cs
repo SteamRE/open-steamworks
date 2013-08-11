@@ -66,10 +66,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetFloatESF>( this.Functions.GetFloat4 )( this.ObjectAddress, eConfigStore, pszKeyName, defaultValue ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetStringESS( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyName, string defaultValue );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetStringESS( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyName, string defaultValue );
 		public string GetString( EConfigStore eConfigStore, string pszKeyName, string defaultValue ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetStringESS>( this.Functions.GetString5 )( this.ObjectAddress, eConfigStore, pszKeyName, defaultValue ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetStringESS>( this.Functions.GetString5 )( this.ObjectAddress, eConfigStore, pszKeyName, defaultValue ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetBinaryESBU( IntPtr thisptr, EConfigStore eConfigStore, string pszKeyName, Byte[] pubBuf, UInt32 cubBuf );

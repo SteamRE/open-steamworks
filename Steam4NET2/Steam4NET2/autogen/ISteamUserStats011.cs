@@ -141,10 +141,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAchievementIconS>( this.Functions.GetAchievementIcon11 )( this.ObjectAddress, pchName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetAchievementDisplayAttributeSS( IntPtr thisptr, string pchName, string pchKey );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetAchievementDisplayAttributeSS( IntPtr thisptr, string pchName, string pchKey );
 		public string GetAchievementDisplayAttribute( string pchName, string pchKey ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetAchievementDisplayAttributeSS>( this.Functions.GetAchievementDisplayAttribute12 )( this.ObjectAddress, pchName, pchKey ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetAchievementDisplayAttributeSS>( this.Functions.GetAchievementDisplayAttribute12 )( this.ObjectAddress, pchName, pchKey ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -160,10 +160,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetNumAchievementsC>( this.Functions.GetNumAchievements14 )( this.ObjectAddress, nGameID.ConvertToUint64() ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetAchievementNameU( IntPtr thisptr, UInt32 iAchievement );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetAchievementNameU( IntPtr thisptr, UInt32 iAchievement );
 		public string GetAchievementName( UInt32 iAchievement ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetAchievementNameU>( this.Functions.GetAchievementName15 )( this.ObjectAddress, iAchievement ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetAchievementNameU>( this.Functions.GetAchievementName15 )( this.ObjectAddress, iAchievement ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestUserStatsC( IntPtr thisptr, UInt64 steamIDUser );
@@ -219,10 +219,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeFindLeaderboardS>( this.Functions.FindLeaderboard23 )( this.ObjectAddress, pchLeaderboardName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLeaderboardNameU( IntPtr thisptr, UInt64 hSteamLeaderboard );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetLeaderboardNameU( IntPtr thisptr, UInt64 hSteamLeaderboard );
 		public string GetLeaderboardName( UInt64 hSteamLeaderboard ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLeaderboardNameU>( this.Functions.GetLeaderboardName24 )( this.ObjectAddress, hSteamLeaderboard ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLeaderboardNameU>( this.Functions.GetLeaderboardName24 )( this.ObjectAddress, hSteamLeaderboard ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLeaderboardEntryCountU( IntPtr thisptr, UInt64 hSteamLeaderboard );

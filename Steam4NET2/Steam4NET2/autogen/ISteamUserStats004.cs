@@ -109,10 +109,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAchievementIconS>( this.Functions.GetAchievementIcon10 )( this.ObjectAddress, pchName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetAchievementDisplayAttributeSS( IntPtr thisptr, string pchName, string pchKey );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetAchievementDisplayAttributeSS( IntPtr thisptr, string pchName, string pchKey );
 		public string GetAchievementDisplayAttribute( string pchName, string pchKey ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetAchievementDisplayAttributeSS>( this.Functions.GetAchievementDisplayAttribute11 )( this.ObjectAddress, pchName, pchKey ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetAchievementDisplayAttributeSS>( this.Functions.GetAchievementDisplayAttribute11 )( this.ObjectAddress, pchName, pchKey ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

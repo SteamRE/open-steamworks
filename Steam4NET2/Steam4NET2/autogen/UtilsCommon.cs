@@ -145,4 +145,10 @@ namespace Steam4NET
 		public UInt32 m_nCellID;
 	};
 	
+	[StructLayout(LayoutKind.Sequential,Pack=8)]
+	public struct CUtlBuffer
+	{
+		public Int32 m_iPadding;
+	};
+	
 }

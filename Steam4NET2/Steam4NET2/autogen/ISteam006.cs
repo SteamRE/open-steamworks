@@ -981,10 +981,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeFindServersIterateServerEUSI>( this.Functions.FindServersIterateServer136 )( this.ObjectAddress, eSteamServerType, uIndex, szServerAddress, (Int32) szServerAddress.Capacity ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeFindServersGetErrorString( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeFindServersGetErrorString( IntPtr thisptr );
 		public string FindServersGetErrorString(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeFindServersGetErrorString>( this.Functions.FindServersGetErrorString137 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeFindServersGetErrorString>( this.Functions.FindServersGetErrorString137 )( this.ObjectAddress ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeCheckAppOwnershipUITT( IntPtr thisptr, UInt32 uAppId, ref Int32 pbOwned, ref TSteamGlobalUserID pSteamGlobalUserID, ref TSteamError pError );

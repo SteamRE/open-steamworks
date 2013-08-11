@@ -131,10 +131,10 @@ namespace Steam4NET
 			this.GetFunction<NativeSetLocalIPBindingUU>( this.Functions.SetLocalIPBinding10 )( this.ObjectAddress, unIP, usPort ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetUniverseNameE( IntPtr thisptr, EUniverse eUniverse );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetUniverseNameE( IntPtr thisptr, EUniverse eUniverse );
 		public string GetUniverseName( EUniverse eUniverse ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetUniverseNameE>( this.Functions.GetUniverseName11 )( this.ObjectAddress, eUniverse ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetUniverseNameE>( this.Functions.GetUniverseName11 )( this.ObjectAddress, eUniverse ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIClientFriendsIIS( IntPtr thisptr, Int32 hSteamUser, Int32 hSteamPipe, string pchVersion );

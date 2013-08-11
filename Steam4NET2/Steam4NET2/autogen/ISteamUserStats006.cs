@@ -119,10 +119,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAchievementIconS>( this.Functions.GetAchievementIcon10 )( this.ObjectAddress, pchName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetAchievementDisplayAttributeSS( IntPtr thisptr, string pchName, string pchKey );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetAchievementDisplayAttributeSS( IntPtr thisptr, string pchName, string pchKey );
 		public string GetAchievementDisplayAttribute( string pchName, string pchKey ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetAchievementDisplayAttributeSS>( this.Functions.GetAchievementDisplayAttribute11 )( this.ObjectAddress, pchName, pchKey ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetAchievementDisplayAttributeSS>( this.Functions.GetAchievementDisplayAttribute11 )( this.ObjectAddress, pchName, pchKey ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -178,10 +178,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeFindLeaderboardS>( this.Functions.FindLeaderboard19 )( this.ObjectAddress, pchLeaderboardName ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLeaderboardNameU( IntPtr thisptr, UInt64 hSteamLeaderboard );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetLeaderboardNameU( IntPtr thisptr, UInt64 hSteamLeaderboard );
 		public string GetLeaderboardName( UInt64 hSteamLeaderboard ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLeaderboardNameU>( this.Functions.GetLeaderboardName20 )( this.ObjectAddress, hSteamLeaderboard ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLeaderboardNameU>( this.Functions.GetLeaderboardName20 )( this.ObjectAddress, hSteamLeaderboard ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetLeaderboardEntryCountU( IntPtr thisptr, UInt64 hSteamLeaderboard );

@@ -198,10 +198,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetFileCountUB>( this.Functions.GetFileCount15 )( this.ObjectAddress, nAppId, bFromExternalAPI ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFileNameAndSizeUIEIB( IntPtr thisptr, UInt32 nAppId, Int32 iFile, ref ERemoteStorageFileRoot peRemoteStorageFileRoot, ref Int32 pnFileSizeInBytes, [MarshalAs(UnmanagedType.I1)] bool bFromExternalAPI );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetFileNameAndSizeUIEIB( IntPtr thisptr, UInt32 nAppId, Int32 iFile, ref ERemoteStorageFileRoot peRemoteStorageFileRoot, ref Int32 pnFileSizeInBytes, [MarshalAs(UnmanagedType.I1)] bool bFromExternalAPI );
 		public string GetFileNameAndSize( UInt32 nAppId, Int32 iFile, ref ERemoteStorageFileRoot peRemoteStorageFileRoot, ref Int32 pnFileSizeInBytes, bool bFromExternalAPI ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetFileNameAndSizeUIEIB>( this.Functions.GetFileNameAndSize16 )( this.ObjectAddress, nAppId, iFile, ref peRemoteStorageFileRoot, ref pnFileSizeInBytes, bFromExternalAPI ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetFileNameAndSizeUIEIB>( this.Functions.GetFileNameAndSize16 )( this.ObjectAddress, nAppId, iFile, ref peRemoteStorageFileRoot, ref pnFileSizeInBytes, bFromExternalAPI ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

@@ -162,10 +162,10 @@ namespace Steam4NET
 			UInt64 ret = 0; this.GetFunction<NativeGetLobbyMemberByIndexCI>( this.Functions.GetLobbyMemberByIndex17 )( this.ObjectAddress, ref ret, steamIDLobby.ConvertToUint64(), iMember ); return new CSteamID(ret);
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyDataCS( IntPtr thisptr, UInt64 steamIDLobby, string pchKey );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetLobbyDataCS( IntPtr thisptr, UInt64 steamIDLobby, string pchKey );
 		public string GetLobbyData( CSteamID steamIDLobby, string pchKey ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLobbyDataCS>( this.Functions.GetLobbyData18 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), pchKey ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLobbyDataCS>( this.Functions.GetLobbyData18 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), pchKey ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -195,10 +195,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeDeleteLobbyDataCS>( this.Functions.DeleteLobbyData22 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), pchKey ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLobbyMemberDataCCS( IntPtr thisptr, UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetLobbyMemberDataCCS( IntPtr thisptr, UInt64 steamIDLobby, UInt64 steamIDUser, string pchKey );
 		public string GetLobbyMemberData( CSteamID steamIDLobby, CSteamID steamIDUser, string pchKey ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLobbyMemberDataCCS>( this.Functions.GetLobbyMemberData23 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), steamIDUser.ConvertToUint64(), pchKey ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLobbyMemberDataCCS>( this.Functions.GetLobbyMemberData23 )( this.ObjectAddress, steamIDLobby.ConvertToUint64(), steamIDUser.ConvertToUint64(), pchKey ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetLobbyMemberDataCSS( IntPtr thisptr, UInt64 steamIDLobby, string pchKey, string pchValue );

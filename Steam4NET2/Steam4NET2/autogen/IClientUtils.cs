@@ -51,22 +51,22 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("CLIENTUTILS_INTERFACE_VERSION001")]
 	public class IClientUtils : InteropHelp.NativeWrapper<IClientUtilsVTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetInstallPath( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetInstallPath( IntPtr thisptr );
 		public string GetInstallPath(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetInstallPath>( this.Functions.GetInstallPath0 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetInstallPath>( this.Functions.GetInstallPath0 )( this.ObjectAddress ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetUserBaseFolderInstallImage( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetUserBaseFolderInstallImage( IntPtr thisptr );
 		public string GetUserBaseFolderInstallImage(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetUserBaseFolderInstallImage>( this.Functions.GetUserBaseFolderInstallImage1 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetUserBaseFolderInstallImage>( this.Functions.GetUserBaseFolderInstallImage1 )( this.ObjectAddress ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetManagedContentRoot( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetManagedContentRoot( IntPtr thisptr );
 		public string GetManagedContentRoot(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetManagedContentRoot>( this.Functions.GetManagedContentRoot2 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetManagedContentRoot>( this.Functions.GetManagedContentRoot2 )( this.ObjectAddress ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetSecondsSinceAppActive( IntPtr thisptr );
@@ -99,10 +99,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetServerRealTime>( this.Functions.GetServerRealTime7 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetIPCountry( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIPCountry( IntPtr thisptr );
 		public string GetIPCountry(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetIPCountry>( this.Functions.GetIPCountry8 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetIPCountry>( this.Functions.GetIPCountry8 )( this.ObjectAddress ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
@@ -272,10 +272,10 @@ namespace Steam4NET
 			this.GetFunction<NativeSetFocusedWindowEU>( this.Functions.SetFocusedWindow34 )( this.ObjectAddress, eWindowType, uUnk ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetSteamUILanguage( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetSteamUILanguage( IntPtr thisptr );
 		public string GetSteamUILanguage(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetSteamUILanguage>( this.Functions.GetSteamUILanguage35 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetSteamUILanguage>( this.Functions.GetSteamUILanguage35 )( this.ObjectAddress ) ); 
 		}
 		
 	};

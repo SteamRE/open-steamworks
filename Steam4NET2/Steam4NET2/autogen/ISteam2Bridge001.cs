@@ -72,10 +72,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetConnectedUniverse>( this.Functions.GetConnectedUniverse5 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetIPCountry( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetIPCountry( IntPtr thisptr );
 		public string GetIPCountry(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetIPCountry>( this.Functions.GetIPCountry6 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetIPCountry>( this.Functions.GetIPCountry6 )( this.ObjectAddress ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetNumLicenses( IntPtr thisptr );
@@ -126,10 +126,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetLicenseFlagsU>( this.Functions.GetLicenseFlags14 )( this.ObjectAddress, nLicenseIndex ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetLicensePurchaseCountryCodeU( IntPtr thisptr, UInt32 nLicenseIndex );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetLicensePurchaseCountryCodeU( IntPtr thisptr, UInt32 nLicenseIndex );
 		public string GetLicensePurchaseCountryCode( UInt32 nLicenseIndex ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode15 )( this.ObjectAddress, nLicenseIndex ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetLicensePurchaseCountryCodeU>( this.Functions.GetLicensePurchaseCountryCode15 )( this.ObjectAddress, nLicenseIndex ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

@@ -63,10 +63,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetFileCount>( this.Functions.GetFileCount5 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFileNameAndSizeII( IntPtr thisptr, Int32 index, ref Int32 size );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetFileNameAndSizeII( IntPtr thisptr, Int32 index, ref Int32 size );
 		public string GetFileNameAndSize( Int32 index, ref Int32 size ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetFileNameAndSizeII>( this.Functions.GetFileNameAndSize6 )( this.ObjectAddress, index, ref size ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetFileNameAndSizeII>( this.Functions.GetFileNameAndSize6 )( this.ObjectAddress, index, ref size ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

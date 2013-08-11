@@ -42,10 +42,10 @@ namespace Steam4NET
 	[InteropHelp.InterfaceVersion("SteamFriends001")]
 	public class ISteamFriends001 : InteropHelp.NativeWrapper<ISteamFriends001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetPersonaName( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetPersonaName( IntPtr thisptr );
 		public string GetPersonaName(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetPersonaName>( this.Functions.GetPersonaName0 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetPersonaName>( this.Functions.GetPersonaName0 )( this.ObjectAddress ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetPersonaNameS( IntPtr thisptr, string pchPersonaName );
@@ -106,10 +106,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeDeprecated_GetFriendGamePlayedCIUU>( this.Functions.Deprecated_GetFriendGamePlayed9 )( this.ObjectAddress, steamIDFriend.ConvertToUint64(), ref pnGameID, ref punGameIP, ref pusGamePort ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameC( IntPtr thisptr, UInt64 steamIDFriend );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetFriendPersonaNameC( IntPtr thisptr, UInt64 steamIDFriend );
 		public string GetFriendPersonaName( CSteamID steamIDFriend ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetFriendPersonaNameC>( this.Functions.GetFriendPersonaName10 )( this.ObjectAddress, steamIDFriend.ConvertToUint64() ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetFriendPersonaNameC>( this.Functions.GetFriendPersonaName10 )( this.ObjectAddress, steamIDFriend.ConvertToUint64() ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeAddFriendByNameS( IntPtr thisptr, string pchEmailOrAccountName );
@@ -142,16 +142,16 @@ namespace Steam4NET
 			this.GetFunction<NativeSetFriendRegValueCSS>( this.Functions.SetFriendRegValue15 )( this.ObjectAddress, steamIDFriend.ConvertToUint64(), pchKey, pchValue ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendRegValueCS( IntPtr thisptr, UInt64 steamIDFriend, string pchKey );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetFriendRegValueCS( IntPtr thisptr, UInt64 steamIDFriend, string pchKey );
 		public string GetFriendRegValue( CSteamID steamIDFriend, string pchKey ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetFriendRegValueCS>( this.Functions.GetFriendRegValue16 )( this.ObjectAddress, steamIDFriend.ConvertToUint64(), pchKey ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetFriendRegValueCS>( this.Functions.GetFriendRegValue16 )( this.ObjectAddress, steamIDFriend.ConvertToUint64(), pchKey ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetFriendPersonaNameHistoryCI( IntPtr thisptr, UInt64 steamIDFriend, Int32 iPersonaName );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetFriendPersonaNameHistoryCI( IntPtr thisptr, UInt64 steamIDFriend, Int32 iPersonaName );
 		public string GetFriendPersonaNameHistory( CSteamID steamIDFriend, Int32 iPersonaName ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetFriendPersonaNameHistoryCI>( this.Functions.GetFriendPersonaNameHistory17 )( this.ObjectAddress, steamIDFriend.ConvertToUint64(), iPersonaName ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetFriendPersonaNameHistoryCI>( this.Functions.GetFriendPersonaNameHistory17 )( this.ObjectAddress, steamIDFriend.ConvertToUint64(), iPersonaName ) ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetChatMessageCIBIE( IntPtr thisptr, UInt64 steamIDFriend, Int32 iChatID, Byte[] pvData, Int32 cubData, ref EChatEntryType peFriendMsgType );

@@ -57,16 +57,16 @@ namespace Steam4NET
 			return this.GetFunction<NativeBIsVACBanned>( this.Functions.BIsVACBanned3 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetCurrentGameLanguage( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetCurrentGameLanguage( IntPtr thisptr );
 		public string GetCurrentGameLanguage(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetCurrentGameLanguage>( this.Functions.GetCurrentGameLanguage4 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetCurrentGameLanguage>( this.Functions.GetCurrentGameLanguage4 )( this.ObjectAddress ) ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate string NativeGetAvailableGameLanguages( IntPtr thisptr );
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate IntPtr NativeGetAvailableGameLanguages( IntPtr thisptr );
 		public string GetAvailableGameLanguages(  ) 
 		{
-			return InteropHelp.DecodeANSIReturn( this.GetFunction<NativeGetAvailableGameLanguages>( this.Functions.GetAvailableGameLanguages5 )( this.ObjectAddress ) ); 
+			return Marshal.PtrToStringAnsi( this.GetFunction<NativeGetAvailableGameLanguages>( this.Functions.GetAvailableGameLanguages5 )( this.ObjectAddress ) ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
