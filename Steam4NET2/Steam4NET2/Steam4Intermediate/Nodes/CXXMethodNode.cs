@@ -204,7 +204,7 @@ namespace Steam4Intermediate.Nodes
 
             if ( returns == "string" )
             {
-                method.Append( "Marshal.PtrToStringAnsi( " );
+                method.Append( "InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( " );
             }
 
             if ( genericwrapper )
@@ -293,7 +293,7 @@ namespace Steam4Intermediate.Nodes
 
             if ( returns == "string" )
             {
-                method.Append(" )");
+                method.Append(" ) )");
             }
 
             method.Append( "; " );
