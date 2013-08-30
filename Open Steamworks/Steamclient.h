@@ -229,11 +229,6 @@
 // callback
 #include "CCallback.h"
 
-// steam_api
-#ifdef VERSION_SAFE_STEAM_API_INTERFACES
-	#include "CSteamAPIContext.h"
-#endif // VERSION_SAFE_STEAM_API_INTERFACES
-
 #if defined(__GNUC__) && defined(_WIN32)
 	#pragma pop_macro("virtual")
 #endif
@@ -449,5 +444,12 @@ S_API bool SteamEncryptedAppTicket_BUserOwnsAppInTicket( uint8 *rgubTicketDecryp
 S_API bool SteamEncryptedAppTicket_BUserIsVacBanned( uint8 *rgubTicketDecrypted, uint32 cubTicketDecrypted );
 
 S_API const uint8 *SteamEncryptedAppTicket_GetUserVariableData( uint8 *rgubTicketDecrypted, uint32 cubTicketDecrypted, uint32 *pcubUserData );
+
+
+
+// steam_api
+#ifdef VERSION_SAFE_STEAM_API_INTERFACES
+	#include "CSteamAPIContext.h"
+#endif // VERSION_SAFE_STEAM_API_INTERFACES
 
 #endif // STEAMCLIENT_H
