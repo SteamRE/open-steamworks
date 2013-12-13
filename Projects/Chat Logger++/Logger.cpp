@@ -105,7 +105,7 @@ void* CLogger::FindSteamFunction(const char* cszName)
 {
 	static CSigScanner sigScanner(GetModuleHandleA("steamclient.dll"));
 
-	for(unsigned char* pMatch = NULL; pMatch = (unsigned char*)sigScanner.FindSignature("\x68\x00\x00\x00\x00\x51\x8d\x55\xd0\x52\x50\xe8\x00\x00\x00\x00\x8d\x48\x04\xe8\x00\x00\x00\x00\x8b\xf0\x8b\xce\xe8\x00\x00\x00\x00\x3c\x01\x74\x00", "x????xxx?xxx????xxxx????xxxxx????xxx?", false, pMatch); )
+	for(unsigned char* pMatch = NULL; pMatch = (unsigned char*)sigScanner.FindSignature("\x68\x00\x00\x00\x00\x51\x8d\x55\xd0\x52\x50\xe8\x00\x00\x00\x00\x8d\x48\x04\xe8\x00\x00\x00\x00\x8b\xf0\x8b\xce\xe8\x00\x00\x00\x00\x00\x00\x00\x00", "x????xxx?xxx????xxxx????xxxxx????????", false, pMatch); )
 	{
 		const char* cszFunctionName = *(const char**)(pMatch + 1);
 		if(strcmp(cszFunctionName, cszName) == 0)
