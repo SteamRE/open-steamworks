@@ -108,7 +108,7 @@ private:
 			(m_pObj->*m_Func)( (P *)pvParam, bIOFailure );			
 		}
 	}
-	int GetCallbackSizeBytes()
+	virtual int GetCallbackSizeBytes()
 	{
 		return sizeof( P );
 	}
@@ -186,7 +186,7 @@ private:
 	{
 		(m_pObj->*m_Func)( (P *)pvParam );
 	}
-	int GetCallbackSizeBytes()
+	virtual int GetCallbackSizeBytes()
 	{
 		return sizeof( P );
 	}
