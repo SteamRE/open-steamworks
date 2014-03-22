@@ -121,6 +121,7 @@
 #include "ISteamGameServer009.h"
 #include "ISteamGameServer010.h"
 #include "ISteamGameServer011.h"
+#include "ISteamGameServer012.h"
 
 // master server updater
 #include "ISteamMasterServerUpdater001.h"
