@@ -81,7 +81,7 @@ public:
 		return (CreateInterfaceFn)m_pSteamclient->GetSymbol("CreateInterface");
 	}
 
-	FactoryFn GetSteam2Factory()
+	FactoryFn STEAMWORKS_DEPRECATE("This function is provided for backwards compatibility only. Steam2 is deprecated. Please use Steam3 instead") GetSteam2Factory()
 	{
 		return (FactoryFn)m_pSteam->GetSymbol("_f");
 	}
@@ -107,7 +107,21 @@ public:
 
 	FactoryFn STEAMWORKS_DEPRECATE("This function is provided for backward compatiblity. Please use GetSteam2Factory instead") LoadFactory()
 	{
+#ifdef _MSC_VER
+	#pragma warning(push)
+	#pragma warning(disable: 4996)
+#elif defined(__GNUC__)
+	#pragma GCC diagnostic push
+	#pragma GCC disagnostic ignored "-Wdeprecated"
+#endif
+
 		return GetSteam2Factory();
+
+#ifdef _MSC_VER
+	#pragma warning(pop)
+#elif defined(__GNUC__)
+	#pragma GCC diagnostic pop
+#endif
 	}
 
 private:
