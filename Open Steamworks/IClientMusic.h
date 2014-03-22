@@ -22,8 +22,6 @@
 
 #include "SteamTypes.h"
 
-class CMusicQueueEntry;
-
 enum AudioPlayback_Status
 {
 	// TODO: Reverse this enum
