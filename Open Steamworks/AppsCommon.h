@@ -155,6 +155,8 @@ enum EAppUpdateError
 	k_EAppUpdateErrorDownloadCorrupt = 32,
 	k_EAppUpdateErrorDownloadDisabled = 33,
 	k_EAppUpdateErrorSharedLibraryLocked = 34,
+	k_EAppUpdateErrorPurchasePending = 35,
+	k_EAppUpdateErrorOtherSessionPlaying = 36,
 };
 
 //-----------------------------------------------------------------------------
