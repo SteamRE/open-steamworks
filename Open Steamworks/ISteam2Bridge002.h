@@ -70,6 +70,8 @@ public:
 	virtual void SetWinningPingTimeForCellID( uint32 uPing ) = 0;
 	
 	virtual void GetSteam2ID( TSteamGlobalUserID *pUserID ) = 0;
+
+	virtual unknown_ret GetCellID() = 0;
 };
 
 #endif // ISTEAM2BRIDGE002_H
