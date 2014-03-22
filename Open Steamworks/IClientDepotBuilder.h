@@ -60,9 +60,7 @@ public:
 	virtual uint32 RegisterAppBuild( AppId_t nAppID, bool bLocalCSBuild, const char *cszDescription ) = 0;
 	virtual uint32 GetRegisteredBuildID( uint32 ) = 0;
 
-	virtual HDEPOTBUILD InitializeDepotBuildForConfigFile( const char *pchConfigFile, const char *, const char * ) = 0;
-	
-	virtual bool StartBuild( HDEPOTBUILD hDepotBuild, uint32 uFlags, const char *cszChunksPath, const char*, uint32 ) = 0;
+	virtual HDEPOTBUILD StartDepotBuildFromConfigFile( const char *pchConfigFile, const char *, const char *, uint32, uint32, const char * ) = 0;
 
 	virtual bool BGetDepotBuildStatus( HDEPOTBUILD hDepotBuild, EDepotBuildStatus* pStatusOut, uint32* pPercentDone ) = 0;
 	virtual bool CloseDepotBuildHandle( HDEPOTBUILD hDepotBuild ) = 0;
@@ -77,6 +75,7 @@ public:
 
 	virtual uint32 VerifyChunkStore( uint32, uint32, const char * ) = 0;
 	virtual uint32 StartUploadTest( uint32, uint32 ) = 0;
+	virtual uint32 DownloadDepot( uint32, uint32 ) = 0;
 };
 
 #endif // ICLIENTDEPOTBUILDER_H
