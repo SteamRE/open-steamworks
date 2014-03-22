@@ -115,7 +115,9 @@ public:
 	virtual uint32 GetEnteredGamepadTextLength() = 0;
 	virtual bool GetEnteredGamepadTextInput( char *pchValue, uint32 cchValueMax ) = 0;
 
-	virtual const char *GetSteamUILanguage() = 0;;
+	virtual const char *GetSteamUILanguage() = 0;
+
+	virtual bool IsSteamRunningInVR() = 0;
 };
 
 #endif // ISTEAMUTILS006_H
