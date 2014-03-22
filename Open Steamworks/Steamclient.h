@@ -237,6 +237,7 @@
 #include "IClientNetworkDeviceManager.h"
 #include "IClientDeviceAuth.h"
 #include "IClientMusic.h"
+#include "IClientProductBuilder.h"
 #endif // NO_ICLIENT
 
 // callback
