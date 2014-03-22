@@ -24,10 +24,11 @@
 
 class CMusicQueueEntry;
 
-enum MusicPlayback_Status
+enum AudioPlayback_Status
 {
 	// TODO: Reverse this enum
 };
+
 enum MediaController_Status
 {
 	// TODO: Reverse this enum
@@ -38,41 +39,75 @@ enum MediaController_Status
 abstract_class UNSAFE_INTERFACE IClientMusic
 {
 public:
-		virtual int32 GetQueueCount() = 0;
-		virtual CMusicQueueEntry * GetQueueEntry( int32 ) = 0;
-		virtual void LoadQueueEntry( int32 ) = 0;
-		virtual void AddQueueEntry( CMusicQueueEntry * ) = 0;
-		virtual void RemoveQueueEntry( CMusicQueueEntry * ) = 0;
-		virtual MusicPlayback_Status GetPlaybackStatus() = 0;
-		virtual void Play() = 0;
-		virtual void Pause() = 0;
-		virtual void Stop() = 0;
-		virtual void PlayFirst() = 0;
-		virtual void PlayPrevious() = 0;
-		virtual void PlayNext() = 0;
-		virtual void PlayLast() = 0;
-		virtual MediaController_Status GetStatusLocalLibrary() = 0;
-		virtual int32 GetLocalLibraryDirectoryEntryCount() = 0;
-		virtual bool GetLocalLibraryDirectoryEntry( int32, int32 *, char *, int32, char *, int32, bool * ) = 0;
-		virtual void SetLocalLibraryDirectoryEntryEnabled( int32, bool ) = 0;
-		virtual void ResetLocalLibraryDirectoriesToDefault() = 0;
-		virtual void UpdateLocalLibraryDirectoriesToCrawl() = 0;
-		virtual bool BLocalLibraryIsCrawling() = 0;
-		virtual int32 GetLocalLibraryAlbumCount() = 0;
-		virtual bool GetLocalLibraryAlbumKey( int32, char *, int32 ) = 0;
-		virtual bool GetLocalLibraryAlbumNextKey( const char *, bool, char *, int32 ) = 0;
-		virtual bool GetLocalLibraryAlbumEntry( const char *, char *, int32, char *, int32, int32 * ) = 0;
-		virtual bool GetLocalLibraryAlbumTrackEntry( const char *, int32, char *, int32, int32 * ) = 0;
-		virtual bool GetLocalLibraryAlbumTrackKey( const char *, int32, char *, int32 ) = 0;
-		virtual void StartUsingSpotify() = 0;
-		virtual void StopUsingSpotify() = 0;
-		virtual MediaController_Status GetStatusSpotify() = 0;
-		virtual void LoginSpotify( const char *, const char * ) = 0;
-		virtual void ReloginSpotify() = 0;
-		virtual const char * GetCurrentUserSpotify() = 0;
-		virtual void ForgetCurrentUserSpotify() = 0;
-		virtual void LogoutSpotify() = 0;
-		virtual void DumpStatusToConsole() = 0;
+	virtual bool BIsEnabled() = 0;
+	virtual void Enable( bool bUnk ) = 0;
+	virtual void EnableCrawlLogging( bool bUnk ) = 0;
+	virtual bool BIsPlaying() = 0;
+
+	virtual int32 GetQueueCount() = 0;
+	virtual int32 GetCurrentQueueEntry() = 0;
+	virtual bool GetQueueEntryURI( int32 iIndex, char *, int32) = 0;
+	virtual bool GetQueueEntryData( int32 iIndex, char *, int32, char *, int32, char *, int32 ) = 0;
+	virtual void EmptyQueue() = 0;
+	virtual void RemoveQueueEntry( int32 iIndex, bool bUnk ) = 0;
+	virtual void AddAlbumToQueue( const char *, bool, bool ) = 0;
+	virtual void AddTrackToQueue( const char *, bool, bool, bool ) = 0;
+
+	virtual AudioPlayback_Status GetPlaybackStatus() = 0;
+
+	virtual void SetPlayingLooped( bool bPlayingLooped ) = 0;
+	virtual bool IsPlayingLooped() = 0;
+	virtual void SetPlayingShuffled( bool bPlayingShuffled ) = 0;
+	virtual bool IsPlayingShuffled() = 0;
+
+	virtual void Play() = 0;
+	virtual void Pause() = 0;
+	virtual void Stop() = 0;
+	virtual void PlayPrevious() = 0;
+	virtual void PlayEntry( int32 ) = 0;
+
+	virtual void SetVolume( float flVolume ) = 0;
+	virtual float GetVolume() = 0;
+
+	virtual void ResetLocalLibrary() = 0;
+
+	virtual MediaController_Status GetStatusLocalLibrary() = 0;
+	virtual void SaveLocalLibraryDirectorySettings() = 0;
+	
+	virtual int32 GetLocalLibraryDirectoryEntryCount() = 0;
+	virtual bool GetLocalLibraryDirectoryEntry( int32, char *, int32 ) = 0;
+	virtual void AddLocalLibraryDirectoryEntry( const char * ) = 0;
+	virtual void ResetLocalLibraryDirectories( bool ) = 0;
+	virtual bool GetDefaultLocalLibraryDirectory( char *, int32 );
+
+	virtual void LocalLibraryStopCrawling() = 0;
+	virtual void UpdateLocalLibraryDirectoriesToCrawl() = 0;
+	virtual bool BLocalLibraryIsCrawling() = 0;
+	virtual void CrawlAlbum( const char * ) = 0;
+	virtual void CrawlTrack( const char * ) = 0;
+
+	virtual int32 GetLocalLibraryAlbumCount() = 0;
+	virtual bool GetLocalLibraryAlbumKey( int32, char *, int32 ) = 0;
+
+	virtual bool GetLocalLibraryAlbumEntry( const char *, char *, int32, char *, int32, int32 *, bool * ) = 0;
+	virtual bool GetLocalLibraryAlbumTrackEntry( const char *, int32, char *, int32, int32 *, char *, int32 ) = 0;
+	virtual int32 GetLocalLibraryTrackCount() = 0;
+	virtual bool GetLocalLibraryAlbumTrackKey( const char *, int32, char *, int32 ) = 0;
+	virtual int32 GetLocalLibraryTrackCountForAlbum( const char * ) = 0;
+	virtual int32 GetLocalLibraryArtistCount() = 0;
+	virtual bool GetLocalLibraryArtistName( int32, char *, int32 ) = 0;
+	virtual int32 GetLocalLibraryAlbumCountForArtistName( const char * ) = 0;
+	virtual bool GetLocalLibraryArtistAlbumKey( const char *, int32, char *, int32 ) = 0;
+
+	virtual void StartUsingSpotify() = 0;
+	virtual void StopUsingSpotify() = 0;
+	virtual MediaController_Status GetStatusSpotify() = 0;
+	virtual void LoginSpotify( const char *, const char * ) = 0;
+	virtual void ReloginSpotify() = 0;
+	virtual const char * GetCurrentUserSpotify() = 0;
+	virtual void ForgetCurrentUserSpotify() = 0;
+	virtual void LogoutSpotify() = 0;
+	virtual void DumpStatusToConsole() = 0;
 };
 
 #endif // ICLIENTMUSIC_H
