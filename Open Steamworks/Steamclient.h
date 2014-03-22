@@ -240,6 +240,7 @@
 #include "IClientProductBuilder.h"
 #include "IClientShortcuts.h"
 #include "IClientStreamClient.h"
+#include "IClientUGC.h"
 #endif // NO_ICLIENT
 
 // callback
