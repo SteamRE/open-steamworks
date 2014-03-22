@@ -23,8 +23,9 @@
 #include "SteamTypes.h"
 #include "ControllerCommon.h"
 
-class CAdapterSteamController001
+abstract_class ISteamController001
 {
+public:
 	virtual unknown_ret Init( const char *pchAbsolutePathToControllerConfigVDF ) = 0;
 	virtual unknown_ret Shutdown() = 0;
 	virtual unknown_ret RunFrame() = 0;
