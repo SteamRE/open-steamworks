@@ -109,6 +109,7 @@
 #include "ISteamUtils004.h"
 #include "ISteamUtils005.h"
 #include "ISteamUtils006.h"
+#include "ISteamUtils007.h"
 
 // game server
 #include "ISteamGameServer002.h"
