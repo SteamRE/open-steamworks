@@ -25,10 +25,12 @@
 
 class CAdapterSteamController001
 {
-	virtual unknown_ret Init() = 0;
+	virtual unknown_ret Init( const char *pchAbsolutePathToControllerConfigVDF ) = 0;
 	virtual unknown_ret Shutdown() = 0;
 	virtual unknown_ret RunFrame() = 0;
-	virtual unknown_ret GetControllerState( uint32 uUnk, SteamControllerState_t * pState ) = 0;
+	virtual unknown_ret GetControllerState( uint32 unControllerIndex, SteamControllerState_t *pState ) = 0;
+	virtual void TriggerHapticPulse( uint32 unControllerIndex, ESteamControllerPad eTargetPad, unsigned short usDurationMicroSec ) = 0;
+	virtual void SetOverrideMode( const char *pchMode ) = 0;
 };
 
 #endif

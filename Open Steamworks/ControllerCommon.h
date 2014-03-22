@@ -30,4 +30,9 @@ struct SteamControllerState_t
 #endif
 };
 
+enum ESteamControllerPad
+{
+	// TODO: Reverse this enum
+};
+
 #endif
