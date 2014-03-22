@@ -77,6 +77,7 @@ public:
 	virtual bool GetAPICallResult( SteamAPICall_t hSteamAPICall, void *pCallback, int32 cubCallback, int32 iCallbackExpected, bool *pbFailed ) = 0;
 
 	virtual bool SignalAppsToShutDown() = 0;
+	virtual bool TerminateAllAppsMultiStep( uint32 uUnk ) = 0;
 
 	virtual CellID_t GetCellID() = 0;
 
@@ -88,7 +89,10 @@ public:
 	virtual uint64 GetBuildID() = 0;
 
 	virtual void SetCurrentUIMode( EUIMode eUIMode ) = 0;
-	virtual bool ShowGamepadTextInput( EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eInputLineMode, const char *szText, uint32 uMaxLength ) = 0;
+	virtual void SetLauncherType( ELauncherType eLauncherType ) = 0;
+	virtual ELauncherType GetLauncherType() = 0;
+
+	virtual bool ShowGamepadTextInput( EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eInputLineMode, const char *szText, uint32 uMaxLength, const char * szUnk ) = 0;
 	virtual uint32 GetEnteredGamepadTextLength() = 0;
 	virtual bool GetEnteredGamepadTextInput( char *pchValue, uint32 cchValueMax ) = 0;
 	virtual void GamepadTextInputClosed( HSteamPipe hSteamPipe, bool, const char * ) = 0;
@@ -97,8 +101,21 @@ public:
 	
 	virtual bool BDownloadsDisabled() = 0;
 
-	virtual void SetFocusedWindow( EWindowType eWindowType, uint32 uUnk ) = 0;
+	virtual void SetFocusedWindow( EWindowType eWindowType, CGameID gameID, uint64 ulUnk ) = 0;
 	virtual const char *GetSteamUILanguage() = 0;
+
+	virtual uint64 CheckSteamReachable() = 0;
+	virtual void SetLastGameLaunchMethod( EGameLaunchMethod eGameLaunchMethod ) = 0;
+	virtual bool IsSteamOS() = 0;
+	virtual void SetVideoAdapterInfo( int32, int32, int32, int32, int32 ) = 0;
+	virtual void SetControllerOVerrideMode( EWindowType eWindowType, CGameID gameID, const char * szUnk ) = 0;
+	virtual void SetOverlayWindowFocusForPipe( bool, bool, CGameID gameID ) = 0;
+	virtual CGameID GetGameOverlayUIInstanceFocusGameID( bool * pbUnk ) = 0;
+
+	virtual bool SetControllerConfigFileForAppID( AppId_t unAppID, const char * pszControllerConfigFile ) = 0;
+	virtual bool GetControllerConfigFileForAppID( AppId_t unAppID, const char * pszControllerConfigFile, uint32 cubControllerConfigFile ) = 0;
+
+	virtual bool IsSteamRunningInVR() = 0;
 };
 
 #endif // ICLIENTUTILS_H

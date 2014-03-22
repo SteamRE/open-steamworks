@@ -126,6 +126,11 @@ enum EWindowType
 	// TODO: Reverse this enum
 };
 
+enum EGameLaunchMethod
+{
+	// TODO: Reverse this enum
+};
+
 #pragma pack( push, 8 )
 //-----------------------------------------------------------------------------
 // Purpose: The country of the user changed
