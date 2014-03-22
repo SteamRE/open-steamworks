@@ -45,7 +45,9 @@ enum EParentalFeature
 	k_EParentalFeatureSettings = 7,
 	k_EParentalFeatureConsole = 8,
 	k_EParentalFeatureBrowser = 9,
-	k_EParentalFeatureOverlay = 10,
+	k_EParentalFeatureParentalSetup = 10,
+	k_EParentalFeatureLibrary= 11,
+	k_EParentalFeatureTest = 12,
 };
 
 // Protobuf, see steammessages_offline.steamclient.proto
