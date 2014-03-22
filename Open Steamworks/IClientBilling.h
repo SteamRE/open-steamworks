@@ -34,8 +34,6 @@ abstract_class UNSAFE_INTERFACE IClientBilling
 public:
 	virtual bool PurchaseWithActivationCode( const char *pchActivationCode ) = 0;
 
-	virtual bool CancelLicense( PackageId_t packageID, int32 nCancelReason ) = 0;
-
 	virtual PackageId_t GetLicensePackageID( uint32 nLicenseIndex ) = 0;
 	virtual RTime32 GetLicenseTimeCreated( uint32 nLicenseIndex ) = 0;
 	virtual RTime32 GetLicenseTimeNextProcess( uint32 nLicenseIndex ) = 0;
