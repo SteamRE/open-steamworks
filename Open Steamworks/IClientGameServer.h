@@ -56,7 +56,7 @@ public:
 	virtual void SetGameDescription( const char *pchGameDescription ) = 0;
 	virtual void SetModDir( const char *pchModDir ) = 0;
 	virtual void SetDedicatedServer( bool bDedicatedServer ) = 0;
-	virtual void LogOn( const char *pchLogin, const char *pchPassword ) = 0;
+	virtual void LogOn( const char *pchToken ) = 0;
 	virtual void LogOnAnonymous() = 0;
 	virtual void LogOff() = 0;
 
