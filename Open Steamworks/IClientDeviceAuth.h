@@ -29,11 +29,19 @@ abstract_class UNSAFE_INTERFACE IClientDeviceAuth
 public:
 	virtual uint64 AuthorizeLocalDevice( const char * pubUnk, uint32 cubUnk ) = 0;
 	virtual uint64 DeauthorizeLocalDevice( uint32 uUnk) = 0;
-	virtual uint32 GetDeviceAuthorizations( uint64 * puUnk, uint32 uUnk ) = 0;
-	virtual bool GetDeviceAuthorizationInfo( uint64 uUnk, uint32 * puUnk1, uint32 * puUnk2, uint32 * puUnk3, bool * pbUnk, char * pszUnk1, int32 iUnk1, char * pszUnk2, int32 iUnk2, char * pszUnk3, int32 iUnk3 ) = 0;
-	virtual uint64 RequestAuthorizedDevicesInfo() = 0;
-	virtual bool BIsAuthorizedLender( uint32 uUnk ) = 0;
+
+	virtual uint64 DeauthorizeRemoteDevice( uint64 uUnk ) = 0;
+	virtual uint64 RequestAuthorizationInfos() = 0;
+	virtual uint32 GetDeviceAuthorizations( uint64 *, uint32, bool) = 0;
+	virtual bool GetDeviceAuthorizationInfo( uint64, uint32 *, uint32 *, bool *, char *, int32, char *, int32, char *, int32, uint32 *) = 0;
+
+	virtual uint32 GetAuthorizedBorrowsers( uint32 *, uint32 ) = 0;
+	virtual uint32 GetLocalUsers( uint32 *, uint32 ) = 0;
+	virtual bool GetBorrowserInfo( uint32, char *, int32, bool * ) = 0;
+	virtual uint64 UpateAuthorizedBorrowers( const uint32 *, uint32, bool ) = 0;
+
 	virtual uint32 GetSharedLibraryLockedBy( uint32 uUnk ) = 0;
+	virtual uint32 GetSharedLibraryOwners( uint32 *, uint32 ) = 0;
 };
 
 #endif // ICLIENTDEVICEAUTH_H
