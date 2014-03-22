@@ -171,17 +171,17 @@ enum ERegisterActivactionCodeResult
 	k_ERegisterActivactionCodeAlreadyOwned = 4
 };
 
-enum EAppOwernshipFlags
+enum EAppOwnershipFlags
 {
-	k_EAppOwernshipFlagsNone =				0,
-	k_EAppOwernshipFlagsOwnsLicense =		1 << 0,
-	k_EAppOwernshipFlagsFreeLicense =		1 << 1,
-	k_EAppOwernshipFlagsRegionRestricted =	1 << 2,
-	k_EAppOwernshipFlagsLowViolence =		1 << 3,
-	k_EAppOwernshipFlagsInvalidPlatform =	1 << 4,
-	k_EAppOwernshipFlagsSharedLicense =		1 << 5,
-	k_EAppOwernshipFlagsFreeWeekend =		1 << 6,
-	k_EAppOwernshipFlagsLockedLicense =		1 << 7,
+	k_EAppOwnershipFlagsNone =				0,
+	k_EAppOwnershipFlagsOwnsLicense =		1 << 0,
+	k_EAppOwnershipFlagsFreeLicense =		1 << 1,
+	k_EAppOwnershipFlagsRegionRestricted =	1 << 2,
+	k_EAppOwnershipFlagsLowViolence =		1 << 3,
+	k_EAppOwnershipFlagsInvalidPlatform =	1 << 4,
+	k_EAppOwnershipFlagsSharedLicense =		1 << 5,
+	k_EAppOwnershipFlagsFreeWeekend =		1 << 6,
+	k_EAppOwnershipFlagsLockedLicense =		1 << 7,
 };
 
 enum EAppReleaseState
@@ -191,6 +191,21 @@ enum EAppReleaseState
 	k_EAppReleaseStatePrerelease,
 	k_EAppReleaseStatePreloadonly,
 	k_EAppReleaseStateReleased,
+};
+
+enum EAppAutoUpdateBehavior
+{
+	// TODO: Reverse this enum
+};
+
+enum EAppAllowDownloadsWhileRunningBehavior
+{
+	// TODO: Reverse this enum
+};
+
+enum EAppDownloadQueuePlacement
+{
+	// TODO: Reverse this enum
 };
 
 struct SHADigestWrapper_t

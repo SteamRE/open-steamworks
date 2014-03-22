@@ -29,7 +29,6 @@ abstract_class UNSAFE_INTERFACE IClientAppManager
 {
 public:
 	virtual EAppUpdateError InstallApp( AppId_t unAppID, const char *cszAppDir, int32 iBaseFolder, bool bLegacy ) = 0;
-	virtual EAppUpdateError ConvertFromSteam2( AppId_t unAppID, const char *cszPath ) = 0;
 	virtual EAppUpdateError UninstallApp( AppId_t unAppID, bool bComplete ) = 0;
 
 	virtual EAppUpdateError LaunchApp( AppId_t unAppID, uint32 uLaunchOption, const char *pszUserArgs ) = 0;
@@ -54,7 +53,6 @@ public:
 
 	virtual bool SetContentLocked( AppId_t unAppID, bool bLockContent ) = 0;
 
-	virtual bool SetAppConfig( AppId_t unAppID, uint8 *pchBuffer, int32 cbBuffer, bool bSharedKVSymbols ) = 0;
 	virtual int32 GetAppConfigValue( AppId_t unAppID, const char *pchKey, char *pchValue, int32 cchValueMax ) = 0;
 	virtual bool SetAppConfigValue( AppId_t unAppID, const char *pchKey, const char *pchValue ) = 0;
 
@@ -64,6 +62,7 @@ public:
 	virtual uint32 GetAvailableLanguages( AppId_t unAppID, bool, char *pchLanguages, uint32 cchLanguagesMax ) = 0;
 	
 	virtual bool StartValidatingApp( AppId_t unAppID ) = 0;
+	virtual bool CancelValidation( AppId_t unAppID ) = 0;
 	virtual bool MarkContentCorrupt( AppId_t unAppID, bool bCorrupt ) = 0;
 	
 	virtual uint32 GetInstalledDepots( AppId_t unAppID, AppId_t puDepots[], uint32 cuDepotsMax ) = 0;
@@ -78,7 +77,17 @@ public:
 	virtual bool GetDownloadStats( DownloadStats_s *pDownloadStats ) = 0;
 
 	virtual AppId_t GetDownloadingAppID() = 0;
-	virtual bool ChangeAppPriority( AppId_t unAppID, EAppDownloadPriority ePriority ) = 0;
+
+	virtual bool SetAutoUpdateTimeRestriction( bool bUnk, int32 iUnk1, int32 iUnk2 ) = 0;
+	virtual bool GetAutoUpdateTimeRestriction( int32 * piUnk1, int32 * piUnk2 ) = 0;
+	virtual EAppAutoUpdateBehavior GetAppAutoUpdateBehavior( AppId_t unAppID ) = 0;
+	virtual bool SetAppAutoUpdateBehavior( AppId_t unAppID, EAppAutoUpdateBehavior eAppAutoUpdateBehavior ) = 0;
+	virtual bool SetAppAllowDownloadsWhileRunningBehavior( AppId_t unAppID, EAppAllowDownloadsWhileRunningBehavior eAppAllowDownloadsWhileRunningBehavior ) =0 ;
+	virtual EAppAllowDownloadsWhileRunningBehavior GetAppAllowDownloadsWhileRunningBehavior( AppId_t unAppID ) = 0;
+	virtual void SetAllowDownloadsWhileAnyAppRunning( bool bAllowDownloadsWhileAnyAppRunning ) = 0;
+	virtual bool BAllowDownloadsWhileAnyAppRunning() = 0;
+	virtual bool ChangeAppDownloadQueuePlacement( AppId_t unAppID, EAppDownloadQueuePlacement eAppDownloadQueuePlacement ) = 0;
+	virtual int32 GetAppDownloadQueueIndex( AppId_t unAppID ) = 0;
 
 	virtual bool BHasLocalContentServer() = 0;
 
@@ -90,8 +99,9 @@ public:
 	virtual bool BAddFileOnDisk( AppId_t unAppID, char const *cszFilePath, uint64 ullFileSize, uint32 uUnk, SHADigestWrapper_t ubSha1 ) = 0;
 	virtual uint32 FinishAddingFiles( AppId_t unAppID ) = 0;
 
-	virtual bool GetAppStateInfo( AppId_t unAppID, EAppReleaseState * peReleaseState, EAppOwernshipFlags * peOwernshipFlags, EAppState * peAppState ) = 0;
-	
+	virtual bool GetAppStateInfo( AppId_t unAppID, EAppReleaseState * peReleaseState, EAppOwnershipFlags * peOwnershipFlags, EAppState * peAppState, CSteamID * pSteamID ) = 0;
+	virtual bool BIsAvailableOnPlatform( uint32 uUnk, const char * pUnk );
+
 	virtual int32 GetNumInstallBaseFolders() = 0;
 	virtual int32 GetInstallBaseFolder( int32 iBaseFolder, char *pchPath, int32 cbPath ) = 0;
 	virtual int32 AddInstallBaseFolder( const char *szPath ) = 0;
@@ -104,7 +114,11 @@ public:
 	virtual bool SetDownloadThrottleRateKbps( int32 iRate ) = 0;
 	virtual int32 GetDownloadThrottleRateKbps() = 0;
 	virtual void SuspendDownloadThrottling( bool bSuspend ) = 0;
-	virtual bool GetAppOwner( uint32 uUnk1, CSteamID * pUnk, char * szUnk, uint32 uUnk2) = 0;
+
+	virtual const char * GetLaunchQueryParam( AppId_t unAppID, const char * pchKey ) = 0;
+	virtual void BeginLaunchQueryParams( AppId_t unAppId ) = 0;
+	virtual void SetLaunchQueryParam( AppId_t unAppId, const char * pchKey, const char * pchValue ) = 0;
+	virtual bool CommitLaunchQueryParams( AppId_t unAppId ) = 0;
 };
 
 #endif // ICLIENTAPPMANAGER_H
