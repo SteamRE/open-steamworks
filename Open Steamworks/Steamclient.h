@@ -239,6 +239,7 @@
 #include "IClientMusic.h"
 #include "IClientProductBuilder.h"
 #include "IClientShortcuts.h"
+#include "IClientStreamClient.h"
 #endif // NO_ICLIENT
 
 // callback
