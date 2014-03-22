@@ -142,7 +142,7 @@ public:
 	virtual IClientRemoteControlManager *GetIClientRemoteControlManager( HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 
 	virtual unknown_ret Set_ClientAPI_CPostAPIResultInProcess( void(*)(uint64 ulUnk, void * pUnk, uint32 uUnk, int32 iUnk) ) = 0;
-	virtual unknown_ret Remote_ClientAPI_CPostAPIResultInProcess( void(*)(uint64 ulUnk, void * pUnk, uint32 uUnk, int32 iUnk) ) = 0;
+	virtual unknown_ret Remove_ClientAPI_CPostAPIResultInProcess( void(*)(uint64 ulUnk, void * pUnk, uint32 uUnk, int32 iUnk) ) = 0;
 	virtual IClientUGC *GetIClientUGC( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
 	virtual unknown_ret GetCurrentHmd() = 0;
 };
