@@ -238,6 +238,7 @@
 #include "IClientDeviceAuth.h"
 #include "IClientMusic.h"
 #include "IClientProductBuilder.h"
+#include "IClientShortcuts.h"
 #endif // NO_ICLIENT
 
 // callback
