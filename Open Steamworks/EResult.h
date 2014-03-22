@@ -103,6 +103,11 @@ typedef enum EResult
 	k_EResultRequirePasswordReEntry = 77,					// The user cannot complete the action until they re-enter their password
 	k_EResultValueOutOfRange = 78,							// the value entered is outside the acceptable range
 	k_EResultUnexpectedError = 79,							// 
+	k_EResultFeatureDisabled = 80,							//
+	k_EResultInvalidCEGSubmission = 81,						//
+	k_EResultRestrictedDevice = 82,							//
+	k_EResultRegionLocked = 83,								//
+	k_EResultRateLimitExceeded = 84,						//
 } EResult;
 
 #endif // ERESULT_H
