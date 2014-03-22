@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Open Steamworks", "Open Steamworks\Open Steamworks.vcproj", "{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Open Steamworks", "Open Steamworks\Open Steamworks.vcxproj", "{A0C16874-A8AD-48C4-AE6E-DECF5C70D7FB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test Platform", "Test Platform\Test Platform.vcproj", "{4FF0B36E-A56E-4908-A533-4BAD845512D8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test Platform", "Test Platform\Test Platform.vcxproj", "{4FF0B36E-A56E-4908-A533-4BAD845512D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
