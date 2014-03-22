@@ -202,6 +202,9 @@
 // music
 #include "ISteamMusic001.h"
 
+// ugc
+#include "ISteamUGC001.h"
+
 #ifndef NO_ICLIENT
 // client interfaces
 #include "IClientEngine.h"

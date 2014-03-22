@@ -339,7 +339,7 @@ public:
 	void SetAccountInstance( uint32 unInstance ){ m_steamid.m_comp.m_unAccountInstance = unInstance; }
 	void ClearIndividualInstance()				{ if ( BIndividualAccount() ) m_steamid.m_comp.m_unAccountInstance = 0; }
 	bool HasNoIndividualInstance() const		{ return BIndividualAccount() && (m_steamid.m_comp.m_unAccountInstance==0); }
-	uint32 GetAccountID() const					{ return m_steamid.m_comp.m_unAccountID; }
+	AccountID_t GetAccountID() const			{ return m_steamid.m_comp.m_unAccountID; }
 	uint32 GetUnAccountInstance() const			{ return m_steamid.m_comp.m_unAccountInstance; }
 	EAccountType GetEAccountType() const		{ return ( EAccountType ) m_steamid.m_comp.m_EAccountType; }
 	EUniverse GetEUniverse() const				{ return m_steamid.m_comp.m_EUniverse; }
