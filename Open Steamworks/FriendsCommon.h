@@ -37,6 +37,7 @@
 #define STEAMFRIENDS_INTERFACE_VERSION_011 "SteamFriends011"
 #define STEAMFRIENDS_INTERFACE_VERSION_012 "SteamFriends012"
 #define STEAMFRIENDS_INTERFACE_VERSION_013 "SteamFriends013"
+#define STEAMFRIENDS_INTERFACE_VERSION_014 "SteamFriends014"
 
 //-----------------------------------------------------------------------------
 // Purpose: avatar sizes, used in ISteamFriends::GetFriendAvatar()
