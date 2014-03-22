@@ -25,6 +25,7 @@
 
 abstract_class ISteamMusic001
 {
+public:
 	virtual unknown_ret BIsEnabled() = 0;
 	virtual unknown_ret BIsPlaying() = 0;
 	virtual unknown_ret GetPlaybackStatus() = 0;
