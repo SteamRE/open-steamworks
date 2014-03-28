@@ -62,6 +62,7 @@ class IClientRemoteControlManager;
 class IClientShortcuts;
 class IClientStreamClient;
 class IClientUGC;
+class IClientVR;
 
 abstract_class UNSAFE_INTERFACE IClientEngine
 {
@@ -144,7 +145,7 @@ public:
 	virtual unknown_ret Set_ClientAPI_CPostAPIResultInProcess( void(*)(uint64 ulUnk, void * pUnk, uint32 uUnk, int32 iUnk) ) = 0;
 	virtual unknown_ret Remove_ClientAPI_CPostAPIResultInProcess( void(*)(uint64 ulUnk, void * pUnk, uint32 uUnk, int32 iUnk) ) = 0;
 	virtual IClientUGC *GetIClientUGC( HSteamUser hSteamUser, HSteamPipe hSteamPipe, char const* pchVersion ) = 0;
-	virtual unknown_ret GetCurrentHmd() = 0;
+	virtual IClientVR *GetIClientVR( char const * pchVersion ) = 0;
 };
 
 #endif // ICLIENTENGINE_H

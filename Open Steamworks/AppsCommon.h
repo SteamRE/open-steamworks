@@ -182,6 +182,10 @@ enum EAppOwnershipFlags
 	k_EAppOwnershipFlagsSharedLicense =		1 << 5,
 	k_EAppOwnershipFlagsFreeWeekend =		1 << 6,
 	k_EAppOwnershipFlagsLockedLicense =		1 << 7,
+	k_EAppOwnershipFlagsPending	=			1 << 8,
+	k_EAppOwnershipFlagsExpired	=			1 << 9,
+	k_EAppOwnershipFlagsPermanent	=		1 << 10,
+	k_EAppOwnershipFlagsRecurring	=		1 << 11,
 };
 
 enum EAppReleaseState

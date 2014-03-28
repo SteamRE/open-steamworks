@@ -32,7 +32,7 @@ public:
 	virtual unknown_ret GetNumInstalledApps() = 0;
 	virtual unknown_ret GetInstalledApps( uint32 * puUnk, uint32 uUnk ) = 0;
 	virtual unknown_ret GetAppName( uint32 uUnk, char * pUnk, int32 iUnk ) = 0;
-	virtual unknown_ret GetAppInstallDIr( uint32 uUnk, char * pUnk, int32 iUnk ) = 0;
+	virtual unknown_ret GetAppInstallDir( uint32 uUnk, char * pUnk, int32 iUnk ) = 0;
 	virtual unknown_ret GetAppBuildId( uint32 uUnk ) = 0;
 };
 
