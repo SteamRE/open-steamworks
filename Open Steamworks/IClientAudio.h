@@ -34,10 +34,6 @@ abstract_class UNSAFE_INTERFACE IClientAudio
 {
 public:
 
-	enum EPlayMode
-	{
-	};
-
 	virtual void StartVoiceRecording() = 0;
 	virtual void StopVoiceRecording() = 0;
 	virtual void ResetVoiceRecording() = 0;

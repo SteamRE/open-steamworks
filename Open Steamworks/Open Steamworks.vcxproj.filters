@@ -829,5 +829,8 @@
     <ClInclude Include="IClientUGC.h">
       <Filter>Steamclient Headers\Client Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="ISteamUGC002.h">
+      <Filter>Steamclient Headers\Steam Interfaces\ISteamUGC</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

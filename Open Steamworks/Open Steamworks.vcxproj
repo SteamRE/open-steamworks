@@ -64,6 +64,7 @@
     <ClInclude Include="ISteamGameServer012.h" />
     <ClInclude Include="ISteamMusic001.h" />
     <ClInclude Include="ISteamUGC001.h" />
+    <ClInclude Include="ISteamUGC002.h" />
     <ClInclude Include="ISteamUtils007.h" />
     <ClInclude Include="MusicCommon.h" />
     <ClInclude Include="Steamclient.h" />
