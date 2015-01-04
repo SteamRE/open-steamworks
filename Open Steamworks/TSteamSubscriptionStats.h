@@ -15,7 +15,7 @@
 //=============================================================================
 
 #ifndef TSTEAMSUBSCRIPTIONSTATS_H
-#define TSTEAMSUBSCRIPITONSTATS_H
+#define TSTEAMSUBSCRIPTIONSTATS_H
 #ifdef _WIN32
 #pragma once
 #endif
