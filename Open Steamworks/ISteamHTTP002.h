@@ -87,7 +87,7 @@ public:
 	// the correct buffer size to use.
 	virtual bool GetHTTPResponseBodyData( HTTPRequestHandle hRequest, uint8 *pBodyDataBuffer, uint32 unBufferSize ) = 0;
 
-	virtual bool GetHTTPStreamingResponseBodyData( HTTPRequestHandle hRequest, uint32, uint8 *pBodyDataBuffer, uint32 unBufferSize ) = 0;
+	virtual bool GetHTTPStreamingResponseBodyData(HTTPRequestHandle hRequest, uint32 cOffset, uint8 *pBodyDataBuffer, uint32 unBufferSize) = 0;
 
 	// Releases an HTTP response handle, should always be called to free resources after receiving a HTTPRequestCompleted_t
 	// callback and finishing using the response.

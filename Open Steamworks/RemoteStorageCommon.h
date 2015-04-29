@@ -138,12 +138,27 @@ enum ERemoteStoragePublishedFileSortOrder
 
 enum EWorkshopFileType
 {
-	k_EWorkshopFileTypeCommunity = 0,
-	k_EWorkshopFileTypeMicrotransaction = 1,
-	k_EWorkshopFileTypeCollection = 2,
-	k_EWorkshopFileTypeArt = 3,
-	k_EWorkshopFileTypeVideo = 4,
-	k_EWorkshopFileTypeScreenshot = 5,
+	k_EWorkshopFileTypeFirst = 0,
+
+	k_EWorkshopFileTypeCommunity			  = 0,
+	k_EWorkshopFileTypeMicrotransaction		  = 1,
+	k_EWorkshopFileTypeCollection			  = 2,
+	k_EWorkshopFileTypeArt					  = 3,
+	k_EWorkshopFileTypeVideo				  = 4,
+	k_EWorkshopFileTypeScreenshot			  = 5,
+	k_EWorkshopFileTypeGame					  = 6,
+	k_EWorkshopFileTypeSoftware				  = 7,
+	k_EWorkshopFileTypeConcept				  = 8,
+	k_EWorkshopFileTypeWebGuide				  = 9,
+	k_EWorkshopFileTypeIntegratedGuide		  = 10,
+	k_EWorkshopFileTypeMerch				  = 11,
+	k_EWorkshopFileTypeControllerBinding	  = 12,
+	k_EWorkshopFileTypeSteamworksAccessInvite = 13,
+	k_EWorkshopFileTypeSteamVideo			  = 14,
+
+	// Update k_EWorkshopFileTypeMax if you add values.
+	k_EWorkshopFileTypeMax = 15
+	
 };
 
 enum EWorkshopVote
@@ -183,8 +198,20 @@ enum EPublishedFileInfoMatchingFileType
 
 enum EUGCReadAction
 {
-	// TODO: Reverse this enum
+	// Keeps the file handle open unless the last byte is read.  You can use this when reading large files (over 100MB) in sequential chunks.
+	// If the last byte is read, this will behave the same as k_EUGCRead_Close.  Otherwise, it behaves the same as k_EUGCRead_ContinueReading.
+	// This value maintains the same behavior as before the EUGCReadAction parameter was introduced.
+	k_EUGCRead_ContinueReadingUntilFinished = 0,
+
+	// Keeps the file handle open.  Use this when using UGCRead to seek to different parts of the file.
+	// When you are done seeking around the file, make a final call with k_EUGCRead_Close to close it.
+	k_EUGCRead_ContinueReading = 1,
+
+	// Frees the file handle.  Use this when you're done reading the content.  
+	// To read the file from Steam again you will need to call UGCDownload again. 
+	k_EUGCRead_Close = 2,
 };
+
 
 #pragma pack( push, 8 )
 

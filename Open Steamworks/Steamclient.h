@@ -38,6 +38,11 @@
 #include "ISteamClient010.h"
 #include "ISteamClient011.h"
 #include "ISteamClient012.h"
+#include "ISteamClient013.h"
+#include "ISteamClient014.h"
+#include "ISteamClient015.h"
+#include "ISteamClient016.h"
+#include "ISteamClient017.h"
 
 // friends
 #include "ISteamFriends001.h"
@@ -54,6 +59,7 @@
 #include "ISteamFriends012.h"
 #include "ISteamFriends013.h"
 #include "ISteamFriends014.h"
+#include "ISteamFriends015.h"
 
 // screenshots
 #include "ISteamScreenshots001.h"
@@ -123,6 +129,9 @@
 #include "ISteamGameServer010.h"
 #include "ISteamGameServer011.h"
 #include "ISteamGameServer012.h"
+
+// inventory
+#include "ISteamInventory001.h"
 
 // master server updater
 #include "ISteamMasterServerUpdater001.h"
@@ -205,6 +214,8 @@
 
 // ugc
 #include "ISteamUGC001.h"
+#include "ISteamUGC002.h"
+#include "ISteamUGC003.h"
 
 #ifndef NO_ICLIENT
 // client interfaces
@@ -221,6 +232,7 @@
 #include "IClientGameServer.h"
 #include "IClientGameServerStats.h"
 #include "IClientGameStats.h"
+#include "IClientInventory.h"
 #include "IClientMasterServerUpdater.h"
 #include "IClientMatchmaking.h"
 #include "IClientMatchmakingServers.h"
