@@ -43,6 +43,13 @@ class ISteamHTTP;
 class ISteamScreenshots;
 class ISteamUnifiedMessages;
 class ISteamController;
+class ISteamUGC;
+class ISteamAppList;
+class ISteamMusic;
+class ISteamMusicRemote;
+class ISteamHTMLSurface;
+class ISteamInventory;
+class ISteamVideo;
 
 
 #define CLIENTENGINE_INTERFACE_VERSION "CLIENTENGINE_INTERFACE_VERSION003"
@@ -55,5 +62,6 @@ class ISteamController;
 #define STEAMCLIENT_INTERFACE_VERSION_010		"SteamClient010"
 #define STEAMCLIENT_INTERFACE_VERSION_011		"SteamClient011"
 #define STEAMCLIENT_INTERFACE_VERSION_012		"SteamClient012"
+#define STEAMCLIENT_INTERFACE_VERSION_017		"SteamClient017"
 
 #endif

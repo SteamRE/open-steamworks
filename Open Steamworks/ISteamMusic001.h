@@ -26,15 +26,19 @@
 abstract_class ISteamMusic001
 {
 public:
-	virtual unknown_ret BIsEnabled() = 0;
-	virtual unknown_ret BIsPlaying() = 0;
-	virtual unknown_ret GetPlaybackStatus() = 0;
-	virtual unknown_ret Play() = 0;
-	virtual unknown_ret Pause() = 0;
-	virtual unknown_ret PlayPrevious() = 0;
-	virtual unknown_ret PlayNext() = 0;
-	virtual unknown_ret SerVolume( float fUnk ) = 0;
-	virtual unknown_ret GetVolume() = 0;
+	virtual bool BIsEnabled() = 0;
+	virtual bool BIsPlaying() = 0;
+
+	virtual AudioPlayback_Status GetPlaybackStatus() = 0;
+
+	virtual void Play() = 0;
+	virtual void Pause() = 0;
+	virtual void PlayPrevious() = 0;
+	virtual void PlayNext() = 0;
+
+	// volume is between 0.0 and 1.0
+	virtual void SetVolume(float flVolume) = 0;
+	virtual float GetVolume() = 0;
 };
 
 #endif // ISTEAMMUSIC001_H

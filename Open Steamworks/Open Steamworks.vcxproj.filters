@@ -832,5 +832,16 @@
     <ClInclude Include="ISteamUGC002.h">
       <Filter>Steamclient Headers\Steam Interfaces\ISteamUGC</Filter>
     </ClInclude>
+    <ClInclude Include="ISteamUGC003.h" />
+    <ClInclude Include="ISteamFriends015.h" />
+    <ClInclude Include="ISteamClient017.h" />
+    <ClInclude Include="ISteamClient013.h" />
+    <ClInclude Include="ISteamClient014.h" />
+    <ClInclude Include="ISteamClient015.h" />
+    <ClInclude Include="ISteamClient016.h" />
+    <ClInclude Include="ISteamInventory001.h" />
+    <ClInclude Include="IClientInventory.h" />
+    <ClInclude Include="InventoryCommon.h" />
+    <ClInclude Include="ISteamScreenshots002.h" />
   </ItemGroup>
 </Project>

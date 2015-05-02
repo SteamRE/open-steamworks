@@ -105,7 +105,7 @@ public:
 	virtual SteamAPICall_t EnumeratePublishedFilesByUserAction( EWorkshopFileAction eAction, uint32 uStartIndex ) = 0;
 	virtual SteamAPICall_t EnumeratePublishedWorkshopFiles( EWorkshopEnumerationType eType, uint32 uStartIndex, uint32 cDays, uint32 cCount, SteamParamStringArray_t *pTags, SteamParamStringArray_t *pUserTags ) = 0;
 	
-	virtual SteamAPICall_t UGCDownloadToLocation( UGCHandle_t hContent, const char *cszLocation, uint32 uUnk ) = 0;
+	virtual SteamAPICall_t UGCDownloadToLocation(UGCHandle_t hContent, const char *cszLocation, uint32 unPriority) = 0;
 };
 
 #endif // ISTEAMREMOTESTORAGE012_H

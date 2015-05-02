@@ -52,7 +52,7 @@ public:
 	virtual bool SetSearchText( UGCQueryHandle_t handle, const char *pSearchText ) = 0;
 	virtual bool SetRankedByTrendDays( UGCQueryHandle_t handle, uint32 unDays ) = 0;
 
-	virtual SteamAPICall_t RequestUGCDetails( PublishedFileId_t nPublishedFileID, uint32 uUnk ) = 0;
+	virtual SteamAPICall_t RequestUGCDetails(PublishedFileId_t nPublishedFileID, uint32 uUnk) = 0;
 };
 
 #endif // ISTEAMUGC002_H
