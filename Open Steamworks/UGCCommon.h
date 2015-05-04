@@ -30,7 +30,6 @@ typedef uint64 UGCQueryHandle_t;
 typedef uint64 UGCUpdateHandle_t;
 
 const UGCQueryHandle_t k_UGCQueryHandleInvalid = 0xffffffffffffffffull;
-const UGCQueryHandle_t k_UGCQueryHandleInvalid = 0xffffffffffffffffull;
 const UGCUpdateHandle_t k_UGCUpdateHandleInvalid = 0xffffffffffffffffull;
 
 // Combination of sorting and filtering for queries across all UGC
@@ -99,7 +98,7 @@ enum EUserUGCListSortOrder
 struct SteamUGCDetails_t
 {
 	PublishedFileId_t m_nPublishedFileId;
-	EResult m_eResult;												// The result of the operation.	
+	EResult m_eResult;												// The result of the operation.
 	EWorkshopFileType m_eFileType;									// Type of the file
 	AppId_t m_nCreatorAppID;										// ID of the app that created this file.
 	AppId_t m_nConsumerAppID;										// ID of the app that will consume this file.
@@ -113,7 +112,7 @@ struct SteamUGCDetails_t
 	bool m_bBanned;													// whether the file was banned
 	bool m_bAcceptedForUse;											// developer has specifically flagged this item as accepted in the Workshop
 	bool m_bTagsTruncated;											// whether the list of tags was too long to be returned in the provided buffer
-	char m_rgchTags[k_cchTagListMax];								// comma separated list of all tags associated with this file	
+	char m_rgchTags[k_cchTagListMax];								// comma separated list of all tags associated with this file
 	// file/url information
 	UGCHandle_t m_hFile;											// The handle of the primary file
 	UGCHandle_t m_hPreviewFile;										// The handle of the preview file
@@ -164,7 +163,7 @@ struct SteamUGCRequestUGCDetailsResult_t
 
 
 //-----------------------------------------------------------------------------
-// Purpose: result for ISteamUGC::CreateItem() 
+// Purpose: result for ISteamUGC::CreateItem()
 //-----------------------------------------------------------------------------
 struct CreateItemResult_t
 {
@@ -176,7 +175,7 @@ struct CreateItemResult_t
 
 
 //-----------------------------------------------------------------------------
-// Purpose: result for ISteamUGC::SubmitItemUpdate() 
+// Purpose: result for ISteamUGC::SubmitItemUpdate()
 //-----------------------------------------------------------------------------
 struct SubmitItemUpdateResult_t
 {
@@ -187,7 +186,7 @@ struct SubmitItemUpdateResult_t
 
 
 //-----------------------------------------------------------------------------
-// Purpose: a new Workshop item has been installed 
+// Purpose: a new Workshop item has been installed
 //-----------------------------------------------------------------------------
 struct ItemInstalled_t
 {
