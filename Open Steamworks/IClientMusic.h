@@ -21,14 +21,7 @@
 #endif
 
 #include "SteamTypes.h"
-
-enum AudioPlayback_Status
-{
-	AudioPlayback_Undefined = 0,
-	AudioPlayback_Playing = 1,
-	AudioPlayback_Paused = 2,
-	AudioPlayback_Idle = 3
-};
+#include "MusicCommon.h"
 
 enum MediaController_Status
 {
