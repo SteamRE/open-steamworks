@@ -20,7 +20,13 @@
 #pragma once
 #endif
 
-
+enum AudioPlayback_Status
+{
+	AudioPlayback_Undefined = 0,
+	AudioPlayback_Playing = 1,
+	AudioPlayback_Paused = 2,
+	AudioPlayback_Idle = 3
+};
 
 #define STEAMMUSIC_INTERFACE_VERSION_001 "STEAMMUSIC_INTERFACE_VERSION001"
 
