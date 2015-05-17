@@ -391,10 +391,10 @@ namespace Steam4NET
 			return this.GetFunction<NativeEnumeratePublishedWorkshopFilesEUUUSS>( this.Functions.EnumeratePublishedWorkshopFiles50 )( this.ObjectAddress, eType, uStartIndex, cDays, cCount, ref pTags, ref pUserTags ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadToLocationUSU( IntPtr thisptr, UInt64 hContent, string cszLocation, UInt32 uUnk );
-		public UInt64 UGCDownloadToLocation( UInt64 hContent, string cszLocation, UInt32 uUnk ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUGCDownloadToLocationUSU( IntPtr thisptr, UInt64 hContent, string cszLocation, UInt32 unPriority );
+		public UInt64 UGCDownloadToLocation( UInt64 hContent, string cszLocation, UInt32 unPriority ) 
 		{
-			return this.GetFunction<NativeUGCDownloadToLocationUSU>( this.Functions.UGCDownloadToLocation51 )( this.ObjectAddress, hContent, cszLocation, uUnk ); 
+			return this.GetFunction<NativeUGCDownloadToLocationUSU>( this.Functions.UGCDownloadToLocation51 )( this.ObjectAddress, hContent, cszLocation, unPriority ); 
 		}
 		
 	};

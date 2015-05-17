@@ -125,6 +125,8 @@ namespace Steam4NET
 		k_EAppUpdateErrorDownloadCorrupt = 32,
 		k_EAppUpdateErrorDownloadDisabled = 33,
 		k_EAppUpdateErrorSharedLibraryLocked = 34,
+		k_EAppUpdateErrorPurchasePending = 35,
+		k_EAppUpdateErrorOtherSessionPlaying = 36,
 	};
 	
 	public enum ERegisterActivactionCodeResult : int
@@ -136,17 +138,21 @@ namespace Steam4NET
 		k_ERegisterActivactionCodeAlreadyOwned = 4,
 	};
 	
-	public enum EAppOwernshipFlags : int
+	public enum EAppOwnershipFlags : int
 	{
-		k_EAppOwernshipFlagsNone = 0,
-		k_EAppOwernshipFlagsOwnsLicense = 1,
-		k_EAppOwernshipFlagsFreeLicense = 2,
-		k_EAppOwernshipFlagsRegionRestricted = 4,
-		k_EAppOwernshipFlagsLowViolence = 8,
-		k_EAppOwernshipFlagsInvalidPlatform = 16,
-		k_EAppOwernshipFlagsSharedLicense = 32,
-		k_EAppOwernshipFlagsFreeWeekend = 64,
-		k_EAppOwernshipFlagsLockedLicense = 128,
+		k_EAppOwnershipFlagsNone = 0,
+		k_EAppOwnershipFlagsOwnsLicense = 1,
+		k_EAppOwnershipFlagsFreeLicense = 2,
+		k_EAppOwnershipFlagsRegionRestricted = 4,
+		k_EAppOwnershipFlagsLowViolence = 8,
+		k_EAppOwnershipFlagsInvalidPlatform = 16,
+		k_EAppOwnershipFlagsSharedLicense = 32,
+		k_EAppOwnershipFlagsFreeWeekend = 64,
+		k_EAppOwnershipFlagsLockedLicense = 128,
+		k_EAppOwnershipFlagsPending = 256,
+		k_EAppOwnershipFlagsExpired = 512,
+		k_EAppOwnershipFlagsPermanent = 1024,
+		k_EAppOwnershipFlagsRecurring = 2048,
 	};
 	
 	public enum EAppReleaseState : int
@@ -156,6 +162,18 @@ namespace Steam4NET
 		k_EAppReleaseStatePrerelease = 2,
 		k_EAppReleaseStatePreloadonly = 3,
 		k_EAppReleaseStateReleased = 4,
+	};
+	
+	public enum EAppAutoUpdateBehavior : int
+	{
+	};
+	
+	public enum EAppAllowDownloadsWhileRunningBehavior : int
+	{
+	};
+	
+	public enum EAppDownloadQueuePlacement : int
+	{
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

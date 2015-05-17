@@ -138,10 +138,10 @@ namespace Steam4NET
 			this.GetFunction<NativeSetDedicatedServerB>( this.Functions.SetDedicatedServer5 )( this.ObjectAddress, bDedicatedServer ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOnSS( IntPtr thisptr, string pchLogin, string pchPassword );
-		public void LogOn( string pchLogin, string pchPassword ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOnS( IntPtr thisptr, string pchToken );
+		public void LogOn( string pchToken ) 
 		{
-			this.GetFunction<NativeLogOnSS>( this.Functions.LogOn6 )( this.ObjectAddress, pchLogin, pchPassword ); 
+			this.GetFunction<NativeLogOnS>( this.Functions.LogOn6 )( this.ObjectAddress, pchToken ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeLogOnAnonymous( IntPtr thisptr );

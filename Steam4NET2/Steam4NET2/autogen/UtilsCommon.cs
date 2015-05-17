@@ -89,6 +89,10 @@ namespace Steam4NET
 	{
 	};
 	
+	public enum EGameLaunchMethod : int
+	{
+	};
+	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	[InteropHelp.CallbackIdentity(701)]
 	public struct IPCountry_t

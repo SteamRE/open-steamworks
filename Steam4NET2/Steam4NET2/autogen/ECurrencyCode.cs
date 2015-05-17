@@ -24,6 +24,13 @@ namespace Steam4NET
 		k_ECurrencyCodeSGD = 13,
 		k_ECurrencyCodeTHB = 14,
 		k_ECurrencyCodeVND = 15,
+		k_ECurrencyCodeKRW = 16,
+		k_ECurrencyCodeTRY = 17,
+		k_ECurrencyCodeUAH = 18,
+		k_ECurrencyCodeMXN = 19,
+		k_ECurrencyCodeCAD = 20,
+		k_ECurrencyCodeAUD = 21,
+		k_ECurrencyCodeNZD = 22,
 	};
 	
 }

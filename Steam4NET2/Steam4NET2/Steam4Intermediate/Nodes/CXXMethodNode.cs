@@ -235,6 +235,8 @@ namespace Steam4Intermediate.Nodes
                     argname = "arg" + i;
                 }
 
+                var methodargname = argname;
+
                 int corrected_arg = i - native_arg_offset;
 
                 if (arg_native_pure[i].StartsWith("ref"))
@@ -249,7 +251,7 @@ namespace Steam4Intermediate.Nodes
                         if (argname.StartsWith("ref"))
                         {
                             argname = "ref s" + sidarg_slot;
-                            footer.Append(args[i].GetName() + " = new " + arg_native_pure[i].Replace("ref", "").Trim() + "(s" + sidarg_slot + "); ");
+                            footer.Append(methodargname + " = new " + arg_native_pure[i].Replace("ref", "").Trim() + "(s" + sidarg_slot + "); ");
                             sidarg_slot++;
                         }
                         else
@@ -270,17 +272,15 @@ namespace Steam4Intermediate.Nodes
                             argname = String.Join(", ", new string[] { argname, "(" + arg_native_pure[i + 1] + ") " + argname + ".Length" });
                         }
                     }
-                    else if (maskedparams.Contains(i + 1) && genericwrapper)
+                    else if (maskedparams.Contains(i) && genericwrapper)
                     {
-                        native_arg_offset++;
-
-                        argname = String.Join(", ", new string[] { argname, "InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) )" });
+                        argname = "InterfaceVersions.GetInterfaceIdentifier( typeof( TClass ) )";
                     }
                 }
 
-                if ( !maskedparams.Contains( i ) )
+                if ( genericwrapper || !maskedparams.Contains( i ) )
                 {
-                   impl_args.Add( argname );
+                    impl_args.Add( argname );
                 }
             }
 

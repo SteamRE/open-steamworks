@@ -123,10 +123,10 @@ namespace Steam4NET
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPStreamingResponseBodyDataUUBU( IntPtr thisptr, UInt32 hRequest, UInt32 arg1, Byte[] pBodyDataBuffer, UInt32 unBufferSize );
-		public bool GetHTTPStreamingResponseBodyData( UInt32 hRequest, UInt32 arg1, Byte[] pBodyDataBuffer ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetHTTPStreamingResponseBodyDataUUBU( IntPtr thisptr, UInt32 hRequest, UInt32 cOffset, Byte[] pBodyDataBuffer, UInt32 unBufferSize );
+		public bool GetHTTPStreamingResponseBodyData( UInt32 hRequest, UInt32 cOffset, Byte[] pBodyDataBuffer ) 
 		{
-			return this.GetFunction<NativeGetHTTPStreamingResponseBodyDataUUBU>( this.Functions.GetHTTPStreamingResponseBodyData13 )( this.ObjectAddress, hRequest, arg1, pBodyDataBuffer, (UInt32) pBodyDataBuffer.Length ); 
+			return this.GetFunction<NativeGetHTTPStreamingResponseBodyDataUUBU>( this.Functions.GetHTTPStreamingResponseBodyData13 )( this.ObjectAddress, hRequest, cOffset, pBodyDataBuffer, (UInt32) pBodyDataBuffer.Length ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]

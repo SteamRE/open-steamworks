@@ -10,16 +10,15 @@ namespace Steam4NET
 	public class IClientAppsVTable
 	{
 		public IntPtr GetAppData0;
-		public IntPtr GetInternalAppIDFromGameID1;
-		public IntPtr GetAllOwnedMultiplayerApps2;
-		public IntPtr GetAppDataSection3;
-		public IntPtr RequestAppInfoUpdate4;
-		public IntPtr NotifyAppEventTriggered5;
-		public IntPtr NotifyDlcInstalled6;
+		public IntPtr SetLocalAppConfig1;
+		public IntPtr GetInternalAppIDFromGameID2;
+		public IntPtr GetAllOwnedMultiplayerApps3;
+		public IntPtr GetAppDataSection4;
+		public IntPtr RequestAppInfoUpdate5;
+		public IntPtr NotifyAppEventTriggered6;
 		public IntPtr GetDLCCount7;
 		public IntPtr BGetDLCDataByIndex8;
-		public IntPtr BIsDlcInstalled9;
-		private IntPtr DTorIClientApps10;
+		private IntPtr DTorIClientApps9;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTAPPS_INTERFACE_VERSION001")]
@@ -31,41 +30,42 @@ namespace Steam4NET
 			return this.GetFunction<NativeGetAppDataUSSI>( this.Functions.GetAppData0 )( this.ObjectAddress, unAppID, pchKey, pchValue, (Int32) pchValue.Capacity ); 
 		}
 		
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeSetLocalAppConfigUBI( IntPtr thisptr, UInt32 unAppID, Byte[] pchBuffer, Int32 cbBuffer );
+		public bool SetLocalAppConfig( UInt32 unAppID, Byte[] pchBuffer ) 
+		{
+			return this.GetFunction<NativeSetLocalAppConfigUBI>( this.Functions.SetLocalAppConfig1 )( this.ObjectAddress, unAppID, pchBuffer, (Int32) pchBuffer.Length ); 
+		}
+		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetInternalAppIDFromGameIDC( IntPtr thisptr, UInt64 nGameID );
 		public UInt32 GetInternalAppIDFromGameID( CGameID nGameID ) 
 		{
-			return this.GetFunction<NativeGetInternalAppIDFromGameIDC>( this.Functions.GetInternalAppIDFromGameID1 )( this.ObjectAddress, nGameID.ConvertToUint64() ); 
+			return this.GetFunction<NativeGetInternalAppIDFromGameIDC>( this.Functions.GetInternalAppIDFromGameID2 )( this.ObjectAddress, nGameID.ConvertToUint64() ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAllOwnedMultiplayerAppsUI( IntPtr thisptr, ref UInt32 punAppIDs, Int32 cAppIDsMax );
 		public Int32 GetAllOwnedMultiplayerApps( ref UInt32 punAppIDs, Int32 cAppIDsMax ) 
 		{
-			return this.GetFunction<NativeGetAllOwnedMultiplayerAppsUI>( this.Functions.GetAllOwnedMultiplayerApps2 )( this.ObjectAddress, ref punAppIDs, cAppIDsMax ); 
+			return this.GetFunction<NativeGetAllOwnedMultiplayerAppsUI>( this.Functions.GetAllOwnedMultiplayerApps3 )( this.ObjectAddress, ref punAppIDs, cAppIDsMax ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetAppDataSectionUEBIB( IntPtr thisptr, UInt32 unAppID, EAppInfoSection eSection, Byte[] pchBuffer, Int32 cbBufferMax, [MarshalAs(UnmanagedType.I1)] bool bSharedKVSymbols );
 		public Int32 GetAppDataSection( UInt32 unAppID, EAppInfoSection eSection, Byte[] pchBuffer, bool bSharedKVSymbols ) 
 		{
-			return this.GetFunction<NativeGetAppDataSectionUEBIB>( this.Functions.GetAppDataSection3 )( this.ObjectAddress, unAppID, eSection, pchBuffer, (Int32) pchBuffer.Length, bSharedKVSymbols ); 
+			return this.GetFunction<NativeGetAppDataSectionUEBIB>( this.Functions.GetAppDataSection4 )( this.ObjectAddress, unAppID, eSection, pchBuffer, (Int32) pchBuffer.Length, bSharedKVSymbols ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeRequestAppInfoUpdateUI( IntPtr thisptr, ref UInt32 pAppIDs, Int32 nNumAppIDs );
 		public bool RequestAppInfoUpdate( ref UInt32 pAppIDs, Int32 nNumAppIDs ) 
 		{
-			return this.GetFunction<NativeRequestAppInfoUpdateUI>( this.Functions.RequestAppInfoUpdate4 )( this.ObjectAddress, ref pAppIDs, nNumAppIDs ); 
+			return this.GetFunction<NativeRequestAppInfoUpdateUI>( this.Functions.RequestAppInfoUpdate5 )( this.ObjectAddress, ref pAppIDs, nNumAppIDs ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyAppEventTriggeredUE( IntPtr thisptr, UInt32 unAppID, EAppEvent eAppEvent );
 		public void NotifyAppEventTriggered( UInt32 unAppID, EAppEvent eAppEvent ) 
 		{
-			this.GetFunction<NativeNotifyAppEventTriggeredUE>( this.Functions.NotifyAppEventTriggered5 )( this.ObjectAddress, unAppID, eAppEvent ); 
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeNotifyDlcInstalledU( IntPtr thisptr, UInt32 unAppID );
-		public void NotifyDlcInstalled( UInt32 unAppID ) 
-		{
-			this.GetFunction<NativeNotifyDlcInstalledU>( this.Functions.NotifyDlcInstalled6 )( this.ObjectAddress, unAppID ); 
+			this.GetFunction<NativeNotifyAppEventTriggeredUE>( this.Functions.NotifyAppEventTriggered6 )( this.ObjectAddress, unAppID, eAppEvent ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetDLCCountU( IntPtr thisptr, UInt32 unAppID );
@@ -79,13 +79,6 @@ namespace Steam4NET
 		public bool BGetDLCDataByIndex( UInt32 unAppID, Int32 iDLC, ref UInt32 pDlcAppID, ref bool pbAvailable, StringBuilder pchName ) 
 		{
 			return this.GetFunction<NativeBGetDLCDataByIndexUIUBSI>( this.Functions.BGetDLCDataByIndex8 )( this.ObjectAddress, unAppID, iDLC, ref pDlcAppID, ref pbAvailable, pchName, (Int32) pchName.Capacity ); 
-		}
-		
-		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsDlcInstalledUU( IntPtr thisptr, UInt32 unDlcAppID, UInt32 unGameAppID );
-		public bool BIsDlcInstalled( UInt32 unDlcAppID, UInt32 unGameAppID ) 
-		{
-			return this.GetFunction<NativeBIsDlcInstalledUU>( this.Functions.BIsDlcInstalled9 )( this.ObjectAddress, unDlcAppID, unGameAppID ); 
 		}
 		
 	};

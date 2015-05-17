@@ -496,10 +496,10 @@ namespace Steam4NET
 			this.GetFunction<NativeLoadLocalFileInfoCacheU>( this.Functions.LoadLocalFileInfoCache62 )( this.ObjectAddress, nAppId ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEvaluateRemoteStorageSyncStateU( IntPtr thisptr, UInt32 nAppId );
-		public void EvaluateRemoteStorageSyncState( UInt32 nAppId ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeEvaluateRemoteStorageSyncStateUB( IntPtr thisptr, UInt32 nAppId, [MarshalAs(UnmanagedType.I1)] bool bUnk );
+		public void EvaluateRemoteStorageSyncState( UInt32 nAppId, bool bUnk ) 
 		{
-			this.GetFunction<NativeEvaluateRemoteStorageSyncStateU>( this.Functions.EvaluateRemoteStorageSyncState63 )( this.ObjectAddress, nAppId ); 
+			this.GetFunction<NativeEvaluateRemoteStorageSyncStateUB>( this.Functions.EvaluateRemoteStorageSyncState63 )( this.ObjectAddress, nAppId, bUnk ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate ERemoteStorageSyncState NativeGetRemoteStorageSyncStateU( IntPtr thisptr, UInt32 nAppId );

@@ -54,7 +54,8 @@ namespace Steam4NET
 		public IntPtr GetGMSQueryResults42;
 		public IntPtr ReleaseGMSQuery43;
 		public IntPtr SendGameServerPingSample44;
-		private IntPtr DTorIClientMatchmaking45;
+		public IntPtr EnsureFavoriteGameAccountsUpdated45;
+		private IntPtr DTorIClientMatchmaking46;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTMATCHMAKING_INTERFACE_VERSION001")]
@@ -343,6 +344,12 @@ namespace Steam4NET
 		public void SendGameServerPingSample( UInt32 unAppID, Int32 nSamples, ref PingSample_t pSamples ) 
 		{
 			this.GetFunction<NativeSendGameServerPingSampleUIP>( this.Functions.SendGameServerPingSample44 )( this.ObjectAddress, unAppID, nSamples, ref pSamples ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeEnsureFavoriteGameAccountsUpdatedB( IntPtr thisptr, [MarshalAs(UnmanagedType.I1)] bool bUnk );
+		public UInt64 EnsureFavoriteGameAccountsUpdated( bool bUnk ) 
+		{
+			return this.GetFunction<NativeEnsureFavoriteGameAccountsUpdatedB>( this.Functions.EnsureFavoriteGameAccountsUpdated45 )( this.ObjectAddress, bUnk ); 
 		}
 		
 	};

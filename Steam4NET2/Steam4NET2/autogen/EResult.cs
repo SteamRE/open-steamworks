@@ -86,6 +86,11 @@ namespace Steam4NET
 		k_EResultRequirePasswordReEntry = 77,
 		k_EResultValueOutOfRange = 78,
 		k_EResultUnexpectedError = 79,
+		k_EResultFeatureDisabled = 80,
+		k_EResultInvalidCEGSubmission = 81,
+		k_EResultRestrictedDevice = 82,
+		k_EResultRegionLocked = 83,
+		k_EResultRateLimitExceeded = 84,
 	};
 	
 }

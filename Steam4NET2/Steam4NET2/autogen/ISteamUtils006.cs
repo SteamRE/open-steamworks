@@ -33,7 +33,8 @@ namespace Steam4NET
 		public IntPtr GetEnteredGamepadTextLength21;
 		public IntPtr GetEnteredGamepadTextInput22;
 		public IntPtr GetSteamUILanguage23;
-		private IntPtr DTorISteamUtils00624;
+		public IntPtr IsSteamRunningInVR24;
+		private IntPtr DTorISteamUtils00625;
 	};
 	
 	[InteropHelp.InterfaceVersion("SteamUtils006")]
@@ -190,6 +191,13 @@ namespace Steam4NET
 		public string GetSteamUILanguage(  ) 
 		{
 			return InteropHelp.DecodeANSIReturn( Marshal.PtrToStringAnsi( this.GetFunction<NativeGetSteamUILanguage>( this.Functions.GetSteamUILanguage23 )( this.ObjectAddress ) ) ); 
+		}
+		
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeIsSteamRunningInVR( IntPtr thisptr );
+		public bool IsSteamRunningInVR(  ) 
+		{
+			return this.GetFunction<NativeIsSteamRunningInVR>( this.Functions.IsSteamRunningInVR24 )( this.ObjectAddress ); 
 		}
 		
 	};

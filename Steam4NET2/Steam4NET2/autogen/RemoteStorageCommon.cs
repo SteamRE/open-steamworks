@@ -85,12 +85,23 @@ namespace Steam4NET
 	
 	public enum EWorkshopFileType : int
 	{
+		k_EWorkshopFileTypeFirst = 0,
 		k_EWorkshopFileTypeCommunity = 0,
 		k_EWorkshopFileTypeMicrotransaction = 1,
 		k_EWorkshopFileTypeCollection = 2,
 		k_EWorkshopFileTypeArt = 3,
 		k_EWorkshopFileTypeVideo = 4,
 		k_EWorkshopFileTypeScreenshot = 5,
+		k_EWorkshopFileTypeGame = 6,
+		k_EWorkshopFileTypeSoftware = 7,
+		k_EWorkshopFileTypeConcept = 8,
+		k_EWorkshopFileTypeWebGuide = 9,
+		k_EWorkshopFileTypeIntegratedGuide = 10,
+		k_EWorkshopFileTypeMerch = 11,
+		k_EWorkshopFileTypeControllerBinding = 12,
+		k_EWorkshopFileTypeSteamworksAccessInvite = 13,
+		k_EWorkshopFileTypeSteamVideo = 14,
+		k_EWorkshopFileTypeMax = 15,
 	};
 	
 	public enum EWorkshopVote : int
@@ -127,6 +138,9 @@ namespace Steam4NET
 	
 	public enum EUGCReadAction : int
 	{
+		k_EUGCRead_ContinueReadingUntilFinished = 0,
+		k_EUGCRead_ContinueReading = 1,
+		k_EUGCRead_Close = 2,
 	};
 	
 	[StructLayout(LayoutKind.Sequential,Pack=8)]

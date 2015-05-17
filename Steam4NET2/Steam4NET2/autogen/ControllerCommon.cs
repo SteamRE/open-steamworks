@@ -9,7 +9,18 @@ namespace Steam4NET
 	[StructLayout(LayoutKind.Sequential,Pack=8)]
 	public struct SteamControllerState_t
 	{
-		public Int32 m_iPadding;
+		public UInt32 unPacketNum;
+		public UInt64 ulButtons;
+		public Int16 sLeftPadX;
+		public Int16 sLeftPadY;
+		public Int16 sRightPadX;
+		public Int16 sRightPadY;
+	};
+	
+	public enum ESteamControllerPad : int
+	{
+		k_ESteamControllerPad_Left = 0,
+		k_ESteamControllerPad_Right = 1,
 	};
 	
 }

@@ -7,39 +7,57 @@ namespace Steam4NET
 {
 
 	[StructLayout(LayoutKind.Sequential,Pack=4)]
-	public class CAdapterSteamController001VTable
+	public class ISteamController001VTable
 	{
 		public IntPtr Init0;
 		public IntPtr Shutdown1;
 		public IntPtr RunFrame2;
 		public IntPtr GetControllerState3;
-		private IntPtr DTorCAdapterSteamController0014;
+		public IntPtr TriggerHapticPulse4;
+		public IntPtr SetOverrideMode5;
+		private IntPtr DTorISteamController0016;
 	};
 	
-	public class CAdapterSteamController001 : InteropHelp.NativeWrapper<CAdapterSteamController001VTable>
+	[InteropHelp.InterfaceVersion("STEAMCONTROLLER_INTERFACE_VERSION")]
+	public class ISteamController001 : InteropHelp.NativeWrapper<ISteamController001VTable>
 	{
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeInit( IntPtr thisptr );
-		public Int32 Init(  ) 
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeInitS( IntPtr thisptr, string pchAbsolutePathToControllerConfigVDF );
+		public bool Init( string pchAbsolutePathToControllerConfigVDF ) 
 		{
-			return this.GetFunction<NativeInit>( this.Functions.Init0 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeInitS>( this.Functions.Init0 )( this.ObjectAddress, pchAbsolutePathToControllerConfigVDF ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeShutdown( IntPtr thisptr );
-		public Int32 Shutdown(  ) 
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeShutdown( IntPtr thisptr );
+		public bool Shutdown(  ) 
 		{
 			return this.GetFunction<NativeShutdown>( this.Functions.Shutdown1 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeRunFrame( IntPtr thisptr );
-		public Int32 RunFrame(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeRunFrame( IntPtr thisptr );
+		public void RunFrame(  ) 
 		{
-			return this.GetFunction<NativeRunFrame>( this.Functions.RunFrame2 )( this.ObjectAddress ); 
+			this.GetFunction<NativeRunFrame>( this.Functions.RunFrame2 )( this.ObjectAddress ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate Int32 NativeGetControllerStateUS( IntPtr thisptr, UInt32 uUnk, ref SteamControllerState_t pState );
-		public Int32 GetControllerState( UInt32 uUnk, ref SteamControllerState_t pState ) 
+		[return: MarshalAs(UnmanagedType.I1)]
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetControllerStateUS( IntPtr thisptr, UInt32 unControllerIndex, ref SteamControllerState_t pState );
+		public bool GetControllerState( UInt32 unControllerIndex, ref SteamControllerState_t pState ) 
 		{
-			return this.GetFunction<NativeGetControllerStateUS>( this.Functions.GetControllerState3 )( this.ObjectAddress, uUnk, ref pState ); 
+			return this.GetFunction<NativeGetControllerStateUS>( this.Functions.GetControllerState3 )( this.ObjectAddress, unControllerIndex, ref pState ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeTriggerHapticPulseUEU( IntPtr thisptr, UInt32 unControllerIndex, ESteamControllerPad eTargetPad, UInt16 usDurationMicroSec );
+		public void TriggerHapticPulse( UInt32 unControllerIndex, ESteamControllerPad eTargetPad, UInt16 usDurationMicroSec ) 
+		{
+			this.GetFunction<NativeTriggerHapticPulseUEU>( this.Functions.TriggerHapticPulse4 )( this.ObjectAddress, unControllerIndex, eTargetPad, usDurationMicroSec ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetOverrideModeS( IntPtr thisptr, string pchMode );
+		public void SetOverrideMode( string pchMode ) 
+		{
+			this.GetFunction<NativeSetOverrideModeS>( this.Functions.SetOverrideMode5 )( this.ObjectAddress, pchMode ); 
 		}
 		
 	};

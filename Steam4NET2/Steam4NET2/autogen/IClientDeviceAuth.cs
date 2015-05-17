@@ -11,12 +11,17 @@ namespace Steam4NET
 	{
 		public IntPtr AuthorizeLocalDevice0;
 		public IntPtr DeauthorizeLocalDevice1;
-		public IntPtr GetDeviceAuthorizations2;
-		public IntPtr GetDeviceAuthorizationInfo3;
-		public IntPtr RequestAuthorizedDevicesInfo4;
-		public IntPtr BIsAuthorizedLender5;
-		public IntPtr GetSharedLibraryLockedBy6;
-		private IntPtr DTorIClientDeviceAuth7;
+		public IntPtr DeauthorizeRemoteDevice2;
+		public IntPtr RequestAuthorizationInfos3;
+		public IntPtr GetDeviceAuthorizations4;
+		public IntPtr GetDeviceAuthorizationInfo5;
+		public IntPtr GetAuthorizedBorrowsers6;
+		public IntPtr GetLocalUsers7;
+		public IntPtr GetBorrowserInfo8;
+		public IntPtr UpateAuthorizedBorrowers9;
+		public IntPtr GetSharedLibraryLockedBy10;
+		public IntPtr GetSharedLibraryOwners11;
+		private IntPtr DTorIClientDeviceAuth12;
 	};
 	
 	[InteropHelp.InterfaceVersion("CLIENTDEVICEAUTH_INTERFACE_VERSION001")]
@@ -34,36 +39,66 @@ namespace Steam4NET
 			return this.GetFunction<NativeDeauthorizeLocalDeviceU>( this.Functions.DeauthorizeLocalDevice1 )( this.ObjectAddress, uUnk ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetDeviceAuthorizationsUU( IntPtr thisptr, ref UInt64 puUnk, UInt32 uUnk );
-		public UInt32 GetDeviceAuthorizations( ref UInt64 puUnk, UInt32 uUnk ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeDeauthorizeRemoteDeviceU( IntPtr thisptr, UInt64 uUnk );
+		public UInt64 DeauthorizeRemoteDevice( UInt64 uUnk ) 
 		{
-			return this.GetFunction<NativeGetDeviceAuthorizationsUU>( this.Functions.GetDeviceAuthorizations2 )( this.ObjectAddress, ref puUnk, uUnk ); 
+			return this.GetFunction<NativeDeauthorizeRemoteDeviceU>( this.Functions.DeauthorizeRemoteDevice2 )( this.ObjectAddress, uUnk ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestAuthorizationInfos( IntPtr thisptr );
+		public UInt64 RequestAuthorizationInfos(  ) 
+		{
+			return this.GetFunction<NativeRequestAuthorizationInfos>( this.Functions.RequestAuthorizationInfos3 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetDeviceAuthorizationsUUB( IntPtr thisptr, ref UInt64 arg0, UInt32 arg1, [MarshalAs(UnmanagedType.I1)] bool arg2 );
+		public UInt32 GetDeviceAuthorizations( ref UInt64 arg0, UInt32 arg1, bool arg2 ) 
+		{
+			return this.GetFunction<NativeGetDeviceAuthorizationsUUB>( this.Functions.GetDeviceAuthorizations4 )( this.ObjectAddress, ref arg0, arg1, arg2 ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetDeviceAuthorizationInfoUUUUBSISISI( IntPtr thisptr, UInt64 uUnk, ref UInt32 puUnk1, ref UInt32 puUnk2, ref UInt32 puUnk3, ref bool pbUnk, StringBuilder pszUnk1, Int32 iUnk1, StringBuilder pszUnk2, Int32 iUnk2, StringBuilder pszUnk3, Int32 iUnk3 );
-		public bool GetDeviceAuthorizationInfo( UInt64 uUnk, ref UInt32 puUnk1, ref UInt32 puUnk2, ref UInt32 puUnk3, ref bool pbUnk, StringBuilder pszUnk1, StringBuilder pszUnk2, StringBuilder pszUnk3 ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetDeviceAuthorizationInfoUUUBSISISIU( IntPtr thisptr, UInt64 arg0, ref UInt32 arg1, ref UInt32 arg2, ref bool arg3, StringBuilder arg4, Int32 arg5, StringBuilder arg6, Int32 arg7, StringBuilder arg8, Int32 arg9, ref UInt32 arg10 );
+		public bool GetDeviceAuthorizationInfo( UInt64 arg0, ref UInt32 arg1, ref UInt32 arg2, ref bool arg3, StringBuilder arg4, Int32 arg5, StringBuilder arg6, Int32 arg7, StringBuilder arg8, Int32 arg9, ref UInt32 arg10 ) 
 		{
-			return this.GetFunction<NativeGetDeviceAuthorizationInfoUUUUBSISISI>( this.Functions.GetDeviceAuthorizationInfo3 )( this.ObjectAddress, uUnk, ref puUnk1, ref puUnk2, ref puUnk3, ref pbUnk, pszUnk1, (Int32) pszUnk1.Capacity, pszUnk2, (Int32) pszUnk2.Capacity, pszUnk3, (Int32) pszUnk3.Capacity ); 
+			return this.GetFunction<NativeGetDeviceAuthorizationInfoUUUBSISISIU>( this.Functions.GetDeviceAuthorizationInfo5 )( this.ObjectAddress, arg0, ref arg1, ref arg2, ref arg3, arg4, arg5, arg6, arg7, arg8, arg9, ref arg10 ); 
 		}
 		
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeRequestAuthorizedDevicesInfo( IntPtr thisptr );
-		public UInt64 RequestAuthorizedDevicesInfo(  ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetAuthorizedBorrowsersUU( IntPtr thisptr, ref UInt32 arg0, UInt32 arg1 );
+		public UInt32 GetAuthorizedBorrowsers( ref UInt32 arg0, UInt32 arg1 ) 
 		{
-			return this.GetFunction<NativeRequestAuthorizedDevicesInfo>( this.Functions.RequestAuthorizedDevicesInfo4 )( this.ObjectAddress ); 
+			return this.GetFunction<NativeGetAuthorizedBorrowsersUU>( this.Functions.GetAuthorizedBorrowsers6 )( this.ObjectAddress, ref arg0, arg1 ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetLocalUsersUU( IntPtr thisptr, ref UInt32 arg0, UInt32 arg1 );
+		public UInt32 GetLocalUsers( ref UInt32 arg0, UInt32 arg1 ) 
+		{
+			return this.GetFunction<NativeGetLocalUsersUU>( this.Functions.GetLocalUsers7 )( this.ObjectAddress, ref arg0, arg1 ); 
 		}
 		
 		[return: MarshalAs(UnmanagedType.I1)]
-		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeBIsAuthorizedLenderU( IntPtr thisptr, UInt32 uUnk );
-		public bool BIsAuthorizedLender( UInt32 uUnk ) 
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate bool NativeGetBorrowserInfoUSIB( IntPtr thisptr, UInt32 arg0, StringBuilder arg1, Int32 arg2, ref bool arg3 );
+		public bool GetBorrowserInfo( UInt32 arg0, StringBuilder arg1, Int32 arg2, ref bool arg3 ) 
 		{
-			return this.GetFunction<NativeBIsAuthorizedLenderU>( this.Functions.BIsAuthorizedLender5 )( this.ObjectAddress, uUnk ); 
+			return this.GetFunction<NativeGetBorrowserInfoUSIB>( this.Functions.GetBorrowserInfo8 )( this.ObjectAddress, arg0, arg1, arg2, ref arg3 ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt64 NativeUpateAuthorizedBorrowersUUB( IntPtr thisptr, ref UInt32 arg0, UInt32 arg1, [MarshalAs(UnmanagedType.I1)] bool arg2 );
+		public UInt64 UpateAuthorizedBorrowers( ref UInt32 arg0, UInt32 arg1, bool arg2 ) 
+		{
+			return this.GetFunction<NativeUpateAuthorizedBorrowersUUB>( this.Functions.UpateAuthorizedBorrowers9 )( this.ObjectAddress, ref arg0, arg1, arg2 ); 
 		}
 		
 		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetSharedLibraryLockedByU( IntPtr thisptr, UInt32 uUnk );
 		public UInt32 GetSharedLibraryLockedBy( UInt32 uUnk ) 
 		{
-			return this.GetFunction<NativeGetSharedLibraryLockedByU>( this.Functions.GetSharedLibraryLockedBy6 )( this.ObjectAddress, uUnk ); 
+			return this.GetFunction<NativeGetSharedLibraryLockedByU>( this.Functions.GetSharedLibraryLockedBy10 )( this.ObjectAddress, uUnk ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate UInt32 NativeGetSharedLibraryOwnersUU( IntPtr thisptr, ref UInt32 arg0, UInt32 arg1 );
+		public UInt32 GetSharedLibraryOwners( ref UInt32 arg0, UInt32 arg1 ) 
+		{
+			return this.GetFunction<NativeGetSharedLibraryOwnersUU>( this.Functions.GetSharedLibraryOwners11 )( this.ObjectAddress, ref arg0, arg1 ); 
 		}
 		
 	};
