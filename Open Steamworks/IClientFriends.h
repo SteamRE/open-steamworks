@@ -79,6 +79,8 @@ public:
 
 	// accesses old friends names - returns an empty string when their are no more items in the history
 	virtual const char *GetFriendPersonaNameHistory( CSteamID steamIDFriend, int32 iPersonaName ) = 0;
+
+	virtual uint32 GetFriendSteamLevel( CSteamID steamIDFriend ) = 0;
 	
 	virtual SteamAPICall_t RequestPersonaNameHistory( CSteamID steamIDFriend ) = 0;
 	virtual const char * GetFriendPersonaNameHistoryAndDate( CSteamID steamIDFriend, int32 iPersonaName, RTime32 * puTime ) = 0;
@@ -147,9 +149,6 @@ public:
 	virtual bool GetFriendsGroupActivityCounts( int16 iGroupID, int32 *pnOnline, int32 *pnInGame ) = 0;
 
 	virtual bool IsClanPublic( CSteamID steamID ) = 0;
-	virtual bool IsClanLarge( CSteamID steamID ) = 0;
-
-	virtual void SubscribeToPersonaStateFeed( CSteamID steamID, bool bSubscribed ) = 0;
 
 	virtual SteamAPICall_t JoinClanChatRoom( CSteamID groupID ) = 0;
 	virtual bool LeaveClanChatRoom( CSteamID groupID ) = 0;
@@ -229,8 +228,9 @@ public:
 
 	virtual void CreateChatRoom( EChatRoomType eType, uint64 ulGameID, const char *pchName, ELobbyType eLobbyType, CSteamID steamIDClan, CSteamID steamIDFriendChat, CSteamID steamIDInvited, uint32 rgfChatPermissionOfficer, uint32 rgfChatPermissionMember, uint32 rgfChatPermissionAll ) = 0;
 
+	virtual void VoiceCallNew( CSteamID steamIDLocalPeer, CSteamID steamIDRemotePeer ) = 0;
 	virtual void VoiceCall( CSteamID steamIDLocalPeer, CSteamID steamIDRemotePeer ) = 0;
-	virtual void VoiceHangUp( HVoiceCall hVoiceCall ) = 0;
+	virtual void VoiceHangUp( CSteamID steamIDLocalPeer, HVoiceCall hVoiceCall ) = 0;
 
 	virtual void SetVoiceSpeakerVolume( float flVolume ) = 0;
 	virtual void SetVoiceMicrophoneVolume( float flVolume ) = 0;
@@ -238,6 +238,7 @@ public:
 	virtual void SetAutoAnswer( bool bAutoAnswer ) = 0;
 
 	virtual void VoiceAnswer( HVoiceCall hVoiceCall ) = 0;
+	virtual void AcceptVoiceCall( CSteamID steamIDLocalPeer, CSteamID steamIDRemotePeer ) = 0;
 
 	virtual void VoicePutOnHold( HVoiceCall HVoiceCall, bool bLocalHold ) = 0;
 	virtual bool BVoiceIsLocalOnHold( HVoiceCall hVoiceCall ) = 0;
@@ -384,6 +385,9 @@ public:
 	virtual void RequestEmoticonList() = 0;
 	virtual int32 GetEmoticonCount() = 0;
 	virtual const char *GetEmoticonName( int32 iEmoticon ) = 0;
+
+	virtual void ClientLinkFilterInit() = 0;
+	virtual uint32 LinkDisposition( const char * ) = 0;
 };
 
 #endif // ICLIENTFRIENDS_H
