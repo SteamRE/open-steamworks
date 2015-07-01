@@ -34,7 +34,8 @@ namespace Steam4NET
 		public IntPtr GetEnteredGamepadTextInput22;
 		public IntPtr GetSteamUILanguage23;
 		public IntPtr IsSteamRunningInVR24;
-		private IntPtr DTorISteamUtils00725;
+		public IntPtr SetOverlayNotificationInset25;
+		private IntPtr DTorISteamUtils00726;
 	};
 	
 	[InteropHelp.InterfaceVersion("SteamUtils007")]
@@ -198,6 +199,12 @@ namespace Steam4NET
 		public bool IsSteamRunningInVR(  ) 
 		{
 			return this.GetFunction<NativeIsSteamRunningInVR>( this.Functions.IsSteamRunningInVR24 )( this.ObjectAddress ); 
+		}
+		
+		[UnmanagedFunctionPointer(CallingConvention.ThisCall)] private delegate void NativeSetOverlayNotificationInsetII( IntPtr thisptr, Int32 arg0, Int32 arg1 );
+		public void SetOverlayNotificationInset( Int32 arg0, Int32 arg1 ) 
+		{
+			this.GetFunction<NativeSetOverlayNotificationInsetII>( this.Functions.SetOverlayNotificationInset25 )( this.ObjectAddress, arg0, arg1 ); 
 		}
 		
 	};
