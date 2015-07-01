@@ -46,6 +46,7 @@ public:
 
 	// friend iteration
 	virtual int32 GetFriendCount( EFriendFlags iFriendFlags ) = 0;
+	virtual uint32 GetFriendArray( CSteamID *, int8 *, int32, int32 ) = 0;
 	STEAMWORKS_STRUCT_RETURN_2(CSteamID, GetFriendByIndex, int32, iFriend, EFriendFlags, iFriendFlags) /*virtual CSteamID GetFriendByIndex( int32 iFriend, EFriendFlags iFriendFlags ) = 0;*/
 
 	virtual int32 GetOnlineFriendCount() = 0;

@@ -118,6 +118,8 @@ public:
 	virtual const char *GetSteamUILanguage() = 0;
 
 	virtual bool IsSteamRunningInVR() = 0;
+
+	virtual void SetOverlayNotificationInset( int32, int32 ) = 0;
 };
 
 #endif // ISTEAMUTILS007_H

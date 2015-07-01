@@ -81,10 +81,6 @@ public:
 	virtual bool RequireShowVACBannedMessage( AppId_t nAppID ) = 0;
 	virtual void AcknowledgeVACBanning( AppId_t nAppID ) = 0;
 
-	virtual void SetSteam2Ticket( uint8* pubTicket, int32 cubTicket ) = 0;
-	
-	virtual bool BExistsSteam2Ticket() = 0;
-
 	virtual bool SetEmail( const char *pchEmail ) = 0;
 
 	virtual bool SetConfigString( ERegistrySubTree eRegistrySubTree, const char *pchKey, const char *pchValue ) = 0;
@@ -291,6 +287,7 @@ public:
 	virtual bool BGetWalletBalance( bool *pbHasWallet, CAmount *pamtBalance ) = 0;
 
 	virtual SteamAPICall_t RequestMicroTxnInfo( GID_t gidTransID ) = 0;
+	virtual bool BMicroTxnRefundable( GID_t gidTransID ) = 0;
 	
 	virtual bool BGetAppMinutesPlayed( AppId_t nAppId, int32 *pnForever, int32 *pnLastTwoWeeks ) = 0;
 	virtual uint32 GetAppLastPlayedTime( AppId_t nAppId ) = 0;

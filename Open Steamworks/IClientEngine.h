@@ -108,6 +108,7 @@ public:
 	virtual IClientGameCoordinator *GetIClientGameCoordinator( HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char *pchVersion ) = 0;
 
 	virtual void SetOverlayNotificationPosition( ENotificationPosition eNotificationPosition ) = 0;
+	virtual void SetOverlayNotificationInsert( int32, int32 ) = 0;
 	virtual bool HookScreenshots( bool bHook ) = 0;
 	virtual bool IsOverlayEnabled() = 0;
 
