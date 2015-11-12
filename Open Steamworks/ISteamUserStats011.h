@@ -85,7 +85,7 @@ public:
 	virtual bool IndicateAchievementProgress( const char *pchName, uint32 nCurProgress, uint32 nMaxProgress ) = 0;
 
 	// Get the number of achievements
-	virtual uint32 GetNumAchievements( CGameID nGameID ) = 0;
+	virtual uint32 GetNumAchievements() = 0;
 	// Get achievement name iAchievement in [0,GetNumAchievements)
 	virtual const char *GetAchievementName( uint32 iAchievement ) = 0;
 
