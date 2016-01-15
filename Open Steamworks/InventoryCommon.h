@@ -21,7 +21,7 @@
 #endif
 
 
-#define STEAINVENTORY_INTERFACE_VERSION_001 "STEAMINVENTORY_INTERFACE_VERSION001"
+#define STEAMINVENTORY_INTERFACE_VERSION_001 "STEAMINVENTORY_INTERFACE_V001"
 
 // Every individual instance of an item has a globally-unique ItemInstanceID.
 // This ID is unique to the combination of (player, specific item instance)
