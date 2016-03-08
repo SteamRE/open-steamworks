@@ -112,7 +112,7 @@ public:
 	#pragma warning(disable: 4996)
 #elif defined(__GNUC__)
 	#pragma GCC diagnostic push
-	#pragma GCC disagnostic ignored "-Wdeprecated"
+	#pragma GCC diagnostic ignored "-Wdeprecated"
 #endif
 
 		return GetSteam2Factory();
