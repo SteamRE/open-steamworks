@@ -113,6 +113,7 @@ public:
 #elif defined(__GNUC__)
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wdeprecated"
+	#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif
 
 		return GetSteam2Factory();
