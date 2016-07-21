@@ -83,8 +83,9 @@
 
 
 #ifdef __GNUC__
-	typedef unsigned int errno_t;
-	
+	#ifndef __APPLE_CC__
+		typedef unsigned int errno_t;
+	#endif
 	#ifdef _S4N_
 		typedef unsigned int size_t;
 		#define NULL 0
