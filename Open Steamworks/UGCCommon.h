@@ -26,7 +26,6 @@
 #define STEAMUGC_INTERFACE_VERSION_003 "STEAMUGC_INTERFACE_VERSION003"
 
 typedef uint64 UGCQueryHandle_t;
-typedef uint64 UGCQueryHandle_t;
 typedef uint64 UGCUpdateHandle_t;
 
 const UGCQueryHandle_t k_UGCQueryHandleInvalid = 0xffffffffffffffffull;
