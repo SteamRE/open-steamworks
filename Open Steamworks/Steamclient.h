@@ -209,6 +209,7 @@
 // controller
 #include "ISteamController001.h"
 #include "ISteamController003.h"
+#include "ISteamController004.h"
 
 // music
 #include "ISteamMusic001.h"
