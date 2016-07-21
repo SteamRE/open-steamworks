@@ -69,4 +69,9 @@ enum ESteamControllerPad
 	k_ESteamControllerPad_Right
 };
 
+enum EControllerActionOrigin
+{
+    // no idea
+};
+
 #endif
