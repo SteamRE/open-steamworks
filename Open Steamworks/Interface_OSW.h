@@ -162,7 +162,7 @@ private:
 		{
 			if(CFURLGetFileSystemRepresentation(url, true, (UInt8*)m_szSteamPath, sizeof(m_szSteamPath)))
 			{
-				strncat(m_szSteamPath, "/Contents/MacOS/osx32/", sizeof(m_szSteamPath));
+				strncat(m_szSteamPath, "/Contents/MacOS/", sizeof(m_szSteamPath));
 				bFallback = false;
 			}
 		}
