@@ -78,7 +78,9 @@ public:
 
 	virtual const char *GetLaunchQueryParam(const char *pchKey) = 0;
 	virtual bool GetDlcDownloadProgress(uint32, uint64 *, uint64 *) = 0;
-	virtual int GetAppBuildId() = 0; 
+	virtual int GetAppBuildId() = 0;
+
+	virtual void RequestAllProofOfPurchaseKeys() = 0;
 };
 
-#endif // ISTEAMAPPS006_H
+#endif // ISTEAMAPPS007_H
