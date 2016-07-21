@@ -26,12 +26,11 @@
 abstract_class UNSAFE_INTERFACE IClientUtils
 {
 public:
-
 	virtual const char *GetInstallPath() = 0;
 	virtual const char *GetUserBaseFolderInstallImage() = 0;
 	virtual const char *GetManagedContentRoot() = 0;
 
-	// return the number of seconds since the user 
+	// return the number of seconds since the user
 	virtual uint32 GetSecondsSinceAppActive() = 0;
 	virtual uint32 GetSecondsSinceComputerActive() = 0;
 	virtual void SetComputerActive() = 0;
@@ -64,11 +63,10 @@ public:
 
 	virtual void SetOfflineMode( bool bOffline ) = 0;
 	virtual bool GetOfflineMode() = 0;
-
 	virtual AppId_t SetAppIDForCurrentPipe( AppId_t nAppID, bool bTrackProcess ) = 0;
 	virtual AppId_t GetAppID() = 0;
-
 	virtual void SetAPIDebuggingActive( bool bActive, bool bVerbose ) = 0;
+	virtual unknown_ret AllocPendingAPICallHandle() = 0;
 
 	// API asynchronous call results
 	// can be used directly, but more commonly used via the callback dispatch API (see steam_api.h)
@@ -76,7 +74,10 @@ public:
 	virtual ESteamAPICallFailure GetAPICallFailureReason( SteamAPICall_t hSteamAPICall ) = 0;
 	virtual bool GetAPICallResult( SteamAPICall_t hSteamAPICall, void *pCallback, int32 cubCallback, int32 iCallbackExpected, bool *pbFailed ) = 0;
 
+	virtual void PostInProcAPICallResult(uint64, void const*, int32, int32) = 0;
+
 	virtual bool SignalAppsToShutDown() = 0;
+	virtual bool SignalServiceAppsToDisconnect() = 0;
 	virtual bool TerminateAllAppsMultiStep( uint32 uUnk ) = 0;
 
 	virtual CellID_t GetCellID() = 0;
@@ -85,37 +86,30 @@ public:
 
 	// Asynchronous call to check if file is signed, result is returned in CheckFileSignature_t
 	virtual SteamAPICall_t CheckFileSignature( const char *szFileName ) = 0;
-
 	virtual uint64 GetBuildID() = 0;
-
 	virtual void SetCurrentUIMode( EUIMode eUIMode ) = 0;
+	virtual EUIMode GetCurrentUIMode() = 0;
 	virtual void SetLauncherType( ELauncherType eLauncherType ) = 0;
 	virtual ELauncherType GetLauncherType() = 0;
-
 	virtual bool ShowGamepadTextInput( EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eInputLineMode, const char *szText, uint32 uMaxLength, const char * szUnk ) = 0;
 	virtual uint32 GetEnteredGamepadTextLength() = 0;
 	virtual bool GetEnteredGamepadTextInput( char *pchValue, uint32 cchValueMax ) = 0;
 	virtual void GamepadTextInputClosed( HSteamPipe hSteamPipe, bool, const char * ) = 0;
-
 	virtual void SetSpew( ESpewGroup eSpewGroup, int32 iSpewLevel, int32 iLogLevel ) = 0;
-	
 	virtual bool BDownloadsDisabled() = 0;
-
 	virtual void SetFocusedWindow( EWindowType eWindowType, CGameID gameID, uint64 ulUnk ) = 0;
 	virtual const char *GetSteamUILanguage() = 0;
-
 	virtual uint64 CheckSteamReachable() = 0;
 	virtual void SetLastGameLaunchMethod( EGameLaunchMethod eGameLaunchMethod ) = 0;
-	virtual bool IsSteamOS() = 0;
 	virtual void SetVideoAdapterInfo( int32, int32, int32, int32, int32 ) = 0;
-	virtual void SetControllerOVerrideMode( EWindowType eWindowType, CGameID gameID, const char * szUnk ) = 0;
+	virtual void SetControllerOverrideMode( CGameID gameID, const char * szUnk ) = 0;
 	virtual void SetOverlayWindowFocusForPipe( bool, bool, CGameID gameID ) = 0;
 	virtual CGameID GetGameOverlayUIInstanceFocusGameID( bool * pbUnk ) = 0;
-
 	virtual bool SetControllerConfigFileForAppID( AppId_t unAppID, const char * pszControllerConfigFile ) = 0;
 	virtual bool GetControllerConfigFileForAppID( AppId_t unAppID, const char * pszControllerConfigFile, uint32 cubControllerConfigFile ) = 0;
-
 	virtual bool IsSteamRunningInVR() = 0;
+	virtual bool BIsRunningOnAlienwareAlpha() = 0;
+	virtual void StartVRDashboard() = 0;
 };
 
 #endif // ICLIENTUTILS_H
