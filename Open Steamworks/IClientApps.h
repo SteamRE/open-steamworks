@@ -33,18 +33,13 @@ public:
 	virtual int32 GetAppData( AppId_t unAppID, const char *pchKey, char *pchValue, int32 cchValueMax ) = 0;
 
 	virtual bool SetLocalAppConfig( AppId_t unAppID, uint8 *pchBuffer, int32 cbBuffer ) = 0;
-
 	virtual AppId_t GetInternalAppIDFromGameID( CGameID nGameID ) = 0;
-
 	virtual int32 GetAllOwnedMultiplayerApps( uint32 *punAppIDs, int32 cAppIDsMax ) = 0;
-
 	virtual int32 GetAppDataSection( AppId_t unAppID, EAppInfoSection eSection, uint8 *pchBuffer, int32 cbBufferMax, bool bSharedKVSymbols ) = 0;
 	virtual bool RequestAppInfoUpdate( const AppId_t *pAppIDs, int32 nNumAppIDs ) = 0;
-
-	virtual void NotifyAppEventTriggered( AppId_t unAppID, EAppEvent eAppEvent ) = 0;
-
 	virtual int32 GetDLCCount( AppId_t unAppID ) = 0;
 	virtual bool BGetDLCDataByIndex( AppId_t unAppID, int32 iDLC, AppId_t* pDlcAppID, bool *pbAvailable, char *pchName, int32 cchNameBufferSize ) = 0;
+	virtual int32 GetAppType( AppId_t unAppID ) = 0;
 };
 
 #endif // ICLIENTAPPS_H
