@@ -91,6 +91,8 @@
 #include "ISteamApps004.h"
 #include "ISteamApps005.h"
 #include "ISteamApps006.h"
+#include "ISteamApps007.h"
+#include "ISteamApps008.h"
 
 // app list
 #include "ISteamAppList001.h"
