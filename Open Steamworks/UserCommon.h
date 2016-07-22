@@ -393,6 +393,24 @@ struct GetAuthSessionTicketResponse_t
 	EResult m_eResult;
 };
 
+//-----------------------------------------------------------------------------
+// Purpose: sent to your game in response to a steam://gamewebcallback/ command
+//-----------------------------------------------------------------------------
+struct GameWebCallback_t
+{
+    enum { k_iCallback = k_iSteamUserCallbacks + 64 };
+    char m_szURL[256];
+};
+
+//-----------------------------------------------------------------------------
+// Purpose: sent to your game in response to ISteamUser::RequestStoreAuthURL
+//-----------------------------------------------------------------------------
+struct StoreAuthURLResponse_t
+{
+    enum { k_iCallback = k_iSteamUserCallbacks + 65 };
+    char m_szURL[512];
+};
+
 
 
 // k_iClientUserCallbacks callbacks
