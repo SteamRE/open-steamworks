@@ -103,6 +103,15 @@ public:
 	// have already been set for the request.  Setting this raw body makes it the only contents for the post, the pchContentType
 	// parameter will set the content-type header for the request so the server may know how to interpret the body.
 	virtual bool SetHTTPRequestRawPostBody( HTTPRequestHandle hRequest, const char *pchContentType, uint8 *pubBody, uint32 unBodyLen ) = 0;
+	
+	virtual uint32 CreateCookieContainer( bool ) = 0;
+	virtual bool ReleaseCookieContainer( uint32 ) = 0;
+	virtual bool SetCookie( uint32, const char *, const char *, const char * ) = 0;
+	virtual bool SetHTTPRequestCookieContainer( HTTPRequestHandle hRequest, uint32 ) = 0;
+	virtual bool SetHTTPRequestUserAgentInfo( HTTPRequestHandle hRequest, const char * ) = 0;
+	virtual bool SetHTTPRequestRequiresVerifiedCertificate( HTTPRequestHandle hRequest, bool ) = 0;
+	virtual bool SetHTTPRequestAbsoluteTimeoutMS( HTTPRequestHandle hRequest, uint32 ) = 0;
+	virtual bool GetHTTPRequestWasTimedOut( HTTPRequestHandle hRequest, bool* ) = 0;
 };
 
 #endif // ICLIENTHTTP_H
