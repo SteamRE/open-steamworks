@@ -82,6 +82,7 @@
 #include "ISteamUser017.h"
 #include "ISteamUser018.h"
 #include "ISteamUser019.h"
+#include "ISteamUser020.h"
 
 // OAuth
 #include "ISteamOAuth001.h"
