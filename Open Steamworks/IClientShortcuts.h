@@ -37,14 +37,23 @@ public:
 	virtual uint32 GetShortcutUserTagCountByIndex( uint32 uIndex ) = 0;
 	virtual const char * GetShortcutUserTagByIndex( uint32 uIndex, uint32 ) = 0;
 	virtual bool BIsShortcutRemoteByIndex( uint32 uIndex ) = 0;
+	virtual bool BIsTemporaryShortcutByIndex( uint32 uIndex ) = 0;
+	virtual bool BIsOpenVRShortcutByIndex( uint32 uIndex ) = 0;
 	virtual const char * GetShortcutAppNameByAppID( AppId_t unAppID ) = 0;
 	virtual const char * GetShortcutExeByAppID( AppId_t unAppID ) = 0;
 	virtual const char * GetShortcutStartDirByAppID( AppId_t unAppID ) = 0;
 	virtual const char * GetShortcutIconByAppID( AppId_t unAppID ) = 0;
+	virtual const char * GetShortcutPathByAppID( AppId_t unAppID ) = 0;
 	virtual uint32 GetShortcutUserTagCountByAppID( AppId_t unAppID ) = 0;
 	virtual const char * GetShortcutUserTagByAppID( AppId_t unAppID, uint32 ) = 0;
 	virtual bool BIsShortcutRemoteByAppID( AppId_t unAppID ) = 0;
+	virtual bool BIsShortcutHiddenByAppID( AppId_t unAppID ) = 0;
+	virtual bool BIsTemporaryShortcutByAppID( AppId_t unAppID ) = 0;
+	virtual bool BIsOpenVRShortcutByAppID( AppId_t unAppID ) = 0;
+	virtual bool BAllowDesktopConfigByAppID( AppId_t unAppID ) = 0;
 	virtual uint32 AddShortcut( const char *, const char *, const char * ) = 0;
+	virtual uint32 AddTemporaryShortcut( const char *, const char *, const char * ) = 0;
+	virtual uint32 AddOpenVRShortcut( const char *, const char *, const char * ) = 0;
 	virtual void SetShortcutFromFullpath( uint32, const char * ) = 0;
 	virtual void SetShortcutAppName( uint32, const char * ) = 0;
 	virtual void SetShortcutExe( uint32, const char * ) = 0;
@@ -52,7 +61,11 @@ public:
 	virtual void SetShortcutIcon( uint32, const char * ) = 0;
 	virtual void ClearShortcutUserTags( uint32 ) = 0;
 	virtual void AddShortcutUserTag( uint32, const char * ) = 0;
+	virtual void SetShortcutHidden( uint32, bool ) = 0;
+	virtual void SetAllowDesktopConfig( uint32, bool ) = 0;
+	virtual void SetOpenVRShortcut( uint32, bool ) = 0;
 	virtual void RemoveShortcut( uint32 ) = 0;
+	virtual void RemoveAllTemporaryShortcuts() = 0;
 	virtual bool LaunchShortcut( uint32 ) = 0;
 };
 
