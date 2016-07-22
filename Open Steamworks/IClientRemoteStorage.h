@@ -30,6 +30,10 @@ public:
 	virtual EResult FileWrite( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, const void *pvData, int32 cubData ) = 0;
 	virtual int32 GetFileSize( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile  ) = 0;
 
+	virtual SteamAPICall_t FileWriteAsync( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *, CUtlBuffer * ) = 0;
+	virtual SteamAPICall_t FileReadAsync( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *, uint32, uint32 ) = 0;
+	virtual bool FileReadAsyncComplete( AppId_t nAppId, uint64, void*, uint32 ) = 0;
+    
 	virtual int32 FileRead( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile, void *pvData, int32 cubDataToRead ) = 0;
 	
 	virtual bool FileForget( AppId_t nAppId, ERemoteStorageFileRoot eRemoteStorageFileRoot, const char *pchFile ) = 0;
@@ -139,7 +143,6 @@ public:
 	virtual void ResumeSubscribedFileDownloadsForApp( AppId_t nAppId ) = 0;
 	virtual void PauseAllSubscribedFileDownloads() = 0;
 	virtual void ResumeAllSubscribedFileDownloads() = 0;
-	virtual void OnAppLifetime( AppId_t nAppId, bool bUnk ) = 0;
 };
 
 #endif // ICLIENTREMOTESTORAGE_H
