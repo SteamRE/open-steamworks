@@ -64,6 +64,7 @@
 // screenshots
 #include "ISteamScreenshots001.h"
 #include "ISteamScreenshots002.h"
+#include "ISteamScreenshots003.h"
 
 // user
 #include "ISteamUser004.h"

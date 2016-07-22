@@ -28,6 +28,7 @@
 #define CLIENTSCREENSHOTS_INTERFACE_VERSION "CLIENTSCREENSHOTS_INTERFACE_VERSION001"
 #define STEAMSCREENSHOTS_INTERFACE_VERSION_001 "STEAMSCREENSHOTS_INTERFACE_VERSION001"
 #define STEAMSCREENSHOTS_INTERFACE_VERSION_002 "STEAMSCREENSHOTS_INTERFACE_VERSION002"
+#define STEAMSCREENSHOTS_INTERFACE_VERSION_003 "STEAMSCREENSHOTS_INTERFACE_VERSION003"
 
 // Handle is valid for the lifetime of your process and no longer
 typedef uint32 ScreenshotHandle;
@@ -40,6 +41,16 @@ const int k_cubUFSTagValueMax = 255;
 // Required with of a thumbnail provided to AddScreenshotToLibrary.  If you do not provide a thumbnail
 // one will be generated.
 const int k_ScreenshotThumbWidth = 200;
+
+enum EVRScreenshotType
+{
+	VRScreenshotType_None = 0,
+	VRScreenshotType_Mono = 1, // left eye only
+	VRScreenshotType_Stereo = 2,
+	VRScreenshotType_Cubemap = 3,
+	VRScreenshotType_MonoPanorama = 4,
+	VRScreenshotType_StereoPanorama = 5
+};
 
 
 // callbacks
