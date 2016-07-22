@@ -2,7 +2,7 @@
 //
 // This file is part of the Open Steamworks project. All individuals associated
 // with this project do not claim ownership of the contents
-// 
+//
 // The code, comments, and all related files, projects, resources,
 // redistributables included with this project are Copyright Valve Corporation.
 // Additionally, Valve, the Valve logo, Half-Life, the Half-Life logo, the
@@ -14,8 +14,8 @@
 //
 //=============================================================================
 
-#ifndef ISTEAMUSER017_H
-#define ISTEAMUSER017_H
+#ifndef ISTEAMUSER018_H
+#define ISTEAMUSER018_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -27,14 +27,14 @@
 // Purpose: Functions for accessing and manipulating a steam account
 //			associated with one client instance
 //-----------------------------------------------------------------------------
-abstract_class ISteamUser017
+abstract_class ISteamUser018
 {
 public:
 	// returns the HSteamUser this interface represents
 	// this is only used internally by the API, and by a few select interfaces that support multi-user
 	virtual HSteamUser GetHSteamUser() = 0;
 
-	// returns true if the Steam client current has a live connection to the Steam servers. 
+	// returns true if the Steam client current has a live connection to the Steam servers.
 	// If false, it means there is no active connection due to either a networking issue on the local machine, or the Steam server is down/busy.
 	// The Steam client will automatically be trying to recreate the connection as often as possible.
 	virtual bool BLoggedOn() = 0;
@@ -83,18 +83,18 @@ public:
 
 	// Determine the amount of captured audio data that is available in bytes.
 	// This provides both the compressed and uncompressed data. Please note that the uncompressed
-	// data is not the raw feed from the microphone: data may only be available if audible 
+	// data is not the raw feed from the microphone: data may only be available if audible
 	// levels of speech are detected.
 	// nUncompressedVoiceDesiredSampleRate is necessary to know the number of bytes to return in pcbUncompressed - can be set to 0 if you don't need uncompressed (the usual case)
 	virtual EVoiceResult GetAvailableVoice(uint32 *pcbCompressed, uint32 *pcbUncompressed, uint32 nUncompressedVoiceDesiredSampleRate) = 0;
 
-	// Gets the latest voice data from the microphone. Compressed data is an arbitrary format, and is meant to be handed back to 
+	// Gets the latest voice data from the microphone. Compressed data is an arbitrary format, and is meant to be handed back to
 	// DecompressVoice() for playback later as a binary blob. Uncompressed data is 16-bit, signed integer, 11025Hz PCM format.
-	// Please note that the uncompressed data is not the raw feed from the microphone: data may only be available if audible 
+	// Please note that the uncompressed data is not the raw feed from the microphone: data may only be available if audible
 	// levels of speech are detected, and may have passed through denoising filters, etc.
 	// This function should be called as often as possible once recording has started; once per frame at least.
-	// nBytesWritten is set to the number of bytes written to pDestBuffer. 
-	// nUncompressedBytesWritten is set to the number of bytes written to pUncompressedDestBuffer. 
+	// nBytesWritten is set to the number of bytes written to pDestBuffer.
+	// nUncompressedBytesWritten is set to the number of bytes written to pUncompressedDestBuffer.
 	// You must grab both compressed and uncompressed here at the same time, if you want both.
 	// Matching data that is not read during this call will be thrown away.
 	// GetAvailableVoice() can be used to determine how much data is actually available.
@@ -110,7 +110,7 @@ public:
 	// This returns the frequency of the voice data as it's stored internally; calling DecompressVoice() with this size will yield the best results
 	virtual uint32 GetVoiceOptimalSampleRate() = 0;
 
-	// Retrieve ticket to be sent to the entity who wishes to authenticate you. 
+	// Retrieve ticket to be sent to the entity who wishes to authenticate you.
 	// pcbTicket retrieves the length of the actual ticket.
 	virtual HAuthTicket GetAuthSessionTicket( void *pTicket, int cbMaxTicket, uint32 *pcbTicket ) = 0;
 
@@ -128,7 +128,7 @@ public:
 	// to determine if the user owns downloadable content specified by the provided AppID.
 	virtual EUserHasLicenseForAppResult UserHasLicenseForApp( CSteamID steamID, AppId_t appID ) = 0;
 
-	// returns true if this users looks like they are behind a NAT device. Only valid once the user has connected to steam 
+	// returns true if this users looks like they are behind a NAT device. Only valid once the user has connected to steam
 	// (i.e a SteamServersConnected_t has been issued) and may not catch all forms of NAT.
 	virtual bool BIsBehindNAT() = 0;
 
@@ -152,6 +152,18 @@ public:
 
 	// gets the Steam Level of the user, as shown on their profile
 	virtual int GetPlayerSteamLevel() = 0;
+
+	// Requests a URL which authenticates an in-game browser for store check-out,
+	// and then redirects to the specified URL. As long as the in-game browser
+	// accepts and handles session cookies, Steam microtransaction checkout pages
+	// will automatically recognize the user instead of presenting a login page.
+	// The result of this API call will be a StoreAuthURLResponse_t callback.
+	// NOTE: The URL has a very short lifetime to prevent history-snooping attacks,
+	// so you should only call this API when you are about to launch the browser,
+	// or else immediately navigate to the result URL using a hidden browser window.
+	// NOTE 2: The resulting authorization cookie has an expiration time of one day,
+	// so it would be a good idea to request and visit a new auth URL every 12 hours.
+	virtual SteamAPICall_t RequestStoreAuthURL(char const*) = 0;
 };
 
-#endif // ISTEAMUSER017_H
+#endif // ISTEAMUSER018_H
