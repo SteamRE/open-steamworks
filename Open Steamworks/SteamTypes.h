@@ -31,7 +31,7 @@
 #elif defined(__GNUC__)
 
 	#if defined(_WIN32)
-		#if (__GNUC__ < 4 || __GNUC_MINOR__ < 6) && !defined(_S4N_)
+		#if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)) && !defined(_S4N_)
 			#error "OpenSteamworks requires GCC 4.6 or better on windows"
 		#endif
 	#elif defined(__linux__) || defined(__APPLE_CC__)
@@ -83,7 +83,7 @@
 
 
 #ifdef __GNUC__
-	typedef unsigned int errno_t;
+	typedef int errno_t;
 	
 	#ifdef _S4N_
 		typedef unsigned int size_t;
