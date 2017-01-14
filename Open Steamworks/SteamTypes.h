@@ -404,8 +404,8 @@ const GID_t k_TxnIDUnknown = 0;
 typedef uint32 PackageId_t;
 const PackageId_t k_uPackageIdFreeSub = 0x0;
 const PackageId_t k_uPackageIdInvalid = 0xFFFFFFFF;
-const PackageId_t k_uPackageIdWallet = -2;
-const PackageId_t k_uPackageIdMicroTxn = -3;
+const PackageId_t k_uPackageIdWallet = static_cast<PackageId_t>(-2);
+const PackageId_t k_uPackageIdMicroTxn = static_cast<PackageId_t>(-3);
 
 // this is baked into client messages and interfaces as an int, 
 // make sure we never break this.
