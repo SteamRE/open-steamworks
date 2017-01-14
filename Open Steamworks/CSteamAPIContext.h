@@ -15,6 +15,12 @@
 // for whatever Steam API version it has.
 //----------------------------------------------------------------------------------------------------------------------------------------------------------//
 
+#pragma warning( push )
+#pragma warning( disable : 4996 ) // deprecated function
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wno-deprecated-declarations"
+
 class CSteamAPIContext
 {
 public:
@@ -179,5 +185,9 @@ inline bool CSteamGameServerAPIContext::Init()
 
 	return true;
 }
+
+#pragma GCC diagnostic pop
+
+#pragma warning( pop )
 
 #endif // CSTEAMAPICONTEXT_H
