@@ -56,14 +56,13 @@ private:
 	CSteamAPILoader m_steamLoader;
 	HSteamPipe m_hPipe;
 	HSteamUser m_hUser;
-	ISteamClient012* m_pSteamClient;
-	ISteamUser016* m_pSteamUser;
-	ISteamFriends013* m_pSteamFriends;
+	ISteamClient014* m_pSteamClient;
+	ISteamUser017* m_pSteamUser;
+	ISteamFriends014* m_pSteamFriends;
 	IClientFriends* m_pClientFriends;
 	
 	int32 (__thiscall *m_pGetChatRoomEntry)( IClientFriends*, CSteamID steamIDChat, int32 iChatID, CSteamID *steamIDuser, void *pvData, int32 cubData, EChatEntryType *peChatEntryType );
 	const char * (__thiscall *m_pGetChatRoomName)( IClientFriends*, CSteamID steamIDChat );
-	const char * (__thiscall *m_pGetPlayerNickname)( IClientFriends*, CSteamID playerSteamID );
 
 	std::map<CSteamID, wxFFile*> m_logsOpened;
 
